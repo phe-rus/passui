@@ -7,6 +7,7 @@ import { type ReactNode, useRef } from "react"
 import { useVisualViewport } from "../../hooks/use-visual-viewport"
 import { cn } from "../../lib/class-names"
 import { spring } from "../../motion/transitions"
+import { SheetPortal } from "./sheet-portal"
 import { useSheetFocus } from "./use-sheet-focus"
 
 interface SheetProps {
@@ -26,7 +27,11 @@ interface SheetProps {
 export function Sheet({ open, ...props }: SheetProps) {
     return (
         <AnimatePresence>
-            {open && <OpenSheet {...props} />}
+            {open && (
+                <SheetPortal>
+                    <OpenSheet {...props} />
+                </SheetPortal>
+            )}
         </AnimatePresence>
     )
 }

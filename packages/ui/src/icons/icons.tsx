@@ -27,6 +27,7 @@ import {
     Eraser01Icon,
     FavouriteIcon,
     Folder01Icon,
+    FileImportIcon,
     FullScreenIcon,
     Globe02Icon,
     GoBackward15SecIcon,
@@ -205,6 +206,7 @@ export const VerifiedIcon = icon(
 )
 export const WarningIcon = icon(Alert02Icon, "WarningIcon")
 export const PrintIcon = icon(PrinterIcon, "PrintIcon")
+export const ImportIcon = icon(FileImportIcon, "ImportIcon")
 export const DownloadIcon = icon(
     Download01Icon,
     "DownloadIcon"

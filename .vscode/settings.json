@@ -1,0 +1,5 @@
+{
+    "application.experimental.rendererProfiling": true,
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay"
+}

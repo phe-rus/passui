@@ -1,5 +1,10 @@
 # Changelog
 
+## UI 0.1.14
+
+- Sheets render above animated page containers and navigation, retaining scoped appearance and focus isolation.
+- Add ImportIcon for bringing existing files into an app.
+
 ## UI 0.1.13
 
 * Keep menus visible during keyboard layout scroll adjustments; deliberate outside scrolling still dismisses them.
