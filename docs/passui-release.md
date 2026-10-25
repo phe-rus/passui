@@ -1,9 +1,8 @@
-# Passui release manifest, approved and in progress
+# Passui release manifest, completed and verified
 
 The owner approved the complete release manifest on October 25, 2026.
-Phase A is complete locally and Phase B prepared the targets below. Phase C
-is now in progress, with authentication and CI verification required before
-publication or deployment. Actual release results will be recorded below.
+Phases A, B and C are complete. GitHub CI, public npm installation and
+the production Cloudflare website and legacy redirects were verified.
 Solid development and broader documentation work resume after the release
 is verified, one tested stage at a time.
 
@@ -105,13 +104,12 @@ been exercised by an OIDC publication. npm documents a two day deadline
 for the first successful publication using a new trust configuration;
 verify its continued validity before the next release.
 
-A temporary consumer installed the public tarball URLs and passed React
-Button server rendering, shared token imports, CSS export resolution,
-TanStack mutation imports, CLI help and a Vite starter dry run. At this
-checkpoint, package name metadata still returns HTTP 404, so a normal
-version based Bun install remains unverified. Website deployment and the
-legacy redirect are held until that check passes. Existing versions will
-not be republished or overwritten.
+A temporary consumer installed all four exact versions by package name
+with Bun after registry propagation completed. React Button server
+rendering, shared token imports, CSS export resolution, TanStack mutation
+imports, CLI help and a Vite starter dry run passed. Public tarball URLs
+were tested separately. Initial package name lookups returned 404 during
+propagation, then resolved successfully. No version was republished.
 
 ## Cloudflare preflight
 
@@ -156,3 +154,33 @@ Record actual release versions, CI URLs and deployment IDs here. After
 production verification, begin the native Solid appearance foundation as
 one reviewable stage. Keep Solid private until its native components are
 ready, and document only APIs that exist.
+
+## Production results on October 25, 2026
+
+The new Worker `passui` was deployed to `passui.pherus.org`, version
+`594acac9-a71d-4f21-802f-ed84fffed774`. HTTP checks passed for home,
+installation, component catalog, Button documentation, Button preview,
+sitemap, robots, llms, the Passui skill and a real 404. Fourteen home page
+assets returned HTTP 200. Preview responses retain noindex and embedding
+restrictions. Rendered home metadata has the correct canonical origin,
+Passui title, description, social metadata and structured data.
+
+The Codex browser verified the actual production hero, installation guide,
+component navigation, dark theme selection and standalone preview save.
+The save displayed `Project saved`. No console or hydration errors were
+observed. The production screenshot is stored temporarily at
+`/tmp/passui-review/passui-production.png`.
+
+Only after the new site passed these checks was the existing Worker
+`hino` changed to redirects, version
+`81ba7ab1-c213-4ed5-9d5a-36cd352857b7`. Five HTTP checks confirmed 308
+redirects, preserved paths and queries, and the old skill endpoint mapping.
+A browser visit to the old home arrived at the new Passui home.
+No Worker or DNS record was deleted. The prior Hino version for rollback
+is `fbeddb56-f90c-4859-923d-eb8054539a2c`, deployment
+`60cbcd49-7f20-4b65-abe7-928963f2d7ca`.
+
+The follow up documentation commit also passed
+[GitHub CI](https://github.com/phe-rus/passui/actions/runs/40168084679).
+The production packages are released and installed successfully; future
+OIDC publishing remains a separately configured path awaiting its first run.
