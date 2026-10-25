@@ -3,8 +3,8 @@ import {
     LabeledContent,
     SegmentedControl,
     Toggle,
-} from "@phe-rus/hino"
-import type { ButtonVariant } from "@phe-rus/hino/button"
+} from "@passui/react"
+import type { ButtonVariant } from "@passui/react/button"
 import { useState } from "react"
 
 type TeaserVariant = Extract<
@@ -77,8 +77,7 @@ export function PlaygroundTeaser() {
                     </LabeledContent>
                 </div>
                 <p className="text-footnote text-label-tertiary">
-                    The full playground arrives with the
-                    Button page next.
+                    Explore every option on the Button page.
                 </p>
             </div>
             <div className="overflow-hidden rounded-5xl bg-elevated ring-1 ring-separator/60">

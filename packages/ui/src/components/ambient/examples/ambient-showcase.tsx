@@ -1,5 +1,5 @@
-import { Ambient } from "@phe-rus/hino/ambient"
-import { Button } from "@phe-rus/hino/button"
+import { Ambient } from "@passui/react/ambient"
+import { Button } from "@passui/react/button"
 
 export function AmbientShowcase() {
     return (

@@ -15,7 +15,8 @@ export type { ButtonSize, ButtonVariant }
  * Each variant has a little depth: a fine highlight along the top edge and
  * a soft, layered shadow, like a well-made physical key.
  */
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+    extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: ButtonVariant
     size?: ButtonSize
     isPending?: boolean

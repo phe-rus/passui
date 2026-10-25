@@ -1,6 +1,6 @@
-import { Button } from "@phe-rus/hino/button"
-import { Popover } from "@phe-rus/hino/popover"
-import { useDismiss } from "@phe-rus/hino/use-dismiss"
+import { Button } from "@passui/react/button"
+import { Popover } from "@passui/react/popover"
+import { useDismiss } from "@passui/react/use-dismiss"
 import { useRef, useState } from "react"
 
 export function PopoverUsage() {

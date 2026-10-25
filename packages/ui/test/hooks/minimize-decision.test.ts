@@ -1,4 +1,4 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 import { minimizeDecision } from "../../src/hooks/scroll/minimize-decision"
 
 test("restoring a scroll position does not minimize chrome", () => {

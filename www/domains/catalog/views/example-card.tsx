@@ -1,5 +1,5 @@
-import { buttonStyle } from "@phe-rus/hino/button"
-import type { RegisteredDocs } from "@phe-rus/hino/docs"
+import { buttonStyle } from "@passui/react/button"
+import type { RegisteredDocs } from "@passui/react/docs"
 import { useNavigate } from "@tanstack/react-router"
 import { CodeView } from "@/domains/playground"
 import { getExampleSource } from "../get-example-source"

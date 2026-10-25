@@ -38,9 +38,9 @@ import {
 } from "@tanstack/react-table"
 import type { ReactNode } from "react"
 import { useEffect, useMemo, useState } from "react"
-import { Button } from "@phe-rus/hino/button"
-import { Toggle } from "@phe-rus/hino/toggle"
-import { SearchField } from "@phe-rus/hino"
+import { Button } from "@passui/react/button"
+import { Toggle } from "@passui/react/toggle"
+import { SearchField } from "@passui/react"
 import {
     Table,
     TableBody,
@@ -49,8 +49,8 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@phe-rus/hino/table"
-import { cn } from "@phe-rus/hino/cn"
+} from "@passui/react/table"
+import { cn } from "@passui/react/cn"
 import { FilterRow } from "./filter-row"
 import { DataTablePagination } from "./pagination"
 import {
@@ -106,7 +106,7 @@ export type DataTableColumnDef<
 
 type DataTableProps<TData extends RowData> = {
     data: TData[]
-    // oxlint-disable-next-line typescript/no-explicit-any -- a column array mixes columns with different value types per accessor, same escape hatch tanstack-table's own ColumnDef[] typings use
+    // biome-ignore lint/suspicious/noExplicitAny: a column array mixes columns with different value types per accessor, same escape hatch tanstack-table's own ColumnDef[] typings use
     columns: DataTableColumnDef<TData, any>[]
     /**
      * A stable id per row, used as the React key and by react-table's row

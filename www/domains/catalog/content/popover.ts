@@ -1,4 +1,4 @@
-import type { popoverDocs } from "@phe-rus/hino/docs"
+import type { popoverDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const popoverContent: ComponentContent<

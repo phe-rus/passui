@@ -1,12 +1,12 @@
 /*
- * Hino with its TanStack integrations, in one import:
+ * Passui with its TanStack integrations, in one import:
  *
- *     @import "@phe-rus/hino-tanstack/styles.css";
+ *     @import "@passui/tanstack/styles.css";
  *
- * It brings in all of Hino's styles and registers this package's
+ * It brings in all of Passui's styles and registers this package's
  * components; Tailwind finds the app's own files by itself.
  */
-@import "@phe-rus/hino/styles.css";
+@import "@passui/react/styles.css";
 
 /* forms, tables and the document shell, from this file's place in the package */
 @source "./";

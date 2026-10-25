@@ -1,4 +1,4 @@
-import { CompactDatePicker } from "@phe-rus/hino/compact-date-picker"
+import { CompactDatePicker } from "@passui/react/compact-date-picker"
 import { useState } from "react"
 
 export function CompactDatePickerUsage() {

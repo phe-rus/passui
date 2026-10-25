@@ -88,7 +88,7 @@ function SidebarDemo({ title, counts }: DemoProps) {
 export const sidebarDocs = defineDocs<DemoProps>()({
     slug: "sidebar",
     name: "SidebarSection",
-    importPath: "@phe-rus/hino/sidebar",
+    importPath: "@passui/react/sidebar",
     controls: {
         title: {
             kind: "text",
@@ -102,7 +102,7 @@ export const sidebarDocs = defineDocs<DemoProps>()({
         imports: [
             'import { InboxIcon } from "@hugeicons/core-free-icons"',
             'import { HugeiconsIcon } from "@hugeicons/react"',
-            'import { SidebarItemContent, sidebarItemClass } from "@phe-rus/hino/sidebar"',
+            'import { SidebarItemContent, sidebarItemClass } from "@passui/react/sidebar"',
             'import { Link } from "@tanstack/react-router"',
         ],
         omit: ["counts"],

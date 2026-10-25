@@ -3,17 +3,17 @@ import type { InstallStep } from "../types"
 /** The same for every component: add the package, then its styles. */
 export const installSteps: InstallStep[] = [
     {
-        title: "Use the CLI, or install Hino manually.",
-        code: "bunx @phe-rus/hino-cli init\n\n# Manual alternative\nbun add @phe-rus/hino",
+        title: "Use the CLI, or install Passui manually.",
+        code: "bunx @passui/cli init\n\n# Manual alternative\nbun add @passui/react",
         lang: "shellscript",
     },
     {
         title: "Import its styles once, in your root stylesheet.",
-        code: `@import "@phe-rus/hino/styles.css";`,
+        code: `@import "@passui/react/styles.css";`,
         lang: "css",
     },
     {
         title: "Import components from their own entry point.",
-        code: `import { Button } from "@phe-rus/hino/button"`,
+        code: `import { Button } from "@passui/react/button"`,
     },
 ]

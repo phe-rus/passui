@@ -1,4 +1,4 @@
-import type { chipDocs } from "@phe-rus/hino/docs"
+import type { chipDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const chipContent: ComponentContent<typeof chipDocs> =
@@ -7,7 +7,7 @@ export const chipContent: ComponentContent<typeof chipDocs> =
             "A small label for status, sharing or categories, quiet enough to sit beside any text.",
         usage: "Use a chip to tag something with a short word, like who it is shared with or whether it is a draft.",
         propDescriptions: {
-            tone: "The colour. Public, family and friends match Hino's sharing levels.",
+            tone: "The colour. Public, family and friends match Passui's sharing levels.",
             children: "The text. One or two words.",
         },
         examples: {

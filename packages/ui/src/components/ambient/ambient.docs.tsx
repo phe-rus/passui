@@ -13,7 +13,7 @@ type DemoProps = {
 export const ambientDocs = defineDocs<DemoProps>()({
     slug: "ambient",
     name: "Ambient",
-    importPath: "@phe-rus/hino/ambient",
+    importPath: "@passui/react/ambient",
     controls: {
         image: {
             kind: "select",

@@ -1,10 +1,10 @@
-import { StatusIndicator } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
+import { StatusIndicator } from "@passui/react"
+import { Button } from "@passui/react/button"
 import {
     ProfileImage,
     ProfileImageContent,
     ProfileImageFallback,
-} from "@phe-rus/hino/profile-image"
+} from "@passui/react/profile-image"
 import {
     Table,
     TableBody,
@@ -13,7 +13,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@phe-rus/hino/table"
+} from "@passui/react/table"
 
 const members = [
     {

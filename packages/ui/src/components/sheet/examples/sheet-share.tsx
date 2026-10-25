@@ -1,7 +1,7 @@
-import { toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { Sheet } from "@phe-rus/hino/sheet"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { toast } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { Sheet } from "@passui/react/sheet"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 export function SheetShare() {

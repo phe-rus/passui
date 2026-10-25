@@ -20,7 +20,7 @@ type DemoProps = {
 export const contentViewDocs = defineDocs<DemoProps>()({
     slug: "content-view",
     name: "ContentView",
-    importPath: "@phe-rus/hino/content-view",
+    importPath: "@passui/react/content-view",
     controls: {
         variant: {
             kind: "select",

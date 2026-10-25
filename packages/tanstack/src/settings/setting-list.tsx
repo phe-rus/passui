@@ -1,14 +1,14 @@
 import {
     IconButton,
     type IconButtonSize,
-} from "@phe-rus/hino/icon-button"
+} from "@passui/react/icon-button"
 import {
     ArrowRight01Icon,
     Copy01Icon,
     Tick02Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 import { Link } from "@tanstack/react-router"
 import type { LinkProps } from "@tanstack/react-router"
 import type { ReactNode } from "react"
@@ -224,7 +224,7 @@ function Copy({
 }: {
     value: string
     label?: string
-    /** Quiet and row-sized by default; any of Hino's icon sizes. */
+    /** Quiet and row-sized by default; any of Passui's icon sizes. */
     size?: IconButtonSize
 }) {
     const [copied, setCopied] = useState(false)

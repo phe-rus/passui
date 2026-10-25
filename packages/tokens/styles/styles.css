@@ -1,0 +1,59 @@
+/*
+ * Passui's one stylesheet: Tailwind, the theme, utilities, base styles,
+ * and typeset. Framework packages register their own component sources.
+ *
+ *     @import "@passui/tokens/styles.css";
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../theme.css";
+@import "./utilities.css";
+@import "./base.css";
+@import "./typeset.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Older role names some views still use, mapped onto Passui's roles. */
+@theme inline {
+    --color-foreground: var(--color-label);
+    --color-muted: var(--color-fill);
+    --color-muted-foreground: var(--color-label-secondary);
+    --color-card: var(--color-elevated);
+    --color-card-foreground: var(--color-label);
+    --color-popover: var(--color-elevated);
+    --color-popover-foreground: var(--color-label);
+    --color-primary: var(--color-inverse);
+    --color-primary-foreground: var(--color-on-inverse);
+    --color-secondary: var(--color-fill);
+    --color-secondary-foreground: var(--color-label);
+    --color-accent-foreground: var(--color-label);
+    --color-border: var(--color-separator);
+    --color-input: var(--color-separator);
+    --color-ring: var(--color-accent-text);
+    --color-destructive: var(--color-danger);
+    --color-destructive-foreground: var(--color-on-inverse);
+    --color-sidebar-border: var(--color-separator);
+    --color-sidebar-accent: var(--color-accent-soft);
+    --color-sidebar-accent-foreground: var(--color-label);
+    --color-sidebar-foreground: var(--color-label);
+    --font-heading: var(--font-sans);
+}
+
+:root {
+    --background: var(--color-background);
+    --foreground: var(--color-label);
+    --primary: var(--color-inverse);
+    --secondary: var(--color-fill);
+    --border: var(--color-separator);
+    --muted-foreground: var(--color-label-secondary);
+    --card: var(--color-elevated);
+    --accent: var(--color-accent-soft);
+    --sidebar-border: var(--color-separator);
+}
+
+@utility no-scrollbar {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

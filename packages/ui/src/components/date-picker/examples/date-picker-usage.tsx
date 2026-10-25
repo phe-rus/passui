@@ -1,4 +1,4 @@
-import { DatePicker } from "@phe-rus/hino/date-picker"
+import { DatePicker } from "@passui/react/date-picker"
 import { useState } from "react"
 
 export function DatePickerUsage() {

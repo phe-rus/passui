@@ -1,4 +1,4 @@
-import type { segmentedControlDocs } from "@phe-rus/hino/docs"
+import type { segmentedControlDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const segmentedControlContent: ComponentContent<

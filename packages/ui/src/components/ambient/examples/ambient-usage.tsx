@@ -1,4 +1,4 @@
-import { Ambient } from "@phe-rus/hino/ambient"
+import { Ambient } from "@passui/react/ambient"
 
 export function AmbientUsage() {
     return (

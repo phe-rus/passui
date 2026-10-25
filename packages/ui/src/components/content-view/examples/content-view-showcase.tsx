@@ -4,7 +4,7 @@ import {
     SmartPhone01Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ContentView } from "@phe-rus/hino/content-view"
+import { ContentView } from "@passui/react/content-view"
 
 const cards = [
     {

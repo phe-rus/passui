@@ -1,9 +1,9 @@
 import { InformationCircleIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { IconButton } from "@phe-rus/hino/icon-button"
-import { Popover } from "@phe-rus/hino/popover"
-import { TextField } from "@phe-rus/hino/text-field"
-import { useDismiss } from "@phe-rus/hino/use-dismiss"
+import { IconButton } from "@passui/react/icon-button"
+import { Popover } from "@passui/react/popover"
+import { TextField } from "@passui/react/text-field"
+import { useDismiss } from "@passui/react/use-dismiss"
 import { useRef, useState } from "react"
 
 export function PopoverHelp() {

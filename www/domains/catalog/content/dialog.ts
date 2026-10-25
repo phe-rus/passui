@@ -1,4 +1,4 @@
-import type { dialogDocs } from "@phe-rus/hino/docs"
+import type { dialogDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const dialogContent: ComponentContent<

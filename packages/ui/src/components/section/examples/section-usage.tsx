@@ -1,4 +1,4 @@
-import { LabeledContent, Section } from "@phe-rus/hino"
+import { LabeledContent, Section } from "@passui/react"
 
 export function SectionUsage() {
     return (

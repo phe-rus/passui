@@ -1,4 +1,4 @@
-import type { sectionDocs } from "@phe-rus/hino/docs"
+import type { sectionDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const sectionContent: ComponentContent<

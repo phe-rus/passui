@@ -1,7 +1,7 @@
 import type {
     AnyControl,
     RegisteredDocs,
-} from "@phe-rus/hino/docs"
+} from "@passui/react/docs"
 
 export type ControlValue = string | boolean
 export type PropValues = Record<string, ControlValue>

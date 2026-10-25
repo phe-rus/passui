@@ -1,4 +1,4 @@
-import { Chip, LabeledContent, Section } from "@phe-rus/hino"
+import { Chip, LabeledContent, Section } from "@passui/react"
 
 export function ChipInRows() {
     return (

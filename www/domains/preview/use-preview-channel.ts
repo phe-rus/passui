@@ -47,8 +47,8 @@ export function usePreviewChannel(
             )
             if (!parsed.success) return
             // the parent may start listening after our first hello
-            if (parsed.data.type === "hino:ping") {
-                postToParent({ type: "hino:ready" })
+            if (parsed.data.type === "passui:ping") {
+                postToParent({ type: "passui:ready" })
                 onPing?.()
                 return
             }
@@ -64,7 +64,7 @@ export function usePreviewChannel(
             })
         }
         window.addEventListener("message", onMessage)
-        postToParent({ type: "hino:ready" })
+        postToParent({ type: "passui:ready" })
         return () =>
             window.removeEventListener("message", onMessage)
     }, [onPing])

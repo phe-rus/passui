@@ -1,4 +1,4 @@
-import { accents, textStyles } from "@phe-rus/hino/tokens"
+import { accents, textStyles } from "@passui/react/tokens"
 import {
     catalogGroups,
     getCatalog,
@@ -13,7 +13,7 @@ import { guides } from "@/domains/guides/get-guides"
 // with the component page that uses them.
 
 const describe =
-    "Hino (@phe-rus/hino) is Pherus's design system: native React controls, design tokens and themes, with names drawn from SwiftUI."
+    "Passui (@passui/react) is Pherus's design system: native React controls, design tokens and themes, with names drawn from SwiftUI."
 
 /** One component as Markdown: what it is, its import, props and usage. */
 export function getComponentMarkdown(
@@ -84,7 +84,7 @@ export function getLlmsTxt(origin: string): string {
         ]
     })
     return [
-        "# Hino",
+        "# Passui",
         "",
         `> ${describe}`,
         "",
@@ -98,12 +98,12 @@ export function getLlmsTxt(origin: string): string {
         "",
         "## Optional",
         "",
-        `- [Hino skill](${origin}/skills/hino/SKILL.md): rules and every component's import, for AI agents.`,
+        `- [Passui skill](${origin}/skills/passui/SKILL.md): rules and every component's import, for AI agents.`,
         "",
     ].join("\n")
 }
 
-/** The Hino skill: the rules to follow, then every component's import. */
+/** The Passui skill: the rules to follow, then every component's import. */
 export function getSkillMarkdown(origin: string): string {
     const catalog = getCatalog()
     const components = catalogGroups.flatMap((group) => {
@@ -129,17 +129,17 @@ export function getSkillMarkdown(origin: string): string {
         .join(", ")
     return [
         "---",
-        "name: hino",
-        "description: Build React interfaces with Hino (@phe-rus/hino), Pherus's design system of native controls, tokens and themes. Use when writing or changing UI in an app that depends on @phe-rus/hino or @phe-rus/hino-tanstack.",
+        "name: passui",
+        "description: Build React interfaces with Passui (@passui/react), Pherus's design system of native controls, tokens and themes. Use when writing or changing UI in an app that depends on @passui/react or @passui/tanstack.",
         "---",
         "",
-        "# Hino",
+        "# Passui",
         "",
         describe,
         "",
         "## Rules",
         "",
-        "- Use Hino's controls before writing your own; never add shadcn, Radix or Base UI primitives.",
+        "- Use Passui's controls before writing your own; never add shadcn, Radix or Base UI primitives.",
         "- Import each control from its own entry point, as listed below.",
         "- Use the color roles and text styles, never hex values, pixel font sizes or one-off shadows.",
         "- Every string comes from the app: pass labels as props, so the app can translate them.",
@@ -149,17 +149,17 @@ export function getSkillMarkdown(origin: string): string {
         "",
         "## Setup",
         "",
-        "Hino works with any React framework, requires React 19 and Tailwind CSS 4, and does not require TanStack. CLI init generates hino/styles.css, hino/providers.tsx and wiring instructions in hino/README.md. Follow those instructions to configure the app root and Tailwind pipeline. Add --integration tanstack only for the optional integration.",
+        "Passui works with any React framework, requires React 19 and Tailwind CSS 4, and does not require TanStack. CLI init generates passui/styles.css, passui/providers.tsx and wiring instructions in passui/README.md. Follow those instructions to configure the app root and Tailwind pipeline. Add --integration tanstack only for the optional integration.",
         "",
         "```sh",
-        "bunx @phe-rus/hino-cli init",
-        "# New projects: bunx @phe-rus/hino-cli create my-app --template vite|tanstack",
-        "# Manual alternative: bun add @phe-rus/hino",
+        "bunx @passui/cli init",
+        "# New projects: bunx @passui/cli create my-app --template vite|tanstack",
+        "# Manual alternative: bun add @passui/react",
         "```",
         "",
         "```css",
-        '/* once, in the root stylesheet; with @phe-rus/hino-tanstack, import "@phe-rus/hino-tanstack/styles.css" instead */',
-        '@import "@phe-rus/hino/styles.css";',
+        '/* once, in the root stylesheet; with @passui/tanstack, import "@passui/tanstack/styles.css" instead */',
+        '@import "@passui/react/styles.css";',
         "```",
         "",
         "## Tokens",

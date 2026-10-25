@@ -12,9 +12,9 @@ import {
     StatusIndicator,
     Toggle,
     toast,
-} from "@phe-rus/hino"
-import { cn } from "@phe-rus/hino/cn"
-import { IconButton } from "@phe-rus/hino/icon-button"
+} from "@passui/react"
+import { cn } from "@passui/react/cn"
+import { IconButton } from "@passui/react/icon-button"
 import { useState } from "react"
 import type { ShowcaseCardBodyProps } from "../types"
 import { ShowcaseCard } from "./showcase-cards"

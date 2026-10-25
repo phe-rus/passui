@@ -1,6 +1,6 @@
-import { LabeledContent, Section } from "@phe-rus/hino"
-import { TabView } from "@phe-rus/hino/tab-view"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { LabeledContent, Section } from "@passui/react"
+import { TabView } from "@passui/react/tab-view"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 export function TabViewSettings() {

@@ -1,4 +1,4 @@
-import type { statTileDocs } from "@phe-rus/hino/docs"
+import type { statTileDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const statTileContent: ComponentContent<

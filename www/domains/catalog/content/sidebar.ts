@@ -1,4 +1,4 @@
-import type { sidebarDocs } from "@phe-rus/hino/docs"
+import type { sidebarDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const sidebarContent: ComponentContent<

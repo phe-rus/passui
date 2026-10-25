@@ -13,7 +13,7 @@ import {
 export const iconButtonDocs = defineDocs<IconButtonProps>()({
     slug: "icon-button",
     name: "IconButton",
-    importPath: "@phe-rus/hino/icon-button",
+    importPath: "@passui/react/icon-button",
     controls: {
         variant: {
             kind: "select",

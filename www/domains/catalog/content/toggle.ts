@@ -1,4 +1,4 @@
-import type { toggleDocs } from "@phe-rus/hino/docs"
+import type { toggleDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const toggleContent: ComponentContent<

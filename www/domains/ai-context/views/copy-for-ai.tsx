@@ -1,6 +1,6 @@
 import { AiMagicIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { toast } from "@phe-rus/hino"
+import { toast } from "@passui/react"
 import { getEntry } from "@/domains/catalog/get-catalog"
 import { getComponentMarkdown } from "../get-ai-context"
 

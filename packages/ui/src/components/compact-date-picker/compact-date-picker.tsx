@@ -371,7 +371,6 @@ function MonthCalendar({
                 <div role="row" className="contents">
                     {weekdays.map((weekday, index) => (
                         <span
-                            // biome-ignore lint/suspicious/noArrayIndexKey: narrow names repeat (S, T)
                             key={index}
                             role="columnheader"
                             className="pb-1 text-center text-caption2 font-semibold text-label-tertiary"

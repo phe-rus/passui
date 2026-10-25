@@ -1,6 +1,6 @@
 import type { CodeLang } from "@/domains/playground"
 import type { IconSvgElement } from "@hugeicons/react"
-import type { RegisteredDocs } from "@phe-rus/hino/docs"
+import type { RegisteredDocs } from "@passui/react/docs"
 
 type DocsShape = {
     controls: object

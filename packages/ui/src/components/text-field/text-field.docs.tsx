@@ -59,7 +59,7 @@ function TextFieldDemo({
 export const textFieldDocs = defineDocs<DemoProps>()({
     slug: "text-field",
     name: "TextField",
-    importPath: "@phe-rus/hino/text-field",
+    importPath: "@passui/react/text-field",
     controls: {
         label: {
             kind: "text",

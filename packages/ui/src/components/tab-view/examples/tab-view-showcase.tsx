@@ -1,6 +1,6 @@
-import { LabeledContent, Section } from "@phe-rus/hino"
-import { StatTile } from "@phe-rus/hino/stat-tile"
-import { TabView } from "@phe-rus/hino/tab-view"
+import { LabeledContent, Section } from "@passui/react"
+import { StatTile } from "@passui/react/stat-tile"
+import { TabView } from "@passui/react/tab-view"
 
 export function TabViewShowcase() {
     return (

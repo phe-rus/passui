@@ -1,4 +1,4 @@
-import type { tooltipDocs } from "@phe-rus/hino/docs"
+import type { tooltipDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const tooltipContent: ComponentContent<

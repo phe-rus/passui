@@ -101,7 +101,7 @@ export type ComponentDocs<
     slug: string
     /** The component's export name, as written in code. */
     name: string
-    /** Where it is imported from, for example `@phe-rus/hino/button`. */
+    /** Where it is imported from, for example `@passui/react/button`. */
     importPath: string
     controls: C
     render: (values: ControlValues<C>) => ReactNode
@@ -130,9 +130,9 @@ type ExactOptions<C, P> = {
         ? C[K] extends { kind: "select"; options: infer O }
             ? {
                   options: {
-                      [
-                          Option in keyof O
-                      ]: Option extends NonNullable<P[K]>
+                      [Option in keyof O]: Option extends NonNullable<
+                          P[K]
+                      >
                           ? true
                           : never
                   }

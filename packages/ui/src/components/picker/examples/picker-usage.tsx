@@ -1,4 +1,4 @@
-import { Picker } from "@phe-rus/hino"
+import { Picker } from "@passui/react"
 import { useState } from "react"
 
 export function PickerUsage() {

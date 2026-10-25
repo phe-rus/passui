@@ -1,6 +1,6 @@
 export const versions = {
-    hino: "^0.1.1",
-    integration: "^0.1.0",
+    passui: "^0.1.14",
+    integration: "^0.1.2",
     react: "^19.3.0",
     tailwind: "^4.3.3",
 }
@@ -8,11 +8,11 @@ export const versions = {
 export const providers = `"use client"
 
 import type { PropsWithChildren } from "react"
-import { ContextMenuHost, DialogHost, TooltipHost } from "@phe-rus/hino"
-import { PlatformProvider, ThemeProvider } from "@phe-rus/hino/appearance"
-import { Toaster } from "@phe-rus/hino/toaster"
+import { ContextMenuHost, DialogHost, TooltipHost } from "@passui/react"
+import { PlatformProvider, ThemeProvider } from "@passui/react/appearance"
+import { Toaster } from "@passui/react/toaster"
 
-export function HinoProvider({ children }: PropsWithChildren) {
+export function PassuiProvider({ children }: PropsWithChildren) {
     return (
         <PlatformProvider>
             <ThemeProvider attribute={["class", "data-theme"]} defaultTheme="system" enableSystem enableColorScheme>
@@ -33,14 +33,14 @@ export function setupFiles(
 ) {
     const pipeline =
         framework === "next"
-            ? 'Add @tailwindcss/postcss to your PostCSS plugins. Add "@phe-rus/hino" to transpilePackages in next.config, and "@phe-rus/hino-tanstack" if using the integration.'
+            ? 'Add @tailwindcss/postcss to your PostCSS plugins. Add "@passui/react" to transpilePackages in next.config, and "@passui/tanstack" if using the integration.'
             : framework === "vite" || framework === "tanstack"
               ? 'Add tailwindcss() from "@tailwindcss/vite" to your Vite plugins.'
-              : "Configure your bundler to process Hino TSX and this stylesheet through Tailwind CSS 4. Use @tailwindcss/postcss with PostCSS, or the Tailwind plugin supported by your bundler."
+              : "Configure your bundler to process Passui TSX and this stylesheet through Tailwind CSS 4. Use @tailwindcss/postcss with PostCSS, or the Tailwind plugin supported by your bundler."
     return {
-        "hino/providers.tsx": providers,
-        "hino/styles.css": `@import "@phe-rus/${integration ? "hino-tanstack" : "hino"}/styles.css";\n`,
-        "hino/README.md": `# Hino setup\n\n${pipeline}\n\nImport hino/styles.css in your application entry or root stylesheet. Wrap your app content in HinoProvider from hino/providers.tsx. Adjust relative import paths to your entry.\n\nFor an HTML document shell, render PlatformScript from @phe-rus/hino/appearance in the head before content paints, and add suppressHydrationWarning to html. Keep framework scripts as body children outside the provider. For TanStack Start, ComposeViewport.Window's after prop holds Scripts. For Next.js, keep the document in the server layout and HinoProvider around its children.\n\nImport controls from their package entry points, for example Button from @phe-rus/hino/button.\n\nDocs: https://hino.pherus.org/docs/installation\n\nSetup preserves existing app source. If installation failed or was skipped, run your package manager's install command in the project root.\n`,
+        "passui/providers.tsx": providers,
+        "passui/styles.css": `@import "@passui/${integration ? "tanstack" : "react"}/styles.css";\n`,
+        "passui/README.md": `# Passui setup\n\n${pipeline}\n\nImport passui/styles.css in your application entry or root stylesheet. Wrap your app content in PassuiProvider from passui/providers.tsx. Adjust relative import paths to your entry.\n\nFor an HTML document shell, render PlatformScript from @passui/react/appearance in the head before content paints, and add suppressHydrationWarning to html. Keep framework scripts as body children outside the provider. For TanStack Start, ComposeViewport.Window's after prop holds Scripts. For Next.js, keep the document in the server layout and PassuiProvider around its children.\n\nImport controls from their package entry points, for example Button from @passui/react/button.\n\nDocs: https://passui.pherus.org/docs/installation\n\nSetup preserves existing app source. If installation failed or was skipped, run your package manager's install command in the project root.\n`,
     }
 }
 
@@ -65,13 +65,13 @@ export function starterFiles(
                 typecheck: "tsc --noEmit",
             },
             dependencies: {
-                "@phe-rus/hino": versions.hino,
+                "@passui/react": versions.passui,
                 react: versions.react,
                 "react-dom": versions.react,
                 tailwindcss: versions.tailwind,
                 ...(tanstack
                     ? {
-                          "@phe-rus/hino-tanstack":
+                          "@passui/tanstack":
                               versions.integration,
                           "@tanstack/react-start":
                               "^1.168.58",
@@ -108,7 +108,7 @@ export function starterFiles(
                 allowImportingTsExtensions: true,
                 types: ["vite/client", "node"],
             },
-            include: ["src", "hino", "vite.config.ts"],
+            include: ["src", "passui", "vite.config.ts"],
         },
         null,
         4
@@ -123,14 +123,14 @@ ${tanstack ? 'import { tanstackStart } from "@tanstack/react-start/plugin/vite"\
 export default defineConfig({ plugins: [tailwindcss(), ${tanstack ? "tanstackStart(), " : ""}react()] })
 `
     files["src/app.tsx"] =
-        `import { Button } from "@phe-rus/hino/button"
-import { toast } from "@phe-rus/hino/toast"
+        `import { Button } from "@passui/react/button"
+import { toast } from "@passui/react/toast"
 
 export function App() {
     return (
         <main className="min-h-screen bg-background text-foreground p-8">
-            <h1 className="text-title font-semibold">Hello, Hino</h1>
-            <Button variant="accent" onClick={() => toast.success("Hino is ready")}>Try Hino</Button>
+            <h1 className="text-title font-semibold">Hello, Passui</h1>
+            <Button variant="accent" onClick={() => toast.success("Passui is ready")}>Try Passui</Button>
         </main>
     )
 }
@@ -150,13 +150,13 @@ declare module "@tanstack/react-router" {
 `
         files["src/routes/__root.tsx"] =
             `import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router"
-import { ComposeViewport } from "@phe-rus/hino-tanstack/document"
-import { PlatformScript } from "@phe-rus/hino/appearance"
-import { HinoProvider } from "../../hino/providers"
-import styles from "../../hino/styles.css?url"
+import { ComposeViewport } from "@passui/tanstack/document"
+import { PlatformScript } from "@passui/react/appearance"
+import { PassuiProvider } from "../../passui/providers"
+import styles from "../../passui/styles.css?url"
 
 export const Route = createRootRoute({
-    head: () => ({ meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { title: "Hino" }], links: [{ rel: "stylesheet", href: styles }] }),
+    head: () => ({ meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { title: "Passui" }], links: [{ rel: "stylesheet", href: styles }] }),
     shellComponent: RouteComponent,
 })
 
@@ -165,7 +165,7 @@ function RouteComponent() {
         <ComposeViewport>
             <head><PlatformScript /><HeadContent /></head>
             <ComposeViewport.Window after={<Scripts />}>
-                <HinoProvider><Outlet /></HinoProvider>
+                <PassuiProvider><Outlet /></PassuiProvider>
             </ComposeViewport.Window>
         </ComposeViewport>
     )
@@ -181,18 +181,18 @@ function RouteComponent() { return <App /> }
 `
     } else {
         files["index.html"] =
-            '<!doctype html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hino</title></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>\n'
+            '<!doctype html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Passui</title></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>\n'
         files["src/main.tsx"] =
             `import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import { HinoProvider } from "../hino/providers"
-import "../hino/styles.css"
+import { PassuiProvider } from "../passui/providers"
+import "../passui/styles.css"
 import { App } from "./app"
 
-createRoot(document.getElementById("root")!).render(<StrictMode><HinoProvider><App /></HinoProvider></StrictMode>)
+createRoot(document.getElementById("root")!).render(<StrictMode><PassuiProvider><App /></PassuiProvider></StrictMode>)
 `
     }
     files["README.md"] =
-        `# ${name}\n\nHino is wired into this ${tanstack ? "TanStack Start" : "Vite React"} starter. Install dependencies, then run your package manager's dev script. Run the build script before typecheck in TanStack Start so route types are generated.\n\nSee hino/README.md and https://hino.pherus.org for component documentation.\n`
+        `# ${name}\n\nPassui is wired into this ${tanstack ? "TanStack Start" : "Vite React"} starter. Install dependencies, then run your package manager's dev script. Run the build script before typecheck in TanStack Start so route types are generated.\n\nSee passui/README.md and https://passui.pherus.org for component documentation.\n`
     return files
 }

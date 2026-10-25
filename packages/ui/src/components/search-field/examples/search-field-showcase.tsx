@@ -1,4 +1,4 @@
-import { SearchField } from "@phe-rus/hino"
+import { SearchField } from "@passui/react"
 import { useState } from "react"
 
 const people = [

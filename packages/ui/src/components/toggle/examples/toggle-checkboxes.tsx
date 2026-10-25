@@ -1,4 +1,4 @@
-import { Toggle } from "@phe-rus/hino/toggle"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 const tasks = ["Pick a palette", "Review copy", "Ship it"]

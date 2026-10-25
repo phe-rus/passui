@@ -1,6 +1,6 @@
 import { useRouter } from "@tanstack/react-router"
 import { useEffect, useRef, useState } from "react"
-import type { RegisteredDocs } from "@phe-rus/hino/docs"
+import type { RegisteredDocs } from "@passui/react/docs"
 import {
     getChangedProps,
     type PropValues,
@@ -20,9 +20,9 @@ type PreviewFrameProps = {
 
 const minimumHeight = 160
 
-/** Asks the preview to say it is listening (answered with hino:ready). */
+/** Asks the preview to say it is listening (answered with passui:ready). */
 function ping(frame: HTMLIFrameElement | null) {
-    const message: ParentMessage = { type: "hino:ping" }
+    const message: ParentMessage = { type: "passui:ping" }
     frame?.contentWindow?.postMessage(
         message,
         window.location.origin
@@ -67,7 +67,7 @@ export function PreviewFrame({
                 event.data
             )
             if (!parsed.success) return
-            if (parsed.data.type === "hino:ready")
+            if (parsed.data.type === "passui:ready")
                 setReady(true)
             else
                 setHeight(
@@ -84,7 +84,7 @@ export function PreviewFrame({
     useEffect(() => {
         if (!ready) return
         const message: StateMessage = {
-            type: "hino:state",
+            type: "passui:state",
             settings,
             props,
         }

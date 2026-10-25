@@ -1,5 +1,5 @@
 {
-    "name": "hino-repository",
+    "name": "passui-repository",
     "private": true,
     "type": "module",
     "license": "MIT",
@@ -9,19 +9,21 @@
         "www"
     ],
     "scripts": {
-        "typecheck": "bun run --filter '@phe-rus/*' typecheck && bun run --cwd www typecheck",
-        "test": "bun run --filter '@phe-rus/*' test && bun run --cwd www test",
-        "publish:check": "bun run --filter '@phe-rus/*' publish:check",
-        "build:website": "bun run --cwd www build",
-        "lint": "vp lint",
-        "format": "vp fmt",
-        "check": "vp check"
-    },
-    "overrides": {
-        "vite": "npm:@voidzero-dev/vite-plus-core@1.2.0"
+        "dev": "turbo run dev",
+        "build": "turbo run build",
+        "typecheck": "turbo run typecheck",
+        "lint": "biome lint .",
+        "format": "biome format --write .",
+        "check": "biome check .",
+        "test": "turbo run test",
+        "publish:check": "turbo run publish:check && bun scripts/check-packages.mjs",
+        "build:website": "turbo run build --filter=passui-docs",
+        "format:check": "biome format ."
     },
     "devDependencies": {
-        "vite": "npm:@voidzero-dev/vite-plus-core@1.2.0",
-        "vite-plus": "1.2.0"
+        "@biomejs/biome": "2.6.3",
+        "turbo": "2.11.10",
+        "vitest": "5.0.5",
+        "vite": "8.3.5"
     }
 }

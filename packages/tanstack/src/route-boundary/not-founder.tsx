@@ -1,7 +1,7 @@
 import { Link, useRouter } from "@tanstack/react-router"
-import { Button, buttonStyle } from "@phe-rus/hino/button"
+import { Button, buttonStyle } from "@passui/react/button"
 import type { PropsWithChildren } from "react"
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 
 type NotFoundProps = PropsWithChildren
 

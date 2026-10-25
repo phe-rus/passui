@@ -1,8 +1,8 @@
-# Hino official website
+# Passui official website
 
-`www/` is the official Hino docs website in `phe-rus/hino`, deployed as a Cloudflare Worker at `hino.pherus.org` (dev port 3004). Its words are written for people outside Pherus.
+`www/` is the official Passui docs website in `phe-rus/passui`, deployed as a Cloudflare Worker at `passui.pherus.org` (dev port 3004). Its words are written for people outside Pherus.
 
-TanStack Start, React compiler, Tailwind through one import (`styles/site.css` imports `@phe-rus/hino-tanstack/styles.css` and adds `@source "../"`). No auth, no data, no bindings.
+TanStack Start, React compiler, Tailwind through one import (`styles/site.css` imports `@passui/tanstack/styles.css` and adds `@source "../"`). No auth, no data, no bindings.
 
 ## Layout
 
@@ -11,7 +11,7 @@ TanStack Start, React compiler, Tailwind through one import (`styles/site.css` i
 - `domains/preview`: the page inside the iframe (`/preview/$slug`), its message channel and size reporter. It mounts `Toaster`, `ContextMenuHost`, `DialogHost` and `TooltipHost` so overlays work inside it.
 - `domains/settings`: the URL search schemas (theme, accent, platform, viewport, props), each key falling back on its own.
 - `domains/guides`: the getting-started pages under `/docs/$slug` (Introduction, Installation, Theming, Typeset, Skills) and the `/components` entry in their list.
-- `domains/ai-context`: `/llms.txt`, `/skills/hino/SKILL.md` and Copy for AI, all generated from the registry and the catalog's words. It imports catalog files directly, not `@/domains/catalog`, to avoid an import cycle.
+- `domains/ai-context`: `/llms.txt`, `/skills/passui/SKILL.md` and Copy for AI, all generated from the registry and the catalog's words. It imports catalog files directly, not `@/domains/catalog`, to avoid an import cycle.
 - `domains/landing`, `domains/shell`: the home page and the site frame (header with a phone menu, footer).
 
 Component docs code (controls, examples) lives in `../packages/ui`; see [UI guidance](../packages/ui/AGENTS.md).
@@ -28,9 +28,9 @@ The website, catalog prose, tests and reusable packages share this public reposi
 
 ## Checks
 
-`bun run test` (snippet generator and search fallbacks), `bun run typecheck`, `bun run build`. `../packages/ui`'s `bun run test` (`vp test`) covers the registry rules and example file names.
+`bun run test` (snippet generator and search fallbacks), `bun run typecheck`, `bun run build`. `../packages/ui`'s `bun run test` (`vitest run`) covers the registry rules and example file names.
 
-Page metadata lives in `domains/seo/get-page-head.ts`: canonical URLs omit playground search params, with Open Graph and Twitter summary cards using the Hino logo. Preview routes remain noindex. Installation instructions cover the public CLI and manual setup; keep generated AI setup text aligned.
+Page metadata lives in `domains/seo/get-page-head.ts`: canonical URLs omit playground search params, with Open Graph and Twitter summary cards using the Passui logo. Preview routes remain noindex. Installation instructions cover the public CLI and manual setup; keep generated AI setup text aligned.
 
 `domains/seo/sitemap.ts` generates `/sitemap.xml` from the guide and
 component catalogs and `/robots.txt` with the canonical sitemap URL.

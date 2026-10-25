@@ -3,12 +3,12 @@ import {
     StarIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 import {
     SidebarItemContent,
     SidebarSection,
     sidebarItemClass,
-} from "@phe-rus/hino/sidebar"
+} from "@passui/react/sidebar"
 import { useState } from "react"
 
 export function SidebarUnread() {

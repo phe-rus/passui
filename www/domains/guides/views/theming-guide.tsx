@@ -1,12 +1,12 @@
-import { Button } from "@phe-rus/hino/button"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { Button } from "@passui/react/button"
+import { Toggle } from "@passui/react/toggle"
 import {
     type AccentId,
     accents,
     dark,
     light,
     radius,
-} from "@phe-rus/hino/tokens"
+} from "@passui/react/tokens"
 import { type CSSProperties, useState } from "react"
 import { DocSection, type TocItem } from "@/domains/catalog"
 import { Code, CodeBlock, Prose } from "./guide-parts"

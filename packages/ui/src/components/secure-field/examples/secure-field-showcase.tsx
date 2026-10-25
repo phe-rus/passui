@@ -1,6 +1,6 @@
-import { toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { SecureField } from "@phe-rus/hino/secure-field"
+import { toast } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { SecureField } from "@passui/react/secure-field"
 import { useState } from "react"
 
 export function SecureFieldShowcase() {

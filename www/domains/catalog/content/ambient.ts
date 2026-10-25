@@ -1,4 +1,4 @@
-import type { ambientDocs } from "@phe-rus/hino/docs"
+import type { ambientDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const ambientContent: ComponentContent<

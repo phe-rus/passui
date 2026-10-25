@@ -75,7 +75,7 @@ function TabBarDemo({ label, active, search }: DemoProps) {
 export const tabBarDocs = defineDocs<DemoProps>()({
     slug: "tab-bar",
     name: "TabBar",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         label: {
             kind: "text",

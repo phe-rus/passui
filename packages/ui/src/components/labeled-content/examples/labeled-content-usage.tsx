@@ -1,5 +1,5 @@
-import { LabeledContent } from "@phe-rus/hino"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { LabeledContent } from "@passui/react"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 export function LabeledContentUsage() {

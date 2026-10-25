@@ -1,7 +1,7 @@
 import { clsx } from "clsx"
 import type { ClassValue } from "clsx"
 import { extendTailwindMerge } from "tailwind-merge"
-import { textStyles } from "../../tokens/src/typography"
+import { textStyles } from "@passui/tokens/typography"
 
 const textStyleClasses = Object.keys(textStyles).map(
     (name) =>

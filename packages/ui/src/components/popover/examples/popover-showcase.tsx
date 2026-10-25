@@ -1,11 +1,11 @@
-import { Button } from "@phe-rus/hino/button"
-import { Popover } from "@phe-rus/hino/popover"
+import { Button } from "@passui/react/button"
+import { Popover } from "@passui/react/popover"
 import {
     ProfileImage,
     ProfileImageContent,
     ProfileImageFallback,
-} from "@phe-rus/hino/profile-image"
-import { useDismiss } from "@phe-rus/hino/use-dismiss"
+} from "@passui/react/profile-image"
+import { useDismiss } from "@passui/react/use-dismiss"
 import { useRef, useState } from "react"
 
 export function PopoverShowcase() {

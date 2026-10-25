@@ -1,6 +1,6 @@
 /**
  * Accent colors people can choose. Blush, the soft pink of the iPhone 15,
- * is the default and Hino's own color; the others are calm, slightly
+ * is the default and Passui's own color; the others are calm, slightly
  * muted tones that sit well on warm paper.
  * Each sets the four accent roles for light and dark schemes.
  */

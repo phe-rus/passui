@@ -32,7 +32,7 @@ function TextEditorDemo(props: DemoProps) {
 export const textEditorDocs = defineDocs<TextEditorProps>()({
     slug: "text-editor",
     name: "TextEditor",
-    importPath: "@phe-rus/hino/text-editor",
+    importPath: "@passui/react/text-editor",
     controls: {
         placeholder: {
             kind: "text",

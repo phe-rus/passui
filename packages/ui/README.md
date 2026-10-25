@@ -1,10 +1,10 @@
-# Hino
+# Passui
 
-Hino is Pherus's design system: native React controls, design tokens and
+Passui is Pherus's design system: native React controls, design tokens and
 themes, with names drawn from SwiftUI. What Liquid Glass is to Apple and
 Material 3 is to Google, built for any React app.
 
-**Docs, live playgrounds and examples: [hino.pherus.org](https://hino.pherus.org)**
+**Docs, live playgrounds and examples: [passui.pherus.org](https://passui.pherus.org)**
 
 ## What's inside
 
@@ -23,37 +23,37 @@ Material 3 is to Google, built for any React app.
 Install the public npm package in a React 19 app with Tailwind CSS 4:
 
 ```bash
-bun add @phe-rus/hino
+bun add @passui/react
 ```
 
 Import the styles once and each control from its own entry point:
 
 ```css
-@import "@phe-rus/hino/styles.css";
+@import "@passui/react/styles.css";
 ```
 
 ```tsx
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 
 export function SaveButton() {
     return <Button variant="accent">Save</Button>
 }
 ```
 
-See [Installation](https://hino.pherus.org/docs/installation) for the
-root setup, and [Skills](https://hino.pherus.org/docs/skills) to give AI
-agents Hino's rules.
+See [Installation](https://passui.pherus.org/docs/installation) for the
+root setup, and [Skills](https://passui.pherus.org/docs/skills) to give AI
+agents Passui's rules.
 
-Hino works independently of TanStack. If your app uses TanStack Form,
-Table or Router, the optional `@phe-rus/hino-tanstack` package connects them to
-Hino's controls.
+Passui works independently of TanStack. If your app uses TanStack Form,
+Table or Router, the optional `@passui/tanstack` package connects them to
+Passui's controls.
 
 ## Development and publishing
 
 ```bash
 bun install
 bun run typecheck
-bun test
+bun run test
 bun run publish:check
 ```
 
@@ -66,7 +66,7 @@ It installs and validates with Bun, packs with Bun, then publishes the
 archive with npm's OIDC support. It needs no stored npm token.
 
 For a manual release, login to npm with an account that can publish
-under `@phe-rus`, then run `bun publish`. The package configuration
+under `@passui`, then run `bun publish`. The package configuration
 selects the public npm registry and public access. Keep credentials in
 your user npm configuration.
 

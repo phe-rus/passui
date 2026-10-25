@@ -113,7 +113,7 @@ function requireMajor(
     const match = version.match(/^[~^]?(\d+)(?:\.|$)/)
     if (match && Number(match[1]) !== major) {
         throw new Error(
-            `${name} ${version} is incompatible. Hino requires ${name} ${major}; upgrade explicitly before running init.`
+            `${name} ${version} is incompatible. Passui requires ${name} ${major}; upgrade explicitly before running init.`
         )
     }
 }
@@ -140,7 +140,7 @@ export async function planProject(
             basename(root)
                 .toLowerCase()
                 .replace(/[^a-z0-9-]/g, "-")
-                .replace(/^-+/, "") || "hino-app"
+                .replace(/^-+/, "") || "passui-app"
         files = starterFiles(name, options.template)
     } else {
         try {
@@ -198,13 +198,13 @@ export async function planProject(
         ) => {
             if (!dependencies[name]) target[name] = version
         }
-        add(runtime, "@phe-rus/hino", versions.hino)
+        add(runtime, "@passui/react", versions.passui)
         add(runtime, "react-dom", versions.react)
         add(dev, "tailwindcss", versions.tailwind)
         if (options.integration) {
             add(
                 runtime,
-                "@phe-rus/hino-tanstack",
+                "@passui/tanstack",
                 versions.integration
             )
             add(runtime, "@tanstack/react-query", "^5.104.0")

@@ -1,5 +1,5 @@
-import { Toggle } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
+import { Toggle } from "@passui/react"
+import { Button } from "@passui/react/button"
 import { useState } from "react"
 
 export function ButtonDisabled() {

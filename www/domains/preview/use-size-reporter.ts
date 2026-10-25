@@ -25,7 +25,7 @@ export function useSizeReporter(
                 entry.borderBoxSize[0].blockSize
             )
             postToParent({
-                type: "hino:size",
+                type: "passui:size",
                 height: last.current,
             })
         })
@@ -36,7 +36,7 @@ export function useSizeReporter(
     return useCallback(() => {
         if (last.current === null) return
         postToParent({
-            type: "hino:size",
+            type: "passui:size",
             height: last.current,
         })
     }, [])

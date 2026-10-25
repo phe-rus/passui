@@ -1,5 +1,5 @@
 import type { RowData } from "@tanstack/react-table"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { Toggle } from "@passui/react/toggle"
 import type { DataTableColumnDef } from "./data-table"
 
 export function selectColumn<

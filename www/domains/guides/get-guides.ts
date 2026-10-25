@@ -14,7 +14,7 @@ export const guides: readonly Guide[] = [
         slug: "introduction",
         title: "Introduction",
         summary:
-            "What Hino is, what it's made of, and the ideas behind it.",
+            "What Passui is, what it's made of, and the ideas behind it.",
         path: "/docs/introduction",
         icon: BookOpen01Icon,
     },
@@ -30,7 +30,7 @@ export const guides: readonly Guide[] = [
         slug: "installation",
         title: "Installation",
         summary:
-            "Set up any React app with the Hino CLI, create a starter, or install manually.",
+            "Set up any React app with the Passui CLI, create a starter, or install manually.",
         path: "/docs/installation",
         icon: Download01Icon,
     },
@@ -54,7 +54,7 @@ export const guides: readonly Guide[] = [
         slug: "skills",
         title: "Skills",
         summary:
-            "Give AI agents Hino's rules and components: a skill, llms.txt and Markdown for every page.",
+            "Give AI agents Passui's rules and components: a skill, llms.txt and Markdown for every page.",
         path: "/docs/skills",
         icon: AiMagicIcon,
     },

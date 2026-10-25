@@ -1,4 +1,4 @@
-name: Hino CI
+name: Passui CI
 
 on:
     push:
@@ -24,12 +24,12 @@ jobs:
               with:
                   node-version: "24"
                   package-manager-cache: false
-            - run: bun install
+            - run: bun install --frozen-lockfile
             - run: bun run check
             - run: bun run --cwd packages/cli build
-            - run: node packages/cli/dist/hino.js --help
+            - run: node packages/cli/dist/passui.js --help
             - run: bun run --cwd www type-gen
-            - run: bun run build:website
+            - run: bun run build
             - run: bun run typecheck
             - run: bun run test
             - run: bun run publish:check

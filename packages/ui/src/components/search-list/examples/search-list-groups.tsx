@@ -5,7 +5,7 @@ import {
     SearchListGroup,
     SearchListItem,
     SearchListResults,
-} from "@phe-rus/hino/search-list"
+} from "@passui/react/search-list"
 
 const groups = [
     {

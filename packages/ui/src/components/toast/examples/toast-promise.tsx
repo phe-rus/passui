@@ -1,5 +1,5 @@
-import { Button } from "@phe-rus/hino/button"
-import { toast } from "@phe-rus/hino/toast"
+import { Button } from "@passui/react/button"
+import { toast } from "@passui/react/toast"
 
 function upload(fails: boolean) {
     return new Promise<string>((resolve, reject) =>

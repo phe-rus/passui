@@ -1,7 +1,7 @@
-import { toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { TextField } from "@phe-rus/hino/text-field"
-import { ViewController } from "@phe-rus/hino/view-controller"
+import { toast } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { TextField } from "@passui/react/text-field"
+import { ViewController } from "@passui/react/view-controller"
 import { useState } from "react"
 
 export function ViewControllerShowcase() {

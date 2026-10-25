@@ -5,7 +5,7 @@ import {
     TextItalicIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 
 const tools = [
     { label: "Bold", icon: TextBoldIcon },

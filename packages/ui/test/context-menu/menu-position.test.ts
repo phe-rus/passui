@@ -1,4 +1,4 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 import { menuPosition } from "../../src/components/context-menu/menu-position"
 
 test("the same menu refits as the keyboard closes without changing its anchor", () => {

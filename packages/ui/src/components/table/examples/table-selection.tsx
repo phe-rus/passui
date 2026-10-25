@@ -4,7 +4,7 @@ import {
     Tablet01Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 import {
     Table,
     TableBody,
@@ -12,8 +12,8 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@phe-rus/hino/table"
-import { Toggle } from "@phe-rus/hino/toggle"
+} from "@passui/react/table"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 const devices = [

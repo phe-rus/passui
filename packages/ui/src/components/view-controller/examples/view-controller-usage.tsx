@@ -1,4 +1,4 @@
-import { ViewController } from "@phe-rus/hino/view-controller"
+import { ViewController } from "@passui/react/view-controller"
 
 export function ViewControllerUsage() {
     return (

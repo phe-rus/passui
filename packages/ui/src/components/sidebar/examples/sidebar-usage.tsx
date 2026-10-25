@@ -7,7 +7,7 @@ import {
     SidebarItemContent,
     SidebarSection,
     sidebarItemClass,
-} from "@phe-rus/hino/sidebar"
+} from "@passui/react/sidebar"
 
 export function SidebarUsage() {
     // Use your router's link in place of <a>, passing it the class.

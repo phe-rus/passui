@@ -21,7 +21,7 @@ export function SheetPortal({
         if (!marker) return
         const document = marker.ownerDocument
         const layer = document.createElement("div")
-        layer.dataset.hinoOverlay = ""
+        layer.dataset.passuiOverlay = ""
         layer.style.display = "contents"
         const attributes = [
             "data-theme",
@@ -58,7 +58,7 @@ export function SheetPortal({
             layer.style.direction = computed.direction
         }
         inherit()
-        document.body.append(layer)
+        document.body.appendChild(layer)
         setHost(layer)
         const observer = new MutationObserver(inherit)
         for (

@@ -2,9 +2,9 @@ import {
     LabeledContent,
     Picker,
     Section,
-} from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { Toggle } from "@phe-rus/hino/toggle"
+} from "@passui/react"
+import { Button } from "@passui/react/button"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 export function SectionShowcase() {

@@ -1,6 +1,6 @@
-import { toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { TextField } from "@phe-rus/hino/text-field"
+import { toast } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { TextField } from "@passui/react/text-field"
 import { useState } from "react"
 
 export function TextFieldShowcase() {

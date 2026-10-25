@@ -1,4 +1,4 @@
-import { toast, useContextMenu } from "@phe-rus/hino"
+import { toast, useContextMenu } from "@passui/react"
 
 export function ContextMenuUsage() {
     // render one <ContextMenuHost /> near the root of your app

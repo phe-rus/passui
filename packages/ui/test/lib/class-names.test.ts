@@ -1,4 +1,4 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 import { cn } from "../../src/lib/class-names"
 
 test("keeps semantic text size and color utilities together", () => {

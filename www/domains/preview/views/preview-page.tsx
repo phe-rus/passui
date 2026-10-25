@@ -2,9 +2,9 @@ import {
     ContextMenuHost,
     DialogHost,
     TooltipHost,
-} from "@phe-rus/hino"
-import { PlatformProvider } from "@phe-rus/hino/appearance"
-import { Toaster } from "@phe-rus/hino/toaster"
+} from "@passui/react"
+import { PlatformProvider } from "@passui/react/appearance"
+import { Toaster } from "@passui/react/toaster"
 import { useRef } from "react"
 import { getEntry, resolveProps } from "@/domains/catalog"
 import type { PreviewSettings } from "@/domains/settings"

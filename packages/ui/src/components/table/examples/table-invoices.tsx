@@ -1,4 +1,4 @@
-import { StatusIndicator } from "@phe-rus/hino"
+import { StatusIndicator } from "@passui/react"
 import {
     Table,
     TableBody,
@@ -8,7 +8,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@phe-rus/hino/table"
+} from "@passui/react/table"
 
 const invoices = [
     {

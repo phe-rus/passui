@@ -1,4 +1,4 @@
-import { textStyles } from "@phe-rus/hino/tokens"
+import { textStyles } from "@passui/react/tokens"
 import { DocSection, type TocItem } from "@/domains/catalog"
 import { Code, CodeBlock, Prose } from "./guide-parts"
 
@@ -9,7 +9,7 @@ export const typesetSections: TocItem[] = [
     { id: "opting-out", title: "Opting out" },
 ]
 
-/** largeTitle → text-large-title, the class Hino generates. */
+/** largeTitle → text-large-title, the class Passui generates. */
 const className = (name: string) =>
     `text-${name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`
 
@@ -130,15 +130,15 @@ export function TypesetGuide() {
                 <Prose>
                     Mark anything that isn't writing with{" "}
                     <Code>data-not-typeset</Code> or the{" "}
-                    <Code>not-typeset</Code> class, as Hino's
-                    own message threads do.{" "}
+                    <Code>not-typeset</Code> class, as
+                    Passui's own message threads do.{" "}
                     <Code>ComposeViewport</Code> puts{" "}
                     <Code>typeset</Code> on the whole body, so
                     this matters inside apps built on it.
                 </Prose>
                 <CodeBlock
                     code={`<form data-not-typeset>
-    {/* fields and buttons keep Hino's control styles */}
+    {/* fields and buttons keep Passui's control styles */}
 </form>`}
                 />
             </DocSection>

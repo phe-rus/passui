@@ -1,5 +1,5 @@
-import { StatusIndicator } from "@phe-rus/hino"
-import { TextField } from "@phe-rus/hino/text-field"
+import { StatusIndicator } from "@passui/react"
+import { TextField } from "@passui/react/text-field"
 import { useRef, useState } from "react"
 
 export function StatusIndicatorLive() {

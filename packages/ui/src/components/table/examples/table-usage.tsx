@@ -2,7 +2,7 @@ import {
     ProfileImage,
     ProfileImageContent,
     ProfileImageFallback,
-} from "@phe-rus/hino/profile-image"
+} from "@passui/react/profile-image"
 import {
     Table,
     TableBody,
@@ -10,7 +10,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@phe-rus/hino/table"
+} from "@passui/react/table"
 
 const members = [
     {

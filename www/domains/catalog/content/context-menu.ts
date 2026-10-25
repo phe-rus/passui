@@ -1,4 +1,4 @@
-import type { contextMenuDocs } from "@phe-rus/hino/docs"
+import type { contextMenuDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const contextMenuContent: ComponentContent<

@@ -1,4 +1,4 @@
-import { TextField } from "@phe-rus/hino/text-field"
+import { TextField } from "@passui/react/text-field"
 import { useState } from "react"
 
 export function TextFieldValidation() {

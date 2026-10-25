@@ -27,7 +27,7 @@ const sizes = {
 export const profileImageDocs = defineDocs<DemoProps>()({
     slug: "profile-image",
     name: "ProfileImage",
-    importPath: "@phe-rus/hino/profile-image",
+    importPath: "@passui/react/profile-image",
     controls: {
         size: {
             kind: "select",
@@ -53,7 +53,7 @@ export const profileImageDocs = defineDocs<DemoProps>()({
     ),
     childrenSnippet: ({ size, photo, initials }) => ({
         imports: [
-            'import { ProfileImageContent, ProfileImageFallback } from "@phe-rus/hino/profile-image"',
+            'import { ProfileImageContent, ProfileImageFallback } from "@passui/react/profile-image"',
         ],
         omit: ["size", "photo", "initials"],
         extraProps: { className: sizes[size] },

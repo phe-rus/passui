@@ -1,7 +1,7 @@
 import type {
     AnyControl,
     RegisteredDocs,
-} from "@phe-rus/hino/docs"
+} from "@passui/react/docs"
 
 type PropsTableProps = {
     docs: RegisteredDocs

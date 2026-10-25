@@ -1,4 +1,4 @@
-import type { viewControllerDocs } from "@phe-rus/hino/docs"
+import type { viewControllerDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const viewControllerContent: ComponentContent<

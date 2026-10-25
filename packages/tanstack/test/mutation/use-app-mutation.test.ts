@@ -1,4 +1,4 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 
 import { shouldRestoreOptimisticSnapshot } from "../../src/mutation/use-app-mutation"
 

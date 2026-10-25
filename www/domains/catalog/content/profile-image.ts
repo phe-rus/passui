@@ -1,4 +1,4 @@
-import type { profileImageDocs } from "@phe-rus/hino/docs"
+import type { profileImageDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const profileImageContent: ComponentContent<

@@ -12,14 +12,14 @@ export function getPageHead(
         ? { name: "Components", path: "/components" }
         : null
     const crumbs = [
-        { name: "Hino", path: "/" },
+        { name: "Passui", path: "/" },
         ...(section && section.path !== pathname
             ? [section]
             : []),
         ...(pathname !== "/"
             ? [
                   {
-                      name: title.replace(/ · Hino$/, ""),
+                      name: title.replace(/ · Passui$/, ""),
                       path: pathname,
                   },
               ]
@@ -30,7 +30,7 @@ export function getPageHead(
             { title },
             { name: "description", content: description },
             { property: "og:type", content: "website" },
-            { property: "og:site_name", content: "Hino" },
+            { property: "og:site_name", content: "Passui" },
             { property: "og:locale", content: "en_US" },
             { property: "og:title", content: title },
             {
@@ -41,7 +41,7 @@ export function getPageHead(
             { property: "og:image", content: image },
             {
                 property: "og:image:alt",
-                content: "Hino logo",
+                content: "Passui logo",
             },
             { name: "twitter:card", content: "summary" },
             { name: "twitter:title", content: title },
@@ -52,7 +52,7 @@ export function getPageHead(
             { name: "twitter:image", content: image },
             {
                 name: "twitter:image:alt",
-                content: "Hino logo",
+                content: "Passui logo",
             },
         ],
         links: [{ rel: "canonical", href: url }],
@@ -65,7 +65,7 @@ export function getPageHead(
                         {
                             "@type": "WebSite",
                             "@id": `${siteOrigin}/#website`,
-                            name: "Hino",
+                            name: "Passui",
                             url: `${siteOrigin}/`,
                             inLanguage: "en",
                         },
@@ -96,15 +96,15 @@ export function getPageHead(
                                   {
                                       "@type":
                                           "SoftwareSourceCode",
-                                      name: "Hino",
+                                      name: "Passui",
                                       description,
                                       url,
                                       codeRepository:
-                                          "https://github.com/phe-rus/hino",
+                                          "https://github.com/phe-rus/passui",
                                       programmingLanguage:
                                           "TypeScript",
                                       license:
-                                          "https://github.com/phe-rus/hino/blob/main/LICENSE",
+                                          "https://github.com/phe-rus/passui/blob/main/LICENSE",
                                   },
                               ]
                             : []),

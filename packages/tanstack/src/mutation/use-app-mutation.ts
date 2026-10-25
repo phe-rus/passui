@@ -6,7 +6,7 @@ import type {
     QueryKey,
     UseMutationOptions,
 } from "@tanstack/react-query"
-import { toast } from "@phe-rus/hino/toast"
+import { toast } from "@passui/react/toast"
 
 type OptimisticUpdate<TOptimisticData, TVariables> = {
     queryKey: QueryKey

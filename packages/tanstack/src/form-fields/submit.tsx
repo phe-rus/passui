@@ -1,4 +1,4 @@
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 import { useFormContext } from "../forms/contexts"
 
 export function Submit({ label }: { label: string }) {

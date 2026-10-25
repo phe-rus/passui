@@ -1,9 +1,9 @@
-import { SwatchPicker } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { type AccentId, accents } from "@phe-rus/hino/tokens"
+import { SwatchPicker } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { type AccentId, accents } from "@passui/react/tokens"
 import { type CSSProperties, useState } from "react"
 
-// every Hino accent, straight from the tokens
+// every Passui accent, straight from the tokens
 const options = Object.values(accents).map((accent) => ({
     value: accent.id,
     label: accent.name,

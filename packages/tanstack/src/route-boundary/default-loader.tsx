@@ -1,6 +1,6 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Loading03Icon } from "@hugeicons/core-free-icons"
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 
 export function DefaultLoader() {
     return (

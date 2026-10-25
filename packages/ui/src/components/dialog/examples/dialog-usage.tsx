@@ -1,5 +1,5 @@
-import { Button } from "@phe-rus/hino/button"
-import { Dialog } from "@phe-rus/hino/dialog"
+import { Button } from "@passui/react/button"
+import { Dialog } from "@passui/react/dialog"
 import { useState } from "react"
 
 export function DialogUsage() {

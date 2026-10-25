@@ -42,7 +42,7 @@ function CompactTimePickerDemo({ locale, label }: DemoProps) {
 export const compactTimePickerDocs = defineDocs<DemoProps>()({
     slug: "compact-time-picker",
     name: "CompactTimePicker",
-    importPath: "@phe-rus/hino/compact-time-picker",
+    importPath: "@passui/react/compact-time-picker",
     controls: {
         label: {
             kind: "text",

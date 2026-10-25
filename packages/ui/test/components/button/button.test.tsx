@@ -1,4 +1,4 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 import { createElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
@@ -73,7 +73,7 @@ test("button sizes use the shared semantic size map", () => {
     )
 })
 
-test("button variants map to Hino semantic treatments", () => {
+test("button variants map to Passui semantic treatments", () => {
     expect(buttonStyle({ variant: "default" })).toContain(
         "bg-inverse"
     )

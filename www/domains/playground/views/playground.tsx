@@ -1,11 +1,11 @@
-import type { RegisteredDocs } from "@phe-rus/hino/docs"
+import type { RegisteredDocs } from "@passui/react/docs"
 import { useNavigate } from "@tanstack/react-router"
 import { useMemo } from "react"
 import {
     getChangedProps,
     resolveProps,
 } from "@/domains/catalog"
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 import {
     type DocsSettings,
     type PreviewViewport,

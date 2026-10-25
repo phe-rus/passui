@@ -35,7 +35,7 @@ function LocaleSwitcherDemo({ label, locales }: DemoProps) {
                 locales={sets[locales]}
                 locale={locale}
                 onSelect={setLocale}
-                storageKey="hino-docs-locale-switcher"
+                storageKey="passui-docs-locale-switcher"
             />
         </div>
     )
@@ -44,7 +44,7 @@ function LocaleSwitcherDemo({ label, locales }: DemoProps) {
 export const localeSwitcherDocs = defineDocs<DemoProps>()({
     slug: "locale-switcher",
     name: "LocaleSwitcher",
-    importPath: "@phe-rus/hino/locale-switcher",
+    importPath: "@passui/react/locale-switcher",
     controls: {
         label: {
             kind: "text",

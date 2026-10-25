@@ -1,11 +1,11 @@
-import type { textEditorDocs } from "@phe-rus/hino/docs"
+import type { textEditorDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const textEditorContent: ComponentContent<
     typeof textEditorDocs
 > = {
     summary:
-        "A multi-line text area that matches the look of Hino's text fields and grows when dragged.",
+        "A multi-line text area that matches the look of Passui's text fields and grows when dragged.",
     usage: "Use it for text that runs past one line: a bio, a message, a note. Give it a visible label.",
     propDescriptions: {
         placeholder:

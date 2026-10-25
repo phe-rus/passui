@@ -1,0 +1,130 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "ignoreUnknown": false,
+        "includes": [
+            "**/*.js",
+            "**/*.jsx",
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.json",
+            "**/*.jsonc",
+            "!**/routeTree.gen.ts",
+            "!**/worker-configuration.d.ts"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 62,
+        "lineEnding": "lf"
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "double",
+            "semicolons": "asNeeded",
+            "trailingCommas": "es5"
+        }
+    },
+    "json": {
+        "formatter": {
+            "trailingCommas": "none"
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended",
+            "style": {
+                "noNonNullAssertion": "off"
+            },
+            "suspicious": {
+                "noArrayIndexKey": "off",
+                "noExplicitAny": "warn"
+            },
+            "a11y": {
+                "useKeyWithClickEvents": "off",
+                "noStaticElementInteractions": "off"
+            }
+        }
+    },
+    "assist": {
+        "enabled": false
+    },
+    "overrides": [
+        {
+            "includes": [
+                "packages/ui/**",
+                "packages/tanstack/**",
+                "www/**"
+            ],
+            "linter": {
+                "domains": {
+                    "react": "recommended"
+                },
+                "rules": {
+                    "correctness": {
+                        "useExhaustiveDependencies": "warn"
+                    }
+                }
+            }
+        },
+        {
+            "includes": [
+                "packages/solid/**",
+                "packages/tokens/**"
+            ],
+            "linter": {
+                "domains": {
+                    "react": "none"
+                }
+            }
+        },
+        {
+            "includes": [
+                "packages/ui/src/appearance/platform.tsx",
+                "packages/ui/src/appearance/theme.tsx",
+                "www/domains/playground/views/code-view.tsx"
+            ],
+            "linter": {
+                "rules": {
+                    "security": {
+                        "noDangerouslySetInnerHtml": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": [
+                "packages/ui/src/components/compact-date-picker/compact-date-picker.tsx",
+                "packages/ui/src/icons/icons.tsx"
+            ],
+            "linter": {
+                "rules": {
+                    "correctness": {
+                        "noComponentHookFactories": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": [
+                "packages/ui/src/components/compact-date-picker/compact-date-picker.tsx"
+            ],
+            "linter": {
+                "rules": {
+                    "a11y": {
+                        "useSemanticElements": "off",
+                        "useFocusableInteractive": "off"
+                    }
+                }
+            }
+        }
+    ]
+}

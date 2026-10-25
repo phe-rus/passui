@@ -2,19 +2,19 @@ import {
     ContextMenuHost,
     DialogHost,
     TooltipHost,
-} from "@phe-rus/hino"
+} from "@passui/react"
 import {
     Cancel01Icon,
     Menu01Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { buttonStyle } from "@phe-rus/hino/button"
-import { IconButton } from "@phe-rus/hino/icon-button"
-import { Sheet } from "@phe-rus/hino/sheet"
-import { Toaster } from "@phe-rus/hino/toaster"
+import { buttonStyle } from "@passui/react/button"
+import { IconButton } from "@passui/react/icon-button"
+import { Sheet } from "@passui/react/sheet"
+import { Toaster } from "@passui/react/toaster"
 import { Link } from "@tanstack/react-router"
-import { HinoMark } from "./hino-mark"
-import { cn } from "@phe-rus/hino/cn"
+import { PassuiMark } from "./passui-mark"
+import { cn } from "@passui/react/cn"
 import {
     type ReactNode,
     useEffect,
@@ -26,12 +26,12 @@ function Mark() {
     return (
         <Link
             to="/"
-            aria-label="Hino home"
+            aria-label="Passui home"
             className="flex items-center gap-2 no-underline"
         >
-            <HinoMark />
+            <PassuiMark />
             <span className="font-display text-title3 font-black tracking-[-0.05em] text-label">
-                hino
+                passui
             </span>
         </Link>
     )
@@ -147,7 +147,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                 >
                     <div className="flex items-center justify-between px-3 pb-2">
                         <span className="text-headline font-semibold text-label">
-                            Hino
+                            Passui
                         </span>
                         <IconButton
                             label="Close"

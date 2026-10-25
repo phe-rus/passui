@@ -5,7 +5,7 @@ import { Code, CodeBlock, Prose } from "./guide-parts"
 
 export const skillsSections: TocItem[] = [
     { id: "what", title: "What a skill is" },
-    { id: "install", title: "Install the Hino skill" },
+    { id: "install", title: "Install the Passui skill" },
     { id: "llms", title: "llms.txt" },
     { id: "pages", title: "Any page as Markdown" },
     { id: "skill", title: "The skill" },
@@ -13,7 +13,7 @@ export const skillsSections: TocItem[] = [
 
 export function SkillsGuide() {
     const origin = useOrigin()
-    const skillUrl = `${origin}/skills/hino/SKILL.md`
+    const skillUrl = `${origin}/skills/passui/SKILL.md`
 
     return (
         <>
@@ -21,11 +21,12 @@ export function SkillsGuide() {
                 <Prose>
                     A skill is a Markdown file of instructions
                     an AI agent loads when a task calls for
-                    it. The Hino skill teaches an agent Hino's
-                    rules (tokens, not hex values; strings
-                    from the app; one entry point per control)
-                    and every component's import, so the code
-                    it writes looks like code written here.
+                    it. The Passui skill teaches an agent
+                    Passui's rules (tokens, not hex values;
+                    strings from the app; one entry point per
+                    control) and every component's import, so
+                    the code it writes looks like code written
+                    here.
                 </Prose>
                 <Prose>
                     It's generated from these docs, so it
@@ -36,20 +37,20 @@ export function SkillsGuide() {
 
             <DocSection
                 id="install"
-                title="Install the Hino skill"
+                title="Install the Passui skill"
                 description="Save it where your agent looks for skills."
             >
                 <Prose>Claude Code, for one project:</Prose>
                 <CodeBlock
                     lang="shellscript"
-                    code={`mkdir -p .claude/skills/hino
-curl -fsSL ${skillUrl} -o .claude/skills/hino/SKILL.md`}
+                    code={`mkdir -p .claude/skills/passui
+curl -fsSL ${skillUrl} -o .claude/skills/passui/SKILL.md`}
                 />
                 <Prose>Claude Code, for every project:</Prose>
                 <CodeBlock
                     lang="shellscript"
-                    code={`mkdir -p ~/.claude/skills/hino
-curl -fsSL ${skillUrl} -o ~/.claude/skills/hino/SKILL.md`}
+                    code={`mkdir -p ~/.claude/skills/passui
+curl -fsSL ${skillUrl} -o ~/.claude/skills/passui/SKILL.md`}
                 />
                 <Prose>
                     Other agents: save it anywhere in the

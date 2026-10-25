@@ -1,4 +1,4 @@
-import type { searchFieldDocs } from "@phe-rus/hino/docs"
+import type { searchFieldDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const searchFieldContent: ComponentContent<

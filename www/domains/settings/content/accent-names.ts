@@ -1,4 +1,4 @@
-import type { AccentId } from "@phe-rus/hino/tokens"
+import type { AccentId } from "@passui/react/tokens"
 
 type AccentNames = Record<AccentId, string>
 

@@ -1,4 +1,4 @@
-import { Chip, SwatchPicker } from "@phe-rus/hino"
+import { Chip, SwatchPicker } from "@passui/react"
 import { useState } from "react"
 
 const colors = [

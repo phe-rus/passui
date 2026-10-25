@@ -1,4 +1,4 @@
-import { CompactTimePicker } from "@phe-rus/hino/compact-time-picker"
+import { CompactTimePicker } from "@passui/react/compact-time-picker"
 import { useState } from "react"
 
 const labels = {

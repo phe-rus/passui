@@ -1,4 +1,4 @@
-import type { tabBarDocs } from "@phe-rus/hino/docs"
+import type { tabBarDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const tabBarContent: ComponentContent<

@@ -5,8 +5,8 @@ import {
     Share08Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { toast } from "@phe-rus/hino"
-import { IconButton } from "@phe-rus/hino/icon-button"
+import { toast } from "@passui/react"
+import { IconButton } from "@passui/react/icon-button"
 import { useState } from "react"
 
 export function IconButtonShowcase() {

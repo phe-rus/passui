@@ -1,0 +1,50 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "ui": "tui",
+    "tasks": {
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
+        },
+        "typecheck": {
+            "dependsOn": ["^typecheck"]
+        },
+        "lint": {
+            "dependsOn": ["^lint"]
+        },
+        "format": {
+            "cache": false
+        },
+        "check": {
+            "dependsOn": ["lint", "format"]
+        },
+        "test": {
+            "dependsOn": ["^build"]
+        },
+        "publish:check": {
+            "dependsOn": ["^publish:check"]
+        },
+        "@passui/tokens#build": {
+            "outputs": ["theme.css"]
+        },
+        "@passui/react#build": {
+            "dependsOn": ["^build"],
+            "outputs": []
+        },
+        "@passui/solid#build": {
+            "dependsOn": ["^build"],
+            "outputs": []
+        },
+        "@passui/tanstack#build": {
+            "dependsOn": ["^build"],
+            "outputs": []
+        },
+        "passui-docs#typecheck": {
+            "dependsOn": ["build", "^typecheck"]
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { StatTile } from "@phe-rus/hino/stat-tile"
+import { StatTile } from "@passui/react/stat-tile"
 
 export function StatTileUsage() {
     return (

@@ -1,4 +1,4 @@
-import type { statusIndicatorDocs } from "@phe-rus/hino/docs"
+import type { statusIndicatorDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const statusIndicatorContent: ComponentContent<

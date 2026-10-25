@@ -1,4 +1,4 @@
-import type { pickerDocs } from "@phe-rus/hino/docs"
+import type { pickerDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const pickerContent: ComponentContent<

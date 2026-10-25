@@ -1,4 +1,4 @@
-import { toast, useContextMenu } from "@phe-rus/hino"
+import { toast, useContextMenu } from "@passui/react"
 import { useState } from "react"
 
 type Note = { id: string; title: string; pinned: boolean }
@@ -64,7 +64,8 @@ export function ContextMenuList() {
                                 item.id === note.id
                                     ? {
                                           ...item,
-                                          pinned: !item.pinned,
+                                          pinned:
+                                              !item.pinned,
                                       }
                                     : item
                             )

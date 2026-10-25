@@ -33,7 +33,7 @@ const invoices = [
 export const tableDocs = defineDocs<DemoProps>()({
     slug: "table",
     name: "Table",
-    importPath: "@phe-rus/hino/table",
+    importPath: "@passui/react/table",
     controls: {
         caption: { kind: "text", default: "Recent invoices" },
         footer: { kind: "boolean", default: true },
@@ -85,7 +85,7 @@ export const tableDocs = defineDocs<DemoProps>()({
     ),
     childrenSnippet: ({ caption, footer }) => ({
         imports: [
-            `import { TableBody, ${caption ? "TableCaption, " : ""}TableCell, ${footer ? "TableFooter, " : ""}TableHead, TableHeader, TableRow } from "@phe-rus/hino/table"`,
+            `import { TableBody, ${caption ? "TableCaption, " : ""}TableCell, ${footer ? "TableFooter, " : ""}TableHead, TableHeader, TableRow } from "@passui/react/table"`,
         ],
         omit: ["caption", "footer"],
         children: [

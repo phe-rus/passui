@@ -1,10 +1,10 @@
-import { IconButton } from "@phe-rus/hino/icon-button"
+import { IconButton } from "@passui/react/icon-button"
 import { useMemo } from "react"
 import type { Column, RowData } from "@tanstack/react-table"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Cancel01Icon } from "@hugeicons/core-free-icons"
-import { Button } from "@phe-rus/hino/button"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { Button } from "@passui/react/button"
+import { Toggle } from "@passui/react/toggle"
 import type { DataTableFeatures } from "./data-table"
 import { getColumnLabel } from "./utils"
 

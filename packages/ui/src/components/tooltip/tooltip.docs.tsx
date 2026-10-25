@@ -17,7 +17,7 @@ type DemoProps = {
 export const tooltipDocs = defineDocs<DemoProps>()({
     slug: "tooltip",
     name: "TooltipHost",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         tooltip: {
             kind: "text",
@@ -32,7 +32,7 @@ export const tooltipDocs = defineDocs<DemoProps>()({
     ),
     childrenSnippet: ({ tooltip }) => ({
         imports: [
-            'import { Button } from "@phe-rus/hino/button"',
+            'import { Button } from "@passui/react/button"',
         ],
         element: "div",
         omit: ["tooltip"],

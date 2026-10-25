@@ -1,6 +1,6 @@
-import { toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { DatePicker } from "@phe-rus/hino/date-picker"
+import { toast } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { DatePicker } from "@passui/react/date-picker"
 import { useState } from "react"
 
 export function DatePickerShowcase() {

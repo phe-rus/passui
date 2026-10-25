@@ -1,8 +1,8 @@
-# Hino UI
+# Passui UI
 
-Pherus started from the recorded Notables snapshot in [UPSTREAM.md](UPSTREAM.md). This package contains native controls and design tokens together. TanStack integrations are a separate package in `../tanstack/`. Pass and Accounts use the application stylesheet; www keeps its existing website stylesheet and visual arrangement.
+Pherus started from the recorded Notables snapshot in [UPSTREAM.md](UPSTREAM.md). This package contains native React controls and consumes shared design tokens from `@passui/tokens` in `../tokens/`. TanStack integrations are a separate package in `../tanstack/`. Pass and Accounts use the application stylesheet; www keeps its existing website stylesheet and visual arrangement.
 
-Owner rule: Hino uses its own native React controls. Do not introduce @base-ui/react or shadcn primitives as runtime dependencies. Use their readable composition and accessibility conventions as inspiration, while preserving Hino's interaction contracts and visual identity.
+Owner rule: Passui uses its own native React controls. Do not introduce @base-ui/react or shadcn primitives as runtime dependencies. Use their readable composition and accessibility conventions as inspiration, while preserving Passui's interaction contracts and visual identity.
 
 Our design language: what Liquid Glass is to Apple and Material 3 is to
 Google. Built for Notables first and for later apps, so nothing in here
@@ -17,12 +17,12 @@ black box.
 
 | Package | Folder | Holds |
 |---|---|---|
-| `@phe-rus/hino` | `packages/hino/` | Native controls, presentation, appearance, hooks, styles and design tokens. |
-| `@phe-rus/hino-tanstack` | `packages/tanstack/` | Form, table and router integrations; imports native controls. |
+| `@passui/react` | `packages/ui/` | Native controls, presentation, appearance, hooks, styles and design tokens. |
+| `@passui/tanstack` | `packages/tanstack/` | Form, table and router integrations; imports native controls. |
 
-An app imports one stylesheet, `@phe-rus/hino/styles.css` (or
-`@phe-rus/hino-tanstack/styles.css`, which includes it). It brings in Tailwind,
-the theme, utilities, base and typeset, and registers Hino's own files
+An app imports one stylesheet, `@passui/react/styles.css` (or
+`@passui/tanstack/styles.css`, which includes it). It brings in Tailwind,
+the theme, utilities, base and typeset, and registers Passui's own files
 with `@source`, so apps add no paths; Tailwind finds the app's files by
 itself. `theme.css`, `utilities.css`, `base.css` and `typeset.css` stay
 exported for `www`, which composes its own website stylesheet from them.
@@ -38,7 +38,7 @@ exported for `www`, which composes its own website stylesheet from them.
   `footnote`. Our own concepts keep plain English names.
 - **One component, one folder:** `src/components/<kebab-name>/<kebab-name>.tsx`,
   with its store and hooks beside it. Tests, helpers and fixtures live
-  in `test/`, mirroring `src/`; token tests live in `tokens/test/`.
+  in `test/`, mirroring `src/`; token tests live in `../tokens/test/`.
   Export the component from `src/index.ts`.
 - **Typed choices.** Props with fixed options, such as `size`, `variant` or
   `tone`, use named string literal unions rather than `string`. Export those
@@ -48,12 +48,12 @@ exported for `www`, which composes its own website stylesheet from them.
   (`MotionConfig reducedMotion="user"` in the app) and each platform's
   conventions through the platform variants below.
 - **Every string comes from the app.** Components take labels as props;
-  Hino has no copy of its own, so apps translate everything.
+  Passui has no copy of its own, so apps translate everything.
 - **Artwork SVGs carry `data-brand`**, or the two-tone icon style dims them.
 
 ## Color
 
-Semantic roles, light and dark, in `tokens/src/color.ts`, as Tailwind
+Semantic roles, light and dark, in `../tokens/src/color.ts`, as Tailwind
 colors (`bg-paper`, `text-label-secondary`):
 
 - Grounds: `background`, `sidebar`, `surface`, `paper`, `elevated`, `fill`, `separator`.
@@ -70,7 +70,7 @@ colors (`bg-paper`, `text-label-secondary`):
 - Status: `success`, `warning`, `danger`, `highlight`, `heart`, `inverse`, `on-inverse`.
 - Materials: `glass-highlight`, `glass-rim`, `shadow-floating`, `shadow-menu`.
 
-Every pairing is checked for WCAG AA contrast in `tokens/test`.
+Every pairing is checked for WCAG AA contrast in `../tokens/test`.
 
 **Appearance for part of a screen.** Like SwiftUI's `colorScheme`
 environment, `data-theme="dark"` or `"light"` works on any element, so a
@@ -150,14 +150,14 @@ expect (flush, solid bottom bar; solid top bars); Apple platforms get glass.
 
 ## Motion
 
-Springs in `tokens/src/motion.ts`, used through `spring` in
+Springs in `../tokens/src/motion.ts`, used through `spring` in
 `src/motion/transitions.ts`: `smooth` for most transitions, `snappy` for
 small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 
 ## Docs
 
 Every component has docs for the site in `www`, split so code
-breaks loudly and prose stays out of Hino:
+breaks loudly and prose stays out of Passui:
 
 - `src/components/<name>/<slug>.docs.tsx`: `defineDocs<Props>()` with the
   playground's controls, a `render`, an optional `childrenSnippet`, and
@@ -165,7 +165,7 @@ breaks loudly and prose stays out of Hino:
 - `src/components/<name>/examples/<slug>-<id>.tsx`: one real example per
   file, exporting exactly one function named `<Slug><Id>` (for example
   `table-empty.tsx` exports `TableEmpty`). The site shows the file's own
-  source, so it imports from `@phe-rus/hino/...` as an app would.
+  source, so it imports from `@passui/react/...` as an app would.
   Every page needs `usage`, `showcase` and at least two examples.
 - The words (summary, prop descriptions, example titles, practices) live
   in `www/domains/catalog/content/<slug>.ts`, typed against the
@@ -198,8 +198,8 @@ breaks loudly and prose stays out of Hino:
 
 ## Repository and public package
 
-This repository owns Hino's UI source and is developed as its own
-checkout (`~/pherus/hino`). Pherus consumes published npm releases, not
+This repository owns Passui's UI source and is developed as its own
+checkout (`~/pherus/passui`). Pherus consumes published npm releases, not
 a submodule or sibling files; the docs website lives in `www` and the
 optional TanStack integration in `packages/tanstack`, both in this
 repository. Dependency versions here are explicit so this repo
@@ -214,7 +214,7 @@ outside the repository. Validate typecheck and tests before publishing.
 `.github/workflows/publish.yml` runs manually on `main`, using the
 `npm-publish` GitHub environment and job scoped `id-token: write`.
 Bun installs, tests and packs; npm publishes the tarball with OIDC.
-The npm trusted publisher must match `phe-rus/hino`, `publish.yml`
+The npm trusted publisher must match `phe-rus/passui`, `publish.yml`
 and `npm-publish`. No npm token secret is needed.
 
 ## Integration boundaries
@@ -234,5 +234,5 @@ panel scrolling does not minimize the navigation behind them.
 UI 0.1.10: anchored menus measure before revealing, preserve the trigger's
 rectangle through the opening/closing spring, and restore its opacity on cleanup.
 Point menus retain a compact reveal. Material rim roles differ by appearance;
-regenerate tokens/theme.css after changing tokens/src/color.ts. Geometry tests
+regenerate ../tokens/theme.css after changing ../tokens/src/color.ts. Geometry tests
 cover a menu flipped above its trigger and an empty/detached anchor.

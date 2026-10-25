@@ -1,9 +1,4 @@
-import {
-    afterEach,
-    describe,
-    expect,
-    test,
-} from "vite-plus/test"
+import { afterEach, describe, expect, test } from "vitest"
 import {
     mkdtemp,
     readFile,
@@ -30,7 +25,7 @@ async function fixture(
     }
 ) {
     const root = await mkdtemp(
-        join(tmpdir(), "hino-cli-test-")
+        join(tmpdir(), "passui-cli-test-")
     )
     directories.push(root)
     await writeFile(
@@ -72,7 +67,7 @@ describe("existing project setup", () => {
         const root = await fixture({
             react: "19.3.0",
             vite: "8.3.1",
-            "@phe-rus/hino": "0.1.1",
+            "@passui/react": "0.1.1",
         })
         await writeFile(
             join(root, "app.tsx"),
@@ -85,11 +80,11 @@ describe("existing project setup", () => {
         )
         expect(manifest.scripts.dev).toBe("custom")
         expect(manifest.dependencies.react).toBe("19.3.0")
-        expect(manifest.dependencies["@phe-rus/hino"]).toBe(
+        expect(manifest.dependencies["@passui/react"]).toBe(
             "0.1.1"
         )
         expect(
-            manifest.dependencies["@phe-rus/hino-tanstack"]
+            manifest.dependencies["@passui/tanstack"]
         ).toBeUndefined()
         expect(
             manifest.devDependencies["@tailwindcss/vite"]
@@ -103,9 +98,9 @@ describe("existing project setup", () => {
     })
     test("rejects conflicts before changing the manifest", async () => {
         const root = await fixture()
-        await mkdir(join(root, "hino"))
+        await mkdir(join(root, "passui"))
         await writeFile(
-            join(root, "hino/providers.tsx"),
+            join(root, "passui/providers.tsx"),
             "user content"
         )
         const before = await readFile(
@@ -118,14 +113,14 @@ describe("existing project setup", () => {
         expect(
             await readFile(join(root, "package.json"), "utf8")
         ).toBe(before)
-        expect(await readdir(join(root, "hino"))).toEqual([
+        expect(await readdir(join(root, "passui"))).toEqual([
             "providers.tsx",
         ])
     })
     test("rejects symlink destinations without writing through them", async () => {
         const root = await fixture()
         const other = await fixture()
-        await symlink(other, join(root, "hino"), "dir")
+        await symlink(other, join(root, "passui"), "dir")
         await expect(
             planProject(options(root))
         ).rejects.toThrow("Refusing symlink")
@@ -155,15 +150,15 @@ describe("existing project setup", () => {
             plan.files["package.json"]
         )
         expect(plan.framework).toBe("next")
-        expect(plan.files["hino/styles.css"]).toContain(
-            "hino-tanstack/styles.css"
+        expect(plan.files["passui/styles.css"]).toContain(
+            "@passui/tanstack/styles.css"
         )
         expect(
-            plan.files["hino/providers.tsx"]?.startsWith(
+            plan.files["passui/providers.tsx"]?.startsWith(
                 '"use client"'
             )
         ).toBe(true)
-        expect(plan.files["hino/README.md"]).toContain(
+        expect(plan.files["passui/README.md"]).toContain(
             "transpilePackages"
         )
         expect(
@@ -202,13 +197,13 @@ describe("new project starters", () => {
             await writePlan(plan)
             expect(
                 await readFile(
-                    join(root, "hino/styles.css"),
+                    join(root, "passui/styles.css"),
                     "utf8"
                 )
             ).toContain(
                 template === "tanstack"
-                    ? "hino-tanstack"
-                    : "hino/styles"
+                    ? "@passui/tanstack/styles.css"
+                    : "@passui/react/styles.css"
             )
             const entry = await readFile(
                 join(
@@ -219,7 +214,7 @@ describe("new project starters", () => {
                 ),
                 "utf8"
             )
-            expect(entry).toContain("HinoProvider")
+            expect(entry).toContain("PassuiProvider")
             if (template === "tanstack")
                 expect(entry).toContain("after={<Scripts />}")
             await expect(

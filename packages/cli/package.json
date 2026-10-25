@@ -1,20 +1,20 @@
 {
-    "name": "@phe-rus/hino-cli",
+    "name": "@passui/cli",
     "version": "0.1.1",
-    "description": "Set up Hino in React projects and create Hino starters.",
+    "description": "Set up Passui in React projects and create Passui starters.",
     "type": "module",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/phe-rus/hino.git",
+        "url": "git+https://github.com/phe-rus/passui.git",
         "directory": "packages/cli"
     },
-    "homepage": "https://hino.pherus.org/docs/installation",
+    "homepage": "https://passui.pherus.org/docs/installation",
     "bin": {
-        "hino": "dist/hino.js"
+        "passui": "dist/passui.js"
     },
     "files": [
-        "dist",
+        "dist/passui.js",
         "README.md",
         "LICENSE"
     ],
@@ -26,15 +26,17 @@
         "registry": "https://registry.npmjs.org"
     },
     "scripts": {
-        "build": "bun build src/index.ts --target=node --outfile=dist/hino.js && chmod +x dist/hino.js",
+        "build": "bun build src/index.ts --target=node --outfile=dist/passui.js && chmod +x dist/passui.js",
         "typecheck": "tsc --noEmit",
-        "test": "bun run build && vp test",
+        "test": "bun run build && vitest run",
         "prepack": "bun run build",
         "publish:check": "bun pm pack --dry-run"
     },
     "devDependencies": {
         "@types/node": "^26.6.3",
         "typescript": "^7.0.2",
-        "vite-plus": "1.2.0"
+        "vitest": "5.0.5",
+        "vite": "8.3.5",
+        "oxc-parser": "0.155.0"
     }
 }

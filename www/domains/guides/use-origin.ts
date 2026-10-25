@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 /** Where the site will live once deployed (Stage 6 of the docs spec). */
-const plannedOrigin = "https://hino.pherus.org"
+const plannedOrigin = "https://passui.pherus.org"
 
 /**
  * The site's own address, for commands people copy. The server can't

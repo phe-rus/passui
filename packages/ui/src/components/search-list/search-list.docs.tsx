@@ -31,7 +31,7 @@ const settings = [
 export const searchListDocs = defineDocs<DemoProps>()({
     slug: "search-list",
     name: "SearchList",
-    importPath: "@phe-rus/hino/search-list",
+    importPath: "@passui/react/search-list",
     controls: {
         open: { kind: "boolean", default: true },
         placeholder: {
@@ -60,7 +60,7 @@ export const searchListDocs = defineDocs<DemoProps>()({
     ),
     childrenSnippet: ({ placeholder, empty }) => ({
         imports: [
-            'import { SearchListEmpty, SearchListField, SearchListItem, SearchListResults } from "@phe-rus/hino/search-list"',
+            'import { SearchListEmpty, SearchListField, SearchListItem, SearchListResults } from "@passui/react/search-list"',
         ],
         omit: ["placeholder", "empty"],
         children: [

@@ -10,10 +10,10 @@ import {
     type PackageManager,
 } from "./project"
 
-const help = `Hino project setup
+const help = `Passui project setup
 
-  bunx @phe-rus/hino-cli init [--dir .] [--integration tanstack]
-  bunx @phe-rus/hino-cli create my-app [--template vite|tanstack]
+  bunx @passui/cli init [--dir .] [--integration tanstack]
+  bunx @passui/cli create my-app [--template vite|tanstack]
 
 Options:
   --pm bun|npm|pnpm|yarn  Package manager (detected, otherwise Bun)
@@ -22,7 +22,7 @@ Options:
   --help                 Show help
   --version              Show CLI version
 
-Existing projects get hino/styles.css, hino/providers.tsx and wiring
+Existing projects get passui/styles.css, passui/providers.tsx and wiring
 instructions. Application roots and bundler configs stay yours to edit.
 `
 
@@ -112,11 +112,11 @@ async function main() {
     console.log(
         command === "create"
             ? `Ready. Run ${plan.manager} run dev in ${plan.root}.`
-            : "Setup files are ready. Follow hino/README.md to wire your app root and Tailwind pipeline."
+            : "Setup files are ready. Follow passui/README.md to wire your app root and Tailwind pipeline."
     )
 }
 
 main().catch((error: Error) => {
-    console.error(`Hino: ${error.message}`)
+    console.error(`Passui: ${error.message}`)
     process.exitCode = 1
 })

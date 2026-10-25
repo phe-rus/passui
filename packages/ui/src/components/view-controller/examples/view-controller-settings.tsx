@@ -1,5 +1,5 @@
-import { LabeledContent, Section } from "@phe-rus/hino"
-import { ViewController } from "@phe-rus/hino/view-controller"
+import { LabeledContent, Section } from "@passui/react"
+import { ViewController } from "@passui/react/view-controller"
 
 export function ViewControllerSettings() {
     return (

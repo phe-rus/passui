@@ -1,5 +1,5 @@
-import { Section, toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
+import { Section, toast } from "@passui/react"
+import { Button } from "@passui/react/button"
 
 export function SectionActions() {
     return (

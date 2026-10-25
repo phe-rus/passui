@@ -1,4 +1,4 @@
-import { accents } from "@phe-rus/hino/tokens"
+import { accents } from "@passui/react/tokens"
 import type { CSSProperties } from "react"
 import type { ShowcaseTheme } from "./types"
 

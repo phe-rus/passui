@@ -10,7 +10,7 @@ type ChipProps = { tone?: ChipTone; children?: string }
 export const chipDocs = defineDocs<ChipProps>()({
     slug: "chip",
     name: "Chip",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         tone: {
             kind: "select",

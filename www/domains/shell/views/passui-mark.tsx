@@ -1,19 +1,19 @@
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 
-type HinoMarkProps = {
+type PassuiMarkProps = {
     className?: string
     /** Lets the sun rise into place once, on first paint. */
     animated?: boolean
 }
 
 /**
- * The Hino mark: the sun, 日 ("hi"), in Blush. The brand colour stays
+ * The Passui mark: the sun in Blush. The brand colour stays
  * fixed whatever accent the page wears; dark mode uses the soft Blush.
  */
-export function HinoMark({
+export function PassuiMark({
     className,
     animated,
-}: HinoMarkProps) {
+}: PassuiMarkProps) {
     return (
         <svg
             viewBox="0 0 32 32"

@@ -61,7 +61,7 @@ function DialogDemo({
 export const dialogDocs = defineDocs<DemoProps>()({
     slug: "dialog",
     name: "Dialog",
-    importPath: "@phe-rus/hino/dialog",
+    importPath: "@passui/react/dialog",
     controls: {
         title: {
             kind: "text",

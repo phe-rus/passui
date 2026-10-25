@@ -1,4 +1,4 @@
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 import { useEffect, useState } from "react"
 
 export type TocItem = {

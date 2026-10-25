@@ -1,4 +1,4 @@
-import { IconButton } from "@phe-rus/hino/icon-button"
+import { IconButton } from "@passui/react/icon-button"
 import { ArrowUp02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import type { ReactNode } from "react"

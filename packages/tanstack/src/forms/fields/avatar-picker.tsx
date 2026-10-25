@@ -11,12 +11,12 @@ import {
     ProfileImage,
     ProfileImageFallback,
     ProfileImageContent,
-} from "@phe-rus/hino/profile-image"
-import { Button } from "@phe-rus/hino/button"
-import { Sheet } from "@phe-rus/hino/sheet"
+} from "@passui/react/profile-image"
+import { Button } from "@passui/react/button"
+import { Sheet } from "@passui/react/sheet"
 import { createPortal } from "react-dom"
-import { cn } from "@phe-rus/hino/cn"
-import { Ambient } from "@phe-rus/hino/ambient"
+import { cn } from "@passui/react/cn"
+import { Ambient } from "@passui/react/ambient"
 
 export type AvatarPickerLabels = {
     photo: string

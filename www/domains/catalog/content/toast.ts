@@ -1,4 +1,4 @@
-import type { toastDocs } from "@phe-rus/hino/docs"
+import type { toastDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const toastContent: ComponentContent<

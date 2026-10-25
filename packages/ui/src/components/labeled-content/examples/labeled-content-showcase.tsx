@@ -2,14 +2,14 @@ import {
     LabeledContent,
     Section,
     SegmentedControl,
-} from "@phe-rus/hino"
-import { TextField } from "@phe-rus/hino/text-field"
+} from "@passui/react"
+import { TextField } from "@passui/react/text-field"
 import { useState } from "react"
 
 export function LabeledContentShowcase() {
     const [density, setDensity] = useState("comfortable")
     const [signature, setSignature] = useState(
-        "Sent from Hino"
+        "Sent from Passui"
     )
 
     return (

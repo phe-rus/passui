@@ -1,12 +1,12 @@
-import { Sheet } from "@phe-rus/hino/sheet"
+import { Sheet } from "@passui/react/sheet"
 import {
     AnimatePresence,
     motion,
     useReducedMotion,
 } from "motion/react"
 import { createPortal } from "react-dom"
-import { Button } from "@phe-rus/hino/button"
-import { cn } from "@phe-rus/hino/cn"
+import { Button } from "@passui/react/button"
+import { cn } from "@passui/react/cn"
 import {
     createContext,
     useContext,

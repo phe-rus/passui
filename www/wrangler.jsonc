@@ -1,11 +1,12 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "hino",
+    "name": "passui",
     "compatibility_date": "2026-08-08",
     "compatibility_flags": ["nodejs_compat"],
     "main": "src/server.ts",
     "observability": {
-        "enabled": true
+        "enabled": true,
+        "traces": { "enabled": true }
     },
     "workers_dev": false,
     "preview_urls": false,
@@ -16,7 +17,7 @@
     "routes": [
         {
             "custom_domain": true,
-            "pattern": "hino.pherus.org"
+            "pattern": "passui.pherus.org"
         }
     ]
 }

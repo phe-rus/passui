@@ -20,7 +20,7 @@ const minutesAgo = (minutes: number) =>
 export const conversationDocs = defineDocs<DemoProps>()({
     slug: "conversation",
     name: "Conversation",
-    importPath: "@phe-rus/hino/conversation",
+    importPath: "@passui/react/conversation",
     controls: {
         author: { kind: "text", default: "Support" },
         avatar: { kind: "boolean", default: true },

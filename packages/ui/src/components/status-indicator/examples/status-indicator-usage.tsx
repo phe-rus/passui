@@ -1,4 +1,4 @@
-import { StatusIndicator } from "@phe-rus/hino"
+import { StatusIndicator } from "@passui/react"
 
 export function StatusIndicatorUsage() {
     return (

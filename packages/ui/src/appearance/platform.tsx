@@ -81,7 +81,7 @@ export function PlatformScript({
 }) {
     return (
         <script
-            // oxlint-disable-next-line react/no-danger -- Run the library's platform bootstrap before first paint.
+            // Run the library's platform bootstrap before first paint.
             dangerouslySetInnerHTML={{
                 __html: `(${initializePlatform.toString()})(${resolvePlatform.toString()}, document.documentElement, navigator.userAgent, navigator.platform, navigator.maxTouchPoints)`,
             }}

@@ -1,4 +1,4 @@
-import type { labeledContentDocs } from "@phe-rus/hino/docs"
+import type { labeledContentDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const labeledContentContent: ComponentContent<

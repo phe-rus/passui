@@ -45,7 +45,7 @@ function PopoverDemo({ origin }: DemoProps) {
 export const popoverDocs = defineDocs<PopoverProps>()({
     slug: "popover",
     name: "Popover",
-    importPath: "@phe-rus/hino/popover",
+    importPath: "@passui/react/popover",
     controls: {
         origin: {
             kind: "select",
@@ -57,7 +57,7 @@ export const popoverDocs = defineDocs<PopoverProps>()({
     childrenSnippet: ({ origin }) => ({
         imports: [
             'import { useRef, useState } from "react"',
-            'import { useDismiss } from "@phe-rus/hino/use-dismiss"',
+            'import { useDismiss } from "@passui/react/use-dismiss"',
         ],
         setup: [
             "const [open, setOpen] = useState(false)",

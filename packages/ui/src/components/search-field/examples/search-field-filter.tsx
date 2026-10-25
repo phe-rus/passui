@@ -2,7 +2,7 @@ import {
     LabeledContent,
     SearchField,
     Section,
-} from "@phe-rus/hino"
+} from "@passui/react"
 import { useState } from "react"
 
 const apps = [

@@ -15,7 +15,7 @@ type DemoProps = {
 export const statTileDocs = defineDocs<DemoProps>()({
     slug: "stat-tile",
     name: "StatTile",
-    importPath: "@phe-rus/hino/stat-tile",
+    importPath: "@passui/react/stat-tile",
     controls: {
         label: {
             kind: "text",

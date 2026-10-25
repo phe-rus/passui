@@ -1,4 +1,4 @@
-import { spring } from "@phe-rus/hino"
+import { spring } from "@passui/react"
 import { motion } from "motion/react"
 import type { ReactNode } from "react"
 

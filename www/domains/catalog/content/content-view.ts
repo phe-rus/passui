@@ -1,4 +1,4 @@
-import type { contentViewDocs } from "@phe-rus/hino/docs"
+import type { contentViewDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const contentViewContent: ComponentContent<

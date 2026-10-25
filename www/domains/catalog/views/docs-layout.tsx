@@ -4,9 +4,9 @@ import {
     SidebarItemContent,
     SidebarSection,
     sidebarItemClass,
-} from "@phe-rus/hino/sidebar"
-import { cn } from "@phe-rus/hino/cn"
-import { Sheet } from "@phe-rus/hino/sheet"
+} from "@passui/react/sidebar"
+import { cn } from "@passui/react/cn"
+import { Sheet } from "@passui/react/sheet"
 import { Link, useLocation } from "@tanstack/react-router"
 import {
     type ReactNode,

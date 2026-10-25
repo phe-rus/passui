@@ -1,42 +1,44 @@
-# Hino repository
+# Passui repository
 
-This public Bun workspace repository owns Hino's framework independent
-UI, its optional TanStack integration and its CLI. Develop it as its own checkout, conventionally `~/pherus/hino`.
+This public Bun workspace repository owns Passui's framework independent
+UI, its optional TanStack integration and its CLI. Develop it as its own checkout, conventionally `~/pherus/passui`.
 Pherus consumes published npm releases, not a submodule or sibling files. The official website lives in `www/` here; Pherus apps
 remain outside this repo.
 
 ## Packages
 
-* `packages/ui`, `@phe-rus/hino`: native React controls, tokens,
+* `packages/tokens`, `@passui/tokens`: shared framework independent tokens and styles.
+* `packages/solid`, `@passui/solid`: Stage 1 foundation only, no public controls yet.
+* `packages/ui`, `@passui/react`: native React controls,
   appearance, typed docs and examples. See `packages/ui/AGENTS.md`.
-* `packages/tanstack`, `@phe-rus/hino-tanstack`: optional form, table,
+* `packages/tanstack`, `@passui/tanstack`: optional form, table,
   router and query integrations. See `packages/tanstack/AGENTS.md`.
-* `packages/cli`, `@phe-rus/hino-cli`: project setup tooling. See
+* `packages/cli`, `@passui/cli`: project setup tooling. See
   `packages/cli/AGENTS.md` for file safety and starter conventions.
 
 Dependency direction is CLI setup tooling and optional integrations
-toward the UI. The UI itself remains independent of TanStack and CLI.
+toward the UI and shared tokens. The UI itself remains independent of TanStack and CLI.
 Use package specifiers across package boundaries. Keep dependency
 versions explicit so this repo works without Pherus's catalogs.
 
 Tests, helpers and fixtures live in each package's `test/` directory,
-outside `src/`. UI tokens retain `tokens/test/` beside `tokens/src/`.
+outside `src/`. Shared tokens and their tests live in `packages/tokens`.
 
 ## Checks and publishing
 
 Use Bun for installation, typecheck and packing; tests run on Vitest
-through Vite+ (`vp test`, importing from `vite-plus/test`), and
-`bun run check` runs Oxfmt and Oxlint from the root `vite.config.ts`.
-The CLI's test script builds `dist/hino.js` first and tests the
+through Vitest (`vitest run`, importing from `vitest`), and
+`bun run check` runs Biome from the root `biome.json`.
+The CLI's test script builds `dist/passui.js` first and tests the
 published bin. Root scripts
-run the matching task across Hino packages. CI and public npm release
+run the matching task across Passui packages. CI and public npm release
 workflows live in this repository, not private Pherus.
 
 `publish.yml` uses GitHub environment `npm-publish` and job scoped
 `id-token: write`. npm publishes Bun packed tarballs using OIDC;
 no npm token secret is needed. Each package needs its own npm trusted
-publisher matching `phe-rus/hino`, `publish.yml` and `npm-publish`.
-Publish the UI before dependent integration releases. npm versions
+publisher matching `phe-rus/passui`, `publish.yml` and `npm-publish`.
+Publish tokens before React or Solid, and React before TanStack. npm versions
 cannot be overwritten. Credentials stay outside tracked files.
 
 Route files contain only imports, `export const Route` and an optional

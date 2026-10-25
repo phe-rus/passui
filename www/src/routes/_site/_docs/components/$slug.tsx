@@ -24,7 +24,7 @@ export const Route = createFileRoute(
     head: ({ params }) =>
         getPageHead(
             `/components/${params.slug}`,
-            `${getEntry(params.slug)?.docs.name ?? "Not found"} · Hino`,
+            `${getEntry(params.slug)?.docs.name ?? "Not found"} · Passui`,
             getEntry(params.slug)?.content.summary ?? ""
         ),
     notFoundComponent: ComponentNotFound,

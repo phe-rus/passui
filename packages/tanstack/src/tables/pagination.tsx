@@ -1,4 +1,4 @@
-import { IconButton } from "@phe-rus/hino/icon-button"
+import { IconButton } from "@passui/react/icon-button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
     ChevronFirstIcon,
@@ -10,7 +10,7 @@ import type {
     ReactTable,
     RowData,
 } from "@tanstack/react-table"
-import { Picker } from "@phe-rus/hino"
+import { Picker } from "@passui/react"
 import type { DataTableFeatures } from "./data-table"
 
 type DataTablePaginationProps<TData extends RowData> = {

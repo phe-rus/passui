@@ -1,4 +1,4 @@
-import { Conversation } from "@phe-rus/hino/conversation"
+import { Conversation } from "@passui/react/conversation"
 import { useState } from "react"
 
 export function ConversationComposer() {

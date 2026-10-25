@@ -1,4 +1,4 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 import { viewportMetrics } from "../src/hooks/viewport/viewport-metrics"
 
 const baseline = { width: 390, height: 844 }

@@ -34,7 +34,7 @@ function PickerDemo(props: DemoProps) {
 export const pickerDocs = defineDocs<DemoProps>()({
     slug: "picker",
     name: "Picker",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         label: {
             kind: "text",

@@ -1,4 +1,4 @@
-import { TabView } from "@phe-rus/hino/tab-view"
+import { TabView } from "@passui/react/tab-view"
 
 const days = [
     { value: "mon", label: "Mon" },

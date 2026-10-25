@@ -18,7 +18,7 @@ type DemoProps = {
 export const viewControllerDocs = defineDocs<DemoProps>()({
     slug: "view-controller",
     name: "ViewController",
-    importPath: "@phe-rus/hino/view-controller",
+    importPath: "@passui/react/view-controller",
     controls: {
         title: { kind: "text", default: "Security" },
         description: {

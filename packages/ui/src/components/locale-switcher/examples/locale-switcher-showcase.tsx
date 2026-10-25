@@ -1,4 +1,4 @@
-import { LocaleSwitcher } from "@phe-rus/hino/locale-switcher"
+import { LocaleSwitcher } from "@passui/react/locale-switcher"
 import { useState } from "react"
 
 const greetings: Record<

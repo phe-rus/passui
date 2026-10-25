@@ -43,7 +43,7 @@ function CompactDatePickerDemo({ locale, label }: DemoProps) {
 export const compactDatePickerDocs = defineDocs<DemoProps>()({
     slug: "compact-date-picker",
     name: "CompactDatePicker",
-    importPath: "@phe-rus/hino/compact-date-picker",
+    importPath: "@passui/react/compact-date-picker",
     controls: {
         label: {
             kind: "text",

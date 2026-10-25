@@ -2,7 +2,7 @@ import {
     LabeledContent,
     Picker,
     Section,
-} from "@phe-rus/hino"
+} from "@passui/react"
 import { useState } from "react"
 
 export function PickerDetails() {

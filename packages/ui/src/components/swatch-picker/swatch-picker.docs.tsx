@@ -1,7 +1,7 @@
 import { SwatchPickerLabels } from "./examples/swatch-picker-labels"
 import { SwatchPickerAccents } from "./examples/swatch-picker-accents"
 import { useState } from "react"
-import { accents } from "../../../tokens/src/accent"
+import { accents } from "@passui/tokens/accent"
 import { defineDocs } from "../../docs/types"
 import { SwatchPickerShowcase } from "./examples/swatch-picker-showcase"
 import { SwatchPickerUsage } from "./examples/swatch-picker-usage"
@@ -29,7 +29,7 @@ function SwatchPickerDemo({ label }: DemoProps) {
 export const swatchPickerDocs = defineDocs<DemoProps>()({
     slug: "swatch-picker",
     name: "SwatchPicker",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         label: {
             kind: "text",

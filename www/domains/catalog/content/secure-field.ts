@@ -1,4 +1,4 @@
-import type { secureFieldDocs } from "@phe-rus/hino/docs"
+import type { secureFieldDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const secureFieldContent: ComponentContent<

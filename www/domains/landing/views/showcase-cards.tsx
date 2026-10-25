@@ -8,9 +8,9 @@ import {
     TextField,
     Toggle,
     toast,
-} from "@phe-rus/hino"
-import { cn } from "@phe-rus/hino/cn"
-import { StatTile } from "@phe-rus/hino/stat-tile"
+} from "@passui/react"
+import { cn } from "@passui/react/cn"
+import { StatTile } from "@passui/react/stat-tile"
 import { type ReactNode, useState } from "react"
 import { accentNames } from "@/domains/settings"
 import { getThemeStyle } from "../get-theme-style"

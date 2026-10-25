@@ -1,4 +1,4 @@
-import type { searchListDocs } from "@phe-rus/hino/docs"
+import type { searchListDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const searchListContent: ComponentContent<

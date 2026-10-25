@@ -14,7 +14,7 @@ import {
     SidebarItemContent,
     SidebarSection,
     sidebarItemClass,
-} from "@phe-rus/hino/sidebar"
+} from "@passui/react/sidebar"
 import { useState } from "react"
 
 type Row = {

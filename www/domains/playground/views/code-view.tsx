@@ -3,9 +3,9 @@ import {
     Tick02Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { toast } from "@phe-rus/hino"
-import { cn } from "@phe-rus/hino/cn"
-import { IconButton } from "@phe-rus/hino/icon-button"
+import { toast } from "@passui/react"
+import { cn } from "@passui/react/cn"
+import { IconButton } from "@passui/react/icon-button"
 import { useState } from "react"
 import { type CodeLang, useHighlight } from "../use-highlight"
 
@@ -68,7 +68,7 @@ export function CodeView({
                 {html ? (
                     <div
                         className="[&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:p-5 [&_pre]:pe-16 [&_pre]:font-mono [&_pre]:text-footnote [&_pre]:leading-relaxed"
-                        // oxlint-disable-next-line react/no-danger -- Shiki escapes the displayed example source
+                        // Shiki escapes the displayed example source
                         dangerouslySetInnerHTML={{
                             __html: html,
                         }}

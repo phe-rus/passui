@@ -1,10 +1,10 @@
 import { usePreviewDocumentAttributes } from "@/domains/preview"
-import { ComposeViewport } from "@phe-rus/hino-tanstack/document"
+import { ComposeViewport } from "@passui/tanstack/document"
 import tailwind from "@/styles/site.css?url"
 import {
     PlatformProvider,
     PlatformScript,
-} from "@phe-rus/hino/appearance"
+} from "@passui/react/appearance"
 import {
     HeadContent,
     Outlet,
@@ -16,6 +16,12 @@ export const Route = createRootRoute({
     head: () => ({
         meta: [
             { charSet: "utf-8" },
+            { title: "Passui · Native React controls" },
+            {
+                name: "description",
+                content:
+                    "Native React controls, shared design tokens and themes from Passui, Pherus's design system.",
+            },
             {
                 name: "viewport",
                 content:

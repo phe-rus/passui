@@ -24,7 +24,7 @@ function show({ tone, title, description }: DemoProps) {
 export const toastDocs = defineDocs<DemoProps>()({
     slug: "toast",
     name: "toast",
-    importPath: "@phe-rus/hino/toast",
+    importPath: "@passui/react/toast",
     controls: {
         tone: {
             kind: "select",
@@ -58,7 +58,7 @@ export const toastDocs = defineDocs<DemoProps>()({
             : ""
         return {
             imports: [
-                'import { Button } from "@phe-rus/hino/button"',
+                'import { Button } from "@passui/react/button"',
             ],
             element: "Button",
             omit: ["tone", "title", "description"],

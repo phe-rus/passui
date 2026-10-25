@@ -1,4 +1,4 @@
-import { toast, useContextMenu } from "@phe-rus/hino"
+import { toast, useContextMenu } from "@passui/react"
 
 const photos = [
     { id: "aiko", src: "/avatars/aiko.svg" },

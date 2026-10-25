@@ -5,12 +5,12 @@ import {
     StarIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { TextField, toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
+import { TextField, toast } from "@passui/react"
+import { Button } from "@passui/react/button"
 import { useState } from "react"
 
 export function ButtonShowcase() {
-    const [name, setName] = useState("Hino launch")
+    const [name, setName] = useState("Passui launch")
     const [saving, setSaving] = useState(false)
 
     async function save() {
@@ -78,7 +78,9 @@ export function ButtonShowcase() {
                 <footer className="flex justify-end gap-2">
                     <Button
                         variant="ghost"
-                        onClick={() => setName("Hino launch")}
+                        onClick={() =>
+                            setName("Passui launch")
+                        }
                     >
                         Cancel
                     </Button>

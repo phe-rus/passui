@@ -33,7 +33,7 @@ export const secureFieldDocs = defineDocs<SecureFieldProps>()(
     {
         slug: "secure-field",
         name: "SecureField",
-        importPath: "@phe-rus/hino/secure-field",
+        importPath: "@passui/react/secure-field",
         controls: {
             label: {
                 kind: "text",

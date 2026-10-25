@@ -1,4 +1,4 @@
-import { buttonStyle } from "@phe-rus/hino/button"
+import { buttonStyle } from "@passui/react/button"
 
 export function ButtonLink() {
     return (

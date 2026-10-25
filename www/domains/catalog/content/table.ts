@@ -1,4 +1,4 @@
-import type { tableDocs } from "@phe-rus/hino/docs"
+import type { tableDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const tableContent: ComponentContent<
@@ -6,7 +6,7 @@ export const tableContent: ComponentContent<
 > = {
     summary:
         "Styled parts for a plain HTML table: header, rows, cells, a footer and a caption, scrolling sideways when it's wider than the screen.",
-    usage: "Use it for small sets of rows you write out yourself. For sorting, filtering and pages of server data, use DataTable from @phe-rus/hino-tanstack, which is built on these parts.",
+    usage: "Use it for small sets of rows you write out yourself. For sorting, filtering and pages of server data, use DataTable from @passui/tanstack, which is built on these parts.",
     propDescriptions: {
         caption:
             "The children of TableCaption: a short line under the table that names it.",

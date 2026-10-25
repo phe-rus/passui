@@ -1,4 +1,4 @@
-import { SwatchPicker } from "@phe-rus/hino"
+import { SwatchPicker } from "@passui/react"
 import { useState } from "react"
 
 export function SwatchPickerUsage() {

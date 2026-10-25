@@ -1,4 +1,4 @@
-import type { textFieldDocs } from "@phe-rus/hino/docs"
+import type { textFieldDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const textFieldContent: ComponentContent<

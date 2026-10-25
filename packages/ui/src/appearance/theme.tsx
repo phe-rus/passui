@@ -40,7 +40,8 @@ export type SystemTheme = "dark" | "light"
 
 export type Attribute = `data-${string}` | "class"
 
-export interface ThemeProviderProps extends PropsWithChildren {
+export interface ThemeProviderProps
+    extends PropsWithChildren {
     /** List of all available theme names */
     themes?: Array<string> | undefined
     /** Forced theme name for the current page */
@@ -375,7 +376,7 @@ const ThemeScript = memo(
 
         return (
             <script
-                // oxlint-disable-next-line react/no-danger -- Run the theme bootstrap with serialized provider configuration before first paint.
+                // Run the theme bootstrap with serialized provider configuration before first paint.
                 dangerouslySetInnerHTML={{
                     __html: `(${script.toString()})(${scriptArgs})`,
                 }}

@@ -1,4 +1,4 @@
-import { springs } from "../../tokens/src/motion"
+import { springs } from "@passui/tokens/motion"
 import type { Transition } from "motion/react"
 
 /** Design-token springs as motion/react transitions. */

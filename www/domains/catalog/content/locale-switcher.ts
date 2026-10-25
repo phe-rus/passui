@@ -1,4 +1,4 @@
-import type { localeSwitcherDocs } from "@phe-rus/hino/docs"
+import type { localeSwitcherDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const localeSwitcherContent: ComponentContent<

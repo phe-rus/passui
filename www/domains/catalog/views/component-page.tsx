@@ -69,7 +69,7 @@ export function ComponentPage({
             <article className="flex min-w-0 flex-col gap-14">
                 <header className="flex flex-col gap-3">
                     <span className="font-mono text-caption text-label-tertiary">
-                        @phe-rus/hino · {docs.name}
+                        @passui/react · {docs.name}
                     </span>
                     <h1 className="font-brand text-large-title font-extrabold tracking-tight text-label">
                         {docs.name}

@@ -4,11 +4,11 @@ import {
     SegmentedControl,
     TextField,
     Toggle,
-} from "@phe-rus/hino"
+} from "@passui/react"
 import type {
     AnyControl,
     RegisteredDocs,
-} from "@phe-rus/hino/docs"
+} from "@passui/react/docs"
 import type {
     ControlValue,
     PropValues,

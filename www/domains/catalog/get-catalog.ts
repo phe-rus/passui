@@ -70,7 +70,7 @@ import {
     contextMenuDocs,
     tooltipDocs,
     localeSwitcherDocs,
-} from "@phe-rus/hino/docs"
+} from "@passui/react/docs"
 import { buttonContent } from "./content/button"
 import { chipContent } from "./content/chip"
 import { iconButtonContent } from "./content/icon-button"

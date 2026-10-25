@@ -21,7 +21,7 @@ const options = [
 export const tabViewDocs = defineDocs<DemoProps>()({
     slug: "tab-view",
     name: "TabView",
-    importPath: "@phe-rus/hino/tab-view",
+    importPath: "@passui/react/tab-view",
     controls: {
         label: {
             kind: "text",

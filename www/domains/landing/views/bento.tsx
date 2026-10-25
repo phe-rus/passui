@@ -5,9 +5,9 @@ import {
     SearchField,
     SwatchPicker,
     Toggle,
-} from "@phe-rus/hino"
-import { cn } from "@phe-rus/hino/cn"
-import { accents } from "@phe-rus/hino/tokens"
+} from "@passui/react"
+import { cn } from "@passui/react/cn"
+import { accents } from "@passui/react/tokens"
 import { motion } from "motion/react"
 import { type ReactNode, useState } from "react"
 import { accentNames } from "@/domains/settings"

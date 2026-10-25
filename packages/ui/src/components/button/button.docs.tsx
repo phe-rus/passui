@@ -28,7 +28,7 @@ const iconSizes = new Set<ButtonSize>([
 export const buttonDocs = defineDocs<ButtonProps>()({
     slug: "button",
     name: "Button",
-    importPath: "@phe-rus/hino/button",
+    importPath: "@passui/react/button",
     controls: {
         variant: {
             kind: "select",

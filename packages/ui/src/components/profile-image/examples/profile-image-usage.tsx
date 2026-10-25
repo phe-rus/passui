@@ -2,7 +2,7 @@ import {
     ProfileImage,
     ProfileImageContent,
     ProfileImageFallback,
-} from "@phe-rus/hino/profile-image"
+} from "@passui/react/profile-image"
 
 export function ProfileImageUsage() {
     return (

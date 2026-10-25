@@ -41,7 +41,7 @@ function DatePickerDemo({ locale, label }: DemoProps) {
 export const datePickerDocs = defineDocs<DemoProps>()({
     slug: "date-picker",
     name: "DatePicker",
-    importPath: "@phe-rus/hino/date-picker",
+    importPath: "@passui/react/date-picker",
     controls: {
         label: {
             kind: "text",

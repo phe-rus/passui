@@ -25,7 +25,7 @@ function ToggleDemo(props: DemoProps) {
 export const toggleDocs = defineDocs<ToggleProps>()({
     slug: "toggle",
     name: "Toggle",
-    importPath: "@phe-rus/hino/toggle",
+    importPath: "@passui/react/toggle",
     controls: {
         style: {
             kind: "select",

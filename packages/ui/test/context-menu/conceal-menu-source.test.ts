@@ -1,4 +1,4 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 import { concealMenuSource } from "../../src/components/context-menu/conceal-menu-source"
 
 test("a follow-up keeps its toolbar hidden until both exit animations complete", () => {

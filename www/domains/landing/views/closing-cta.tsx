@@ -1,4 +1,4 @@
-import { buttonStyle } from "@phe-rus/hino/button"
+import { buttonStyle } from "@passui/react/button"
 import { Link } from "@tanstack/react-router"
 
 export function ClosingCta() {
@@ -8,7 +8,7 @@ export function ClosingCta() {
                 <h2 className="max-w-xl text-[clamp(2rem,4.5vw,3rem)] leading-[1.05] font-bold tracking-tight text-label">
                     Discover everything{" "}
                     <span className="font-display font-black tracking-[-0.05em] text-accent-text transition-colors duration-700">
-                        hino
+                        passui
                     </span>{" "}
                     can do
                 </h2>

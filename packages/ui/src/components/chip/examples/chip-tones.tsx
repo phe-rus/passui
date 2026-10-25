@@ -1,4 +1,4 @@
-import { Chip } from "@phe-rus/hino"
+import { Chip } from "@passui/react"
 
 export function ChipTones() {
     return (

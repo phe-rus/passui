@@ -2,8 +2,8 @@ import {
     Picker,
     SegmentedControl,
     SwatchPicker,
-} from "@phe-rus/hino"
-import { accents } from "@phe-rus/hino/tokens"
+} from "@passui/react"
+import { accents } from "@passui/react/tokens"
 import { accentNames } from "../content/accent-names"
 import {
     type DocsSettings,

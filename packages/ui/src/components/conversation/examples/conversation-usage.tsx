@@ -1,4 +1,4 @@
-import { Conversation } from "@phe-rus/hino/conversation"
+import { Conversation } from "@passui/react/conversation"
 
 const minutesAgo = (minutes: number) =>
     new Date(Date.now() - minutes * 60_000).toISOString()

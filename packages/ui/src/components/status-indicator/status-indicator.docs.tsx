@@ -13,7 +13,7 @@ type DemoProps = {
 export const statusIndicatorDocs = defineDocs<DemoProps>()({
     slug: "status-indicator",
     name: "StatusIndicator",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         state: {
             kind: "select",

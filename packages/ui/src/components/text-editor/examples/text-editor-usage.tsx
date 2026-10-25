@@ -1,4 +1,4 @@
-import { TextEditor } from "@phe-rus/hino/text-editor"
+import { TextEditor } from "@passui/react/text-editor"
 import { useId, useState } from "react"
 
 export function TextEditorUsage() {

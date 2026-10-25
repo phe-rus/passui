@@ -1,4 +1,4 @@
-import { useContextMenu } from "@phe-rus/hino"
+import { useContextMenu } from "@passui/react"
 import { useState } from "react"
 
 const orders = {

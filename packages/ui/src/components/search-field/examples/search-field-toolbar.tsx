@@ -1,5 +1,5 @@
-import { SearchField } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
+import { SearchField } from "@passui/react"
+import { Button } from "@passui/react/button"
 import { useState } from "react"
 
 export function SearchFieldToolbar() {

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
-import { cn } from "@phe-rus/hino/cn"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { cn } from "@passui/react/cn"
+import { Toggle } from "@passui/react/toggle"
 import { useFieldContext } from "../forms/contexts"
 
 type Option = {

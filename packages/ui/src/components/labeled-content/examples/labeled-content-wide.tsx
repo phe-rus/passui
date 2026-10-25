@@ -2,8 +2,8 @@ import {
     LabeledContent,
     Section,
     SegmentedControl,
-} from "@phe-rus/hino"
-import { TextField } from "@phe-rus/hino/text-field"
+} from "@passui/react"
+import { TextField } from "@passui/react/text-field"
 import { useState } from "react"
 
 export function LabeledContentWide() {

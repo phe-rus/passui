@@ -1,4 +1,3 @@
-import { defineConfig, lazyPlugins } from "vite-plus"
 import { cloudflare } from "@cloudflare/vite-plugin"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import babel from "@rolldown/plugin-babel"
@@ -6,18 +5,14 @@ import viteReact, {
     reactCompilerPreset,
 } from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
+import { defineConfig } from "vite"
 import path from "node:path"
 
-// no TanStack devtools plugin: its event bus port would clash with the
-// other apps' dev servers, and a docs site has nothing to inspect there
-const config = defineConfig({
+export default defineConfig({
     server: {
         cors: false,
     },
     resolve: {
-        // one copy of each context-holding package: Hino's own
-        // node_modules can hold a second React Query, and a split copy
-        // throws "No QueryClient set" in production
         dedupe: [
             "react",
             "react-dom",
@@ -35,26 +30,20 @@ const config = defineConfig({
         target: "esnext",
         cssCodeSplit: true,
     },
-    // unit tests need only the @ alias; the Cloudflare plugin would move
-    // them into a Workers runtime
-    plugins: lazyPlugins(() =>
-        process.env.VITEST
-            ? []
-            : [
-                  cloudflare({
-                      viteEnvironment: {
-                          name: "ssr",
-                      },
-                      persistState: true,
-                  }),
-                  tailwindcss(),
-                  tanstackStart(),
-                  babel({
-                      presets: [reactCompilerPreset()],
-                  }),
-                  viteReact(),
-              ]
-    ),
+    plugins: process.env.VITEST
+        ? []
+        : [
+              cloudflare({
+                  viteEnvironment: {
+                      name: "ssr",
+                  },
+                  persistState: true,
+              }),
+              tailwindcss(),
+              tanstackStart(),
+              babel({
+                  presets: [reactCompilerPreset()],
+              }),
+              viteReact(),
+          ],
 })
-
-export default config

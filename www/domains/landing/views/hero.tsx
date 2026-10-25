@@ -1,7 +1,7 @@
-import { spring } from "@phe-rus/hino"
-import { buttonStyle } from "@phe-rus/hino/button"
-import { cn } from "@phe-rus/hino/cn"
-import { accents } from "@phe-rus/hino/tokens"
+import { spring } from "@passui/react"
+import { buttonStyle } from "@passui/react/button"
+import { cn } from "@passui/react/cn"
+import { accents } from "@passui/react/tokens"
 import { Link } from "@tanstack/react-router"
 import { motion } from "motion/react"
 import type { ReactNode } from "react"
@@ -32,7 +32,7 @@ type FloatProps = {
 }
 
 // a dotless i: the sun takes the place of its dot
-const letters = ["h", "ı", "n", "o"] as const
+const letters = ["p", "a", "s", "s", "u", "ı"] as const
 
 /** Slides in once, then drifts gently, like it is floating. */
 function Float({
@@ -92,12 +92,12 @@ export function Hero({ cycle }: HeroProps) {
             <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-4 text-center">
                 <h1
                     id="hero-title"
-                    aria-label="hino"
+                    aria-label="Passui"
                     className="flex font-brand text-[clamp(5rem,17vw,9.5rem)] leading-[0.9] font-extrabold tracking-[-0.055em] text-label"
                 >
                     {letters.map((letter, index) => (
                         <motion.span
-                            key={letter}
+                            key={`${letter}-${index}`}
                             aria-hidden="true"
                             initial={{
                                 opacity: 0,
@@ -116,7 +116,7 @@ export function Hero({ cycle }: HeroProps) {
                             className="relative inline-block"
                         >
                             {letter}
-                            {index === 1 && <Sun />}
+                            {letter === "ı" && <Sun />}
                         </motion.span>
                     ))}
                 </h1>

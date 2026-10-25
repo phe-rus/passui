@@ -1,5 +1,5 @@
-import { LabeledContent, Section } from "@phe-rus/hino"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { LabeledContent, Section } from "@passui/react"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 export function LabeledContentDescriptions() {

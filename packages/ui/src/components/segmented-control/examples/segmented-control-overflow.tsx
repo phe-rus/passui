@@ -1,4 +1,4 @@
-import { SegmentedControl } from "@phe-rus/hino"
+import { SegmentedControl } from "@passui/react"
 import { useState } from "react"
 
 export function SegmentedControlOverflow() {

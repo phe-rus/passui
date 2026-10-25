@@ -1,4 +1,4 @@
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 import type { Practice } from "../types"
 
 type PracticesListProps = {

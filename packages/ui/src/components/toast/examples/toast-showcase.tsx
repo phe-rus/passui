@@ -1,6 +1,6 @@
-import { LabeledContent, Section } from "@phe-rus/hino"
-import { toast } from "@phe-rus/hino/toast"
-import { Toggle } from "@phe-rus/hino/toggle"
+import { LabeledContent, Section } from "@passui/react"
+import { toast } from "@passui/react/toast"
+import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
 
 export function ToastShowcase() {

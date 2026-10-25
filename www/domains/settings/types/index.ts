@@ -1,4 +1,4 @@
-import { type AccentId, accents } from "@phe-rus/hino/tokens"
+import { type AccentId, accents } from "@passui/react/tokens"
 import { z } from "zod"
 
 export const themeOptions = [

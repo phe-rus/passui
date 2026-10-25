@@ -3,7 +3,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import {
     Conversation,
     type ConversationMessage,
-} from "@phe-rus/hino/conversation"
+} from "@passui/react/conversation"
 import { useState } from "react"
 
 const minutesAgo = (minutes: number) =>

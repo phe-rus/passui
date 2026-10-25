@@ -1,4 +1,4 @@
-import { SecureField } from "@phe-rus/hino/secure-field"
+import { SecureField } from "@passui/react/secure-field"
 import { useState } from "react"
 
 export function SecureFieldReveal() {

@@ -10,7 +10,7 @@ import { DocSection, type TocItem } from "@/domains/catalog"
 import { Code, Prose } from "./guide-parts"
 
 export const introductionSections: TocItem[] = [
-    { id: "what", title: "What's in Hino" },
+    { id: "what", title: "What's in Passui" },
     { id: "principles", title: "Principles" },
     { id: "packages", title: "Packages" },
     { id: "next", title: "Next steps" },
@@ -50,9 +50,9 @@ const principles = [
 export function IntroductionGuide() {
     return (
         <>
-            <DocSection id="what" title="What's in Hino">
+            <DocSection id="what" title="What's in Passui">
                 <Prose>
-                    Hino is Pherus's design language: what
+                    Passui is Pherus's design language: what
                     Liquid Glass is to Apple and Material 3 is
                     to Google. It's built for any React app,
                     and knows nothing about any one product.
@@ -93,7 +93,7 @@ export function IntroductionGuide() {
                         <tbody>
                             <tr className="border-separator/60 border-b">
                                 <td className="p-4 align-top">
-                                    <Code>@phe-rus/hino</Code>
+                                    <Code>@passui/react</Code>
                                 </td>
                                 <td className="p-4 text-label-secondary">
                                     Controls, tokens, styles,
@@ -104,14 +104,14 @@ export function IntroductionGuide() {
                             <tr>
                                 <td className="p-4 align-top">
                                     <Code>
-                                        @phe-rus/hino-tanstack
+                                        @passui/tanstack
                                     </Code>
                                 </td>
                                 <td className="p-4 text-label-secondary">
                                     Forms, tables, route
                                     boundaries and the
                                     document shell, built on
-                                    TanStack and on Hino's
+                                    TanStack and on Passui's
                                     controls.
                                 </td>
                             </tr>
@@ -131,7 +131,8 @@ export function IntroductionGuide() {
                     </Link>
                     , browse the{" "}
                     <Link to="/components">components</Link>,
-                    or give your AI agent Hino's rules with a{" "}
+                    or give your AI agent Passui's rules with
+                    a{" "}
                     <Link
                         to="/docs/$slug"
                         params={{ slug: "skills" }}

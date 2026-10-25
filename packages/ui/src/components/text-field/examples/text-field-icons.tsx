@@ -5,7 +5,7 @@ import {
     Tick02Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { TextField } from "@phe-rus/hino/text-field"
+import { TextField } from "@passui/react/text-field"
 import { useState } from "react"
 
 export function TextFieldIcons() {

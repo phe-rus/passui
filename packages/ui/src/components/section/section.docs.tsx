@@ -11,7 +11,7 @@ type DemoProps = { title?: string; footer?: string }
 export const sectionDocs = defineDocs<DemoProps>()({
     slug: "section",
     name: "Section",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         title: { kind: "text", default: "Account" },
         footer: {
@@ -37,7 +37,7 @@ export const sectionDocs = defineDocs<DemoProps>()({
     ),
     childrenSnippet: () => ({
         imports: [
-            'import { LabeledContent } from "@phe-rus/hino"',
+            'import { LabeledContent } from "@passui/react"',
         ],
         children:
             '<LabeledContent label="Name">Aiko Kamado</LabeledContent>',

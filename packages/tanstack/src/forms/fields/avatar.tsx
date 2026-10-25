@@ -2,15 +2,15 @@ import {
     ProfileImage,
     ProfileImageFallback,
     ProfileImageContent,
-} from "@phe-rus/hino/profile-image"
+} from "@passui/react/profile-image"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Delete02Icon } from "@hugeicons/core-free-icons"
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 import { useFieldContext } from "../contexts"
 import { useEffect, useRef, useState } from "react"
 import type { DragEvent, ReactNode } from "react"
-import { cn } from "@phe-rus/hino/cn"
-import { Ambient } from "@phe-rus/hino/ambient"
+import { cn } from "@passui/react/cn"
+import { Ambient } from "@passui/react/ambient"
 import { AvatarPicker } from "./avatar-picker"
 import type { AvatarPickerLabels } from "./avatar-picker"
 

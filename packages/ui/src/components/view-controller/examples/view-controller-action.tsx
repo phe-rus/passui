@@ -1,5 +1,5 @@
-import { Button } from "@phe-rus/hino/button"
-import { ViewController } from "@phe-rus/hino/view-controller"
+import { Button } from "@passui/react/button"
+import { ViewController } from "@passui/react/view-controller"
 
 export function ViewControllerAction() {
     return (

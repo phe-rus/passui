@@ -1,5 +1,5 @@
-import { describe, expect, test } from "vite-plus/test"
-import type { RegisteredDocs } from "@phe-rus/hino/docs"
+import { describe, expect, test } from "vitest"
+import type { RegisteredDocs } from "@passui/react/docs"
 import { resolveProps } from "@/domains/catalog/resolve-props"
 import { getSnippet } from "@/domains/playground/get-snippet"
 
@@ -10,7 +10,7 @@ function docsWith(
     return {
         slug: "widget",
         name: "Widget",
-        importPath: "@phe-rus/hino/widget",
+        importPath: "@passui/react/widget",
         controls: {
             label: {
                 kind: "text",
@@ -42,7 +42,7 @@ describe("getSnippet", () => {
     test("wraps the element in an exported component", () => {
         const code = snippet(docsWith())
         expect(code).toContain(
-            'import { Widget } from "@phe-rus/hino/widget"'
+            'import { Widget } from "@passui/react/widget"'
         )
         expect(code).toContain(
             "export function WidgetExample() {"
@@ -101,7 +101,7 @@ describe("getSnippet", () => {
             childrenSnippet: () => ({
                 imports: [
                     'import { useState } from "react"',
-                    'import { WidgetPart } from "@phe-rus/hino/widget"',
+                    'import { WidgetPart } from "@passui/react/widget"',
                 ],
                 setup: ["const [on, setOn] = useState(true)"],
                 omit: ["tone"],
@@ -114,7 +114,7 @@ describe("getSnippet", () => {
         })
         const code = snippet(docs, { tone: "loud" })
         expect(code).toContain(
-            'import { Widget, WidgetPart } from "@phe-rus/hino/widget"'
+            'import { Widget, WidgetPart } from "@passui/react/widget"'
         )
         expect(code).toContain(
             "const [on, setOn] = useState(true)"

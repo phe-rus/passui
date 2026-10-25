@@ -29,7 +29,7 @@ function SegmentedControlDemo({ label }: DemoProps) {
 export const segmentedControlDocs = defineDocs<DemoProps>()({
     slug: "segmented-control",
     name: "SegmentedControl",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         label: {
             kind: "text",

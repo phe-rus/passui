@@ -1,6 +1,6 @@
 import { InboxIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 import {
     Table,
     TableBody,
@@ -8,7 +8,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@phe-rus/hino/table"
+} from "@passui/react/table"
 
 export function TableEmpty() {
     return (

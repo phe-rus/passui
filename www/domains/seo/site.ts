@@ -1,4 +1,4 @@
-export const siteOrigin = "https://hino.pherus.org"
+export const siteOrigin = "https://passui.pherus.org"
 
 /** Settings change the playground, never the identity of a docs page. */
 export function pageUrl(path: string) {

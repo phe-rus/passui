@@ -1,4 +1,4 @@
-import type { swatchPickerDocs } from "@phe-rus/hino/docs"
+import type { swatchPickerDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const swatchPickerContent: ComponentContent<
@@ -12,9 +12,9 @@ export const swatchPickerContent: ComponentContent<
     },
     examples: {
         accents: {
-            title: "Every Hino accent",
+            title: "Every Passui accent",
             description:
-                "The seven accents from Hino's tokens, with the chosen one previewed on a button.",
+                "The seven accents from Passui's tokens, with the chosen one previewed on a button.",
         },
         labels: {
             title: "Labels for tags",

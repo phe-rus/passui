@@ -1,5 +1,5 @@
-import { Button } from "@phe-rus/hino/button"
-import { Sheet } from "@phe-rus/hino/sheet"
+import { Button } from "@passui/react/button"
+import { Sheet } from "@passui/react/sheet"
 import { useState } from "react"
 
 export function SheetUsage() {

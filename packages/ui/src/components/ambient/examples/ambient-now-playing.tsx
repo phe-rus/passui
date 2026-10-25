@@ -4,8 +4,8 @@ import {
     PreviousIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Ambient } from "@phe-rus/hino/ambient"
-import { IconButton } from "@phe-rus/hino/icon-button"
+import { Ambient } from "@passui/react/ambient"
+import { IconButton } from "@passui/react/icon-button"
 
 export function AmbientNowPlaying() {
     return (

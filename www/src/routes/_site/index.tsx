@@ -6,8 +6,8 @@ export const Route = createFileRoute("/_site/")({
     head: () =>
         getPageHead(
             "/",
-            "Hino · Native React controls",
-            "Native React controls, design tokens and themes for any React framework. Explore live examples and set up your project with the Hino CLI."
+            "Passui · Native React controls",
+            "Native React controls, design tokens and themes for any React framework. Explore live examples and set up your project with the Passui CLI."
         ),
     component: RouteComponent,
 })

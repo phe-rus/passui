@@ -4,7 +4,7 @@ import {
     Mail01Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 
 export function ButtonWithIcon() {
     return (

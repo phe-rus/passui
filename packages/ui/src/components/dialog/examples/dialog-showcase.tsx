@@ -1,6 +1,6 @@
-import { LabeledContent, Section, toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { Dialog } from "@phe-rus/hino/dialog"
+import { LabeledContent, Section, toast } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { Dialog } from "@passui/react/dialog"
 import { useState } from "react"
 
 export function DialogShowcase() {

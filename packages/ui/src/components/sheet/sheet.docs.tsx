@@ -46,7 +46,7 @@ function SheetDemo({ label }: DemoProps) {
 export const sheetDocs = defineDocs<DemoProps>()({
     slug: "sheet",
     name: "Sheet",
-    importPath: "@phe-rus/hino/sheet",
+    importPath: "@passui/react/sheet",
     controls: {
         label: {
             kind: "text",

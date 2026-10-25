@@ -5,7 +5,7 @@ import {
     UserIcon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { TabBar } from "@phe-rus/hino"
+import { TabBar } from "@passui/react"
 import { useState } from "react"
 
 const tabs = [

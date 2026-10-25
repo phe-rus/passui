@@ -17,7 +17,7 @@ type DemoProps = {
 export const labeledContentDocs = defineDocs<DemoProps>()({
     slug: "labeled-content",
     name: "LabeledContent",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         label: {
             kind: "text",
@@ -46,7 +46,7 @@ export const labeledContentDocs = defineDocs<DemoProps>()({
     childrenSnippet: () => ({
         imports: [
             'import { useState } from "react"',
-            'import { Toggle } from "@phe-rus/hino/toggle"',
+            'import { Toggle } from "@passui/react/toggle"',
         ],
         setup: ["const [on, setOn] = useState(true)"],
         children:

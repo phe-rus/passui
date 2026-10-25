@@ -1,12 +1,12 @@
 import type { ErrorComponentProps } from "@tanstack/react-router"
-import { Button, buttonStyle } from "@phe-rus/hino/button"
+import { Button, buttonStyle } from "@passui/react/button"
 import {
     ErrorComponent,
     Link,
     useLocation,
     useRouter,
 } from "@tanstack/react-router"
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 
 export function DefaultBoundary({
     error,

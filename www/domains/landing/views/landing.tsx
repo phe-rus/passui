@@ -8,7 +8,7 @@ import { PlaygroundTeaser } from "./playground-teaser"
 import { Reveal } from "./reveal"
 import { ShowcaseMarquee } from "./showcase-marquee"
 
-/** The marketing home page: Hino demonstrating itself. */
+/** The marketing home page: Passui demonstrating itself. */
 export function Landing() {
     const cycle = useAccentCycle()
     return (

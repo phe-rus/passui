@@ -1,4 +1,4 @@
-import { SegmentedControl } from "@phe-rus/hino"
+import { SegmentedControl } from "@passui/react"
 import { useState } from "react"
 
 const counts = { day: 4, week: 23, month: 96 }

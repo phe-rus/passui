@@ -1,6 +1,6 @@
-import { toast } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { TextEditor } from "@phe-rus/hino/text-editor"
+import { toast } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { TextEditor } from "@passui/react/text-editor"
 import { useId, useState } from "react"
 
 export function TextEditorComment() {

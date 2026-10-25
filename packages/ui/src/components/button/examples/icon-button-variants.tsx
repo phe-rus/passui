@@ -5,7 +5,7 @@ import {
     Settings02Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { IconButton } from "@phe-rus/hino/icon-button"
+import { IconButton } from "@passui/react/icon-button"
 
 export function IconButtonVariants() {
     return (

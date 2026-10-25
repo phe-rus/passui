@@ -1,11 +1,11 @@
-import { toast } from "@phe-rus/hino"
+import { toast } from "@passui/react"
 import {
     SearchList,
     SearchListEmpty,
     SearchListField,
     SearchListItem,
     SearchListResults,
-} from "@phe-rus/hino/search-list"
+} from "@passui/react/search-list"
 import { useState } from "react"
 
 const pages = [

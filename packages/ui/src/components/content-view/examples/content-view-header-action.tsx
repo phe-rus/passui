@@ -1,7 +1,7 @@
 import { Key01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Button } from "@phe-rus/hino/button"
-import { ContentView } from "@phe-rus/hino/content-view"
+import { Button } from "@passui/react/button"
+import { ContentView } from "@passui/react/content-view"
 
 export function ContentViewHeaderAction() {
     return (

@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vite-plus/test"
+import { describe, expect, test } from "vitest"
 import { existsSync, globSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { registry } from "../../src/docs/registry"
@@ -34,7 +34,7 @@ describe("docs registry", () => {
     test("every importPath is a package export", () => {
         for (const docs of registry) {
             const entry = docs.importPath.replace(
-                /^@phe-rus\/hino/,
+                /^@passui\/react/,
                 "."
             )
             expect(

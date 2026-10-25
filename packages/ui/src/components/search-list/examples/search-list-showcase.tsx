@@ -1,4 +1,4 @@
-import { toast } from "@phe-rus/hino"
+import { toast } from "@passui/react"
 import {
     SearchList,
     SearchListEmpty,
@@ -6,7 +6,7 @@ import {
     SearchListGroup,
     SearchListItem,
     SearchListResults,
-} from "@phe-rus/hino/search-list"
+} from "@passui/react/search-list"
 
 const people = [
     { name: "Aiko Kamado", role: "Design" },

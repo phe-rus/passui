@@ -1,4 +1,4 @@
-import { Ambient } from "@phe-rus/hino/ambient"
+import { Ambient } from "@passui/react/ambient"
 
 const people = [
     { name: "Aiko", src: "/avatars/aiko.svg" },

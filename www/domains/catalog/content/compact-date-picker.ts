@@ -1,4 +1,4 @@
-import type { compactDatePickerDocs } from "@phe-rus/hino/docs"
+import type { compactDatePickerDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const compactDatePickerContent: ComponentContent<

@@ -1,9 +1,9 @@
-import { Button } from "@phe-rus/hino/button"
+import { Button } from "@passui/react/button"
 import {
     ProfileImage,
     ProfileImageContent,
     ProfileImageFallback,
-} from "@phe-rus/hino/profile-image"
+} from "@passui/react/profile-image"
 
 export function ProfileImageShowcase() {
     return (

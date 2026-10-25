@@ -1,4 +1,4 @@
-import { cn } from "@phe-rus/hino/cn"
+import { cn } from "@passui/react/cn"
 import { changelog } from "../content/changelog"
 
 const dateFormat = new Intl.DateTimeFormat("en", {

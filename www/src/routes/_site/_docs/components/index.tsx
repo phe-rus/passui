@@ -8,8 +8,8 @@ export const Route = createFileRoute(
     head: () =>
         getPageHead(
             "/components",
-            "Components · Hino",
-            "Every Hino control, grouped by what it does, each with a live playground."
+            "Components · Passui",
+            "Every Passui control, grouped by what it does, each with a live playground."
         ),
     component: RouteComponent,
 })

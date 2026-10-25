@@ -2,7 +2,7 @@ import {
     jsxAttribute,
     jsxText,
     type RegisteredDocs,
-} from "@phe-rus/hino/docs"
+} from "@passui/react/docs"
 import {
     type ControlValue,
     getChangedProps,

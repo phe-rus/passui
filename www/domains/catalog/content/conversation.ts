@@ -1,4 +1,4 @@
-import type { conversationDocs } from "@phe-rus/hino/docs"
+import type { conversationDocs } from "@passui/react/docs"
 import type { ComponentContent } from "../types"
 
 export const conversationContent: ComponentContent<
@@ -49,7 +49,7 @@ export const conversationContent: ComponentContent<
         },
         {
             kind: "do",
-            text: "Pass translated words for sendLabel and remaining. Hino has no text of its own; day names come from Intl.",
+            text: "Pass translated words for sendLabel and remaining. Passui has no text of its own; day names come from Intl.",
         },
         {
             kind: "dont",

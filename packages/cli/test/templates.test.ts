@@ -1,6 +1,6 @@
-import { expect, test } from "vite-plus/test"
+import { expect, test } from "vitest"
 import { posix } from "node:path"
-import { parseSync } from "vite-plus"
+import { parseSync } from "oxc-parser"
 import { starterFiles } from "../src/templates"
 
 test.each(["vite", "tanstack"] as const)(
@@ -35,7 +35,7 @@ test.each(["vite", "tanstack"] as const)(
         if (template === "vite") {
             expect(
                 JSON.parse(files["package.json"])
-                    .dependencies["@phe-rus/hino-tanstack"]
+                    .dependencies["@passui/tanstack"]
             ).toBeUndefined()
         }
     }

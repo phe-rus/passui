@@ -1,5 +1,5 @@
-import { Button } from "@phe-rus/hino/button"
-import { toast } from "@phe-rus/hino/toast"
+import { Button } from "@passui/react/button"
+import { toast } from "@passui/react/toast"
 import { useState } from "react"
 
 export function ToastAction() {

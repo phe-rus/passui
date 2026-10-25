@@ -1,9 +1,9 @@
 import {
     TextField,
     type TextFieldProps,
-} from "@phe-rus/hino/text-field"
-import { TextEditor } from "@phe-rus/hino/text-editor"
-import { Toggle } from "@phe-rus/hino/toggle"
+} from "@passui/react/text-field"
+import { TextEditor } from "@passui/react/text-editor"
+import { Toggle } from "@passui/react/toggle"
 import { useFieldContext } from "../forms/contexts"
 import {
     createContext,

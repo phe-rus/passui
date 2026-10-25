@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vite-plus/test"
+import { describe, expect, test, vi } from "vitest"
 vi.mock("@tanstack/react-start/server-entry", () => ({
     default: {
         fetch: async (request: Request) =>
@@ -18,7 +18,7 @@ describe("indexing response headers", () => {
     test("preview pages remain embeddable here and excluded from indexing", async () => {
         const response = await server.fetch(
             new Request(
-                "https://hino.pherus.org/preview/button?theme=dark"
+                "https://passui.pherus.org/preview/button?theme=dark"
             )
         )
         expect(response.headers.get("X-Robots-Tag")).toBe(
@@ -32,7 +32,7 @@ describe("indexing response headers", () => {
     test("unknown pages keep their 404 and cannot be indexed", async () => {
         const response = await server.fetch(
             new Request(
-                "https://hino.pherus.org/components/missing"
+                "https://passui.pherus.org/components/missing"
             )
         )
         expect(response.status).toBe(404)
@@ -43,7 +43,7 @@ describe("indexing response headers", () => {
     test("ordinary documentation responses remain indexable", async () => {
         const response = await server.fetch(
             new Request(
-                "https://hino.pherus.org/components/button"
+                "https://passui.pherus.org/components/button"
             )
         )
         expect(

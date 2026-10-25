@@ -1,6 +1,6 @@
 # Search discovery and metadata
 
-The canonical origin is `https://hino.pherus.org`, defined once in
+The canonical origin is `https://passui.pherus.org`, defined once in
 `www/domains/seo/site.ts`. `pageUrl` strips query strings, fragments and
 trailing slashes, preserving `/` for the home page. Playground settings
 therefore share the documentation page's canonical URL.
@@ -15,7 +15,7 @@ canonical. Keep JSON LD escaped for safe inclusion in HTML.
 catalog. Adding a guide or documented control includes its canonical
 page automatically. `/components` occurs once. The sitemap excludes
 preview iframes, search variants, AI text endpoints and nonexistent pages.
-Hino is currently English only, so it has no invented language alternates.
+Passui is currently English only, so it has no invented language alternates.
 There is no reliable per page modification source, so it omits `lastmod`.
 
 `/robots.txt` advertises the sitemap. Preview URLs stay crawlable so search

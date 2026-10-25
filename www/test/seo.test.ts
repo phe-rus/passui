@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs"
-import { describe, expect, test } from "vite-plus/test"
+import { describe, expect, test } from "vitest"
 import { getPageHead } from "@/domains/seo/get-page-head"
 import {
     getRobots,
@@ -26,7 +26,7 @@ describe("search discovery", () => {
         for (const path of paths) {
             const head = getPageHead(
                 path,
-                "Page · Hino",
+                "Page · Passui",
                 "Description"
             )
             expect(xml).toContain(
@@ -35,7 +35,7 @@ describe("search discovery", () => {
         }
         expect(xml).not.toMatch(/preview|llms|SKILL|lastmod/)
         expect(getRobots()).toContain(
-            "Sitemap: https://hino.pherus.org/sitemap.xml"
+            "Sitemap: https://passui.pherus.org/sitemap.xml"
         )
         expect(getRobots()).not.toContain(
             "Disallow: /preview"
@@ -45,13 +45,13 @@ describe("search discovery", () => {
     test("playground settings and trailing slashes cannot split canonical URLs", () => {
         const head = getPageHead(
             "/components/button/?theme=dark#example",
-            "Button · Hino",
+            "Button · Passui",
             "A button"
         )
         expect(head.links).toEqual([
             {
                 rel: "canonical",
-                href: "https://hino.pherus.org/components/button",
+                href: "https://passui.pherus.org/components/button",
             },
         ])
         expect(head.meta).toContainEqual({
@@ -70,13 +70,13 @@ describe("search discovery", () => {
                 .itemListElement.map(
                     (item: { name: string }) => item.name
                 )
-        ).toEqual(["Hino", "Components", "Button"])
+        ).toEqual(["Passui", "Components", "Button"])
     })
 
     test("structured data escapes HTML and describes the actual source project", () => {
         const head = getPageHead(
             "/",
-            "Hino",
+            "Passui",
             "Controls </script>"
         )
         expect(head.scripts[0].children).not.toContain(
@@ -90,7 +90,7 @@ describe("search discovery", () => {
                 (item: { "@type": string }) =>
                     item["@type"] === "SoftwareSourceCode"
             ).codeRepository
-        ).toBe("https://github.com/phe-rus/hino")
+        ).toBe("https://github.com/phe-rus/passui")
     })
 })
 

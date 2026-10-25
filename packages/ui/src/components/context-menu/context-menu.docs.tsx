@@ -51,14 +51,14 @@ function ContextMenuDemo(props: DemoProps) {
 export const contextMenuDocs = defineDocs<DemoProps>()({
     slug: "context-menu",
     name: "useContextMenu",
-    importPath: "@phe-rus/hino",
+    importPath: "@passui/react",
     controls: {
         heading: { kind: "boolean", default: false },
         destructive: { kind: "boolean", default: true },
     },
     render: (values) => <ContextMenuDemo {...values} />,
     childrenSnippet: ({ heading, destructive }) => ({
-        imports: ['import { toast } from "@phe-rus/hino"'],
+        imports: ['import { toast } from "@passui/react"'],
         element: "div",
         omit: ["heading", "destructive"],
         setup: [

@@ -1,6 +1,6 @@
-import { LabeledContent, Section } from "@phe-rus/hino"
-import { Button } from "@phe-rus/hino/button"
-import { Sheet } from "@phe-rus/hino/sheet"
+import { LabeledContent, Section } from "@passui/react"
+import { Button } from "@passui/react/button"
+import { Sheet } from "@passui/react/sheet"
 import { useState } from "react"
 
 const languages = [

@@ -29,7 +29,7 @@ export const Route = createFileRoute("/preview/$slug")({
     },
     head: () => ({
         meta: [
-            { title: "Preview · Hino" },
+            { title: "Preview · Passui" },
             { name: "robots", content: "noindex, nofollow" },
         ],
     }),

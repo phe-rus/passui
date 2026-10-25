@@ -31,7 +31,7 @@ export const searchFieldDocs = defineDocs<SearchFieldProps>()(
     {
         slug: "search-field",
         name: "SearchField",
-        importPath: "@phe-rus/hino",
+        importPath: "@passui/react",
         controls: {
             placeholder: { kind: "text", default: "Search" },
             disabled: { kind: "boolean", default: false },
