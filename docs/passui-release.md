@@ -70,26 +70,48 @@ history was changed. The local remote now points to
 `git@github.com:phe-rus/passui.git`. A source snapshot and binary Git diff
 were saved before that local configuration update.
 
-The latest existing remote CI run failed at typecheck on the DOM versus
-Cloudflare `Element.append` conflict in `sheet-portal.tsx`. The local
-migration fixes that call with `appendChild`; local typechecks pass.
-The new workflow cannot be verified on GitHub until the local changes
-are committed and pushed after approval.
+The migration was committed as
+`603c32c5c637416ecea00de9db6e1b0a98ec4721` and pushed normally to `main`.
+[Passui CI passed](https://github.com/phe-rus/passui/actions/runs/40167467919),
+including builds, types, tests, formatting, lint and archive validation.
+Actions are enabled. CI runs on main pushes and pull requests. The
+`npm-publish` environment exists. Publishing has job scoped OIDC permission;
+ordinary CI has read access only.
 
-## npm preflight blocker
+## npm release progress
 
-The owner has confirmed npm account `laniina`, organization `passui`,
-role owner. This machine's authentication is unavailable: both the npm
-whoami and organization-membership probes returned HTTP 401. No token was
-printed. npm publishing is stopped until valid authentication is restored.
-The target package names returned registry HTTP 404 during preparation;
-verify availability and versions again immediately before publication.
+Authentication was restored through the owner's browser sign in and 2FA.
+The authenticated account is `laniina`, an owner of organization `passui`.
+No credential was copied into tracked files.
 
-Each production package needs a trusted publisher matching
-`phe-rus/passui`, `publish.yml`, environment `npm-publish`. Those registry
-settings remain unverified without npm authentication. The prepared
-workflow uses job-scoped OIDC, Bun archives and no stored npm token.
-Never overwrite existing versions or unpublish the old Hino packages.
+All four approved versions were published with the authenticated npm CLI,
+using Bun packed archives. These initial releases bootstrapped the packages
+before their trusted publisher settings could be created. No Solid release
+was published. Each public tarball was downloaded and matched its approved
+local archive byte for byte. Direct version metadata is available.
+
+| Package | Version | Archive SHA1 |
+| --- | --- | --- |
+| `@passui/tokens` | `0.1.0` | `1b71616275afca7bd257e4db33d3b5ca34673a04` |
+| `@passui/react` | `0.1.14` | `7f0a9c6becb46e16d798a10e367c5fbc0feb684f` |
+| `@passui/tanstack` | `0.1.2` | `846b097f68a9f0ef4f5a04e4e850b694a2490a33` |
+| `@passui/cli` | `0.1.1` | `e106e928fc2ae67c0e18fe9fb4d017e0e6d31931` |
+
+Trusted publishers were created and read back for all four production
+packages. Each matches repository `phe-rus/passui`, workflow `publish.yml`
+and environment `npm-publish`, with publish permission. No npm token
+secret is required by the workflow. The new configuration has not yet
+been exercised by an OIDC publication. npm documents a two day deadline
+for the first successful publication using a new trust configuration;
+verify its continued validity before the next release.
+
+A temporary consumer installed the public tarball URLs and passed React
+Button server rendering, shared token imports, CSS export resolution,
+TanStack mutation imports, CLI help and a Vite starter dry run. At this
+checkpoint, package name metadata still returns HTTP 404, so a normal
+version based Bun install remains unverified. Website deployment and the
+legacy redirect are held until that check passes. Existing versions will
+not be republished or overwritten.
 
 ## Cloudflare preflight
 
@@ -100,8 +122,10 @@ Worker `hino` and custom domain `hino.pherus.org`, domain ID
 `NODE_ENV` text variable. There are no matching ordinary Worker routes.
 No `passui` Worker or `passui.pherus.org` Worker custom domain exists yet.
 
-DNS record reads for both exact hostnames returned HTTP 403. DNS contents
-and possible record conflicts must therefore be verified before deploying.
+DNS record reads for both exact hostnames returned HTTP 403. Wrangler's
+custom domain changeset preflight independently reported no conflicting
+records for `passui.pherus.org`. Only the proposed changeset was inspected;
+it was not applied.
 No DNS deletion is included in this manifest. No unrelated Worker, route,
 binding, record or storage resource may be changed.
 
