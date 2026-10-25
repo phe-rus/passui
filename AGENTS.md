@@ -8,7 +8,7 @@ remain outside this repo.
 ## Packages
 
 * `packages/tokens`, `@passui/tokens`: shared framework independent tokens and styles.
-* `packages/solid`, `@passui/solid`: Stage 1 foundation only, no public controls yet.
+* `packages/solid`, `@passui/solid`: private foundation with native platform appearance support, no public controls yet. See `packages/solid/README.md`.
 * `packages/ui`, `@passui/react`: native React controls,
   appearance, typed docs and examples. See `packages/ui/AGENTS.md`.
 * `packages/tanstack`, `@passui/tanstack`: optional form, table,

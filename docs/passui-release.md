@@ -184,3 +184,20 @@ The follow up documentation commit also passed
 [GitHub CI](https://github.com/phe-rus/passui/actions/runs/40168084679).
 The production packages are released and installed successfully; future
 OIDC publishing remains a separately configured path awaiting its first run.
+
+## First development stage after release
+
+Solid Stage 2 implements native platform appearance using Solid context,
+signals and onMount. It includes a CSP nonce aware bootstrap script,
+React compatible platform detection and root overrides. The provider has
+a deterministic `unknown` server and hydration value, then updates after
+mount. No React or React DOM imports were introduced, and Solid remains
+private and excluded from the publishing workflow.
+
+All 128 repository tests pass, including 14 in Solid. Workspace types,
+builds, Biome checks and package archive checks pass. The browser fixture was compiled
+with Bun and rendered with Solid SSR. The Codex browser hydrated that
+markup and observed exactly one output update to `linux`, or `ios` with an
+explicit override. Both paths had no console or hydration errors.
+The package README documents only implemented APIs and the reproducible
+verification commands. Theme support and controls remain later stages.

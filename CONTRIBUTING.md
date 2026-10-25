@@ -17,7 +17,7 @@ Crostini. The documentation site uses the local workspace packages.
 
 ## Ownership and architecture
 
-`packages/ui` owns React controls and appearance. `packages/tokens` owns shared tokens and styles. `packages/solid` contains the SolidJS Stage 1 foundation.
+`packages/ui` owns React controls and appearance. `packages/tokens` owns shared tokens and styles. `packages/solid` contains the private SolidJS foundation and native platform appearance support.
 `packages/tanstack` owns optional forms, tables, routing and query
 integrations. `packages/cli` owns additive setup and starter templates.
 `www` owns documentation, playgrounds, catalog prose and the public Worker.

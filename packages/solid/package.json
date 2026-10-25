@@ -21,6 +21,7 @@
     ],
     "type": "module",
     "exports": {
+        "./appearance": "./src/appearance/index.ts",
         "./cn": "./src/lib/class-names.ts",
         ".": "./src/index.ts",
         "./styles.css": "./src/styles/styles.css",

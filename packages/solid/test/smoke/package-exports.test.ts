@@ -9,6 +9,9 @@ const pkg = JSON.parse(
 
 test("exports map includes expected entries", () => {
     expect(pkg.exports["."]).toBe("./src/index.ts")
+    expect(pkg.exports["./appearance"]).toBe(
+        "./src/appearance/index.ts"
+    )
     expect(pkg.exports["./cn"]).toBe(
         "./src/lib/class-names.ts"
     )
