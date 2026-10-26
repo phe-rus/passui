@@ -13,7 +13,7 @@
     },
     "packages/cli": {
       "name": "@passui/cli",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "bin": {
         "passui": "dist/hino.js",
       },
@@ -27,7 +27,7 @@
     },
     "packages/solid": {
       "name": "@passui/solid",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "dependencies": {
         "@passui/tokens": "workspace:^",
         "clsx": "^2.1.1",
@@ -49,7 +49,7 @@
     },
     "packages/tanstack": {
       "name": "@passui/tanstack",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5",
       },

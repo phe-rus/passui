@@ -1,6 +1,6 @@
 {
     "name": "@passui/tanstack",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "license": "MIT",
     "type": "module",
     "repository": {
@@ -42,7 +42,7 @@
         "@tanstack/react-table": "^9.2.4",
         "motion": "^13.4.4",
         "@passui/react": "^0.1.15",
-        "@passui/solid": "^0.1.0",
+        "@passui/solid": "^0.1.1",
         "solid-js": "^1.9.17",
         "@tanstack/solid-form": "^1.33.5",
         "@tanstack/solid-query": "^5.104.5",

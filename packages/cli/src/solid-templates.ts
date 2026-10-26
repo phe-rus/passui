@@ -2,7 +2,7 @@ import { versions } from "./templates"
 
 export const solidVersions = {
     solid: "^1.9.17",
-    passui: "^0.1.0",
+    passui: "^0.1.1",
     form: "^1.33.5",
     query: "^5.104.5",
     router: "^1.170.43",

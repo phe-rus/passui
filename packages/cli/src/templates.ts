@@ -4,7 +4,7 @@ import {
 } from "./solid-templates"
 export const versions = {
     passui: "^0.1.15",
-    integration: "^0.2.0",
+    integration: "^0.2.1",
     react: "^19.3.0",
     tailwind: "^4.3.3",
 }
