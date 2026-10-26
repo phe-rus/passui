@@ -192,7 +192,7 @@ export async function planProject(
             !dependencies[
                 frameworkType === "solid"
                     ? "solid-js"
-                    : "react"
+                    : frameworkType
             ]
         )
             throw new Error(
@@ -216,14 +216,16 @@ export async function planProject(
             dependencies.tailwindcss,
             4
         )
-        framework = dependencies.next
-            ? "next"
-            : dependencies["@tanstack/react-start"] ||
-                dependencies["@tanstack/solid-start"]
-              ? "tanstack"
-              : dependencies.vite
-                ? "vite"
-                : "react"
+        framework =
+            frameworkType === "react" && dependencies.next
+                ? "next"
+                : dependencies[
+                        `@tanstack/${frameworkType}-start`
+                    ]
+                  ? "tanstack"
+                  : dependencies.vite
+                    ? "vite"
+                    : frameworkType
         const runtime = { ...manifest.dependencies }
         const dev = { ...manifest.devDependencies }
         const add = (

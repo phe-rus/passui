@@ -133,6 +133,20 @@ export function SolidGuidePage({ slug }: { slug: string }) {
                         </Prose>
                         <CodeBlock
                             code={
+                                'import { defineConfig } from "vite"\nimport solid from "vite-plugin-solid"\nimport tailwindcss from "@tailwindcss/vite"\n\nexport default defineConfig({\n  optimizeDeps: { exclude: ["@passui/solid", "@passui/tanstack"] },\n  resolve: { conditions: ["solid", "module", "browser", "development|production"] },\n  ssr: {\n    noExternal: ["@passui/solid", "@passui/tanstack", /@tanstack\\/solid-/],\n    resolve: { conditions: ["solid", "module", "node", "development|production"] },\n  },\n  plugins: [tailwindcss(), solid({ ssr: true })],\n})'
+                            }
+                            label="vite.config.ts"
+                        />
+                        <Prose>
+                            Exclude the source packages from
+                            dependency prebundling so Vite
+                            compiles their JSX in development.
+                            For SSR, the Solid export
+                            condition selects the framework
+                            source for server compilation.
+                        </Prose>
+                        <CodeBlock
+                            code={
                                 'import { Button } from "@passui/solid/button"\n\nexport function App() {\n  return <Button variant="accent">Continue</Button>\n}'
                             }
                             label="app.tsx"

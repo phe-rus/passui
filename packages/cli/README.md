@@ -1,6 +1,6 @@
 # Passui CLI
 
-Set up Passui in an existing React project:
+Set up Passui in an existing React or SolidJS project:
 
 ```bash
 bunx @passui/cli init
@@ -17,7 +17,7 @@ With npm, use `npx @passui/cli`; with pnpm, use `pnpm dlx @passui/cli`. The exec
 
 ## Existing projects
 
-Run init in the React app workspace, or pass `--dir apps/my-app`. It adds Passui, Tailwind 4 and the appropriate Tailwind plugin to package.json. Existing versions and scripts are preserved. React 18 and Tailwind 3 need an explicit upgrade first.
+Run init in the app workspace, or pass `--dir apps/my-app`. It adds Passui, Tailwind 4 and the appropriate Tailwind plugin to package.json. Existing versions and scripts are preserved. React 18 and Tailwind 3 need an explicit upgrade first.
 
 The CLI creates `passui/styles.css`, `passui/providers.tsx` and `passui/README.md`. Follow that README to import the stylesheet, wrap app content with the provider and configure your Tailwind pipeline. It includes Next.js source transpilation guidance. The CLI does not rewrite your app root, routes or bundler configuration.
 
@@ -27,7 +27,8 @@ Add `--integration tanstack` when you want the optional form, table, routing and
 
 | Option | Effect |
 |---|---|
-| `--template vite` | Vite React starter, the default for create |
+| `--template vite` | Vite starter for the selected framework, the default for create |
+| `--framework react\|solid` | Choose the UI framework; init detects it, create defaults to React |
 | `--template tanstack` | TanStack Start starter with the optional integration |
 | `--pm bun\|npm\|pnpm\|yarn` | Override package manager detection |
 | `--no-install` | Write files without running install |
