@@ -1,4 +1,5 @@
 import {
+    createEffect,
     createSignal,
     onMount,
     onCleanup,
@@ -6,6 +7,8 @@ import {
     splitProps,
     type JSX,
 } from "solid-js"
+import { springs } from "@passui/tokens/motion"
+import { useSpringValue } from "../../hooks/use-spring-value"
 import { screenEdges } from "../../lib/screen-edges"
 import { cn } from "../../lib/class-names"
 export type PopoverOrigin = "top-left" | "top-right"
@@ -16,13 +19,41 @@ export type PopoverProps =
         className?: string
     }
 export function Popover(props: PopoverProps) {
+    const [rendered, setRendered] = createSignal(props.open)
+    createEffect(() => {
+        if (props.open) setRendered(true)
+        else {
+            const timer = setTimeout(
+                () => setRendered(false),
+                250
+            )
+            onCleanup(() => clearTimeout(timer))
+        }
+    })
     return (
-        <Show when={props.open}>
+        <Show when={rendered()}>
             <OpenPopover {...props} />
         </Show>
     )
 }
 function OpenPopover(props: PopoverProps) {
+    const opacity = useSpringValue(0, springs.snappy)
+    const scale = useSpringValue(0.94, springs.snappy)
+    const offset = useSpringValue(-6, springs.snappy)
+    createEffect(() => {
+        opacity.to(props.open ? 1 : 0)
+        scale.to(props.open ? 1 : 0.96)
+        offset.to(props.open ? 0 : -4)
+    })
+    onMount(() => {
+        if (!props.open) return
+        opacity.jump(0)
+        scale.jump(0.94)
+        offset.jump(-6)
+        opacity.to(1)
+        scale.to(1)
+        offset.to(0)
+    })
     const [local, rest] = splitProps(props, [
         "open",
         "origin",
@@ -82,13 +113,15 @@ function OpenPopover(props: PopoverProps) {
                     local.origin === "top-right"
                         ? "100% 0%"
                         : "0% 0%",
+                opacity: opacity.value(),
+                transform: `translateY(${offset.value()}px) scale(${scale.value()})`,
                 ...placementStyle(),
                 ...(typeof local.style === "object"
                     ? local.style
                     : {}),
             }}
             class={cn(
-                "glass-menu absolute z-40 rounded-5xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95",
+                "glass-menu absolute z-40 rounded-5xl",
                 local.class,
                 local.className
             )}

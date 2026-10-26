@@ -7,8 +7,10 @@ import {
     onCleanup,
     Show,
 } from "solid-js"
+import { springs } from "@passui/tokens/motion"
 import { Portal } from "solid-js/web"
 import { cn } from "../../lib/class-names"
+import { useSpringValue } from "../../hooks/use-spring-value"
 import {
     getToasts,
     subscribeToasts,
@@ -21,12 +23,61 @@ export function Toaster(props: {
     label?: string
 }) {
     const [items, setItems] = createSignal<Toast[]>([]),
+        [rendered, setRendered] = createSignal<Toast[]>([]),
         [hovered, setHovered] = createSignal(false)
+    const removalTimers = new Map<
+        number,
+        ReturnType<typeof setTimeout>
+    >()
     onMount(() => {
-        setItems(getToasts())
-        onCleanup(
-            subscribeToasts(() => setItems(getToasts()))
-        )
+        const sync = () => {
+            const next = getToasts().slice(
+                0,
+                toastLimits.visible
+            )
+            setItems(next)
+            setRendered((previous) => {
+                const byId = new Map(
+                    previous.map((item) => [item.id, item])
+                )
+                for (const item of next)
+                    byId.set(item.id, item)
+                return [...byId.values()]
+            })
+            for (const item of next) {
+                const timer = removalTimers.get(item.id)
+                if (timer) clearTimeout(timer)
+                removalTimers.delete(item.id)
+            }
+            for (const item of rendered()) {
+                if (
+                    next.some(
+                        (active) => active.id === item.id
+                    ) ||
+                    removalTimers.has(item.id)
+                )
+                    continue
+                removalTimers.set(
+                    item.id,
+                    setTimeout(() => {
+                        setRendered((previous) =>
+                            previous.filter(
+                                (entry) =>
+                                    entry.id !== item.id
+                            )
+                        )
+                        removalTimers.delete(item.id)
+                    }, 280)
+                )
+            }
+        }
+        sync()
+        const unsubscribe = subscribeToasts(sync)
+        onCleanup(() => {
+            unsubscribe()
+            for (const timer of removalTimers.values())
+                clearTimeout(timer)
+        })
     })
     return (
         <Portal>
@@ -45,16 +96,18 @@ export function Toaster(props: {
                     onFocusIn={() => setHovered(true)}
                     onFocusOut={() => setHovered(false)}
                 >
-                    <For
-                        each={items().slice(
-                            0,
-                            toastLimits.visible
-                        )}
-                    >
-                        {(item, index) => (
+                    <For each={rendered()}>
+                        {(item) => (
                             <ToastItem
                                 item={item}
-                                index={index()}
+                                index={items().findIndex(
+                                    (active) =>
+                                        active.id === item.id
+                                )}
+                                visible={items().some(
+                                    (active) =>
+                                        active.id === item.id
+                                )}
                                 paused={hovered()}
                             />
                         )}
@@ -67,6 +120,7 @@ export function Toaster(props: {
 function ToastItem(props: {
     item: Toast
     index: number
+    visible: boolean
     paused: boolean
 }) {
     const id = `passui-toast-${createUniqueId()}`
@@ -77,7 +131,18 @@ function ToastItem(props: {
         })
     let content!: HTMLDivElement,
         dragY = 0
+    const vertical = useSpringValue(-24, springs.bouncy)
+    const layerScale = useSpringValue(0.6, springs.bouncy)
+    const layerOpacity = useSpringValue(0, springs.snappy)
+    const widthSpring = useSpringValue(40, springs.smooth)
+    const heightSpring = useSpringValue(40, springs.smooth)
     onMount(() => {
+        vertical.jump(-24)
+        layerScale.jump(0.6)
+        layerOpacity.jump(0)
+        vertical.to(0)
+        layerScale.to(1)
+        layerOpacity.to(1)
         const timer = setTimeout(() => setOpen(true), 140)
         const measure = () =>
             setSize({
@@ -101,26 +166,45 @@ function ToastItem(props: {
         )
         onCleanup(() => clearTimeout(timer))
     })
-    const stacked = () => !props.paused && props.index > 0
     const width = () => (open() ? size().width : 40),
         height = () => (open() ? size().height : 40)
+    createEffect(() => {
+        const index = Math.max(0, props.index)
+        const active = props.visible
+        const grouped = !props.paused && index > 0
+        vertical.to(
+            active
+                ? grouped
+                    ? index * 9
+                    : index * (size().height + 14)
+                : -24
+        )
+        layerScale.to(
+            active ? (grouped ? 1 - index * 0.05 : 1) : 0.85
+        )
+        layerOpacity.to(
+            active ? (grouped ? 1 - index * 0.25 : 1) : 0
+        )
+    })
+    createEffect(() => {
+        widthSpring.to(width())
+        heightSpring.to(height())
+    })
     return (
         <li
-            class="pointer-events-none absolute inset-x-0 top-0 flex justify-center motion-safe:transition-all"
+            class="pointer-events-none absolute inset-x-0 top-0 flex justify-center"
             style={{
-                "z-index": 10 - props.index,
-                opacity: stacked()
-                    ? 1 - props.index * 0.25
-                    : 1,
-                transform: `translateY(${stacked() ? props.index * 9 : props.index * (size().height + 14)}px) scale(${stacked() ? 1 - props.index * 0.05 : 1})`,
+                "z-index": 10 - Math.max(0, props.index),
+                opacity: layerOpacity.value(),
+                transform: `translateY(${vertical.value()}px) scale(${layerScale.value()})`,
             }}
         >
             <div
                 role="status"
-                class="pointer-events-auto relative motion-safe:transition-all motion-safe:duration-300"
+                class="pointer-events-auto relative"
                 style={{
-                    width: `${width()}px`,
-                    height: `${height()}px`,
+                    width: `${widthSpring.value()}px`,
+                    height: `${heightSpring.value()}px`,
                 }}
                 onPointerDown={(event) => {
                     dragY = event.clientY
@@ -165,11 +249,11 @@ function ToastItem(props: {
                 >
                     <span class="absolute top-3 left-3 size-10 rounded-full bg-inverse shadow-xl" />
                     <span
-                        class="absolute top-3 left-3 bg-inverse motion-safe:transition-all motion-safe:duration-300"
+                        class="absolute top-3 left-3 bg-inverse"
                         style={{
-                            width: `${width()}px`,
-                            height: `${height()}px`,
-                            "border-radius": `${Math.min(20, height() / 2)}px`,
+                            width: `${widthSpring.value()}px`,
+                            height: `${heightSpring.value()}px`,
+                            "border-radius": `${Math.min(20, heightSpring.value() / 2)}px`,
                         }}
                     />
                 </div>

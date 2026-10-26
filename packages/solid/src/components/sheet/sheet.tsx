@@ -1,5 +1,14 @@
-import { Show, type JSX } from "solid-js"
+import {
+    createEffect,
+    createSignal,
+    onCleanup,
+    onMount,
+    Show,
+    type JSX,
+} from "solid-js"
+import { springs } from "@passui/tokens/motion"
 import { cn } from "../../lib/class-names"
+import { useSpringValue } from "../../hooks/use-spring-value"
 import { useVisualViewport } from "../../hooks/use-visual-viewport"
 import { SheetPortal } from "./sheet-portal"
 import { useSheetFocus } from "./use-sheet-focus"
@@ -15,8 +24,19 @@ export interface SheetProps {
     children: JSX.Element
 }
 export function Sheet(props: SheetProps) {
+    const [rendered, setRendered] = createSignal(props.open)
+    createEffect(() => {
+        if (props.open) setRendered(true)
+        else {
+            const timer = setTimeout(
+                () => setRendered(false),
+                300
+            )
+            onCleanup(() => clearTimeout(timer))
+        }
+    })
     return (
-        <Show when={props.open}>
+        <Show when={rendered()}>
             <SheetPortal>
                 <OpenSheet {...props} />
             </SheetPortal>
@@ -24,6 +44,27 @@ export function Sheet(props: SheetProps) {
     )
 }
 function OpenSheet(props: SheetProps) {
+    const opacity = useSpringValue(0, springs.smooth)
+    const panelOpacity = useSpringValue(0, springs.snappy)
+    const offset = useSpringValue(40, springs.smooth)
+    const scale = useSpringValue(0.98, springs.smooth)
+    createEffect(() => {
+        opacity.to(props.open ? 1 : 0)
+        panelOpacity.to(props.open ? 1 : 0)
+        offset.to(props.open ? 0 : 30)
+        scale.to(props.open ? 1 : 0.98)
+    })
+    onMount(() => {
+        if (!props.open) return
+        opacity.jump(0)
+        panelOpacity.jump(0)
+        offset.jump(40)
+        scale.jump(0.98)
+        opacity.to(1)
+        panelOpacity.to(1)
+        offset.to(0)
+        scale.to(1)
+    })
     let panel: HTMLDivElement | undefined
     const viewport = useVisualViewport()
     useSheetFocus(
@@ -48,7 +89,8 @@ function OpenSheet(props: SheetProps) {
         >
             <div
                 aria-hidden="true"
-                class="absolute inset-0 bg-black/30 backdrop-blur-md motion-safe:animate-in motion-safe:fade-in-0"
+                class="absolute inset-0 bg-black/30 backdrop-blur-md"
+                style={{ opacity: opacity.value() }}
                 onClick={() => props.onClose()}
             />
             {/* biome-ignore lint/a11y/useAriaPropsSupportedByRole: both allowed roles, dialog and alertdialog, support aria-modal. */}
@@ -63,10 +105,14 @@ function OpenSheet(props: SheetProps) {
                 aria-describedby={props.describedBy}
                 tabIndex={-1}
                 class={cn(
-                    "glass-menu relative flex w-full flex-col overflow-hidden max-h-[92%] max-w-[560px] rounded-t-sheet sm:rounded-sheet motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-4",
+                    "glass-menu relative flex w-full flex-col overflow-hidden max-h-[92%] max-w-[560px] rounded-t-sheet sm:rounded-sheet",
                     props.class,
                     props.className
                 )}
+                style={{
+                    opacity: panelOpacity.value(),
+                    transform: `translateY(${offset.value()}px) scale(${scale.value()})`,
+                }}
             >
                 {props.children}
             </div>

@@ -1,10 +1,13 @@
 import {
+    createEffect,
     createSignal,
     onMount,
     onCleanup,
     Show,
 } from "solid-js"
 import { Portal } from "solid-js/web"
+import { springs } from "@passui/tokens/motion"
+import { useSpringValue } from "../../hooks/use-spring-value"
 interface Tip {
     text: string
     x: number
@@ -25,6 +28,31 @@ const MARGIN = 8
  */
 export function TooltipHost() {
     const [tip, setTip] = createSignal<Tip | null>(null)
+    const [rendered, setRendered] = createSignal<Tip | null>(
+        null
+    )
+    const opacity = useSpringValue(0, springs.snappy)
+    const scale = useSpringValue(0.94, springs.snappy)
+    const offset = useSpringValue(-5, springs.snappy)
+
+    createEffect(() => {
+        const next = tip()
+        if (next) {
+            setRendered(next)
+            opacity.to(1)
+            scale.to(1)
+            offset.to(0)
+        } else {
+            opacity.to(0)
+            scale.to(0.96)
+            offset.to(-3)
+            const timer = setTimeout(
+                () => setRendered(null),
+                240
+            )
+            onCleanup(() => clearTimeout(timer))
+        }
+    })
 
     onMount(() => {
         if (
@@ -121,16 +149,17 @@ export function TooltipHost() {
     })
 
     return (
-        <Show when={tip()}>
+        <Show when={rendered()}>
             {(value) => (
                 <Portal>
                     <div
                         role="tooltip"
-                        class="pointer-events-none fixed z-[80] max-w-[240px] rounded-md bg-inverse px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-on-inverse shadow-lg motion-safe:animate-in motion-safe:fade-in-0"
+                        class="pointer-events-none fixed z-[80] max-w-[240px] rounded-md bg-inverse px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-on-inverse shadow-lg"
                         style={{
                             left: `${Math.min(Math.max(value().x, 128), window.innerWidth - 128)}px`,
                             top: `${value().y}px`,
-                            transform: `translate(-50%, ${value().above ? "-100%" : "0"})`,
+                            opacity: opacity.value(),
+                            transform: `translate(-50%, ${value().above ? "-100%" : "0"}) translateY(${offset.value()}px) scale(${scale.value()})`,
                         }}
                     >
                         {value().text}

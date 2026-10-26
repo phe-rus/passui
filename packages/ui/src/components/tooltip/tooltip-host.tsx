@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "motion/react"
+import { spring } from "../../motion/transitions"
 import { useEffect, useState } from "react"
 
 interface Tip {
@@ -140,13 +141,11 @@ export function TooltipHost() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{
                         opacity: 0,
-                        transition: { duration: 0.08 },
+                        scale: 0.96,
+                        y: tip.above ? 2 : -2,
+                        transition: spring.snappy,
                     }}
-                    transition={{
-                        type: "spring",
-                        stiffness: 520,
-                        damping: 34,
-                    }}
+                    transition={spring.snappy}
                 >
                     {tip.text}
                 </motion.div>
