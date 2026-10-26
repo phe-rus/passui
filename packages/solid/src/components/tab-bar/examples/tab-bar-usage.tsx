@@ -3,12 +3,11 @@ import { TabBar } from "@passui/solid/tab-bar"
 export function TabBarUsage() {
     const [active, setActive] = createSignal("home")
     return (
-        <div class="relative min-h-32 w-full">
+        <div class="relative h-32 w-full max-w-sm overflow-hidden rounded-5xl bg-fill/40">
             <TabBar
-                class="relative inset-auto"
-                label="Main navigation"
+                class="absolute inset-x-3 bottom-3"
+                label="Main"
                 active={active()}
-                minimizeBehavior="never"
                 tabs={[
                     {
                         id: "home",
@@ -18,22 +17,32 @@ export function TabBarUsage() {
                         ),
                     },
                     {
-                        id: "saved",
-                        label: "Saved",
+                        id: "library",
+                        label: "Library",
                         icon: (
-                            <span aria-hidden="true">☆</span>
+                            <span aria-hidden="true">▤</span>
+                        ),
+                    },
+                    {
+                        id: "profile",
+                        label: "Profile",
+                        icon: (
+                            <span aria-hidden="true">◉</span>
                         ),
                     },
                 ]}
                 renderLink={(tab, link) => (
-                    <button
-                        type="button"
+                    <a
+                        href={`#${tab.id}`}
                         class={link.className}
                         aria-current={link["aria-current"]}
-                        onClick={() => setActive(tab.id)}
+                        onClick={(event) => {
+                            event.preventDefault()
+                            setActive(tab.id)
+                        }}
                     >
                         {link.children}
-                    </button>
+                    </a>
                 )}
             />
         </div>

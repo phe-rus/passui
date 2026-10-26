@@ -469,6 +469,144 @@ test("key Solid scenarios teach the same use cases as React", () => {
             "settings",
             ["Personal info", "Aiko Kamado", "Birthday"],
         ],
+        [
+            "labeled-content",
+            "usage",
+            [
+                "Show previews",
+                "Shows the first lines of each note.",
+            ],
+        ],
+        [
+            "labeled-content",
+            "values",
+            ["pass_7f3a9c", "Family", "March 2024"],
+        ],
+        [
+            "labeled-content",
+            "wide",
+            ["Appearance", "Nickname", "Aiko"],
+        ],
+        [
+            "status-indicator",
+            "live",
+            [
+                "Trip to Kyoto",
+                "Note title",
+                "Saving",
+                "Saved",
+            ],
+        ],
+        [
+            "stat-tile",
+            "usage",
+            ["Active people", "This week"],
+        ],
+        [
+            "dialog",
+            "inline",
+            [
+                "Add a recovery email",
+                "We only use it if you lose access.",
+            ],
+        ],
+        [
+            "section",
+            "usage",
+            ["Aiko Kamado", "aiko@example.com"],
+        ],
+        [
+            "chip",
+            "in-rows",
+            [
+                "Aiko Kamado",
+                "Kenji Mori",
+                "Anyone with the link",
+            ],
+        ],
+        [
+            "context-menu",
+            "usage",
+            [
+                "Copy link",
+                "Open in new tab",
+                "Right-click this card",
+            ],
+        ],
+        [
+            "compact-time-picker",
+            "usage",
+            ["18:30", "AM or PM"],
+        ],
+        [
+            "search-field",
+            "toolbar",
+            ["Search people", "Filters", "Invite"],
+        ],
+        [
+            "ambient",
+            "now-playing",
+            [
+                "Morning Light",
+                "Kenji Mori",
+                "Previous",
+                "Next",
+            ],
+        ],
+        [
+            "content-view",
+            "stats",
+            ["This month", "1,284", "with passkeys"],
+        ],
+        [
+            "popover",
+            "usage",
+            ["What's this?", "A passkey signs you in"],
+        ],
+        [
+            "sheet",
+            "usage",
+            [
+                "About this app",
+                "Version 2.4. Made in Lisbon.",
+            ],
+        ],
+        [
+            "view-controller",
+            "usage",
+            ["Devices", "Where you're signed in right now."],
+        ],
+        [
+            "tab-bar",
+            "five-tabs",
+            ["Calendar", "Library", "Profile"],
+        ],
+        [
+            "tab-bar",
+            "minimize",
+            ["Chapter", "Search", "Library"],
+        ],
+        [
+            "profile-image",
+            "fallbacks",
+            [
+                "/avatars/kenji.svg",
+                "/avatars/missing.png",
+                "KM",
+                "MP",
+            ],
+        ],
+        ["sidebar", "usage", ["Home", "Settings"]],
+        [
+            "chip",
+            "tones",
+            ["Draft", "Featured", "Family", "Friends"],
+        ],
+        [
+            "secure-field",
+            "reveal",
+            ["correct-horse", "Password"],
+        ],
     ] as const) {
         const source = getSolidExampleSource(slug, id)
         for (const phrase of phrases)

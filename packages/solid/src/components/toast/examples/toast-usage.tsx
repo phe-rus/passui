@@ -1,14 +1,14 @@
 import { toast } from "@passui/solid/toast"
 import { Toaster } from "@passui/solid/toaster"
+import { Button } from "@passui/solid/button"
 export function ToastUsage() {
     return (
         <>
-            <button
-                type="button"
+            <Button
                 onClick={() => toast.success("Changes saved")}
             >
-                Save changes
-            </button>
+                Save
+            </Button>
             <Toaster />
         </>
     )

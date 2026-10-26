@@ -6,8 +6,8 @@ import {
 
 export function ProfileImageUsage() {
     return (
-        <ProfileImage>
-            <ProfileImageContent alt="Aiko Kamado" />
+        <ProfileImage class="size-11">
+            <ProfileImageContent src="/avatars/aiko.svg" />
             <ProfileImageFallback>AK</ProfileImageFallback>
         </ProfileImage>
     )

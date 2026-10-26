@@ -1,12 +1,20 @@
 import { Section } from "@passui/solid/section"
+import { LabeledContent } from "@passui/solid/labeled-content"
 
 export function SectionUsage() {
     return (
-        <Section
-            title="Account"
-            footer="Only you can see this."
-        >
-            <p class="p-4">Personal settings</p>
-        </Section>
+        <div class="w-full max-w-sm">
+            <Section
+                title="Account"
+                footer="Your name appears on shared notes."
+            >
+                <LabeledContent label="Name">
+                    Aiko Kamado
+                </LabeledContent>
+                <LabeledContent label="Email">
+                    aiko@example.com
+                </LabeledContent>
+            </Section>
+        </div>
     )
 }

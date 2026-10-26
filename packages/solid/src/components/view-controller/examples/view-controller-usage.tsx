@@ -5,12 +5,14 @@ export function ViewControllerUsage() {
             class="py-6"
             heading={
                 <ViewController.Heading
-                    title="Settings"
-                    description="Make this space yours."
+                    title="Devices"
+                    description="Where you're signed in right now."
                 />
             }
         >
-            <p>Your preferences live here.</p>
+            <p class="text-callout text-label-secondary">
+                The screen's content goes here.
+            </p>
         </ViewController>
     )
 }

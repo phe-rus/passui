@@ -6,24 +6,22 @@ import {
 
 export function ProfileImageFallbacks() {
     return (
-        <div class="flex items-center gap-3">
-            <ProfileImage>
-                <ProfileImageContent
-                    src="/missing-photo.jpg"
-                    alt="Nora"
-                />
+        <div class="flex items-center gap-4">
+            <ProfileImage class="size-11">
+                <ProfileImageContent src="/avatars/kenji.svg" />
                 <ProfileImageFallback>
-                    NO
+                    KM
                 </ProfileImageFallback>
             </ProfileImage>
-            <ProfileImage>
+            <ProfileImage class="size-11">
+                <ProfileImageContent src="/avatars/missing.png" />
                 <ProfileImageFallback>
-                    AK
+                    MP
                 </ProfileImageFallback>
             </ProfileImage>
-            <ProfileImage>
+            <ProfileImage class="size-11">
                 <ProfileImageFallback>
-                    JD
+                    JS
                 </ProfileImageFallback>
             </ProfileImage>
         </div>

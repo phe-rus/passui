@@ -1,34 +1,27 @@
 import {
     ContextMenuHost,
-    openMenu,
     useContextMenu,
 } from "@passui/solid/context-menu"
-import { createSignal } from "solid-js"
+import { toast } from "@passui/solid/toast"
 export function ContextMenuUsage() {
-    const [selected, setSelected] = createSignal("")
-    const items = () => [
+    const menu = useContextMenu(() => [
         {
-            label: "Duplicate",
-            onSelect: () => setSelected("Duplicated"),
+            label: "Copy link",
+            onSelect: () => toast("Link copied"),
         },
         {
-            label: "Archive",
-            onSelect: () => setSelected("Archived"),
+            label: "Open in new tab",
+            onSelect: () => toast("Opened"),
         },
-    ]
-    const handlers = useContextMenu(items)
+    ])
     return (
         <>
-            <button
-                type="button"
-                {...handlers}
-                onClick={(event) =>
-                    openMenu(event.currentTarget, items())
-                }
+            <div
+                {...menu}
+                class="select-none rounded-3xl bg-fill/60 px-6 py-4 text-callout text-label"
             >
-                Open actions
-            </button>
-            <output>{selected()}</output>
+                Right-click this card
+            </div>
             <ContextMenuHost />
         </>
     )

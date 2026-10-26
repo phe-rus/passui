@@ -2,7 +2,7 @@ import { createSignal } from "solid-js"
 import { TabBar } from "@passui/solid/tab-bar"
 
 export function TabBarFiveTabs() {
-    const [active, setActive] = createSignal("home")
+    const [active, setActive] = createSignal("inbox")
     const tabs = [
         {
             id: "home",
@@ -10,19 +10,19 @@ export function TabBarFiveTabs() {
             icon: <span aria-hidden="true">⌂</span>,
         },
         {
-            id: "search",
-            label: "Search",
-            icon: <span aria-hidden="true">⌕</span>,
-        },
-        {
-            id: "saved",
-            label: "Saved",
-            icon: <span aria-hidden="true">☆</span>,
-        },
-        {
             id: "inbox",
             label: "Inbox",
             icon: <span aria-hidden="true">✉</span>,
+        },
+        {
+            id: "calendar",
+            label: "Calendar",
+            icon: <span aria-hidden="true">▦</span>,
+        },
+        {
+            id: "library",
+            label: "Library",
+            icon: <span aria-hidden="true">▤</span>,
         },
         {
             id: "profile",
@@ -31,22 +31,24 @@ export function TabBarFiveTabs() {
         },
     ]
     return (
-        <div class="relative min-h-36 w-full">
+        <div class="relative h-32 w-full max-w-sm overflow-hidden rounded-5xl bg-fill/40">
             <TabBar
-                class="relative inset-auto"
-                label="Main navigation"
+                class="absolute inset-x-3 bottom-3"
+                label="Main"
                 active={active()}
                 tabs={tabs}
-                minimizeBehavior="never"
                 renderLink={(tab, link) => (
-                    <button
-                        type="button"
+                    <a
+                        href={`#${tab.id}`}
                         class={link.className}
                         aria-current={link["aria-current"]}
-                        onClick={() => setActive(tab.id)}
+                        onClick={(event) => {
+                            event.preventDefault()
+                            setActive(tab.id)
+                        }}
                     >
                         {link.children}
-                    </button>
+                    </a>
                 )}
             />
         </div>

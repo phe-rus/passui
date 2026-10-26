@@ -1,21 +1,25 @@
 import { createSignal } from "solid-js"
 import { Popover } from "@passui/solid/popover"
+import { Button } from "@passui/solid/button"
 export function PopoverUsage() {
     const [open, setOpen] = createSignal(false)
     return (
         <div class="relative">
-            <button
-                type="button"
+            <Button
+                variant="secondary"
                 aria-expanded={open()}
-                onClick={() => setOpen((value) => !value)}
+                onClick={() => setOpen(!open())}
             >
-                Show details
-            </button>
+                What's this?
+            </Button>
             <Popover
                 open={open()}
-                class="top-full mt-2 w-64 p-4"
+                class="top-full left-0 mt-2 w-64 p-4"
             >
-                <p>Useful details beside the control.</p>
+                <p class="text-callout text-label">
+                    A passkey signs you in with your face,
+                    fingerprint or screen lock.
+                </p>
             </Popover>
         </div>
     )

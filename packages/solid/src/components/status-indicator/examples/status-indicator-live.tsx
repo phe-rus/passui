@@ -1,23 +1,32 @@
-import { createSignal } from "solid-js"
-import { Button } from "@passui/solid/button"
+import { createSignal, onCleanup } from "solid-js"
+import { TextField } from "@passui/solid/text-field"
 import { StatusIndicator } from "@passui/solid/status-indicator"
 
 export function StatusIndicatorLive() {
-    const [online, setOnline] = createSignal(true)
+    const [title, setTitle] = createSignal("Trip to Kyoto")
+    const [saving, setSaving] = createSignal(false)
+    let timer: ReturnType<typeof setTimeout> | undefined
+    onCleanup(() => clearTimeout(timer))
     return (
-        <div class="flex items-center gap-4">
+        <div class="flex w-full max-w-sm flex-col gap-3 rounded-4xl bg-elevated p-5 shadow-sm ring-1 ring-separator/60">
+            <TextField
+                label="Note title"
+                value={title()}
+                onInput={(event) => {
+                    setTitle(event.currentTarget.value)
+                    setSaving(true)
+                    clearTimeout(timer)
+                    timer = setTimeout(
+                        () => setSaving(false),
+                        900
+                    )
+                }}
+            />
             <StatusIndicator
-                state={online() ? "saved" : "offline"}
+                state={saving() ? "syncing" : "saved"}
             >
-                {online() ? "Connected" : "Disconnected"}
+                {saving() ? "Saving" : "Saved"}
             </StatusIndicator>
-            <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setOnline(!online())}
-            >
-                Toggle connection
-            </Button>
         </div>
     )
 }

@@ -9,19 +9,19 @@ const people = [
 
 export function AmbientImages() {
     return (
-        <div class="flex w-full flex-wrap items-center justify-center gap-5">
+        <div class="grid w-full max-w-xl grid-cols-3 gap-2">
             <For each={people}>
                 {(person) => (
                     <Ambient
                         src={person.src}
-                        class="flex w-28 flex-col items-center gap-3 py-8 text-center"
+                        class="flex flex-col items-center gap-2 py-8"
                     >
                         <img
                             src={person.src}
-                            alt={person.name}
-                            class="size-16 rounded-full"
+                            alt=""
+                            class="size-14 rounded-full"
                         />
-                        <span class="text-footnote font-semibold text-label">
+                        <span class="text-subheadline font-medium text-label">
                             {person.name}
                         </span>
                     </Ambient>

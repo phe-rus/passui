@@ -3,18 +3,33 @@ import { ContentView } from "@passui/solid/content-view"
 export function ContentViewStats() {
     return (
         <ContentView class="w-full max-w-sm p-5">
-            <ContentView.Header
-                heading="Activity"
-                p="Your week at a glance"
-            />
-            <ContentView.Row class="mt-5 justify-between">
-                <ContentView.P>32 tasks</ContentView.P>
-                <ContentView.Span>+12%</ContentView.Span>
-            </ContentView.Row>
-            <ContentView.Row class="mt-2 justify-between">
-                <ContentView.P>8 projects</ContentView.P>
-                <ContentView.Span>+2</ContentView.Span>
-            </ContentView.Row>
+            <ContentView.Section>
+                <ContentView.P class="text-footnote text-label-secondary">
+                    This month
+                </ContentView.P>
+                <ContentView.Row class="justify-between gap-4">
+                    <div class="flex flex-col">
+                        <ContentView.H1 class="text-title font-bold tabular-nums">
+                            1,284
+                        </ContentView.H1>
+                        <ContentView.Span>
+                            sign ins
+                        </ContentView.Span>
+                    </div>
+                    <ContentView.Divider />
+                    <div class="flex flex-col">
+                        <ContentView.H2 class="text-title font-bold tabular-nums">
+                            12
+                            <ContentView.Sub>
+                                %
+                            </ContentView.Sub>
+                        </ContentView.H2>
+                        <ContentView.Span>
+                            with passkeys
+                        </ContentView.Span>
+                    </div>
+                </ContentView.Row>
+            </ContentView.Section>
         </ContentView>
     )
 }
