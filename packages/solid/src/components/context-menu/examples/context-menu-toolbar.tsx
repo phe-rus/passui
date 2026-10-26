@@ -1,40 +1,53 @@
-import { createSignal } from "solid-js"
+import { IconButton } from "@passui/solid/icon-button"
+import { toast } from "@passui/solid/toast"
 import {
     ContextMenuHost,
     openMenu,
-    useContextMenu,
 } from "@passui/solid/context-menu"
 
 export function ContextMenuToolbar() {
-    const [result, setResult] = createSignal("")
-    const items = () => [
-        {
-            label: "Copy",
-            onSelect: () => setResult("Copied"),
-        },
-        {
-            label: "Rename",
-            onSelect: () => setResult("Renamed"),
-        },
-        {
-            label: "Share",
-            onSelect: () => setResult("Shared"),
-        },
-    ]
-    const handlers = useContextMenu(items)
+    let toolbar: HTMLDivElement | undefined
     return (
-        <div class="grid gap-2">
-            <button
-                type="button"
-                {...handlers}
-                onClick={(event) =>
-                    openMenu(event.currentTarget, items())
-                }
-                class="rounded-xl bg-fill p-3"
+        <div ref={toolbar} class="flex items-center gap-1">
+            <IconButton
+                label="Favourite"
+                variant="ghost"
+                size="icon-xs"
             >
-                File actions ···
-            </button>
-            <output class="text-footnote">{result()}</output>
+                <span aria-hidden="true">☆</span>
+            </IconButton>
+            <IconButton
+                label="Share"
+                variant="ghost"
+                size="icon-xs"
+            >
+                <span aria-hidden="true">↗</span>
+            </IconButton>
+            <IconButton
+                label="More"
+                variant="ghost"
+                size="icon-xs"
+                onClick={(event) =>
+                    openMenu(
+                        event.currentTarget,
+                        [
+                            {
+                                label: "Duplicate",
+                                onSelect: () =>
+                                    toast("Duplicated"),
+                            },
+                            {
+                                label: "Move",
+                                onSelect: () =>
+                                    toast("Choose a folder"),
+                            },
+                        ],
+                        { edge: "trailing", toolbar }
+                    )
+                }
+            >
+                <span aria-hidden="true">···</span>
+            </IconButton>
             <ContextMenuHost />
         </div>
     )

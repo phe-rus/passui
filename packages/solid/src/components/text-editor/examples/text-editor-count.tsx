@@ -2,20 +2,31 @@ import { createSignal } from "solid-js"
 import { TextEditor } from "@passui/solid/text-editor"
 
 export function TextEditorCount() {
-    const [text, setText] = createSignal("")
+    const [status, setStatus] = createSignal(
+        "Out hiking until Sunday."
+    )
     return (
-        <div class="grid w-full max-w-sm gap-2">
+        <div class="flex w-full max-w-sm flex-col gap-2">
+            <label
+                for="solid-status-editor"
+                class="text-subheadline font-semibold"
+            >
+                Status
+            </label>
             <TextEditor
-                aria-label="Bio"
+                id="solid-status-editor"
                 maxLength={160}
-                value={text()}
+                value={status()}
+                aria-describedby="solid-status-count"
                 onInput={(event) =>
-                    setText(event.currentTarget.value)
+                    setStatus(event.currentTarget.value)
                 }
-                placeholder="Tell people about yourself"
             />
-            <output class="text-right text-footnote text-label-secondary">
-                {text().length} / 160
+            <output
+                id="solid-status-count"
+                class="self-end text-caption text-label-tertiary tabular-nums"
+            >
+                {status().length} / 160
             </output>
         </div>
     )

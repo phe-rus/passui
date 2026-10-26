@@ -4,15 +4,15 @@ import { SearchField } from "@passui/solid/search-field"
 export function SearchFieldUsage() {
     const [query, setQuery] = createSignal("")
     return (
-        <div class="flex flex-col gap-3">
+        <div class="w-full max-w-xs">
             <SearchField
-                aria-label="Find a file"
+                aria-label="Search notes"
+                placeholder="Search notes"
                 value={query()}
                 onInput={(event) =>
                     setQuery(event.currentTarget.value)
                 }
             />
-            <output>{query() || "Type to search"}</output>
         </div>
     )
 }
