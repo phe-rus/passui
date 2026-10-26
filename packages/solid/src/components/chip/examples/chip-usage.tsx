@@ -1,0 +1,6 @@
+/** @jsxImportSource solid-js */
+import { Chip } from "@passui/solid/chip"
+
+export function ChipUsage() {
+    return <Chip tone="accent">Design</Chip>
+}

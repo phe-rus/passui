@@ -9,3 +9,5 @@ Use Node standard library APIs so the bundled executable runs under Node and Bun
 Tests, helpers and fixtures live in `test/`, separate from `src/`. Test project file operations in temporary directories. The user omitted separate clean React app release verification; do not silently add it.
 
 Run build, typecheck, tests and publish:check. Build produces `dist/passui.js`; prepack builds the executable before packing. Public CI also checks Node can execute it. Publishing uses `phe-rus/passui`, `publish.yml` and `npm-publish` with npm OIDC.
+
+The same CLI detects React or Solid for init and accepts `--framework`. Both Vite and TanStack Start have native Solid starters in `src/solid-templates.ts`. Keep generated provider imports, JSX settings, optional TanStack peers and source dependency compilation aligned with the selected framework; never silently choose when both runtimes are installed.

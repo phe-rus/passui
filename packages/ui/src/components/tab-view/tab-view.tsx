@@ -10,12 +10,18 @@ import { cn } from "../../lib/class-names"
 export function TabView<Value extends string>({
     options,
     defaultValue,
+    value: controlledValue,
+    onValueChange,
+    align = "center",
     label,
     children,
     className,
 }: {
     options: readonly { value: Value; label: string }[]
     defaultValue: Value
+    value?: Value
+    onValueChange?: (value: Value) => void
+    align?: "start" | "center"
     label: string
     children: (value: Value) => ReactNode
     className?: string
@@ -23,10 +29,15 @@ export function TabView<Value extends string>({
     const id = useId()
     const buttons = useRef<(HTMLButtonElement | null)[]>([])
     const [selected, setSelected] = useState(defaultValue)
+    const current = controlledValue ?? selected
+    function select(next: Value) {
+        if (controlledValue === undefined) setSelected(next)
+        onValueChange?.(next)
+    }
     const value = options.some(
-        (option) => option.value === selected
+        (option) => option.value === current
     )
-        ? selected
+        ? current
         : options[0]?.value
     if (value === undefined) return null
 
@@ -40,7 +51,12 @@ export function TabView<Value extends string>({
             <div
                 role="tablist"
                 aria-label={label}
-                className="mx-auto inline-flex h-8 max-w-full items-center justify-center gap-5 p-[3px]"
+                className={cn(
+                    "inline-flex h-8 w-fit max-w-full items-center gap-5 p-[3px]",
+                    align === "start"
+                        ? "self-start"
+                        : "mx-auto justify-center"
+                )}
             >
                 {options.map((option, index) => (
                     <button
@@ -56,9 +72,7 @@ export function TabView<Value extends string>({
                         ref={(element) => {
                             buttons.current[index] = element
                         }}
-                        onClick={() =>
-                            setSelected(option.value)
-                        }
+                        onClick={() => select(option.value)}
                         onKeyDown={(event) => {
                             const rtl =
                                 getComputedStyle(
@@ -82,8 +96,7 @@ export function TabView<Value extends string>({
                                 (next + options.length) %
                                 options.length
                             const option = options[next]
-                            if (option)
-                                setSelected(option.value)
+                            if (option) select(option.value)
                             buttons.current[next]?.focus()
                         }}
                         className={cn(

@@ -8,16 +8,22 @@ import {
 } from "@/domains/seo/sitemap"
 import { getCatalog } from "@/domains/catalog/get-catalog"
 import { guides } from "@/domains/guides/get-guides"
+import { solidComponentSlugs } from "@passui/solid/docs"
 
 describe("search discovery", () => {
     test("every public guide and component has one canonical sitemap URL", () => {
         const paths = getSitemapPaths()
         expect(paths).toHaveLength(
-            1 + guides.length + getCatalog().length
+            1 +
+                guides.length * 2 +
+                getCatalog().length +
+                solidComponentSlugs.length
         )
         expect(paths).toContain("/")
         for (const guide of guides)
             expect(paths).toContain(guide.path)
+        for (const guide of guides)
+            expect(paths).toContain(`/solid${guide.path}`)
         for (const entry of getCatalog())
             expect(paths).toContain(
                 `/components/${entry.docs.slug}`
@@ -91,6 +97,35 @@ describe("search discovery", () => {
                     item["@type"] === "SoftwareSourceCode"
             ).codeRepository
         ).toBe("https://github.com/phe-rus/passui")
+    })
+
+    test("Solid documentation has its own canonical identity", () => {
+        const head = getPageHead(
+            "/solid/components/button?theme=dark",
+            "Button · SolidJS · Passui",
+            "Native Solid button"
+        )
+        expect(head.links[0].href).toBe(
+            "https://passui.pherus.org/solid/components/button"
+        )
+        const graph = JSON.parse(head.scripts[0].children)[
+            "@graph"
+        ]
+        expect(
+            graph
+                .find(
+                    (item: { "@type": string }) =>
+                        item["@type"] === "BreadcrumbList"
+                )
+                .itemListElement.map(
+                    (item: { name: string }) => item.name
+                )
+        ).toEqual([
+            "Passui",
+            "SolidJS",
+            "Components",
+            "Button · SolidJS",
+        ])
     })
 })
 

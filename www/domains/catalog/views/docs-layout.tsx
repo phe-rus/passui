@@ -15,6 +15,9 @@ import {
     useState,
 } from "react"
 import { guides } from "@/domains/guides/get-guides"
+import { frameworkPath } from "@/domains/framework/framework"
+import { useDocsFramework } from "@/domains/framework/use-docs-framework"
+import { FrameworkSwitcher } from "@/domains/framework/views/framework-switcher"
 import { catalogGroups, getCatalog } from "../get-catalog"
 
 type DocsLayoutProps = {
@@ -53,6 +56,7 @@ function rowClass(active: boolean) {
 
 /** Every guide and component, by group; the sidebar and the phone sheet share it. */
 function DocsNav() {
+    const framework = useDocsFramework()
     const catalog = getCatalog()
     const groups = catalogGroups
         .map((group) => ({
@@ -72,7 +76,10 @@ function DocsNav() {
                 {guides.map((guide) => (
                     <Link
                         key={guide.slug}
-                        to={guide.path}
+                        to={frameworkPath(
+                            guide.path,
+                            framework
+                        )}
                         // the overview is /components, not every component page
                         activeOptions={{
                             exact: true,
@@ -104,7 +111,11 @@ function DocsNav() {
                     {entries.map(({ docs, icon }) => (
                         <Link
                             key={docs.slug}
-                            to="/components/$slug"
+                            to={
+                                framework === "solid"
+                                    ? "/solid/components/$slug"
+                                    : "/components/$slug"
+                            }
                             params={{ slug: docs.slug }}
                             // the address carries settings and props; match the page alone
                             activeOptions={{
@@ -140,6 +151,7 @@ function DocsNav() {
 
 /** The page being read, for the phone bar: a guide or a component. */
 function currentTitle(pathname: string) {
+    pathname = pathname.replace(/^\/solid(?=\/)/, "")
     const guide = guides.find(
         (item) => item.path === pathname
     )
@@ -203,7 +215,11 @@ export function DocsLayout({ children }: DocsLayoutProps) {
             >
                 <DocsNav />
             </aside>
-            <div className="min-w-0 flex-1">{children}</div>
+            <div className="flex min-w-0 flex-1 flex-col gap-8">
+                <FrameworkSwitcher>
+                    {children}
+                </FrameworkSwitcher>
+            </div>
         </div>
     )
 }

@@ -8,11 +8,27 @@ export function getPageHead(
     const url = pageUrl(path)
     const image = `${siteOrigin}/favicon.png`
     const pathname = new URL(url).pathname
-    const section = pathname.startsWith("/components/")
-        ? { name: "Components", path: "/components" }
-        : null
+    const solid = pathname.startsWith("/solid/")
+    const section =
+        pathname.startsWith("/components/") ||
+        pathname.startsWith("/solid/components/")
+            ? {
+                  name: "Components",
+                  path: solid
+                      ? "/solid/components"
+                      : "/components",
+              }
+            : null
     const crumbs = [
         { name: "Passui", path: "/" },
+        ...(solid
+            ? [
+                  {
+                      name: "SolidJS",
+                      path: "/solid/docs/introduction",
+                  },
+              ]
+            : []),
         ...(section && section.path !== pathname
             ? [section]
             : []),

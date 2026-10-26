@@ -24,12 +24,8 @@ type MutationContext<TOptimisticData> =
       }
     | undefined
 
-export function shouldRestoreOptimisticSnapshot<T>(
-    current: T | undefined,
-    expected: T
-) {
-    return current === expected
-}
+import { shouldRestoreOptimisticSnapshot } from "../shared/optimistic"
+export { shouldRestoreOptimisticSnapshot } from "../shared/optimistic"
 
 type AppMutationOptions<TData, TVariables, TOptimisticData> =
     Omit<

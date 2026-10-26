@@ -1,6 +1,5 @@
 {
     "name": "@passui/solid",
-    "private": true,
     "version": "0.1.0",
     "description": "Passui: native SolidJS controls, design tokens, presentation and appearance.",
     "license": "MIT",
@@ -21,6 +20,10 @@
     ],
     "type": "module",
     "exports": {
+        "./docs/mount": "./src/docs/mount.tsx",
+        "./button": "./src/components/button/button.tsx",
+        "./icon-button": "./src/components/button/icon-button.tsx",
+        "./docs": "./src/docs/index.ts",
         "./appearance": "./src/appearance/index.ts",
         "./cn": "./src/lib/class-names.ts",
         ".": "./src/index.ts",
@@ -29,7 +32,42 @@
         "./utilities.css": "./src/styles/utilities.css",
         "./typeset.css": "./src/styles/typeset.css",
         "./theme.css": "./src/styles/theme.css",
-        "./tokens": "./src/tokens/index.ts"
+        "./tokens": "./src/tokens/index.ts",
+        "./chip": "./src/components/chip/chip.tsx",
+        "./status-indicator": "./src/components/status-indicator/status-indicator.tsx",
+        "./section": "./src/components/section/section.tsx",
+        "./labeled-content": "./src/components/labeled-content/labeled-content.tsx",
+        "./stat-tile": "./src/components/stat-tile/stat-tile.tsx",
+        "./text-field": "./src/components/text-field/text-field.tsx",
+        "./secure-field": "./src/components/secure-field/secure-field.tsx",
+        "./search-field": "./src/components/search-field/search-field.tsx",
+        "./text-editor": "./src/components/text-editor/text-editor.tsx",
+        "./toggle": "./src/components/toggle/toggle.tsx",
+        "./profile-image": "./src/components/profile-image/profile-image.tsx",
+        "./swatch-picker": "./src/components/swatch-picker/swatch-picker.tsx",
+        "./tab-view": "./src/components/tab-view/tab-view.tsx",
+        "./picker": "./src/components/picker/picker.tsx",
+        "./segmented-control": "./src/components/segmented-control/segmented-control.tsx",
+        "./search-list": "./src/components/search-list/search-list.tsx",
+        "./date-picker": "./src/components/date-picker/date-picker.tsx",
+        "./compact-date-picker": "./src/components/compact-date-picker/compact-date-picker.tsx",
+        "./compact-time-picker": "./src/components/compact-time-picker/compact-time-picker.tsx",
+        "./table": "./src/components/table/table.tsx",
+        "./sidebar": "./src/components/sidebar/sidebar.tsx",
+        "./content-view": "./src/components/content-view/content-view.tsx",
+        "./view-controller": "./src/components/view-controller/view-controller.tsx",
+        "./ambient": "./src/components/ambient/ambient.tsx",
+        "./conversation": "./src/components/conversation/conversation.tsx",
+        "./tab-bar": "./src/components/tab-bar/tab-bar.tsx",
+        "./popover": "./src/components/popover/popover.tsx",
+        "./sheet": "./src/components/sheet/sheet.tsx",
+        "./locale-switcher": "./src/components/locale-switcher/locale-switcher.tsx",
+        "./dialog": "./src/components/dialog/dialog.tsx",
+        "./dialog-host": "./src/components/dialog/dialog-host.tsx",
+        "./toast": "./src/components/toast/toast-store.ts",
+        "./toaster": "./src/components/toast/toaster.tsx",
+        "./context-menu": "./src/components/context-menu/context-menu-host.tsx",
+        "./tooltip": "./src/components/tooltip/tooltip-host.tsx"
     },
     "scripts": {
         "test": "vitest run",
@@ -39,7 +77,7 @@
     },
     "packageManager": "bun@1.4.2",
     "peerDependencies": {
-        "solid-js": "^1.9.0",
+        "solid-js": "^1.9.17",
         "tailwindcss": "^4.3.3"
     },
     "devDependencies": {
@@ -47,8 +85,9 @@
         "solid-js": "^1.9.5",
         "tailwindcss": "^4.3.3",
         "typescript": "^7.0.2",
-        "vitest": "5.0.5",
-        "vite": "8.3.5"
+        "vite": "8.3.5",
+        "vite-plugin-solid": "2.11.14",
+        "vitest": "5.0.5"
     },
     "dependencies": {
         "clsx": "^2.1.1",

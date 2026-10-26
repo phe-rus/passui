@@ -1,88 +1,110 @@
 # @passui/solid
 
-Private, unpublished native SolidJS foundation for Passui. Stage 1 exposes
-shared tokens, styles, class-name helpers, date helpers and shapes.
-Stage 2 adds platform detection, a document bootstrap and a native Solid
-platform provider. Controls are not implemented yet. In particular,
-`@passui/solid/button` does not exist.
+Native SolidJS controls and appearance for Passui, sharing tokens and CSS
+with `@passui/react`. This package does not import React or React DOM.
+Requires SolidJS 1.9.17+ and Tailwind CSS 4.
 
-```ts
-import { cn } from "@passui/solid/cn"
-import { accents } from "@passui/solid/tokens"
+## Setup
+
+```bash
+bunx @passui/cli@latest init --framework solid
+# Optional integrations
+bunx @passui/cli@latest init --framework solid --integration tanstack
+# New Vite or TanStack Start applications
+bunx @passui/cli@latest create my-app --framework solid --template vite
+bunx @passui/cli@latest create my-app --framework solid --template tanstack
 ```
+
+Manual installation:
+
+```bash
+bun add @passui/solid solid-js tailwindcss
+bun add -D vite-plugin-solid @tailwindcss/vite
+```
+
+Import the stylesheet once:
 
 ```css
 @import "@passui/solid/styles.css";
 ```
 
-These imports currently work only inside a workspace consuming this local
-package. There is no public npm installation command for Solid yet.
-
-Requires SolidJS 1.9+ and Tailwind CSS 4. Shared tokens and styles come from
-`@passui/tokens`; no React runtime is imported. The CLI currently supports
-React starters only.
-
-## Native platform appearance
-
-The `@passui/solid/appearance` entry exports `PlatformScript`,
-`PlatformProvider`, `usePlatform`, `detectPlatform`, `resolvePlatform`
-and the `PlatformOS` type. Names, platform values and detection precedence
-match the React package. `PlatformScript` accepts a CSP `nonce`.
-
-Place `PlatformScript` in the document head before the styled body. It
-sets the root `data-os` before paint. Wrap application content with
-`PlatformProvider`. The provider reports `unknown` on the server and
-during initial hydration, then detects the platform after mounting.
-Valid root overrides (`ios`, `android`, `macos`, `windows`, `linux`,
-`unknown`) take precedence over browser detection. iPad desktop mode is
-detected from MacIntel with multiple touch points.
-
-`usePlatform()` returns the current platform string. Read it inside a
-reactive expression or `createMemo(usePlatform)` so Solid tracks updates.
-Do not store its result once during component initialization.
-
-This minimal example is also the compiled SSR and hydration fixture in
-`test/fixtures/platform-app.ts`:
+Configure TypeScript with `jsx: "preserve"` and
+`jsxImportSource: "solid-js"`. Components export TS/TSX source, so your
+bundler must run the Solid compiler on the package too. For Vite 8:
 
 ```ts
-import { createComponent } from "solid-js"
-import { Dynamic } from "solid-js/web"
-import {
-    PlatformProvider,
-    usePlatform,
-} from "@passui/solid/appearance"
+import { defineConfig } from "vite"
+import solid from "vite-plugin-solid"
+import tailwindcss from "@tailwindcss/vite"
 
-export function PlatformApp() {
-    return createComponent(PlatformProvider, {
-        get children() {
-            return createComponent(Dynamic<"output">, {
-                component: "output",
-                get children() {
-                    return usePlatform()
-                },
-            })
-        },
-    })
+export default defineConfig({
+    optimizeDeps: { exclude: ["@passui/solid", "@passui/tanstack"] },
+    resolve: { conditions: ["solid", "module", "browser", "development|production"] },
+    ssr: {
+        noExternal: ["@passui/solid", "@passui/tanstack", /@tanstack\/solid-/],
+        resolve: { conditions: ["solid", "module", "node", "development|production"] },
+    },
+    plugins: [tailwindcss(), solid({ ssr: true })],
+})
+```
+
+For TanStack Start, place `tanstackStart()` from
+`@tanstack/solid-start/plugin/vite` before `solid({ ssr: true })`.
+The CLI generates this configuration for new projects; `init` gives wiring
+instructions and preserves your existing bundler configuration.
+
+```tsx
+import { Button } from "@passui/solid/button"
+import { createSignal } from "solid-js"
+
+export function Example() {
+    const [saved, setSaved] = createSignal(false)
+    return <Button onClick={() => setSaved(true)}>{saved() ? "Saved" : "Save"}</Button>
 }
 ```
 
-ThemeProvider, useTheme, controls, Solid TanStack integration and Solid CLI
-templates are planned, and are not exported by this package.
+## Components
+
+The 35 documented families have native implementations: Button, IconButton,
+Chip, TextField, SecureField, SearchField, Toggle, SegmentedControl, Picker,
+SwatchPicker, Section, LabeledContent, StatusIndicator, StatTile, DatePicker,
+CompactDatePicker, CompactTimePicker, TextEditor, SearchList, ProfileImage,
+TabView, TabBar, SidebarSection, ViewController, Table, ContentView,
+Conversation, Ambient, Dialog, Sheet, Popover, toast, useContextMenu,
+TooltipHost and LocaleSwitcher. Import from their kebab case entry points,
+or from `@passui/solid`. Hosts and actions also have dedicated entry points:
+`/toaster`, `/toast`, `/dialog`, `/dialog-host`, `/context-menu`, `/tooltip`.
+Mount each host once near the application root when using that feature.
+
+Native DOM props follow Solid conventions, including `class`, `onInput`,
+`inputmode` and `autocomplete`. Components also accept `className` where
+styling is part of their API. Read signals and context getters inside JSX
+or another reactive computation, rather than capturing a value once.
+
+## Appearance and shared values
+
+`@passui/solid/appearance` exports ThemeProvider, useTheme, PlatformProvider,
+PlatformScript, usePlatform, detectPlatform and resolvePlatform.
+ThemeProvider supports system appearance, persistence, forced themes,
+class and data attributes and CSP nonces. Place PlatformScript in the
+head before paint and wrap the app in PlatformProvider. The platform
+starts at `unknown` for SSR and hydration, then resolves after mounting.
+A valid root `data-os` override takes precedence over browser detection.
+Read `usePlatform()` reactively, for example `createMemo(usePlatform)`.
+
+Framework independent values remain available from `@passui/tokens`,
+`@passui/solid/tokens`, `/cn` and the root date and shape helpers.
+
+Optional TanStack integration uses `@passui/tanstack/solid/*` and the
+matching `@tanstack/solid-*` adapters. See the installation guide at
+https://passui.pherus.org/solid/docs/installation.
 
 ## Verification
 
-From the repository root:
+From the repository root, run `bun run check`, `bun run typecheck`,
+`bun run test`, `bun run solid:parity` and `bun run publish:check`.
+The component coverage gate accompanies rendering, interaction and clean
+consumer verification; it is not by itself a behavior test.
 
-```bash
-bun run --cwd packages/solid typecheck
-bun run --cwd packages/solid test
-bun build packages/solid/test/fixtures/platform-browser.ts --target=browser --outdir=/tmp/passui-solid-platform
-bun packages/solid/test/fixtures/platform-ssr.ts /tmp/passui-solid-platform
-python3 -m http.server 3005 --bind 127.0.0.1 --directory /tmp/passui-solid-platform
-```
-
-Open `http://localhost:3005/` and `http://localhost:3005/override.html`.
-The server markup contains `unknown`. Hydration updates the same output
-to the detected browser platform, or `ios` for the override page, without
-hydration errors or duplicate output elements. The Codex browser verified
-both paths on October 25, 2026.
+MIT. Shared visual contracts and platform helpers follow the Passui
+source lineage recorded in `../ui/UPSTREAM.md`.

@@ -243,3 +243,51 @@ test("refuses a stale plan before writing any generated files", async () => {
         "package.json",
     ])
 })
+
+test("Solid detection installs only its framework dependencies and preserves app source", async () => {
+    const root = await fixture({
+        "solid-js": "1.9.17",
+        vite: "8.3.5",
+    })
+    await writeFile(join(root, "app.tsx"), "existing source")
+    const plan = await planProject(
+        options(root, { integration: true })
+    )
+    const manifest = JSON.parse(plan.files["package.json"])
+    expect(
+        manifest.dependencies["@passui/solid"]
+    ).toBeDefined()
+    expect(
+        manifest.dependencies["@tanstack/solid-query"]
+    ).toBeDefined()
+    expect(
+        manifest.dependencies["@passui/react"]
+    ).toBeUndefined()
+    expect(manifest.dependencies["react-dom"]).toBeUndefined()
+    expect(plan.files["passui/providers.tsx"]).toContain(
+        'from "solid-js"'
+    )
+    expect(plan.files["passui/styles.css"]).toContain(
+        "@passui/tanstack/solid/styles.css"
+    )
+    await writePlan(plan)
+    expect(
+        await readFile(join(root, "app.tsx"), "utf8")
+    ).toBe("existing source")
+})
+
+test("mixed frameworks require an explicit choice", async () => {
+    const root = await fixture({
+        "solid-js": "1.9.17",
+        react: "19.3.0",
+    })
+    await expect(planProject(options(root))).rejects.toThrow(
+        "Both React and Solid"
+    )
+    const plan = await planProject(
+        options(root, { framework: "solid" })
+    )
+    expect(plan.files["passui/providers.tsx"]).toContain(
+        "@passui/solid"
+    )
+})

@@ -9,6 +9,7 @@
         "www"
     ],
     "scripts": {
+        "solid:parity": "bun scripts/check-solid-parity.ts",
         "dev": "turbo run dev",
         "build": "turbo run build",
         "typecheck": "turbo run typecheck",

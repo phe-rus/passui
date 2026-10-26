@@ -1,6 +1,6 @@
 {
     "name": "@passui/tanstack",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "license": "MIT",
     "type": "module",
     "repository": {
@@ -25,7 +25,13 @@
         "build": "tsc --noEmit"
     },
     "dependencies": {
-        "@hugeicons/core-free-icons": "^4.3.5",
+        "@hugeicons/core-free-icons": "^4.3.5"
+    },
+    "peerDependencies": {
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0",
+        "@tanstack/react-query": "^5.104.0",
+        "tailwindcss": "^4.3.3",
         "@hugeicons/react": "^1.1.10",
         "@tanstack/react-devtools": "^0.10.13",
         "@tanstack/react-form": "^1.33.5",
@@ -34,13 +40,13 @@
         "@tanstack/react-router-devtools": "^1.167.2",
         "@tanstack/react-table": "^9.2.4",
         "motion": "^13.4.4",
-        "@passui/react": "workspace:^"
-    },
-    "peerDependencies": {
-        "react": "^19.3.0",
-        "react-dom": "^19.3.0",
-        "@tanstack/react-query": "^5.104.0",
-        "tailwindcss": "^4.3.3"
+        "@passui/react": "^0.1.15",
+        "@passui/solid": "^0.1.0",
+        "solid-js": "^1.9.17",
+        "@tanstack/solid-form": "^1.33.5",
+        "@tanstack/solid-query": "^5.104.5",
+        "@tanstack/solid-router": "^1.170.43",
+        "@tanstack/solid-table": "^9.3.1"
     },
     "devDependencies": {
         "@types/node": "^26.6.3",
@@ -49,7 +55,26 @@
         "tailwindcss": "^4.3.3",
         "typescript": "^7.0.2",
         "vitest": "5.0.5",
-        "vite": "8.3.5"
+        "vite": "8.3.5",
+        "@hugeicons/react": "^1.1.10",
+        "@tanstack/react-devtools": "^0.10.13",
+        "@tanstack/react-form": "^1.33.5",
+        "@tanstack/react-query-devtools": "^5.104.0",
+        "@tanstack/react-router": "^1.170.39",
+        "@tanstack/react-router-devtools": "^1.167.2",
+        "@tanstack/react-table": "^9.2.4",
+        "motion": "^13.4.4",
+        "@passui/react": "workspace:^",
+        "@passui/solid": "workspace:^",
+        "solid-js": "1.9.17",
+        "@tanstack/solid-form": "1.33.5",
+        "@tanstack/solid-query": "5.104.5",
+        "@tanstack/solid-router": "1.170.43",
+        "@tanstack/solid-table": "9.3.1",
+        "vite-plugin-solid": "2.11.14",
+        "react": "^19.3.0",
+        "react-dom": "^19.3.0",
+        "@tanstack/react-query": "^5.104.0"
     },
     "exports": {
         "./forms": "./src/forms/index.ts",
@@ -60,7 +85,82 @@
         "./settings": "./src/settings/index.ts",
         "./mutation": "./src/mutation/index.ts",
         "./route-boundary": "./src/route-boundary/index.ts",
-        "./styles.css": "./src/styles.css"
+        "./styles.css": "./src/styles.css",
+        "./react/forms": "./src/forms/index.ts",
+        "./solid/forms": "./src/solid/forms/index.ts",
+        "./react/form-fields": "./src/form-fields/index.ts",
+        "./solid/form-fields": "./src/solid/form-fields/index.ts",
+        "./react/tables": "./src/tables/index.ts",
+        "./solid/tables": "./src/solid/tables/index.ts",
+        "./react/document": "./src/document/index.ts",
+        "./solid/document": "./src/solid/document/index.ts",
+        "./react/auth-shell": "./src/auth-shell/index.ts",
+        "./solid/auth-shell": "./src/solid/auth-shell/index.ts",
+        "./react/settings": "./src/settings/index.ts",
+        "./solid/settings": "./src/solid/settings/index.ts",
+        "./react/mutation": "./src/mutation/index.ts",
+        "./solid/mutation": "./src/solid/mutation/index.ts",
+        "./react/route-boundary": "./src/route-boundary/index.ts",
+        "./solid/route-boundary": "./src/solid/route-boundary/index.ts",
+        "./react/styles.css": "./src/styles.css",
+        "./solid/styles.css": "./src/solid/styles.css",
+        "./core": "./src/shared/index.ts"
     },
-    "description": "TanStack form, table and router integrations for Passui."
+    "description": "TanStack form, table and router integrations for Passui.",
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        },
+        "react-dom": {
+            "optional": true
+        },
+        "@tanstack/react-query": {
+            "optional": true
+        },
+        "@hugeicons/react": {
+            "optional": true
+        },
+        "@tanstack/react-devtools": {
+            "optional": true
+        },
+        "@tanstack/react-form": {
+            "optional": true
+        },
+        "@tanstack/react-query-devtools": {
+            "optional": true
+        },
+        "@tanstack/react-router": {
+            "optional": true
+        },
+        "@tanstack/react-router-devtools": {
+            "optional": true
+        },
+        "@tanstack/react-table": {
+            "optional": true
+        },
+        "motion": {
+            "optional": true
+        },
+        "@passui/react": {
+            "optional": true
+        },
+        "@passui/solid": {
+            "optional": true
+        },
+        "solid-js": {
+            "optional": true
+        },
+        "@tanstack/solid-form": {
+            "optional": true
+        },
+        "@tanstack/solid-query": {
+            "optional": true
+        },
+        "@tanstack/solid-router": {
+            "optional": true
+        },
+        "@tanstack/solid-table": {
+            "optional": true
+        }
+    }
 }

@@ -11,6 +11,7 @@ on:
                 options:
                     - tokens
                     - ui
+                    - solid
                     - tanstack
                     - cli
 
@@ -61,6 +62,7 @@ jobs:
                   bun run build
                   bun run typecheck
                   bun run test
+                  bun run solid:parity
                   bun run publish:check
               working-directory: .
 

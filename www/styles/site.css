@@ -34,3 +34,4 @@
         color: var(--shiki-dark);
     }
 }
+@source "../../packages/solid/src";

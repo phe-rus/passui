@@ -1,6 +1,10 @@
+import {
+    solidSetupFiles,
+    solidStarterFiles,
+} from "./solid-templates"
 export const versions = {
-    passui: "^0.1.14",
-    integration: "^0.1.2",
+    passui: "^0.1.15",
+    integration: "^0.2.0",
     react: "^19.3.0",
     tailwind: "^4.3.3",
 }
@@ -29,8 +33,11 @@ export function PassuiProvider({ children }: PropsWithChildren) {
 
 export function setupFiles(
     framework: string,
-    integration: boolean
+    integration: boolean,
+    frameworkType: "react" | "solid" = "react"
 ) {
+    if (frameworkType === "solid")
+        return solidSetupFiles(integration)
     const pipeline =
         framework === "next"
             ? 'Add @tailwindcss/postcss to your PostCSS plugins. Add "@passui/react" to transpilePackages in next.config, and "@passui/tanstack" if using the integration.'
@@ -46,8 +53,11 @@ export function setupFiles(
 
 export function starterFiles(
     name: string,
-    template: "vite" | "tanstack"
+    template: "vite" | "tanstack",
+    frameworkType: "react" | "solid" = "react"
 ) {
+    if (frameworkType === "solid")
+        return solidStarterFiles(name, template)
     const tanstack = template === "tanstack"
     const files: Record<string, string> = setupFiles(
         template,
@@ -78,6 +88,16 @@ export function starterFiles(
                           "@tanstack/react-router":
                               "^1.170.39",
                           "@tanstack/react-query": "^5.104.0",
+                          "@tanstack/react-form": "^1.33.5",
+                          "@tanstack/react-table": "^9.2.4",
+                          "@tanstack/react-devtools":
+                              "^0.10.13",
+                          "@tanstack/react-query-devtools":
+                              "^5.104.0",
+                          "@tanstack/react-router-devtools":
+                              "^1.167.2",
+                          "@hugeicons/react": "^1.1.10",
+                          motion: "^13.4.4",
                       }
                     : {}),
             },

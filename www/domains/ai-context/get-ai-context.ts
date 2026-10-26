@@ -6,6 +6,7 @@ import {
 import { getExampleSource } from "@/domains/catalog/get-example-source"
 import type { CatalogEntry } from "@/domains/catalog/types"
 import { guides } from "@/domains/guides/get-guides"
+import { solidComponentSlugs } from "@passui/solid/docs"
 
 // Everything here is generated from the docs registry and the site's own
 // words, so what an AI reads is exactly what the pages say. These import
@@ -96,6 +97,15 @@ export function getLlmsTxt(origin: string): string {
         ),
         ...sections,
         "",
+        "## SolidJS",
+        "",
+        "React is the default documentation framework. SolidJS has native implementations and shares @passui/tokens. Install @passui/solid for native Solid components. One CLI supports both frameworks. Use @passui/tanstack/solid/* for optional native Solid integrations.",
+        ...guides.map(
+            (guide) =>
+                `- [SolidJS ${guide.title}](${origin}/solid${guide.path})`
+        ),
+        `Implemented Solid controls: ${solidComponentSlugs.join(", ") || "none yet; platform provider, tokens and styles are implemented"}. Do not substitute @passui/solid into a React example.`,
+        "",
         "## Optional",
         "",
         `- [Passui skill](${origin}/skills/passui/SKILL.md): rules and every component's import, for AI agents.`,
@@ -176,6 +186,10 @@ export function getSkillMarkdown(origin: string): string {
         "",
         "## Components",
         ...components,
+        "",
+        "## SolidJS boundary",
+        "",
+        "This skill's component examples above use React. SolidJS docs are at /solid/docs/introduction and /solid/components. Install @passui/solid and use the native Solid examples. The CLI supports --framework solid. TanStack adapters use @passui/tanstack/solid/forms, /solid/tables, /solid/mutation, /solid/document, /solid/settings, /solid/auth-shell and /solid/route-boundary. Do not convert React examples by swapping import paths.",
         "",
         `Full docs for any component: ${origin}/components/<name>. Index: ${origin}/llms.txt`,
         "",

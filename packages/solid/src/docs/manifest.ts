@@ -1,0 +1,42 @@
+/** A slug is listed only after its native implementation and examples pass. */
+export const solidComponentSlugs: readonly string[] = [
+    "button",
+    "icon-button",
+    "chip",
+    "status-indicator",
+    "section",
+    "labeled-content",
+    "stat-tile",
+    "text-field",
+    "secure-field",
+    "search-field",
+    "text-editor",
+    "toggle",
+    "profile-image",
+    "swatch-picker",
+    "tab-view",
+    "picker",
+    "segmented-control",
+    "date-picker",
+    "compact-date-picker",
+    "compact-time-picker",
+    "search-list",
+    "sidebar",
+    "view-controller",
+    "content-view",
+    "table",
+    "conversation",
+    "ambient",
+    "tab-bar",
+    "popover",
+    "sheet",
+    "dialog",
+    "locale-switcher",
+    "toast",
+    "tooltip",
+    "context-menu",
+]
+
+export function hasSolidComponent(slug: string) {
+    return solidComponentSlugs.includes(slug)
+}

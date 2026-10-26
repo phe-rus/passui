@@ -1,6 +1,7 @@
 import { getCatalog } from "../catalog/get-catalog"
 import { guides } from "../guides/get-guides"
 import { pageUrl, siteOrigin } from "./site"
+import { hasSolidComponent } from "@passui/solid/docs"
 
 function escapeXml(value: string) {
     return value.replace(
@@ -24,6 +25,15 @@ export function getSitemapPaths() {
             ...getCatalog().map(
                 (entry) => `/components/${entry.docs.slug}`
             ),
+            ...guides.map((guide) => `/solid${guide.path}`),
+            ...getCatalog()
+                .filter((entry) =>
+                    hasSolidComponent(entry.docs.slug)
+                )
+                .map(
+                    (entry) =>
+                        `/solid/components/${entry.docs.slug}`
+                ),
         ]),
     ]
 }

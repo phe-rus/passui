@@ -14,6 +14,8 @@ import { Sheet } from "@passui/react/sheet"
 import { Toaster } from "@passui/react/toaster"
 import { Link } from "@tanstack/react-router"
 import { PassuiMark } from "./passui-mark"
+import { frameworkPath } from "@/domains/framework/framework"
+import { useDocsFramework } from "@/domains/framework/use-docs-framework"
 import { cn } from "@passui/react/cn"
 import {
     type ReactNode,
@@ -49,6 +51,7 @@ type SiteLayoutProps = {
 
 /** The site's frame: a top bar, the page, and a footer. */
 export function SiteLayout({ children }: SiteLayoutProps) {
+    const framework = useDocsFramework()
     const top = useRef<HTMLDivElement>(null)
     const [scrolled, setScrolled] = useState(false)
     // the site's links on phones, where the bar has no room for them
@@ -88,14 +91,19 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         className="mx-auto hidden items-center gap-1 md:flex"
                     >
                         <Link
-                            to="/docs/$slug"
-                            params={{ slug: "introduction" }}
+                            to={frameworkPath(
+                                "/docs/introduction",
+                                framework
+                            )}
                             className="rounded-full px-3 py-1.5 text-subheadline text-label-secondary no-underline transition-colors hover:bg-fill/70 hover:text-label"
                         >
                             Docs
                         </Link>
                         <Link
-                            to="/components"
+                            to={frameworkPath(
+                                "/components",
+                                framework
+                            )}
                             className="rounded-full px-3 py-1.5 text-subheadline text-label-secondary no-underline transition-colors hover:bg-fill/70 hover:text-label"
                         >
                             Components
@@ -112,8 +120,10 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         ))}
                     </nav>
                     <Link
-                        to="/docs/$slug"
-                        params={{ slug: "installation" }}
+                        to={frameworkPath(
+                            "/docs/installation",
+                            framework
+                        )}
                         className={buttonStyle({
                             size: "sm",
                             className: "ms-auto md:ms-0",
@@ -162,15 +172,20 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         </IconButton>
                     </div>
                     <Link
-                        to="/docs/$slug"
-                        params={{ slug: "introduction" }}
+                        to={frameworkPath(
+                            "/docs/introduction",
+                            framework
+                        )}
                         onClick={close}
                         className="rounded-3xl px-3 py-3 text-body text-label no-underline hover:bg-fill"
                     >
                         Docs
                     </Link>
                     <Link
-                        to="/components"
+                        to={frameworkPath(
+                            "/components",
+                            framework
+                        )}
                         onClick={close}
                         className="rounded-3xl px-3 py-3 text-body text-label no-underline hover:bg-fill"
                     >
@@ -200,7 +215,10 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         className="flex flex-wrap gap-x-5 gap-y-2 md:mx-auto"
                     >
                         <Link
-                            to="/components"
+                            to={frameworkPath(
+                                "/components",
+                                framework
+                            )}
                             className="text-footnote text-label-secondary no-underline hover:text-label"
                         >
                             Components

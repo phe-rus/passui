@@ -16,6 +16,7 @@ const help = `Passui project setup
   bunx @passui/cli create my-app [--template vite|tanstack]
 
 Options:
+  --framework react|solid  UI framework (detected for init, React for create)
   --pm bun|npm|pnpm|yarn  Package manager (detected, otherwise Bun)
   --no-install           Generate files without installing
   --dry-run              Show planned files without changing the project
@@ -35,6 +36,7 @@ async function main() {
             dir: { type: "string" },
             template: { type: "string" },
             integration: { type: "string" },
+            framework: { type: "string" },
             pm: { type: "string" },
             "no-install": { type: "boolean" },
             "dry-run": { type: "boolean" },
@@ -86,7 +88,17 @@ async function main() {
         throw new Error(
             "Package manager must be bun, npm, pnpm or yarn."
         )
+    if (
+        values.framework &&
+        values.framework !== "react" &&
+        values.framework !== "solid"
+    )
+        throw new Error("Framework must be react or solid.")
     const options: Options = {
+        framework: values.framework as
+            | "react"
+            | "solid"
+            | undefined,
         command,
         directory: resolve(
             command === "create"

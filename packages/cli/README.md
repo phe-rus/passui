@@ -50,3 +50,22 @@ bun run publish:check
 Source lives in `src/`; tests and fixtures live in `test/`. Bun bundles a standalone Node executable for npm. The public repository's `publish.yml` workflow accepts `package=cli` and uses environment `npm-publish`.
 
 [Official docs](https://passui.pherus.org/docs/installation). MIT licensed.
+
+## React and SolidJS
+
+`init` detects React or SolidJS from the app manifest. Use `--framework react`
+or `--framework solid` to select explicitly, including in mixed projects.
+`create` defaults to React and supports both Vite and TanStack Start for
+both frameworks:
+
+```bash
+bunx @passui/cli@latest create my-solid-app --framework solid --template vite
+bunx @passui/cli@latest create my-solid-start --framework solid --template tanstack
+bunx @passui/cli@latest init --framework solid --integration tanstack
+```
+
+Solid setup uses `@passui/solid`, Solid JSX, native appearance and hosts,
+and `@passui/tanstack/solid/*` when integrations are enabled. Framework
+peers are installed for the selected framework only. Existing app source,
+bundler configuration and dependency versions are preserved by `init`.
+Follow the generated `passui/README.md` to wire an existing app.

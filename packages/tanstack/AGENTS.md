@@ -17,3 +17,5 @@ The Pherus `.github/workflows/publish.yml` workflow publishes this
 package using npm OIDC. Its trusted publisher must match
 `phe-rus/passui`, `publish.yml` and environment `npm-publish`.
 This connection is separate from Passui's `phe-rus/passui` publisher.
+
+Framework adapters are explicit: existing exports and `/react/*` use React; `/solid/*` use Solid and its TanStack adapters. `/core` holds runtime independent helpers. Framework packages are optional peers with local development dependencies. Never import React or React adapters into the Solid import graph. Solid JSX files select `solid-js`; tests compile them through vite-plugin-solid with source export conditions and SSR dependency bundling.

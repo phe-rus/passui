@@ -1,5 +1,13 @@
 # Changelog
 
+## Solid 0.1.0, TanStack 0.2.0, CLI 0.2.0 and React 0.1.15
+
+- Add native Solid implementations and usage examples for all 35 documented component families, with shared tokens and native appearance providers.
+- Add explicit React and Solid adapters to the single TanStack package, plus framework independent helpers under `/core`. Framework runtimes and adapters become optional peers in 0.2.0; existing unprefixed integration paths remain React defaults.
+- Detect React or Solid in CLI init, support `--framework`, and generate Vite or TanStack Start starters for either framework. Generated Solid Vite configs compile source dependencies in development and SSR.
+- Keep React as the default docs framework, with compact start aligned TabView navigation to native Solid examples and installation instructions.
+- Add controlled selection and start alignment to TabView in both UI runtimes.
+
 ## UI 0.1.14
 
 - Sheets render above animated page containers and navigation, retaining scoped appearance and focus isolation.

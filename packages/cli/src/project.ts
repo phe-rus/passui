@@ -19,9 +19,11 @@ import {
     starterFiles,
     versions,
 } from "./templates"
+import { solidVersions } from "./solid-templates"
 
 export type PackageManager = "bun" | "npm" | "pnpm" | "yarn"
 export type Options = {
+    framework?: "react" | "solid"
     directory: string
     command: "init" | "create"
     template: "vite" | "tanstack"
@@ -125,7 +127,7 @@ export async function planProject(
     await checkPath(root, "package.json")
     let manifest: Manifest = {}
     let files: Record<string, string>
-    let framework: string = options.template
+    let framework: string = `${options.framework ?? "react"}/${options.template}`
     if (options.command === "create") {
         const entry = await stat(root)
         if (
@@ -141,7 +143,11 @@ export async function planProject(
                 .toLowerCase()
                 .replace(/[^a-z0-9-]/g, "-")
                 .replace(/^-+/, "") || "passui-app"
-        files = starterFiles(name, options.template)
+        files = starterFiles(
+            name,
+            options.template,
+            options.framework
+        )
     } else {
         try {
             manifest = JSON.parse(
@@ -167,16 +173,44 @@ export async function planProject(
             ...manifest.devDependencies,
             ...manifest.dependencies,
         }
-        if (!dependencies.react)
-            throw new Error(
-                "No React dependency found. Run init in the React app workspace."
-            )
-        requireMajor("react", dependencies.react, 19)
-        requireMajor(
-            "react-dom",
-            dependencies["react-dom"],
-            19
+        const detected = dependencies["solid-js"]
+            ? "solid"
+            : dependencies.react
+              ? "react"
+              : undefined
+        if (
+            !options.framework &&
+            dependencies["solid-js"] &&
+            dependencies.react
         )
+            throw new Error(
+                "Both React and Solid are installed. Choose --framework react or --framework solid."
+            )
+        const frameworkType = options.framework ?? detected
+        if (
+            !frameworkType ||
+            !dependencies[
+                frameworkType === "solid"
+                    ? "solid-js"
+                    : "react"
+            ]
+        )
+            throw new Error(
+                "No matching React or Solid dependency found. Run init in the application workspace."
+            )
+        if (frameworkType === "react") {
+            requireMajor("react", dependencies.react, 19)
+            requireMajor(
+                "react-dom",
+                dependencies["react-dom"],
+                19
+            )
+        } else
+            requireMajor(
+                "solid-js",
+                dependencies["solid-js"],
+                1
+            )
         requireMajor(
             "tailwindcss",
             dependencies.tailwindcss,
@@ -184,7 +218,8 @@ export async function planProject(
         )
         framework = dependencies.next
             ? "next"
-            : dependencies["@tanstack/react-start"]
+            : dependencies["@tanstack/react-start"] ||
+                dependencies["@tanstack/solid-start"]
               ? "tanstack"
               : dependencies.vite
                 ? "vite"
@@ -198,8 +233,17 @@ export async function planProject(
         ) => {
             if (!dependencies[name]) target[name] = version
         }
-        add(runtime, "@passui/react", versions.passui)
-        add(runtime, "react-dom", versions.react)
+        add(
+            runtime,
+            frameworkType === "solid"
+                ? "@passui/solid"
+                : "@passui/react",
+            frameworkType === "solid"
+                ? solidVersions.passui
+                : versions.passui
+        )
+        if (frameworkType === "react")
+            add(runtime, "react-dom", versions.react)
         add(dev, "tailwindcss", versions.tailwind)
         if (options.integration) {
             add(
@@ -207,7 +251,49 @@ export async function planProject(
                 "@passui/tanstack",
                 versions.integration
             )
-            add(runtime, "@tanstack/react-query", "^5.104.0")
+            if (frameworkType === "solid") {
+                add(
+                    runtime,
+                    "@tanstack/solid-query",
+                    solidVersions.query
+                )
+                add(
+                    runtime,
+                    "@tanstack/solid-form",
+                    solidVersions.form
+                )
+                add(
+                    runtime,
+                    "@tanstack/solid-router",
+                    solidVersions.router
+                )
+                add(
+                    runtime,
+                    "@tanstack/solid-table",
+                    solidVersions.table
+                )
+            } else
+                add(
+                    runtime,
+                    "@tanstack/react-query",
+                    "^5.104.0"
+                )
+        }
+        if (
+            options.integration &&
+            frameworkType === "react"
+        ) {
+            for (const [name, version] of Object.entries({
+                "@tanstack/react-form": "^1.33.5",
+                "@tanstack/react-table": "^9.2.4",
+                "@tanstack/react-router": "^1.170.39",
+                "@tanstack/react-devtools": "^0.10.13",
+                "@tanstack/react-query-devtools": "^5.104.0",
+                "@tanstack/react-router-devtools": "^1.167.2",
+                "@hugeicons/react": "^1.1.10",
+                motion: "^13.4.4",
+            }))
+                add(runtime, name, version)
         }
         add(
             dev,
@@ -222,7 +308,11 @@ export async function planProject(
             devDependencies: dev,
         }
         files = {
-            ...setupFiles(framework, options.integration),
+            ...setupFiles(
+                framework,
+                options.integration,
+                frameworkType
+            ),
             "package.json": `${JSON.stringify(manifest, null, 4)}\n`,
         }
     }
