@@ -1,17 +1,13 @@
 import { ContentView } from "@passui/solid/content-view"
 export function ContentViewUsage() {
     return (
-        <ContentView class="w-full max-w-sm p-5">
+        <ContentView class="w-72 p-5">
             <ContentView.Header
-                heading="This week"
-                p="Your activity at a glance"
+                heading="Passkeys"
+                p="Sign in with your face or fingerprint."
+                className="flex flex-col gap-1"
+                pClassName="text-footnote text-label-secondary"
             />
-            <ContentView.Row class="mt-4 gap-4">
-                <ContentView.P>24</ContentView.P>
-                <ContentView.Span>
-                    tasks completed
-                </ContentView.Span>
-            </ContentView.Row>
         </ContentView>
     )
 }

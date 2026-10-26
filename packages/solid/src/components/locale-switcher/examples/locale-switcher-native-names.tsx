@@ -4,17 +4,25 @@ import { LocaleSwitcher } from "@passui/solid/locale-switcher"
 export function LocaleSwitcherNativeNames() {
     const [locale, setLocale] = createSignal("en")
     return (
-        <div class="relative h-32 w-full">
+        <div class="relative h-80 w-full max-w-sm transform-gpu overflow-hidden rounded-4xl bg-fill/40">
+            <p class="p-6 text-footnote text-label-secondary">
+                Current: {locale()}
+            </p>
             <LocaleSwitcher
                 locale={locale()}
-                locales={["en", "sw", "fr", "de", "es"]}
+                locales={[
+                    "en",
+                    "fr",
+                    "de",
+                    "es",
+                    "pt",
+                    "ja",
+                    "zh",
+                ]}
                 onSelect={setLocale}
-                storageKey="passui-solid-locales-native"
-                label="Choose language"
+                storageKey="docs-locale-switcher-native-names"
+                label="Change language"
             />
-            <output class="text-footnote text-label-secondary">
-                Current: {locale()}
-            </output>
         </div>
     )
 }

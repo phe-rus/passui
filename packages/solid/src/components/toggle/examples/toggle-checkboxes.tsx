@@ -1,24 +1,46 @@
-import { createSignal } from "solid-js"
-import { Toggle } from "../toggle"
+import { createSignal, For } from "solid-js"
+import { Toggle } from "@passui/solid/toggle"
+
+const tasks = ["Pick a palette", "Review copy", "Ship it"]
 
 export function ToggleCheckboxes() {
-    const [updates, setUpdates] = createSignal(true)
-    const [research, setResearch] = createSignal(false)
+    const [done, setDone] = createSignal([true, false, false])
 
     return (
-        <div class="flex w-full max-w-sm flex-col gap-4">
+        <div class="flex flex-col gap-3">
             <Toggle
                 style="checkbox"
-                label="Product updates"
-                checked={updates()}
-                onChange={setUpdates}
+                label="Launch list"
+                checked={done().every(Boolean)}
+                mixed={
+                    done().some(Boolean) &&
+                    !done().every(Boolean)
+                }
+                onChange={(checked) =>
+                    setDone(tasks.map(() => checked))
+                }
             />
-            <Toggle
-                style="checkbox"
-                label="Research invitations"
-                checked={research()}
-                onChange={setResearch}
-            />
+            <div class="flex flex-col gap-3 ps-8">
+                <For each={tasks}>
+                    {(task, index) => (
+                        <Toggle
+                            style="checkbox"
+                            label={task}
+                            checked={done()[index()]}
+                            onChange={(checked) =>
+                                setDone((current) =>
+                                    current.map(
+                                        (value, at) =>
+                                            at === index()
+                                                ? checked
+                                                : value
+                                    )
+                                )
+                            }
+                        />
+                    )}
+                </For>
+            </div>
         </div>
     )
 }

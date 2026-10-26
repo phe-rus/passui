@@ -2,22 +2,27 @@ import { createSignal } from "solid-js"
 import { DatePicker } from "@passui/solid/date-picker"
 
 export function DatePickerPastOnly() {
-    const [date, setDate] = createSignal("")
+    const [birthday, setBirthday] = createSignal("2090-01-01")
+    const today = new Date().toISOString().slice(0, 10)
     return (
-        <div class="w-full max-w-sm">
+        <div class="flex w-full max-w-xs flex-col gap-3">
             <DatePicker
-                label="Date of birth"
-                locale="en-GB"
-                value={date()}
-                onChange={setDate}
-                max="2026-10-26"
+                label="Birthday"
+                locale="en-US"
+                value={birthday()}
+                onChange={setBirthday}
+                max={today}
                 labels={{
                     day: "Day",
                     month: "Month",
                     year: "Year",
-                    invalid: "Enter a valid date",
+                    invalid:
+                        "Your birthday can't be in the future.",
                 }}
             />
+            <p class="text-footnote text-label-secondary">
+                Saved value: {birthday() || "none yet"}
+            </p>
         </div>
     )
 }

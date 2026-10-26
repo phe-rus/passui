@@ -2,17 +2,17 @@ import { createSignal } from "solid-js"
 import { SegmentedControl } from "@passui/solid/segmented-control"
 
 export function SegmentedControlUsage() {
-    const [value, setValue] = createSignal("week")
+    const [theme, setTheme] = createSignal("auto")
     return (
-        <div class="w-full max-w-sm">
+        <div class="w-full max-w-xs">
             <SegmentedControl
-                label="Period"
-                value={value()}
-                onChange={setValue}
+                label="Appearance"
+                value={theme()}
+                onChange={setTheme}
                 options={[
-                    { value: "day", label: "Day" },
-                    { value: "week", label: "Week" },
-                    { value: "month", label: "Month" },
+                    { value: "light", label: "Light" },
+                    { value: "dark", label: "Dark" },
+                    { value: "auto", label: "Auto" },
                 ]}
             />
         </div>

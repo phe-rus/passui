@@ -2,26 +2,26 @@ import { createSignal } from "solid-js"
 import { TextField } from "@passui/solid/text-field"
 
 export function TextFieldValidation() {
-    const [email, setEmail] = createSignal("")
+    const [email, setEmail] = createSignal("aiko@")
     const valid = () =>
-        !email() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email())
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email())
     return (
-        <div class="grid w-full max-w-sm gap-2">
+        <div class="w-full max-w-xs">
             <TextField
-                label="Work email"
+                label="Email"
                 type="email"
+                description="We only use it to sign you in."
                 value={email()}
                 onInput={(event) =>
                     setEmail(event.currentTarget.value)
                 }
                 aria-invalid={!valid()}
-                placeholder="name@company.com"
+                errors={
+                    valid()
+                        ? []
+                        : ["Enter a full email address."]
+                }
             />
-            <p class="text-footnote" role="status">
-                {valid()
-                    ? "We'll use this for updates."
-                    : "Enter a valid email address."}
-            </p>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js"
+import { For } from "solid-js"
 import {
     SearchList,
     SearchListField,
@@ -8,49 +8,62 @@ import {
     SearchListEmpty,
 } from "@passui/solid/search-list"
 
+const groups = [
+    {
+        heading: "Security",
+        items: [
+            { value: "Password", keywords: ["sign in"] },
+            {
+                value: "Passkeys",
+                keywords: ["face", "touch"],
+            },
+            {
+                value: "Two-step verification",
+                keywords: ["2fa", "code"],
+            },
+        ],
+    },
+    {
+        heading: "Preferences",
+        items: [
+            { value: "Language", keywords: ["locale"] },
+            {
+                value: "Appearance",
+                keywords: ["dark", "theme"],
+            },
+        ],
+    },
+]
+
 export function SearchListGroups() {
-    const [selected, setSelected] = createSignal("")
     return (
-        <div class="grid w-full max-w-sm gap-2">
-            <SearchList>
-                <SearchListField placeholder="Find a setting" />
-                <SearchListResults>
-                    <SearchListGroup heading="Account">
-                        <SearchListItem
-                            value="Profile"
-                            onSelect={setSelected}
+        <SearchList class="w-full max-w-xs rounded-3xl bg-elevated p-2 ring-1 ring-separator/60">
+            <SearchListField placeholder="Try 2fa or dark" />
+            <SearchListResults class="mt-2 max-h-72">
+                <For each={groups}>
+                    {(group) => (
+                        <SearchListGroup
+                            heading={group.heading}
                         >
-                            Profile
-                        </SearchListItem>
-                        <SearchListItem
-                            value="Security"
-                            onSelect={setSelected}
-                        >
-                            Security
-                        </SearchListItem>
-                    </SearchListGroup>
-                    <SearchListGroup heading="Workspace">
-                        <SearchListItem
-                            value="Members"
-                            onSelect={setSelected}
-                        >
-                            Members
-                        </SearchListItem>
-                        <SearchListItem
-                            value="Billing"
-                            onSelect={setSelected}
-                        >
-                            Billing
-                        </SearchListItem>
-                    </SearchListGroup>
-                    <SearchListEmpty>
-                        No settings found
-                    </SearchListEmpty>
-                </SearchListResults>
-            </SearchList>
-            <output class="text-footnote text-label-secondary">
-                {selected()}
-            </output>
-        </div>
+                            <For each={group.items}>
+                                {(item) => (
+                                    <SearchListItem
+                                        value={item.value}
+                                        keywords={
+                                            item.keywords
+                                        }
+                                    >
+                                        {item.value}
+                                    </SearchListItem>
+                                )}
+                            </For>
+                        </SearchListGroup>
+                    )}
+                </For>
+                <SearchListEmpty class="px-3 py-6 text-center text-footnote text-label-secondary">
+                    Nothing matches that search
+                </SearchListEmpty>
+            </SearchListResults>
+        </SearchList>
     )
 }

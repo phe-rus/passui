@@ -2,21 +2,19 @@ import { createSignal } from "solid-js"
 import { Picker } from "@passui/solid/picker"
 
 export function PickerUsage() {
-    const [value, setValue] = createSignal("personal")
+    const [sort, setSort] = createSignal("recent")
     return (
-        <Picker
-            label="Workspace"
-            value={value()}
-            onChange={setValue}
-            searchable
-            options={[
-                { value: "personal", label: "Personal" },
-                {
-                    value: "team",
-                    label: "Team",
-                    detail: "Shared workspace",
-                },
-            ]}
-        />
+        <div class="w-full max-w-xs">
+            <Picker
+                label="Sort by"
+                value={sort()}
+                onChange={setSort}
+                options={[
+                    { value: "recent", label: "Most recent" },
+                    { value: "name", label: "Name" },
+                    { value: "size", label: "Size" },
+                ]}
+            />
+        </div>
     )
 }

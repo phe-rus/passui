@@ -1,42 +1,90 @@
-import { createSignal } from "solid-js"
+import { createSignal, For, Show } from "solid-js"
 import {
     ContextMenuHost,
-    openMenu,
     useContextMenu,
 } from "@passui/solid/context-menu"
+import { toast } from "@passui/solid/toast"
 
-export function ContextMenuList() {
-    const [result, setResult] = createSignal("")
-    const items = () => [
+type Note = { id: string; title: string; pinned: boolean }
+
+function NoteRow(props: {
+    note: Note
+    onPin: () => void
+    onDelete: () => void
+}) {
+    const menu = useContextMenu(() => [
+        { heading: props.note.title },
         {
-            label: "Open",
-            onSelect: () => setResult("Opened"),
+            label: props.note.pinned ? "Unpin" : "Pin",
+            onSelect: props.onPin,
         },
         {
             label: "Duplicate",
-            onSelect: () => setResult("Duplicated"),
+            onSelect: () =>
+                toast(`Duplicated ${props.note.title}`),
         },
+        "divider" as const,
         {
-            label: "Move to archive",
-            onSelect: () => setResult("Archived"),
+            label: "Delete",
+            destructive: true,
+            onSelect: props.onDelete,
         },
-    ]
-    const handlers = useContextMenu(items)
+    ])
     return (
-        <div class="grid w-full max-w-sm gap-2">
-            <button
-                type="button"
-                {...handlers}
-                onClick={(event) =>
-                    openMenu(event.currentTarget, items())
-                }
-                class="rounded-xl bg-fill p-4 text-left"
-            >
-                Project roadmap{" "}
-                <span class="float-right">···</span>
-            </button>
-            <output class="text-footnote">{result()}</output>
+        <li
+            {...menu}
+            class="flex select-none items-center justify-between rounded-2xl px-3 py-2.5 text-subheadline text-label hover:bg-fill/60"
+        >
+            {props.note.title}
+            <Show when={props.note.pinned}>
+                <span class="text-caption text-accent-text">
+                    Pinned
+                </span>
+            </Show>
+        </li>
+    )
+}
+
+export function ContextMenuList() {
+    const [notes, setNotes] = createSignal<Note[]>([
+        { id: "1", title: "Trip to Kyoto", pinned: true },
+        { id: "2", title: "Groceries", pinned: false },
+        { id: "3", title: "Book club picks", pinned: false },
+    ])
+    return (
+        <>
+            <ul class="m-0 flex w-full max-w-xs list-none flex-col p-0">
+                <For each={notes()}>
+                    {(note) => (
+                        <NoteRow
+                            note={note}
+                            onPin={() =>
+                                setNotes((current) =>
+                                    current.map((item) =>
+                                        item.id === note.id
+                                            ? {
+                                                  ...item,
+                                                  pinned:
+                                                      !item.pinned,
+                                              }
+                                            : item
+                                    )
+                                )
+                            }
+                            onDelete={() =>
+                                setNotes((current) =>
+                                    current.filter(
+                                        (item) =>
+                                            item.id !==
+                                            note.id
+                                    )
+                                )
+                            }
+                        />
+                    )}
+                </For>
+            </ul>
             <ContextMenuHost />
-        </div>
+        </>
     )
 }

@@ -1,19 +1,25 @@
-import { createSignal } from "solid-js"
+import { createSignal, createUniqueId } from "solid-js"
 import { TextEditor } from "@passui/solid/text-editor"
 
 export function TextEditorUsage() {
-    const [value, setValue] = createSignal("")
+    const bioId = createUniqueId()
+    const [bio, setBio] = createSignal("")
     return (
         <div class="flex w-full max-w-sm flex-col gap-2">
+            <label
+                for={bioId}
+                class="text-subheadline font-semibold"
+            >
+                Bio
+            </label>
             <TextEditor
-                aria-label="Message"
-                value={value()}
+                id={bioId}
+                value={bio()}
                 onInput={(event) =>
-                    setValue(event.currentTarget.value)
+                    setBio(event.currentTarget.value)
                 }
-                placeholder="Write a message"
+                placeholder="A few words about you"
             />
-            <output>{value().length} characters</output>
         </div>
     )
 }

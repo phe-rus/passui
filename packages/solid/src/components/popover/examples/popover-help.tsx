@@ -1,29 +1,48 @@
 import { createSignal } from "solid-js"
 import { Popover } from "@passui/solid/popover"
+import { TextField } from "@passui/solid/text-field"
+import { IconButton } from "@passui/solid/icon-button"
 
 export function PopoverHelp() {
     const [open, setOpen] = createSignal(false)
+    const [uri, setUri] = createSignal(
+        "https://app.example.com/callback"
+    )
     return (
-        <div class="relative">
-            <button
-                type="button"
-                aria-expanded={open()}
-                onClick={() => setOpen(!open())}
-            >
-                What is this? ⓘ
-            </button>
-            <Popover
-                open={open()}
-                class="top-full mt-2 w-64 rounded-2xl bg-elevated p-4"
-            >
-                <strong class="text-footnote">
-                    Shared workspace
-                </strong>
-                <p class="mt-1 text-footnote text-label-secondary">
-                    Anyone you invite can collaborate on this
-                    project.
-                </p>
-            </Popover>
+        <div class="flex h-72 w-full max-w-sm flex-col gap-2">
+            <TextField
+                label="Redirect URI"
+                value={uri()}
+                onInput={(event) =>
+                    setUri(event.currentTarget.value)
+                }
+                action={
+                    <div class="relative">
+                        <IconButton
+                            label="What's a redirect URI?"
+                            size="icon-xs"
+                            variant="ghost"
+                            aria-expanded={open()}
+                            onClick={() => setOpen(!open())}
+                        >
+                            <span aria-hidden="true">ⓘ</span>
+                        </IconButton>
+                        <Popover
+                            open={open()}
+                            origin="top-right"
+                            role="dialog"
+                            aria-label="Redirect URI"
+                            class="top-full right-0 mt-2 w-64 p-4"
+                        >
+                            <p class="text-footnote text-label">
+                                Where Pass sends people back
+                                after they sign in. It must
+                                match your app exactly.
+                            </p>
+                        </Popover>
+                    </div>
+                }
+            />
         </div>
     )
 }

@@ -1,31 +1,45 @@
 import { Conversation } from "@passui/solid/conversation"
 
+const hoursAgo = (hours: number) =>
+    new Date(Date.now() - hours * 3_600_000).toISOString()
+
 export function ConversationDays() {
     return (
-        <div class="w-full max-w-md">
+        <div class="w-full max-w-sm rounded-4xl bg-elevated p-4 shadow-sm ring-1 ring-separator/60">
             <Conversation.Messages
-                locale="en-GB"
                 messages={[
                     {
                         id: "1",
-                        author: "Nora",
-                        body: "I'll send the update tomorrow.",
+                        author: "Mira",
+                        body: "Did the release go out?",
                         mine: false,
-                        createdAt: "2026-10-24T15:30:00Z",
+                        createdAt: hoursAgo(26),
                     },
                     {
                         id: "2",
-                        author: "You",
-                        body: "Thanks, sounds good.",
+                        body: "Not yet, tomorrow morning.",
                         mine: true,
-                        createdAt: "2026-10-24T15:31:00Z",
+                        createdAt: hoursAgo(25.9),
                     },
                     {
                         id: "3",
-                        author: "Nora",
-                        body: "The update is ready!",
+                        body: "It's live!",
+                        mine: true,
+                        createdAt: hoursAgo(1),
+                    },
+                    {
+                        id: "4",
+                        author: "Mira",
+                        body: "Amazing, well done.",
                         mine: false,
-                        createdAt: "2026-10-26T08:30:00Z",
+                        createdAt: hoursAgo(0.9),
+                    },
+                    {
+                        id: "5",
+                        author: "Mira",
+                        body: "Celebrating at lunch?",
+                        mine: false,
+                        createdAt: hoursAgo(0.88),
                     },
                 ]}
             />

@@ -1,25 +1,25 @@
 import { createSignal } from "solid-js"
 import { Dialog } from "@passui/solid/dialog"
+import { Button } from "@passui/solid/button"
 export function DialogUsage() {
     const [open, setOpen] = createSignal(false)
     return (
         <>
-            <button
-                type="button"
+            <Button
+                variant="secondary"
                 onClick={() => setOpen(true)}
             >
-                Delete draft
-            </button>
+                Sign out
+            </Button>
             <Dialog
                 open={open()}
                 onOpenChange={setOpen}
-                title="Delete draft?"
-                description="This cannot be undone."
+                title="Sign out of Pass?"
+                description="You can sign back in at any time."
                 footer={
                     <Dialog.Actions
-                        submitLabel="Delete"
-                        cancelLabel="Keep draft"
-                        tone="destructive"
+                        submitLabel="Sign out"
+                        cancelLabel="Cancel"
                         onConfirm={() => setOpen(false)}
                     />
                 }

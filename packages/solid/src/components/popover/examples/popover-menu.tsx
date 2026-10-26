@@ -1,42 +1,48 @@
-import { createSignal } from "solid-js"
+import { createSignal, For } from "solid-js"
 import { Popover } from "@passui/solid/popover"
+import { Button } from "@passui/solid/button"
+import { toast } from "@passui/solid/toast"
+
+const actions = [
+    "Duplicate",
+    "Move to folder",
+    "Export as PDF",
+]
 
 export function PopoverMenu() {
     const [open, setOpen] = createSignal(false)
-    const [choice, setChoice] = createSignal("")
     return (
         <div class="relative">
-            <button
-                type="button"
+            <Button
+                variant="secondary"
+                aria-haspopup="menu"
                 aria-expanded={open()}
                 onClick={() => setOpen(!open())}
             >
-                Project actions ▾
-            </button>
+                More
+            </Button>
             <Popover
                 open={open()}
-                class="top-full mt-2 w-56 p-2"
+                origin="top-right"
+                role="menu"
+                class="top-full right-0 mt-2 flex w-56 flex-col p-1.5"
             >
-                <div class="grid gap-1">
-                    {["Duplicate", "Pin", "Archive"].map(
-                        (label) => (
-                            <button
-                                type="button"
-                                class="rounded-lg p-2 text-left hover:bg-fill"
-                                onClick={() => {
-                                    setChoice(label)
-                                    setOpen(false)
-                                }}
-                            >
-                                {label}
-                            </button>
-                        )
+                <For each={actions}>
+                    {(action) => (
+                        <button
+                            type="button"
+                            role="menuitem"
+                            class="rounded-3xl px-3 py-2 text-start text-subheadline text-label hover:bg-fill"
+                            onClick={() => {
+                                setOpen(false)
+                                toast(action)
+                            }}
+                        >
+                            {action}
+                        </button>
                     )}
-                </div>
+                </For>
             </Popover>
-            <output class="ml-3 text-footnote">
-                {choice()}
-            </output>
         </div>
     )
 }

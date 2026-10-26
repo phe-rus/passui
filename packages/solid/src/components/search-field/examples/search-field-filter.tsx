@@ -1,39 +1,52 @@
-import { createSignal, For } from "solid-js"
+import { createSignal, For, Show } from "solid-js"
 import { SearchField } from "@passui/solid/search-field"
+import { LabeledContent } from "@passui/solid/labeled-content"
+import { Section } from "@passui/solid/section"
 
-const files = [
-    "Design brief",
-    "Release notes",
-    "Project roadmap",
-    "Meeting notes",
+const apps = [
+    { name: "Pass console", people: 12 },
+    { name: "Accounts", people: 1284 },
+    { name: "Notables", people: 431 },
+    { name: "Showcase", people: 58 },
 ]
 export function SearchFieldFilter() {
     const [query, setQuery] = createSignal("")
+    const matches = () =>
+        apps.filter((app) =>
+            app.name
+                .toLowerCase()
+                .includes(query().trim().toLowerCase())
+        )
     return (
-        <div class="grid w-full max-w-sm gap-3">
+        <div class="flex w-full max-w-sm flex-col gap-3">
             <SearchField
-                aria-label="Search files"
+                aria-label="Search applications"
                 value={query()}
                 onInput={(event) =>
                     setQuery(event.currentTarget.value)
                 }
-                placeholder="Find a document"
+                placeholder="Search applications"
             />
-            <ul class="grid gap-2 text-footnote">
-                <For
-                    each={files.filter((file) =>
-                        file
-                            .toLowerCase()
-                            .includes(query().toLowerCase())
-                    )}
+            <Section>
+                <Show
+                    when={matches().length}
+                    fallback={
+                        <p class="px-4 py-6 text-center text-footnote text-label-secondary">
+                            No applications match “{query()}”
+                        </p>
+                    }
                 >
-                    {(file) => (
-                        <li class="rounded-xl bg-fill p-2">
-                            {file}
-                        </li>
-                    )}
-                </For>
-            </ul>
+                    <For each={matches()}>
+                        {(app) => (
+                            <LabeledContent label={app.name}>
+                                <span class="text-footnote text-label-secondary tabular-nums">
+                                    {app.people} people
+                                </span>
+                            </LabeledContent>
+                        )}
+                    </For>
+                </Show>
+            </Section>
         </div>
     )
 }

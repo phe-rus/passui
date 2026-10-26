@@ -1,13 +1,14 @@
 import { TooltipHost } from "@passui/solid/tooltip"
+import { Button } from "@passui/solid/button"
 export function TooltipUsage() {
     return (
         <>
-            <button
-                type="button"
-                data-tooltip="Save your changes"
+            <Button
+                variant="secondary"
+                data-tooltip="Saves a copy to your downloads"
             >
-                Hover for a tip
-            </button>
+                Download
+            </Button>
             <TooltipHost />
         </>
     )

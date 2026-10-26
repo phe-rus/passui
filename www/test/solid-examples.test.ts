@@ -120,6 +120,283 @@ test("key Solid scenarios teach the same use cases as React", () => {
             "shortcuts",
             ["Bold", "Italic", "Underline"],
         ],
+        [
+            "table",
+            "selection",
+            [
+                "MacBook Air",
+                "iPhone 16",
+                "iPad mini",
+                "Sign out",
+            ],
+        ],
+        [
+            "table",
+            "invoices",
+            ["INV-104", "INV-105", "INV-106", "Total"],
+        ],
+        [
+            "sheet",
+            "share",
+            [
+                "Share note",
+                "People with the link can edit",
+                "Copy link",
+            ],
+        ],
+        [
+            "sheet",
+            "choices",
+            ["Language", "Français", "日本語"],
+        ],
+        [
+            "dialog",
+            "confirm",
+            ["Delete this app?", "App deleted"],
+        ],
+        [
+            "popover",
+            "menu",
+            ["Duplicate", "Move to folder", "Export as PDF"],
+        ],
+        [
+            "popover",
+            "help",
+            ["Redirect URI", "Where Pass sends people back"],
+        ],
+        [
+            "search-list",
+            "groups",
+            [
+                "Passkeys",
+                "Two-step verification",
+                "Appearance",
+            ],
+        ],
+        [
+            "search-list",
+            "dropdown",
+            ["Password", "Devices", "Privacy"],
+        ],
+        [
+            "tab-view",
+            "settings",
+            ["Notifications", "Sounds", "Badges", "Private"],
+        ],
+        [
+            "tab-view",
+            "keyboard",
+            ["Design review at 10:00", "Retro and planning"],
+        ],
+        [
+            "sidebar",
+            "unread",
+            ["Mailboxes", "Inbox", "Mark all as read"],
+        ],
+        [
+            "toggle",
+            "settings",
+            ["Sync across devices", "Sounds"],
+        ],
+        [
+            "toggle",
+            "checkboxes",
+            ["Pick a palette", "Review copy", "Ship it"],
+        ],
+        [
+            "status-indicator",
+            "states",
+            ["All changes saved", "Syncing 3 notes"],
+        ],
+        [
+            "segmented-control",
+            "views",
+            ["sign-ins this", "Month"],
+        ],
+        [
+            "profile-image",
+            "group",
+            ["/avatars/aiko.svg", "+4"],
+        ],
+        [
+            "picker",
+            "searchable",
+            ["Africa/Nairobi", "Search cities"],
+        ],
+        [
+            "context-menu",
+            "checked",
+            ["Recently edited", "Date created"],
+        ],
+        [
+            "labeled-content",
+            "descriptions",
+            ["Sign-in alerts", "Weekly digest"],
+        ],
+        [
+            "date-picker",
+            "past-only",
+            ["Birthday", "can't be in the future"],
+        ],
+        [
+            "search-field",
+            "filter",
+            [
+                "Pass console",
+                "Notables",
+                "No applications match",
+            ],
+        ],
+        [
+            "swatch-picker",
+            "labels",
+            ["Weekend trip", "Tag color"],
+        ],
+        [
+            "text-field",
+            "validation",
+            ["aiko@", "Enter a full email address."],
+        ],
+        [
+            "conversation",
+            "days",
+            [
+                "Did the release go out?",
+                "Celebrating at lunch?",
+            ],
+        ],
+        [
+            "conversation",
+            "composer",
+            ["Write a reply", "Ctrl/Cmd+Enter", "Sent:"],
+        ],
+        [
+            "locale-switcher",
+            "native-names",
+            [
+                "Change language",
+                "docs-locale-switcher-native-names",
+            ],
+        ],
+        [
+            "picker",
+            "details",
+            [
+                "Where your account's data is stored.",
+                "Frankfurt",
+                "Virginia",
+            ],
+        ],
+        [
+            "section",
+            "groups",
+            ["Two-step verification", "Recovery email"],
+        ],
+        [
+            "segmented-control",
+            "overflow",
+            ["Recently edited", "Date created"],
+        ],
+        [
+            "text-editor",
+            "comment",
+            [
+                "Add a comment",
+                "Share your thoughts",
+                "Comment posted",
+            ],
+        ],
+        [
+            "toast",
+            "promise",
+            [
+                "Upload while offline",
+                "photo.jpg",
+                "Upload failed",
+            ],
+        ],
+        [
+            "toast",
+            "action",
+            ["Archive note", "Note archived", "Undo"],
+        ],
+        [
+            "search-list",
+            "usage",
+            ["Apple", "Banana", "No fruit found"],
+        ],
+        [
+            "context-menu",
+            "list",
+            ["Trip to Kyoto", "Groceries", "Book club picks"],
+        ],
+        [
+            "icon-button",
+            "player",
+            ["Previous", "Pause", "Next"],
+        ],
+        [
+            "picker",
+            "usage",
+            ["Sort by", "Most recent", "Name"],
+        ],
+        [
+            "tab-view",
+            "usage",
+            [
+                "Profile",
+                "Security",
+                "Your password and passkeys.",
+            ],
+        ],
+        [
+            "content-view",
+            "usage",
+            [
+                "Passkeys",
+                "Sign in with your face or fingerprint.",
+            ],
+        ],
+        [
+            "segmented-control",
+            "usage",
+            ["Appearance", "Light", "Dark", "Auto"],
+        ],
+        [
+            "button",
+            "disabled",
+            ["I agree to the terms", "Create account"],
+        ],
+        [
+            "dialog",
+            "usage",
+            [
+                "Sign out of Pass?",
+                "You can sign back in at any time.",
+            ],
+        ],
+        [
+            "tooltip",
+            "usage",
+            ["Download", "Saves a copy to your downloads"],
+        ],
+        ["icon-button", "usage", ["Settings", "ghost"]],
+        [
+            "button",
+            "usage",
+            ["Save changes", "Changes saved"],
+        ],
+        ["toggle", "usage", ["Wi-Fi", "enabled"]],
+        [
+            "secure-field",
+            "usage",
+            ["Password", "current-password"],
+        ],
+        [
+            "text-editor",
+            "usage",
+            ["Bio", "A few words about you"],
+        ],
     ] as const) {
         const source = getSolidExampleSource(slug, id)
         for (const phrase of phrases)

@@ -5,17 +5,22 @@ export function IconButtonPlayer() {
     const [playing, setPlaying] = createSignal(false)
     return (
         <div class="flex items-center gap-3">
+            <IconButton label="Previous" variant="ghost">
+                <span aria-hidden="true">⏮</span>
+            </IconButton>
             <IconButton
                 label={playing() ? "Pause" : "Play"}
+                variant="accent"
+                size="icon-lg"
                 onClick={() => setPlaying(!playing())}
             >
                 <span aria-hidden="true">
                     {playing() ? "Ⅱ" : "▶"}
                 </span>
             </IconButton>
-            <span class="text-footnote text-label-secondary">
-                {playing() ? "Now playing" : "Paused"}
-            </span>
+            <IconButton label="Next" variant="ghost">
+                <span aria-hidden="true">⏭</span>
+            </IconButton>
         </div>
     )
 }

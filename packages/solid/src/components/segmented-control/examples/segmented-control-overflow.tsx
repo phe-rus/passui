@@ -2,18 +2,24 @@ import { createSignal } from "solid-js"
 import { SegmentedControl } from "@passui/solid/segmented-control"
 
 export function SegmentedControlOverflow() {
-    const [view, setView] = createSignal("today")
+    const [sort, setSort] = createSignal("recent")
     return (
-        <div class="w-full max-w-xs">
+        <div class="w-full max-w-[16rem] resize-x overflow-hidden rounded-4xl bg-elevated p-4 shadow-sm ring-1 ring-separator/60">
             <SegmentedControl
-                label="Time range"
-                value={view()}
-                onChange={setView}
+                label="Sort by"
+                value={sort()}
+                onChange={setSort}
                 options={[
-                    { value: "today", label: "Today" },
-                    { value: "week", label: "This week" },
-                    { value: "month", label: "This month" },
-                    { value: "year", label: "This year" },
+                    {
+                        value: "recent",
+                        label: "Recently edited",
+                    },
+                    {
+                        value: "created",
+                        label: "Date created",
+                    },
+                    { value: "title", label: "Title" },
+                    { value: "size", label: "Size" },
                 ]}
             />
         </div>

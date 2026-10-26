@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js"
+import { For } from "solid-js"
 import {
     SearchList,
     SearchListField,
@@ -6,31 +6,23 @@ import {
     SearchListItem,
     SearchListEmpty,
 } from "@passui/solid/search-list"
+const fruits = ["Apple", "Banana", "Cherry", "Mango"]
 export function SearchListUsage() {
-    const [selected, setSelected] = createSignal("")
     return (
-        <div class="w-full max-w-sm">
-            <SearchList>
-                <SearchListField placeholder="Find a page" />
-                <SearchListResults>
-                    <SearchListItem
-                        value="Introduction"
-                        onSelect={setSelected}
-                    >
-                        Introduction
-                    </SearchListItem>
-                    <SearchListItem
-                        value="Installation"
-                        onSelect={setSelected}
-                    >
-                        Installation
-                    </SearchListItem>
-                    <SearchListEmpty>
-                        No pages found
-                    </SearchListEmpty>
-                </SearchListResults>
-            </SearchList>
-            <output>{selected()}</output>
-        </div>
+        <SearchList class="w-full max-w-xs">
+            <SearchListField placeholder="Search fruit" />
+            <SearchListResults class="mt-2">
+                <For each={fruits}>
+                    {(fruit) => (
+                        <SearchListItem value={fruit}>
+                            {fruit}
+                        </SearchListItem>
+                    )}
+                </For>
+                <SearchListEmpty class="px-3 py-4 text-footnote text-label-secondary">
+                    No fruit found
+                </SearchListEmpty>
+            </SearchListResults>
+        </SearchList>
     )
 }

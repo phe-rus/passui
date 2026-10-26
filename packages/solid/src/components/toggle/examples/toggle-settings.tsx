@@ -1,23 +1,32 @@
 import { createSignal } from "solid-js"
-import { Toggle } from "../toggle"
+import { Toggle } from "@passui/solid/toggle"
+import { LabeledContent } from "@passui/solid/labeled-content"
+import { Section } from "@passui/solid/section"
 
 export function ToggleSettings() {
-    const [notifications, setNotifications] =
-        createSignal(true)
+    const [sync, setSync] = createSignal(true)
     const [sounds, setSounds] = createSignal(false)
 
     return (
-        <div class="flex w-full max-w-sm flex-col gap-4">
-            <Toggle
-                label="Notifications"
-                checked={notifications()}
-                onChange={setNotifications}
-            />
-            <Toggle
-                label="Play sounds"
-                checked={sounds()}
-                onChange={setSounds}
-            />
+        <div class="w-full max-w-sm">
+            <Section title="Notifications">
+                <LabeledContent label="Sync across devices">
+                    <Toggle
+                        label="Sync"
+                        labelHidden
+                        checked={sync()}
+                        onChange={setSync}
+                    />
+                </LabeledContent>
+                <LabeledContent label="Sounds">
+                    <Toggle
+                        label="Sounds"
+                        labelHidden
+                        checked={sounds()}
+                        onChange={setSounds}
+                    />
+                </LabeledContent>
+            </Section>
         </div>
     )
 }

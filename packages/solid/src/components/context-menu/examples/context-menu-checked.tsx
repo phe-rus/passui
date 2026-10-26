@@ -1,36 +1,42 @@
 import { createSignal } from "solid-js"
 import {
     ContextMenuHost,
-    openMenu,
     useContextMenu,
 } from "@passui/solid/context-menu"
 
+const orders = {
+    recent: "Recently edited",
+    title: "Title",
+    created: "Date created",
+}
+type Order = keyof typeof orders
+
 export function ContextMenuChecked() {
-    const [pinned, setPinned] = createSignal(false)
+    const [order, setOrder] = createSignal<Order>("recent")
     const items = () => [
-        {
-            label: pinned() ? "Unpin" : "Pin",
-            onSelect: () => setPinned(!pinned()),
-        },
-        { label: "Details", onSelect: () => {} },
+        { heading: "Sort by" },
+        ...(Object.keys(orders) as Order[]).map((key) => ({
+            label: orders[key],
+            checked: key === order(),
+            onSelect: () => setOrder(key),
+        })),
     ]
     const handlers = useContextMenu(items)
     return (
-        <div class="grid gap-2">
-            <button
-                type="button"
+        <>
+            <div
                 {...handlers}
-                onClick={(event) =>
-                    openMenu(event.currentTarget, items())
-                }
-                class="rounded-xl bg-fill p-3"
+                class="flex w-64 select-none flex-col items-center gap-1 rounded-4xl bg-elevated p-6 text-center shadow-sm ring-1 ring-separator/60"
             >
-                Project ···
-            </button>
-            <output class="text-footnote">
-                {pinned() ? "Pinned to top" : "Not pinned"}
-            </output>
+                <span class="text-subheadline font-medium text-label">
+                    Notes
+                </span>
+                <span class="text-footnote text-label-secondary">
+                    Sorted by {orders[order()].toLowerCase()}.
+                    Right-click to change.
+                </span>
+            </div>
             <ContextMenuHost />
-        </div>
+        </>
     )
 }
