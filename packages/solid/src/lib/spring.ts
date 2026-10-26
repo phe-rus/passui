@@ -1,4 +1,4 @@
-    )import type { Spring } from "@passui/tokens/motion"
+import type { Spring } from "@passui/tokens/motion"
 
 export interface SpringState {
     position: number
@@ -106,4 +106,5 @@ export function springAtRest(
     return (
         Math.abs(state.position - target) <= distance &&
         Math.abs(state.velocity) <= speed
+    )
 }
