@@ -3,13 +3,20 @@ import { Link } from "@tanstack/react-router"
 import { getEntry } from "@/domains/catalog/get-catalog"
 import { AnatomyTable } from "@/domains/catalog/views/anatomy-table"
 import { DocSection } from "@/domains/catalog/views/doc-section"
-import { OnThisPage, type TocItem } from "@/domains/catalog/views/on-this-page"
+import {
+    OnThisPage,
+    type TocItem,
+} from "@/domains/catalog/views/on-this-page"
 import { PracticesList } from "@/domains/catalog/views/practices-list"
 import { CodeBlock } from "@/domains/guides/views/guide-parts"
 import { getSolidExampleSource } from "../get-solid-example-source"
 import { SolidPreview } from "./solid-preview"
 
-export function SolidComponentPage({ slug }: { slug: string }) {
+export function SolidComponentPage({
+    slug,
+}: {
+    slug: string
+}) {
     const entry = getEntry(slug)
     if (!entry) return null
 
@@ -27,7 +34,10 @@ export function SolidComponentPage({ slug }: { slug: string }) {
         .filter((example) => example.source.length > 0)
 
     if (slug === "button") {
-        const source = getSolidExampleSource("button", "pending")
+        const source = getSolidExampleSource(
+            "button",
+            "pending"
+        )
         if (source) {
             examples.unshift({
                 id: "pending",
@@ -51,14 +61,19 @@ export function SolidComponentPage({ slug }: { slug: string }) {
                         {
                             id: "examples",
                             title: "Examples",
-                            children: examples.map(({ id, words }) => ({
-                                id: `example-${id}`,
-                                title: words.title,
-                            })),
+                            children: examples.map(
+                                ({ id, words }) => ({
+                                    id: `example-${id}`,
+                                    title: words.title,
+                                })
+                            ),
                         },
                     ]
                   : []),
-              { id: "best-practices", title: "Best practices" },
+              {
+                  id: "best-practices",
+                  title: "Best practices",
+              },
               { id: "accessibility", title: "Accessibility" },
           ]
         : []
@@ -91,8 +106,9 @@ export function SolidComponentPage({ slug }: { slug: string }) {
                             Solid implementation planned
                         </h2>
                         <p className="mt-2 text-callout text-label-secondary">
-                            This control needs a native Solid implementation and
-                            interaction tests before it is published.
+                            This control needs a native Solid
+                            implementation and interaction
+                            tests before it is published.
                         </p>
                     </section>
                 ) : (
@@ -101,7 +117,9 @@ export function SolidComponentPage({ slug }: { slug: string }) {
                             aria-label="Native SolidJS showcase"
                             className="flex min-h-80 items-center justify-center overflow-hidden rounded-5xl bg-accent-soft/50 ring-1 ring-separator/60"
                         >
-                            <SolidPreview slug={`${slug}-usage`} />
+                            <SolidPreview
+                                slug={`${slug}-usage`}
+                            />
                         </section>
 
                         <DocSection
@@ -115,11 +133,14 @@ export function SolidComponentPage({ slug }: { slug: string }) {
                                 label="Terminal"
                             />
                             <p className="text-callout text-label-secondary">
-                                Already configured? Import the component directly.
-                                For a manual setup, see the{" "}
+                                Already configured? Import the
+                                component directly. For a
+                                manual setup, see the{" "}
                                 <Link
                                     to="/solid/docs/$slug"
-                                    params={{ slug: "installation" }}
+                                    params={{
+                                        slug: "installation",
+                                    }}
                                     className="text-label underline underline-offset-4"
                                 >
                                     SolidJS installation guide
@@ -139,7 +160,9 @@ export function SolidComponentPage({ slug }: { slug: string }) {
                             />
                             <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
                                 <div className="bg-background">
-                                    <SolidPreview slug={`${slug}-usage`} />
+                                    <SolidPreview
+                                        slug={`${slug}-usage`}
+                                    />
                                 </div>
                                 <div className="border-separator/60 border-t">
                                     <CodeBlock
@@ -150,8 +173,13 @@ export function SolidComponentPage({ slug }: { slug: string }) {
                             </div>
                         </DocSection>
 
-                        <DocSection id="anatomy" title="Anatomy">
-                            <AnatomyTable parts={content.anatomy} />
+                        <DocSection
+                            id="anatomy"
+                            title="Anatomy"
+                        >
+                            <AnatomyTable
+                                parts={content.anatomy}
+                            />
                         </DocSection>
 
                         {examples.length > 0 && (
@@ -161,37 +189,20 @@ export function SolidComponentPage({ slug }: { slug: string }) {
                                 description="Real SolidJS variations, with code you can copy into your app."
                             >
                                 <div className="flex flex-col gap-12">
-                                    {examples.map(({ id, words, source }) => (
-                                        <section
-                                            key={id}
-                                            id={`example-${id}`}
-                                            aria-labelledby={`example-${id}-title`}
-                                            className="flex scroll-mt-24 flex-col gap-4"
-                                        >
-                                            <div className="flex flex-col gap-1">
-                                                <h3
-                                                    id={`example-${id}-title`}
-                                                    className="text-title3 font-semibold text-label"
-                                                >
-                                                    {words.title}
-                                                </h3>
-                                                <p className="text-callout text-label-secondary">
-                                                    {words.description}
-                                                </p>
-                                            </div>
-                                            <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
-                                                <div className="bg-background">
-                                                    <SolidPreview slug={`${slug}-${id}`} />
-                                                </div>
-                                                <div className="border-separator/60 border-t">
-                                                    <CodeBlock
-                                                        code={source}
-                                                        label={`${slug}-${id}.tsx`}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </section>
-                                    ))}
+                                    {examples.map(
+                                        ({
+                                            id,
+                                            words,
+                                            source,
+                                        }) => (
+                                            <section
+                                                key={id}
+                                                id={`example-${id}`}
+                                                aria-labelledby={`example-${id}-title`}
+                                                className="flex scroll-mt-24 flex-col gap-4"
+                                            >
+                                                <div className="flex flex-col gap-1">
+                                                    <h3
                                 </div>
                             </DocSection>
                         )}

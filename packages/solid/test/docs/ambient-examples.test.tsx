@@ -6,7 +6,11 @@ import { AmbientImages } from "../../src/components/ambient/examples/ambient-ima
 import { AmbientNowPlaying } from "../../src/components/ambient/examples/ambient-now-playing"
 
 test("Ambient previews render meaningful native Solid content", () => {
-    for (const Example of [AmbientUsage, AmbientImages, AmbientNowPlaying]) {
+    for (const Example of [
+        AmbientUsage,
+        AmbientImages,
+        AmbientNowPlaying,
+    ]) {
         const html = renderToString(() => <Example />)
         expect(html).toContain("src=")
         expect(html).toContain("<section")

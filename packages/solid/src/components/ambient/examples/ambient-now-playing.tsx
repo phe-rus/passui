@@ -25,9 +25,15 @@ export function AmbientNowPlaying() {
             </div>
             <button
                 type="button"
-                aria-label={playing() ? "Pause playback" : "Start playback"}
+                aria-label={
+                    playing()
+                        ? "Pause playback"
+                        : "Start playback"
+                }
                 aria-pressed={playing()}
-                onClick={() => setPlaying((current) => !current)}
+                onClick={() =>
+                    setPlaying((current) => !current)
+                }
                 class="rounded-full bg-accent px-5 py-2 text-subheadline font-semibold text-white transition-transform active:scale-95"
             >
                 {playing() ? "Pause" : "Play"}

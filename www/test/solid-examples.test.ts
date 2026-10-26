@@ -12,8 +12,10 @@ test("Solid Ambient examples show image-driven glow instead of empty surfaces", 
 })
 
 test("Solid documentation only presents existing native example sources", () => {
-    expect(getSolidExampleSource("button", "pending")).toContain(
-        "@passui/solid/button"
-    )
-    expect(getSolidExampleSource("ambient", "nonexistent")).toBe("")
+    expect(
+        getSolidExampleSource("button", "pending")
+    ).toContain("@passui/solid/button")
+    expect(
+        getSolidExampleSource("ambient", "nonexistent")
+    ).toBe("")
 })
