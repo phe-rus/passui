@@ -1,5 +1,7 @@
 import { expect, test } from "vitest"
 import { getSolidExampleSource } from "@/domains/framework/get-solid-example-source"
+import { getCatalog } from "@/domains/catalog/get-catalog"
+import { hasSolidComponent } from "@passui/solid/docs"
 
 test("Solid Ambient examples show image-driven glow instead of empty surfaces", () => {
     for (const id of ["usage", "images", "now-playing"]) {
@@ -32,4 +34,29 @@ test("Solid variants are native examples rather than React snippets", () => {
             expect(source).not.toContain("@jsxImportSource")
         }
     }
+})
+
+test("every React catalog scenario has a copyable native Solid example", () => {
+    const missing: string[] = []
+    for (const entry of getCatalog()) {
+        if (!hasSolidComponent(entry.docs.slug)) continue
+        const ids = [
+            "usage",
+            ...Object.keys(entry.content.examples),
+        ]
+        for (const id of ids) {
+            const source = getSolidExampleSource(
+                entry.docs.slug,
+                id
+            )
+            if (!source)
+                missing.push(`${entry.docs.slug}/${id}`)
+            else if (source.includes("@jsxImportSource")) {
+                missing.push(
+                    `${entry.docs.slug}/${id} has a JSX directive`
+                )
+            }
+        }
+    }
+    expect(missing).toEqual([])
 })

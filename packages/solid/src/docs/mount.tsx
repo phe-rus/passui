@@ -1,5 +1,27 @@
 import { createSignal, type JSX } from "solid-js"
 import { Dynamic, render } from "solid-js/web"
+
+type ExampleComponent = (
+    props: Record<string, unknown>
+) => JSX.Element
+const nativeExampleModules = import.meta.glob<
+    Record<string, ExampleComponent>
+>("../components/**/examples/*.tsx", { eager: true })
+
+/** Each example file exports one native Solid scene with a matching filename. */
+const nativeExamples = Object.fromEntries(
+    Object.entries(nativeExampleModules).flatMap(
+        ([path, exports]) => {
+            const key = path.match(
+                /\/examples\/([^/]+)\.tsx$/
+            )?.[1]
+            const component = Object.values(exports).find(
+                (value) => typeof value === "function"
+            )
+            return key && component ? [[key, component]] : []
+        }
+    )
+) as Record<string, ExampleComponent>
 import { Button } from "../components/button/button"
 import { IconButton } from "../components/button/icon-button"
 import { ButtonUsage } from "../components/button/examples/button-usage"
@@ -75,6 +97,7 @@ const examples: Record<
     string,
     (props: Record<string, unknown>) => JSX.Element
 > = {
+    ...nativeExamples,
     "date-picker-usage": DatePickerUsage,
     "compact-date-picker-usage": CompactDatePickerUsage,
     "compact-time-picker-usage": CompactTimePickerUsage,

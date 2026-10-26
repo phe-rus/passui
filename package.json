@@ -10,6 +10,7 @@
     ],
     "scripts": {
         "solid:parity": "bun scripts/check-solid-parity.ts",
+        "solid:examples": "bun scripts/generate-solid-example-sources.ts && biome format --write www/domains/framework/solid-example-sources.generated.ts",
         "dev": "turbo run dev",
         "build": "turbo run build",
         "typecheck": "turbo run typecheck",

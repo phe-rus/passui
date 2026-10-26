@@ -17,5 +17,7 @@ test("Solid API reference uses the native Solid component contracts", () => {
         type: "keyof typeof dots",
         required: true,
     })
-    expect(api.button.some((prop) => prop.name === "asChild")).toBe(false)
+    expect(
+        api.button.some((prop) => prop.name === "asChild")
+    ).toBe(false)
 })
