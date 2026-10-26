@@ -1,6 +1,15 @@
-import { createSignal, onCleanup, onMount, type Accessor } from "solid-js"
+import {
+    createSignal,
+    onCleanup,
+    onMount,
+    type Accessor,
+} from "solid-js"
 import { springs, type Spring } from "@passui/tokens/motion"
-import { advanceSpring, springAtRest, type SpringState } from "../lib/spring"
+import {
+    advanceSpring,
+    springAtRest,
+    type SpringState,
+} from "../lib/spring"
 
 export interface SpringValue {
     value: Accessor<number>
@@ -23,7 +32,10 @@ export function useSpringValue(
     config: Spring = springs.snappy
 ): SpringValue {
     const [value, setValue] = createSignal(initial)
-    let state: SpringState = { position: initial, velocity: 0 }
+    let state: SpringState = {
+        position: initial,
+        velocity: 0,
+    }
     let target = initial
     let frame = 0
     let lastTime: number | undefined
@@ -38,16 +50,26 @@ export function useSpringValue(
 
     const tick = (timestamp: number) => {
         frame = 0
-        const seconds = lastTime === undefined
-            ? 0
-            : Math.min(Math.max((timestamp - lastTime) / 1000, 0), 0.064)
+        const seconds =
+            lastTime === undefined
+                ? 0
+                : Math.min(
+                      Math.max(
+                          (timestamp - lastTime) / 1000,
+                          0
+                      ),
+                      0.064
+                  )
         lastTime = timestamp
         state = advanceSpring(state, target, seconds, config)
         if (springAtRest(state, target)) {
             state = { position: target, velocity: 0 }
         }
         setValue(state.position)
-        if (state.position !== target || state.velocity !== 0) {
+        if (
+            state.position !== target ||
+            state.velocity !== 0
+        ) {
             frame = requestAnimationFrame(tick)
         } else {
             lastTime = undefined
@@ -64,7 +86,10 @@ export function useSpringValue(
     const to = (nextTarget: number, velocity?: number) => {
         if (!Number.isFinite(nextTarget)) return
         target = nextTarget
-        if (velocity !== undefined && Number.isFinite(velocity)) {
+        if (
+            velocity !== undefined &&
+            Number.isFinite(velocity)
+        ) {
             state = { ...state, velocity }
         }
         if (!mounted || reduceMotion) {
@@ -79,7 +104,9 @@ export function useSpringValue(
 
     onMount(() => {
         mounted = true
-        const media = window.matchMedia("(prefers-reduced-motion: reduce)")
+        const media = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        )
         const onPreference = () => {
             reduceMotion = media.matches
             if (reduceMotion) jump(target)

@@ -1,5 +1,9 @@
 import { describe, expect, test } from "vitest"
-import { advanceSpring, rubberBand, springAtRest } from "../../src/lib/spring"
+import {
+    advanceSpring,
+    rubberBand,
+    springAtRest,
+} from "../../src/lib/spring"
 
 const snappy = { mass: 1, stiffness: 380, damping: 22 }
 
@@ -9,7 +13,12 @@ describe("damped spring motion", () => {
             const target = start === 0 ? 50 : 0
             let state = { position: start, velocity: 0 }
             for (let index = 0; index < 120; index++) {
-                state = advanceSpring(state, target, 1 / 120, snappy)
+                state = advanceSpring(
+                    state,
+                    target,
+                    1 / 120,
+                    snappy
+                )
             }
             expect(state.position).toBeCloseTo(target, 2)
             expect(springAtRest(state, target)).toBe(true)
@@ -24,7 +33,12 @@ describe("damped spring motion", () => {
             snappy
         )
         expect(moving.velocity).not.toBe(0)
-        const reversed = advanceSpring(moving, 0, 0.016, snappy)
+        const reversed = advanceSpring(
+            moving,
+            0,
+            0.016,
+            snappy
+        )
         expect(Number.isFinite(reversed.position)).toBe(true)
         expect(Number.isFinite(reversed.velocity)).toBe(true)
     })
@@ -44,22 +58,31 @@ describe("damped spring motion", () => {
         { mass: 1, stiffness: 100, damping: 20 },
         { mass: 1, stiffness: 100, damping: 35 },
         { mass: 1, stiffness: 100, damping: 8 },
-    ])("supports critical, overdamped and underdamped springs", (spring) => {
-        const result = advanceSpring(
-            { position: 10, velocity: -3 },
-            0,
-            0.1,
-            spring
-        )
-        expect(Number.isFinite(result.position)).toBe(true)
-        expect(Number.isFinite(result.velocity)).toBe(true)
-    })
+    ])(
+        "supports critical, overdamped and underdamped springs",
+        (spring) => {
+            const result = advanceSpring(
+                { position: 10, velocity: -3 },
+                0,
+                0.1,
+                spring
+            )
+            expect(Number.isFinite(result.position)).toBe(
+                true
+            )
+            expect(Number.isFinite(result.velocity)).toBe(
+                true
+            )
+        }
+    )
 
     test("rubber-band resistance is continuous, signed, bounded and reversible", () => {
         expect(rubberBand(0, 100)).toBe(0)
         expect(rubberBand(100, 100)).toBeGreaterThan(0)
         expect(rubberBand(100, 100)).toBeLessThan(100)
-        expect(rubberBand(-100, 100)).toBe(-rubberBand(100, 100))
+        expect(rubberBand(-100, 100)).toBe(
+            -rubberBand(100, 100)
+        )
         expect(rubberBand(100000, 100)).toBeLessThan(100)
         expect(rubberBand(10, 0)).toBe(0)
     })

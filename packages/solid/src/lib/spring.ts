@@ -1,4 +1,4 @@
-import type { Spring } from "@passui/tokens/motion"
+    )import type { Spring } from "@passui/tokens/motion"
 
 export interface SpringState {
     position: number
@@ -25,7 +25,8 @@ export function advanceSpring(
         stiffness <= 0 ||
         damping < 0 ||
         mass <= 0
-    ) throw new RangeError("Invalid spring parameters")
+    )
+        throw new RangeError("Invalid spring parameters")
 
     const omega = Math.sqrt(stiffness / mass)
     const ratio = damping / (2 * Math.sqrt(stiffness * mass))
@@ -40,22 +41,31 @@ export function advanceSpring(
         const exponential = Math.exp(-decay * seconds)
         const cosine = Math.cos(frequency * seconds)
         const sine = Math.sin(frequency * seconds)
-        const companion = (velocity + decay * displacement) / frequency
-        offset = exponential * (displacement * cosine + companion * sine)
-        nextVelocity = exponential * (
-            velocity * cosine -
-            (decay * companion + displacement * frequency) * sine
-        )
+        const companion =
+            (velocity + decay * displacement) / frequency
+        offset =
+            exponential *
+            (displacement * cosine + companion * sine)
+        nextVelocity =
+            exponential *
+            (velocity * cosine -
+                (decay * companion +
+                    displacement * frequency) *
+                    sine)
     } else if (ratio <= 1 + 1e-5) {
         const exponential = Math.exp(-omega * seconds)
         const companion = velocity + omega * displacement
-        offset = exponential * (displacement + companion * seconds)
-        nextVelocity = exponential * (velocity - omega * companion * seconds)
+        offset =
+            exponential * (displacement + companion * seconds)
+        nextVelocity =
+            exponential *
+            (velocity - omega * companion * seconds)
     } else {
         const root = Math.sqrt(ratio * ratio - 1)
         const slow = -omega * (ratio - root)
         const fast = -omega * (ratio + root)
-        const a = (velocity - fast * displacement) / (slow - fast)
+        const a =
+            (velocity - fast * displacement) / (slow - fast)
         const b = displacement - a
         const slowTerm = a * Math.exp(slow * seconds)
         const fastTerm = b * Math.exp(fast * seconds)
@@ -63,7 +73,10 @@ export function advanceSpring(
         nextVelocity = slow * slowTerm + fast * fastTerm
     }
 
-    return { position: target + offset, velocity: nextVelocity }
+    return {
+        position: target + offset,
+        velocity: nextVelocity,
+    }
 }
 
 /**
@@ -78,7 +91,9 @@ export function rubberBand(
 ): number {
     if (dimension <= 0 || coefficient <= 0) return 0
     const distance = Math.abs(overflow)
-    const resisted = dimension * (1 - 1 / (1 + coefficient * distance / dimension))
+    const resisted =
+        dimension *
+        (1 - 1 / (1 + (coefficient * distance) / dimension))
     return Math.sign(overflow) * resisted
 }
 
@@ -88,6 +103,7 @@ export function springAtRest(
     distance = 0.05,
     speed = 0.05
 ) {
-    return Math.abs(state.position - target) <= distance &&
+    return (
+        Math.abs(state.position - target) <= distance &&
         Math.abs(state.velocity) <= speed
 }

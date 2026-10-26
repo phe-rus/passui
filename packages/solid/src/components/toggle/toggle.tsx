@@ -20,7 +20,9 @@ const TRACK_TRAVEL = 20
 const DRAG_SLOP = 3
 
 function SpringSwitch(props: ToggleProps) {
-    const thumb = useSpringValue(props.checked ? TRACK_TRAVEL : 0)
+    const thumb = useSpringValue(
+        props.checked ? TRACK_TRAVEL : 0
+    )
     let pointerId: number | undefined
     let pointerStart = 0
     let thumbStart = 0
@@ -36,7 +38,11 @@ function SpringSwitch(props: ToggleProps) {
         }
     })
 
-    const onPointerDown = (event: PointerEvent & { currentTarget: HTMLButtonElement }) => {
+    const onPointerDown = (
+        event: PointerEvent & {
+            currentTarget: HTMLButtonElement
+        }
+    ) => {
         if (props.disabled || event.button !== 0) return
         pointerId = event.pointerId
         pointerStart = event.clientX
@@ -54,26 +60,51 @@ function SpringSwitch(props: ToggleProps) {
         if (Math.abs(delta) > DRAG_SLOP) dragged = true
         if (!dragged) return
         const raw = thumbStart + delta
-        const bounded = Math.max(0, Math.min(TRACK_TRAVEL, raw))
-        thumb.jump(bounded + rubberBand(raw - bounded, TRACK_TRAVEL))
+        const bounded = Math.max(
+            0,
+            Math.min(TRACK_TRAVEL, raw)
+        )
+        thumb.jump(
+            bounded + rubberBand(raw - bounded, TRACK_TRAVEL)
+        )
         const elapsed = (event.timeStamp - lastTime) / 1000
         if (elapsed > 0) {
-            releaseVelocity = Math.max(-1000, Math.min(1000, (event.clientX - lastX) / elapsed))
+            releaseVelocity = Math.max(
+                -1000,
+                Math.min(
+                    1000,
+                    (event.clientX - lastX) / elapsed
+                )
+            )
         }
         lastX = event.clientX
         lastTime = event.timeStamp
     }
-    const onPointerUp = (event: PointerEvent & { currentTarget: HTMLButtonElement }) => {
+    const onPointerUp = (
+        event: PointerEvent & {
+            currentTarget: HTMLButtonElement
+        }
+    ) => {
         if (pointerId !== event.pointerId) return
         pointerId = undefined
-        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-            event.currentTarget.releasePointerCapture(event.pointerId)
+        if (
+            event.currentTarget.hasPointerCapture(
+                event.pointerId
+            )
+        ) {
+            event.currentTarget.releasePointerCapture(
+                event.pointerId
+            )
         }
         if (dragged) {
             suppressClick = true
-            const projected = thumb.value() + releaseVelocity * 0.06
+            const projected =
+                thumb.value() + releaseVelocity * 0.06
             const checked = projected >= TRACK_TRAVEL / 2
-            thumb.to(checked ? TRACK_TRAVEL : 0, releaseVelocity)
+            thumb.to(
+                checked ? TRACK_TRAVEL : 0,
+                releaseVelocity
+            )
             if (checked !== props.checked) {
                 haptic("selection")
                 props.onChange(checked)
@@ -119,7 +150,9 @@ function SpringSwitch(props: ToggleProps) {
             <span
                 aria-hidden="true"
                 class="h-[26px] w-[26px] rounded-full bg-white shadow-[0_0_0_0.5px_rgb(0_0_0/0.04),0_2px_4px_rgb(0_0_0/0.16),0_3px_8px_rgb(0_0_0/0.10)] will-change-transform"
-                style={{ transform: "translate3d(" + thumb.value() + "px, 0, 0)" }}
+                style={{
+                    transform: `translate3d(${thumb.value()}px, 0, 0)`,
+                }}
             />
         </button>
     )
@@ -139,13 +172,25 @@ export function Toggle(props: ToggleProps) {
                 <input
                     ref={input}
                     type="checkbox"
-                    aria-checked={props.mixed ? "mixed" : props.checked}
+                    aria-checked={
+                        props.mixed ? "mixed" : props.checked
+                    }
                     checked={props.checked}
                     disabled={props.disabled}
-                    onChange={(event) => props.onChange(event.currentTarget.checked)}
+                    onChange={(event) =>
+                        props.onChange(
+                            event.currentTarget.checked
+                        )
+                    }
                     class="size-5 accent-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text disabled:opacity-40"
                 />
-                <span class={props.labelHidden ? "sr-only" : undefined}>
+                <span
+                    class={
+                        props.labelHidden
+                            ? "sr-only"
+                            : undefined
+                    }
+                >
                     {props.label}
                 </span>
             </label>
