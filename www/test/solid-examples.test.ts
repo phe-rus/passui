@@ -397,6 +397,78 @@ test("key Solid scenarios teach the same use cases as React", () => {
             "usage",
             ["Bio", "A few words about you"],
         ],
+        [
+            "date-picker",
+            "usage",
+            ["Birthday", "Enter a real date."],
+        ],
+        [
+            "date-picker",
+            "locales",
+            ["United States", "United Kingdom", "China"],
+        ],
+        [
+            "locale-switcher",
+            "translated-page",
+            ["Connexion", "Continuer", "登录"],
+        ],
+        [
+            "text-field",
+            "icons",
+            ["aiko@example.com", "Website", "Find a member"],
+        ],
+        [
+            "secure-field",
+            "new-password",
+            [
+                "Confirm password",
+                "The passwords don't match.",
+                "Change password",
+            ],
+        ],
+        [
+            "tooltip",
+            "icon-buttons",
+            ["Copy", "Share", "Delete"],
+        ],
+        [
+            "table",
+            "usage",
+            ["Aiko Kamado", "Kenji Mori", "Owner", "Admin"],
+        ],
+        [
+            "table",
+            "wide",
+            ["Passkey added", "MacBook Air", "Lisbon, PT"],
+        ],
+        [
+            "table",
+            "empty",
+            ["No applications yet", "New application"],
+        ],
+        [
+            "stat-tile",
+            "grid",
+            [
+                "Signed in now",
+                "Failed sign-ins",
+                "Across 3 apps",
+            ],
+        ],
+        [
+            "content-view",
+            "header-action",
+            [
+                "Passkeys",
+                "2 passkeys on your devices.",
+                "Add",
+            ],
+        ],
+        [
+            "view-controller",
+            "settings",
+            ["Personal info", "Aiko Kamado", "Birthday"],
+        ],
     ] as const) {
         const source = getSolidExampleSource(slug, id)
         for (const phrase of phrases)

@@ -1,3 +1,9 @@
+import { For } from "solid-js"
+import {
+    ProfileImage,
+    ProfileImageContent,
+    ProfileImageFallback,
+} from "@passui/solid/profile-image"
 import {
     Table,
     TableHeader,
@@ -5,28 +11,63 @@ import {
     TableRow,
     TableHead,
     TableCell,
-    TableCaption,
 } from "@passui/solid/table"
+
+const members = [
+    {
+        name: "Aiko Kamado",
+        initials: "AK",
+        src: "/avatars/aiko.svg",
+        role: "Owner",
+    },
+    {
+        name: "Kenji Mori",
+        initials: "KM",
+        src: "/avatars/kenji.svg",
+        role: "Admin",
+    },
+]
 export function TableUsage() {
     return (
-        <Table>
-            <TableCaption>Recent invoices</TableCaption>
-            <TableHeader>
-                <TableRow>
-                    <TableHead scope="col">Invoice</TableHead>
-                    <TableHead scope="col">Amount</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                <TableRow>
-                    <TableCell>INV-001</TableCell>
-                    <TableCell>$250.00</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>INV-002</TableCell>
-                    <TableCell>$150.00</TableCell>
-                </TableRow>
-            </TableBody>
-        </Table>
+        <div class="w-full max-w-md rounded-4xl bg-elevated p-4 shadow-sm ring-1 ring-separator/60">
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Member</TableHead>
+                        <TableHead>Role</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    <For each={members}>
+                        {(member) => (
+                            <TableRow>
+                                <TableCell>
+                                    <div class="flex items-center gap-3">
+                                        <ProfileImage class="size-8">
+                                            <ProfileImageContent
+                                                src={
+                                                    member.src
+                                                }
+                                            />
+                                            <ProfileImageFallback>
+                                                {
+                                                    member.initials
+                                                }
+                                            </ProfileImageFallback>
+                                        </ProfileImage>
+                                        <span class="text-subheadline font-medium text-label">
+                                            {member.name}
+                                        </span>
+                                    </div>
+                                </TableCell>
+                                <TableCell>
+                                    {member.role}
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </For>
+                </TableBody>
+            </Table>
+        </div>
     )
 }

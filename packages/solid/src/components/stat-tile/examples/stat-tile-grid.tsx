@@ -2,16 +2,19 @@ import { StatTile } from "@passui/solid/stat-tile"
 
 export function StatTileGrid() {
     return (
-        <div class="grid w-full grid-cols-2 gap-3">
+        <div class="grid w-full max-w-xl grid-cols-2 gap-3 sm:grid-cols-4">
+            <StatTile label="People" value={1284} />
             <StatTile
-                label="Visitors"
-                value={12480}
-                caption="This month"
+                label="Signed in now"
+                value={86}
+                caption="Across 3 apps"
             />
+            <StatTile label="New today" value={12} />
             <StatTile
-                label="Signups"
-                value={842}
-                caption="Up 8%"
+                label="Failed sign-ins"
+                value={3}
+                caption="In the last hour"
+                tone="critical"
             />
         </div>
     )

@@ -1,32 +1,27 @@
-import { createSignal } from "solid-js"
 import { Button } from "@passui/solid/button"
 import { ViewController } from "@passui/solid/view-controller"
 
 export function ViewControllerAction() {
-    const [saved, setSaved] = createSignal(false)
     return (
         <ViewController
-            class="w-full max-w-lg py-4"
+            class="w-full max-w-lg py-6"
             heading={
                 <ViewController.Heading
-                    title="Workspace"
-                    description="Manage team preferences."
+                    title="Applications"
+                    description="Apps that sign people in with Pass."
+                    action={
+                        <Button
+                            variant="accent"
+                            size="sm"
+                            class="ms-auto"
+                        >
+                            New application
+                        </Button>
+                    }
                 />
             }
         >
-            <div class="flex items-center justify-between gap-3">
-                <p class="text-footnote">
-                    {saved()
-                        ? "All changes saved"
-                        : "Some changes are pending"}
-                </p>
-                <Button
-                    size="sm"
-                    onClick={() => setSaved(true)}
-                >
-                    Save
-                </Button>
-            </div>
+            <div class="h-24 rounded-3xl bg-fill/60" />
         </ViewController>
     )
 }

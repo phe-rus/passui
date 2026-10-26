@@ -1,21 +1,39 @@
 import { createSignal } from "solid-js"
 import { DatePicker } from "@passui/solid/date-picker"
 
+const labels = {
+    day: "Day",
+    month: "Month",
+    year: "Year",
+    invalid: "Enter a real date.",
+}
+
 export function DatePickerLocales() {
-    const [date, setDate] = createSignal("2026-10-26")
+    const [us, setUs] = createSignal("1994-07-21")
+    const [uk, setUk] = createSignal("1994-07-21")
+    const [cn, setCn] = createSignal("1994-07-21")
     return (
-        <div class="w-full max-w-sm">
+        <div class="flex w-full max-w-xs flex-col gap-8">
             <DatePicker
-                label="Appointment date"
-                locale="fr-FR"
-                value={date()}
-                onChange={setDate}
-                labels={{
-                    day: "Jour",
-                    month: "Mois",
-                    year: "Année",
-                    invalid: "Date invalide",
-                }}
+                label="United States"
+                locale="en-US"
+                labels={labels}
+                value={us()}
+                onChange={setUs}
+            />
+            <DatePicker
+                label="United Kingdom"
+                locale="en-GB"
+                labels={labels}
+                value={uk()}
+                onChange={setUk}
+            />
+            <DatePicker
+                label="China"
+                locale="zh-CN"
+                labels={labels}
+                value={cn()}
+                onChange={setCn}
             />
         </div>
     )

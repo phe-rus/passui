@@ -1,32 +1,32 @@
-import { createSignal } from "solid-js"
 import { ViewController } from "@passui/solid/view-controller"
-import { Toggle } from "@passui/solid/toggle"
+import { Section } from "@passui/solid/section"
+import { LabeledContent } from "@passui/solid/labeled-content"
 
 export function ViewControllerSettings() {
-    const [updates, setUpdates] = createSignal(true)
-    const [summary, setSummary] = createSignal(false)
     return (
-        <ViewController
-            class="w-full max-w-lg py-4"
-            heading={
-                <ViewController.Heading
-                    title="Notifications"
-                    description="Choose how we contact you."
-                />
-            }
-        >
-            <div class="grid gap-3">
-                <Toggle
-                    label="Product updates"
-                    checked={updates()}
-                    onChange={setUpdates}
-                />
-                <Toggle
-                    label="Weekly summary"
-                    checked={summary()}
-                    onChange={setSummary}
-                />
-            </div>
-        </ViewController>
+        <div class="w-full max-w-lg rounded-4xl bg-background px-6 shadow-sm ring-1 ring-separator/60">
+            <ViewController
+                class="py-8"
+                heading={
+                    <ViewController.Heading
+                        title="Personal info"
+                        description="Your name and how to reach you."
+                    />
+                }
+            >
+                <Section title="Basics">
+                    <LabeledContent label="Name">
+                        <span class="text-subheadline text-label-secondary">
+                            Aiko Kamado
+                        </span>
+                    </LabeledContent>
+                    <LabeledContent label="Birthday">
+                        <span class="text-subheadline text-label-secondary">
+                            21 July
+                        </span>
+                    </LabeledContent>
+                </Section>
+            </ViewController>
+        </div>
     )
 }
