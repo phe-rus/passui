@@ -42,6 +42,8 @@ import { TableUsage } from "../components/table/examples/table-usage"
 import { ConversationUsage } from "../components/conversation/examples/conversation-usage"
 
 import { AmbientUsage } from "../components/ambient/examples/ambient-usage"
+import { AmbientImages } from "../components/ambient/examples/ambient-images"
+import { AmbientNowPlaying } from "../components/ambient/examples/ambient-now-playing"
 
 import { TabBarUsage } from "../components/tab-bar/examples/tab-bar-usage"
 
@@ -73,6 +75,8 @@ const examples: Record<
     "table-usage": TableUsage,
     "conversation-usage": ConversationUsage,
     "ambient-usage": AmbientUsage,
+    "ambient-images": AmbientImages,
+    "ambient-now-playing": AmbientNowPlaying,
     "tab-bar-usage": TabBarUsage,
     "popover-usage": PopoverUsage,
     "sheet-usage": SheetUsage,

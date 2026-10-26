@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Solid docs: give native components complete usage pages with installation, examples, anatomy, best practices, accessibility and section navigation.
+- Solid Ambient: demonstrate image-driven glows, multiple portraits and an interactive now-playing surface.
+
 - Solid: introduce frame-rate-independent damped spring motion, velocity-preserving retargeting, rubber-band drag resistance and reduced-motion behavior.
 - Solid: replace the fixed-duration switch-thumb transition with interruptible spring movement and pointer dragging; expand its interactive example and add oscillator tests.
 
