@@ -206,10 +206,14 @@ export function SolidComponentPage({
                                                         id={`example-${id}-title`}
                                                         className="text-title3 font-semibold text-label"
                                                     >
-                                                        {words.title}
+                                                        {
+                                                            words.title
+                                                        }
                                                     </h3>
                                                     <p className="text-callout text-label-secondary">
-                                                        {words.description}
+                                                        {
+                                                            words.description
+                                                        }
                                                     </p>
                                                 </div>
                                                 <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
@@ -220,7 +224,9 @@ export function SolidComponentPage({
                                                     </div>
                                                     <div className="border-separator/60 border-t">
                                                         <CodeBlock
-                                                            code={source}
+                                                            code={
+                                                                source
+                                                            }
                                                             label={`${slug}-${id}.tsx`}
                                                         />
                                                     </div>
@@ -232,15 +238,27 @@ export function SolidComponentPage({
                             </DocSection>
                         )}
 
-                        <DocSection id="best-practices" title="Best practices">
-                            <PracticesList practices={content.practices} />
+                        <DocSection
+                            id="best-practices"
+                            title="Best practices"
+                        >
+                            <PracticesList
+                                practices={content.practices}
+                            />
                         </DocSection>
 
-                        <DocSection id="accessibility" title="Accessibility">
+                        <DocSection
+                            id="accessibility"
+                            title="Accessibility"
+                        >
                             <ul className="m-0 flex list-disc flex-col gap-2 ps-5 text-callout text-label">
-                                {content.accessibility.map((line) => (
-                                    <li key={line}>{line}</li>
-                                ))}
+                                {content.accessibility.map(
+                                    (line) => (
+                                        <li key={line}>
+                                            {line}
+                                        </li>
+                                    )
+                                )}
                             </ul>
                         </DocSection>
                     </>
