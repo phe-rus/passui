@@ -203,6 +203,31 @@ export function SolidComponentPage({
                                             >
                                                 <div className="flex flex-col gap-1">
                                                     <h3
+                                                        id={`example-${id}-title`}
+                                                        className="text-title3 font-semibold text-label"
+                                                    >
+                                                        {words.title}
+                                                    </h3>
+                                                    <p className="text-callout text-label-secondary">
+                                                        {words.description}
+                                                    </p>
+                                                </div>
+                                                <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
+                                                    <div className="bg-background">
+                                                        <SolidPreview
+                                                            slug={`${slug}-${id}`}
+                                                        />
+                                                    </div>
+                                                    <div className="border-separator/60 border-t">
+                                                        <CodeBlock
+                                                            code={source}
+                                                            label={`${slug}-${id}.tsx`}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        )
+                                    )}
                                 </div>
                             </DocSection>
                         )}
