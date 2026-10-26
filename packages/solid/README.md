@@ -63,6 +63,41 @@ export function Example() {
 }
 ```
 
+## Spring motion
+
+Passui uses a damped harmonic oscillator for interactive controls instead
+of fixed-duration position tweens. Springs carry their current velocity
+through interrupted or reversed movements. The switch thumb follows pointer
+movement directly, adds resistance beyond its bounds, then settles with a
+spring when released. Keyboard and click interactions retain native semantics.
+
+A Solid component can use the same primitive for translations, scale or
+another numeric value:
+
+```tsx
+import { useSpringValue } from "@passui/solid/motion"
+import { springs } from "@passui/solid/tokens"
+
+function SpringExample() {
+    const x = useSpringValue(0, springs.snappy)
+
+    return (
+        <button
+            type="button"
+            onClick={() => x.to(x.value() > 0 ? 0 : 80)}
+            style={{ transform: "translateX(" + x.value() + "px)" }}
+        >
+            Move
+        </button>
+    )
+}
+```
+
+Use `jump(position)` while a pointer is held down and
+`to(target, releaseVelocity)` on release. `rubberBand(overflow, dimension)`
+models boundary resistance separately. Motion respects the browser's
+reduced-motion preference and runs no animation frames during SSR.
+
 ## Components
 
 The 35 documented families have native implementations: Button, IconButton,

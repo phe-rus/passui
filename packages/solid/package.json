@@ -26,6 +26,8 @@
         "./docs": "./src/docs/index.ts",
         "./appearance": "./src/appearance/index.ts",
         "./cn": "./src/lib/class-names.ts",
+        "./motion": "./src/hooks/use-spring-value.ts",
+        "./spring": "./src/lib/spring.ts",
         ".": "./src/index.ts",
         "./styles.css": "./src/styles/styles.css",
         "./base.css": "./src/styles/base.css",

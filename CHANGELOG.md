@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Solid: introduce frame-rate-independent damped spring motion, velocity-preserving retargeting, rubber-band drag resistance and reduced-motion behavior.
+- Solid: replace the fixed-duration switch-thumb transition with interruptible spring movement and pointer dragging; expand its interactive example and add oscillator tests.
+
 ## Solid 0.1.0, TanStack 0.2.0, CLI 0.2.0 and React 0.1.15
 
 - Add native Solid implementations and usage examples for all 35 documented component families, with shared tokens and native appearance providers.
