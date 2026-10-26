@@ -5,11 +5,19 @@ import { getPageHead } from "@/domains/seo/get-page-head"
 import {
     createFileRoute,
     notFound,
+    redirect,
 } from "@tanstack/react-router"
 
 export const Route = createFileRoute(
     "/_site/_docs/solid/components/$slug"
 )({
+    beforeLoad: ({ params }) => {
+        throw redirect({
+            to: "/components/solid/$slug",
+            params: { slug: params.slug },
+            replace: true,
+        })
+    },
     loader: ({ params }) => {
         if (!getEntry(params.slug)) throw notFound()
     },

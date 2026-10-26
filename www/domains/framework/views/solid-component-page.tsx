@@ -1,8 +1,8 @@
 import { hasSolidComponent } from "@passui/solid/docs"
 import { CopyForAi } from "@/domains/ai-context"
-import { Link } from "@tanstack/react-router"
 import { getEntry } from "@/domains/catalog/get-catalog"
 import { AnatomyTable } from "@/domains/catalog/views/anatomy-table"
+import { ComponentFrameworkTabs } from "@/domains/catalog/views/component-framework-tabs"
 import { DocSection } from "@/domains/catalog/views/doc-section"
 import {
     OnThisPage,
@@ -92,14 +92,11 @@ export function SolidComponentPage({
                     <p className="max-w-2xl text-body text-label-secondary">
                         {content.summary}
                     </p>
+                    <ComponentFrameworkTabs
+                        slug={slug}
+                        framework="solid"
+                    />
                     <div className="flex flex-wrap gap-2 pt-1">
-                        <Link
-                            to="/components/$slug"
-                            params={{ slug }}
-                            className="inline-flex items-center gap-1.5 rounded-full bg-fill/70 px-3 py-1.5 text-footnote font-semibold text-label no-underline transition-colors hover:bg-fill"
-                        >
-                            Compare React version
-                        </Link>
                         <CopyForAi
                             slug={slug}
                             framework="solid"

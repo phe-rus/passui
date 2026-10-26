@@ -25,7 +25,8 @@ export function FrameworkSwitcher({
     if (
         pathname.endsWith("/docs/introduction") ||
         pathname === "/components" ||
-        pathname === "/solid/components"
+        pathname === "/solid/components" ||
+        pathname.startsWith("/components/")
     ) {
         return <>{children}</>
     }

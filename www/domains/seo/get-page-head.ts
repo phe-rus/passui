@@ -8,15 +8,15 @@ export function getPageHead(
     const url = pageUrl(path)
     const image = `${siteOrigin}/favicon.png`
     const pathname = new URL(url).pathname
-    const solid = pathname.startsWith("/solid/")
+    const solid =
+        pathname.startsWith("/solid/") ||
+        pathname.startsWith("/components/solid/")
     const section =
         pathname.startsWith("/components/") ||
         pathname.startsWith("/solid/components/")
             ? {
                   name: "Components",
-                  path: solid
-                      ? "/solid/components"
-                      : "/components",
+                  path: "/components",
               }
             : null
     const crumbs = [

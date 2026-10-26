@@ -134,8 +134,13 @@ function ToastItem(props: {
     const vertical = useSpringValue(-24, springs.bouncy)
     const layerScale = useSpringValue(0.6, springs.bouncy)
     const layerOpacity = useSpringValue(0, springs.snappy)
-    const widthSpring = useSpringValue(40, springs.smooth)
-    const heightSpring = useSpringValue(40, springs.smooth)
+    const bodySpring = {
+        stiffness: 400,
+        damping: 30,
+        mass: 0.8,
+    }
+    const widthSpring = useSpringValue(40, bodySpring)
+    const heightSpring = useSpringValue(40, bodySpring)
     onMount(() => {
         vertical.jump(-24)
         layerScale.jump(0.6)

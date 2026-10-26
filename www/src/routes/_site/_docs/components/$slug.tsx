@@ -8,12 +8,20 @@ import { componentSearchSchema } from "@/domains/settings"
 import {
     createFileRoute,
     notFound,
+    redirect,
     stripSearchParams,
 } from "@tanstack/react-router"
 
 export const Route = createFileRoute(
     "/_site/_docs/components/$slug"
 )({
+    beforeLoad: ({ params }) => {
+        throw redirect({
+            to: "/components/react/$slug",
+            params: { slug: params.slug },
+            replace: true,
+        })
+    },
     validateSearch: componentSearchSchema,
     search: {
         middlewares: [stripSearchParams({ props: {} })],

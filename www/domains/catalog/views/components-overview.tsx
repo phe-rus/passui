@@ -54,13 +54,26 @@ export function ComponentsOverview() {
                                         </span>
                                         <span className="text-headline font-semibold">
                                             {docs.name}
+                                            {[
+                                                "toast",
+                                                "tooltip",
+                                                "popover",
+                                                "sheet",
+                                                "tab-bar",
+                                            ].includes(
+                                                docs.slug
+                                            ) && (
+                                                <span className="ms-2 rounded-full bg-accent-soft px-2 py-0.5 align-middle text-[10px] font-semibold text-accent-text">
+                                                    Updated
+                                                </span>
+                                            )}
                                         </span>
                                         <span className="text-footnote text-label-secondary">
                                             {content.summary}
                                         </span>
                                         <div className="mt-auto flex flex-wrap gap-2 pt-3">
                                             <Link
-                                                to="/components/$slug"
+                                                to="/components/react/$slug"
                                                 params={{
                                                     slug: docs.slug,
                                                 }}
@@ -72,7 +85,7 @@ export function ComponentsOverview() {
                                                 docs.slug
                                             ) && (
                                                 <Link
-                                                    to="/solid/components/$slug"
+                                                    to="/components/solid/$slug"
                                                     params={{
                                                         slug: docs.slug,
                                                     }}

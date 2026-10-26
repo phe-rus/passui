@@ -7,6 +7,7 @@ import type { DocsSettings } from "@/domains/settings"
 import { getEntry } from "../get-catalog"
 import { getExampleSource } from "../get-example-source"
 import { AnatomyTable } from "./anatomy-table"
+import { ComponentFrameworkTabs } from "./component-framework-tabs"
 import { DocSection } from "./doc-section"
 import { ExampleCard } from "./example-card"
 import { InstallSteps } from "./install-steps"
@@ -77,6 +78,10 @@ export function ComponentPage({
                     <p className="max-w-2xl text-body text-label-secondary">
                         {content.summary}
                     </p>
+                    <ComponentFrameworkTabs
+                        slug={slug}
+                        framework="react"
+                    />
                     <div className="flex flex-wrap gap-2 pt-1">
                         <Link
                             to="/preview/$slug"

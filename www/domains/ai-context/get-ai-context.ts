@@ -64,7 +64,7 @@ export function getComponentMarkdown(
             .map((line) => `- ${line}`)
             .join("\n"),
         "",
-        `Docs: ${origin}/components/${docs.slug}`,
+        `Docs: ${origin}/components/react/${docs.slug}`,
     ].join("\n")
 }
 
@@ -126,7 +126,7 @@ export function getSolidComponentMarkdown(
         "",
         ...content.accessibility.map((line) => `- ${line}`),
         "",
-        `Docs: ${origin}/solid/components/${docs.slug}`,
+        `Docs: ${origin}/components/solid/${docs.slug}`,
     ].join("\n")
 }
 
@@ -202,7 +202,7 @@ export function getSolidLlmsTxt(origin: string): string {
             )
             .map(
                 ({ docs, content }) =>
-                    `- [${docs.name}](${origin}/solid/components/${docs.slug}): ${content.summary}`
+                    `- [${docs.name}](${origin}/components/solid/${docs.slug}): ${content.summary}`
             ),
         "",
         `- [SolidJS skill](${origin}/skills/passui-solid/SKILL.md): native imports, setup and code rules.`,
@@ -223,7 +223,7 @@ export function getLlmsTxt(origin: string): string {
             "",
             ...entries.map(
                 ({ docs, content }) =>
-                    `- [${docs.name}](${origin}/components/${docs.slug}): ${content.summary}`
+                    `- [${docs.name}](${origin}/components/react/${docs.slug}): ${content.summary}`
             ),
         ]
     })
@@ -334,7 +334,7 @@ export function getSkillMarkdown(origin: string): string {
         "",
         "This skill's component examples above use React. SolidJS docs are at /solid/docs/introduction and /solid/components. Install @passui/solid and use the native Solid examples. The CLI supports --framework solid. TanStack adapters use @passui/tanstack/solid/forms, /solid/tables, /solid/mutation, /solid/document, /solid/settings, /solid/auth-shell and /solid/route-boundary. Do not convert React examples by swapping import paths.",
         "",
-        `Full docs for any component: ${origin}/components/<name>. Index: ${origin}/llms.txt`,
+        `Full docs for any component: ${origin}/components/react/<name> or ${origin}/components/solid/<name>. Index: ${origin}/llms.txt`,
         "",
     ].join("\n")
 }

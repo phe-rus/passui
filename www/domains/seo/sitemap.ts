@@ -23,7 +23,8 @@ export function getSitemapPaths() {
             "/",
             ...guides.map((guide) => guide.path),
             ...getCatalog().map(
-                (entry) => `/components/${entry.docs.slug}`
+                (entry) =>
+                    `/components/react/${entry.docs.slug}`
             ),
             ...guides.map((guide) => `/solid${guide.path}`),
             ...getCatalog()
@@ -32,7 +33,7 @@ export function getSitemapPaths() {
                 )
                 .map(
                     (entry) =>
-                        `/solid/components/${entry.docs.slug}`
+                        `/components/solid/${entry.docs.slug}`
                 ),
         ]),
     ]

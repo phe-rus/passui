@@ -113,8 +113,8 @@ function DocsNav() {
                             key={docs.slug}
                             to={
                                 framework === "solid"
-                                    ? "/solid/components/$slug"
-                                    : "/components/$slug"
+                                    ? "/components/solid/$slug"
+                                    : "/components/react/$slug"
                             }
                             params={{ slug: docs.slug }}
                             // the address carries settings and props; match the page alone
@@ -151,6 +151,10 @@ function DocsNav() {
 
 /** The page being read, for the phone bar: a guide or a component. */
 function currentTitle(pathname: string) {
+    pathname = pathname.replace(
+        /^\/components\/(react|solid)\//,
+        "/components/"
+    )
     pathname = pathname.replace(/^\/solid(?=\/)/, "")
     const guide = guides.find(
         (item) => item.path === pathname
