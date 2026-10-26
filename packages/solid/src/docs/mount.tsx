@@ -10,9 +10,15 @@ import { ButtonDisabled } from "../components/button/examples/button-disabled"
 import { IconButtonUsage } from "../components/button/examples/icon-button-usage"
 
 import { ChipUsage } from "../components/chip/examples/chip-usage"
+import { ChipTones } from "../components/chip/examples/chip-tones"
+import { ChipInRows } from "../components/chip/examples/chip-in-rows"
 import { StatusIndicatorUsage } from "../components/status-indicator/examples/status-indicator-usage"
+import { StatusIndicatorStates } from "../components/status-indicator/examples/status-indicator-states"
+import { StatusIndicatorLive } from "../components/status-indicator/examples/status-indicator-live"
 import { SectionUsage } from "../components/section/examples/section-usage"
 import { LabeledContentUsage } from "../components/labeled-content/examples/labeled-content-usage"
+import { LabeledContentDescriptions } from "../components/labeled-content/examples/labeled-content-descriptions"
+import { LabeledContentWide } from "../components/labeled-content/examples/labeled-content-wide"
 import { StatTileUsage } from "../components/stat-tile/examples/stat-tile-usage"
 import { TextFieldUsage } from "../components/text-field/examples/text-field-usage"
 import { SecureFieldUsage } from "../components/secure-field/examples/secure-field-usage"
@@ -90,9 +96,16 @@ const examples: Record<
     "tooltip-usage": TooltipUsage,
     "context-menu-usage": ContextMenuUsage,
     "chip-usage": ChipUsage,
+    "chip-tones": ChipTones,
+    "chip-in-rows": ChipInRows,
     "status-indicator-usage": StatusIndicatorUsage,
+    "status-indicator-states": StatusIndicatorStates,
+    "status-indicator-live": StatusIndicatorLive,
     "section-usage": SectionUsage,
     "labeled-content-usage": LabeledContentUsage,
+    "labeled-content-descriptions":
+        LabeledContentDescriptions,
+    "labeled-content-wide": LabeledContentWide,
     "stat-tile-usage": StatTileUsage,
     "text-field-usage": TextFieldUsage,
     "secure-field-usage": SecureFieldUsage,

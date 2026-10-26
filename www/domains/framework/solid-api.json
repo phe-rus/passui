@@ -1,0 +1,686 @@
+{
+    "button": [
+        {
+            "name": "variant",
+            "type": "ButtonVariant",
+            "required": false
+        },
+        {
+            "name": "size",
+            "type": "ButtonSize",
+            "required": false
+        },
+        {
+            "name": "isPending",
+            "type": "boolean",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "icon-button": [
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "variant",
+            "type": "ButtonVariant",
+            "required": false
+        },
+        {
+            "name": "size",
+            "type": "IconButtonSize",
+            "required": false
+        },
+        {
+            "name": "isPending",
+            "type": "boolean",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "chip": [
+        {
+            "name": "tone",
+            "type": "ChipTone",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "status-indicator": [
+        {
+            "name": "state",
+            "type": "keyof typeof dots",
+            "required": true
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "section": [
+        {
+            "name": "title",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "footer",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "children",
+            "type": "JSX.Element",
+            "required": false
+        }
+    ],
+    "labeled-content": [
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "children",
+            "type": "JSX.Element",
+            "required": true
+        },
+        {
+            "name": "stacked",
+            "type": "boolean",
+            "required": false
+        },
+        {
+            "name": "wide",
+            "type": "boolean",
+            "required": false
+        }
+    ],
+    "stat-tile": [
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "value",
+            "type": "number",
+            "required": true
+        },
+        {
+            "name": "caption",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "tone",
+            "type": "StatTileTone",
+            "required": false
+        },
+        {
+            "name": "onClick",
+            "type": "() => void",
+            "required": false
+        },
+        {
+            "name": "active",
+            "type": "boolean",
+            "required": false
+        }
+    ],
+    "text-field": [
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "description",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "errors",
+            "type": "string[]",
+            "required": false
+        },
+        {
+            "name": "icon",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "trailingIcon",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "action",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "revealLabels",
+            "type": "{ show: string; hide: string }",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "secure-field": [],
+    "search-field": [
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "text-editor": [
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "toggle": [
+        {
+            "name": "checked",
+            "type": "boolean",
+            "required": true
+        },
+        {
+            "name": "onChange",
+            "type": "(checked: boolean) => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false
+        },
+        {
+            "name": "style",
+            "type": "ToggleStyle",
+            "required": false
+        },
+        {
+            "name": "mixed",
+            "type": "boolean",
+            "required": false
+        },
+        {
+            "name": "labelHidden",
+            "type": "boolean",
+            "required": false
+        }
+    ],
+    "profile-image": [
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "swatch-picker": [
+        {
+            "name": "value",
+            "type": "T",
+            "required": true
+        },
+        {
+            "name": "options",
+            "type": "{ value: T label: string color: string ink: string }[]",
+            "required": true
+        },
+        {
+            "name": "onChange",
+            "type": "(value: T) => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        }
+    ],
+    "tab-view": [
+        {
+            "name": "options",
+            "type": "readonly { value: Value; label: string }[]",
+            "required": true
+        },
+        {
+            "name": "defaultValue",
+            "type": "Value",
+            "required": true
+        },
+        {
+            "name": "value",
+            "type": "Value",
+            "required": false
+        },
+        {
+            "name": "onValueChange",
+            "type": "(value: Value) => void",
+            "required": false
+        },
+        {
+            "name": "align",
+            "type": "\"start\" | \"center\"",
+            "required": false
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "children",
+            "type": "(value: Value) => JSX.Element",
+            "required": true
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "class",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "picker": [
+        {
+            "name": "value",
+            "type": "T",
+            "required": true
+        },
+        {
+            "name": "options",
+            "type": "readonly PickerOption<T>[]",
+            "required": true
+        },
+        {
+            "name": "onChange",
+            "type": "(value: T) => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "placeholder",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "searchable",
+            "type": "boolean",
+            "required": false
+        },
+        {
+            "name": "searchPlaceholder",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "emptyLabel",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "class",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "segmented-control": [
+        {
+            "name": "value",
+            "type": "T",
+            "required": true
+        },
+        {
+            "name": "options",
+            "type": "{ value: T; label: string }[]",
+            "required": true
+        },
+        {
+            "name": "onChange",
+            "type": "(value: T) => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        }
+    ],
+    "date-picker": [
+        {
+            "name": "value",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "onChange",
+            "type": "(value: string) => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "labels",
+            "type": "{ day: string month: string year: string invalid: string }",
+            "required": true
+        },
+        {
+            "name": "locale",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "max",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "compact-date-picker": [
+        {
+            "name": "value",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "onChange",
+            "type": "(value: string) => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "locale",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "min",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "max",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "placeholder",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "labels",
+            "type": "{ previousMonth: string nextMonth: string clear?: string }",
+            "required": true
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "class",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "compact-time-picker": [
+        {
+            "name": "value",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "onChange",
+            "type": "(value: string) => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "locale",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "minuteStep",
+            "type": "number",
+            "required": false
+        },
+        {
+            "name": "placeholder",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "labels",
+            "type": "{ hour: string; minute: string; period: string }",
+            "required": true
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "class",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "search-list": [],
+    "sidebar": [],
+    "view-controller": [],
+    "content-view": [],
+    "table": [],
+    "conversation": [],
+    "ambient": [
+        {
+            "name": "src",
+            "type": "string | null",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "tab-bar": [],
+    "popover": [
+        {
+            "name": "open",
+            "type": "boolean",
+            "required": true
+        },
+        {
+            "name": "origin",
+            "type": "PopoverOrigin",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        }
+    ],
+    "sheet": [
+        {
+            "name": "open",
+            "type": "boolean",
+            "required": true
+        },
+        {
+            "name": "onClose",
+            "type": "() => void",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "labelledBy",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "describedBy",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "role",
+            "type": "\"dialog\" | \"alertdialog\"",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "class",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "children",
+            "type": "JSX.Element",
+            "required": true
+        }
+    ],
+    "dialog": [
+        {
+            "name": "open",
+            "type": "boolean",
+            "required": true
+        },
+        {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": true
+        },
+        {
+            "name": "title",
+            "type": "JSX.Element",
+            "required": true
+        },
+        {
+            "name": "description",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "children",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "footer",
+            "type": "JSX.Element",
+            "required": false
+        },
+        {
+            "name": "presentation",
+            "type": "DialogPresentation",
+            "required": false
+        },
+        {
+            "name": "className",
+            "type": "string",
+            "required": false
+        },
+        {
+            "name": "onSubmit",
+            "type": "JSX.EventHandler<HTMLFormElement, SubmitEvent>",
+            "required": false
+        }
+    ],
+    "locale-switcher": [
+        {
+            "name": "locales",
+            "type": "readonly L[]",
+            "required": true
+        },
+        {
+            "name": "locale",
+            "type": "L",
+            "required": true
+        },
+        {
+            "name": "onSelect",
+            "type": "(locale: L) => void",
+            "required": true
+        },
+        {
+            "name": "storageKey",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "required": true
+        }
+    ],
+    "toast": [],
+    "tooltip": [],
+    "context-menu": []
+}

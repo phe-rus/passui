@@ -5,6 +5,7 @@
     "": {
       "name": "hino-repository",
       "devDependencies": {
+        "@babel/parser": "7.29.9",
         "@biomejs/biome": "2.6.3",
         "turbo": "2.11.10",
         "vite": "8.3.5",

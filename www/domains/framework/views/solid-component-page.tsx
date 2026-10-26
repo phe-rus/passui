@@ -10,8 +10,10 @@ import {
 import { PracticesList } from "@/domains/catalog/views/practices-list"
 import { CodeBlock } from "@/domains/guides/views/guide-parts"
 import { getSolidExampleSource } from "../get-solid-example-source"
+import api from "../solid-api.json"
 import { SolidPlayground } from "./solid-playground"
 import { SolidPreview } from "./solid-preview"
+import { SolidPropsTable } from "./solid-props-table"
 
 export function SolidComponentPage({
     slug,
@@ -22,6 +24,8 @@ export function SolidComponentPage({
     if (!entry) return null
 
     const { docs, content } = entry
+    const hasApi =
+        (api[slug as keyof typeof api]?.length ?? 0) > 0
     const available = hasSolidComponent(slug)
     const usage = available
         ? getSolidExampleSource(slug, "usage")
@@ -77,6 +81,14 @@ export function SolidComponentPage({
                   title: "Best practices",
               },
               { id: "accessibility", title: "Accessibility" },
+              ...(hasApi
+                  ? [
+                        {
+                            id: "api-reference",
+                            title: "API reference",
+                        },
+                    ]
+                  : []),
           ]
         : []
 
@@ -295,6 +307,20 @@ export function SolidComponentPage({
                                 )}
                             </ul>
                         </DocSection>
+                        {hasApi && (
+                            <DocSection
+                                id="api-reference"
+                                title="API reference"
+                                description="Public properties from the native SolidJS TypeScript declarations. Standard HTML attributes may also apply."
+                            >
+                                <SolidPropsTable
+                                    slug={slug}
+                                    descriptions={
+                                        content.propDescriptions
+                                    }
+                                />
+                            </DocSection>
+                        )}
                     </>
                 )}
             </article>

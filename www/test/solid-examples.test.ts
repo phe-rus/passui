@@ -19,3 +19,17 @@ test("Solid documentation only presents existing native example sources", () => 
         getSolidExampleSource("ambient", "nonexistent")
     ).toBe("")
 })
+
+test("Solid variants are native examples rather than React snippets", () => {
+    for (const [slug, variants] of [
+        ["chip", ["tones", "in-rows"]],
+        ["status-indicator", ["states", "live"]],
+        ["labeled-content", ["descriptions", "wide"]],
+    ] as const) {
+        for (const id of variants) {
+            const source = getSolidExampleSource(slug, id)
+            expect(source).toContain(`@passui/solid/${slug}`)
+            expect(source).not.toContain("@jsxImportSource")
+        }
+    }
+})
