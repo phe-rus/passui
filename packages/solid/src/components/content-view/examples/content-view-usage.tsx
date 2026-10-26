@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { ContentView } from "@passui/solid/content-view"
 export function ContentViewUsage() {
     return (

@@ -14,6 +14,7 @@
         "access": "public"
     },
     "files": [
+        "dist",
         "src",
         "README.md",
         "LICENSE"
@@ -22,7 +23,7 @@
         "typecheck": "tsc --noEmit",
         "test": "vitest run",
         "publish:check": "bun pm pack --dry-run",
-        "build": "tsc --noEmit"
+        "build": "vite build --mode client && vite build --mode server && tsc -p tsconfig.build.json"
     },
     "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5"
@@ -87,21 +88,61 @@
         "./route-boundary": "./src/route-boundary/index.ts",
         "./styles.css": "./src/styles.css",
         "./react/forms": "./src/forms/index.ts",
-        "./solid/forms": "./src/solid/forms/index.ts",
+        "./solid/forms": {
+            "types": "./dist/types/src/solid/forms/index.d.ts",
+            "browser": "./dist/client/src/solid/forms/index.js",
+            "node": "./dist/server/src/solid/forms/index.js",
+            "default": "./dist/client/src/solid/forms/index.js"
+        },
         "./react/form-fields": "./src/form-fields/index.ts",
-        "./solid/form-fields": "./src/solid/form-fields/index.ts",
+        "./solid/form-fields": {
+            "types": "./dist/types/src/solid/form-fields/index.d.ts",
+            "browser": "./dist/client/src/solid/form-fields/index.js",
+            "node": "./dist/server/src/solid/form-fields/index.js",
+            "default": "./dist/client/src/solid/form-fields/index.js"
+        },
         "./react/tables": "./src/tables/index.ts",
-        "./solid/tables": "./src/solid/tables/index.ts",
+        "./solid/tables": {
+            "types": "./dist/types/src/solid/tables/index.d.ts",
+            "browser": "./dist/client/src/solid/tables/index.js",
+            "node": "./dist/server/src/solid/tables/index.js",
+            "default": "./dist/client/src/solid/tables/index.js"
+        },
         "./react/document": "./src/document/index.ts",
-        "./solid/document": "./src/solid/document/index.ts",
+        "./solid/document": {
+            "types": "./dist/types/src/solid/document/index.d.ts",
+            "browser": "./dist/client/src/solid/document/index.js",
+            "node": "./dist/server/src/solid/document/index.js",
+            "default": "./dist/client/src/solid/document/index.js"
+        },
         "./react/auth-shell": "./src/auth-shell/index.ts",
-        "./solid/auth-shell": "./src/solid/auth-shell/index.ts",
+        "./solid/auth-shell": {
+            "types": "./dist/types/src/solid/auth-shell/index.d.ts",
+            "browser": "./dist/client/src/solid/auth-shell/index.js",
+            "node": "./dist/server/src/solid/auth-shell/index.js",
+            "default": "./dist/client/src/solid/auth-shell/index.js"
+        },
         "./react/settings": "./src/settings/index.ts",
-        "./solid/settings": "./src/solid/settings/index.ts",
+        "./solid/settings": {
+            "types": "./dist/types/src/solid/settings/index.d.ts",
+            "browser": "./dist/client/src/solid/settings/index.js",
+            "node": "./dist/server/src/solid/settings/index.js",
+            "default": "./dist/client/src/solid/settings/index.js"
+        },
         "./react/mutation": "./src/mutation/index.ts",
-        "./solid/mutation": "./src/solid/mutation/index.ts",
+        "./solid/mutation": {
+            "types": "./dist/types/src/solid/mutation/index.d.ts",
+            "browser": "./dist/client/src/solid/mutation/index.js",
+            "node": "./dist/server/src/solid/mutation/index.js",
+            "default": "./dist/client/src/solid/mutation/index.js"
+        },
         "./react/route-boundary": "./src/route-boundary/index.ts",
-        "./solid/route-boundary": "./src/solid/route-boundary/index.ts",
+        "./solid/route-boundary": {
+            "types": "./dist/types/src/solid/route-boundary/index.d.ts",
+            "browser": "./dist/client/src/solid/route-boundary/index.js",
+            "node": "./dist/server/src/solid/route-boundary/index.js",
+            "default": "./dist/client/src/solid/route-boundary/index.js"
+        },
         "./react/styles.css": "./src/styles.css",
         "./solid/styles.css": "./src/solid/styles.css",
         "./core": "./src/shared/index.ts"

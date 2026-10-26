@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { children, Show, type JSX } from "solid-js"
 import { Dynamic } from "solid-js/web"
 import { cn } from "../../lib/class-names"

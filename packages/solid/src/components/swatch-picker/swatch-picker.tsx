@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createUniqueId, For, Show } from "solid-js"
 import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"

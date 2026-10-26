@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { SegmentedControl } from "@passui/solid/segmented-control"
 

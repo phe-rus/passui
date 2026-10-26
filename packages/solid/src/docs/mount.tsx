@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal, type JSX } from "solid-js"
 import { Dynamic, render } from "solid-js/web"
 import { Button } from "../components/button/button"

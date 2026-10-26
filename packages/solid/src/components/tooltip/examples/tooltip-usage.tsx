@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { TooltipHost } from "@passui/solid/tooltip"
 export function TooltipUsage() {
     return (

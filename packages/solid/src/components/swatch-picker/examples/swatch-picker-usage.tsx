@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { accents, type AccentId } from "@passui/solid/tokens"
 import { SwatchPicker } from "@passui/solid/swatch-picker"

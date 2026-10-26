@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { StatTile } from "@passui/solid/stat-tile"
 
 export function StatTileUsage() {

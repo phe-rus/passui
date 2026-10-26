@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Solid consumers: publish separate compiled browser and server JavaScript with TypeScript declarations, so apps no longer need Passui-specific Vite dependency exclusions or resolver settings.
+- Solid starters and docs: use the ordinary Solid Vite plugins, and rely on project-level JSX configuration instead of per-file JSX directives.
 - Solid docs: give native components complete usage pages with installation, examples, anatomy, best practices, accessibility and section navigation.
 - Solid Ambient: demonstrate image-driven glows, multiple portraits and an interactive now-playing surface.
 

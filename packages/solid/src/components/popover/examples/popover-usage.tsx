@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { Popover } from "@passui/solid/popover"
 export function PopoverUsage() {

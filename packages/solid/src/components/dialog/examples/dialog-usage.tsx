@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { Dialog } from "@passui/solid/dialog"
 export function DialogUsage() {

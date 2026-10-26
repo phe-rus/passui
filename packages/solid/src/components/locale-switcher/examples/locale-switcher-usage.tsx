@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { LocaleSwitcher } from "@passui/solid/locale-switcher"
 export function LocaleSwitcherUsage() {

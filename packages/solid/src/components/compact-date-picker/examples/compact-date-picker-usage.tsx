@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { CompactDatePicker } from "@passui/solid/compact-date-picker"
 export function CompactDatePickerUsage() {

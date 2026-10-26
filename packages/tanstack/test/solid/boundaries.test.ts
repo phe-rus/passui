@@ -40,7 +40,16 @@ test("Solid exports resolve and their local import graph stays independent of Re
             key.startsWith("./solid/") &&
             !key.endsWith(".css")
         )
-            inspect(resolve(root, target))
+            inspect(
+                resolve(
+                    root,
+                    typeof target === "string"
+                        ? target
+                        : target.node
+                              .replace("./dist/server/", "./")
+                              .replace(/\.js$/, ".ts")
+                )
+            )
     for (const name of [
         "react",
         "react-dom",

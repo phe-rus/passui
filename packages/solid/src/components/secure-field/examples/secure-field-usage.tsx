@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { SecureField } from "@passui/solid/secure-field"
 
 export function SecureFieldUsage() {

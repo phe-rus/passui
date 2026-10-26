@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { Conversation } from "@passui/solid/conversation"
 export function ConversationUsage() {

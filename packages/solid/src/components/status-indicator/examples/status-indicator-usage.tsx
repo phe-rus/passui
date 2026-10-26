@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { StatusIndicator } from "@passui/solid/status-indicator"
 
 export function StatusIndicatorUsage() {

@@ -14,68 +14,294 @@
         "access": "public"
     },
     "files": [
+        "dist",
         "src",
         "README.md",
         "LICENSE"
     ],
     "type": "module",
     "exports": {
-        "./docs/mount": "./src/docs/mount.tsx",
-        "./button": "./src/components/button/button.tsx",
-        "./icon-button": "./src/components/button/icon-button.tsx",
-        "./docs": "./src/docs/index.ts",
-        "./appearance": "./src/appearance/index.ts",
-        "./cn": "./src/lib/class-names.ts",
-        "./motion": "./src/hooks/use-spring-value.ts",
-        "./spring": "./src/lib/spring.ts",
-        ".": "./src/index.ts",
+        "./docs/mount": {
+            "types": "./dist/types/src/docs/mount.d.ts",
+            "browser": "./dist/client/src/docs/mount.js",
+            "node": "./dist/server/src/docs/mount.js",
+            "default": "./dist/client/src/docs/mount.js"
+        },
+        "./button": {
+            "types": "./dist/types/src/components/button/button.d.ts",
+            "browser": "./dist/client/src/components/button/button.js",
+            "node": "./dist/server/src/components/button/button.js",
+            "default": "./dist/client/src/components/button/button.js"
+        },
+        "./icon-button": {
+            "types": "./dist/types/src/components/button/icon-button.d.ts",
+            "browser": "./dist/client/src/components/button/icon-button.js",
+            "node": "./dist/server/src/components/button/icon-button.js",
+            "default": "./dist/client/src/components/button/icon-button.js"
+        },
+        "./docs": {
+            "types": "./dist/types/src/docs/index.d.ts",
+            "browser": "./dist/client/src/docs/index.js",
+            "node": "./dist/server/src/docs/index.js",
+            "default": "./dist/client/src/docs/index.js"
+        },
+        "./appearance": {
+            "types": "./dist/types/src/appearance/index.d.ts",
+            "browser": "./dist/client/src/appearance/index.js",
+            "node": "./dist/server/src/appearance/index.js",
+            "default": "./dist/client/src/appearance/index.js"
+        },
+        "./cn": {
+            "types": "./dist/types/src/lib/class-names.d.ts",
+            "browser": "./dist/client/src/lib/class-names.js",
+            "node": "./dist/server/src/lib/class-names.js",
+            "default": "./dist/client/src/lib/class-names.js"
+        },
+        "./motion": {
+            "types": "./dist/types/src/hooks/use-spring-value.d.ts",
+            "browser": "./dist/client/src/hooks/use-spring-value.js",
+            "node": "./dist/server/src/hooks/use-spring-value.js",
+            "default": "./dist/client/src/hooks/use-spring-value.js"
+        },
+        "./spring": {
+            "types": "./dist/types/src/lib/spring.d.ts",
+            "browser": "./dist/client/src/lib/spring.js",
+            "node": "./dist/server/src/lib/spring.js",
+            "default": "./dist/client/src/lib/spring.js"
+        },
+        ".": {
+            "types": "./dist/types/src/index.d.ts",
+            "browser": "./dist/client/src/index.js",
+            "node": "./dist/server/src/index.js",
+            "default": "./dist/client/src/index.js"
+        },
         "./styles.css": "./src/styles/styles.css",
         "./base.css": "./src/styles/base.css",
         "./utilities.css": "./src/styles/utilities.css",
         "./typeset.css": "./src/styles/typeset.css",
         "./theme.css": "./src/styles/theme.css",
-        "./tokens": "./src/tokens/index.ts",
-        "./chip": "./src/components/chip/chip.tsx",
-        "./status-indicator": "./src/components/status-indicator/status-indicator.tsx",
-        "./section": "./src/components/section/section.tsx",
-        "./labeled-content": "./src/components/labeled-content/labeled-content.tsx",
-        "./stat-tile": "./src/components/stat-tile/stat-tile.tsx",
-        "./text-field": "./src/components/text-field/text-field.tsx",
-        "./secure-field": "./src/components/secure-field/secure-field.tsx",
-        "./search-field": "./src/components/search-field/search-field.tsx",
-        "./text-editor": "./src/components/text-editor/text-editor.tsx",
-        "./toggle": "./src/components/toggle/toggle.tsx",
-        "./profile-image": "./src/components/profile-image/profile-image.tsx",
-        "./swatch-picker": "./src/components/swatch-picker/swatch-picker.tsx",
-        "./tab-view": "./src/components/tab-view/tab-view.tsx",
-        "./picker": "./src/components/picker/picker.tsx",
-        "./segmented-control": "./src/components/segmented-control/segmented-control.tsx",
-        "./search-list": "./src/components/search-list/search-list.tsx",
-        "./date-picker": "./src/components/date-picker/date-picker.tsx",
-        "./compact-date-picker": "./src/components/compact-date-picker/compact-date-picker.tsx",
-        "./compact-time-picker": "./src/components/compact-time-picker/compact-time-picker.tsx",
-        "./table": "./src/components/table/table.tsx",
-        "./sidebar": "./src/components/sidebar/sidebar.tsx",
-        "./content-view": "./src/components/content-view/content-view.tsx",
-        "./view-controller": "./src/components/view-controller/view-controller.tsx",
-        "./ambient": "./src/components/ambient/ambient.tsx",
-        "./conversation": "./src/components/conversation/conversation.tsx",
-        "./tab-bar": "./src/components/tab-bar/tab-bar.tsx",
-        "./popover": "./src/components/popover/popover.tsx",
-        "./sheet": "./src/components/sheet/sheet.tsx",
-        "./locale-switcher": "./src/components/locale-switcher/locale-switcher.tsx",
-        "./dialog": "./src/components/dialog/dialog.tsx",
-        "./dialog-host": "./src/components/dialog/dialog-host.tsx",
-        "./toast": "./src/components/toast/toast-store.ts",
-        "./toaster": "./src/components/toast/toaster.tsx",
-        "./context-menu": "./src/components/context-menu/context-menu-host.tsx",
-        "./tooltip": "./src/components/tooltip/tooltip-host.tsx"
+        "./tokens": {
+            "types": "./dist/types/src/tokens/index.d.ts",
+            "browser": "./dist/client/src/tokens/index.js",
+            "node": "./dist/server/src/tokens/index.js",
+            "default": "./dist/client/src/tokens/index.js"
+        },
+        "./chip": {
+            "types": "./dist/types/src/components/chip/chip.d.ts",
+            "browser": "./dist/client/src/components/chip/chip.js",
+            "node": "./dist/server/src/components/chip/chip.js",
+            "default": "./dist/client/src/components/chip/chip.js"
+        },
+        "./status-indicator": {
+            "types": "./dist/types/src/components/status-indicator/status-indicator.d.ts",
+            "browser": "./dist/client/src/components/status-indicator/status-indicator.js",
+            "node": "./dist/server/src/components/status-indicator/status-indicator.js",
+            "default": "./dist/client/src/components/status-indicator/status-indicator.js"
+        },
+        "./section": {
+            "types": "./dist/types/src/components/section/section.d.ts",
+            "browser": "./dist/client/src/components/section/section.js",
+            "node": "./dist/server/src/components/section/section.js",
+            "default": "./dist/client/src/components/section/section.js"
+        },
+        "./labeled-content": {
+            "types": "./dist/types/src/components/labeled-content/labeled-content.d.ts",
+            "browser": "./dist/client/src/components/labeled-content/labeled-content.js",
+            "node": "./dist/server/src/components/labeled-content/labeled-content.js",
+            "default": "./dist/client/src/components/labeled-content/labeled-content.js"
+        },
+        "./stat-tile": {
+            "types": "./dist/types/src/components/stat-tile/stat-tile.d.ts",
+            "browser": "./dist/client/src/components/stat-tile/stat-tile.js",
+            "node": "./dist/server/src/components/stat-tile/stat-tile.js",
+            "default": "./dist/client/src/components/stat-tile/stat-tile.js"
+        },
+        "./text-field": {
+            "types": "./dist/types/src/components/text-field/text-field.d.ts",
+            "browser": "./dist/client/src/components/text-field/text-field.js",
+            "node": "./dist/server/src/components/text-field/text-field.js",
+            "default": "./dist/client/src/components/text-field/text-field.js"
+        },
+        "./secure-field": {
+            "types": "./dist/types/src/components/secure-field/secure-field.d.ts",
+            "browser": "./dist/client/src/components/secure-field/secure-field.js",
+            "node": "./dist/server/src/components/secure-field/secure-field.js",
+            "default": "./dist/client/src/components/secure-field/secure-field.js"
+        },
+        "./search-field": {
+            "types": "./dist/types/src/components/search-field/search-field.d.ts",
+            "browser": "./dist/client/src/components/search-field/search-field.js",
+            "node": "./dist/server/src/components/search-field/search-field.js",
+            "default": "./dist/client/src/components/search-field/search-field.js"
+        },
+        "./text-editor": {
+            "types": "./dist/types/src/components/text-editor/text-editor.d.ts",
+            "browser": "./dist/client/src/components/text-editor/text-editor.js",
+            "node": "./dist/server/src/components/text-editor/text-editor.js",
+            "default": "./dist/client/src/components/text-editor/text-editor.js"
+        },
+        "./toggle": {
+            "types": "./dist/types/src/components/toggle/toggle.d.ts",
+            "browser": "./dist/client/src/components/toggle/toggle.js",
+            "node": "./dist/server/src/components/toggle/toggle.js",
+            "default": "./dist/client/src/components/toggle/toggle.js"
+        },
+        "./profile-image": {
+            "types": "./dist/types/src/components/profile-image/profile-image.d.ts",
+            "browser": "./dist/client/src/components/profile-image/profile-image.js",
+            "node": "./dist/server/src/components/profile-image/profile-image.js",
+            "default": "./dist/client/src/components/profile-image/profile-image.js"
+        },
+        "./swatch-picker": {
+            "types": "./dist/types/src/components/swatch-picker/swatch-picker.d.ts",
+            "browser": "./dist/client/src/components/swatch-picker/swatch-picker.js",
+            "node": "./dist/server/src/components/swatch-picker/swatch-picker.js",
+            "default": "./dist/client/src/components/swatch-picker/swatch-picker.js"
+        },
+        "./tab-view": {
+            "types": "./dist/types/src/components/tab-view/tab-view.d.ts",
+            "browser": "./dist/client/src/components/tab-view/tab-view.js",
+            "node": "./dist/server/src/components/tab-view/tab-view.js",
+            "default": "./dist/client/src/components/tab-view/tab-view.js"
+        },
+        "./picker": {
+            "types": "./dist/types/src/components/picker/picker.d.ts",
+            "browser": "./dist/client/src/components/picker/picker.js",
+            "node": "./dist/server/src/components/picker/picker.js",
+            "default": "./dist/client/src/components/picker/picker.js"
+        },
+        "./segmented-control": {
+            "types": "./dist/types/src/components/segmented-control/segmented-control.d.ts",
+            "browser": "./dist/client/src/components/segmented-control/segmented-control.js",
+            "node": "./dist/server/src/components/segmented-control/segmented-control.js",
+            "default": "./dist/client/src/components/segmented-control/segmented-control.js"
+        },
+        "./search-list": {
+            "types": "./dist/types/src/components/search-list/search-list.d.ts",
+            "browser": "./dist/client/src/components/search-list/search-list.js",
+            "node": "./dist/server/src/components/search-list/search-list.js",
+            "default": "./dist/client/src/components/search-list/search-list.js"
+        },
+        "./date-picker": {
+            "types": "./dist/types/src/components/date-picker/date-picker.d.ts",
+            "browser": "./dist/client/src/components/date-picker/date-picker.js",
+            "node": "./dist/server/src/components/date-picker/date-picker.js",
+            "default": "./dist/client/src/components/date-picker/date-picker.js"
+        },
+        "./compact-date-picker": {
+            "types": "./dist/types/src/components/compact-date-picker/compact-date-picker.d.ts",
+            "browser": "./dist/client/src/components/compact-date-picker/compact-date-picker.js",
+            "node": "./dist/server/src/components/compact-date-picker/compact-date-picker.js",
+            "default": "./dist/client/src/components/compact-date-picker/compact-date-picker.js"
+        },
+        "./compact-time-picker": {
+            "types": "./dist/types/src/components/compact-time-picker/compact-time-picker.d.ts",
+            "browser": "./dist/client/src/components/compact-time-picker/compact-time-picker.js",
+            "node": "./dist/server/src/components/compact-time-picker/compact-time-picker.js",
+            "default": "./dist/client/src/components/compact-time-picker/compact-time-picker.js"
+        },
+        "./table": {
+            "types": "./dist/types/src/components/table/table.d.ts",
+            "browser": "./dist/client/src/components/table/table.js",
+            "node": "./dist/server/src/components/table/table.js",
+            "default": "./dist/client/src/components/table/table.js"
+        },
+        "./sidebar": {
+            "types": "./dist/types/src/components/sidebar/sidebar.d.ts",
+            "browser": "./dist/client/src/components/sidebar/sidebar.js",
+            "node": "./dist/server/src/components/sidebar/sidebar.js",
+            "default": "./dist/client/src/components/sidebar/sidebar.js"
+        },
+        "./content-view": {
+            "types": "./dist/types/src/components/content-view/content-view.d.ts",
+            "browser": "./dist/client/src/components/content-view/content-view.js",
+            "node": "./dist/server/src/components/content-view/content-view.js",
+            "default": "./dist/client/src/components/content-view/content-view.js"
+        },
+        "./view-controller": {
+            "types": "./dist/types/src/components/view-controller/view-controller.d.ts",
+            "browser": "./dist/client/src/components/view-controller/view-controller.js",
+            "node": "./dist/server/src/components/view-controller/view-controller.js",
+            "default": "./dist/client/src/components/view-controller/view-controller.js"
+        },
+        "./ambient": {
+            "types": "./dist/types/src/components/ambient/ambient.d.ts",
+            "browser": "./dist/client/src/components/ambient/ambient.js",
+            "node": "./dist/server/src/components/ambient/ambient.js",
+            "default": "./dist/client/src/components/ambient/ambient.js"
+        },
+        "./conversation": {
+            "types": "./dist/types/src/components/conversation/conversation.d.ts",
+            "browser": "./dist/client/src/components/conversation/conversation.js",
+            "node": "./dist/server/src/components/conversation/conversation.js",
+            "default": "./dist/client/src/components/conversation/conversation.js"
+        },
+        "./tab-bar": {
+            "types": "./dist/types/src/components/tab-bar/tab-bar.d.ts",
+            "browser": "./dist/client/src/components/tab-bar/tab-bar.js",
+            "node": "./dist/server/src/components/tab-bar/tab-bar.js",
+            "default": "./dist/client/src/components/tab-bar/tab-bar.js"
+        },
+        "./popover": {
+            "types": "./dist/types/src/components/popover/popover.d.ts",
+            "browser": "./dist/client/src/components/popover/popover.js",
+            "node": "./dist/server/src/components/popover/popover.js",
+            "default": "./dist/client/src/components/popover/popover.js"
+        },
+        "./sheet": {
+            "types": "./dist/types/src/components/sheet/sheet.d.ts",
+            "browser": "./dist/client/src/components/sheet/sheet.js",
+            "node": "./dist/server/src/components/sheet/sheet.js",
+            "default": "./dist/client/src/components/sheet/sheet.js"
+        },
+        "./locale-switcher": {
+            "types": "./dist/types/src/components/locale-switcher/locale-switcher.d.ts",
+            "browser": "./dist/client/src/components/locale-switcher/locale-switcher.js",
+            "node": "./dist/server/src/components/locale-switcher/locale-switcher.js",
+            "default": "./dist/client/src/components/locale-switcher/locale-switcher.js"
+        },
+        "./dialog": {
+            "types": "./dist/types/src/components/dialog/dialog.d.ts",
+            "browser": "./dist/client/src/components/dialog/dialog.js",
+            "node": "./dist/server/src/components/dialog/dialog.js",
+            "default": "./dist/client/src/components/dialog/dialog.js"
+        },
+        "./dialog-host": {
+            "types": "./dist/types/src/components/dialog/dialog-host.d.ts",
+            "browser": "./dist/client/src/components/dialog/dialog-host.js",
+            "node": "./dist/server/src/components/dialog/dialog-host.js",
+            "default": "./dist/client/src/components/dialog/dialog-host.js"
+        },
+        "./toast": {
+            "types": "./dist/types/src/components/toast/toast-store.d.ts",
+            "browser": "./dist/client/src/components/toast/toast-store.js",
+            "node": "./dist/server/src/components/toast/toast-store.js",
+            "default": "./dist/client/src/components/toast/toast-store.js"
+        },
+        "./toaster": {
+            "types": "./dist/types/src/components/toast/toaster.d.ts",
+            "browser": "./dist/client/src/components/toast/toaster.js",
+            "node": "./dist/server/src/components/toast/toaster.js",
+            "default": "./dist/client/src/components/toast/toaster.js"
+        },
+        "./context-menu": {
+            "types": "./dist/types/src/components/context-menu/context-menu-host.d.ts",
+            "browser": "./dist/client/src/components/context-menu/context-menu-host.js",
+            "node": "./dist/server/src/components/context-menu/context-menu-host.js",
+            "default": "./dist/client/src/components/context-menu/context-menu-host.js"
+        },
+        "./tooltip": {
+            "types": "./dist/types/src/components/tooltip/tooltip-host.d.ts",
+            "browser": "./dist/client/src/components/tooltip/tooltip-host.js",
+            "node": "./dist/server/src/components/tooltip/tooltip-host.js",
+            "default": "./dist/client/src/components/tooltip/tooltip-host.js"
+        }
     },
     "scripts": {
         "test": "vitest run",
         "typecheck": "tsc -p tsconfig.json",
         "publish:check": "bun pm pack --dry-run",
-        "build": "tsc --noEmit"
+        "build": "vite build --mode client && vite build --mode server && tsc -p tsconfig.build.json"
     },
     "packageManager": "bun@1.4.2",
     "peerDependencies": {

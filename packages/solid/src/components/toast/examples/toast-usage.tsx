@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { toast } from "@passui/solid/toast"
 import { Toaster } from "@passui/solid/toaster"
 export function ToastUsage() {

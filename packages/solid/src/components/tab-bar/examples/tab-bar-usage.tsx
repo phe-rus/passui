@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal } from "solid-js"
 import { TabBar } from "@passui/solid/tab-bar"
 export function TabBarUsage() {

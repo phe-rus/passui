@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal, For, Show, type JSX } from "solid-js"
 import { IconButton } from "../button/icon-button"
 import { cn } from "../../lib/class-names"

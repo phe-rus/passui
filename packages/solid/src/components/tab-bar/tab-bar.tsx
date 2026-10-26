@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { For, Show, onCleanup, type JSX } from "solid-js"
 import { useMinimizeOnScroll } from "../../hooks/use-minimize-on-scroll"
 import { usePlatform } from "../../appearance/platform"

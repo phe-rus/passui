@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { Show, splitProps, type JSX } from "solid-js"
 import { cn } from "../../lib/class-names"
 export type AmbientProps = JSX.HTMLAttributes<HTMLElement> & {

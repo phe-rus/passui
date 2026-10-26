@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { Ambient } from "@passui/solid/ambient"
 import { createSignal } from "solid-js"
 

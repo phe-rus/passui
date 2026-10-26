@@ -28,30 +28,23 @@ Import the stylesheet once:
 @import "@passui/solid/styles.css";
 ```
 
-Configure TypeScript with `jsx: "preserve"` and
-`jsxImportSource: "solid-js"`. Components export TS/TSX source, so your
-bundler must run the Solid compiler on the package too. For Vite 8:
+Use your framework's normal SolidJS and Tailwind CSS 4 configuration.
+Passui ships compiled browser and SSR modules with TypeScript declarations.
+It does not need special bundler resolution or dependency exclusions.
+For a plain Vite application:
 
 ```ts
 import { defineConfig } from "vite"
 import solid from "vite-plugin-solid"
 import tailwindcss from "@tailwindcss/vite"
 
-export default defineConfig({
-    optimizeDeps: { exclude: ["@passui/solid", "@passui/tanstack"] },
-    resolve: { conditions: ["solid", "module", "browser", "development|production"] },
-    ssr: {
-        noExternal: ["@passui/solid", "@passui/tanstack", /@tanstack\/solid-/],
-        resolve: { conditions: ["solid", "module", "node", "development|production"] },
-    },
-    plugins: [tailwindcss(), solid({ ssr: true })],
-})
+export default defineConfig({ plugins: [solid(), tailwindcss()] })
 ```
 
 For TanStack Start, place `tanstackStart()` from
 `@tanstack/solid-start/plugin/vite` before `solid({ ssr: true })`.
-The CLI generates this configuration for new projects; `init` gives wiring
-instructions and preserves your existing bundler configuration.
+The CLI generates the standard framework configuration for new projects.
+Existing Solid applications only need the package, stylesheet and provider.
 
 ```tsx
 import { Button } from "@passui/solid/button"

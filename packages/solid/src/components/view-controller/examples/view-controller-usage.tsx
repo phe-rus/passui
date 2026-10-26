@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { ViewController } from "@passui/solid/view-controller"
 export function ViewControllerUsage() {
     return (

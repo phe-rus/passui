@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { LabeledContent } from "@passui/solid/labeled-content"
 
 export function LabeledContentUsage() {

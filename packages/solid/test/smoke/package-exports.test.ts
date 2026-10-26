@@ -8,18 +8,21 @@ const pkg = JSON.parse(
 )
 
 test("exports map includes expected entries", () => {
-    expect(pkg.exports["."]).toBe("./src/index.ts")
-    expect(pkg.exports["./appearance"]).toBe(
-        "./src/appearance/index.ts"
-    )
-    expect(pkg.exports["./cn"]).toBe(
-        "./src/lib/class-names.ts"
-    )
+    for (const [entry, filename] of [
+        [".", "index"],
+        ["./appearance", "appearance/index"],
+        ["./cn", "lib/class-names"],
+        ["./tokens", "tokens/index"],
+    ]) {
+        expect(pkg.exports[entry]).toEqual({
+            types: `./dist/types/src/${filename}.d.ts`,
+            browser: `./dist/client/src/${filename}.js`,
+            node: `./dist/server/src/${filename}.js`,
+            default: `./dist/client/src/${filename}.js`,
+        })
+    }
     expect(pkg.exports["./styles.css"]).toBe(
         "./src/styles/styles.css"
-    )
-    expect(pkg.exports["./tokens"]).toBe(
-        "./src/tokens/index.ts"
     )
 })
 

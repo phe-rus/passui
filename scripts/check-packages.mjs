@@ -42,8 +42,11 @@ try {
         const packed = JSON.parse(
             run("tar", ["-xOf", archive, "package/package.json"], cwd)
         )
+        const exportTargets = Object.values(manifest.exports ?? {}).flatMap(
+            (entry) => typeof entry === "string" ? [entry] : Object.values(entry)
+        )
         for (const target of [
-            ...Object.values(manifest.exports ?? {}),
+            ...exportTargets,
             ...Object.values(manifest.bin ?? {}),
         ]) {
             if (typeof target !== "string")

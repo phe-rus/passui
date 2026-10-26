@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { children, Show, type JSX } from "solid-js"
 export interface SectionProps {
     title?: string

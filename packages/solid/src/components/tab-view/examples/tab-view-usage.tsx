@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { TabView } from "@passui/solid/tab-view"
 
 export function TabViewUsage() {

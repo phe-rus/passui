@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { Section } from "@passui/solid/section"
 
 export function SectionUsage() {

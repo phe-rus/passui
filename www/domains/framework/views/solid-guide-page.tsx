@@ -69,9 +69,10 @@ export function SolidGuidePage({ slug }: { slug: string }) {
                     >
                         <Prose>
                             Use SolidJS 1.9.17 or newer and
-                            Tailwind CSS 4. Passui exports
-                            TypeScript source. Your bundler
-                            must compile its TSX with Solid.
+                            Tailwind CSS 4. Passui ships
+                            compiled browser and server code.
+                            No special bundler configuration
+                            is needed for Passui.
                         </Prose>
                     </DocSection>
                     <DocSection id="cli" title="CLI setup">
@@ -117,9 +118,8 @@ export function SolidGuidePage({ slug }: { slug: string }) {
                             label="tsconfig.json"
                         />
                         <Prose>
-                            This TypeScript setting selects
-                            Solid JSX types across your app,
-                            so individual files do not need a
+                            Solid projects configure JSX once,
+                            so individual files never need a
                             JSX source comment. With Vite,
                             register <Code>solid()</Code> from{" "}
                             <Code>vite-plugin-solid</Code> and{" "}
@@ -133,17 +133,16 @@ export function SolidGuidePage({ slug }: { slug: string }) {
                         </Prose>
                         <CodeBlock
                             code={
-                                'import { defineConfig } from "vite"\nimport solid from "vite-plugin-solid"\nimport tailwindcss from "@tailwindcss/vite"\n\nexport default defineConfig({\n  optimizeDeps: { exclude: ["@passui/solid", "@passui/tanstack"] },\n  resolve: { conditions: ["solid", "module", "browser", "development|production"] },\n  ssr: {\n    noExternal: ["@passui/solid", "@passui/tanstack", /@tanstack\\/solid-/],\n    resolve: { conditions: ["solid", "module", "node", "development|production"] },\n  },\n  plugins: [tailwindcss(), solid({ ssr: true })],\n})'
+                                'import { defineConfig } from "vite"\nimport solid from "vite-plugin-solid"\nimport tailwindcss from "@tailwindcss/vite"\n\nexport default defineConfig({\n  plugins: [solid(), tailwindcss()],\n})'
                             }
                             label="vite.config.ts"
                         />
                         <Prose>
-                            Exclude the source packages from
-                            dependency prebundling so Vite
-                            compiles their JSX in development.
-                            For SSR, the Solid export
-                            condition selects the framework
-                            source for server compilation.
+                            Passui needs no optimizeDeps,
+                            resolve.conditions or
+                            ssr.noExternal overrides. TanStack
+                            Start projects retain their normal
+                            TanStack and Solid plugins.
                         </Prose>
                         <CodeBlock
                             code={

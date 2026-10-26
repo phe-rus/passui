@@ -1,4 +1,3 @@
-/** @jsxImportSource solid-js */
 import { createSignal, onCleanup } from "solid-js"
 import { Button } from "@passui/solid/button"
 

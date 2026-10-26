@@ -25,7 +25,7 @@ export function PassuiProvider(props: ParentProps) {
 
 Import passui/styles.css once and wrap your application in PassuiProvider from passui/providers.tsx.
 
-Configure TypeScript with "jsx": "preserve" and "jsxImportSource": "solid-js". Configure Vite with vite-plugin-solid and @tailwindcss/vite. Add "solid" to resolve.conditions (alongside "module", "browser", "development|production"). Exclude @passui/solid and @passui/tanstack from optimizeDeps so their source JSX reaches the Solid compiler in development. For SSR, add both Passui packages and @tanstack/solid-* to ssr.noExternal and use ssr.resolve.conditions ["solid", "module", "node", "development|production"] so framework source JSX is compiled for the server. Passui exports TSX source, so do not exclude it from Solid compilation. For TanStack Start, use solid({ ssr: true }) after tanstackStart(). Render PlatformScript from @passui/solid/appearance in the document head before content paints. Keep framework Scripts after the main content.
+Use a standard SolidJS project with Tailwind CSS 4. Passui ships compiled browser and server components, so no Passui-specific Vite resolve, optimizeDeps or SSR configuration is needed. For TanStack Start, use solid({ ssr: true }) after tanstackStart(). Render PlatformScript from @passui/solid/appearance in the document head before content paints. Keep framework Scripts after the main content.
 
 Import controls from @passui/solid/button and other component entry points.${integration ? " Import integrations from @passui/tanstack/solid/forms, /solid/tables, /solid/mutation and /solid/document. Install the matching @tanstack/solid-form, @tanstack/solid-query, @tanstack/solid-router and @tanstack/solid-table packages. Wrap query consumers in QueryClientProvider from @tanstack/solid-query." : ""}
 
@@ -51,7 +51,7 @@ export function solidStarterFiles(
 import solid from "vite-plugin-solid"
 import tailwindcss from "@tailwindcss/vite"
 ${tanstack ? 'import { tanstackStart } from "@tanstack/solid-start/plugin/vite"\n' : ""}
-export default defineConfig({ optimizeDeps: { exclude: ["@passui/solid", "@passui/tanstack"] }, resolve: { conditions: ["solid", "module", "browser", "development|production"] }, ssr: { noExternal: ["@passui/solid", "@passui/tanstack", /@tanstack\\/solid-/], resolve: { conditions: ["solid", "module", "node", "development|production"] } }, plugins: [tailwindcss(), ${tanstack ? "tanstackStart(), " : ""}solid(${tanstack ? "{ ssr: true }" : ""})] })
+export default defineConfig({ plugins: [tailwindcss(), ${tanstack ? "tanstackStart(), " : ""}solid(${tanstack ? "{ ssr: true }" : ""})] })
 `
     files["src/app.tsx"] =
         `import { Button } from "@passui/solid/button"
