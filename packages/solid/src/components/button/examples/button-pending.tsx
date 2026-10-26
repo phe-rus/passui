@@ -1,5 +1,6 @@
 import { createSignal, onCleanup } from "solid-js"
 import { Button } from "@passui/solid/button"
+import { toast } from "@passui/solid/toast"
 
 export function ButtonPending() {
     const [saving, setSaving] = createSignal(false)
@@ -7,7 +8,10 @@ export function ButtonPending() {
     onCleanup(() => clearTimeout(timer))
     function save() {
         setSaving(true)
-        timer = setTimeout(() => setSaving(false), 1600)
+        timer = setTimeout(() => {
+            setSaving(false)
+            toast.success("Profile saved")
+        }, 1600)
     }
     return (
         <Button
