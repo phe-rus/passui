@@ -4,6 +4,9 @@ import { Button } from "../components/button/button"
 import { IconButton } from "../components/button/icon-button"
 import { ButtonUsage } from "../components/button/examples/button-usage"
 import { ButtonPending } from "../components/button/examples/button-pending"
+import { ButtonVariants } from "../components/button/examples/button-variants"
+import { ButtonSizes } from "../components/button/examples/button-sizes"
+import { ButtonDisabled } from "../components/button/examples/button-disabled"
 import { IconButtonUsage } from "../components/button/examples/icon-button-usage"
 
 import { ChipUsage } from "../components/chip/examples/chip-usage"
@@ -16,6 +19,8 @@ import { SecureFieldUsage } from "../components/secure-field/examples/secure-fie
 import { SearchFieldUsage } from "../components/search-field/examples/search-field-usage"
 import { TextEditorUsage } from "../components/text-editor/examples/text-editor-usage"
 import { ToggleUsage } from "../components/toggle/examples/toggle-usage"
+import { ToggleSettings } from "../components/toggle/examples/toggle-settings"
+import { ToggleCheckboxes } from "../components/toggle/examples/toggle-checkboxes"
 import { ProfileImageUsage } from "../components/profile-image/examples/profile-image-usage"
 import { SwatchPickerUsage } from "../components/swatch-picker/examples/swatch-picker-usage"
 import { TabViewUsage } from "../components/tab-view/examples/tab-view-usage"
@@ -94,6 +99,8 @@ const examples: Record<
     "search-field-usage": SearchFieldUsage,
     "text-editor-usage": TextEditorUsage,
     "toggle-usage": ToggleUsage,
+    "toggle-settings": ToggleSettings,
+    "toggle-checkboxes": ToggleCheckboxes,
     "profile-image-usage": ProfileImageUsage,
     "swatch-picker-usage": SwatchPickerUsage,
     "tab-view-usage": TabViewUsage,
@@ -102,6 +109,9 @@ const examples: Record<
     button: (props) => <Button {...props} />,
     "button-usage": ButtonUsage,
     "button-pending": ButtonPending,
+    "button-variants": ButtonVariants,
+    "button-sizes": ButtonSizes,
+    "button-disabled": ButtonDisabled,
     "icon-button": (props) => (
         <IconButton
             label={String(props.label ?? "Close")}

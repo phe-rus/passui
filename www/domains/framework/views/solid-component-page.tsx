@@ -10,6 +10,7 @@ import {
 import { PracticesList } from "@/domains/catalog/views/practices-list"
 import { CodeBlock } from "@/domains/guides/views/guide-parts"
 import { getSolidExampleSource } from "../get-solid-example-source"
+import { SolidPlayground } from "./solid-playground"
 import { SolidPreview } from "./solid-preview"
 
 export function SolidComponentPage({
@@ -53,6 +54,7 @@ export function SolidComponentPage({
 
     const toc: TocItem[] = available
         ? [
+              { id: "playground", title: "Playground" },
               { id: "installation", title: "Installation" },
               { id: "usage", title: "Usage" },
               { id: "anatomy", title: "Anatomy" },
@@ -115,12 +117,44 @@ export function SolidComponentPage({
                     <>
                         <section
                             aria-label="Native SolidJS showcase"
-                            className="flex min-h-80 items-center justify-center overflow-hidden rounded-5xl bg-accent-soft/50 ring-1 ring-separator/60"
+                            className="flex min-h-80 items-center justify-center overflow-hidden rounded-5xl bg-accent-soft/50 p-6 ring-1 ring-separator/60 md:p-10"
                         >
                             <SolidPreview
                                 slug={`${slug}-usage`}
                             />
                         </section>
+
+                        <DocSection
+                            id="playground"
+                            title="Playground"
+                            description="Explore native SolidJS states. Each preview and its copyable source stay together."
+                        >
+                            <SolidPlayground
+                                slug={slug}
+                                scenes={[
+                                    {
+                                        id: "usage",
+                                        title: "Default",
+                                        description:
+                                            content.usage,
+                                        source: usage,
+                                    },
+                                    ...examples.map(
+                                        ({
+                                            id,
+                                            words,
+                                            source,
+                                        }) => ({
+                                            id,
+                                            title: words.title,
+                                            description:
+                                                words.description,
+                                            source,
+                                        })
+                                    ),
+                                ]}
+                            />
+                        </DocSection>
 
                         <DocSection
                             id="installation"
