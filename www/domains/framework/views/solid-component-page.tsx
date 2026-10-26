@@ -32,6 +32,9 @@ export function SolidComponentPage({
     const usage = available
         ? getSolidExampleSource(slug, "usage")
         : ""
+    const showcase = available
+        ? getSolidExampleSource(slug, "showcase")
+        : ""
     const examples = Object.entries(content.examples)
         .map(([id, words]) => ({
             id,
@@ -122,7 +125,7 @@ export function SolidComponentPage({
                             className="flex min-h-80 items-center justify-center overflow-hidden rounded-5xl bg-accent-soft/50 p-6 ring-1 ring-separator/60 md:p-10"
                         >
                             <SolidPreview
-                                slug={`${slug}-usage`}
+                                slug={`${slug}-${showcase ? "showcase" : "usage"}`}
                             />
                         </section>
 

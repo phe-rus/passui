@@ -28,6 +28,60 @@ test("Solid documentation only presents existing native example sources", () => 
     ).toBe("")
 })
 
+test("all React showcase scenes have matching native Solid hero previews", () => {
+    const components = [
+        "ambient",
+        "button",
+        "chip",
+        "compact-date-picker",
+        "compact-time-picker",
+        "content-view",
+        "context-menu",
+        "conversation",
+        "date-picker",
+        "dialog",
+        "labeled-content",
+        "locale-switcher",
+        "picker",
+        "popover",
+        "profile-image",
+        "search-field",
+        "search-list",
+        "section",
+        "secure-field",
+        "segmented-control",
+        "sheet",
+        "sidebar",
+        "stat-tile",
+        "status-indicator",
+        "swatch-picker",
+        "tab-bar",
+        "tab-view",
+        "table",
+        "text-editor",
+        "text-field",
+        "toast",
+        "toggle",
+        "tooltip",
+        "view-controller",
+    ]
+    for (const component of components) {
+        const source = getSolidExampleSource(
+            component,
+            "showcase"
+        )
+        expect(source, `${component} showcase`).toContain(
+            "@passui/solid/"
+        )
+        expect(source, `${component} showcase`).not.toContain(
+            "@passui/react"
+        )
+    }
+    expect(
+        getSolidExampleSource("icon-button", "showcase")
+    ).toContain("IconButtonShowcase")
+})
+
 test("Solid variants are native examples rather than React snippets", () => {
     for (const [slug, variants] of [
         ["chip", ["tones", "in-rows"]],
