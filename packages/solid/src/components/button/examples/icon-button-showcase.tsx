@@ -1,6 +1,13 @@
 import { createSignal } from "solid-js"
 import { toast } from "@passui/solid/toast"
 import { IconButton } from "@passui/solid/icon-button"
+import {
+    ArrowLeft01Icon,
+    Bookmark02Icon,
+    MoreHorizontalIcon,
+    Share08Icon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function IconButtonShowcase() {
     const [saved, setSaved] = createSignal(false)
@@ -12,7 +19,10 @@ export function IconButtonShowcase() {
                     variant="ghost"
                     size="icon-sm"
                 >
-                    <span aria-hidden="true">←</span>
+                    <Hugeicon
+                        icon={ArrowLeft01Icon}
+                        size={18}
+                    />
                 </IconButton>
                 <div class="flex gap-1">
                     <IconButton
@@ -25,7 +35,10 @@ export function IconButtonShowcase() {
                         size="icon-sm"
                         onClick={() => setSaved(!saved())}
                     >
-                        <span aria-hidden="true">♧</span>
+                        <Hugeicon
+                            icon={Bookmark02Icon}
+                            size={18}
+                        />
                     </IconButton>
                     <IconButton
                         label="Share"
@@ -35,14 +48,20 @@ export function IconButtonShowcase() {
                             toast.success("Link copied")
                         }
                     >
-                        <span aria-hidden="true">↗</span>
+                        <Hugeicon
+                            icon={Share08Icon}
+                            size={18}
+                        />
                     </IconButton>
                     <IconButton
                         label="More"
                         variant="ghost"
                         size="icon-sm"
                     >
-                        <span aria-hidden="true">···</span>
+                        <Hugeicon
+                            icon={MoreHorizontalIcon}
+                            size={18}
+                        />
                     </IconButton>
                 </div>
             </header>

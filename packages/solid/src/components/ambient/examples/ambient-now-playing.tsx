@@ -1,6 +1,13 @@
 import { Ambient } from "@passui/solid/ambient"
 import { createSignal } from "solid-js"
 import { IconButton } from "@passui/solid/icon-button"
+import {
+    NextIcon,
+    PauseIcon,
+    PlayIcon,
+    PreviousIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function AmbientNowPlaying() {
     const [playing, setPlaying] = createSignal(true)
@@ -25,7 +32,7 @@ export function AmbientNowPlaying() {
             </div>
             <div class="flex items-center gap-2">
                 <IconButton label="Previous" variant="ghost">
-                    <span aria-hidden="true">⏮</span>
+                    <Hugeicon icon={PreviousIcon} size={20} />
                 </IconButton>
                 <IconButton
                     label={playing() ? "Pause" : "Play"}
@@ -33,12 +40,15 @@ export function AmbientNowPlaying() {
                     size="icon-lg"
                     onClick={() => setPlaying(!playing())}
                 >
-                    <span aria-hidden="true">
-                        {playing() ? "Ⅱ" : "▶"}
-                    </span>
+                    <Hugeicon
+                        icon={
+                            playing() ? PauseIcon : PlayIcon
+                        }
+                        size={22}
+                    />
                 </IconButton>
                 <IconButton label="Next" variant="ghost">
-                    <span aria-hidden="true">⏭</span>
+                    <Hugeicon icon={NextIcon} size={20} />
                 </IconButton>
             </div>
         </Ambient>

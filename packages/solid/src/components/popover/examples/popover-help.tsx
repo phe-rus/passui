@@ -2,6 +2,8 @@ import { createSignal } from "solid-js"
 import { Popover } from "@passui/solid/popover"
 import { TextField } from "@passui/solid/text-field"
 import { IconButton } from "@passui/solid/icon-button"
+import { InformationCircleIcon } from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function PopoverHelp() {
     const [open, setOpen] = createSignal(false)
@@ -25,7 +27,10 @@ export function PopoverHelp() {
                             aria-expanded={open()}
                             onClick={() => setOpen(!open())}
                         >
-                            <span aria-hidden="true">ⓘ</span>
+                            <Hugeicon
+                                icon={InformationCircleIcon}
+                                size={18}
+                            />
                         </IconButton>
                         <Popover
                             open={open()}

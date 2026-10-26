@@ -5,6 +5,11 @@ import {
     sidebarItemClass,
 } from "@passui/solid/sidebar"
 import { Button } from "@passui/solid/button"
+import {
+    Mail01Icon,
+    StarIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function SidebarUnread() {
     const [unread, setUnread] = createSignal(5)
@@ -21,9 +26,10 @@ export function SidebarUnread() {
                             active
                             count={unread() || undefined}
                             icon={
-                                <span aria-hidden="true">
-                                    ✉
-                                </span>
+                                <Hugeicon
+                                    icon={Mail01Icon}
+                                    size={18}
+                                />
                             }
                         >
                             Inbox
@@ -35,9 +41,10 @@ export function SidebarUnread() {
                     >
                         <SidebarItemContent
                             icon={
-                                <span aria-hidden="true">
-                                    ☆
-                                </span>
+                                <Hugeicon
+                                    icon={StarIcon}
+                                    size={18}
+                                />
                             }
                         >
                             Starred

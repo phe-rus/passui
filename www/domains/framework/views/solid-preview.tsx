@@ -9,9 +9,13 @@ type PreviewMount = {
 export function SolidPreview({
     slug,
     values = {},
+    bare = false,
+    example = false,
 }: {
     slug: string
     values?: Record<string, unknown>
+    bare?: boolean
+    example?: boolean
 }) {
     const root = useRef<HTMLDivElement>(null)
     const instance = useRef<PreviewMount | null>(null)
@@ -52,9 +56,23 @@ export function SolidPreview({
     )
 
     return (
-        <div className="flex min-h-40 items-center justify-center p-8">
+        <div
+            className={
+                bare
+                    ? "contents"
+                    : `flex items-center justify-center p-8 ${example ? "min-h-48" : "min-h-40"}`
+            }
+        >
             {error && <p role="alert">{error}</p>}
-            <div ref={root} data-solid-preview={slug} />
+            <div
+                ref={root}
+                data-solid-preview={slug}
+                className={
+                    bare
+                        ? "flex w-full justify-center"
+                        : "contents"
+                }
+            />
         </div>
     )
 }

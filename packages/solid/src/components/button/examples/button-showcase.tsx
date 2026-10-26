@@ -2,6 +2,13 @@ import { createSignal, onCleanup } from "solid-js"
 import { TextField } from "@passui/solid/text-field"
 import { toast } from "@passui/solid/toast"
 import { Button } from "@passui/solid/button"
+import {
+    Delete02Icon,
+    Link01Icon,
+    Share08Icon,
+    StarIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function ButtonShowcase() {
     const [name, setName] = createSignal("Passui launch")
@@ -34,21 +41,30 @@ export function ButtonShowcase() {
                             variant="ghost"
                             aria-label="Star"
                         >
-                            <span aria-hidden="true">☆</span>
+                            <Hugeicon
+                                icon={StarIcon}
+                                size={18}
+                            />
                         </Button>
                         <Button
                             size="icon-sm"
                             variant="ghost"
                             aria-label="Copy link"
                         >
-                            <span aria-hidden="true">↗</span>
+                            <Hugeicon
+                                icon={Link01Icon}
+                                size={18}
+                            />
                         </Button>
                         <Button
                             size="icon-sm"
                             variant="ghost"
                             aria-label="Share"
                         >
-                            <span aria-hidden="true">⇧</span>
+                            <Hugeicon
+                                icon={Share08Icon}
+                                size={18}
+                            />
                         </Button>
                     </div>
                 </header>
@@ -87,7 +103,8 @@ export function ButtonShowcase() {
                     </span>
                 </div>
                 <Button variant="destructive" size="sm">
-                    <span aria-hidden="true">♲</span> Delete
+                    <Hugeicon icon={Delete02Icon} size={16} />{" "}
+                    Delete
                 </Button>
             </section>
         </div>

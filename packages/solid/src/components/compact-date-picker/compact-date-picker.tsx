@@ -1,3 +1,5 @@
+// biome-ignore-all lint/a11y/useSemanticElements: Match the React calendar's ARIA grid and directly focusable day buttons.
+// biome-ignore-all lint/a11y/useFocusableInteractive: Header rows and column labels are intentionally not keyboard focus targets.
 import {
     createEffect,
     createMemo,
@@ -8,6 +10,12 @@ import {
     type JSX,
 } from "solid-js"
 import { Portal } from "solid-js/web"
+import {
+    ArrowLeft01Icon,
+    ArrowRight01Icon,
+    Calendar03Icon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../icons/hugeicon"
 import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
 import { useFloatingSurface } from "../../hooks/use-floating-surface"
 import { cn } from "../../lib/class-names"
@@ -91,24 +99,11 @@ export function CompactDatePicker(
                 >
                     {shown()}
                 </span>
-                <svg
-                    aria-hidden="true"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                >
-                    <rect
-                        x="3"
-                        y="5"
-                        width="18"
-                        height="16"
-                        rx="3"
-                    />
-                    <path d="M7 3v4m10-4v4M3 11h18" />
-                </svg>
+                <Hugeicon
+                    icon={Calendar03Icon}
+                    size={16}
+                    class="shrink-0 text-label-tertiary"
+                />
             </button>
             <Show when={open() && anchor}>
                 {(element) => (
@@ -284,7 +279,10 @@ function MonthCalendar(
                         }
                         class="text-accent-text"
                     >
-                        <span aria-hidden="true">‹</span>
+                        <Hugeicon
+                            icon={ArrowLeft01Icon}
+                            size={20}
+                        />
                     </IconButton>
                     <IconButton
                         variant="ghost"
@@ -297,123 +295,86 @@ function MonthCalendar(
                         }
                         class="text-accent-text"
                     >
-                        <span aria-hidden="true">›</span>
+                        <Hugeicon
+                            icon={ArrowRight01Icon}
+                            size={20}
+                        />
                     </IconButton>
                 </div>
             </div>
-            <table
+            <div
+                role="grid"
                 aria-label={title()}
-                class="w-full table-fixed border-separate border-spacing-y-0.5"
+                class="grid grid-cols-7 gap-y-0.5"
             >
-                <thead>
-                    <tr>
-                        <For each={weekdays()}>
-                            {(day) => (
-                                <th
-                                    scope="col"
-                                    class="pb-1 text-center text-caption2 font-semibold text-label-tertiary"
-                                >
-                                    {day}
-                                </th>
-                            )}
-                        </For>
-                    </tr>
-                </thead>
-                <tbody>
-                    <For
-                        each={Array.from(
-                            {
-                                length: Math.ceil(
-                                    days().length / 7
-                                ),
-                            },
-                            (_, week) =>
-                                days().slice(
-                                    week * 7,
-                                    week * 7 + 7
-                                )
-                        )}
-                    >
-                        {(week) => (
-                            <tr>
-                                <For each={week}>
-                                    {(day) => {
-                                        const value =
-                                            formatDay(day)
-                                        const allowed = () =>
-                                            withinBounds(
-                                                value,
-                                                props.min,
-                                                props.max
-                                            )
-                                        return (
-                                            <td>
-                                                <button
-                                                    type="button"
-                                                    data-day={
-                                                        value
-                                                    }
-                                                    tabIndex={
-                                                        value ===
-                                                        formatDay(
-                                                            focused()
-                                                        )
-                                                            ? 0
-                                                            : -1
-                                                    }
-                                                    disabled={
-                                                        !allowed()
-                                                    }
-                                                    aria-pressed={
-                                                        value ===
-                                                        props.value
-                                                    }
-                                                    aria-current={
-                                                        value ===
-                                                        formatDay(
-                                                            today
-                                                        )
-                                                            ? "date"
-                                                            : undefined
-                                                    }
-                                                    aria-label={fullDate().format(
-                                                        toDate(
-                                                            day
-                                                        )
-                                                    )}
-                                                    onClick={() =>
-                                                        props.choose(
-                                                            value
-                                                        )
-                                                    }
-                                                    class={cn(
-                                                        "mx-auto flex size-10 items-center justify-center rounded-full text-body tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
-                                                        value ===
-                                                            props.value
-                                                            ? "bg-accent font-semibold text-on-accent"
-                                                            : value ===
-                                                                formatDay(
-                                                                    today
-                                                                )
-                                                              ? "font-semibold text-accent-text hover:bg-fill/80"
-                                                              : day.inMonth
-                                                                ? "text-label hover:bg-fill/80"
-                                                                : "text-label-tertiary hover:bg-fill/60",
-                                                        !allowed() &&
-                                                            "opacity-30"
-                                                    )}
-                                                >
-                                                    {day.day}
-                                                </button>
-                                            </td>
-                                        )
-                                    }}
-                                </For>
-                            </tr>
+                <div role="row" class="contents">
+                    <For each={weekdays()}>
+                        {(day) => (
+                            <span
+                                role="columnheader"
+                                class="pb-1 text-center text-caption2 font-semibold text-label-tertiary"
+                            >
+                                {day}
+                            </span>
                         )}
                     </For>
-                </tbody>
-            </table>
+                </div>
+                <For each={days()}>
+                    {(day) => {
+                        const value = formatDay(day)
+                        const selected = () =>
+                            value === props.value
+                        const isToday =
+                            value === formatDay(today)
+                        const allowed = () =>
+                            withinBounds(
+                                value,
+                                props.min,
+                                props.max
+                            )
+                        return (
+                            <button
+                                type="button"
+                                role="gridcell"
+                                data-day={value}
+                                tabIndex={
+                                    value ===
+                                    formatDay(focused())
+                                        ? 0
+                                        : -1
+                                }
+                                disabled={!allowed()}
+                                aria-selected={selected()}
+                                aria-current={
+                                    isToday
+                                        ? "date"
+                                        : undefined
+                                }
+                                aria-label={fullDate().format(
+                                    toDate(day)
+                                )}
+                                onClick={() =>
+                                    props.choose(value)
+                                }
+                                class={cn(
+                                    "mx-auto flex size-10 items-center justify-center rounded-full text-body tabular-nums transition-colors",
+                                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
+                                    selected()
+                                        ? "bg-accent font-semibold text-on-accent"
+                                        : isToday
+                                          ? "font-semibold text-accent-text hover:bg-fill/80"
+                                          : day.inMonth
+                                            ? "text-label hover:bg-fill/80"
+                                            : "text-label-tertiary hover:bg-fill/60",
+                                    !allowed() && "opacity-30"
+                                )}
+                            >
+                                {day.day}
+                            </button>
+                        )
+                    }}
+                </For>
+            </div>
             <Show when={props.labels.clear && props.value}>
                 <button
                     type="button"

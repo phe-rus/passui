@@ -3,6 +3,11 @@ import {
     SidebarItemContent,
     sidebarItemClass,
 } from "@passui/solid/sidebar"
+import {
+    Home01Icon,
+    Settings02Icon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 export function SidebarUsage() {
     return (
         <nav aria-label="Main" class="w-56">
@@ -15,7 +20,10 @@ export function SidebarUsage() {
                     <SidebarItemContent
                         active
                         icon={
-                            <span aria-hidden="true">⌂</span>
+                            <Hugeicon
+                                icon={Home01Icon}
+                                size={18}
+                            />
                         }
                     >
                         Home
@@ -27,7 +35,10 @@ export function SidebarUsage() {
                 >
                     <SidebarItemContent
                         icon={
-                            <span aria-hidden="true">⚙</span>
+                            <Hugeicon
+                                icon={Settings02Icon}
+                                size={18}
+                            />
                         }
                     >
                         Settings

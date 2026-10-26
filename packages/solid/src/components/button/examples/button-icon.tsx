@@ -1,4 +1,11 @@
 import { Button } from "@passui/solid/button"
+import {
+    TextAlignCenterIcon,
+    TextAlignLeftIcon,
+    TextBoldIcon,
+    TextItalicIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function ButtonIcon() {
     return (
@@ -12,32 +19,34 @@ export function ButtonIcon() {
                 variant="ghost"
                 aria-label="Bold"
             >
-                <span aria-hidden="true" class="font-bold">
-                    B
-                </span>
+                <Hugeicon icon={TextBoldIcon} size={18} />
             </Button>
             <Button
                 size="icon-sm"
                 variant="ghost"
                 aria-label="Italic"
             >
-                <span aria-hidden="true" class="italic">
-                    I
-                </span>
+                <Hugeicon icon={TextItalicIcon} size={18} />
             </Button>
             <Button
                 size="icon-sm"
                 variant="ghost"
                 aria-label="Align left"
             >
-                <span aria-hidden="true">☷</span>
+                <Hugeicon
+                    icon={TextAlignLeftIcon}
+                    size={18}
+                />
             </Button>
             <Button
                 size="icon-sm"
                 variant="ghost"
                 aria-label="Align centre"
             >
-                <span aria-hidden="true">≡</span>
+                <Hugeicon
+                    icon={TextAlignCenterIcon}
+                    size={18}
+                />
             </Button>
         </div>
     )

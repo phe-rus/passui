@@ -7,6 +7,8 @@ import {
     TableCell,
 } from "@passui/solid/table"
 import { Button } from "@passui/solid/button"
+import { InboxIcon } from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function TableEmpty() {
     return (
@@ -22,12 +24,11 @@ export function TableEmpty() {
                     <TableRow class="hover:bg-transparent">
                         <TableCell colspan={2}>
                             <div class="flex flex-col items-center gap-2 py-8 text-center">
-                                <span
-                                    aria-hidden="true"
+                                <Hugeicon
+                                    icon={InboxIcon}
+                                    size={28}
                                     class="text-label-tertiary"
-                                >
-                                    ▤
-                                </span>
+                                />
                                 <span class="text-subheadline font-medium text-label">
                                     No applications yet
                                 </span>

@@ -1,24 +1,30 @@
 import { For } from "solid-js"
 import { ContentView } from "@passui/solid/content-view"
+import {
+    Key01Icon,
+    LockPasswordIcon,
+    SmartPhone01Icon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 const cards = [
     {
         id: "password",
         heading: "Password",
         description: "Changed 3 months ago",
-        icon: "▣",
+        icon: LockPasswordIcon,
     },
     {
         id: "passkeys",
         heading: "Passkeys",
         description: "2 saved on your devices",
-        icon: "⚿",
+        icon: Key01Icon,
     },
     {
         id: "devices",
         heading: "Devices",
         description: "Signed in on 3 devices",
-        icon: "▯",
+        icon: SmartPhone01Icon,
     },
 ]
 
@@ -32,12 +38,11 @@ export function ContentViewShowcase() {
                             heading={card.heading}
                             p={card.description}
                             icon={
-                                <span
+                                <Hugeicon
+                                    icon={card.icon}
+                                    size={20}
                                     class="text-accent-text"
-                                    aria-hidden="true"
-                                >
-                                    {card.icon}
-                                </span>
+                                />
                             }
                             className="flex flex-col gap-2"
                             pClassName="text-footnote text-label-secondary"

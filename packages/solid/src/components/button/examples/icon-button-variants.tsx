@@ -1,19 +1,26 @@
 import { IconButton } from "@passui/solid/icon-button"
+import {
+    Delete02Icon,
+    FavouriteIcon,
+    PlusSignIcon,
+    Settings02Icon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function IconButtonVariants() {
     return (
         <div class="flex flex-wrap items-center justify-center gap-3">
             <IconButton label="Add" variant="accent">
-                <span aria-hidden="true">＋</span>
+                <Hugeicon icon={PlusSignIcon} size={20} />
             </IconButton>
             <IconButton label="Like" variant="secondary">
-                <span aria-hidden="true">♡</span>
+                <Hugeicon icon={FavouriteIcon} size={20} />
             </IconButton>
             <IconButton label="Settings" variant="outline">
-                <span aria-hidden="true">⚙</span>
+                <Hugeicon icon={Settings02Icon} size={20} />
             </IconButton>
             <IconButton label="Delete" variant="destructive">
-                <span aria-hidden="true">♲</span>
+                <Hugeicon icon={Delete02Icon} size={20} />
             </IconButton>
         </div>
     )

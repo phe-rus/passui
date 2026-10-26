@@ -1,5 +1,12 @@
 import { createSignal } from "solid-js"
 import { TextField } from "@passui/solid/text-field"
+import {
+    Link01Icon,
+    Mail01Icon,
+    Search01Icon,
+    Tick02Icon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function TextFieldIcons() {
     const [email, setEmail] = createSignal("aiko@example.com")
@@ -16,22 +23,25 @@ export function TextFieldIcons() {
                 onInput={(event) =>
                     setEmail(event.currentTarget.value)
                 }
-                icon={<span aria-hidden="true">✉</span>}
+                icon={
+                    <Hugeicon icon={Mail01Icon} size={18} />
+                }
                 trailingIcon={
                     valid() ? (
-                        <span
-                            aria-hidden="true"
+                        <Hugeicon
+                            icon={Tick02Icon}
+                            size={18}
                             class="text-success"
-                        >
-                            ✓
-                        </span>
+                        />
                     ) : undefined
                 }
             />
             <TextField
                 label="Website"
                 placeholder="example.com"
-                icon={<span aria-hidden="true">↗</span>}
+                icon={
+                    <Hugeicon icon={Link01Icon} size={18} />
+                }
                 value={site()}
                 onInput={(event) =>
                     setSite(event.currentTarget.value)
@@ -40,7 +50,9 @@ export function TextFieldIcons() {
             <TextField
                 label="Find a member"
                 placeholder="Name or email"
-                icon={<span aria-hidden="true">⌕</span>}
+                icon={
+                    <Hugeicon icon={Search01Icon} size={18} />
+                }
                 value={query()}
                 onInput={(event) =>
                     setQuery(event.currentTarget.value)

@@ -1,5 +1,13 @@
 import { createSignal } from "solid-js"
 import { TabBar } from "@passui/solid/tab-bar"
+import {
+    Calendar03Icon,
+    Home01Icon,
+    InboxIcon,
+    LibraryIcon,
+    UserIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function TabBarFiveTabs() {
     const [active, setActive] = createSignal("inbox")
@@ -7,27 +15,29 @@ export function TabBarFiveTabs() {
         {
             id: "home",
             label: "Home",
-            icon: <span aria-hidden="true">⌂</span>,
+            icon: <Hugeicon icon={Home01Icon} size={22} />,
         },
         {
             id: "inbox",
             label: "Inbox",
-            icon: <span aria-hidden="true">✉</span>,
+            icon: <Hugeicon icon={InboxIcon} size={22} />,
         },
         {
             id: "calendar",
             label: "Calendar",
-            icon: <span aria-hidden="true">▦</span>,
+            icon: (
+                <Hugeicon icon={Calendar03Icon} size={22} />
+            ),
         },
         {
             id: "library",
             label: "Library",
-            icon: <span aria-hidden="true">▤</span>,
+            icon: <Hugeicon icon={LibraryIcon} size={22} />,
         },
         {
             id: "profile",
             label: "Profile",
-            icon: <span aria-hidden="true">◉</span>,
+            icon: <Hugeicon icon={UserIcon} size={22} />,
         },
     ]
     return (

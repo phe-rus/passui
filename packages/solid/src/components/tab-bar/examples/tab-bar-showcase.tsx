@@ -1,26 +1,33 @@
 import { createSignal, For } from "solid-js"
 import { TabBar } from "@passui/solid/tab-bar"
+import {
+    FavouriteIcon,
+    Home01Icon,
+    LibraryIcon,
+    UserIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 const tabs = [
     {
         id: "home",
         label: "Home",
-        icon: <span aria-hidden="true">⌂</span>,
+        icon: <Hugeicon icon={Home01Icon} size={22} />,
     },
     {
         id: "library",
         label: "Library",
-        icon: <span aria-hidden="true">▤</span>,
+        icon: <Hugeicon icon={LibraryIcon} size={22} />,
     },
     {
         id: "saved",
         label: "Saved",
-        icon: <span aria-hidden="true">☆</span>,
+        icon: <Hugeicon icon={FavouriteIcon} size={22} />,
     },
     {
         id: "profile",
         label: "Profile",
-        icon: <span aria-hidden="true">◉</span>,
+        icon: <Hugeicon icon={UserIcon} size={22} />,
     },
 ]
 const titles: Record<string, string> = {

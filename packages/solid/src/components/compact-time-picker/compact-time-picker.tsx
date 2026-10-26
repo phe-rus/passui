@@ -7,6 +7,8 @@ import {
     Show,
 } from "solid-js"
 import { Portal } from "solid-js/web"
+import { Clock01Icon } from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../icons/hugeicon"
 import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
 import { useFloatingSurface } from "../../hooks/use-floating-surface"
 import { cn } from "../../lib/class-names"
@@ -92,18 +94,11 @@ export function CompactTimePicker(
                 >
                     {shown()}
                 </span>
-                <svg
-                    aria-hidden="true"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.8"
-                >
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M12 6v6l4 2" />
-                </svg>
+                <Hugeicon
+                    icon={Clock01Icon}
+                    size={16}
+                    class="shrink-0 text-label-tertiary"
+                />
             </button>
             <Show when={open() && anchor}>
                 {(element) => (

@@ -1,11 +1,18 @@
 import { For } from "solid-js"
 import { IconButton } from "@passui/solid/icon-button"
+import {
+    Archive01Icon,
+    Delete02Icon,
+    MailReply01Icon,
+    StarIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 const actions = [
-    { label: "Reply", symbol: "↩" },
-    { label: "Star", symbol: "☆" },
-    { label: "Archive", symbol: "▥" },
-    { label: "Delete", symbol: "♲" },
+    { label: "Reply", icon: MailReply01Icon },
+    { label: "Star", icon: StarIcon },
+    { label: "Archive", icon: Archive01Icon },
+    { label: "Delete", icon: Delete02Icon },
 ]
 
 export function TooltipShowcase() {
@@ -22,9 +29,10 @@ export function TooltipShowcase() {
                                 label={action.label}
                                 variant="ghost"
                             >
-                                <span aria-hidden="true">
-                                    {action.symbol}
-                                </span>
+                                <Hugeicon
+                                    icon={action.icon}
+                                    size={20}
+                                />
                             </IconButton>
                         )}
                     </For>

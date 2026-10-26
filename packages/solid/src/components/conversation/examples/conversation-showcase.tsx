@@ -1,5 +1,7 @@
 import { createSignal } from "solid-js"
 import { Conversation } from "@passui/solid/conversation"
+import { CustomerSupportIcon } from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 const minutesAgo = (minutes: number) =>
     new Date(Date.now() - minutes * 60_000).toISOString()
@@ -8,7 +10,7 @@ const support = {
     author: "Pass support",
     avatar: (
         <span class="flex size-7 items-center justify-center rounded-full bg-accent-soft text-accent-text">
-            ☏
+            <Hugeicon icon={CustomerSupportIcon} size={16} />
         </span>
     ),
 }

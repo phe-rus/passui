@@ -1,4 +1,6 @@
 import { For, Show, onCleanup, type JSX } from "solid-js"
+import { Search01Icon } from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../icons/hugeicon"
 import { useMinimizeOnScroll } from "../../hooks/use-minimize-on-scroll"
 import { usePlatform } from "../../appearance/platform"
 import { cn } from "../../lib/class-names"
@@ -137,22 +139,11 @@ export function TabBar<Tab extends TabBarTab>(props: {
                         onClick={() => search().onPress()}
                         class="glass ms-auto flex size-12 shrink-0 items-center justify-center rounded-full text-label motion-safe:transition-transform duration-fast active:scale-[0.92]"
                     >
-                        <svg
-                            width="19"
-                            height="19"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            aria-hidden="true"
-                        >
-                            <circle
-                                cx="10.5"
-                                cy="10.5"
-                                r="7.5"
-                            />
-                            <path d="m16 16 5 5" />
-                        </svg>
+                        <Hugeicon
+                            icon={Search01Icon}
+                            size={19}
+                            strokeWidth={2}
+                        />
                     </button>
                 )}
             </Show>

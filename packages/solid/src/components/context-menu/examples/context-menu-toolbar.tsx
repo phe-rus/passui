@@ -1,4 +1,10 @@
 import { IconButton } from "@passui/solid/icon-button"
+import {
+    MoreHorizontalIcon,
+    Share08Icon,
+    StarIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 import { toast } from "@passui/solid/toast"
 import {
     ContextMenuHost,
@@ -14,14 +20,14 @@ export function ContextMenuToolbar() {
                 variant="ghost"
                 size="icon-xs"
             >
-                <span aria-hidden="true">☆</span>
+                <Hugeicon icon={StarIcon} size={18} />
             </IconButton>
             <IconButton
                 label="Share"
                 variant="ghost"
                 size="icon-xs"
             >
-                <span aria-hidden="true">↗</span>
+                <Hugeicon icon={Share08Icon} size={18} />
             </IconButton>
             <IconButton
                 label="More"
@@ -46,7 +52,10 @@ export function ContextMenuToolbar() {
                     )
                 }
             >
-                <span aria-hidden="true">···</span>
+                <Hugeicon
+                    icon={MoreHorizontalIcon}
+                    size={18}
+                />
             </IconButton>
             <ContextMenuHost />
         </div>

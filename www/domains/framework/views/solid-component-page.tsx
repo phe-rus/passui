@@ -122,10 +122,11 @@ export function SolidComponentPage({
                     <>
                         <section
                             aria-label="Native SolidJS showcase"
-                            className="flex min-h-80 items-center justify-center overflow-hidden rounded-5xl bg-accent-soft/50 p-6 ring-1 ring-separator/60 md:p-10"
+                            className="flex min-h-80 items-center justify-center rounded-5xl bg-accent-soft/50 p-6 ring-1 ring-separator/60 md:p-10"
                         >
                             <SolidPreview
                                 slug={`${slug}-${showcase ? "showcase" : "usage"}`}
+                                bare
                             />
                         </section>
 
@@ -239,6 +240,7 @@ export function SolidComponentPage({
                                                     <div className="bg-background">
                                                         <SolidPreview
                                                             slug={`${slug}-${id}`}
+                                                            example
                                                         />
                                                     </div>
                                                     <div className="border-separator/60 border-t">

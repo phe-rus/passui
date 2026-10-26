@@ -4,6 +4,15 @@ import {
     SidebarItemContent,
     sidebarItemClass,
 } from "@passui/solid/sidebar"
+import {
+    Archive01Icon,
+    Calendar03Icon,
+    Delete02Icon,
+    Folder01Icon,
+    InboxIcon,
+    Note01Icon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function SidebarGroups() {
     const [active, setActive] = createSignal("today")
@@ -14,19 +23,19 @@ export function SidebarGroups() {
                 {
                     id: "notes",
                     label: "All notes",
-                    icon: "▤",
+                    icon: Note01Icon,
                     count: 248,
                 },
                 {
                     id: "today",
                     label: "Today",
-                    icon: "▦",
+                    icon: Calendar03Icon,
                     count: 4,
                 },
                 {
                     id: "inbox",
                     label: "Inbox",
-                    icon: "✉",
+                    icon: InboxIcon,
                     count: 9,
                 },
             ],
@@ -37,13 +46,13 @@ export function SidebarGroups() {
                 {
                     id: "work",
                     label: "Work",
-                    icon: "▱",
+                    icon: Folder01Icon,
                     count: 61,
                 },
                 {
                     id: "travel",
                     label: "Travel",
-                    icon: "▱",
+                    icon: Folder01Icon,
                     count: 17,
                 },
             ],
@@ -54,13 +63,13 @@ export function SidebarGroups() {
                 {
                     id: "archive",
                     label: "Archive",
-                    icon: "▥",
+                    icon: Archive01Icon,
                     count: undefined,
                 },
                 {
                     id: "trash",
                     label: "Recently deleted",
-                    icon: "♲",
+                    icon: Delete02Icon,
                     count: undefined,
                 },
             ],
@@ -98,9 +107,12 @@ export function SidebarGroups() {
                                         }
                                         count={item.count}
                                         icon={
-                                            <span aria-hidden="true">
-                                                {item.icon}
-                                            </span>
+                                            <Hugeicon
+                                                icon={
+                                                    item.icon
+                                                }
+                                                size={18}
+                                            />
                                         }
                                     >
                                         {item.label}

@@ -1,5 +1,11 @@
 import { createSignal, For } from "solid-js"
 import { TabBar } from "@passui/solid/tab-bar"
+import {
+    Home01Icon,
+    LibraryIcon,
+    UserIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
 
 export function TabBarMinimize() {
     const [active, setActive] = createSignal("library")
@@ -7,17 +13,17 @@ export function TabBarMinimize() {
         {
             id: "home",
             label: "Home",
-            icon: <span aria-hidden="true">⌂</span>,
+            icon: <Hugeicon icon={Home01Icon} size={22} />,
         },
         {
             id: "library",
             label: "Library",
-            icon: <span aria-hidden="true">▤</span>,
+            icon: <Hugeicon icon={LibraryIcon} size={22} />,
         },
         {
             id: "profile",
             label: "Profile",
-            icon: <span aria-hidden="true">◉</span>,
+            icon: <Hugeicon icon={UserIcon} size={22} />,
         },
     ]
     return (

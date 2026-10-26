@@ -1,5 +1,13 @@
 import { createSignal, For } from "solid-js"
 import {
+    Analytics01Icon,
+    Folder01Icon,
+    Home01Icon,
+    Settings01Icon,
+    UserIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../../icons/hugeicon"
+import {
     SidebarItemContent,
     SidebarSection,
     sidebarItemClass,
@@ -12,25 +20,25 @@ const sections = [
             {
                 id: "overview",
                 label: "Overview",
-                icon: "⌂",
+                icon: Home01Icon,
                 count: undefined,
             },
             {
                 id: "apps",
                 label: "Applications",
-                icon: "▱",
+                icon: Folder01Icon,
                 count: 6,
             },
             {
                 id: "users",
                 label: "Users",
-                icon: "◉",
+                icon: UserIcon,
                 count: 1284,
             },
             {
                 id: "activity",
                 label: "Activity",
-                icon: "▥",
+                icon: Analytics01Icon,
                 count: undefined,
             },
         ],
@@ -41,7 +49,7 @@ const sections = [
             {
                 id: "settings",
                 label: "Settings",
-                icon: "⚙",
+                icon: Settings01Icon,
                 count: undefined,
             },
         ],
@@ -92,11 +100,12 @@ export function SidebarShowcase() {
                                             }
                                             count={item.count}
                                             icon={
-                                                <span aria-hidden="true">
-                                                    {
+                                                <Hugeicon
+                                                    icon={
                                                         item.icon
                                                     }
-                                                </span>
+                                                    size={18}
+                                                />
                                             }
                                         >
                                             {item.label}

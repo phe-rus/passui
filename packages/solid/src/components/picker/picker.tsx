@@ -10,6 +10,11 @@ import {
     type JSX,
 } from "solid-js"
 import { Portal } from "solid-js/web"
+import {
+    Tick02Icon,
+    UnfoldMoreIcon,
+} from "@hugeicons/core-free-icons"
+import { Hugeicon } from "../../icons/hugeicon"
 import { cn } from "../../lib/class-names"
 import {
     placeInViewport,
@@ -92,18 +97,12 @@ export function Picker<T extends string>(
                         props.placeholder ??
                         ""}
                 </span>
-                <svg
-                    aria-hidden="true"
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
+                <Hugeicon
+                    icon={UnfoldMoreIcon}
+                    size={15}
+                    strokeWidth={2}
                     class="shrink-0 text-label-tertiary"
-                >
-                    <path d="m8 9 4-4 4 4m-8 6 4 4 4-4" />
-                </svg>
+                />
             </button>
             <Show when={open() && trigger}>
                 {(anchor) => (
@@ -404,18 +403,12 @@ function SelectList<T extends string>(
                                         props.value
                                     }
                                 >
-                                    <svg
-                                        aria-hidden="true"
-                                        width="15"
-                                        height="15"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2.4"
+                                    <Hugeicon
+                                        icon={Tick02Icon}
+                                        size={15}
+                                        strokeWidth={2.4}
                                         class="text-accent-text"
-                                    >
-                                        <path d="m5 12 4 4 10-10" />
-                                    </svg>
+                                    />
                                 </Show>
                             </span>
                             <span class="min-w-0 grow break-words">
