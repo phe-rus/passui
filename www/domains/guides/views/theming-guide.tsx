@@ -89,7 +89,11 @@ function AccentPreview() {
     )
 }
 
-export function ThemingGuide() {
+export function ThemingGuide({
+    framework = "react",
+}: {
+    framework?: "react" | "solid"
+}) {
     const roles = Object.keys(light) as (keyof typeof light)[]
 
     return (
@@ -123,7 +127,7 @@ export function ThemingGuide() {
                     </div>
                 </div>
                 <CodeBlock
-                    code={`<section data-theme="dark" className="bg-background">
+                    code={`<section data-theme="dark" ${framework === "solid" ? "class" : "className"}="bg-background">
     {/* always dark, whatever the app's appearance */}
 </section>`}
                 />
@@ -161,7 +165,7 @@ export function ThemingGuide() {
                     page.
                 </Prose>
                 <CodeBlock
-                    code={`<nav className="glass android:bg-elevated android:shadow-none">
+                    code={`<nav ${framework === "solid" ? "class" : "className"}="glass android:bg-elevated android:shadow-none">
     {/* glass on Apple platforms, a solid bar on Android */}
 </nav>`}
                 />

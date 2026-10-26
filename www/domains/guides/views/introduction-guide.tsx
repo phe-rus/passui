@@ -20,7 +20,7 @@ const parts = [
     {
         icon: Tap01Icon,
         title: "Native controls",
-        text: "Buttons, fields, pickers, sheets and menus, written as plain React you can read.",
+        text: "Buttons, fields, pickers, sheets and menus, implemented natively in React and SolidJS.",
     },
     {
         icon: ColorsIcon,
@@ -52,10 +52,11 @@ export function IntroductionGuide() {
         <>
             <DocSection id="what" title="What's in Passui">
                 <Prose>
-                    Passui is Pherus's design language: what
-                    Liquid Glass is to Apple and Material 3 is
-                    to Google. It's built for any React app,
-                    and knows nothing about any one product.
+                    Passui is Pherus's design language, with
+                    native React and SolidJS components that
+                    share the same appearance, motion and
+                    interaction principles. It belongs to no
+                    single application or framework.
                 </Prose>
                 <div className="grid gap-3 sm:grid-cols-2">
                     {parts.map((part) => (
@@ -96,9 +97,33 @@ export function IntroductionGuide() {
                                     <Code>@passui/react</Code>
                                 </td>
                                 <td className="p-4 text-label-secondary">
-                                    Controls, tokens, styles,
-                                    appearance and hooks. No
-                                    router or form library.
+                                    Native React controls,
+                                    appearance and hooks.
+                                    Independent of routers and
+                                    form libraries.
+                                </td>
+                            </tr>
+                            <tr className="border-separator/60 border-b">
+                                <td className="p-4 align-top">
+                                    <Code>@passui/solid</Code>
+                                </td>
+                                <td className="p-4 text-label-secondary">
+                                    Native SolidJS controls,
+                                    signals and appearance,
+                                    using the same styles and
+                                    design tokens as React.
+                                </td>
+                            </tr>
+                            <tr className="border-separator/60 border-b">
+                                <td className="p-4 align-top">
+                                    <Code>
+                                        @passui/tokens
+                                    </Code>
+                                </td>
+                                <td className="p-4 text-label-secondary">
+                                    Framework-independent
+                                    colors, typography, layout
+                                    and motion tokens.
                                 </td>
                             </tr>
                             <tr>
@@ -108,11 +133,10 @@ export function IntroductionGuide() {
                                     </Code>
                                 </td>
                                 <td className="p-4 text-label-secondary">
-                                    Forms, tables, route
-                                    boundaries and the
-                                    document shell, built on
-                                    TanStack and on Passui's
-                                    controls.
+                                    Optional TanStack forms,
+                                    tables, route boundaries
+                                    and document helpers for
+                                    both frameworks.
                                 </td>
                             </tr>
                         </tbody>
@@ -122,12 +146,19 @@ export function IntroductionGuide() {
 
             <DocSection id="next" title="Next steps">
                 <Prose>
-                    Start with{" "}
+                    Start with the{" "}
                     <Link
                         to="/docs/$slug"
                         params={{ slug: "installation" }}
                     >
-                        Installation
+                        React installation guide
+                    </Link>{" "}
+                    or the{" "}
+                    <Link
+                        to="/solid/docs/$slug"
+                        params={{ slug: "installation" }}
+                    >
+                        SolidJS installation guide
                     </Link>
                     , browse the{" "}
                     <Link to="/components">components</Link>,

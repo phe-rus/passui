@@ -7,6 +7,7 @@ import {
 import { createPortal } from "react-dom"
 import { Button } from "@passui/react/button"
 import { cn } from "@passui/react/cn"
+import { spring } from "../../motion/transitions"
 import {
     createContext,
     useContext,
@@ -129,12 +130,11 @@ export function Dialog({
                                 : 0,
                             opacity: 0,
                         }}
-                        transition={{
-                            duration: reducedMotion
-                                ? 0
-                                : 0.28,
-                            ease: [0.22, 1, 0.36, 1],
-                        }}
+                        transition={
+                            reducedMotion
+                                ? { duration: 0 }
+                                : spring.smooth
+                        }
                         className="overflow-hidden"
                     >
                         {body}

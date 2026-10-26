@@ -1,4 +1,5 @@
 import { HugeiconsIcon } from "@hugeicons/react"
+import { hasSolidComponent } from "@passui/solid/docs"
 import { Link } from "@tanstack/react-router"
 import { catalogGroups, getCatalog } from "../get-catalog"
 
@@ -16,9 +17,9 @@ export function ComponentsOverview() {
                     Components
                 </h1>
                 <p className="max-w-2xl text-body text-label-secondary">
-                    {catalog.length} controls, each with a
-                    live playground, examples and code to
-                    copy.
+                    {catalog.length} component families with
+                    native React and SolidJS examples,
+                    interactive previews and copyable code.
                 </p>
             </header>
             {catalogGroups.map((group) => {
@@ -41,13 +42,9 @@ export function ComponentsOverview() {
                         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                             {entries.map(
                                 ({ docs, content, icon }) => (
-                                    <Link
+                                    <div
                                         key={docs.slug}
-                                        to="/components/$slug"
-                                        params={{
-                                            slug: docs.slug,
-                                        }}
-                                        className="group flex flex-col gap-2 rounded-4xl bg-elevated p-5 text-label no-underline shadow-sm ring-1 ring-separator/60 transition-shadow hover:shadow-md"
+                                        className="group flex flex-col gap-2 rounded-4xl bg-elevated p-5 text-label shadow-sm ring-1 ring-separator/60 transition-shadow hover:shadow-md"
                                     >
                                         <span className="flex size-10 items-center justify-center rounded-2xl bg-accent-soft text-accent-text">
                                             <HugeiconsIcon
@@ -61,7 +58,31 @@ export function ComponentsOverview() {
                                         <span className="text-footnote text-label-secondary">
                                             {content.summary}
                                         </span>
-                                    </Link>
+                                        <div className="mt-auto flex flex-wrap gap-2 pt-3">
+                                            <Link
+                                                to="/components/$slug"
+                                                params={{
+                                                    slug: docs.slug,
+                                                }}
+                                                className="rounded-full bg-fill px-3 py-1.5 text-footnote font-semibold text-label no-underline hover:bg-separator/60"
+                                            >
+                                                React
+                                            </Link>
+                                            {hasSolidComponent(
+                                                docs.slug
+                                            ) && (
+                                                <Link
+                                                    to="/solid/components/$slug"
+                                                    params={{
+                                                        slug: docs.slug,
+                                                    }}
+                                                    className="rounded-full bg-fill px-3 py-1.5 text-footnote font-semibold text-label no-underline hover:bg-separator/60"
+                                                >
+                                                    SolidJS
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </div>
                                 )
                             )}
                         </div>

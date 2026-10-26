@@ -180,7 +180,7 @@ function ToastItem({
                 opacity: 0,
                 y: -18,
                 scale: 0.6,
-                transition: { duration: 0.22 },
+                transition: spring.snappy,
             }}
             transition={spring.bouncy}
             drag="y"

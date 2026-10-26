@@ -7,6 +7,7 @@ import { Link } from "@tanstack/react-router"
 import type { ComponentType } from "react"
 import { OnThisPage, type TocItem } from "@/domains/catalog"
 import { getGuide, getGuideNeighbours } from "../get-guides"
+import { frameworkPath } from "@/domains/framework/framework"
 import type { GuideSlug } from "../types"
 import {
     InstallationGuide,
@@ -50,7 +51,13 @@ const bodies: Record<
 }
 
 /** One getting-started page, laid out like a component page. */
-export function GuidePage({ slug }: { slug: string }) {
+export function GuidePage({
+    slug,
+    framework = "react",
+}: {
+    slug: string
+    framework?: "react" | "solid"
+}) {
     const guide = getGuide(slug)
     if (!guide) return null
     const { Body, sections } = bodies[guide.slug]
@@ -61,23 +68,42 @@ export function GuidePage({ slug }: { slug: string }) {
             <article className="flex min-w-0 flex-col gap-14">
                 <header className="flex flex-col gap-3">
                     <span className="font-mono text-caption text-label-tertiary">
-                        Getting started
+                        {guide.slug === "introduction"
+                            ? "Getting started"
+                            : `Getting started · ${framework === "solid" ? "SolidJS" : "React"}`}
                     </span>
                     <h1 className="font-brand text-large-title font-extrabold tracking-tight text-label">
                         {guide.title}
                     </h1>
                     <p className="max-w-2xl text-body text-label-secondary">
-                        {guide.summary}
+                        {guide.slug === "installation"
+                            ? `Set up Passui in a ${framework === "solid" ? "SolidJS" : "React"} app with the CLI or a manual install.`
+                            : guide.summary}
                     </p>
                 </header>
-                <Body />
+                {guide.slug === "installation" ? (
+                    <InstallationGuide
+                        framework={framework}
+                    />
+                ) : guide.slug === "skills" ? (
+                    <SkillsGuide framework={framework} />
+                ) : guide.slug === "theming" ? (
+                    <ThemingGuide framework={framework} />
+                ) : guide.slug === "typeset" ? (
+                    <TypesetGuide framework={framework} />
+                ) : (
+                    <Body />
+                )}
                 <nav
                     aria-label="More guides"
                     className="flex justify-between gap-4 border-separator/60 border-t pt-6"
                 >
                     {previous ? (
                         <Link
-                            to={previous.path}
+                            to={frameworkPath(
+                                previous.path,
+                                framework
+                            )}
                             className="flex items-center gap-2 text-subheadline text-label-secondary no-underline hover:text-label"
                         >
                             <HugeiconsIcon
@@ -91,7 +117,10 @@ export function GuidePage({ slug }: { slug: string }) {
                     )}
                     {next && (
                         <Link
-                            to={next.path}
+                            to={frameworkPath(
+                                next.path,
+                                framework
+                            )}
                             className="flex items-center gap-2 text-subheadline text-label-secondary no-underline hover:text-label"
                         >
                             {next.title}

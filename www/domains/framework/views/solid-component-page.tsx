@@ -174,10 +174,12 @@ export function SolidComponentPage({
                             title="Usage"
                             description={content.usage}
                         >
-                            <CodeView
-                                code={`import { ${docs.name} } from "@passui/solid/${slug}"`}
-                                label="tsx"
-                            />
+                            <div className="overflow-hidden rounded-3xl ring-1 ring-separator/60">
+                                <CodeView
+                                    code={`import { ${docs.name} } from "@passui/solid/${slug}"`}
+                                    label="tsx"
+                                />
+                            </div>
                             <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
                                 <div className="bg-background">
                                     <SolidPreview
@@ -188,6 +190,7 @@ export function SolidComponentPage({
                                     <CodeView
                                         code={usage}
                                         label={`${slug}-usage.tsx`}
+                                        collapsible
                                     />
                                 </div>
                             </div>
@@ -215,27 +218,17 @@ export function SolidComponentPage({
                                             words,
                                             source,
                                         }) => (
-                                            <section
+                                            <DocSection
                                                 key={id}
                                                 id={`example-${id}`}
-                                                aria-labelledby={`example-${id}-title`}
-                                                className="flex scroll-mt-24 flex-col gap-4"
+                                                title={
+                                                    words.title
+                                                }
+                                                description={
+                                                    words.description
+                                                }
+                                                level={3}
                                             >
-                                                <div className="flex flex-col gap-1">
-                                                    <h3
-                                                        id={`example-${id}-title`}
-                                                        className="text-title3 font-semibold text-label"
-                                                    >
-                                                        {
-                                                            words.title
-                                                        }
-                                                    </h3>
-                                                    <p className="text-callout text-label-secondary">
-                                                        {
-                                                            words.description
-                                                        }
-                                                    </p>
-                                                </div>
                                                 <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
                                                     <div className="bg-background">
                                                         <SolidPreview
@@ -249,10 +242,11 @@ export function SolidComponentPage({
                                                                 source
                                                             }
                                                             label={`${slug}-${id}.tsx`}
+                                                            collapsible
                                                         />
                                                     </div>
                                                 </div>
-                                            </section>
+                                            </DocSection>
                                         )
                                     )}
                                 </div>

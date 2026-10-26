@@ -20,6 +20,15 @@ export function FrameworkSwitcher({
     })
     const selected = getFramework(pathname)
     const navigate = useNavigate()
+    // The introduction and component catalog describe Passui as a whole.
+    // Framework switching belongs on implementation-specific pages.
+    if (
+        pathname.endsWith("/docs/introduction") ||
+        pathname === "/components" ||
+        pathname === "/solid/components"
+    ) {
+        return <>{children}</>
+    }
     return (
         <TabView
             options={frameworkOptions}

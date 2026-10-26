@@ -90,7 +90,7 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={spring.smooth}
                 onClick={() => settleDialog(false)}
             />
             <motion.div
@@ -107,7 +107,7 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                     opacity: 0,
                     scale: 0.94,
                     y: 6,
-                    transition: { duration: 0.15 },
+                    transition: spring.snappy,
                 }}
                 transition={spring.bouncy}
             >

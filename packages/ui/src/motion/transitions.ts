@@ -16,7 +16,7 @@ export const popoverMotion = {
         opacity: 0,
         scale: 0.97,
         y: -4,
-        transition: { duration: 0.12 },
+        transition: spring.snappy,
     },
     transition: spring.snappy,
 } as const

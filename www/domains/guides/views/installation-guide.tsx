@@ -8,27 +8,36 @@ export const installationSections: TocItem[] = [
     { id: "first-component", title: "Your first component" },
 ]
 
-export function InstallationGuide() {
+export function InstallationGuide({
+    framework = "react",
+}: {
+    framework?: "react" | "solid"
+}) {
+    const solid = framework === "solid"
+    const packageName = solid
+        ? "@passui/solid"
+        : "@passui/react"
+    const flag = solid ? " --framework solid" : ""
     return (
         <>
             <DocSection
                 id="install"
                 title="Install"
-                description="Install Passui from public npm in a React 19 app with Tailwind CSS 4."
+                description={`Install Passui for ${solid ? "SolidJS" : "React"} using Bun and Tailwind CSS 4.`}
             >
                 <Prose>
                     For guided setup, run the Passui CLI in
-                    your React app. It generates a stylesheet,
+                    your app. It generates a stylesheet,
                     providers and instructions for your
                     framework.
                 </Prose>
                 <CodeBlock
                     lang="shellscript"
-                    code={`bunx @passui/cli init
+                    code={`bunx @passui/cli@latest init${flag}
 
 # Create a new project
-bunx @passui/cli create my-app
-bunx @passui/cli create my-app --template tanstack`}
+bunx @passui/cli@latest create my-app${flag} --template vite
+bunx @passui/cli@latest create my-app${flag} --template tanstack`}
                 />
                 <Prose>
                     Existing projects get passui/styles.css,
@@ -43,12 +52,11 @@ bunx @passui/cli create my-app --template tanstack`}
                 </Prose>
                 <CodeBlock
                     lang="shellscript"
-                    code={`# Other package managers
-npx @passui/cli init
-pnpm dlx @passui/cli init
+                    code={`# Optional TanStack integration
+bunx @passui/cli@latest init${flag} --integration tanstack
 
-# Optional TanStack integration
-bunx @passui/cli init --integration tanstack`}
+# Preview changes before installing
+bunx @passui/cli@latest init${flag} --dry-run`}
                 />
                 <Prose>
                     Prefer manual setup? Install the packages
@@ -61,14 +69,17 @@ bunx @passui/cli init --integration tanstack`}
                             title: "Add Passui.",
                             body: (
                                 <Prose>
-                                    Use Passui with any React
+                                    Use Passui with any{" "}
+                                    {solid
+                                        ? "SolidJS"
+                                        : "React"}
                                     framework. Its controls,
                                     themes and styles work
                                     independently of TanStack.
                                 </Prose>
                             ),
                             lang: "shellscript",
-                            code: "bun add @passui/react",
+                            code: `bun add ${packageName}`,
                         },
                         {
                             title: "Using TanStack Start or Router? Add the integrations too.",
@@ -81,16 +92,18 @@ bunx @passui/cli init --integration tanstack`}
                                 </Prose>
                             ),
                             lang: "shellscript",
-                            code: "bun add @passui/tanstack @tanstack/react-query",
+                            code: solid
+                                ? "bun add @passui/tanstack @tanstack/solid-query"
+                                : "bun add @passui/tanstack @tanstack/react-query",
                         },
                     ]}
                 />
                 <Prose>
-                    Both packages export TypeScript and TSX
-                    source. Your framework's bundler must
-                    process those files, and your app needs
-                    Tailwind CSS 4 configured for its
-                    stylesheet.
+                    Both frameworks use the same design tokens
+                    and Tailwind CSS 4 styles. Passui's
+                    SolidJS package ships compiled client and
+                    server code; no Passui-specific bundler
+                    overrides are needed.
                 </Prose>
             </DocSection>
 
@@ -108,7 +121,7 @@ bunx @passui/cli init --integration tanstack`}
                 <CodeBlock
                     label="app.css"
                     lang="css"
-                    code={`@import "@passui/react/styles.css";`}
+                    code={`@import "${packageName}/styles.css";`}
                 />
                 <Prose>
                     With <Code>@passui/tanstack</Code>, import
@@ -118,7 +131,7 @@ bunx @passui/cli init --integration tanstack`}
                 <CodeBlock
                     label="app.css"
                     lang="css"
-                    code={`@import "@passui/tanstack/styles.css";`}
+                    code={`@import "@passui/tanstack${solid ? "/solid" : ""}/styles.css";`}
                 />
             </DocSection>
 
@@ -136,8 +149,31 @@ bunx @passui/cli init --integration tanstack`}
                     whole app.
                 </Prose>
                 <CodeBlock
-                    label="src/routes/__root.tsx"
-                    code={`import {
+                    label={
+                        solid
+                            ? "src/app.tsx"
+                            : "src/routes/__root.tsx"
+                    }
+                    code={
+                        solid
+                            ? `import type { ParentProps } from "solid-js"
+import { ContextMenuHost, DialogHost, TooltipHost, Toaster } from "@passui/solid"
+import { PlatformProvider, ThemeProvider } from "@passui/solid/appearance"
+
+export function AppProviders(props: ParentProps) {
+    return (
+        <PlatformProvider>
+            <ThemeProvider attribute={["class", "data-theme"]} defaultTheme="system" enableSystem>
+                {props.children}
+                <Toaster />
+                <ContextMenuHost />
+                <DialogHost />
+                <TooltipHost />
+            </ThemeProvider>
+        </PlatformProvider>
+    )
+}`
+                            : `import {
     ContextMenuHost,
     DialogHost,
     TooltipHost,
@@ -173,13 +209,28 @@ export function Root({ children }: { children: React.ReactNode }) {
             </body>
         </html>
     )
-}`}
+}`
+                    }
                 />
+                {solid && (
+                    <CodeBlock
+                        label="document-head.tsx"
+                        code={`import { PlatformScript } from "@passui/solid/appearance"
+
+// Place in the document <head> before styles are painted.
+<PlatformScript />`}
+                    />
+                )}
                 <Prose>
                     With TanStack Start, use{" "}
                     <Code>ComposeViewport</Code> from{" "}
-                    <Code>@passui/tanstack/document</Code> as
-                    the document shell.
+                    <Code>
+                        {solid
+                            ? "@passui/tanstack/solid/document"
+                            : "@passui/tanstack/document"}
+                    </Code>{" "}
+                    as the document shell. Mount the providers
+                    once at the application root.
                 </Prose>
             </DocSection>
 
@@ -189,7 +240,18 @@ export function Root({ children }: { children: React.ReactNode }) {
                 description="Import each control from its own entry point."
             >
                 <CodeBlock
-                    code={`import { Button } from "@passui/react/button"
+                    code={
+                        solid
+                            ? `import { Button, toast } from "@passui/solid"
+
+export function SaveButton() {
+    return (
+        <Button variant="accent" onClick={() => toast.success("Changes saved")}>
+            Save
+        </Button>
+    )
+}`
+                            : `import { Button } from "@passui/react/button"
 import { toast } from "@passui/react/toast"
 
 export function SaveButton() {
@@ -201,7 +263,8 @@ export function SaveButton() {
             Save
         </Button>
     )
-}`}
+}`
+                    }
                 />
             </DocSection>
         </>
