@@ -1,4 +1,5 @@
 import { hasSolidComponent } from "@passui/solid/docs"
+import { CopyForAi } from "@/domains/ai-context"
 import { Link } from "@tanstack/react-router"
 import { getEntry } from "@/domains/catalog/get-catalog"
 import { AnatomyTable } from "@/domains/catalog/views/anatomy-table"
@@ -8,7 +9,8 @@ import {
     type TocItem,
 } from "@/domains/catalog/views/on-this-page"
 import { PracticesList } from "@/domains/catalog/views/practices-list"
-import { CodeBlock } from "@/domains/guides/views/guide-parts"
+import { InstallSteps } from "@/domains/catalog/views/install-steps"
+import { CodeView } from "@/domains/playground"
 import { getSolidExampleSource } from "../get-solid-example-source"
 import api from "../solid-api.json"
 import { SolidPlayground } from "./solid-playground"
@@ -37,24 +39,6 @@ export function SolidComponentPage({
             source: getSolidExampleSource(slug, id),
         }))
         .filter((example) => example.source.length > 0)
-
-    if (slug === "button") {
-        const source = getSolidExampleSource(
-            "button",
-            "pending"
-        )
-        if (source) {
-            examples.unshift({
-                id: "pending",
-                words: {
-                    title: "Pending",
-                    description:
-                        "The button communicates that an action is still running.",
-                },
-                source,
-            })
-        }
-    }
 
     const toc: TocItem[] = available
         ? [
@@ -105,13 +89,19 @@ export function SolidComponentPage({
                     <p className="max-w-2xl text-body text-label-secondary">
                         {content.summary}
                     </p>
-                    <Link
-                        to="/components/$slug"
-                        params={{ slug }}
-                        className="w-fit text-footnote text-label-secondary underline-offset-4 hover:underline"
-                    >
-                        Compare React version
-                    </Link>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                        <Link
+                            to="/components/$slug"
+                            params={{ slug }}
+                            className="inline-flex items-center gap-1.5 rounded-full bg-fill/70 px-3 py-1.5 text-footnote font-semibold text-label no-underline transition-colors hover:bg-fill"
+                        >
+                            Compare React version
+                        </Link>
+                        <CopyForAi
+                            slug={slug}
+                            framework="solid"
+                        />
+                    </div>
                 </header>
 
                 {!available ? (
@@ -171,28 +161,8 @@ export function SolidComponentPage({
                         <DocSection
                             id="installation"
                             title="Installation"
-                            description="Install once, then import only the components you use."
                         >
-                            <CodeBlock
-                                code="bunx @passui/cli@latest init --framework solid"
-                                lang="shellscript"
-                                label="Terminal"
-                            />
-                            <p className="text-callout text-label-secondary">
-                                Already configured? Import the
-                                component directly. For a
-                                manual setup, see the{" "}
-                                <Link
-                                    to="/solid/docs/$slug"
-                                    params={{
-                                        slug: "installation",
-                                    }}
-                                    className="text-label underline underline-offset-4"
-                                >
-                                    SolidJS installation guide
-                                </Link>
-                                .
-                            </p>
+                            <InstallSteps framework="solid" />
                         </DocSection>
 
                         <DocSection
@@ -200,9 +170,9 @@ export function SolidComponentPage({
                             title="Usage"
                             description={content.usage}
                         >
-                            <CodeBlock
+                            <CodeView
                                 code={`import { ${docs.name} } from "@passui/solid/${slug}"`}
-                                label="Import"
+                                label="tsx"
                             />
                             <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
                                 <div className="bg-background">
@@ -211,7 +181,7 @@ export function SolidComponentPage({
                                     />
                                 </div>
                                 <div className="border-separator/60 border-t">
-                                    <CodeBlock
+                                    <CodeView
                                         code={usage}
                                         label={`${slug}-usage.tsx`}
                                     />
@@ -269,7 +239,7 @@ export function SolidComponentPage({
                                                         />
                                                     </div>
                                                     <div className="border-separator/60 border-t">
-                                                        <CodeBlock
+                                                        <CodeView
                                                             code={
                                                                 source
                                                             }

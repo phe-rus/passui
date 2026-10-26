@@ -6,6 +6,7 @@ import {
     Code,
 } from "@/domains/guides/views/guide-parts"
 import { getGuide } from "@/domains/guides/get-guides"
+import { SkillsGuide } from "@/domains/guides/views/skills-guide"
 import { solidGuideSummaries } from "../solid-guides"
 
 export function SolidGuidePage({ slug }: { slug: string }) {
@@ -291,34 +292,7 @@ export function SolidGuidePage({ slug }: { slug: string }) {
                 </DocSection>
             )}
             {guide.slug === "skills" && (
-                <DocSection
-                    id="solid-context"
-                    title="Use the selected framework"
-                >
-                    <Prose>
-                        Use these Solid pages when generating
-                        Solid code. React examples use
-                        different state and event conventions;
-                        changing their package name alone does
-                        not convert them. Use{" "}
-                        <Code>class</Code>, Solid signals, and
-                        the{" "}
-                        <Code>@passui/tanstack/solid/*</Code>{" "}
-                        adapters. Shared values come from{" "}
-                        <Code>@passui/tokens</Code> or{" "}
-                        <Code>@passui/solid/tokens</Code>.
-                    </Prose>
-                    <CodeBlock
-                        code={
-                            "bunx @passui/cli@latest init --framework solid"
-                        }
-                        lang="shellscript"
-                        label="Terminal"
-                    />
-                    <Link to="/solid/components">
-                        View native Solid components
-                    </Link>
-                </DocSection>
+                <SkillsGuide framework="solid" />
             )}
         </article>
     )

@@ -1,25 +1,38 @@
-import { createSignal } from "solid-js"
 import { Button } from "@passui/solid/button"
 import { Section } from "@passui/solid/section"
+import { toast } from "@passui/solid/toast"
+import { Toaster } from "@passui/solid/toaster"
 
 export function SectionActions() {
-    const [editing, setEditing] = createSignal(false)
     return (
-        <Section title="Account details">
-            <div class="flex items-center justify-between gap-3 p-4">
-                <p>
-                    {editing()
-                        ? "Editing account details"
-                        : "Your personal account"}
-                </p>
+        <div class="flex w-full max-w-sm flex-col gap-6">
+            <Section title="Data">
                 <Button
-                    size="sm"
-                    variant="secondary"
-                    onClick={() => setEditing(!editing())}
+                    variant="ghost"
+                    class="w-full justify-start rounded-none"
+                    onClick={() =>
+                        toast("Preparing your export")
+                    }
                 >
-                    {editing() ? "Done" : "Edit"}
+                    Export my data
                 </Button>
-            </div>
-        </Section>
+                <Button
+                    variant="ghost"
+                    class="w-full justify-start rounded-none"
+                    onClick={() => toast("Cache cleared")}
+                >
+                    Clear cache
+                </Button>
+            </Section>
+            <Section footer="This can't be undone.">
+                <Button
+                    variant="ghost"
+                    class="w-full justify-start rounded-none text-danger"
+                >
+                    Delete account
+                </Button>
+            </Section>
+            <Toaster />
+        </div>
     )
 }

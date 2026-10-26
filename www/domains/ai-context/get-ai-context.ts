@@ -7,6 +7,8 @@ import { getExampleSource } from "@/domains/catalog/get-example-source"
 import type { CatalogEntry } from "@/domains/catalog/types"
 import { guides } from "@/domains/guides/get-guides"
 import { solidComponentSlugs } from "@passui/solid/docs"
+import { getSolidExampleSource } from "@/domains/framework/get-solid-example-source"
+import solidApi from "@/domains/framework/solid-api.json"
 
 // Everything here is generated from the docs registry and the site's own
 // words, so what an AI reads is exactly what the pages say. These import
@@ -63,6 +65,147 @@ export function getComponentMarkdown(
             .join("\n"),
         "",
         `Docs: ${origin}/components/${docs.slug}`,
+    ].join("\n")
+}
+
+/** Solid-specific component context, built from the same catalog and native examples. */
+export function getSolidComponentMarkdown(
+    entry: CatalogEntry,
+    origin: string
+): string {
+    const { docs, content } = entry
+    const props =
+        solidApi[docs.slug as keyof typeof solidApi] ?? []
+    const propDescriptions: Record<string, string> =
+        content.propDescriptions
+    return [
+        `# ${docs.name} · SolidJS`,
+        "",
+        content.summary,
+        "",
+        content.usage,
+        "",
+        "```tsx",
+        `import { ${docs.name} } from "@passui/solid/${docs.slug}"`,
+        "```",
+        "",
+        "## Usage",
+        "",
+        "```tsx",
+        getSolidExampleSource(docs.slug, "usage"),
+        "```",
+        "",
+        "## Options",
+        "",
+        ...props.map(
+            (prop) =>
+                `- \`${prop.name}\` (${prop.type}${prop.required ? ", required" : ""}): ${propDescriptions[prop.name] ?? "Native Solid component property."}`
+        ),
+        "",
+        "## Examples",
+        "",
+        ...Object.entries(content.examples).flatMap(
+            ([id, words]) => [
+                `### ${words.title}`,
+                words.description,
+                "",
+                "```tsx",
+                getSolidExampleSource(docs.slug, id),
+                "```",
+                "",
+            ]
+        ),
+        "## Best practices",
+        "",
+        ...content.practices.map(
+            (practice) =>
+                `- ${practice.kind === "do" ? "Do" : "Don't"}: ${practice.text}`
+        ),
+        "",
+        "## Accessibility",
+        "",
+        ...content.accessibility.map((line) => `- ${line}`),
+        "",
+        `Docs: ${origin}/solid/components/${docs.slug}`,
+    ].join("\n")
+}
+
+/** A complete Solid-first AI skill rather than React instructions with renamed imports. */
+export function getSolidSkillMarkdown(
+    origin: string
+): string {
+    const components = getCatalog().filter((entry) =>
+        solidComponentSlugs.includes(entry.docs.slug)
+    )
+    return [
+        "---",
+        "name: passui-solid",
+        "description: Build native SolidJS interfaces with Passui (@passui/solid), its shared design tokens, and optional TanStack Solid adapters.",
+        "---",
+        "",
+        "# Passui for SolidJS",
+        "",
+        "Use native SolidJS components. Do not import React components or React hooks.",
+        "",
+        "## Setup",
+        "",
+        "```sh",
+        "bunx @passui/cli init --framework solid",
+        "# Manual alternative: bun add @passui/solid",
+        "```",
+        "",
+        "```css",
+        '@import "@passui/solid/styles.css";',
+        "```",
+        "",
+        "## Rules",
+        "",
+        "- Import controls from their native @passui/solid/<component> entry point.",
+        "- Use createSignal, createMemo, and Solid accessors for reactive state. Read accessors with ().",
+        "- Write class, onInput and onChange using Solid's JSX conventions, not React className/useState.",
+        "- Configure JSX once in the application's Solid setup. Never add @jsxImportSource directives to individual examples.",
+        "- Import design roles from Passui's styles instead of inventing colors and shadows.",
+        "- Keep labels translatable, and honor reduced motion, keyboard interactions and accessibility.",
+        "- Mount overlay hosts once near the app root when using Toast, Dialog, Tooltip, or ContextMenu.",
+        "- Optional TanStack integrations are under @passui/tanstack/solid/*, not the React-default entry points.",
+        "",
+        "## Components",
+        "",
+        ...components.map(
+            ({ docs, content }) =>
+                `- \`${docs.name}\` from \`@passui/solid/${docs.slug}\`: ${content.summary}`
+        ),
+        "",
+        `Native component docs: ${origin}/solid/components`,
+        `Solid llms index: ${origin}/solid/llms.txt`,
+    ].join("\n")
+}
+
+export function getSolidLlmsTxt(origin: string): string {
+    return [
+        "# Passui · SolidJS",
+        "",
+        "> Native SolidJS components, shared Passui tokens, and Solid-specific usage examples.",
+        "",
+        "## Guides",
+        "",
+        ...guides.map(
+            (guide) =>
+                `- [${guide.title}](${origin}/solid${guide.path}): ${guide.summary}`
+        ),
+        "",
+        "## Components",
+        "",
+        ...getCatalog()
+            .filter((entry) =>
+                solidComponentSlugs.includes(entry.docs.slug)
+            )
+            .map(
+                ({ docs, content }) =>
+                    `- [${docs.name}](${origin}/solid/components/${docs.slug}): ${content.summary}`
+            ),
+        "",
+        `- [SolidJS skill](${origin}/skills/passui-solid/SKILL.md): native imports, setup and code rules.`,
     ].join("\n")
 }
 

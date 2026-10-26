@@ -2,32 +2,34 @@ import { createSignal } from "solid-js"
 import { Dialog } from "@passui/solid/dialog"
 import { Button } from "@passui/solid/button"
 import { TextField } from "@passui/solid/text-field"
+import { toast } from "@passui/solid/toast"
+import { Toaster } from "@passui/solid/toaster"
 
 export function DialogForm() {
     const [open, setOpen] = createSignal(false)
-    const [name, setName] = createSignal("")
-    const [saved, setSaved] = createSignal("")
+    const [name, setName] = createSignal("Pass console")
     return (
-        <div class="grid gap-3">
-            <Button onClick={() => setOpen(true)}>
-                New workspace
+        <>
+            <Button
+                variant="secondary"
+                onClick={() => setOpen(true)}
+            >
+                Rename project
             </Button>
-            <output>{saved() && `Created ${saved()}`}</output>
             <Dialog
                 open={open()}
                 onOpenChange={setOpen}
-                title="New workspace"
-                description="Give this space a name."
+                title="Rename project"
+                onSubmit={(event) => {
+                    event.preventDefault()
+                    setOpen(false)
+                    toast.success(`Renamed to ${name()}`)
+                }}
                 footer={
                     <Dialog.Actions
-                        submitLabel="Create"
+                        submitLabel="Rename"
                         cancelLabel="Cancel"
-                        onConfirm={() => {
-                            if (name().trim()) {
-                                setSaved(name())
-                                setOpen(false)
-                            }
-                        }}
+                        disabled={!name().trim()}
                     />
                 }
             >
@@ -37,9 +39,9 @@ export function DialogForm() {
                     onInput={(event) =>
                         setName(event.currentTarget.value)
                     }
-                    placeholder="Design team"
                 />
             </Dialog>
-        </div>
+            <Toaster />
+        </>
     )
 }

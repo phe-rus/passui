@@ -2,16 +2,27 @@ import { AiMagicIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { toast } from "@passui/react"
 import { getEntry } from "@/domains/catalog/get-catalog"
-import { getComponentMarkdown } from "../get-ai-context"
+import {
+    getComponentMarkdown,
+    getSolidComponentMarkdown,
+} from "../get-ai-context"
 
 /** Copies one component's docs as Markdown, for pasting into an AI chat. */
-export function CopyForAi({ slug }: { slug: string }) {
+export function CopyForAi({
+    slug,
+    framework = "react",
+}: {
+    slug: string
+    framework?: "react" | "solid"
+}) {
     async function copy() {
         const entry = getEntry(slug)
         if (!entry) return
         try {
             await navigator.clipboard.writeText(
-                getComponentMarkdown(
+                (framework === "solid"
+                    ? getSolidComponentMarkdown
+                    : getComponentMarkdown)(
                     entry,
                     window.location.origin
                 )

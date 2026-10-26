@@ -2,10 +2,33 @@ import { CodeView } from "@/domains/playground"
 import { installSteps } from "../content/installation"
 
 /** Numbered setup steps, each with its code. */
-export function InstallSteps() {
+export function InstallSteps({
+    framework = "react",
+}: {
+    framework?: "react" | "solid"
+}) {
+    const steps =
+        framework === "solid"
+            ? [
+                  {
+                      title: "Use the CLI, or install Passui manually.",
+                      code: "bunx @passui/cli init --framework solid\n\n# Manual alternative\nbun add @passui/solid",
+                      lang: "shellscript" as const,
+                  },
+                  {
+                      title: "Import its styles once, in your root stylesheet.",
+                      code: '@import "@passui/solid/styles.css";',
+                      lang: "css" as const,
+                  },
+                  {
+                      title: "Import components from their own entry point.",
+                      code: 'import { Button } from "@passui/solid/button"',
+                  },
+              ]
+            : installSteps
     return (
         <ol className="m-0 flex list-none flex-col gap-6 border-separator/70 border-s p-0 ps-6">
-            {installSteps.map((step, index) => (
+            {steps.map((step, index) => (
                 <li
                     key={step.title}
                     className="relative flex flex-col gap-3"

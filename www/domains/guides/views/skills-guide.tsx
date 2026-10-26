@@ -1,4 +1,7 @@
-import { getSkillMarkdown } from "@/domains/ai-context"
+import {
+    getSkillMarkdown,
+    getSolidSkillMarkdown,
+} from "@/domains/ai-context"
 import { DocSection, type TocItem } from "@/domains/catalog"
 import { useOrigin } from "../use-origin"
 import { Code, CodeBlock, Prose } from "./guide-parts"
@@ -11,9 +14,19 @@ export const skillsSections: TocItem[] = [
     { id: "skill", title: "The skill" },
 ]
 
-export function SkillsGuide() {
+export function SkillsGuide({
+    framework = "react",
+}: {
+    framework?: "react" | "solid"
+}) {
     const origin = useOrigin()
-    const skillUrl = `${origin}/skills/passui/SKILL.md`
+    const name =
+        framework === "solid" ? "passui-solid" : "passui"
+    const skillUrl = `${origin}/skills/${name}/SKILL.md`
+    const llmsUrl =
+        framework === "solid"
+            ? `${origin}/solid/llms.txt`
+            : `${origin}/llms.txt`
 
     return (
         <>
@@ -43,14 +56,14 @@ export function SkillsGuide() {
                 <Prose>Claude Code, for one project:</Prose>
                 <CodeBlock
                     lang="shellscript"
-                    code={`mkdir -p .claude/skills/passui
-curl -fsSL ${skillUrl} -o .claude/skills/passui/SKILL.md`}
+                    code={`mkdir -p .claude/skills/${name}
+curl -fsSL ${skillUrl} -o .claude/skills/${name}/SKILL.md`}
                 />
                 <Prose>Claude Code, for every project:</Prose>
                 <CodeBlock
                     lang="shellscript"
-                    code={`mkdir -p ~/.claude/skills/passui
-curl -fsSL ${skillUrl} -o ~/.claude/skills/passui/SKILL.md`}
+                    code={`mkdir -p ~/.claude/skills/${name}
+curl -fsSL ${skillUrl} -o ~/.claude/skills/${name}/SKILL.md`}
                 />
                 <Prose>
                     Other agents: save it anywhere in the
@@ -66,7 +79,7 @@ curl -fsSL ${skillUrl} -o ~/.claude/skills/passui/SKILL.md`}
             >
                 <CodeBlock
                     lang="shellscript"
-                    code={`curl ${origin}/llms.txt`}
+                    code={`curl ${llmsUrl}`}
                 />
             </DocSection>
 
@@ -92,7 +105,11 @@ curl -fsSL ${skillUrl} -o ~/.claude/skills/passui/SKILL.md`}
                 <CodeBlock
                     label="SKILL.md"
                     lang="markdown"
-                    code={getSkillMarkdown(origin)}
+                    code={
+                        framework === "solid"
+                            ? getSolidSkillMarkdown(origin)
+                            : getSkillMarkdown(origin)
+                    }
                 />
             </DocSection>
         </>
