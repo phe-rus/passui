@@ -1,12 +1,16 @@
 name: Publish Passui packages
 
 on:
+    workflow_run:
+        workflows: ["Passui CI"]
+        types: [completed]
+        branches: [main]
     workflow_dispatch:
         inputs:
             package:
                 description: Package to publish
                 required: true
-                default: ui
+                default: solid
                 type: choice
                 options:
                     - tokens
@@ -19,12 +23,18 @@ permissions:
     contents: read
 
 concurrency:
-    group: npm-publish-${{ inputs.package }}
+    group: npm-publish-${{ github.event.inputs.package || 'solid' }}
     cancel-in-progress: false
 
 jobs:
     publish:
-        if: github.ref == 'refs/heads/main'
+        if: >-
+            (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
+            (github.event_name == 'workflow_run' &&
+             github.event.workflow_run.conclusion == 'success' &&
+             github.event.workflow_run.event == 'push' &&
+             github.event.workflow_run.head_branch == 'main' &&
+             github.event.workflow_run.head_repository.full_name == github.repository)
         runs-on: ubuntu-latest
         environment: npm-publish
         permissions:
@@ -32,10 +42,12 @@ jobs:
             id-token: write
         defaults:
             run:
-                working-directory: packages/${{ inputs.package }}
+                working-directory: packages/${{ github.event.inputs.package || 'solid' }}
         steps:
-            - name: Checkout
+            - name: Checkout validated commit
               uses: actions/checkout@v6
+              with:
+                  ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
             - name: Set up Bun
               uses: oven-sh/setup-bun@v2
@@ -52,11 +64,26 @@ jobs:
             - name: Update npm for trusted publishing
               run: npm install --global npm@latest
 
+            - name: Check whether version is already published
+              id: registry
+              run: |
+                  PACKAGE_NAME=$(node -p "require('./package.json').name")
+                  PACKAGE_VERSION=$(node -p "require('./package.json').version")
+                  if npm view "$PACKAGE_NAME@$PACKAGE_VERSION" version --json >/dev/null 2>&1; then
+                      echo "published=true" >> "$GITHUB_OUTPUT"
+                      echo "$PACKAGE_NAME@$PACKAGE_VERSION is already published."
+                  else
+                      echo "published=false" >> "$GITHUB_OUTPUT"
+                      echo "Preparing $PACKAGE_NAME@$PACKAGE_VERSION for publication."
+                  fi
+
             - name: Install dependencies
+              if: steps.registry.outputs.published == 'false'
               run: bun install --frozen-lockfile
               working-directory: .
 
             - name: Validate workspace
+              if: steps.registry.outputs.published == 'false'
               run: |
                   bun run check
                   bun run build
@@ -67,9 +94,11 @@ jobs:
               working-directory: .
 
             - name: Pack with Bun
+              if: steps.registry.outputs.published == 'false'
               run: |
                   mkdir -p "$RUNNER_TEMP/passui-release"
                   bun pm pack --destination "$RUNNER_TEMP/passui-release"
 
             - name: Publish with npm OIDC
+              if: steps.registry.outputs.published == 'false'
               run: npm publish "$RUNNER_TEMP"/passui-release/*.tgz --access public
