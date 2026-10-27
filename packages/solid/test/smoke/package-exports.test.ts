@@ -16,14 +16,31 @@ test("exports map includes expected entries", () => {
     ]) {
         expect(pkg.exports[entry]).toEqual({
             types: `./dist/types/src/${filename}.d.ts`,
-            browser: `./dist/client/src/${filename}.js`,
+            workerd: `./dist/server/src/${filename}.js`,
             node: `./dist/server/src/${filename}.js`,
+            browser: `./dist/client/src/${filename}.js`,
             default: `./dist/client/src/${filename}.js`,
         })
     }
     expect(pkg.exports["./styles.css"]).toBe(
         "./src/styles/styles.css"
     )
+})
+
+test("Worker SSR and browser exports resolve to the correct builds", () => {
+    const choose = (entry: Record<string, string>, conditions: string[]) =>
+        Object.entries(entry).find(([condition]) =>
+            condition === "default" || conditions.includes(condition)
+        )?.[1]
+
+    for (const entry of Object.values(pkg.exports)) {
+        if (typeof entry === "string") continue
+
+        expect(choose(entry, ["workerd", "browser"])).toContain("/dist/server/")
+        expect(choose(entry, ["node", "browser"])).toContain("/dist/server/")
+        expect(choose(entry, ["browser"])).toContain("/dist/client/")
+        expect(choose(entry, [])).toContain("/dist/client/")
+    }
 })
 
 test("no react in dependencies or peerDependencies", () => {
