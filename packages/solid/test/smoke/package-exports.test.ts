@@ -28,17 +28,28 @@ test("exports map includes expected entries", () => {
 })
 
 test("Worker SSR and browser exports resolve to the correct builds", () => {
-    const choose = (entry: Record<string, string>, conditions: string[]) =>
-        Object.entries(entry).find(([condition]) =>
-            condition === "default" || conditions.includes(condition)
+    const choose = (
+        entry: Record<string, string>,
+        conditions: string[]
+    ) =>
+        Object.entries(entry).find(
+            ([condition]) =>
+                condition === "default" ||
+                conditions.includes(condition)
         )?.[1]
 
     for (const entry of Object.values(pkg.exports)) {
         if (typeof entry === "string") continue
 
-        expect(choose(entry, ["workerd", "browser"])).toContain("/dist/server/")
-        expect(choose(entry, ["node", "browser"])).toContain("/dist/server/")
-        expect(choose(entry, ["browser"])).toContain("/dist/client/")
+        expect(
+            choose(entry, ["workerd", "browser"])
+        ).toContain("/dist/server/")
+        expect(choose(entry, ["node", "browser"])).toContain(
+            "/dist/server/"
+        )
+        expect(choose(entry, ["browser"])).toContain(
+            "/dist/client/"
+        )
         expect(choose(entry, [])).toContain("/dist/client/")
     }
 })
