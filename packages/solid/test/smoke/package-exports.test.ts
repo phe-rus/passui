@@ -38,8 +38,13 @@ test("Worker SSR and browser exports resolve to the correct builds", () => {
                 conditions.includes(condition)
         )?.[1]
 
-    type ExportMap = Record<string, string | Record<string, string>>
-    for (const entry of Object.values(pkg.exports as ExportMap)) {
+    type ExportMap = Record<
+        string,
+        string | Record<string, string>
+    >
+    for (const entry of Object.values(
+        pkg.exports as ExportMap
+    )) {
         if (typeof entry === "string") continue
 
         expect(
