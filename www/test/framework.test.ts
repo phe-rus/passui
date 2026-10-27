@@ -11,16 +11,25 @@ test("React is the default and framework paths preserve the selected page", () =
         "solid"
     )
     expect(getFramework("/solidarity")).toBe("react")
-    for (const path of [
-        "/docs/installation",
-        "/components",
-        "/components/button",
-    ]) {
-        const solid = frameworkPath(path, "solid")
-        expect(solid).toBe(`/solid${path}`)
-        expect(frameworkPath(solid, "react")).toBe(path)
-        expect(frameworkPath(solid, "solid")).toBe(solid)
-    }
+    expect(getFramework("/components/solid/button")).toBe("solid")
+    expect(getFramework("/components/react/button")).toBe("react")
+    expect(frameworkPath("/components", "solid")).toBe("/components")
+    expect(frameworkPath("/components", "react")).toBe("/components")
+    expect(frameworkPath("/docs/installation", "solid")).toBe(
+        "/solid/docs/installation"
+    )
+    expect(frameworkPath("/solid/docs/installation", "react")).toBe(
+        "/docs/installation"
+    )
+    expect(frameworkPath("/components/button", "solid")).toBe(
+        "/components/solid/button"
+    )
+    expect(frameworkPath("/components/solid/button", "react")).toBe(
+        "/components/react/button"
+    )
+    expect(frameworkPath("/components/solid/button", "solid")).toBe(
+        "/components/solid/button"
+    )
     expect(frameworkPath("/", "solid")).toBe(
         "/solid/docs/introduction"
     )

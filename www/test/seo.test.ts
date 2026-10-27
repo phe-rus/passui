@@ -26,8 +26,10 @@ describe("search discovery", () => {
             expect(paths).toContain(`/solid${guide.path}`)
         for (const entry of getCatalog())
             expect(paths).toContain(
-                `/components/${entry.docs.slug}`
+                `/components/react/${entry.docs.slug}`
             )
+        for (const slug of solidComponentSlugs)
+            expect(paths).toContain(`/components/solid/${slug}`)
         const xml = getSitemap()
         for (const path of paths) {
             const head = getPageHead(

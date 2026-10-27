@@ -129,7 +129,7 @@ test("Solid AI documentation uses native examples and links", () => {
         "https://passui.pherus.org"
     )
     expect(markdown).toContain("@passui/solid/button")
-    expect(markdown).toContain("/solid/components/button")
+    expect(markdown).toContain("/components/solid/button")
     expect(markdown).not.toContain("@passui/react/button")
     expect(markdown).not.toContain("@jsxImportSource")
 
@@ -143,7 +143,7 @@ test("Solid AI documentation uses native examples and links", () => {
     expect(skill).toContain("@passui/tanstack/solid/")
     expect(
         getSolidLlmsTxt("https://passui.pherus.org")
-    ).toContain("/solid/components/button")
+    ).toContain("/components/solid/button")
 })
 
 test("key Solid scenarios teach the same use cases as React", () => {
