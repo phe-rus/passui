@@ -29,7 +29,9 @@ describe("search discovery", () => {
                 `/components/react/${entry.docs.slug}`
             )
         for (const slug of solidComponentSlugs)
-            expect(paths).toContain(`/components/solid/${slug}`)
+            expect(paths).toContain(
+                `/components/solid/${slug}`
+            )
         const xml = getSitemap()
         for (const path of paths) {
             const head = getPageHead(
