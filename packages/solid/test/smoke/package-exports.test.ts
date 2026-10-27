@@ -38,7 +38,9 @@ test("Worker SSR and browser exports resolve to the correct builds", () => {
                 conditions.includes(condition)
         )?.[1]
 
-    for (const entry of Object.values(pkg.exports)) {
+    for (const entry of Object.values(
+        pkg.exports as Record<string, string | Record<string, string>>
+    )) {
         if (typeof entry === "string") continue
 
         expect(
