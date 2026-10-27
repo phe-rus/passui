@@ -23,11 +23,15 @@ permissions:
     contents: read
 
 concurrency:
-    group: npm-publish-${{ github.event.inputs.package || 'solid' }}
+    group: npm-publish-${{ github.event.inputs.package || 'auto' }}
     cancel-in-progress: false
 
 jobs:
     publish:
+        strategy:
+            fail-fast: false
+            matrix:
+                package: ${{ github.event_name == 'workflow_dispatch' && fromJSON(format('["{0}"]', github.event.inputs.package)) || fromJSON('["solid","tanstack"]') }}
         if: >-
             (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
             (github.event_name == 'workflow_run' &&
@@ -42,7 +46,7 @@ jobs:
             id-token: write
         defaults:
             run:
-                working-directory: packages/${{ github.event.inputs.package || 'solid' }}
+                working-directory: packages/${{ matrix.package }}
         steps:
             - name: Checkout validated commit
               uses: actions/checkout@v6
