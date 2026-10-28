@@ -22,6 +22,7 @@ import { cn } from "../../lib/class-names"
 import { FLOATING_LAYER } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
 import { IconButton } from "../button/icon-button"
+import { Picker } from "../picker/picker"
 import {
     addDays,
     addMonths,
@@ -45,6 +46,8 @@ export interface CompactDatePickerProps {
         previousMonth: string
         nextMonth: string
         clear?: string
+        month?: string
+        year?: string
     }
     className?: string
     class?: string
@@ -153,6 +156,25 @@ function MonthCalendar(
         () => props.anchor,
         props.close
     )
+    const minimumYear = parseDay(props.min)?.year ?? today.year - 150
+    const maximumYear = parseDay(props.max)?.year ?? today.year + 20
+    const years = Array.from(
+        { length: Math.max(0, maximumYear - minimumYear + 1) },
+        (_, index) => {
+            const value = String(maximumYear - index)
+            return { value, label: value }
+        }
+    )
+    const months = Array.from({ length: 12 }, (_, index) => {
+        const month = index + 1
+        return {
+            value: String(month),
+            label: new Intl.DateTimeFormat(props.locale, {
+                month: "long",
+                timeZone: "UTC",
+            }).format(new Date(Date.UTC(2000, index, 1))),
+        }
+    })
     const days = createMemo(() =>
         monthGrid(
             focused().year,
@@ -260,13 +282,33 @@ function MonthCalendar(
                     : "50% 0%",
             }}
         >
-            <div class="flex items-center justify-between gap-2 ps-2">
-                <p
-                    class="text-headline font-semibold"
-                    aria-live="polite"
-                >
-                    {title()}
-                </p>
+            <div class="flex items-center justify-between gap-2">
+                <p class="sr-only" aria-live="polite">{title()}</p>
+                <div class="flex min-w-0 flex-1 items-center gap-1">
+                    <Picker
+                        label={props.labels.month ?? "Month"}
+                        value={String(focused().month)}
+                        options={months}
+                        onChange={(value) => setFocused({
+                            ...focused(),
+                            month: Number(value),
+                            day: 1,
+                        })}
+                        class="min-w-0 flex-1 px-2 py-1"
+                    />
+                    <Picker
+                        label={props.labels.year ?? "Year"}
+                        value={String(focused().year)}
+                        options={years}
+                        searchable
+                        onChange={(value) => setFocused({
+                            ...focused(),
+                            year: Number(value),
+                            day: 1,
+                        })}
+                        class="w-24 shrink-0 px-2 py-1"
+                    />
+                </div>
                 <div class="flex items-center rtl:flex-row-reverse">
                     <IconButton
                         variant="ghost"
