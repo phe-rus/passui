@@ -51,7 +51,7 @@
     },
     "packages/tanstack": {
       "name": "@passui/tanstack",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5",
       },
