@@ -3,6 +3,8 @@ import {
     advanceSpring,
     rubberBand,
     springAtRest,
+    shouldCompleteGesture,
+    gestureProgress,
 } from "../../src/lib/spring"
 
 const snappy = { mass: 1, stiffness: 380, damping: 22 }
@@ -85,5 +87,28 @@ describe("damped spring motion", () => {
         )
         expect(rubberBand(100000, 100)).toBeLessThan(100)
         expect(rubberBand(10, 0)).toBe(0)
+    })
+})
+
+describe("directional navigation gestures", () => {
+    test("completes from distance or forward flick velocity", () => {
+        expect(shouldCompleteGesture(110, 0, 300)).toBe(true)
+        expect(shouldCompleteGesture(30, 500, 300)).toBe(true)
+        expect(shouldCompleteGesture(30, 0, 300)).toBe(false)
+    })
+
+    test("rejects reverse drags and invalid dimensions", () => {
+        expect(shouldCompleteGesture(-120, 900, 300)).toBe(false)
+        expect(shouldCompleteGesture(40, -100, 300)).toBe(false)
+        expect(shouldCompleteGesture(120, 0, 0)).toBe(false)
+        expect(shouldCompleteGesture(-110, 0, 300, -1)).toBe(true)
+    })
+
+    test("normalizes progress and clamps overshoot", () => {
+        expect(gestureProgress(150, 300)).toBe(0.5)
+        expect(gestureProgress(-20, 300)).toBe(0)
+        expect(gestureProgress(500, 300)).toBe(1)
+        expect(gestureProgress(-150, 300, -1)).toBe(0.5)
+        expect(gestureProgress(50, 0)).toBe(0)
     })
 })
