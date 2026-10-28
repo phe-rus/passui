@@ -156,10 +156,17 @@ function MonthCalendar(
         () => props.anchor,
         props.close
     )
-    const minimumYear = parseDay(props.min)?.year ?? today.year - 150
-    const maximumYear = parseDay(props.max)?.year ?? today.year + 20
+    const minimumYear =
+        parseDay(props.min)?.year ?? today.year - 150
+    const maximumYear =
+        parseDay(props.max)?.year ?? today.year + 20
     const years = Array.from(
-        { length: Math.max(0, maximumYear - minimumYear + 1) },
+        {
+            length: Math.max(
+                0,
+                maximumYear - minimumYear + 1
+            ),
+        },
         (_, index) => {
             const value = String(maximumYear - index)
             return { value, label: value }
@@ -283,17 +290,21 @@ function MonthCalendar(
             }}
         >
             <div class="flex items-center justify-between gap-2">
-                <p class="sr-only" aria-live="polite">{title()}</p>
+                <p class="sr-only" aria-live="polite">
+                    {title()}
+                </p>
                 <div class="flex min-w-0 flex-1 items-center gap-1">
                     <Picker
                         label={props.labels.month ?? "Month"}
                         value={String(focused().month)}
                         options={months}
-                        onChange={(value) => setFocused({
-                            ...focused(),
-                            month: Number(value),
-                            day: 1,
-                        })}
+                        onChange={(value) =>
+                            setFocused({
+                                ...focused(),
+                                month: Number(value),
+                                day: 1,
+                            })
+                        }
                         class="min-w-0 flex-1 px-2 py-1"
                     />
                     <Picker
@@ -301,11 +312,13 @@ function MonthCalendar(
                         value={String(focused().year)}
                         options={years}
                         searchable
-                        onChange={(value) => setFocused({
-                            ...focused(),
-                            year: Number(value),
-                            day: 1,
-                        })}
+                        onChange={(value) =>
+                            setFocused({
+                                ...focused(),
+                                year: Number(value),
+                                day: 1,
+                            })
+                        }
                         class="w-24 shrink-0 px-2 py-1"
                     />
                 </div>
