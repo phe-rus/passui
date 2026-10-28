@@ -22,7 +22,6 @@ import { cn } from "../../lib/class-names"
 import { FLOATING_LAYER } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
 import { IconButton } from "../button/icon-button"
-import { Picker } from "../picker/picker"
 import {
     addDays,
     addMonths,
@@ -146,6 +145,18 @@ function MonthCalendar(
     const [focused, setFocused] = createSignal(
         parseDay(props.value) ?? today
     )
+    const [choosingMonthYear, setChoosingMonthYear] = createSignal(false)
+    const [yearInput, setYearInput] = createSignal(String(focused().year))
+    const yearChoices = createMemo(() => {
+        const center = focused().year
+        return Array.from({ length: 9 }, (_, index) => center - 4 + index)
+            .filter((year) => year >= minimumYear && year <= maximumYear)
+    })
+    const setMonthYear = (year: number, month: number) => {
+        if (year < minimumYear || year > maximumYear) return
+        setFocused({ year, month, day: 1 })
+        setYearInput(String(year))
+    }
     const placement = useAnchoredPlacement(
         () => props.anchor,
         () => 308,
@@ -160,18 +171,6 @@ function MonthCalendar(
         parseDay(props.min ?? "")?.year ?? today.year - 150
     const maximumYear =
         parseDay(props.max ?? "")?.year ?? today.year + 20
-    const years = Array.from(
-        {
-            length: Math.max(
-                0,
-                maximumYear - minimumYear + 1
-            ),
-        },
-        (_, index) => {
-            const value = String(maximumYear - index)
-            return { value, label: value }
-        }
-    )
     const months = Array.from({ length: 12 }, (_, index) => {
         const month = index + 1
         return {
@@ -213,6 +212,7 @@ function MonthCalendar(
             })
     )
     createEffect(() => {
+        if (choosingMonthYear()) return
         root?.querySelector<HTMLButtonElement>(
             `[data-day="${formatDay(focused())}"]`
         )?.focus()
@@ -221,6 +221,7 @@ function MonthCalendar(
         HTMLDivElement,
         KeyboardEvent
     > = (event) => {
+        if (choosingMonthYear() && event.key !== "Escape") return
         const rtl =
             getComputedStyle(event.currentTarget)
                 .direction === "rtl"
@@ -293,71 +294,119 @@ function MonthCalendar(
                 <p class="sr-only" aria-live="polite">
                     {title()}
                 </p>
-                <div class="flex min-w-0 flex-1 items-center gap-1">
-                    <Picker
-                        label={props.labels.month ?? "Month"}
-                        value={String(focused().month)}
-                        options={months}
-                        onChange={(value) =>
-                            setFocused({
-                                ...focused(),
-                                month: Number(value),
-                                day: 1,
-                            })
-                        }
-                        class="min-w-0 flex-1 px-2 py-1"
-                    />
-                    <Picker
-                        label={props.labels.year ?? "Year"}
-                        value={String(focused().year)}
-                        options={years}
-                        searchable
-                        onChange={(value) =>
-                            setFocused({
-                                ...focused(),
-                                year: Number(value),
-                                day: 1,
-                            })
-                        }
-                        class="w-24 shrink-0 px-2 py-1"
-                    />
-                </div>
-                <div class="flex items-center rtl:flex-row-reverse">
-                    <IconButton
-                        variant="ghost"
-                        size="icon-sm"
-                        label={props.labels.previousMonth}
-                        onClick={() =>
-                            setFocused(
-                                addMonths(focused(), -1)
-                            )
-                        }
-                        class="text-accent-text"
-                    >
-                        <Hugeicon
-                            icon={ArrowLeft01Icon}
-                            size={20}
-                        />
-                    </IconButton>
-                    <IconButton
-                        variant="ghost"
-                        size="icon-sm"
-                        label={props.labels.nextMonth}
-                        onClick={() =>
-                            setFocused(
-                                addMonths(focused(), 1)
-                            )
-                        }
-                        class="text-accent-text"
-                    >
-                        <Hugeicon
-                            icon={ArrowRight01Icon}
-                            size={20}
-                        />
-                    </IconButton>
-                </div>
+                <button
+                    type="button"
+                    aria-expanded={choosingMonthYear()}
+                    aria-label={`${title()}, choose month and year`}
+                    onClick={() => {
+                        setYearInput(String(focused().year))
+                        setChoosingMonthYear((value) => !value)
+                    }}
+                    class="flex min-w-0 items-center gap-2 rounded-full px-3 py-2 text-headline font-semibold text-label transition-colors hover:bg-fill/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+                >
+                    <span class="truncate">{title()}</span>
+                    <span aria-hidden="true" class="text-caption text-label-tertiary">
+                        {choosingMonthYear() ? "⌃" : "⌄"}
+                    </span>
+                </button>
+                <Show when={!choosingMonthYear()}>
+                    <div class="flex items-center rtl:flex-row-reverse">
+                        <IconButton
+                            variant="ghost"
+                            size="icon-sm"
+                            label={props.labels.previousMonth}
+                            onClick={() => setFocused(addMonths(focused(), -1))}
+                            class="text-accent-text"
+                        >
+                            <Hugeicon icon={ArrowLeft01Icon} size={20} />
+                        </IconButton>
+                        <IconButton
+                            variant="ghost"
+                            size="icon-sm"
+                            label={props.labels.nextMonth}
+                            onClick={() => setFocused(addMonths(focused(), 1))}
+                            class="text-accent-text"
+                        >
+                            <Hugeicon icon={ArrowRight01Icon} size={20} />
+                        </IconButton>
+                    </div>
+                </Show>
             </div>
+            <Show when={choosingMonthYear()}>
+                <div class="flex flex-col gap-3 rounded-2xl bg-fill/40 p-3">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-footnote font-semibold text-label-secondary">
+                            {props.labels.year ?? "Year"}
+                        </span>
+                        <div class="flex items-center gap-2">
+                            <input
+                                type="number"
+                                inputMode="numeric"
+                                aria-label={props.labels.year ?? "Year"}
+                                min={minimumYear}
+                                max={maximumYear}
+                                value={yearInput()}
+                                onInput={(event) => setYearInput(event.currentTarget.value)}
+                                onChange={() => {
+                                    const year = Number(yearInput())
+                                    if (Number.isInteger(year)) {
+                                        setMonthYear(year, focused().month)
+                                    } else {
+                                        setYearInput(String(focused().year))
+                                    }
+                                }}
+                                class="w-20 rounded-lg border border-separator bg-elevated px-2 py-1.5 text-center text-subheadline tabular-nums text-label focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+                            />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-5 gap-1" aria-label="Nearby years">
+                        <For each={yearChoices()}>
+                            {(year) => (
+                                <button
+                                    type="button"
+                                    aria-pressed={year === focused().year}
+                                    onClick={() => setMonthYear(year, focused().month)}
+                                    class={cn(
+                                        "rounded-lg py-2 text-caption tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
+                                        year === focused().year
+                                            ? "bg-accent font-semibold text-on-accent"
+                                            : "text-label-secondary hover:bg-fill/80"
+                                    )}
+                                >
+                                    {year}
+                                </button>
+                            )}
+                        </For>
+                    </div>
+                    <span class="text-footnote font-semibold text-label-secondary">
+                        {props.labels.month ?? "Month"}
+                    </span>
+                    <div class="grid grid-cols-3 gap-1" aria-label="Months">
+                        <For each={months}>
+                            {(month) => (
+                                <button
+                                    type="button"
+                                    aria-pressed={Number(month.value) === focused().month}
+                                    onClick={() => {
+                                        setMonthYear(focused().year, Number(month.value))
+                                        setChoosingMonthYear(false)
+                                    }}
+                                    class={cn(
+                                        "rounded-xl px-1 py-2 text-subheadline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
+                                        Number(month.value) === focused().month
+                                            ? "bg-accent font-semibold text-on-accent"
+                                            : "text-label hover:bg-fill/80"
+                                    )}
+                                >
+                                    {month.label}
+                                </button>
+                            )}
+                        </For>
+                    </div>
+                </div>
+            </Show>
             <div
+                hidden={choosingMonthYear()}
                 role="grid"
                 aria-label={title()}
                 class="grid grid-cols-7 gap-y-0.5"

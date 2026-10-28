@@ -1,6 +1,6 @@
 {
     "name": "@passui/solid",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "Passui: native SolidJS controls, design tokens, presentation and appearance.",
     "license": "MIT",
     "repository": {

@@ -28,7 +28,7 @@
     },
     "packages/solid": {
       "name": "@passui/solid",
-      "version": "0.1.7",
+      "version": "0.1.8",
       "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5",
         "@passui/tokens": "workspace:^",
