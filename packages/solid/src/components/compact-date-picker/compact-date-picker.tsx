@@ -157,9 +157,9 @@ function MonthCalendar(
         props.close
     )
     const minimumYear =
-        parseDay(props.min)?.year ?? today.year - 150
+        parseDay(props.min ?? "")?.year ?? today.year - 150
     const maximumYear =
-        parseDay(props.max)?.year ?? today.year + 20
+        parseDay(props.max ?? "")?.year ?? today.year + 20
     const years = Array.from(
         {
             length: Math.max(
