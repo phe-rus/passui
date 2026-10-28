@@ -109,7 +109,6 @@ export function springAtRest(
     )
 }
 
-
 /**
  * Decide whether a directional drag should finish a gesture.
  * Distance is in pixels, velocity in pixels per second. Project a short
@@ -123,9 +122,12 @@ export function shouldCompleteGesture(
     direction: 1 | -1 = 1
 ): boolean {
     if (
-        ![distance, velocity, extent].every(Number.isFinite) ||
+        ![distance, velocity, extent].every(
+            Number.isFinite
+        ) ||
         extent <= 0
-    ) return false
+    )
+        return false
 
     const displacement = distance * direction
     const speed = velocity * direction
@@ -133,8 +135,10 @@ export function shouldCompleteGesture(
 
     const threshold = extent * 0.35
     const projected = displacement + speed * 0.18
-    return displacement >= threshold ||
+    return (
+        displacement >= threshold ||
         (speed > 0 && projected >= threshold)
+    )
 }
 
 /** Normalized interactive progress for a drag that may be cancelled. */
@@ -143,8 +147,15 @@ export function gestureProgress(
     extent: number,
     direction: 1 | -1 = 1
 ): number {
-    if (!Number.isFinite(distance) || !Number.isFinite(extent) || extent <= 0) {
+    if (
+        !Number.isFinite(distance) ||
+        !Number.isFinite(extent) ||
+        extent <= 0
+    ) {
         return 0
     }
-    return Math.min(1, Math.max(0, (distance * direction) / extent))
+    return Math.min(
+        1,
+        Math.max(0, (distance * direction) / extent)
+    )
 }

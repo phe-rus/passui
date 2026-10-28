@@ -98,10 +98,16 @@ describe("directional navigation gestures", () => {
     })
 
     test("rejects reverse drags and invalid dimensions", () => {
-        expect(shouldCompleteGesture(-120, 900, 300)).toBe(false)
-        expect(shouldCompleteGesture(40, -100, 300)).toBe(false)
+        expect(shouldCompleteGesture(-120, 900, 300)).toBe(
+            false
+        )
+        expect(shouldCompleteGesture(40, -100, 300)).toBe(
+            false
+        )
         expect(shouldCompleteGesture(120, 0, 0)).toBe(false)
-        expect(shouldCompleteGesture(-110, 0, 300, -1)).toBe(true)
+        expect(shouldCompleteGesture(-110, 0, 300, -1)).toBe(
+            true
+        )
     })
 
     test("normalizes progress and clamps overshoot", () => {
