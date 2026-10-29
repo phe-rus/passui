@@ -144,7 +144,7 @@
     },
     "packages/ui": {
       "name": "@passui/react",
-      "version": "0.1.17",
+      "version": "0.1.18",
       "dependencies": {
         "@hugeicons/core-free-icons": "4.3.5",
         "@hugeicons/react": "1.1.10",
