@@ -145,12 +145,20 @@ function MonthCalendar(
     const [focused, setFocused] = createSignal(
         parseDay(props.value) ?? today
     )
-    const [choosingMonthYear, setChoosingMonthYear] = createSignal(false)
-    const [yearInput, setYearInput] = createSignal(String(focused().year))
+    const [choosingMonthYear, setChoosingMonthYear] =
+        createSignal(false)
+    const [yearInput, setYearInput] = createSignal(
+        String(focused().year)
+    )
     const yearChoices = createMemo(() => {
         const center = focused().year
-        return Array.from({ length: 9 }, (_, index) => center - 4 + index)
-            .filter((year) => year >= minimumYear && year <= maximumYear)
+        return Array.from(
+            { length: 9 },
+            (_, index) => center - 4 + index
+        ).filter(
+            (year) =>
+                year >= minimumYear && year <= maximumYear
+        )
     })
     const setMonthYear = (year: number, month: number) => {
         if (year < minimumYear || year > maximumYear) return
@@ -221,7 +229,8 @@ function MonthCalendar(
         HTMLDivElement,
         KeyboardEvent
     > = (event) => {
-        if (choosingMonthYear() && event.key !== "Escape") return
+        if (choosingMonthYear() && event.key !== "Escape")
+            return
         const rtl =
             getComputedStyle(event.currentTarget)
                 .direction === "rtl"
@@ -300,12 +309,17 @@ function MonthCalendar(
                     aria-label={`${title()}, choose month and year`}
                     onClick={() => {
                         setYearInput(String(focused().year))
-                        setChoosingMonthYear((value) => !value)
+                        setChoosingMonthYear(
+                            (value) => !value
+                        )
                     }}
                     class="flex min-w-0 items-center gap-2 rounded-full px-3 py-2 text-headline font-semibold text-label transition-colors hover:bg-fill/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
                 >
                     <span class="truncate">{title()}</span>
-                    <span aria-hidden="true" class="text-caption text-label-tertiary">
+                    <span
+                        aria-hidden="true"
+                        class="text-caption text-label-tertiary"
+                    >
                         {choosingMonthYear() ? "⌃" : "⌄"}
                     </span>
                 </button>
@@ -315,19 +329,33 @@ function MonthCalendar(
                             variant="ghost"
                             size="icon-sm"
                             label={props.labels.previousMonth}
-                            onClick={() => setFocused(addMonths(focused(), -1))}
+                            onClick={() =>
+                                setFocused(
+                                    addMonths(focused(), -1)
+                                )
+                            }
                             class="text-accent-text"
                         >
-                            <Hugeicon icon={ArrowLeft01Icon} size={20} />
+                            <Hugeicon
+                                icon={ArrowLeft01Icon}
+                                size={20}
+                            />
                         </IconButton>
                         <IconButton
                             variant="ghost"
                             size="icon-sm"
                             label={props.labels.nextMonth}
-                            onClick={() => setFocused(addMonths(focused(), 1))}
+                            onClick={() =>
+                                setFocused(
+                                    addMonths(focused(), 1)
+                                )
+                            }
                             class="text-accent-text"
                         >
-                            <Hugeicon icon={ArrowRight01Icon} size={20} />
+                            <Hugeicon
+                                icon={ArrowRight01Icon}
+                                size={20}
+                            />
                         </IconButton>
                     </div>
                 </Show>
@@ -342,33 +370,65 @@ function MonthCalendar(
                             <input
                                 type="number"
                                 inputMode="numeric"
-                                aria-label={props.labels.year ?? "Year"}
+                                aria-label={
+                                    props.labels.year ??
+                                    "Year"
+                                }
                                 min={minimumYear}
                                 max={maximumYear}
                                 value={yearInput()}
-                                onInput={(event) => setYearInput(event.currentTarget.value)}
+                                onInput={(event) =>
+                                    setYearInput(
+                                        event.currentTarget
+                                            .value
+                                    )
+                                }
                                 onChange={() => {
-                                    const year = Number(yearInput())
-                                    if (Number.isInteger(year)) {
-                                        setMonthYear(year, focused().month)
+                                    const year = Number(
+                                        yearInput()
+                                    )
+                                    if (
+                                        Number.isInteger(year)
+                                    ) {
+                                        setMonthYear(
+                                            year,
+                                            focused().month
+                                        )
                                     } else {
-                                        setYearInput(String(focused().year))
+                                        setYearInput(
+                                            String(
+                                                focused().year
+                                            )
+                                        )
                                     }
                                 }}
                                 class="w-20 rounded-lg border border-separator bg-elevated px-2 py-1.5 text-center text-subheadline tabular-nums text-label focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
                             />
                         </div>
                     </div>
-                    <div class="grid grid-cols-5 gap-1" aria-label="Nearby years">
+                    <div
+                        class="grid grid-cols-5 gap-1"
+                        role="group"
+                        aria-label="Nearby years"
+                    >
                         <For each={yearChoices()}>
                             {(year) => (
                                 <button
                                     type="button"
-                                    aria-pressed={year === focused().year}
-                                    onClick={() => setMonthYear(year, focused().month)}
+                                    aria-pressed={
+                                        year ===
+                                        focused().year
+                                    }
+                                    onClick={() =>
+                                        setMonthYear(
+                                            year,
+                                            focused().month
+                                        )
+                                    }
                                     class={cn(
                                         "rounded-lg py-2 text-caption tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
-                                        year === focused().year
+                                        year ===
+                                            focused().year
                                             ? "bg-accent font-semibold text-on-accent"
                                             : "text-label-secondary hover:bg-fill/80"
                                     )}
@@ -381,19 +441,36 @@ function MonthCalendar(
                     <span class="text-footnote font-semibold text-label-secondary">
                         {props.labels.month ?? "Month"}
                     </span>
-                    <div class="grid grid-cols-3 gap-1" aria-label="Months">
+                    <div
+                        class="grid grid-cols-3 gap-1"
+                        role="group"
+                        aria-label="Months"
+                    >
                         <For each={months}>
                             {(month) => (
                                 <button
                                     type="button"
-                                    aria-pressed={Number(month.value) === focused().month}
+                                    aria-pressed={
+                                        Number(
+                                            month.value
+                                        ) === focused().month
+                                    }
                                     onClick={() => {
-                                        setMonthYear(focused().year, Number(month.value))
-                                        setChoosingMonthYear(false)
+                                        setMonthYear(
+                                            focused().year,
+                                            Number(
+                                                month.value
+                                            )
+                                        )
+                                        setChoosingMonthYear(
+                                            false
+                                        )
                                     }}
                                     class={cn(
                                         "rounded-xl px-1 py-2 text-subheadline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
-                                        Number(month.value) === focused().month
+                                        Number(
+                                            month.value
+                                        ) === focused().month
                                             ? "bg-accent font-semibold text-on-accent"
                                             : "text-label hover:bg-fill/80"
                                     )}

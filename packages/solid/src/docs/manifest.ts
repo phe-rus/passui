@@ -35,6 +35,7 @@ export const solidComponentSlugs: readonly string[] = [
     "toast",
     "tooltip",
     "context-menu",
+    "inline-disclosure",
 ]
 
 export function hasSolidComponent(slug: string) {

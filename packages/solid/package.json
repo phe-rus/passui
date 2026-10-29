@@ -1,6 +1,6 @@
 {
     "name": "@passui/solid",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "Passui: native SolidJS controls, design tokens, presentation and appearance.",
     "license": "MIT",
     "repository": {
@@ -298,6 +298,13 @@
             "node": "./dist/server/src/components/locale-switcher/locale-switcher.js",
             "browser": "./dist/client/src/components/locale-switcher/locale-switcher.js",
             "default": "./dist/client/src/components/locale-switcher/locale-switcher.js"
+        },
+        "./inline-disclosure": {
+            "types": "./dist/types/src/components/inline-disclosure/inline-disclosure.d.ts",
+            "workerd": "./dist/server/src/components/inline-disclosure/inline-disclosure.js",
+            "node": "./dist/server/src/components/inline-disclosure/inline-disclosure.js",
+            "browser": "./dist/client/src/components/inline-disclosure/inline-disclosure.js",
+            "default": "./dist/client/src/components/inline-disclosure/inline-disclosure.js"
         },
         "./dialog": {
             "types": "./dist/types/src/components/dialog/dialog.d.ts",
