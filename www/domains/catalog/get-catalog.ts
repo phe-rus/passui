@@ -43,6 +43,7 @@ import {
     searchFieldDocs,
     secureFieldDocs,
     sectionDocs,
+    inlineDisclosureDocs,
     segmentedControlDocs,
     statTileDocs,
     statusIndicatorDocs,
@@ -79,6 +80,7 @@ import { pickerContent } from "./content/picker"
 import { searchFieldContent } from "./content/search-field"
 import { secureFieldContent } from "./content/secure-field"
 import { sectionContent } from "./content/section"
+import { inlineDisclosureContent } from "./content/inline-disclosure"
 import { segmentedControlContent } from "./content/segmented-control"
 import { statTileContent } from "./content/stat-tile"
 import { statusIndicatorContent } from "./content/status-indicator"
@@ -205,6 +207,12 @@ const entries: CatalogEntry[] = [
         icon: ListViewIcon,
         docs: sectionDocs,
         content: sectionContent,
+    },
+    {
+        group: "Layout",
+        icon: UnfoldMoreIcon,
+        docs: inlineDisclosureDocs,
+        content: inlineDisclosureContent,
     },
     {
         group: "Layout",

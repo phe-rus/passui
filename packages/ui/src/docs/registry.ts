@@ -6,6 +6,7 @@ import { pickerDocs } from "../components/picker/picker.docs"
 import { searchFieldDocs } from "../components/search-field/search-field.docs"
 import { secureFieldDocs } from "../components/secure-field/secure-field.docs"
 import { sectionDocs } from "../components/section/section.docs"
+import { inlineDisclosureDocs } from "../components/inline-disclosure/inline-disclosure.docs"
 import { segmentedControlDocs } from "../components/segmented-control/segmented-control.docs"
 import { statTileDocs } from "../components/stat-tile/stat-tile.docs"
 import { statusIndicatorDocs } from "../components/status-indicator/status-indicator.docs"
@@ -48,6 +49,7 @@ export const registry: readonly RegisteredDocs[] = [
     pickerDocs,
     swatchPickerDocs,
     sectionDocs,
+    inlineDisclosureDocs,
     labeledContentDocs,
     statusIndicatorDocs,
     statTileDocs,
@@ -104,6 +106,7 @@ export {
     searchFieldDocs,
     secureFieldDocs,
     sectionDocs,
+    inlineDisclosureDocs,
     segmentedControlDocs,
     statTileDocs,
     statusIndicatorDocs,
