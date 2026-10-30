@@ -1,6 +1,19 @@
 import type { ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
+export interface LabeledContentProps {
+    /** The visible name of the row. */
+    label: string
+    /** Supporting text below the label. */
+    description?: string
+    /** The row's control or value. */
+    children: ReactNode
+    /** Places the control below the label at every width. @default false */
+    stacked?: boolean
+    /** Places a wide control below its label on phones. @default false */
+    wide?: boolean
+}
+
 /**
  * A row: a label, an optional description, and its control at the trailing
  * end, as SwiftUI's `LabeledContent`. Wide controls move under the label
@@ -12,15 +25,7 @@ export function LabeledContent({
     children,
     stacked,
     wide,
-}: {
-    label: string
-    description?: string
-    children: ReactNode
-    /** Put the control under the label, for wide controls. */
-    stacked?: boolean
-    /** A wide control (segmented) that moves under the label on phones. */
-    wide?: boolean
-}) {
+}: LabeledContentProps) {
     return (
         <div
             className={cn(

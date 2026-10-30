@@ -1,6 +1,5 @@
-import { AiMagicIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { toast } from "@passui/react"
+import { SparkleIcon } from "@passui/react/icons"
+import { useCopyText } from "@/domains/clipboard/use-copy-text"
 import { getEntry } from "@/domains/catalog/get-catalog"
 import {
     getComponentMarkdown,
@@ -15,32 +14,32 @@ export function CopyForAi({
     slug: string
     framework?: "react" | "solid"
 }) {
+    const clipboard = useCopyText()
     async function copy() {
         const entry = getEntry(slug)
         if (!entry) return
-        try {
-            await navigator.clipboard.writeText(
-                (framework === "solid"
-                    ? getSolidComponentMarkdown
-                    : getComponentMarkdown)(
-                    entry,
-                    window.location.origin
-                )
-            )
-            toast.success("Copied as Markdown")
-        } catch {
-            toast.error("Could not copy. Try again.")
-        }
+        await clipboard.copy(
+            (framework === "solid"
+                ? getSolidComponentMarkdown
+                : getComponentMarkdown)(
+                entry,
+                window.location.origin
+            ),
+            "Copied as Markdown"
+        )
     }
 
     return (
-        <button
-            type="button"
-            onClick={copy}
-            className="inline-flex items-center gap-1.5 rounded-full bg-fill/70 px-3 py-1.5 text-footnote font-semibold text-label transition-colors hover:bg-fill"
-        >
-            <HugeiconsIcon icon={AiMagicIcon} size={14} />
-            Copy for AI
-        </button>
+        <>
+            <button
+                type="button"
+                onClick={copy}
+                className="inline-flex items-center gap-1.5 rounded-full bg-fill/70 px-3 py-1.5 text-footnote font-semibold text-label transition-colors hover:bg-fill"
+            >
+                <SparkleIcon size={14} />
+                Copy for AI
+            </button>
+            {clipboard.fallback}
+        </>
     )
 }

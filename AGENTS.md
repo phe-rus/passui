@@ -26,6 +26,8 @@ outside `src/`. Shared tokens and their tests live in `packages/tokens`.
 
 ## Checks and publishing
 
+Scrollbar chrome is forbidden throughout Passui. Shared base styles hide it while preserving scrolling.
+
 Use Bun for installation, typecheck and packing; tests run on Vitest
 through Vitest (`vitest run`, importing from `vitest`), and
 `bun run check` runs Biome from the root `biome.json`.
@@ -50,3 +52,7 @@ URLs or metadata, read [the SEO guide](docs/seo.md).
 
 Use ChromeOS Chrome for browser checks. In Crostini, open links through
 `/usr/bin/garcon-url-handler`. Do not launch a Linux or embedded browser.
+
+For unfinished React and docs refinement, start with git status and
+[the checkpoint](docs/architecture/react-refinement-resume.md). Keep reads,
+tool output and updates short; reuse recorded decisions and passing checks.

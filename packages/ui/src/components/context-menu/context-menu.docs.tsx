@@ -7,6 +7,13 @@ import { ContextMenuList } from "./examples/context-menu-list"
 import { ContextMenuShowcase } from "./examples/context-menu-showcase"
 import { ContextMenuUsage } from "./examples/context-menu-usage"
 import { useContextMenu } from "./use-context-menu"
+import { copyText } from "../../lib/clipboard"
+
+async function copyLink() {
+    if (await copyText(window.location.href))
+        toast.success("Link copied")
+    else toast.error("Could not copy the link")
+}
 
 // useContextMenu is a hook: the playground spreads its handlers on a
 // card, and the switches change the menu's rows.
@@ -21,7 +28,7 @@ function items({
 }: DemoProps): ContextMenuItem[] {
     return [
         ...(heading ? [{ heading: "Photo" }] : []),
-        { label: "Copy", onSelect: () => toast("Copied") },
+        { label: "Copy link", onSelect: copyLink },
         { label: "Share", onSelect: () => toast("Shared") },
         ...(destructive
             ? [
@@ -58,13 +65,20 @@ export const contextMenuDocs = defineDocs<DemoProps>()({
     },
     render: (values) => <ContextMenuDemo {...values} />,
     childrenSnippet: ({ heading, destructive }) => ({
-        imports: ['import { toast } from "@passui/react"'],
+        imports: [
+            'import { toast } from "@passui/react"',
+            'import { copyText } from "@passui/react/clipboard"',
+        ],
         element: "div",
         omit: ["heading", "destructive"],
         setup: [
+            "async function copyLink() {",
+            '    if (await copyText(window.location.href)) toast.success("Link copied")',
+            '    else toast.error("Could not copy the link")',
+            "}",
             "const menu = useContextMenu(() => [",
             ...(heading ? ['    { heading: "Photo" },'] : []),
-            '    { label: "Copy", onSelect: () => toast("Copied") },',
+            '    { label: "Copy link", onSelect: copyLink },',
             '    { label: "Share", onSelect: () => toast("Shared") },',
             ...(destructive
                 ? [

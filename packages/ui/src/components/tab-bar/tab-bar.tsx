@@ -19,6 +19,28 @@ export interface TabBarLinkProps {
     children: ReactNode
 }
 
+export type TabBarMinimizeBehavior =
+    | "platform"
+    | "scroll"
+    | "never"
+
+export interface TabBarProps<Tab extends TabBarTab> {
+    /** `platform` follows the platform, `scroll` always minimizes, `never` stays expanded. @default "platform" */
+    minimizeBehavior?: TabBarMinimizeBehavior
+    tabs: readonly Tab[]
+    /** Active tab ID, or null for a destination outside the bar. */
+    active: Tab["id"] | null
+    /** Renders your router's link with the supplied appearance and accessibility props. */
+    renderLink: (
+        tab: Tab,
+        props: TabBarLinkProps
+    ) => ReactNode
+    search?: { label: string; onPress: () => void }
+    /** Accessible name for the navigation. */
+    label: string
+    className?: string
+}
+
 /**
  * The app's main places a thumb's reach away, drawn as iOS 26 draws them: a
  * floating glass capsule of tabs, with Search as its own round button at the
@@ -36,20 +58,7 @@ export function TabBar<Tab extends TabBarTab>({
     label,
     className,
     minimizeBehavior = "platform",
-}: {
-    minimizeBehavior?: "platform" | "scroll" | "never"
-    tabs: readonly Tab[]
-    /** Null in places the bar has no tab for. */
-    active: Tab["id"] | null
-    renderLink: (
-        tab: Tab,
-        props: TabBarLinkProps
-    ) => ReactNode
-    search?: { label: string; onPress: () => void }
-    /** Names the navigation for screen readers. */
-    label: string
-    className?: string
-}) {
+}: TabBarProps<Tab>) {
     // Scopes the sliding selection to this bar, so two bars on one
     // screen (a docs page, a split view) never trade their highlight.
     const selectionId = `${useId()}-tab-selection`

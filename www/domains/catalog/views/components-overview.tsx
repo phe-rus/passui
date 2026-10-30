@@ -2,10 +2,20 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { hasSolidComponent } from "@passui/solid/docs"
 import { Link } from "@tanstack/react-router"
 import { catalogGroups, getCatalog } from "../get-catalog"
+import {
+    componentTitle,
+    matchesComponent,
+} from "../navigation"
+import { SearchField } from "@passui/react/search-field"
+import { useState } from "react"
 
 /** Every component, by group: its icon, name and what it's for. */
 export function ComponentsOverview() {
     const catalog = getCatalog()
+    const [query, setQuery] = useState("")
+    const matches = catalog.filter((entry) =>
+        matchesComponent(entry, query)
+    )
 
     return (
         <article className="flex flex-col gap-12">
@@ -22,19 +32,36 @@ export function ComponentsOverview() {
                     interactive previews and copyable code.
                 </p>
             </header>
+            <div className="flex max-w-lg flex-col gap-2">
+                <SearchField
+                    aria-label="Search components"
+                    placeholder="Search components…"
+                    value={query}
+                    onChange={(event) =>
+                        setQuery(event.target.value)
+                    }
+                />
+                <span
+                    role="status"
+                    className="text-footnote text-label-secondary"
+                >
+                    {matches.length} component families
+                </span>
+            </div>
             {catalogGroups.map((group) => {
-                const entries = catalog.filter(
+                const entries = matches.filter(
                     (entry) => entry.group === group
                 )
                 if (!entries.length) return null
+                const groupId = `group-${group.toLowerCase().replaceAll(" ", "-")}`
                 return (
                     <section
                         key={group}
-                        aria-labelledby={`group-${group}`}
+                        aria-labelledby={groupId}
                         className="flex flex-col gap-4"
                     >
                         <h2
-                            id={`group-${group}`}
+                            id={groupId}
                             className="font-brand text-title2 font-extrabold tracking-tight text-label"
                         >
                             {group}
@@ -53,20 +80,9 @@ export function ComponentsOverview() {
                                             />
                                         </span>
                                         <span className="text-headline font-semibold">
-                                            {docs.name}
-                                            {[
-                                                "toast",
-                                                "tooltip",
-                                                "popover",
-                                                "sheet",
-                                                "tab-bar",
-                                            ].includes(
-                                                docs.slug
-                                            ) && (
-                                                <span className="ms-2 rounded-full bg-accent-soft px-2 py-0.5 align-middle text-[10px] font-semibold text-accent-text">
-                                                    Updated
-                                                </span>
-                                            )}
+                                            {componentTitle({
+                                                docs,
+                                            })}
                                         </span>
                                         <span className="text-footnote text-label-secondary">
                                             {content.summary}

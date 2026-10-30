@@ -1,17 +1,16 @@
 import {
-    TextAlignCenterIcon,
-    TextAlignLeftIcon,
-    TextBoldIcon,
-    TextItalicIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    AlignCenterIcon,
+    AlignLeftIcon,
+    BoldIcon,
+    ItalicIcon,
+} from "@passui/react/icons"
 import { Button } from "@passui/react/button"
 
 const tools = [
-    { label: "Bold", icon: TextBoldIcon },
-    { label: "Italic", icon: TextItalicIcon },
-    { label: "Align left", icon: TextAlignLeftIcon },
-    { label: "Align centre", icon: TextAlignCenterIcon },
+    { label: "Bold", icon: BoldIcon },
+    { label: "Italic", icon: ItalicIcon },
+    { label: "Align left", icon: AlignLeftIcon },
+    { label: "Align centre", icon: AlignCenterIcon },
 ]
 
 export function ButtonIcon() {
@@ -28,10 +27,7 @@ export function ButtonIcon() {
                     variant="ghost"
                     aria-label={tool.label}
                 >
-                    <HugeiconsIcon
-                        icon={tool.icon}
-                        size={18}
-                    />
+                    <tool.icon size={18} />
                 </Button>
             ))}
         </div>

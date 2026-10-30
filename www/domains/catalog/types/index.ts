@@ -47,13 +47,13 @@ export type ComponentContent<D extends DocsShape> = {
 
 /** Where a component sits in the sidebar. */
 export type CatalogGroup =
-    | "Actions"
-    | "Inputs"
-    | "Layout"
-    | "Status"
-    | "Overlays"
+    | "Controls"
+    | "Layout and disclosure"
     | "Navigation"
-    | "Media"
+    | "Presentation"
+    | "Feedback"
+    | "Content"
+    | "Compositions"
 
 /** A component's docs and the site's words for it, together. */
 export type CatalogEntry = {

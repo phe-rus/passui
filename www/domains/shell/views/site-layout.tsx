@@ -14,6 +14,7 @@ import { Sheet } from "@passui/react/sheet"
 import { Toaster } from "@passui/react/toaster"
 import { Link } from "@tanstack/react-router"
 import { PassuiMark } from "./passui-mark"
+import { DocsSearch } from "./docs-search"
 import { frameworkPath } from "@/domains/framework/framework"
 import { useDocsFramework } from "@/domains/framework/use-docs-framework"
 import { cn } from "@passui/react/cn"
@@ -84,7 +85,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         : "bg-transparent"
                 )}
             >
-                <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 md:px-6">
+                <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 md:px-6 lg:gap-6">
                     <Mark />
                     <nav
                         aria-label="Site"
@@ -113,24 +114,26 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                                 key={link.hash}
                                 to="/"
                                 hash={link.hash}
-                                className="rounded-full px-3 py-1.5 text-subheadline text-label-secondary no-underline transition-colors hover:bg-fill/70 hover:text-label"
+                                className="hidden rounded-full px-3 py-1.5 text-subheadline text-label-secondary no-underline transition-colors hover:bg-fill/70 hover:text-label lg:block"
                             >
                                 {link.label}
                             </Link>
                         ))}
                     </nav>
-                    <Link
-                        to={frameworkPath(
-                            "/docs/installation",
-                            framework
-                        )}
-                        className={buttonStyle({
-                            size: "sm",
-                            className: "ms-auto md:ms-0",
-                        })}
-                    >
-                        Get started
-                    </Link>
+                    <div className="ms-auto flex items-center gap-2 md:ms-0">
+                        <DocsSearch />
+                        <Link
+                            to={frameworkPath(
+                                "/docs/installation",
+                                framework
+                            )}
+                            className={buttonStyle({
+                                size: "sm",
+                            })}
+                        >
+                            Get started
+                        </Link>
+                    </div>
                     <IconButton
                         label="Menu"
                         variant="ghost"

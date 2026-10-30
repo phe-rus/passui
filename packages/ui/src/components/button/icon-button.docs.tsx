@@ -1,5 +1,4 @@
-import { Settings02Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { SettingsIcon } from "../../icons/icons"
 import { defineDocs } from "../../docs/types"
 import { IconButtonPlayer } from "./examples/icon-button-player"
 import { IconButtonShowcase } from "./examples/icon-button-showcase"
@@ -48,16 +47,14 @@ export const iconButtonDocs = defineDocs<IconButtonProps>()({
     },
     render: (values) => (
         <IconButton {...values}>
-            <HugeiconsIcon icon={Settings02Icon} size={20} />
+            <SettingsIcon />
         </IconButton>
     ),
     childrenSnippet: () => ({
         imports: [
-            'import { Settings02Icon } from "@hugeicons/core-free-icons"',
-            'import { HugeiconsIcon } from "@hugeicons/react"',
+            'import { SettingsIcon } from "@passui/react/icons"',
         ],
-        children:
-            "<HugeiconsIcon icon={Settings02Icon} size={20} />",
+        children: "<SettingsIcon />",
     }),
     usage: IconButtonUsage,
     showcase: IconButtonShowcase,

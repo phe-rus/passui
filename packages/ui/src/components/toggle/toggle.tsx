@@ -6,6 +6,22 @@ import { spring } from "../../motion/transitions"
 
 export type ToggleStyle = "switch" | "checkbox"
 
+export interface ToggleProps {
+    /** Current on or off state. */
+    checked: boolean
+    /** Called with the next checked state. */
+    onChange: (checked: boolean) => void
+    /** Accessible name, including when the visible label is hidden. */
+    label: string
+    disabled?: boolean
+    /** `switch` for a setting, `checkbox` for a selection. @default "switch" */
+    style?: ToggleStyle
+    /** Reports a mixed selection to assistive technology. @default false */
+    mixed?: boolean
+    /** Keeps the accessible name while hiding the visible label. @default false */
+    labelHidden?: boolean
+}
+
 export function Toggle({
     checked,
     onChange,
@@ -14,16 +30,7 @@ export function Toggle({
     style = "switch",
     mixed = false,
     labelHidden = false,
-}: {
-    checked: boolean
-    onChange: (checked: boolean) => void
-    label: string
-    /** Shown but not yet usable, as iOS dims a switch it can't change. */
-    disabled?: boolean
-    style?: ToggleStyle
-    mixed?: boolean
-    labelHidden?: boolean
-}) {
+}: ToggleProps) {
     const input = useRef<HTMLInputElement>(null)
     useEffect(() => {
         if (input.current) input.current.indeterminate = mixed

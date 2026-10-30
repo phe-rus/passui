@@ -1,11 +1,16 @@
 import { toast, useContextMenu } from "@passui/react"
+import { copyText } from "@passui/react/clipboard"
 
 export function ContextMenuUsage() {
     // render one <ContextMenuHost /> near the root of your app
     const menu = useContextMenu(() => [
         {
             label: "Copy link",
-            onSelect: () => toast("Link copied"),
+            onSelect: async () => {
+                if (await copyText(window.location.href))
+                    toast.success("Link copied")
+                else toast.error("Could not copy the link")
+            },
         },
         {
             label: "Open in new tab",

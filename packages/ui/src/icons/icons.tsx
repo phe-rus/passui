@@ -8,6 +8,7 @@ import {
     ArrowRight01Icon,
     ArrowUp01Icon,
     BirthdayCakeIcon,
+    Bookmark02Icon,
     Book02Icon,
     BookOpen01Icon,
     BubbleChatIcon,
@@ -50,6 +51,7 @@ import {
     Location01Icon,
     LockIcon as LockIconSvg,
     Mic01Icon,
+    Mail01Icon,
     Moon02Icon,
     MoreHorizontalIcon,
     Mortarboard01Icon,
@@ -74,6 +76,10 @@ import {
     Share08Icon,
     Store01Icon,
     Task01Icon,
+    TextAlignCenterIcon,
+    TextAlignLeftIcon,
+    TextBoldIcon,
+    TextItalicIcon,
     Tick02Icon,
     Time04Icon,
     Touch01Icon,
@@ -95,11 +101,13 @@ export type IconProps = Omit<
     SVGProps<SVGSVGElement>,
     "ref"
 > & {
+    /** Width and height in CSS pixels. @default 20 */
     size?: number
+    /** Stroke weight shared across Passui icons. @default 1.6 */
     strokeWidth?: number
 }
 
-/** Hugeicons (stroke rounded), sized and weighted for the Notables UI. */
+/** Rounded stroke icons with Passui's default size, weight, and decorative semantics. */
 function icon(svg: IconSvgElement, displayName: string) {
     const Icon = ({
         size = 20,
@@ -296,3 +304,18 @@ export const CopyIcon = icon(Copy01Icon, "CopyIcon")
 export const LockIcon = icon(LockIconSvg, "LockIcon")
 export const NfcReadIcon = icon(NfcIcon, "NfcReadIcon")
 export const PhotoIcon = icon(Image01Icon, "PhotoIcon")
+export const BookmarkIcon = icon(
+    Bookmark02Icon,
+    "BookmarkIcon"
+)
+export const MailIcon = icon(Mail01Icon, "MailIcon")
+export const AlignCenterIcon = icon(
+    TextAlignCenterIcon,
+    "AlignCenterIcon"
+)
+export const AlignLeftIcon = icon(
+    TextAlignLeftIcon,
+    "AlignLeftIcon"
+)
+export const BoldIcon = icon(TextBoldIcon, "BoldIcon")
+export const ItalicIcon = icon(TextItalicIcon, "ItalicIcon")

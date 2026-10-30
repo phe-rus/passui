@@ -10,11 +10,14 @@ import { spring } from "../../motion/transitions"
 import { SheetPortal } from "./sheet-portal"
 import { useSheetFocus } from "./use-sheet-focus"
 
-interface SheetProps {
+export interface SheetProps {
+    /** Controls whether the sheet is presented. */
     open: boolean
+    /** Called on Escape or an outside press. */
     onClose: () => void
     /** Read out by screen readers as the sheet's name. */
     label: string
+    /** ID of a visible heading to use instead of label for the accessible name. */
     labelledBy?: string
     className?: string
     children: ReactNode

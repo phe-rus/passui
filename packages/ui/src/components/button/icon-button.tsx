@@ -9,17 +9,27 @@ import {
     type IconButtonSize,
 } from "./button-styles"
 
-export type { IconButtonSize }
+export type { ButtonVariant, IconButtonSize }
 
 export interface IconButtonProps
     extends ButtonHTMLAttributes<HTMLButtonElement> {
     /** Required: icon-only buttons need an accessible name. */
     label: string
+    /** `default`, `accent`, `secondary`, `outline`, `ghost`, `link`, or `destructive`.
+     * @default "default"
+     */
     variant?: ButtonVariant
+    /** Square sizes: `icon-xs`, `icon-sm`, `icon`, or `icon-lg`.
+     * @default "icon"
+     */
     size?: IconButtonSize
+    /** Replaces the icon with a delayed spinner and prevents repeat presses.
+     * @default false
+     */
     isPending?: boolean
 }
 
+/** An icon action with a required accessible label, tooltip, and native button ref. */
 export const IconButton = forwardRef<
     HTMLButtonElement,
     IconButtonProps

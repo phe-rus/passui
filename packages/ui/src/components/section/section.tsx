@@ -1,5 +1,14 @@
 import type { ReactNode } from "react"
 
+export interface SectionProps {
+    /** Optional group heading and accessible name. */
+    title?: string
+    /** Supporting text below the grouped rows. */
+    footer?: ReactNode
+    /** Rows, typically LabeledContent. */
+    children?: ReactNode
+}
+
 /**
  * A titled, inset group of rows with an optional footer, as in iOS Settings
  * and SwiftUI's grouped `List` with `Section(header:footer:)`. Rows are
@@ -9,12 +18,7 @@ export function Section({
     title,
     footer,
     children,
-}: {
-    /** iOS groups can stand without a header. */
-    title?: string
-    footer?: ReactNode
-    children?: ReactNode
-}) {
+}: SectionProps) {
     return (
         <section
             aria-label={title}

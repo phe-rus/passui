@@ -17,11 +17,17 @@ const tones: Record<ChipTone, string> = {
         "bg-[#ede8ff] text-[#5a3fc0] dark:bg-[#26203f] dark:text-[#c3b5ff]",
 }
 
+export interface ChipProps
+    extends HTMLAttributes<HTMLSpanElement> {
+    /** `neutral`, `accent`, `public`, `family`, or `friends`. @default "neutral" */
+    tone?: ChipTone
+}
+
 export function Chip({
     tone = "neutral",
     className,
     ...props
-}: HTMLAttributes<HTMLSpanElement> & { tone?: ChipTone }) {
+}: ChipProps) {
     return (
         <span
             className={cn(

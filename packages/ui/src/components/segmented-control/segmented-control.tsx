@@ -10,6 +10,17 @@ import { haptic } from "../../lib/haptics"
 import { spring } from "../../motion/transitions"
 import { Picker } from "../picker/picker"
 
+export interface SegmentedControlProps<T extends string> {
+    /** Value of the selected segment. */
+    value: T
+    /** The choices, in display order. */
+    options: ReadonlyArray<{ value: T; label: string }>
+    /** Called with the selected segment's value. */
+    onChange: (value: NoInfer<T>) => void
+    /** Accessible name for the group and its compact picker. */
+    label: string
+}
+
 /**
  * Mutually exclusive choices with a sliding selection, as on Apple
  * platforms. When the labels can't all fit the space it is given (a long
@@ -21,12 +32,7 @@ export function SegmentedControl<T extends string>({
     options,
     onChange,
     label,
-}: {
-    value: T
-    options: Array<{ value: T; label: string }>
-    onChange: (value: T) => void
-    label: string
-}) {
+}: SegmentedControlProps<T>) {
     const id = useId()
     const frame = useRef<HTMLDivElement>(null)
     const measure = useRef<HTMLDivElement>(null)

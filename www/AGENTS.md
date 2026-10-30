@@ -25,6 +25,8 @@ The website, catalog prose, tests and reusable packages share this public reposi
 - Pages that render per slug pass `key={slug}`, so folds and local state start over on each page.
 - A playground snippet must compile when pasted: required props carry `required: true`, demo-only controls go in `omit`, and text goes through `jsxAttribute`/`jsxText`.
 - Phones: the docs sidebar is hidden below `md` and opens in a Sheet from the bar naming the current page.
+- The sidebar is navigation only, with collapsible groups and no search field. Header search uses `domains/shell/views/docs-search.tsx`, a native SearchList combobox in a Sheet, opened by Ctrl/Cmd K.
+- Code and AI copy actions share `domains/clipboard/use-copy-text.tsx`; browser refusal opens a manual selection Sheet rather than reporting success.
 
 ## Checks
 

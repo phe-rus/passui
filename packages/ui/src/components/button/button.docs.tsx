@@ -1,5 +1,4 @@
-import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { ChevronRightIcon } from "../../icons/icons"
 import { jsxText } from "../../docs/snippet"
 import { defineDocs } from "../../docs/types"
 import { Button, type ButtonProps } from "./button"
@@ -69,10 +68,7 @@ export const buttonDocs = defineDocs<ButtonProps>()({
                 size={size}
                 aria-label={children}
             >
-                <HugeiconsIcon
-                    icon={ArrowRight01Icon}
-                    size={20}
-                />
+                <ChevronRightIcon />
             </Button>
         ) : (
             <Button {...props} size={size}>
@@ -83,11 +79,9 @@ export const buttonDocs = defineDocs<ButtonProps>()({
         iconSizes.has(size)
             ? {
                   imports: [
-                      'import { ArrowRight01Icon } from "@hugeicons/core-free-icons"',
-                      'import { HugeiconsIcon } from "@hugeicons/react"',
+                      'import { ChevronRightIcon } from "@passui/react/icons"',
                   ],
-                  children:
-                      "<HugeiconsIcon icon={ArrowRight01Icon} size={20} />",
+                  children: "<ChevronRightIcon />",
                   extraProps: { "aria-label": children },
               }
             : { imports: [], children: jsxText(children) },

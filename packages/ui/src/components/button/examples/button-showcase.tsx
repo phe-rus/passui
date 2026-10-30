@@ -1,12 +1,12 @@
 import {
-    Delete02Icon,
-    Link01Icon,
-    Share08Icon,
+    TrashIcon,
+    LinkIcon,
+    ShareIcon,
     StarIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+} from "@passui/react/icons"
 import { TextField, toast } from "@passui/react"
 import { Button } from "@passui/react/button"
+import { copyText } from "@passui/react/clipboard"
 import { useState } from "react"
 
 export function ButtonShowcase() {
@@ -41,30 +41,35 @@ export function ButtonShowcase() {
                             variant="ghost"
                             aria-label="Star"
                         >
-                            <HugeiconsIcon
-                                icon={StarIcon}
-                                size={18}
-                            />
+                            <StarIcon size={18} />
                         </Button>
                         <Button
                             size="icon-sm"
                             variant="ghost"
                             aria-label="Copy link"
+                            onClick={async () => {
+                                if (
+                                    await copyText(
+                                        window.location.href
+                                    )
+                                )
+                                    toast.success(
+                                        "Link copied"
+                                    )
+                                else
+                                    toast.error(
+                                        "Could not copy the link"
+                                    )
+                            }}
                         >
-                            <HugeiconsIcon
-                                icon={Link01Icon}
-                                size={18}
-                            />
+                            <LinkIcon size={18} />
                         </Button>
                         <Button
                             size="icon-sm"
                             variant="ghost"
                             aria-label="Share"
                         >
-                            <HugeiconsIcon
-                                icon={Share08Icon}
-                                size={18}
-                            />
+                            <ShareIcon size={18} />
                         </Button>
                     </div>
                 </header>
@@ -103,10 +108,7 @@ export function ButtonShowcase() {
                     </span>
                 </div>
                 <Button variant="destructive" size="sm">
-                    <HugeiconsIcon
-                        icon={Delete02Icon}
-                        size={16}
-                    />
+                    <TrashIcon size={16} />
                     Delete
                 </Button>
             </section>

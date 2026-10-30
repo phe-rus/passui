@@ -53,6 +53,7 @@ export * from "./icons/icons"
 export * from "./lib/anchored-placement"
 export * from "./lib/class-names"
 export * from "./lib/haptics"
+export * from "./lib/clipboard"
 export * from "./lib/screen-edges"
 export * from "./motion/transitions"
 export * from "./appearance"
@@ -63,6 +64,7 @@ export * from "./components/compact-time-picker/compact-time-picker"
 
 export { Dialog } from "./components/dialog"
 export type {
+    DialogProps,
     DialogPresentation,
     DialogTone,
 } from "./components/dialog/dialog"

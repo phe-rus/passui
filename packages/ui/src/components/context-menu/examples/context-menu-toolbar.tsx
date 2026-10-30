@@ -1,12 +1,11 @@
 import { useRef } from "react"
-import { IconButton } from "../../button/icon-button"
+import { IconButton } from "@passui/react/icon-button"
 import {
     MoreIcon,
     ShareIcon,
     StarIcon,
-} from "../../../icons/icons"
-import { openMenu } from "../context-menu-store"
-import { toast } from "../../toast/toast-store"
+} from "@passui/react/icons"
+import { openMenu, toast } from "@passui/react"
 
 export function ContextMenuToolbar() {
     const toolbar = useRef<HTMLDivElement>(null)

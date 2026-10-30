@@ -1,12 +1,8 @@
-import {
-    Copy01Icon,
-    Tick02Icon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { toast } from "@passui/react"
+import { CopyIcon, CheckIcon } from "@passui/react/icons"
 import { cn } from "@passui/react/cn"
 import { IconButton } from "@passui/react/icon-button"
 import { useState } from "react"
+import { useCopyText } from "@/domains/clipboard/use-copy-text"
 import { type CodeLang, useHighlight } from "../use-highlight"
 
 type CodeViewProps = {
@@ -34,21 +30,21 @@ export function CodeView({
     const html = useHighlight(code, lang)
     const [copied, setCopied] = useState(false)
     const [expanded, setExpanded] = useState(false)
+    const clipboard = useCopyText()
     const foldable =
         collapsible &&
         code.split("\n").length > foldAfterLines
     const folded = foldable && !expanded
 
     async function copy() {
-        try {
-            await navigator.clipboard.writeText(code)
-            setCopied(true)
-            toast.success("Copied to the clipboard")
-            window.setTimeout(() => setCopied(false), 1600)
-        } catch {
-            toast.error(
-                "Could not copy. Select the code instead."
+        if (
+            await clipboard.copy(
+                code,
+                "Copied to the clipboard"
             )
+        ) {
+            setCopied(true)
+            window.setTimeout(() => setCopied(false), 1600)
         }
     }
 
@@ -115,11 +111,13 @@ export function CodeView({
                     label ? "top-1" : "top-3"
                 )}
             >
-                <HugeiconsIcon
-                    icon={copied ? Tick02Icon : Copy01Icon}
-                    size={18}
-                />
+                {copied ? (
+                    <CheckIcon size={18} />
+                ) : (
+                    <CopyIcon size={18} />
+                )}
             </IconButton>
+            {clipboard.fallback}
         </div>
     )
 }

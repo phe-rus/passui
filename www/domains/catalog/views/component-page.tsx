@@ -5,6 +5,7 @@ import { CopyForAi } from "@/domains/ai-context"
 import { CodeView, Playground } from "@/domains/playground"
 import type { DocsSettings } from "@/domains/settings"
 import { getEntry } from "../get-catalog"
+import { componentTitle } from "../navigation"
 import { getExampleSource } from "../get-example-source"
 import { AnatomyTable } from "./anatomy-table"
 import { ComponentFrameworkTabs } from "./component-framework-tabs"
@@ -73,7 +74,7 @@ export function ComponentPage({
                         @passui/react · {docs.name}
                     </span>
                     <h1 className="font-brand text-large-title font-extrabold tracking-tight text-label">
-                        {docs.name}
+                        {componentTitle(entry)}
                     </h1>
                     <p className="max-w-2xl text-body text-label-secondary">
                         {content.summary}
@@ -127,6 +128,7 @@ export function ComponentPage({
                 <DocSection
                     id="installation"
                     title="Installation"
+                    collapsible
                 >
                     <InstallSteps />
                 </DocSection>
@@ -158,7 +160,11 @@ export function ComponentPage({
                     </div>
                 </DocSection>
 
-                <DocSection id="anatomy" title="Anatomy">
+                <DocSection
+                    id="anatomy"
+                    title="Anatomy"
+                    collapsible
+                >
                     <AnatomyTable parts={content.anatomy} />
                 </DocSection>
 
@@ -186,6 +192,7 @@ export function ComponentPage({
                 <DocSection
                     id="best-practices"
                     title="Best practices"
+                    collapsible
                 >
                     <PracticesList
                         practices={content.practices}
@@ -195,6 +202,7 @@ export function ComponentPage({
                 <DocSection
                     id="accessibility"
                     title="Accessibility"
+                    collapsible
                 >
                     <ul className="m-0 flex list-disc flex-col gap-2 ps-5 text-callout text-label">
                         {content.accessibility.map((line) => (

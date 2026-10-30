@@ -40,6 +40,36 @@ export function SaveButton() {
 }
 ```
 
+### Icons and prop types
+
+On this development branch, React icons have a dedicated entry point:
+
+```tsx
+import { IconButton, type IconButtonProps } from "@passui/react/icon-button"
+import { SettingsIcon } from "@passui/react/icons"
+
+const settingsAction: IconButtonProps = {
+    label: "Settings",
+    variant: "ghost",
+    size: "icon-sm",
+}
+
+export function SettingsButton() {
+    return <IconButton {...settingsAction}><SettingsIcon /></IconButton>
+}
+```
+
+Hover a prop for its choices and defaults. Named props types are exported
+beside their controls. For a fixed set of picker values, keep your state
+as that literal union (for example, `useState<"personal" | "team">("personal")`)
+so selection callbacks retain the same choices. Existing root icon imports
+continue to work. These additions have not been published yet.
+
+Clipboard actions can use `copyText` from `@passui/react/clipboard`. It
+returns `true` only after a successful write and `false` if unavailable or
+denied. Call it from a user action and show success only when it returns
+`true`; offer manual copying otherwise. It adds no sound or haptic feedback.
+
 See [Installation](https://passui.pherus.org/docs/installation) for the
 root setup, and [Skills](https://passui.pherus.org/docs/skills) to give AI
 agents Passui's rules.

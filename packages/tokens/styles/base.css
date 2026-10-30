@@ -6,7 +6,14 @@
 @layer base {
   * {
     @apply border-separator outline-accent/50;
-    scrollbar-color: var(--color-separator) transparent;
+    /* Passui keeps scrolling behavior, but never displays scrollbar chrome. */
+    scrollbar-width: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 
   html {

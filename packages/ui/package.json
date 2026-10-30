@@ -20,6 +20,11 @@
     ],
     "type": "module",
     "exports": {
+        "./icons": "./src/icons/icons.tsx",
+        "./clipboard": "./src/lib/clipboard.ts",
+        "./search-field": "./src/components/search-field/search-field.tsx",
+        "./picker": "./src/components/picker/picker.tsx",
+        "./segmented-control": "./src/components/segmented-control/segmented-control.tsx",
         "./table": "./src/components/table/table.tsx",
         "./search-list": "./src/components/search-list/search-list.tsx",
         "./profile-image": "./src/components/profile-image/profile-image.tsx",

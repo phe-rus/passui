@@ -5,24 +5,30 @@ import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"
 import { spring } from "../../motion/transitions"
 
+export interface SwatchPickerOption<T extends string> {
+    value: T
+    label: string
+    /** Swatch background color. */
+    color: string
+    /** Color of the selected checkmark. */
+    ink: string
+}
+
+export interface SwatchPickerProps<T extends string> {
+    value: T
+    options: ReadonlyArray<SwatchPickerOption<T>>
+    onChange: (value: T) => void
+    /** Accessible name for the group. */
+    label: string
+}
+
 /** Colour swatches with a check on the chosen one. */
 export function SwatchPicker<T extends string>({
     value,
     options,
     onChange,
     label,
-}: {
-    value: T
-    /** `ink` colours the check drawn on the swatch. */
-    options: Array<{
-        value: T
-        label: string
-        color: string
-        ink: string
-    }>
-    onChange: (value: T) => void
-    label: string
-}) {
+}: SwatchPickerProps<T>) {
     const name = useId()
     return (
         <fieldset className="flex flex-wrap gap-3">

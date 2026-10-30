@@ -62,7 +62,7 @@ colors (`bg-paper`, `text-label-secondary`):
   chosen accent tints the whole app the way iOS's does. Keep other grounds
   neutral; the tint belongs to the ground alone. `app-ground` adds quiet reflected
   accent at the edges. `scroll-surface` reserves real bottom room through
-  `--scroll-clearance`; scrollbars follow the OS unless explicitly hidden.
+  `--scroll-clearance`; shared base CSS hides scrollbar chrome everywhere while preserving scrolling.
 - Text: `label`, `label-secondary`, `label-tertiary`, `ink` (body text on paper).
 - Accent: `accent`, `on-accent`, `accent-text`, `accent-soft`. Set by the
   chosen accent (`data-accent` on the root). **Blush**, the iPhone 15 pink,
@@ -77,7 +77,7 @@ environment, `data-theme="dark"` or `"light"` works on any element, so a
 surface can keep its own appearance whatever the app's: the recorder is
 always dark (`features/recording/components/recorder-sheet.tsx`). Inside it,
 use the same role names; never copy hex values from the dark palette.
-`color-scheme` follows too, so native scrollbars and fields match.
+`color-scheme` follows too, so native fields match.
 
 ## Text styles
 
@@ -155,6 +155,11 @@ Springs in `../tokens/src/motion.ts`, used through `spring` in
 small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 
 ## Docs
+
+Public examples import React icons from `@passui/react/icons`. Export named
+props types beside controls and document fixed choices and defaults on props.
+`copyText` from `@passui/react/clipboard` returns true only after a confirmed
+write; show success only then and provide manual copying when access fails.
 
 Every component has docs for the site in `www`, split so code
 breaks loudly and prose stays out of Passui:

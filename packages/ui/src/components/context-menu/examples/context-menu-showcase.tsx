@@ -1,4 +1,5 @@
 import { toast, useContextMenu } from "@passui/react"
+import { copyText } from "@passui/react/clipboard"
 
 const photos = [
     { id: "aiko", src: "/avatars/aiko.svg" },
@@ -9,8 +10,20 @@ const photos = [
 function Photo({ id, src }: { id: string; src: string }) {
     const menu = useContextMenu(() => [
         {
-            label: "Copy",
-            onSelect: () => toast("Photo copied"),
+            label: "Copy image link",
+            onSelect: async () => {
+                if (
+                    await copyText(
+                        new URL(src, window.location.href)
+                            .href
+                    )
+                )
+                    toast.success("Image link copied")
+                else
+                    toast.error(
+                        "Could not copy the image link"
+                    )
+            },
         },
         {
             label: "Share",

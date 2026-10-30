@@ -5,8 +5,8 @@ export type MenuRect = {
     height: number
 }
 
-/** The closed surface occupies its trigger, even when the final menu flips at an edge. */
-export function menuReveal(
+/** Animate the material's bounds independently so menu text never stretches. */
+export function menuSurfaceReveal(
     source: MenuRect | undefined,
     target: MenuRect
 ) {
@@ -16,60 +16,23 @@ export function menuReveal(
         source.height <= 0 ||
         target.width <= 0 ||
         target.height <= 0
-    )
+    ) {
         return {
             x: 0,
-            y: 0,
-            scaleX: 0.96,
-            scaleY: 0.96,
+            y: -4,
+            width: target.width,
+            height: target.height,
             opacity: 0,
+            borderRadius: "var(--radius-3xl)",
         }
-    return {
-        x:
-            source.left +
-            source.width / 2 -
-            target.left -
-            target.width / 2,
-        y:
-            source.top +
-            source.height / 2 -
-            target.top -
-            target.height / 2,
-        scaleX: source.width / target.width,
-        scaleY: source.height / target.height,
-        opacity: 1,
     }
-}
-
-/** Stretch across the action group before opening vertically; reverse on dismissal. */
-export function toolbarMenuReveal(
-    source: MenuRect,
-    toolbar: MenuRect,
-    target: MenuRect
-) {
-    const start = menuReveal(source, target)
-    const stretched = menuReveal(
-        {
-            ...toolbar,
-            top: source.top,
-            height: source.height,
-        },
-        target
-    )
     return {
-        enter: {
-            x: [start.x, stretched.x, 0],
-            y: [start.y, stretched.y, 0],
-            scaleX: [start.scaleX, stretched.scaleX, 1],
-            scaleY: [start.scaleY, stretched.scaleY, 1],
-            opacity: 1,
-        },
-        exit: {
-            x: [0, stretched.x, start.x],
-            y: [0, stretched.y, start.y],
-            scaleX: [1, stretched.scaleX, start.scaleX],
-            scaleY: [1, stretched.scaleY, start.scaleY],
-            opacity: 1,
-        },
+        x: source.left - target.left,
+        y: source.top - target.top,
+        width: source.width,
+        height: source.height,
+        opacity: 1,
+        borderRadius:
+            Math.min(source.width, source.height) / 2,
     }
 }

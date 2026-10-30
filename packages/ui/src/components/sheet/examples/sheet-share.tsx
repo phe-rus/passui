@@ -1,5 +1,6 @@
 import { toast } from "@passui/react"
 import { Button } from "@passui/react/button"
+import { copyText } from "@passui/react/clipboard"
 import { Sheet } from "@passui/react/sheet"
 import { Toggle } from "@passui/react/toggle"
 import { useState } from "react"
@@ -36,9 +37,20 @@ export function SheetShare() {
                         </Button>
                         <Button
                             variant="accent"
-                            onClick={() => {
-                                setOpen(false)
-                                toast.success("Link copied")
+                            onClick={async () => {
+                                if (
+                                    await copyText(
+                                        window.location.href
+                                    )
+                                ) {
+                                    setOpen(false)
+                                    toast.success(
+                                        "Link copied"
+                                    )
+                                } else
+                                    toast.error(
+                                        "Could not copy the link"
+                                    )
                             }}
                         >
                             Copy link

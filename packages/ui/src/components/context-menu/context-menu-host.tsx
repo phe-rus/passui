@@ -19,7 +19,7 @@ import { screenEdges } from "../../lib/screen-edges"
 import { spring } from "../../motion/transitions"
 import { concealMenuSource } from "./conceal-menu-source"
 import { menuPosition } from "./menu-position"
-import { menuReveal, toolbarMenuReveal } from "./menu-reveal"
+import { menuSurfaceReveal } from "./menu-reveal"
 import {
     closeContextMenu,
     getContextMenu,
@@ -45,6 +45,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
     const present = useIsPresent()
     const reducedMotion = useReducedMotion()
     const ref = useRef<HTMLDivElement>(null)
+    const content = useRef<HTMLDivElement>(null)
     const [position, setPosition] = useState({
         left: menu.x,
         top: menu.y,
@@ -113,7 +114,8 @@ function Menu({ menu }: { menu: OpenMenu }) {
                         width: element.offsetWidth,
                         height: Math.max(
                             element.offsetHeight,
-                            element.scrollHeight
+                            (content.current?.scrollHeight ??
+                                0) + 12
                         ),
                     },
                     {
@@ -233,18 +235,12 @@ function Menu({ menu }: { menu: OpenMenu }) {
         }
     }, [present])
 
-    const source = menuReveal(
-        position.ready ? menu.source : undefined,
+    const source = menuSurfaceReveal(
+        position.ready
+            ? (menu.toolbarRect ?? menu.source)
+            : undefined,
         position
     )
-    const toolbarReveal =
-        menu.source && menu.toolbarRect
-            ? toolbarMenuReveal(
-                  menu.source,
-                  menu.toolbarRect,
-                  position
-              )
-            : undefined
     let actionIndex = -1
     return (
         <motion.div
@@ -298,7 +294,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
             }}
             {...{ [FLOATING_LAYER]: "" }}
             className={cn(
-                "glass-menu fixed z-75 flex min-w-50 max-w-[min(280px,calc(100vw-24px))] flex-col overflow-y-auto overscroll-contain rounded-3xl p-1.5",
+                "fixed z-75 isolate flex min-w-50 max-w-[min(280px,calc(100vw-24px))] flex-col rounded-3xl p-1.5",
                 menu.touch && "min-w-60",
                 !present && "pointer-events-none"
             )}
@@ -315,57 +311,75 @@ function Menu({ menu }: { menu: OpenMenu }) {
                           window.innerWidth - 24
                       )
                     : undefined,
-                transformOrigin: menu.source
-                    ? "50% 50%"
-                    : `${position.originX * 100}% ${position.originY * 100}%`,
                 visibility: position.ready
                     ? undefined
                     : "hidden",
             }}
-            initial={reducedMotion ? false : source}
-            animate={
-                toolbarReveal && !reducedMotion
-                    ? toolbarReveal.enter
-                    : {
-                          opacity: 1,
-                          x: 0,
-                          y: 0,
-                          scaleX: 1,
-                          scaleY: 1,
-                      }
-            }
-            exit={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : (toolbarReveal?.exit ?? source)
-            }
-            transition={
-                reducedMotion
-                    ? { duration: 0 }
-                    : toolbarReveal
-                      ? {
-                            duration: 0.34,
-                            times: present
-                                ? [0, 0.35, 1]
-                                : [0, 0.65, 1],
-                            ease: [0.22, 1, 0.36, 1],
-                        }
-                      : spring.smooth
-            }
             onContextMenu={(event) => event.preventDefault()}
         >
             <motion.div
-                className="flex flex-col"
-                initial={{ opacity: reducedMotion ? 1 : 0 }}
-                animate={{ opacity: 1 }}
+                aria-hidden="true"
+                className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
+                style={{ width: "100%", height: "100%" }}
+                initial={
+                    reducedMotion || !position.ready
+                        ? false
+                        : source
+                }
+                animate={
+                    position.ready
+                        ? {
+                              x: 0,
+                              y: 0,
+                              width: position.width,
+                              height: position.height,
+                              opacity: 1,
+                              borderRadius:
+                                  "var(--radius-3xl)",
+                          }
+                        : undefined
+                }
+                exit={reducedMotion ? { opacity: 0 } : source}
+                transition={
+                    reducedMotion
+                        ? { duration: 0 }
+                        : spring.smooth
+                }
+            />
+            <motion.div
+                ref={content}
+                className="flex flex-col overflow-y-auto overscroll-contain"
+                style={{
+                    maxHeight: position.maxHeight
+                        ? Math.max(0, position.maxHeight - 12)
+                        : undefined,
+                }}
+                initial={
+                    reducedMotion
+                        ? false
+                        : {
+                              opacity: 0,
+                              y:
+                                  menu.source &&
+                                  menu.source.top >
+                                      position.top
+                                      ? 4
+                                      : -4,
+                          }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                exit={{
+                    opacity: 0,
+                    transition: {
+                        duration: reducedMotion ? 0 : 0.06,
+                    },
+                }}
                 transition={{
-                    duration: reducedMotion ? 0 : 0.12,
+                    duration: reducedMotion ? 0 : 0.16,
                     delay:
                         reducedMotion || !menu.source
                             ? 0
-                            : menu.toolbar
-                              ? 0.14
-                              : 0.08,
+                            : 0.06,
                 }}
             >
                 {menu.items.map((item, index) => {

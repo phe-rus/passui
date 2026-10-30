@@ -39,6 +39,27 @@ export interface PickerOption<T extends string> {
     lang?: string
 }
 
+/** Values and callbacks share the option value type, including literal unions. */
+export interface PickerProps<T extends string> {
+    /** The selected option's value. */
+    value: T
+    /** Available choices. Use a literal union for a fixed set of values. */
+    options: ReadonlyArray<PickerOption<T>>
+    /** Called with the selected option value. */
+    onChange: (value: NoInfer<T>) => void
+    /** Accessible name for the trigger. */
+    label: string
+    /** Shown when the selected value has no matching option. */
+    placeholder?: string
+    /** Defaults to on for lists of ten or more options. */
+    searchable?: boolean
+    /** Label for the filter field. @default "Search" */
+    searchPlaceholder?: string
+    /** Shown when the filter matches nothing. @default "No matches" */
+    emptyLabel?: string
+    className?: string
+}
+
 /** Long lists get a filter field, as in the system pickers. */
 const SEARCH_FROM = 10
 
@@ -58,20 +79,7 @@ export function Picker<T extends string>({
     searchPlaceholder = "Search",
     emptyLabel = "No matches",
     className,
-}: {
-    value: T
-    options: ReadonlyArray<PickerOption<T>>
-    onChange: (value: T) => void
-    /** Read by assistive technology; the visible label is the field around it. */
-    label: string
-    placeholder?: string
-    /** Defaults to on for lists longer than ten. */
-    searchable?: boolean
-    searchPlaceholder?: string
-    /** Shown when the filter matches nothing. */
-    emptyLabel?: string
-    className?: string
-}) {
+}: PickerProps<T>) {
     const [open, setOpen] = useState(false)
     const trigger = useRef<HTMLButtonElement>(null)
     const listId = useId()

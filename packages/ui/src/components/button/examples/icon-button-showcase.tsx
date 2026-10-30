@@ -1,12 +1,12 @@
 import {
-    ArrowLeft01Icon,
-    Bookmark02Icon,
-    MoreHorizontalIcon,
-    Share08Icon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    ChevronLeftIcon,
+    BookmarkIcon,
+    MoreIcon,
+    ShareIcon,
+} from "@passui/react/icons"
 import { toast } from "@passui/react"
 import { IconButton } from "@passui/react/icon-button"
+import { copyText } from "@passui/react/clipboard"
 import { useState } from "react"
 
 export function IconButtonShowcase() {
@@ -20,10 +20,7 @@ export function IconButtonShowcase() {
                     variant="ghost"
                     size="icon-sm"
                 >
-                    <HugeiconsIcon
-                        icon={ArrowLeft01Icon}
-                        size={18}
-                    />
+                    <ChevronLeftIcon size={18} />
                 </IconButton>
                 <div className="flex gap-1">
                     <IconButton
@@ -38,33 +35,33 @@ export function IconButtonShowcase() {
                             setSaved((value) => !value)
                         }
                     >
-                        <HugeiconsIcon
-                            icon={Bookmark02Icon}
-                            size={18}
-                        />
+                        <BookmarkIcon size={18} />
                     </IconButton>
                     <IconButton
-                        label="Share"
+                        label="Copy link"
                         variant="ghost"
                         size="icon-sm"
-                        onClick={() =>
-                            toast.success("Link copied")
-                        }
+                        onClick={async () => {
+                            if (
+                                await copyText(
+                                    window.location.href
+                                )
+                            )
+                                toast.success("Link copied")
+                            else
+                                toast.error(
+                                    "Could not copy the link"
+                                )
+                        }}
                     >
-                        <HugeiconsIcon
-                            icon={Share08Icon}
-                            size={18}
-                        />
+                        <ShareIcon size={18} />
                     </IconButton>
                     <IconButton
                         label="More"
                         variant="ghost"
                         size="icon-sm"
                     >
-                        <HugeiconsIcon
-                            icon={MoreHorizontalIcon}
-                            size={18}
-                        />
+                        <MoreIcon size={18} />
                     </IconButton>
                 </div>
             </header>

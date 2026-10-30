@@ -6,6 +6,25 @@ import {
 } from "react"
 import { cn } from "../../lib/class-names"
 
+export type TabViewAlign = "start" | "center"
+
+export interface TabViewProps<Value extends string> {
+    /** Available tabs, in keyboard navigation order. */
+    options: readonly { value: Value; label: string }[]
+    /** Initial selection when value is not controlled. */
+    defaultValue: Value
+    /** Controlled selection; omit to keep selection inside TabView. */
+    value?: Value
+    onValueChange?: (value: Value) => void
+    /** Tab alignment: `start` or `center`. @default "center" */
+    align?: TabViewAlign
+    /** Accessible name for the tab list. */
+    label: string
+    /** Renders the selected tab's panel. */
+    children: (value: Value) => ReactNode
+    className?: string
+}
+
 /** Content tabs with native buttons, roving focus and automatic keyboard activation. */
 export function TabView<Value extends string>({
     options,
@@ -16,16 +35,7 @@ export function TabView<Value extends string>({
     label,
     children,
     className,
-}: {
-    options: readonly { value: Value; label: string }[]
-    defaultValue: Value
-    value?: Value
-    onValueChange?: (value: Value) => void
-    align?: "start" | "center"
-    label: string
-    children: (value: Value) => ReactNode
-    className?: string
-}) {
+}: TabViewProps<Value>) {
     const id = useId()
     const buttons = useRef<(HTMLButtonElement | null)[]>([])
     const [selected, setSelected] = useState(defaultValue)

@@ -1,13 +1,25 @@
 import type { ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
+export interface SidebarSectionProps {
+    /** Visible heading for this group of navigation rows. */
+    title: string
+    children: ReactNode
+}
+
+export interface SidebarItemContentProps {
+    icon: ReactNode
+    /** Optional trailing count. */
+    count?: number
+    /** Matches the router link's active state. */
+    active?: boolean
+    children: ReactNode
+}
+
 export function SidebarSection({
     title,
     children,
-}: {
-    title: string
-    children: ReactNode
-}) {
+}: SidebarSectionProps) {
     return (
         <div className="flex flex-col gap-0.5">
             <span className="px-2.5 pb-1.5 text-caption font-semibold text-label-tertiary">
@@ -33,12 +45,7 @@ export function SidebarItemContent({
     count,
     active,
     children,
-}: {
-    icon: ReactNode
-    count?: number
-    active?: boolean
-    children: ReactNode
-}) {
+}: SidebarItemContentProps) {
     return (
         <>
             <span

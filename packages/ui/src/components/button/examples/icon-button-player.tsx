@@ -1,10 +1,9 @@
 import {
-    NextIcon,
+    NextTrackIcon,
     PauseIcon,
     PlayIcon,
-    PreviousIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    PreviousTrackIcon,
+} from "@passui/react/icons"
 import { IconButton } from "@passui/react/icon-button"
 import { useState } from "react"
 
@@ -14,10 +13,7 @@ export function IconButtonPlayer() {
     return (
         <div className="flex items-center gap-3">
             <IconButton label="Previous" variant="ghost">
-                <HugeiconsIcon
-                    icon={PreviousIcon}
-                    size={20}
-                />
+                <PreviousTrackIcon />
             </IconButton>
             <IconButton
                 label={playing ? "Pause" : "Play"}
@@ -25,13 +21,14 @@ export function IconButtonPlayer() {
                 size="icon-lg"
                 onClick={() => setPlaying((value) => !value)}
             >
-                <HugeiconsIcon
-                    icon={playing ? PauseIcon : PlayIcon}
-                    size={22}
-                />
+                {playing ? (
+                    <PauseIcon size={22} />
+                ) : (
+                    <PlayIcon size={22} />
+                )}
             </IconButton>
             <IconButton label="Next" variant="ghost">
-                <HugeiconsIcon icon={NextIcon} size={20} />
+                <NextTrackIcon />
             </IconButton>
         </div>
     )

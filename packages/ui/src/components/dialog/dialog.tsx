@@ -23,13 +23,14 @@ export type DialogPresentation =
     | "inline"
 export type DialogTone = "default" | "destructive"
 
-type DialogProps = {
+export type DialogProps = {
     open: boolean
     onOpenChange: (open: boolean) => void
     title: ReactNode
     description?: ReactNode
     children?: ReactNode
     footer?: ReactNode
+    /** `drawer` (responsive sheet), `center` (floating panel), or `inline`. @default "drawer" */
     presentation?: DialogPresentation
     className?: string
     onSubmit?: (event: FormEvent<HTMLFormElement>) => void

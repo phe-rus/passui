@@ -17,8 +17,22 @@ export type { ButtonSize, ButtonVariant }
  */
 export interface ButtonProps
     extends ButtonHTMLAttributes<HTMLButtonElement> {
+    /**
+     * Visual emphasis: `default` (solid), `accent` (main action),
+     * `secondary` (quiet fill), `outline`, `ghost`, `link`, or `destructive`.
+     * @default "default"
+     */
     variant?: ButtonVariant
+    /**
+     * Label sizes: `xs`, `sm`, `default`, `lg`.
+     * Icon sizes: `icon-xs`, `icon-sm`, `icon`, `icon-lg`, `icon-full`.
+     * Prefer IconButton for an icon with a built-in accessible label.
+     * @default "default"
+     */
     size?: ButtonSize
+    /** Shows a delayed spinner, keeps the button's width, and prevents repeat presses.
+     * @default false
+     */
     isPending?: boolean
 }
 
@@ -39,6 +53,7 @@ export function buttonStyle({
     )
 }
 
+/** A native button with Passui styling, pending feedback, and an HTMLButtonElement ref. */
 export const Button = forwardRef<
     HTMLButtonElement,
     ButtonProps
