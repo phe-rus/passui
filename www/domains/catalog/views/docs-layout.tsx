@@ -1,6 +1,9 @@
-import { Menu01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ChevronDownIcon } from "@passui/react/icons"
+import { Button } from "@passui/react/button"
+import {
+    ChevronDownIcon,
+    SidebarIcon,
+} from "@passui/react/icons"
 import {
     SidebarItemContent,
     SidebarSection,
@@ -186,14 +189,15 @@ function DocsNav() {
                         key={group}
                         className="flex flex-col gap-0.5"
                     >
-                        <button
-                            type="button"
+                        <Button
+                            variant="ghost"
+                            size="xs"
                             aria-expanded={open}
                             aria-controls={panelId}
                             onClick={() =>
                                 toggle(group, open)
                             }
-                            className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-start text-caption font-semibold text-label-secondary transition-colors hover:bg-fill/70 focus-visible:outline-2 focus-visible:outline-accent-text"
+                            className="w-full justify-start rounded-lg px-2.5 [&>span]:w-full"
                         >
                             <ChevronDownIcon
                                 size={13}
@@ -205,7 +209,7 @@ function DocsNav() {
                             <span className="grow">
                                 {group}
                             </span>
-                        </button>
+                        </Button>
                         <div
                             id={panelId}
                             hidden={!open}
@@ -302,25 +306,20 @@ export function DocsLayout({ children }: DocsLayoutProps) {
     }, [pathname])
 
     return (
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 pt-4 pb-16 md:flex-row md:gap-6 md:px-6 md:pt-8 lg:gap-8">
-            <button
-                type="button"
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 pt-4 pb-16 md:flex-row md:px-6 md:pt-8">
+            <Button
+                variant="ghost"
+                size="sm"
                 aria-haspopup="dialog"
                 onClick={() => setOpen(true)}
-                className="glass-bar sticky top-16 z-30 -mx-4 flex items-center gap-2 px-4 py-2.5 text-start text-subheadline font-semibold text-label md:hidden"
+                className="glass-bar sticky top-16 z-30 -mx-4 w-[calc(100%+2rem)] rounded-none px-4 md:hidden [&>span]:w-full [&>span]:justify-between"
             >
-                <HugeiconsIcon
-                    icon={Menu01Icon}
-                    size={18}
-                    className="text-label-secondary"
-                />
+                <SidebarIcon size={18} />
                 <span className="min-w-0 flex-1 truncate">
                     {currentTitle(pathname)}
                 </span>
-                <span className="text-footnote font-normal text-label-secondary">
-                    Browse
-                </span>
-            </button>
+                <span>Browse</span>
+            </Button>
             <Sheet
                 open={open}
                 onClose={() => setOpen(false)}
@@ -336,7 +335,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
             >
                 <DocsNav />
             </aside>
-            <div className="flex min-w-0 flex-1 flex-col gap-8">
+            <div className="flex min-w-0 flex-1 flex-col gap-5">
                 <FrameworkSwitcher>
                     {children}
                 </FrameworkSwitcher>

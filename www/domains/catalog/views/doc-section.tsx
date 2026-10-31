@@ -1,4 +1,8 @@
-import { type ReactNode, useEffect, useRef } from "react"
+import { Button } from "@passui/react/button"
+import { cn } from "@passui/react/cn"
+import { ChevronDownIcon } from "@passui/react/icons"
+import { InlineDisclosure } from "@passui/react/inline-disclosure"
+import { type ReactNode, useEffect, useState } from "react"
 
 type DocSectionProps = {
     id: string
@@ -21,15 +25,12 @@ export function DocSection({
     collapsible = false,
 }: DocSectionProps) {
     const Heading = level === 2 ? "h2" : "h3"
-    const details = useRef<HTMLDetailsElement>(null)
+    const [expanded, setExpanded] = useState(false)
     useEffect(() => {
         if (!collapsible) return
         const reveal = () => {
-            if (
-                window.location.hash === `#${id}` &&
-                details.current
-            )
-                details.current.open = true
+            if (window.location.hash === `#${id}`)
+                setExpanded(true)
         }
         reveal()
         window.addEventListener("hashchange", reveal)
@@ -40,34 +41,51 @@ export function DocSection({
         return (
             <section
                 id={id}
-                aria-label={title}
+                aria-labelledby={`${id}-title`}
                 className="scroll-mt-24"
             >
-                <details
-                    ref={details}
-                    className="rounded-3xl ring-1 ring-separator/60"
-                >
-                    <summary className="cursor-pointer px-5 py-4 text-headline font-semibold text-label focus-visible:outline-2 focus-visible:outline-accent-text">
-                        {title}
-                    </summary>
-                    <div className="flex flex-col gap-4 px-5 pb-5">
-                        {description && (
-                            <p className="text-callout text-label-secondary">
-                                {description}
-                            </p>
-                        )}
-                        {children}
+                <div className="flex flex-col gap-2">
+                    <Heading id={`${id}-title`}>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            aria-expanded={expanded}
+                            aria-controls={`${id}-content`}
+                            onClick={() =>
+                                setExpanded((value) => !value)
+                            }
+                            className="w-full px-0 [&>span]:w-full [&>span]:justify-between"
+                        >
+                            {title}
+                            <ChevronDownIcon
+                                size={16}
+                                className={cn(
+                                    "transition-transform duration-fast motion-reduce:transition-none",
+                                    expanded && "rotate-180"
+                                )}
+                            />
+                        </Button>
+                    </Heading>
+                    <div id={`${id}-content`}>
+                        <InlineDisclosure open={expanded}>
+                            <div className="flex flex-col gap-5">
+                                {description && (
+                                    <p>{description}</p>
+                                )}
+                                {children}
+                            </div>
+                        </InlineDisclosure>
                     </div>
-                </details>
+                </div>
             </section>
         )
     return (
         <section
             id={id}
             aria-labelledby={`${id}-title`}
-            className="flex scroll-mt-24 flex-col gap-4"
+            className="flex scroll-mt-24 flex-col gap-5"
         >
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
                 <Heading
                     id={`${id}-title`}
                     className={
@@ -84,9 +102,7 @@ export function DocSection({
                     </a>
                 </Heading>
                 {description && (
-                    <p className="max-w-2xl text-callout text-label-secondary">
-                        {description}
-                    </p>
+                    <p className="max-w-2xl">{description}</p>
                 )}
             </div>
             {children}

@@ -1,4 +1,4 @@
-import { buttonStyle } from "@passui/react/button"
+import { Button } from "@passui/react/button"
 import type { RegisteredDocs } from "@passui/react/docs"
 import { useNavigate } from "@tanstack/react-router"
 import { CodeView } from "@/domains/playground"
@@ -65,7 +65,7 @@ export function ExampleCard({
             level={3}
         >
             <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
-                <div className="flex min-h-48 items-center justify-center bg-background p-8">
+                <div className="flex min-h-40 items-center justify-center bg-background p-5">
                     <Demo />
                 </div>
                 <div className="border-separator/60 border-t">
@@ -80,17 +80,14 @@ export function ExampleCard({
                 </div>
             </div>
             {playground && (
-                <button
-                    type="button"
+                <Button
+                    variant="link"
+                    size="sm"
                     onClick={openInPlayground}
-                    className={buttonStyle({
-                        variant: "link",
-                        size: "sm",
-                        className: "self-start px-0",
-                    })}
+                    className="self-start px-0"
                 >
                     Open in playground
-                </button>
+                </Button>
             )}
         </DocSection>
     )

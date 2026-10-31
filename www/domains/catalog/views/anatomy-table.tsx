@@ -8,13 +8,13 @@ type AnatomyTableProps = {
 export function AnatomyTable({ parts }: AnatomyTableProps) {
     return (
         <div className="overflow-hidden rounded-3xl ring-1 ring-separator/60">
-            <table className="w-full border-collapse text-left text-subheadline">
-                <thead className="bg-fill/50 text-footnote text-label-secondary">
+            <table className="w-full border-collapse text-left">
+                <thead className="bg-fill/50">
                     <tr>
-                        <th className="w-36 px-4 py-3 font-semibold">
+                        <th className="w-36 px-3 py-2">
                             Element
                         </th>
-                        <th className="px-4 py-3 font-semibold">
+                        <th className="px-3 py-2">
                             Description
                         </th>
                     </tr>
@@ -25,12 +25,12 @@ export function AnatomyTable({ parts }: AnatomyTableProps) {
                             key={part.element}
                             className="border-separator/60 border-t align-top"
                         >
-                            <td className="px-4 py-3 font-semibold text-label">
+                            <td className="px-3 py-2 font-semibold">
                                 {part.element}
                             </td>
-                            <td className="px-4 py-3 text-label-secondary">
+                            <td className="px-3 py-2">
                                 {part.required && (
-                                    <strong className="text-label">
+                                    <strong>
                                         Required.{" "}
                                     </strong>
                                 )}

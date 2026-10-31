@@ -44,19 +44,13 @@ export function PropsTable({
 }: PropsTableProps) {
     return (
         <div className="overflow-x-auto rounded-3xl ring-1 ring-separator/60">
-            <table className="w-full min-w-[40rem] border-collapse text-left text-subheadline">
-                <thead className="bg-fill/50 text-footnote text-label-secondary">
+            <table className="w-full min-w-[40rem] border-collapse text-left">
+                <thead className="bg-fill/50">
                     <tr>
-                        <th className="px-4 py-3 font-semibold">
-                            Prop
-                        </th>
-                        <th className="px-4 py-3 font-semibold">
-                            Type
-                        </th>
-                        <th className="px-4 py-3 font-semibold">
-                            Default
-                        </th>
-                        <th className="px-4 py-3 font-semibold">
+                        <th className="px-3 py-2">Prop</th>
+                        <th className="px-3 py-2">Type</th>
+                        <th className="px-3 py-2">Default</th>
+                        <th className="px-3 py-2">
                             Description
                         </th>
                     </tr>
@@ -69,18 +63,18 @@ export function PropsTable({
                                     key={name}
                                     className="border-separator/60 border-t align-top"
                                 >
-                                    <td className="px-4 py-3 font-mono text-footnote font-semibold whitespace-nowrap text-accent-text [overflow-wrap:normal]">
+                                    <td className="px-3 py-2 font-mono font-semibold whitespace-nowrap [overflow-wrap:normal]">
                                         {name}
                                     </td>
-                                    <td className="max-w-72 px-4 py-3 font-mono text-footnote text-label-secondary [overflow-wrap:normal]">
+                                    <td className="max-w-72 px-3 py-2 font-mono [overflow-wrap:normal]">
                                         <TypeOf
                                             control={control}
                                         />
                                     </td>
-                                    <td className="px-4 py-3 font-mono text-footnote whitespace-nowrap text-label-secondary [overflow-wrap:normal]">
+                                    <td className="px-3 py-2 font-mono whitespace-nowrap [overflow-wrap:normal]">
                                         {defaultOf(control)}
                                     </td>
-                                    <td className="px-4 py-3 text-label">
+                                    <td className="px-3 py-2">
                                         {descriptions[name]}
                                     </td>
                                 </tr>

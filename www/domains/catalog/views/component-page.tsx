@@ -1,5 +1,5 @@
-import { LinkSquare02Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { buttonStyle } from "@passui/react/button"
+import { InfoIcon, LinkIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
 import { CopyForAi } from "@/domains/ai-context"
 import { CodeView, Playground } from "@/domains/playground"
@@ -67,23 +67,23 @@ export function ComponentPage({
     const importLine = `import { ${docs.name} } from "${docs.importPath}"`
 
     return (
-        <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_13rem]">
-            <article className="flex min-w-0 flex-col gap-14">
-                <header className="flex flex-col gap-3">
-                    <span className="font-mono text-caption text-label-tertiary">
+        <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_13rem]">
+            <article className="flex min-w-0 flex-col gap-5">
+                <header className="flex flex-col gap-2">
+                    <span className="font-mono">
                         @passui/react · {docs.name}
                     </span>
-                    <h1 className="font-brand text-large-title font-extrabold tracking-tight text-label">
+                    <h1 className="font-brand text-large-title font-extrabold tracking-tight">
                         {componentTitle(entry)}
                     </h1>
-                    <p className="max-w-2xl text-body text-label-secondary">
+                    <p className="max-w-2xl">
                         {content.summary}
                     </p>
                     <ComponentFrameworkTabs
                         slug={slug}
                         framework="react"
                     />
-                    <div className="flex flex-wrap gap-2 pt-1">
+                    <div className="flex flex-wrap gap-2">
                         <Link
                             to="/preview/$slug"
                             params={{ slug: docs.slug }}
@@ -94,12 +94,12 @@ export function ComponentPage({
                                 scene: "showcase",
                             }}
                             target="_blank"
-                            className="inline-flex items-center gap-1.5 rounded-full bg-fill/70 px-3 py-1.5 text-footnote font-semibold text-label no-underline transition-colors hover:bg-fill"
+                            className={buttonStyle({
+                                variant: "secondary",
+                                size: "sm",
+                            })}
                         >
-                            <HugeiconsIcon
-                                icon={LinkSquare02Icon}
-                                size={14}
-                            />
+                            <LinkIcon size={16} />
                             Open preview
                         </Link>
                         <CopyForAi slug={docs.slug} />
@@ -108,7 +108,7 @@ export function ComponentPage({
 
                 <section
                     aria-label="Showcase"
-                    className="flex min-h-80 items-center justify-center rounded-5xl bg-accent-soft/50 p-6 ring-1 ring-separator/60 md:p-10"
+                    className="flex min-h-60 items-center justify-center rounded-5xl bg-accent-soft/50 p-5 ring-1 ring-separator/60"
                 >
                     <Showcase />
                 </section>
@@ -145,7 +145,7 @@ export function ComponentPage({
                         />
                     </div>
                     <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
-                        <div className="flex min-h-40 items-center justify-center bg-background p-8">
+                        <div className="flex min-h-40 items-center justify-center bg-background p-5">
                             <Usage />
                         </div>
                         <div className="border-separator/60 border-t">
@@ -174,7 +174,7 @@ export function ComponentPage({
                         title="Examples"
                         description="Common setups, variations and states."
                     >
-                        <div className="flex flex-col gap-12">
+                        <div className="flex flex-col gap-5">
                             {examples.map(
                                 ({ example, words }) => (
                                     <ExampleCard
@@ -204,9 +204,15 @@ export function ComponentPage({
                     title="Accessibility"
                     collapsible
                 >
-                    <ul className="m-0 flex list-disc flex-col gap-2 ps-5 text-callout text-label">
+                    <ul className="m-0 flex list-none flex-col gap-5 p-0">
                         {content.accessibility.map((line) => (
-                            <li key={line}>{line}</li>
+                            <li
+                                key={line}
+                                className="flex items-start gap-2"
+                            >
+                                <InfoIcon size={18} />
+                                <span>{line}</span>
+                            </li>
                         ))}
                     </ul>
                 </DocSection>
