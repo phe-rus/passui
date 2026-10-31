@@ -90,7 +90,7 @@ function DocsNav() {
         try {
             const stored: unknown = JSON.parse(
                 localStorage.getItem("passui-docs-groups") ??
-                    "{}"
+                "{}"
             )
             if (stored && typeof stored === "object") {
                 for (const group of catalogGroups) {
@@ -197,18 +197,20 @@ function DocsNav() {
                             onClick={() =>
                                 toggle(group, open)
                             }
-                            className="w-full justify-start rounded-lg px-2.5 [&>span]:w-full"
+                            className="flex items-center w-fit justify-between rounded-lg"
                         >
-                            <ChevronDownIcon
-                                size={13}
-                                className={cn(
-                                    "shrink-0 transition-transform duration-fast motion-reduce:transition-none",
-                                    !open && "-rotate-90"
-                                )}
-                            />
                             <span className="grow">
                                 {group}
                             </span>
+                            <ChevronDownIcon
+                                size={13}
+                                className={cn(
+                                    "shrink-0 transition-transform duration-fast",
+                                    'motion-reduce:transition-none',
+                                    !open && "-rotate-90 animate-collapsible-down",
+                                    open && 'animate-accordion-up'
+                                )}
+                            />
                         </Button>
                         <div
                             id={panelId}
@@ -230,41 +232,32 @@ function DocsNav() {
                                     activeOptions={{
                                         includeSearch: false,
                                     }}
+                                    className='w-fit!'
                                 >
                                     {({ isActive }) => (
-                                        <span
-                                            className={rowClass(
-                                                isActive
-                                            )}
-                                        >
+                                        <span className={rowClass(isActive)}>
                                             <SidebarItemContent
                                                 active={
                                                     isActive
                                                 }
                                                 icon={
                                                     <HugeiconsIcon
-                                                        icon={
-                                                            icon
-                                                        }
-                                                        size={
-                                                            16
-                                                        }
+                                                        icon={icon}
+                                                        size={12}
                                                     />
                                                 }
                                             >
-                                                {componentTitle(
-                                                    { docs }
-                                                )}
+                                                {componentTitle({ docs })}
                                             </SidebarItemContent>
                                         </span>
                                     )}
                                 </Link>
                             ))}
                         </div>
-                    </div>
+                    </div >
                 )
             })}
-        </nav>
+        </nav >
     )
 }
 

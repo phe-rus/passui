@@ -59,8 +59,8 @@ export function PropsTable({
         )
     return (
         <div className="overflow-x-auto rounded-3xl ring-1 ring-separator/60">
-            <table className="w-full min-w-[40rem] border-collapse text-left">
-                <thead className="bg-fill/50">
+            <table className="w-full min-w-160 border-collapse text-left">
+                <thead className="bg-fill/50 *:text-sm!">
                     <tr>
                         <th className="px-3 py-2">Prop</th>
                         <th className="px-3 py-2">Type</th>
@@ -70,7 +70,7 @@ export function PropsTable({
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="*:text-xs!">
                     {Object.entries(docs.controls).map(
                         ([name, control]) =>
                             control ? (
@@ -78,15 +78,15 @@ export function PropsTable({
                                     key={name}
                                     className="border-separator/60 border-t align-top"
                                 >
-                                    <td className="px-3 py-2 font-mono font-semibold whitespace-nowrap [overflow-wrap:normal]">
+                                    <td className="px-3 py-2 font-mono font-semibold whitespace-nowrap wrap-normal">
                                         {name}
                                     </td>
-                                    <td className="max-w-72 px-3 py-2 font-mono [overflow-wrap:normal]">
+                                    <td className="max-w-72 px-3 py-2 font-mono wrap-normal">
                                         <TypeOf
                                             control={control}
                                         />
                                     </td>
-                                    <td className="px-3 py-2 font-mono whitespace-nowrap [overflow-wrap:normal]">
+                                    <td className="px-3 py-2 font-mono whitespace-nowrap wrap-normal">
                                         {defaultOf(control)}
                                     </td>
                                     <td className="px-3 py-2">

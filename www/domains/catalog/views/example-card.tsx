@@ -68,7 +68,7 @@ export function ExampleCard({
                 <div className="flex min-h-40 items-center justify-center bg-background p-5">
                     <Demo />
                 </div>
-                <div className="border-separator/60 border-t">
+                <div className="border-separator/60 border-t *:text-sm!">
                     <CodeView
                         code={getExampleSource(
                             docs.slug,

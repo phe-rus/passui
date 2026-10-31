@@ -123,33 +123,25 @@ export function DocsSearch() {
                                     .map((entry) => (
                                         <SearchListItem
                                             key={
-                                                entry.docs
-                                                    .slug
+                                                entry.docs.slug
                                             }
                                             value={componentTitle(
                                                 entry
                                             )}
                                             keywords={[
-                                                entry.docs
-                                                    .name,
-                                                entry.docs
-                                                    .slug,
-                                                entry.content
-                                                    .summary,
+                                                entry.docs.name,
+                                                entry.docs.slug,
+                                                entry.content.summary
                                             ]}
                                             onSelect={() => {
                                                 setOpen(false)
                                                 void navigate(
                                                     {
-                                                        to:
-                                                            framework ===
-                                                            "solid"
-                                                                ? "/components/solid/$slug"
-                                                                : "/components/react/$slug",
+                                                        to: framework === "solid"
+                                                            ? "/components/solid/$slug"
+                                                            : "/components/react/$slug",
                                                         params: {
-                                                            slug: entry
-                                                                .docs
-                                                                .slug,
+                                                            slug: entry.docs.slug
                                                         },
                                                     }
                                                 )

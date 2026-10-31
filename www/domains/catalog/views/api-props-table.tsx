@@ -27,8 +27,8 @@ function SurfaceTable({
         <div className="flex flex-col gap-3">
             {surface.props.length > 0 && (
                 <div className="overflow-x-auto rounded-xl ring-1 ring-separator/60">
-                    <table className="w-full min-w-[36rem] border-collapse text-left">
-                        <thead className="bg-fill/50">
+                    <table className="w-full min-w-xl border-collapse text-left">
+                        <thead className="bg-fill/50 *:text-sm!">
                             <tr>
                                 <th className="px-3 py-2">
                                     Prop
@@ -44,7 +44,7 @@ function SurfaceTable({
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="*:text-xs!">
                             {surface.props.map((prop) => (
                                 <tr
                                     key={prop.name}
@@ -61,7 +61,7 @@ function SurfaceTable({
                                             </span>
                                         )}
                                     </td>
-                                    <td className="max-w-72 px-3 py-2 font-mono break-words">
+                                    <td className="max-w-72 px-3 py-2 font-mono wrap-break-word">
                                         {prop.type}
                                     </td>
                                     <td className="px-3 py-2 font-mono">
@@ -71,7 +71,7 @@ function SurfaceTable({
                                     <td className="px-3 py-2">
                                         {prop.description ||
                                             descriptions[
-                                                prop.name
+                                            prop.name
                                             ] ||
                                             "—"}
                                     </td>

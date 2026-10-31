@@ -9,7 +9,7 @@ export function AnatomyTable({ parts }: AnatomyTableProps) {
     return (
         <div className="overflow-hidden rounded-3xl ring-1 ring-separator/60">
             <table className="w-full border-collapse text-left">
-                <thead className="bg-fill/50">
+                <thead className="bg-fill/50 *:text-sm!">
                     <tr>
                         <th className="w-36 px-3 py-2">
                             Element
@@ -19,7 +19,7 @@ export function AnatomyTable({ parts }: AnatomyTableProps) {
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className='*:text-xs!'>
                     {parts.map((part) => (
                         <tr
                             key={part.element}
