@@ -19,7 +19,7 @@
         "check": "biome check .",
         "test": "turbo run test",
         "publish:check": "turbo run publish:check && bun scripts/check-packages.mjs",
-        "build:website": "turbo run build --filter=passui-docs",
+        "build:website": "turbo run build --filter=passui",
         "format:check": "biome format ."
     },
     "devDependencies": {

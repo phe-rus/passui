@@ -172,7 +172,7 @@
       },
     },
     "www": {
-      "name": "passui-docs",
+      "name": "passui",
       "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5",
         "@hugeicons/react": "^1.1.10",
@@ -954,7 +954,7 @@
 
     "parse5": ["parse5@7.3.0", "", { "dependencies": { "entities": "^6.0.0" } }, "sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw=="],
 
-    "passui-docs": ["passui-docs@workspace:www"],
+    "passui": ["passui@workspace:www"],
 
     "path-to-regexp": ["path-to-regexp@6.3.0", "", {}, "sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ=="],
 

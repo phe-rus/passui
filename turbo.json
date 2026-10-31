@@ -46,7 +46,7 @@
             "dependsOn": ["^build"],
             "outputs": []
         },
-        "passui-docs#typecheck": {
+        "passui#typecheck": {
             "dependsOn": ["build", "^typecheck"]
         }
     }
