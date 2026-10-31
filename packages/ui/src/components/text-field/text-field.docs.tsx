@@ -1,8 +1,5 @@
-import {
-    Mail01Icon,
-    Tick02Icon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { CheckIcon, MailIcon } from "@passui/react/icons"
+
 import { useState } from "react"
 import { defineDocs } from "../../docs/types"
 import { TextFieldIcons } from "./examples/text-field-icons"
@@ -31,21 +28,9 @@ function TextFieldDemo({
         <div className="w-full max-w-xs">
             <TextField
                 {...props}
-                icon={
-                    icon && (
-                        <HugeiconsIcon
-                            icon={Mail01Icon}
-                            size={18}
-                        />
-                    )
-                }
+                icon={icon && <MailIcon size={18} />}
                 trailingIcon={
-                    trailingIcon && (
-                        <HugeiconsIcon
-                            icon={Tick02Icon}
-                            size={18}
-                        />
-                    )
+                    trailingIcon && <CheckIcon size={18} />
                 }
                 value={value}
                 onChange={(event) =>
@@ -80,8 +65,7 @@ export const textFieldDocs = defineDocs<DemoProps>()({
             'import { useState } from "react"',
             ...(icon || trailingIcon
                 ? [
-                      `import { ${[icon && "Mail01Icon", trailingIcon && "Tick02Icon"].filter(Boolean).join(", ")} } from "@hugeicons/core-free-icons"`,
-                      'import { HugeiconsIcon } from "@hugeicons/react"',
+                      `import { ${[icon && "MailIcon", trailingIcon && "CheckIcon"].filter(Boolean).join(", ")} } from "@passui/react/icons"`,
                   ]
                 : []),
         ],
@@ -91,13 +75,12 @@ export const textFieldDocs = defineDocs<DemoProps>()({
         expressionProps: {
             ...(icon
                 ? {
-                      icon: "<HugeiconsIcon icon={Mail01Icon} size={18} />",
+                      icon: "<MailIcon size={18} />",
                   }
                 : {}),
             ...(trailingIcon
                 ? {
-                      trailingIcon:
-                          "<HugeiconsIcon icon={Tick02Icon} size={18} />",
+                      trailingIcon: "<CheckIcon size={18} />",
                   }
                 : {}),
             value: "value",

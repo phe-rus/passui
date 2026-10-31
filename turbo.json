@@ -33,7 +33,10 @@
         },
         "@passui/react#build": {
             "dependsOn": ["^build"],
-            "outputs": []
+            "outputs": ["dist/types/**"]
+        },
+        "@passui/react#typecheck": {
+            "dependsOn": ["build", "^typecheck"]
         },
         "@passui/solid#build": {
             "dependsOn": ["^build"],

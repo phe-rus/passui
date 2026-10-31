@@ -1,10 +1,10 @@
-import { TabBarFiveTabs } from "./examples/tab-bar-five-tabs"
 import {
-    Home01Icon,
+    HomeIcon,
     LibraryIcon,
-    UserIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    PersonIcon,
+} from "@passui/react/icons"
+import { TabBarFiveTabs } from "./examples/tab-bar-five-tabs"
+
 import { useState } from "react"
 import { defineDocs } from "../../docs/types"
 import { TabBarMinimize } from "./examples/tab-bar-minimize"
@@ -24,17 +24,17 @@ const tabs = [
     {
         id: "home",
         label: "Home",
-        icon: <HugeiconsIcon icon={Home01Icon} size={22} />,
+        icon: <HomeIcon size={22} />,
     },
     {
         id: "library",
         label: "Library",
-        icon: <HugeiconsIcon icon={LibraryIcon} size={22} />,
+        icon: <LibraryIcon size={22} />,
     },
     {
         id: "profile",
         label: "Profile",
-        icon: <HugeiconsIcon icon={UserIcon} size={22} />,
+        icon: <PersonIcon size={22} />,
     },
 ] as const
 
@@ -98,15 +98,14 @@ export const tabBarDocs = defineDocs<DemoProps>()({
     ),
     childrenSnippet: ({ search }) => ({
         imports: [
-            'import { Home01Icon, LibraryIcon, UserIcon } from "@hugeicons/core-free-icons"',
-            'import { HugeiconsIcon } from "@hugeicons/react"',
+            'import { HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons"',
             `import { Link, useLocation${search ? ", useNavigate" : ""} } from "@tanstack/react-router"`,
         ],
         setup: [
             "const tabs = [",
-            '    { id: "/", label: "Home", icon: <HugeiconsIcon icon={Home01Icon} size={22} /> },',
-            '    { id: "/library", label: "Library", icon: <HugeiconsIcon icon={LibraryIcon} size={22} /> },',
-            '    { id: "/profile", label: "Profile", icon: <HugeiconsIcon icon={UserIcon} size={22} /> },',
+            '    { id: "/", label: "Home", icon: <HomeIcon size={22} /> },',
+            '    { id: "/library", label: "Library", icon: <LibraryIcon size={22} /> },',
+            '    { id: "/profile", label: "Profile", icon: <PersonIcon size={22} /> },',
             "]",
             "const { pathname } = useLocation()",
             ...(search

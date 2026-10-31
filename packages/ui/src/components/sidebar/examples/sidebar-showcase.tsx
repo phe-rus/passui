@@ -1,11 +1,11 @@
 import {
-    Analytics01Icon,
-    Folder01Icon,
-    Home01Icon,
-    Settings01Icon,
-    UserIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    ChartIcon,
+    FolderIcon,
+    HomeIcon,
+    PersonIcon,
+    SettingsIcon,
+} from "@passui/react/icons"
+
 import {
     SidebarItemContent,
     SidebarSection,
@@ -20,24 +20,24 @@ const sections = [
             {
                 id: "overview",
                 label: "Overview",
-                icon: Home01Icon,
+                icon: HomeIcon,
             },
             {
                 id: "apps",
                 label: "Applications",
-                icon: Folder01Icon,
+                icon: FolderIcon,
                 count: 6,
             },
             {
                 id: "users",
                 label: "Users",
-                icon: UserIcon,
+                icon: PersonIcon,
                 count: 1284,
             },
             {
                 id: "activity",
                 label: "Activity",
-                icon: Analytics01Icon,
+                icon: ChartIcon,
             },
         ],
     },
@@ -47,7 +47,7 @@ const sections = [
             {
                 id: "settings",
                 label: "Settings",
-                icon: Settings01Icon,
+                icon: SettingsIcon,
             },
         ],
     },
@@ -98,8 +98,7 @@ export function SidebarShowcase() {
                                     }
                                     count={item.count}
                                     icon={
-                                        <HugeiconsIcon
-                                            icon={item.icon}
+                                        <item.icon
                                             size={18}
                                         />
                                     }

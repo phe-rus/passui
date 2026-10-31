@@ -1,10 +1,10 @@
-import { SidebarUnread } from "./examples/sidebar-unread"
 import {
     InboxIcon,
-    SentIcon,
+    SendIcon,
     StarIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+} from "@passui/react/icons"
+import { SidebarUnread } from "./examples/sidebar-unread"
+
 import { useState } from "react"
 import { defineDocs } from "../../docs/types"
 import { SidebarGroups } from "./examples/sidebar-groups"
@@ -37,7 +37,7 @@ const items = [
         icon: StarIcon,
         count: 3,
     },
-    { id: "sent", label: "Sent", icon: SentIcon, count: 0 },
+    { id: "sent", label: "Sent", icon: SendIcon, count: 0 },
 ]
 
 function SidebarDemo({ title, counts }: DemoProps) {
@@ -69,12 +69,7 @@ function SidebarDemo({ title, counts }: DemoProps) {
                                     ? item.count
                                     : undefined
                             }
-                            icon={
-                                <HugeiconsIcon
-                                    icon={item.icon}
-                                    size={18}
-                                />
-                            }
+                            icon={<item.icon size={18} />}
                         >
                             {item.label}
                         </SidebarItemContent>
@@ -100,8 +95,7 @@ export const sidebarDocs = defineDocs<DemoProps>()({
     render: (values) => <SidebarDemo {...values} />,
     childrenSnippet: ({ counts }) => ({
         imports: [
-            'import { InboxIcon } from "@hugeicons/core-free-icons"',
-            'import { HugeiconsIcon } from "@hugeicons/react"',
+            'import { InboxIcon } from "@passui/react/icons"',
             'import { SidebarItemContent, sidebarItemClass } from "@passui/react/sidebar"',
             'import { Link } from "@tanstack/react-router"',
         ],
@@ -116,7 +110,7 @@ export const sidebarDocs = defineDocs<DemoProps>()({
             ...(counts
                 ? ["                    count={12}"]
                 : []),
-            "                    icon={<HugeiconsIcon icon={InboxIcon} size={18} />}",
+            "                    icon={<InboxIcon size={18} />}",
             "                >",
             "                    Inbox",
             "                </SidebarItemContent>",

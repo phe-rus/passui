@@ -1,6 +1,6 @@
+import { CopyIcon } from "@passui/react/icons"
 import { TooltipShortcuts } from "./examples/tooltip-shortcuts"
-import { Copy01Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+
 import { Button } from "../button/button"
 import { jsxAttribute, jsxText } from "../../docs/snippet"
 import { defineDocs } from "../../docs/types"
@@ -26,7 +26,7 @@ export const tooltipDocs = defineDocs<DemoProps>()({
     },
     render: ({ tooltip }) => (
         <Button variant="secondary" data-tooltip={tooltip}>
-            <HugeiconsIcon icon={Copy01Icon} size={18} />
+            <CopyIcon size={18} />
             Hover me
         </Button>
     ),

@@ -28,7 +28,7 @@ import {
 import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
 import { screenEdges } from "../../lib/screen-edges"
-import { spring } from "../../motion/transitions"
+import { floatingPanelMotion } from "../../motion/transitions"
 
 export interface PickerOption<T extends string> {
     value: T
@@ -373,7 +373,7 @@ function SelectList<T extends string>({
                     ? { opacity: 0 }
                     : {
                           opacity: 0,
-                          scale: 0.96,
+                          scale: 1,
                           y: placement.above ? 6 : -6,
                       }
             }
@@ -383,14 +383,16 @@ function SelectList<T extends string>({
                     ? { opacity: 0 }
                     : {
                           opacity: 0,
-                          scale: 0.98,
-                          transition: { duration: 0.1 },
+                          scale: 1,
+                          y: placement.above ? 4 : -4,
                       }
             }
             transition={
                 reducedMotion
                     ? { duration: 0 }
-                    : spring.smooth
+                    : floatingPanelMotion(
+                          placement.above ? "above" : "below"
+                      ).transition
             }
             style={{
                 left: placement.left,

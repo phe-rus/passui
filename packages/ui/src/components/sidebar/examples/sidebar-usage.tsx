@@ -1,8 +1,5 @@
-import {
-    Home01Icon,
-    Settings01Icon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { HomeIcon, SettingsIcon } from "@passui/react/icons"
+
 import {
     SidebarItemContent,
     SidebarSection,
@@ -21,12 +18,7 @@ export function SidebarUsage() {
                 >
                     <SidebarItemContent
                         active
-                        icon={
-                            <HugeiconsIcon
-                                icon={Home01Icon}
-                                size={18}
-                            />
-                        }
+                        icon={<HomeIcon size={18} />}
                     >
                         Home
                     </SidebarItemContent>
@@ -36,12 +28,7 @@ export function SidebarUsage() {
                     className={sidebarItemClass()}
                 >
                     <SidebarItemContent
-                        icon={
-                            <HugeiconsIcon
-                                icon={Settings01Icon}
-                                size={18}
-                            />
-                        }
+                        icon={<SettingsIcon size={18} />}
                     >
                         Settings
                     </SidebarItemContent>

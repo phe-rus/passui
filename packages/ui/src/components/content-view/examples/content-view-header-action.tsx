@@ -1,5 +1,5 @@
-import { Key01Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { KeyIcon } from "@passui/react/icons"
+
 import { Button } from "@passui/react/button"
 import { ContentView } from "@passui/react/content-view"
 
@@ -10,8 +10,7 @@ export function ContentViewHeaderAction() {
                 heading="Passkeys"
                 p="2 passkeys on your devices. Sign in with your face or fingerprint."
                 icon={
-                    <HugeiconsIcon
-                        icon={Key01Icon}
+                    <KeyIcon
                         size={20}
                         className="text-accent-text"
                     />

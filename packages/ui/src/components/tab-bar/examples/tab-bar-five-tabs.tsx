@@ -1,11 +1,11 @@
 import {
-    Calendar03Icon,
-    Home01Icon,
+    CalendarIcon,
+    HomeIcon,
     InboxIcon,
     LibraryIcon,
-    UserIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    PersonIcon,
+} from "@passui/react/icons"
+
 import { TabBar } from "@passui/react"
 import { useState } from "react"
 
@@ -13,29 +13,27 @@ const tabs = [
     {
         id: "home",
         label: "Home",
-        icon: <HugeiconsIcon icon={Home01Icon} size={22} />,
+        icon: <HomeIcon size={22} />,
     },
     {
         id: "inbox",
         label: "Inbox",
-        icon: <HugeiconsIcon icon={InboxIcon} size={22} />,
+        icon: <InboxIcon size={22} />,
     },
     {
         id: "calendar",
         label: "Calendar",
-        icon: (
-            <HugeiconsIcon icon={Calendar03Icon} size={22} />
-        ),
+        icon: <CalendarIcon size={22} />,
     },
     {
         id: "library",
         label: "Library",
-        icon: <HugeiconsIcon icon={LibraryIcon} size={22} />,
+        icon: <LibraryIcon size={22} />,
     },
     {
         id: "profile",
         label: "Profile",
-        icon: <HugeiconsIcon icon={UserIcon} size={22} />,
+        icon: <PersonIcon size={22} />,
     },
 ]
 

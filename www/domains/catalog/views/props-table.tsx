@@ -2,6 +2,13 @@ import type {
     AnyControl,
     RegisteredDocs,
 } from "@passui/react/docs"
+import reactApi from "../react-api.generated.json"
+import {
+    ApiPropsTable,
+    type ApiReference,
+} from "./api-props-table"
+
+const references: Record<string, ApiReference> = reactApi
 
 type PropsTableProps = {
     docs: RegisteredDocs
@@ -42,6 +49,14 @@ export function PropsTable({
     docs,
     descriptions,
 }: PropsTableProps) {
+    const reference = references[docs.slug]
+    if (reference)
+        return (
+            <ApiPropsTable
+                reference={reference}
+                descriptions={descriptions}
+            />
+        )
     return (
         <div className="overflow-x-auto rounded-3xl ring-1 ring-separator/60">
             <table className="w-full min-w-[40rem] border-collapse text-left">

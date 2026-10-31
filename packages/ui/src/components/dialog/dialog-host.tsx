@@ -1,4 +1,8 @@
-import { AnimatePresence, motion } from "motion/react"
+import {
+    AnimatePresence,
+    motion,
+    useReducedMotion,
+} from "motion/react"
 import {
     useEffect,
     useRef,
@@ -37,6 +41,7 @@ export function DialogHost() {
 }
 
 function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
+    const reducedMotion = useReducedMotion()
     const confirmRef = useRef<HTMLButtonElement>(null)
     const cancelRef = useRef<HTMLButtonElement>(null)
     const titleId = `dialog-title-${dialog.id}`
@@ -90,7 +95,11 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={spring.smooth}
+                transition={
+                    reducedMotion
+                        ? { duration: 0 }
+                        : spring.smooth
+                }
                 onClick={() => settleDialog(false)}
             />
             <motion.div
@@ -101,15 +110,22 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                     dialog.message ? messageId : undefined
                 }
                 className="glass-menu relative flex w-full max-w-[340px] flex-col gap-4 rounded-5xl p-5 text-center"
-                initial={{ opacity: 0, scale: 0.86, y: 12 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{
-                    opacity: 0,
-                    scale: 0.94,
-                    y: 6,
-                    transition: spring.snappy,
-                }}
-                transition={spring.bouncy}
+                initial={
+                    reducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: 12 }
+                }
+                animate={{ opacity: 1, y: 0 }}
+                exit={
+                    reducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: 6 }
+                }
+                transition={
+                    reducedMotion
+                        ? { duration: 0 }
+                        : spring.smooth
+                }
             >
                 <div className="flex flex-col gap-1.5 px-1 pt-1">
                     <h2

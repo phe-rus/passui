@@ -87,7 +87,9 @@ bun run test
 bun run publish:check
 ```
 
-The package exports TypeScript and TSX source. Your app's bundler must
+The package exports explicit declaration types for editors and TypeScript/TSX
+source for bundlers. `bun run build` generates the declarations before packing.
+Your app's bundler must
 process those files and its stylesheet through Tailwind CSS 4.
 
 The GitHub Actions `publish.yml` workflow publishes from `main` using

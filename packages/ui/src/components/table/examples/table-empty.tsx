@@ -1,5 +1,5 @@
-import { InboxIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { InboxIcon } from "@passui/react/icons"
+
 import { Button } from "@passui/react/button"
 import {
     Table,
@@ -24,8 +24,7 @@ export function TableEmpty() {
                     <TableRow className="hover:bg-transparent">
                         <TableCell colSpan={2}>
                             <div className="flex flex-col items-center gap-2 py-8 text-center">
-                                <HugeiconsIcon
-                                    icon={InboxIcon}
+                                <InboxIcon
                                     size={28}
                                     className="text-label-tertiary"
                                 />

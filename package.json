@@ -9,6 +9,7 @@
         "www"
     ],
     "scripts": {
+        "docs:api": "bun scripts/generate-react-api.mjs",
         "solid:parity": "bun scripts/check-solid-parity.ts",
         "solid:examples": "bun scripts/generate-solid-example-sources.ts && biome format --write www/domains/framework/solid-example-sources.generated.ts",
         "dev": "turbo run dev",
@@ -16,7 +17,7 @@
         "typecheck": "turbo run typecheck",
         "lint": "biome lint .",
         "format": "biome format --write .",
-        "check": "biome check .",
+        "check": "bun run docs:api --check && biome check .",
         "test": "turbo run test",
         "publish:check": "turbo run publish:check && bun scripts/check-packages.mjs",
         "build:website": "turbo run build --filter=passui",

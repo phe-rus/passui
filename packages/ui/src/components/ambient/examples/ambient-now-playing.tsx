@@ -1,9 +1,9 @@
 import {
+    NextTrackIcon,
     PauseIcon,
-    NextIcon,
-    PreviousIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    PreviousTrackIcon,
+} from "@passui/react/icons"
+
 import { Ambient } from "@passui/react/ambient"
 import { IconButton } from "@passui/react/icon-button"
 
@@ -28,26 +28,17 @@ export function AmbientNowPlaying() {
             </div>
             <div className="flex items-center gap-2">
                 <IconButton label="Previous" variant="ghost">
-                    <HugeiconsIcon
-                        icon={PreviousIcon}
-                        size={22}
-                    />
+                    <PreviousTrackIcon size={22} />
                 </IconButton>
                 <IconButton
                     label="Pause"
                     variant="secondary"
                     size="icon-lg"
                 >
-                    <HugeiconsIcon
-                        icon={PauseIcon}
-                        size={24}
-                    />
+                    <PauseIcon size={24} />
                 </IconButton>
                 <IconButton label="Next" variant="ghost">
-                    <HugeiconsIcon
-                        icon={NextIcon}
-                        size={22}
-                    />
+                    <NextTrackIcon size={22} />
                 </IconButton>
             </div>
         </Ambient>

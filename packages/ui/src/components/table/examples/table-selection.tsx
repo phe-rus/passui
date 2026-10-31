@@ -1,9 +1,9 @@
 import {
     LaptopIcon,
-    SmartPhone01Icon,
-    Tablet01Icon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    SmartphoneIcon,
+    TabletIcon,
+} from "@passui/react/icons"
+
 import { Button } from "@passui/react/button"
 import {
     Table,
@@ -26,13 +26,13 @@ const devices = [
     {
         id: "phone",
         name: "iPhone 16",
-        icon: SmartPhone01Icon,
+        icon: SmartphoneIcon,
         seen: "2 hours ago",
     },
     {
         id: "tablet",
         name: "iPad mini",
-        icon: Tablet01Icon,
+        icon: TabletIcon,
         seen: "3 weeks ago",
     },
 ]
@@ -113,10 +113,7 @@ export function TableSelection() {
                                 <TableCell>
                                     <div className="flex items-center gap-3">
                                         <span className="flex size-8 items-center justify-center rounded-full bg-fill text-label-secondary">
-                                            <HugeiconsIcon
-                                                icon={
-                                                    device.icon
-                                                }
+                                            <device.icon
                                                 size={18}
                                             />
                                         </span>

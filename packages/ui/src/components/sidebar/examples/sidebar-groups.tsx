@@ -1,15 +1,14 @@
 import {
-    Archive01Icon,
-    Calendar03Icon,
-    Delete02Icon,
-    Folder01Icon,
+    ArchiveIcon,
+    CalendarIcon,
+    FolderIcon,
     InboxIcon,
-    Note01Icon,
-} from "@hugeicons/core-free-icons"
-import {
-    HugeiconsIcon,
-    type IconSvgElement,
-} from "@hugeicons/react"
+    NoteIcon,
+    TrashIcon,
+    type IconProps,
+} from "@passui/react/icons"
+import type { ComponentType } from "react"
+
 import {
     SidebarItemContent,
     SidebarSection,
@@ -20,7 +19,7 @@ import { useState } from "react"
 type Row = {
     id: string
     label: string
-    icon: IconSvgElement
+    icon: ComponentType<IconProps>
     count?: number
 }
 
@@ -31,13 +30,13 @@ const sections: { title: string; items: Row[] }[] = [
             {
                 id: "notes",
                 label: "All notes",
-                icon: Note01Icon,
+                icon: NoteIcon,
                 count: 248,
             },
             {
                 id: "today",
                 label: "Today",
-                icon: Calendar03Icon,
+                icon: CalendarIcon,
                 count: 4,
             },
             {
@@ -54,13 +53,13 @@ const sections: { title: string; items: Row[] }[] = [
             {
                 id: "work",
                 label: "Work",
-                icon: Folder01Icon,
+                icon: FolderIcon,
                 count: 61,
             },
             {
                 id: "travel",
                 label: "Travel",
-                icon: Folder01Icon,
+                icon: FolderIcon,
                 count: 17,
             },
         ],
@@ -71,12 +70,12 @@ const sections: { title: string; items: Row[] }[] = [
             {
                 id: "archive",
                 label: "Archive",
-                icon: Archive01Icon,
+                icon: ArchiveIcon,
             },
             {
                 id: "trash",
                 label: "Recently deleted",
-                icon: Delete02Icon,
+                icon: TrashIcon,
             },
         ],
     },
@@ -115,12 +114,7 @@ export function SidebarGroups() {
                             <SidebarItemContent
                                 active={item.id === active}
                                 count={item.count}
-                                icon={
-                                    <HugeiconsIcon
-                                        icon={item.icon}
-                                        size={18}
-                                    />
-                                }
+                                icon={<item.icon size={18} />}
                             >
                                 {item.label}
                             </SidebarItemContent>

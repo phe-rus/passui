@@ -1,4 +1,19 @@
 import {
+    LanguagesIcon,
+    Logout01Icon,
+    MoreVertical,
+    SentIcon,
+    InboxIcon as InboxGlyph,
+    LaptopIcon as LaptopGlyph,
+    SmartPhone01Icon,
+    Tablet01Icon,
+    Home01Icon,
+    LibraryIcon as LibraryGlyph,
+    UserIcon,
+    Analytics01Icon,
+    CustomerSupportIcon,
+    Key01Icon,
+    LockPasswordIcon,
     Add01Icon,
     AiMagicIcon,
     AlarmClockIcon,
@@ -154,6 +169,36 @@ function toggleIcon(
 }
 
 export const NoteIcon = icon(Note01Icon, "NoteIcon")
+export const LanguageIcon = icon(
+    LanguagesIcon,
+    "LanguageIcon"
+)
+export const SignOutIcon = icon(Logout01Icon, "SignOutIcon")
+export const MoreVerticalIcon = icon(
+    MoreVertical,
+    "MoreVerticalIcon"
+)
+export const SendIcon = icon(SentIcon, "SendIcon")
+export const InboxIcon = icon(InboxGlyph, "InboxIcon")
+export const LaptopIcon = icon(LaptopGlyph, "LaptopIcon")
+export const SmartphoneIcon = icon(
+    SmartPhone01Icon,
+    "SmartphoneIcon"
+)
+export const TabletIcon = icon(Tablet01Icon, "TabletIcon")
+export const HomeIcon = icon(Home01Icon, "HomeIcon")
+export const LibraryIcon = icon(LibraryGlyph, "LibraryIcon")
+export const PersonIcon = icon(UserIcon, "PersonIcon")
+export const ChartIcon = icon(Analytics01Icon, "ChartIcon")
+export const SupportIcon = icon(
+    CustomerSupportIcon,
+    "SupportIcon"
+)
+export const KeyIcon = icon(Key01Icon, "KeyIcon")
+export const PasswordIcon = icon(
+    LockPasswordIcon,
+    "PasswordIcon"
+)
 export const JournalIcon = icon(NotebookIcon, "JournalIcon")
 export const PenIcon = icon(PencilEdit02Icon, "PenIcon")
 export const StoryIcon = icon(QuillWrite02Icon, "StoryIcon")

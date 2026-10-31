@@ -5,6 +5,7 @@ import { CopyForAi } from "@/domains/ai-context"
 import { CodeView, Playground } from "@/domains/playground"
 import type { DocsSettings } from "@/domains/settings"
 import { getEntry } from "../get-catalog"
+import { getSetup } from "../get-setup"
 import { componentTitle } from "../navigation"
 import { getExampleSource } from "../get-example-source"
 import { AnatomyTable } from "./anatomy-table"
@@ -35,6 +36,7 @@ export function ComponentPage({
     const entry = getEntry(slug)
     if (!entry) return null
     const { docs, content } = entry
+    const setup = getSetup(docs.slug)
     const Showcase = docs.showcase
     const Usage = docs.usage
     const examples = docs.examples.map((example) => ({
@@ -45,6 +47,7 @@ export function ComponentPage({
         { id: "playground", title: "Playground" },
         { id: "installation", title: "Installation" },
         { id: "usage", title: "Usage" },
+        ...(setup ? [{ id: "setup", title: "Setup" }] : []),
         { id: "anatomy", title: "Anatomy" },
         ...(examples.length > 0
             ? [
@@ -133,6 +136,18 @@ export function ComponentPage({
                     <InstallSteps />
                 </DocSection>
 
+                {setup && (
+                    <DocSection
+                        id="setup"
+                        title="Setup"
+                        description={setup.description}
+                    >
+                        <CodeView
+                            code={setup.code}
+                            label="tsx"
+                        />
+                    </DocSection>
+                )}
                 <DocSection
                     id="usage"
                     title="Usage"

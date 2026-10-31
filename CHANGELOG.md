@@ -10,6 +10,14 @@
 - Solid: introduce frame-rate-independent damped spring motion, velocity-preserving retargeting, rubber-band drag resistance and reduced-motion behavior.
 - Solid: replace the fixed-duration switch-thumb transition with interruptible spring movement and pointer dragging; expand its interactive example and add oscillator tests.
 
+## React 0.1.19 and tokens 0.1.1
+
+- Publish explicit React declarations for every TypeScript entry point, preserving prop documentation, literal choices, and native refs for editor tooling. Runtime entries continue to expose source.
+- Provide `@passui/react/icons` and migrate all public React examples and playground icon snippets to it. Add confirmed clipboard writes and a manual-copy fallback in the docs.
+- Keep menu text unscaled while its material transforms from the trigger. Use damped, directional panel motion for popovers and pickers, and remove text scaling from sheets and confirmation dialogs. Honor Reduce Motion.
+- Hide scrollbar chrome globally through shared base styles while preserving scrolling.
+- Improve docs navigation with wider collapsible groups and header combobox search. Generate the actual React API reference, including callbacks, refs and compound parts, from source and check it for staleness. Document host setup separately from playground controls.
+
 ## Solid 0.1.0, TanStack 0.2.0, CLI 0.2.0 and React 0.1.15
 
 - Add native Solid implementations and usage examples for all 35 documented component families, with shared tokens and native appearance providers.

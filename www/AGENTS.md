@@ -27,6 +27,7 @@ The website, catalog prose, tests and reusable packages share this public reposi
 - Phones: the docs sidebar is hidden below `md` and opens in a Sheet from the bar naming the current page.
 - The sidebar is navigation only, with collapsible groups and no search field. Header search uses `domains/shell/views/docs-search.tsx`, a native SearchList combobox in a Sheet, opened by Ctrl/Cmd K.
 - Code and AI copy actions share `domains/clipboard/use-copy-text.tsx`; browser refusal opens a manual selection Sheet rather than reporting success.
+- React API tables use source-derived `domains/catalog/react-api.generated.json`. Run `bun run docs:api` after changing component contracts; root `bun run check` rejects a stale reference. Playground controls remain a separate demo contract.
 
 ## Checks
 

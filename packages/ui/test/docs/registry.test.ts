@@ -5,7 +5,10 @@ import { registry } from "../../src/docs/registry"
 
 const root = join(import.meta.dirname, "../..")
 const components = join(root, "src/components")
-const exportsMap: Record<string, string> = JSON.parse(
+const exportsMap: Record<
+    string,
+    string | { types: string; default: string }
+> = JSON.parse(
     readFileSync(join(root, "package.json"), "utf8")
 ).exports
 
@@ -26,6 +29,16 @@ function examplePath(slug: string, id: string) {
 }
 
 describe("docs registry", () => {
+    test("public React examples keep icon imports on the Passui surface", () => {
+        for (const file of globSync("*/examples/*.tsx", {
+            cwd: components,
+        })) {
+            expect(
+                readFileSync(join(components, file), "utf8"),
+                file
+            ).not.toContain("@hugeicons/")
+        }
+    })
     test("every slug is unique", () => {
         const slugs = registry.map((docs) => docs.slug)
         expect(new Set(slugs).size).toBe(slugs.length)
@@ -153,8 +166,9 @@ describe("docs registry", () => {
         expect(
             existsSync(join(root, "src/docs/index.ts"))
         ).toBe(true)
-        expect(exportsMap["./docs"]).toBe(
-            "./src/docs/index.ts"
-        )
+        expect(exportsMap["./docs"]).toEqual({
+            types: "./dist/types/src/docs/index.d.ts",
+            default: "./src/docs/index.ts",
+        })
     })
 })

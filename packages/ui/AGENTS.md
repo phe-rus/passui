@@ -158,6 +158,8 @@ small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 
 Public examples import React icons from `@passui/react/icons`. Export named
 props types beside controls and document fixed choices and defaults on props.
+React package exports pair declaration types in `dist/types` with source runtime
+entries. Build before typechecking or packing; keep generated declarations out of git.
 `copyText` from `@passui/react/clipboard` returns true only after a confirmed
 write; show success only then and provide manual copying when access fails.
 

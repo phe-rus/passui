@@ -94,9 +94,9 @@ function OpenSheet({
                 initial={
                     reducedMotion
                         ? { opacity: 0 }
-                        : { y: 40, opacity: 0, scale: 0.98 }
+                        : { y: 40, opacity: 0 }
                 }
-                animate={{ y: 0, opacity: 1, scale: 1 }}
+                animate={{ y: 0, opacity: 1 }}
                 exit={
                     reducedMotion
                         ? { opacity: 0 }

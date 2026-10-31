@@ -8,18 +8,26 @@ export const spring = {
     bouncy: { type: "spring", ...springs.bouncy },
 } as const satisfies Record<keyof typeof springs, Transition>
 
-/** Menus, popovers and floating toolbars: grow from their anchor. */
-export const popoverMotion = {
-    initial: { opacity: 0, scale: 0.94, y: -6 },
-    animate: { opacity: 1, scale: 1, y: 0 },
-    exit: {
-        opacity: 0,
-        scale: 0.97,
-        y: -4,
-        transition: spring.snappy,
-    },
-    transition: spring.snappy,
-} as const
+export type FloatingPanelSide = "above" | "below"
+
+/** Anchored panels settle toward their source without shrinking their text. */
+export function floatingPanelMotion(
+    side: FloatingPanelSide = "below"
+) {
+    const direction = side === "above" ? 1 : -1
+    return {
+        initial: { opacity: 0, scale: 1, y: direction * 6 },
+        animate: { opacity: 1, scale: 1, y: 0 },
+        exit: { opacity: 0, scale: 1, y: direction * 4 },
+        transition: {
+            ...spring.smooth,
+            opacity: { duration: 0.16 },
+        },
+    } as const
+}
+
+/** Default below-anchor presentation, retained for existing consumers. */
+export const popoverMotion = floatingPanelMotion()
 
 /** Floating bars that rise from the bottom edge. */
 export const riseMotion = {

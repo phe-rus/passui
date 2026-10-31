@@ -1,8 +1,5 @@
-import {
-    InboxIcon,
-    StarIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { InboxIcon, StarIcon } from "@passui/react/icons"
+
 import { Button } from "@passui/react/button"
 import {
     SidebarItemContent,
@@ -26,12 +23,7 @@ export function SidebarUnread() {
                         <SidebarItemContent
                             active
                             count={unread || undefined}
-                            icon={
-                                <HugeiconsIcon
-                                    icon={InboxIcon}
-                                    size={18}
-                                />
-                            }
+                            icon={<InboxIcon size={18} />}
                         >
                             Inbox
                         </SidebarItemContent>
@@ -41,12 +33,7 @@ export function SidebarUnread() {
                         className={sidebarItemClass()}
                     >
                         <SidebarItemContent
-                            icon={
-                                <HugeiconsIcon
-                                    icon={StarIcon}
-                                    size={18}
-                                />
-                            }
+                            icon={<StarIcon size={18} />}
                         >
                             Starred
                         </SidebarItemContent>

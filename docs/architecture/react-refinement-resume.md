@@ -1,9 +1,12 @@
 # React refinement checkpoint
 
 Approved in conversation on 2026-10-31. Work in this checkout, not Pass.
-Base: main at 3ed13e1. Owner authorized committing and pushing this checkpoint
-and current changes. No release or deployment. Publishing follows successful CI
-on main; this checkpoint commit uses [skip ci] to avoid that automatic path.
+Initial base: 3ed13e1. Resumed from clean 704741f after intervening icon,
+Popover fit, compact docs, and workspace commits. Owner now authorizes completing
+the refinement, pushing releases, waiting for registry availability, and then
+upgrading Pass. This supersedes the earlier no-release/[skip ci] instruction.
+Package targets: @passui/tokens 0.1.1, then @passui/react 0.1.19. Website and
+Pass deployments remain separate from package publication.
 
 ## Read budget
 
@@ -63,9 +66,22 @@ Then refine Popover/pickers/sheets/dialogs through their own placement and focus
 contracts. Shared base CSS now hides scrollbar chrome for both runtimes at the
 owner's explicit request. Other runtime changes in this slice are React only.
 
-Remaining: complete icon example migration beyond buttons; improve full API
-reference beyond playground controls; dedicated hook/host setup guidance; verify
-editor completions in an actual consuming app and a packed package.
+Completed in this continuation: all React examples and icon snippets now use
+public Passui icons. All 36 React API families are extracted from source, with
+literal choices, callbacks, refs, native contracts, and compound parts. Host
+setup is documented separately. Root check rejects stale generated API metadata.
+React now packs explicit declaration exports. The external archive consumer at
+/tmp/passui-consumer.ibLSY5 passed TypeScript 5.9.3 checks and SSR; its language
+service verified variant/size completions, prop hover docs, and icon imports.
+Popovers and pickers share damped directional motion; sheets and confirmation
+dialogs keep text unscaled. Confirmation dialogs explicitly honor Reduce Motion.
+
+Release checks observed: all workspace builds/typechecks/checks passed, 252
+tests passed, Solid coverage 36/36, and all five package archives/exports passed.
+API literal-choice coverage was then checked separately. Run checks for any new
+changes before release. Registry publication and the Pass upgrade are pending.
+Preserve the existing visual/editor evidence boundaries above; language-service
+verification is not a screenshot or a physical-device motion review.
 
 ## Component gaps, preliminary assessment
 

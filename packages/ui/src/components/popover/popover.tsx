@@ -7,7 +7,7 @@ import {
 import { useLayoutEffect, useRef, useState } from "react"
 import { cn } from "../../lib/class-names"
 import { screenEdges } from "../../lib/screen-edges"
-import { popoverMotion } from "../../motion/transitions"
+import { floatingPanelMotion } from "../../motion/transitions"
 import { fitPopover, type PopoverFit } from "./popover-fit"
 
 export type PopoverOrigin = "top-left" | "top-right"
@@ -47,6 +47,9 @@ function OpenPopover({
         maxWidth: 0,
         above: false,
     })
+    const popoverMotion = floatingPanelMotion(
+        fit.above ? "above" : "below"
+    )
 
     useLayoutEffect(() => {
         const refit = () => {

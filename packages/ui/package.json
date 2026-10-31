@@ -1,6 +1,6 @@
 {
     "name": "@passui/react",
-    "version": "0.1.18",
+    "version": "0.1.19",
     "description": "Passui: native React controls, design tokens, presentation and appearance.",
     "license": "MIT",
     "repository": {
@@ -16,63 +16,188 @@
     "files": [
         "src",
         "README.md",
-        "LICENSE"
+        "LICENSE",
+        "dist/types"
     ],
     "type": "module",
     "exports": {
-        "./icons": "./src/icons/icons.tsx",
-        "./clipboard": "./src/lib/clipboard.ts",
-        "./search-field": "./src/components/search-field/search-field.tsx",
-        "./picker": "./src/components/picker/picker.tsx",
-        "./segmented-control": "./src/components/segmented-control/segmented-control.tsx",
-        "./table": "./src/components/table/table.tsx",
-        "./search-list": "./src/components/search-list/search-list.tsx",
-        "./profile-image": "./src/components/profile-image/profile-image.tsx",
-        "./popover": "./src/components/popover/popover.tsx",
-        "./sheet": "./src/components/sheet/sheet.tsx",
-        "./use-dismiss": "./src/hooks/use-dismiss.ts",
-        "./toast": "./src/components/toast/toast-store.ts",
-        "./toaster": "./src/components/toast/toaster.tsx",
-        "./tab-view": "./src/components/tab-view/tab-view.tsx",
-        "./sidebar": "./src/components/sidebar/sidebar.tsx",
-        "./icon-button": "./src/components/button/icon-button.tsx",
-        "./secure-field": "./src/components/secure-field/secure-field.tsx",
-        "./text-field": "./src/components/text-field/text-field.tsx",
-        "./text-editor": "./src/components/text-editor/text-editor.tsx",
-        "./button": "./src/components/button/button.tsx",
-        "./toggle": "./src/components/toggle/toggle.tsx",
-        "./cn": "./src/lib/class-names.ts",
-        ".": "./src/index.ts",
+        "./icons": {
+            "types": "./dist/types/src/icons/icons.d.ts",
+            "default": "./src/icons/icons.tsx"
+        },
+        "./clipboard": {
+            "types": "./dist/types/src/lib/clipboard.d.ts",
+            "default": "./src/lib/clipboard.ts"
+        },
+        "./search-field": {
+            "types": "./dist/types/src/components/search-field/search-field.d.ts",
+            "default": "./src/components/search-field/search-field.tsx"
+        },
+        "./picker": {
+            "types": "./dist/types/src/components/picker/picker.d.ts",
+            "default": "./src/components/picker/picker.tsx"
+        },
+        "./segmented-control": {
+            "types": "./dist/types/src/components/segmented-control/segmented-control.d.ts",
+            "default": "./src/components/segmented-control/segmented-control.tsx"
+        },
+        "./table": {
+            "types": "./dist/types/src/components/table/table.d.ts",
+            "default": "./src/components/table/table.tsx"
+        },
+        "./search-list": {
+            "types": "./dist/types/src/components/search-list/search-list.d.ts",
+            "default": "./src/components/search-list/search-list.tsx"
+        },
+        "./profile-image": {
+            "types": "./dist/types/src/components/profile-image/profile-image.d.ts",
+            "default": "./src/components/profile-image/profile-image.tsx"
+        },
+        "./popover": {
+            "types": "./dist/types/src/components/popover/popover.d.ts",
+            "default": "./src/components/popover/popover.tsx"
+        },
+        "./sheet": {
+            "types": "./dist/types/src/components/sheet/sheet.d.ts",
+            "default": "./src/components/sheet/sheet.tsx"
+        },
+        "./use-dismiss": {
+            "types": "./dist/types/src/hooks/use-dismiss.d.ts",
+            "default": "./src/hooks/use-dismiss.ts"
+        },
+        "./toast": {
+            "types": "./dist/types/src/components/toast/toast-store.d.ts",
+            "default": "./src/components/toast/toast-store.ts"
+        },
+        "./toaster": {
+            "types": "./dist/types/src/components/toast/toaster.d.ts",
+            "default": "./src/components/toast/toaster.tsx"
+        },
+        "./tab-view": {
+            "types": "./dist/types/src/components/tab-view/tab-view.d.ts",
+            "default": "./src/components/tab-view/tab-view.tsx"
+        },
+        "./sidebar": {
+            "types": "./dist/types/src/components/sidebar/sidebar.d.ts",
+            "default": "./src/components/sidebar/sidebar.tsx"
+        },
+        "./icon-button": {
+            "types": "./dist/types/src/components/button/icon-button.d.ts",
+            "default": "./src/components/button/icon-button.tsx"
+        },
+        "./secure-field": {
+            "types": "./dist/types/src/components/secure-field/secure-field.d.ts",
+            "default": "./src/components/secure-field/secure-field.tsx"
+        },
+        "./text-field": {
+            "types": "./dist/types/src/components/text-field/text-field.d.ts",
+            "default": "./src/components/text-field/text-field.tsx"
+        },
+        "./text-editor": {
+            "types": "./dist/types/src/components/text-editor/text-editor.d.ts",
+            "default": "./src/components/text-editor/text-editor.tsx"
+        },
+        "./button": {
+            "types": "./dist/types/src/components/button/button.d.ts",
+            "default": "./src/components/button/button.tsx"
+        },
+        "./toggle": {
+            "types": "./dist/types/src/components/toggle/toggle.d.ts",
+            "default": "./src/components/toggle/toggle.tsx"
+        },
+        "./cn": {
+            "types": "./dist/types/src/lib/class-names.d.ts",
+            "default": "./src/lib/class-names.ts"
+        },
+        ".": {
+            "types": "./dist/types/src/index.d.ts",
+            "default": "./src/index.ts"
+        },
         "./base.css": "./src/styles/base.css",
         "./utilities.css": "./src/styles/utilities.css",
         "./theme.css": "./src/styles/theme.css",
-        "./tokens": "./src/tokens.ts",
-        "./date-picker": "./src/components/date-picker/date-picker.tsx",
-        "./compact-date-picker": "./src/components/compact-date-picker/compact-date-picker.tsx",
-        "./compact-time-picker": "./src/components/compact-time-picker/compact-time-picker.tsx",
-        "./view-controller": "./src/components/view-controller/index.ts",
-        "./content-view": "./src/components/content-view/index.ts",
-        "./ambient": "./src/components/ambient/index.ts",
-        "./stat-tile": "./src/components/stat-tile/index.ts",
-        "./conversation": "./src/components/conversation/index.ts",
-        "./locale-switcher": "./src/components/locale-switcher/index.ts",
-        "./date": "./src/lib/date.ts",
-        "./language": "./src/lib/language.ts",
-        "./shapes": "./src/lib/shapes.ts",
-        "./appearance": "./src/appearance/index.ts",
-        "./use-media-query": "./src/hooks/use-media-query.ts",
+        "./tokens": {
+            "types": "./dist/types/src/tokens.d.ts",
+            "default": "./src/tokens.ts"
+        },
+        "./date-picker": {
+            "types": "./dist/types/src/components/date-picker/date-picker.d.ts",
+            "default": "./src/components/date-picker/date-picker.tsx"
+        },
+        "./compact-date-picker": {
+            "types": "./dist/types/src/components/compact-date-picker/compact-date-picker.d.ts",
+            "default": "./src/components/compact-date-picker/compact-date-picker.tsx"
+        },
+        "./compact-time-picker": {
+            "types": "./dist/types/src/components/compact-time-picker/compact-time-picker.d.ts",
+            "default": "./src/components/compact-time-picker/compact-time-picker.tsx"
+        },
+        "./view-controller": {
+            "types": "./dist/types/src/components/view-controller/index.d.ts",
+            "default": "./src/components/view-controller/index.ts"
+        },
+        "./content-view": {
+            "types": "./dist/types/src/components/content-view/index.d.ts",
+            "default": "./src/components/content-view/index.ts"
+        },
+        "./ambient": {
+            "types": "./dist/types/src/components/ambient/index.d.ts",
+            "default": "./src/components/ambient/index.ts"
+        },
+        "./stat-tile": {
+            "types": "./dist/types/src/components/stat-tile/index.d.ts",
+            "default": "./src/components/stat-tile/index.ts"
+        },
+        "./conversation": {
+            "types": "./dist/types/src/components/conversation/index.d.ts",
+            "default": "./src/components/conversation/index.ts"
+        },
+        "./locale-switcher": {
+            "types": "./dist/types/src/components/locale-switcher/index.d.ts",
+            "default": "./src/components/locale-switcher/index.ts"
+        },
+        "./date": {
+            "types": "./dist/types/src/lib/date.d.ts",
+            "default": "./src/lib/date.ts"
+        },
+        "./language": {
+            "types": "./dist/types/src/lib/language.d.ts",
+            "default": "./src/lib/language.ts"
+        },
+        "./shapes": {
+            "types": "./dist/types/src/lib/shapes.d.ts",
+            "default": "./src/lib/shapes.ts"
+        },
+        "./appearance": {
+            "types": "./dist/types/src/appearance/index.d.ts",
+            "default": "./src/appearance/index.ts"
+        },
+        "./use-media-query": {
+            "types": "./dist/types/src/hooks/use-media-query.d.ts",
+            "default": "./src/hooks/use-media-query.ts"
+        },
         "./typeset.css": "./src/styles/typeset.css",
         "./styles.css": "./src/styles/styles.css",
-        "./dialog": "./src/components/dialog/index.ts",
-        "./docs": "./src/docs/index.ts",
-        "./inline-disclosure": "./src/components/inline-disclosure/inline-disclosure.tsx"
+        "./dialog": {
+            "types": "./dist/types/src/components/dialog/index.d.ts",
+            "default": "./src/components/dialog/index.ts"
+        },
+        "./docs": {
+            "types": "./dist/types/src/docs/index.d.ts",
+            "default": "./src/docs/index.ts"
+        },
+        "./inline-disclosure": {
+            "types": "./dist/types/src/components/inline-disclosure/inline-disclosure.d.ts",
+            "default": "./src/components/inline-disclosure/inline-disclosure.tsx"
+        }
     },
     "scripts": {
         "generate": "bun run --cwd ../tokens generate",
         "test": "vitest run",
         "typecheck": "tsc -p tsconfig.json",
         "publish:check": "bun pm pack --dry-run",
-        "build": "bun run generate"
+        "build": "bun run generate && tsc -p tsconfig.build.json",
+        "prepack": "bun run build"
     },
     "packageManager": "bun@1.4.2",
     "peerDependencies": {
@@ -99,5 +224,6 @@
         "tailwind-merge": "^3.7.0",
         "tw-animate-css": "^1.4.0",
         "@passui/tokens": "workspace:^"
-    }
+    },
+    "types": "./dist/types/src/index.d.ts"
 }

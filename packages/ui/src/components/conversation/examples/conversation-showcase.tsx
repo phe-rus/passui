@@ -1,5 +1,5 @@
-import { CustomerSupportIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { SupportIcon } from "@passui/react/icons"
+
 import {
     Conversation,
     type ConversationMessage,
@@ -14,10 +14,7 @@ const support = {
     author: "Pass support",
     avatar: (
         <span className="flex size-7 items-center justify-center rounded-full bg-accent-soft text-accent-text">
-            <HugeiconsIcon
-                icon={CustomerSupportIcon}
-                size={16}
-            />
+            <SupportIcon size={16} />
         </span>
     ),
 }

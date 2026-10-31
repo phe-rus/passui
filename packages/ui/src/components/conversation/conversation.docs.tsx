@@ -1,6 +1,6 @@
+import { SupportIcon } from "@passui/react/icons"
 import { ConversationDays } from "./examples/conversation-days"
-import { CustomerSupportIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+
 import { defineDocs } from "../../docs/types"
 import { Conversation } from "./conversation"
 import { ConversationComposer } from "./examples/conversation-composer"
@@ -31,10 +31,7 @@ export const conversationDocs = defineDocs<DemoProps>()({
             author: author || undefined,
             avatar: avatar ? (
                 <span className="flex size-7 items-center justify-center rounded-full bg-accent-soft text-accent-text">
-                    <HugeiconsIcon
-                        icon={CustomerSupportIcon}
-                        size={16}
-                    />
+                    <SupportIcon size={16} />
                 </span>
             ) : undefined,
         }
@@ -68,14 +65,13 @@ export const conversationDocs = defineDocs<DemoProps>()({
     childrenSnippet: ({ author, avatar }) => ({
         imports: avatar
             ? [
-                  'import { CustomerSupportIcon } from "@hugeicons/core-free-icons"',
-                  'import { HugeiconsIcon } from "@hugeicons/react"',
+                  'import { SupportIcon } from "@passui/react/icons"',
               ]
             : [],
         element: "Conversation.Messages",
         omit: ["author", "avatar"],
         expressionProps: {
-            messages: `[\n        { id: "1", mine: true, body: "Hi!", createdAt: "2026-10-14T09:00:00Z" },\n        { id: "2", mine: false, body: "Hello, how can we help?"${author ? `, author: ${JSON.stringify(author)}` : ""}${avatar ? ", avatar: <HugeiconsIcon icon={CustomerSupportIcon} size={16} />" : ""}, createdAt: "2026-10-14T09:01:00Z" },\n    ]`,
+            messages: `[\n        { id: "1", mine: true, body: "Hi!", createdAt: "2026-10-14T09:00:00Z" },\n        { id: "2", mine: false, body: "Hello, how can we help?"${author ? `, author: ${JSON.stringify(author)}` : ""}${avatar ? ", avatar: <SupportIcon size={16} />" : ""}, createdAt: "2026-10-14T09:01:00Z" },\n    ]`,
         },
         children: "",
     }),

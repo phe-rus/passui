@@ -17,7 +17,7 @@ export const contextMenuContent: ComponentContent<
         toolbar: {
             title: "A menu from its action group",
             description:
-                "Pass the action group's element as toolbar to openMenu. The button stretches across the group before unfolding; sibling controls return when it closes.",
+                "Pass the action group's element as toolbar to openMenu. Its material expands from the group without stretching the labels; sibling controls return when it closes.",
         },
         list: {
             title: "Menus on list rows",
