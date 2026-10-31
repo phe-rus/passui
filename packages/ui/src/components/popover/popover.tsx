@@ -8,6 +8,7 @@ import { useLayoutEffect, useRef, useState } from "react"
 import { cn } from "../../lib/class-names"
 import { screenEdges } from "../../lib/screen-edges"
 import { popoverMotion } from "../../motion/transitions"
+import { fitPopover, type PopoverFit } from "./popover-fit"
 
 export type PopoverOrigin = "top-left" | "top-right"
 
@@ -17,17 +18,11 @@ export interface PopoverProps extends HTMLMotionProps<"div"> {
     origin?: PopoverOrigin
 }
 
-interface PopoverFit {
-    shift: number
-    maxWidth?: number
-    maxHeight?: number
-}
-
 /**
  * A glass surface that springs open from its anchor. Position it with
  * `className` (it is absolutely positioned within a relative parent); it
- * moves itself back inside the screen if that would cross an edge, and
- * keeps checking while the viewport resizes or anything scrolls.
+ * flips above its relative parent when the bottom edge is short, and
+ * stays inside the visible viewport as it resizes or scrolls.
  */
 export function Popover({ open, ...props }: PopoverProps) {
     return (
@@ -46,50 +41,119 @@ function OpenPopover({
 }: Omit<PopoverProps, "open">) {
     const ref = useRef<HTMLDivElement>(null)
     const reducedMotion = useReducedMotion()
-    const [fit, setFit] = useState<PopoverFit>({ shift: 0 })
+    const [fit, setFit] = useState<PopoverFit>({
+        shiftX: 0,
+        shiftY: 0,
+        maxWidth: 0,
+        above: false,
+    })
 
     useLayoutEffect(() => {
         const refit = () => {
             const element = ref.current
             if (!element) return
-            // Where it sits once open: measured without the opening scale, before paint.
+            // Measure the authored position without the opening animation or
+            // our viewport correction. This prevents cumulative drift.
             const transform = element.style.transform
+            const translate = element.style.translate
+            const maxHeight = element.style.maxHeight
+            const maxWidth = element.style.maxWidth
             element.style.transform = "none"
+            element.style.translate = "none"
+            element.style.maxHeight = "none"
+            element.style.maxWidth = "none"
             const rect = element.getBoundingClientRect()
+            const neededHeight = Math.max(
+                rect.height,
+                element.scrollHeight
+            )
             element.style.transform = transform
+            element.style.translate = translate
+            element.style.maxHeight = maxHeight
+            element.style.maxWidth = maxWidth
+
+            const visualViewport = window.visualViewport
+            const offsetLeft = visualViewport?.offsetLeft ?? 0
+            const offsetTop = visualViewport?.offsetTop ?? 0
             const edges = screenEdges()
-            const right = window.innerWidth - edges.right
-            let shift = 0
-            if (rect.right > right) shift = right - rect.right
-            if (rect.left + shift < edges.left)
-                shift = edges.left - rect.left
-            const room =
-                window.innerHeight - edges.bottom - rect.top
-            setFit({
-                shift,
-                maxWidth:
-                    window.innerWidth -
-                    edges.left -
-                    edges.right,
-                maxHeight:
-                    rect.height > room
-                        ? Math.max(room, 0)
-                        : undefined,
+            const offsetParent = element.offsetParent
+            const anchor =
+                offsetParent instanceof HTMLElement &&
+                offsetParent !== document.body
+                    ? offsetParent.getBoundingClientRect()
+                    : undefined
+            const next = fitPopover(
+                {
+                    left: rect.left,
+                    top: rect.top,
+                    width: rect.width,
+                    height: neededHeight,
+                },
+                anchor,
+                {
+                    viewport: {
+                        width:
+                            offsetLeft +
+                            (visualViewport?.width ??
+                                window.innerWidth),
+                        height:
+                            offsetTop +
+                            (visualViewport?.height ??
+                                window.innerHeight),
+                    },
+                    edges: {
+                        ...edges,
+                        left: offsetLeft + edges.left,
+                        top: offsetTop + edges.top,
+                    },
+                },
+                6,
+                origin
+            )
+            setFit((current) => {
+                if (
+                    current.shiftX === next.shiftX &&
+                    current.shiftY === next.shiftY &&
+                    current.maxWidth === next.maxWidth &&
+                    current.maxHeight === next.maxHeight &&
+                    current.above === next.above
+                )
+                    return current
+                return next
             })
         }
         refit()
-        const viewport = window.visualViewport
-        viewport?.addEventListener("resize", refit)
-        viewport?.addEventListener("scroll", refit)
-        window.addEventListener("resize", refit)
-        window.addEventListener("scroll", refit, true)
-        return () => {
-            viewport?.removeEventListener("resize", refit)
-            viewport?.removeEventListener("scroll", refit)
-            window.removeEventListener("resize", refit)
-            window.removeEventListener("scroll", refit, true)
+        let frame = 0
+        const scheduleRefit = () => {
+            cancelAnimationFrame(frame)
+            frame = requestAnimationFrame(refit)
         }
-    }, [])
+        const viewport = window.visualViewport
+        viewport?.addEventListener("resize", scheduleRefit)
+        viewport?.addEventListener("scroll", scheduleRefit)
+        window.addEventListener("resize", scheduleRefit)
+        window.addEventListener("scroll", scheduleRefit, true)
+        return () => {
+            cancelAnimationFrame(frame)
+            viewport?.removeEventListener(
+                "resize",
+                scheduleRefit
+            )
+            viewport?.removeEventListener(
+                "scroll",
+                scheduleRefit
+            )
+            window.removeEventListener(
+                "resize",
+                scheduleRefit
+            )
+            window.removeEventListener(
+                "scroll",
+                scheduleRefit,
+                true
+            )
+        }
+    }, [origin])
 
     return (
         <motion.div
@@ -118,12 +182,15 @@ function OpenPopover({
             style={{
                 transformOrigin:
                     origin === "top-left"
-                        ? "0% 0%"
-                        : "100% 0%",
-                x: fit.shift,
-                maxWidth: fit.maxWidth,
+                        ? `0% ${fit.above ? "100%" : "0%"}`
+                        : `100% ${fit.above ? "100%" : "0%"}`,
+                translate: `${fit.shiftX}px ${fit.shiftY}px`,
+                maxWidth: fit.maxWidth || undefined,
                 maxHeight: fit.maxHeight,
-                overflowY: fit.maxHeight ? "auto" : undefined,
+                overflowY:
+                    fit.maxHeight !== undefined
+                        ? "auto"
+                        : undefined,
                 ...style,
             }}
             className={cn(
