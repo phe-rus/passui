@@ -1,18 +1,17 @@
 import {
-    TextBoldIcon,
-    TextItalicIcon,
-    TextUnderlineIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    BoldIcon,
+    ItalicIcon,
+    UnderlineIcon,
+} from "@passui/react/icons"
 import { Button } from "@passui/react/button"
 
 const tools = [
-    { label: "Bold", keys: "⌘B", icon: TextBoldIcon },
-    { label: "Italic", keys: "⌘I", icon: TextItalicIcon },
+    { label: "Bold", keys: "⌘B", icon: BoldIcon },
+    { label: "Italic", keys: "⌘I", icon: ItalicIcon },
     {
         label: "Underline",
         keys: "⌘U",
-        icon: TextUnderlineIcon,
+        icon: UnderlineIcon,
     },
 ]
 
@@ -27,10 +26,7 @@ export function TooltipShortcuts() {
                     aria-label={tool.label}
                     data-tooltip={`${tool.label}  ${tool.keys}`}
                 >
-                    <HugeiconsIcon
-                        icon={tool.icon}
-                        size={18}
-                    />
+                    <tool.icon size={18} />
                 </Button>
             ))}
         </div>

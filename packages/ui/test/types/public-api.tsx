@@ -4,7 +4,13 @@ import {
     type ButtonVariant,
 } from "@passui/react/button"
 import { IconButton } from "@passui/react/icon-button"
-import { SettingsIcon } from "@passui/react/icons"
+import {
+    ArchiveIcon,
+    InfoIcon,
+    ReplyIcon,
+    SettingsIcon,
+    UnderlineIcon,
+} from "@passui/react/icons"
 import {
     Picker,
     type PickerProps,
@@ -32,6 +38,14 @@ export function publicApiTypes() {
         <IconButton ref={ref} label="Settings">
             <SettingsIcon size={18} />
         </IconButton>
+    )
+    const additionalIcons = (
+        <>
+            <ArchiveIcon />
+            <InfoIcon />
+            <ReplyIcon />
+            <UnderlineIcon />
+        </>
     )
     // @ts-expect-error fixed options must not widen to string
     const invalid = <Button variant="unknown" />
@@ -88,6 +102,7 @@ export function publicApiTypes() {
     return {
         button,
         icon,
+        additionalIcons,
         invalid,
         unnamed,
         wrongRef,

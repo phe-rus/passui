@@ -1,5 +1,4 @@
-import { InformationCircleIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { InfoIcon } from "@passui/react/icons"
 import { IconButton } from "@passui/react/icon-button"
 import { Popover } from "@passui/react/popover"
 import { TextField } from "@passui/react/text-field"
@@ -31,10 +30,7 @@ export function PopoverHelp() {
                             aria-expanded={open}
                             onClick={() => setOpen(!open)}
                         >
-                            <HugeiconsIcon
-                                icon={InformationCircleIcon}
-                                size={18}
-                            />
+                            <InfoIcon size={18} />
                         </IconButton>
                         <Popover
                             open={open}

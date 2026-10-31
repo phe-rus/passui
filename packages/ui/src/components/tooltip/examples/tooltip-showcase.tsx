@@ -1,17 +1,16 @@
 import {
-    Archive01Icon,
-    Delete02Icon,
-    MailReply01Icon,
+    ArchiveIcon,
+    ReplyIcon,
     StarIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    TrashIcon,
+} from "@passui/react/icons"
 import { IconButton } from "@passui/react/icon-button"
 
 const actions = [
-    { label: "Reply", icon: MailReply01Icon },
+    { label: "Reply", icon: ReplyIcon },
     { label: "Star", icon: StarIcon },
-    { label: "Archive", icon: Archive01Icon },
-    { label: "Delete", icon: Delete02Icon },
+    { label: "Archive", icon: ArchiveIcon },
+    { label: "Delete", icon: TrashIcon },
 ]
 
 export function TooltipShowcase() {
@@ -28,10 +27,7 @@ export function TooltipShowcase() {
                             label={action.label}
                             variant="ghost"
                         >
-                            <HugeiconsIcon
-                                icon={action.icon}
-                                size={20}
-                            />
+                            <action.icon />
                         </IconButton>
                     ))}
                 </div>

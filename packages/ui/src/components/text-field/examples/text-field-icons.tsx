@@ -1,10 +1,9 @@
 import {
-    Link01Icon,
-    Mail01Icon,
-    Search01Icon,
-    Tick02Icon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    CheckIcon,
+    LinkIcon,
+    MailIcon,
+    SearchIcon,
+} from "@passui/react/icons"
 import { TextField } from "@passui/react/text-field"
 import { useState } from "react"
 
@@ -19,16 +18,10 @@ export function TextFieldIcons() {
             <TextField
                 label="Email"
                 type="email"
-                icon={
-                    <HugeiconsIcon
-                        icon={Mail01Icon}
-                        size={18}
-                    />
-                }
+                icon={<MailIcon size={18} />}
                 trailingIcon={
                     valid && (
-                        <HugeiconsIcon
-                            icon={Tick02Icon}
+                        <CheckIcon
                             size={18}
                             className="text-success"
                         />
@@ -42,12 +35,7 @@ export function TextFieldIcons() {
             <TextField
                 label="Website"
                 placeholder="example.com"
-                icon={
-                    <HugeiconsIcon
-                        icon={Link01Icon}
-                        size={18}
-                    />
-                }
+                icon={<LinkIcon size={18} />}
                 value={site}
                 onChange={(event) =>
                     setSite(event.target.value)
@@ -56,12 +44,7 @@ export function TextFieldIcons() {
             <TextField
                 label="Find a member"
                 placeholder="Name or email"
-                icon={
-                    <HugeiconsIcon
-                        icon={Search01Icon}
-                        size={18}
-                    />
-                }
+                icon={<SearchIcon size={18} />}
                 value={query}
                 onChange={(event) =>
                     setQuery(event.target.value)

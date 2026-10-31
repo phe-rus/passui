@@ -3,6 +3,7 @@ import {
     AiMagicIcon,
     AlarmClockIcon,
     Alert02Icon,
+    Archive01Icon,
     ArrowDown01Icon,
     ArrowLeft01Icon,
     ArrowRight01Icon,
@@ -44,6 +45,7 @@ import {
     ThumbsUpIcon as HugeThumbsUpIcon,
     UndoIcon as HugeUndoIcon,
     Image01Icon,
+    InformationCircleIcon,
     Invoice03Icon,
     LayoutGridIcon,
     LeftToRightListBulletIcon,
@@ -52,6 +54,7 @@ import {
     LockIcon as LockIconSvg,
     Mic01Icon,
     Mail01Icon,
+    MailReply01Icon,
     Moon02Icon,
     MoreHorizontalIcon,
     Mortarboard01Icon,
@@ -80,6 +83,7 @@ import {
     TextAlignLeftIcon,
     TextBoldIcon,
     TextItalicIcon,
+    TextUnderlineIcon,
     Tick02Icon,
     Time04Icon,
     Touch01Icon,
@@ -309,6 +313,12 @@ export const BookmarkIcon = icon(
     "BookmarkIcon"
 )
 export const MailIcon = icon(Mail01Icon, "MailIcon")
+export const ReplyIcon = icon(MailReply01Icon, "ReplyIcon")
+export const ArchiveIcon = icon(Archive01Icon, "ArchiveIcon")
+export const InfoIcon = icon(
+    InformationCircleIcon,
+    "InfoIcon"
+)
 export const AlignCenterIcon = icon(
     TextAlignCenterIcon,
     "AlignCenterIcon"
@@ -319,3 +329,7 @@ export const AlignLeftIcon = icon(
 )
 export const BoldIcon = icon(TextBoldIcon, "BoldIcon")
 export const ItalicIcon = icon(TextItalicIcon, "ItalicIcon")
+export const UnderlineIcon = icon(
+    TextUnderlineIcon,
+    "UnderlineIcon"
+)
