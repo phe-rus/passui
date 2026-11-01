@@ -105,6 +105,22 @@
             "types": "./dist/types/src/components/toggle/toggle.d.ts",
             "default": "./src/components/toggle/toggle.tsx"
         },
+        "./slider": {
+            "types": "./dist/types/src/components/slider/slider.d.ts",
+            "default": "./src/components/slider/slider.tsx"
+        },
+        "./stepper": {
+            "types": "./dist/types/src/components/stepper/stepper.d.ts",
+            "default": "./src/components/stepper/stepper.tsx"
+        },
+        "./progress-view": {
+            "types": "./dist/types/src/components/progress-view/progress-view.d.ts",
+            "default": "./src/components/progress-view/progress-view.tsx"
+        },
+        "./divider": {
+            "types": "./dist/types/src/components/divider/divider.d.ts",
+            "default": "./src/components/divider/divider.tsx"
+        },
         "./cn": {
             "types": "./dist/types/src/lib/class-names.d.ts",
             "default": "./src/lib/class-names.ts"

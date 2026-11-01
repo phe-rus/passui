@@ -40,6 +40,47 @@ export function SaveButton() {
 }
 ```
 
+### Numeric controls and separators
+
+`Slider`, `Stepper`, `ProgressView`, and `Divider` provide native foundations
+for settings, quantity adjustments, task progress, and layout separation.
+They have individual subpath exports and named TypeScript props.
+
+```tsx
+import { useState } from "react"
+import { Slider } from "@passui/react/slider"
+import { Stepper } from "@passui/react/stepper"
+import { ProgressView } from "@passui/react/progress-view"
+import { Divider } from "@passui/react/divider"
+
+export function DownloadSettings() {
+    const [volume, setVolume] = useState(50)
+    const [copies, setCopies] = useState(1)
+
+    return (
+        <section className="flex flex-col gap-4">
+            <Slider label="Volume" value={volume} onChange={setVolume} />
+            <Stepper
+                label="Copies"
+                labels={{ decrement: "Fewer copies", increment: "More copies" }}
+                value={copies}
+                onChange={setCopies}
+                min={1}
+                max={10}
+            />
+            <Divider />
+            <ProgressView label="Downloading" value={42} max={100} />
+        </section>
+    )
+}
+```
+
+Both numeric controls are controlled: the parent owns their value. Stepper
+supports fractional steps and disables actions at its bounds. Slider keeps
+native pointer and keyboard input. ProgressView omits `value` for indeterminate
+progress and honors reduced motion. Divider is decorative by default; pass
+`decorative={false}` to expose a semantic separator.
+
 ### Icons and prop types
 
 On this development branch, React icons have a dedicated entry point:
