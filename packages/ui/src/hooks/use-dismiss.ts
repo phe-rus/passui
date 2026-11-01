@@ -1,5 +1,5 @@
 import { type RefObject, useEffect } from "react"
-import { ownsFloatingLayer } from "../lib/floating-layers"
+import { belongsToFloatingSurface, ownsFloatingLayer } from "../lib/floating-layers"
 
 /** Marks a floating layer (a pop-up list, a menu) whose clicks belong to what opened it. */
 export { FLOATING_LAYER } from "../lib/floating-layers"
@@ -19,7 +19,7 @@ export function useDismiss(
         const onPointerDown = (event: PointerEvent) => {
             const target = event.target as Element
             const surface = ref.current
-            if (surface && (surface.contains(target) || ownsFloatingLayer(surface, target))) return
+            if (surface && belongsToFloatingSurface(surface, target)) return
             onDismiss()
         }
         const onKeyDown = (event: KeyboardEvent) => {

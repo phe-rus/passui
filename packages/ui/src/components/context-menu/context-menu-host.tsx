@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } fr
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
 import { CheckIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
-import { registerFloatingLayer } from "../../lib/floating-layers"
+import { belongsToFloatingSurface, registerFloatingLayer } from "../../lib/floating-layers"
 import { screenEdges } from "../../lib/screen-edges"
 import { spring } from "../../motion/transitions"
 import { concealMenuSource } from "./conceal-menu-source"
@@ -83,7 +83,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
             const edges = screenEdges()
             const left = viewport?.offsetLeft ?? 0
             const top = viewport?.offsetTop ?? 0
-            setPosition({
+            const next = {
                 ...menuPosition(
                     menu,
                     {
@@ -101,7 +101,19 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     }
                 ),
                 ready: true,
-            })
+            }
+            setPosition((current) =>
+                current.left === next.left &&
+                current.top === next.top &&
+                current.originX === next.originX &&
+                current.originY === next.originY &&
+                current.maxHeight === next.maxHeight &&
+                current.width === next.width &&
+                current.height === next.height &&
+                current.ready === next.ready
+                    ? current
+                    : next
+            )
         }
         const schedule = () => {
             cancelAnimationFrame(frame)
@@ -122,7 +134,8 @@ function Menu({ menu }: { menu: OpenMenu }) {
     useEffect(() => {
         if (!present) return
         const onPointer = (event: PointerEvent) => {
-            if (!ref.current?.contains(event.target as Node)) closeContextMenu(false)
+            if (!ref.current || !belongsToFloatingSurface(ref.current, event.target as Element))
+                closeContextMenu(false)
         }
         const close = () => closeContextMenu(false)
         let scrollIntentUntil = 0
@@ -291,7 +304,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     if ("heading" in item) {
                         return (
                             <span
-                                key={`heading-${item.heading}`}
+                                key={`heading-${index}`}
                                 className="px-2.5 pt-1.5 pb-0.5 text-caption2 font-semibold text-label-tertiary"
                             >
                                 {item.heading}
@@ -302,7 +315,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     const current = actionIndex
                     return (
                         <button
-                            key={item.label}
+                            key={`item-${index}`}
                             type="button"
                             role="menuitem"
                             tabIndex={-1}

@@ -20,3 +20,8 @@ export function ownsFloatingLayer(container: Element, target: Element | null): b
     }
     return false
 }
+
+/** An element belongs to a surface either directly or through a portaled child layer. */
+export function belongsToFloatingSurface(surface: Element, target: Element | null): boolean {
+    return Boolean(target && (surface.contains(target) || ownsFloatingLayer(surface, target)))
+}

@@ -14,7 +14,7 @@ import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
 import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
-import { registerFloatingLayer } from "../../lib/floating-layers"
+import { belongsToFloatingSurface, registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
 import { floatingPanelMotion } from "../../motion/transitions"
 import { pickerTriggerStyle } from "./picker-trigger"
@@ -213,7 +213,11 @@ function SelectList<T extends string>({
     useEffect(() => {
         const onPointer = (event: PointerEvent) => {
             const target = event.target as Node
-            if (!root.current?.contains(target) && !anchor.contains(target)) onClose(false)
+            if (
+                !anchor.contains(target) &&
+                (!root.current || !belongsToFloatingSurface(root.current, target as Element))
+            )
+                onClose(false)
         }
         const onBlur = () => onClose(false)
         document.addEventListener("pointerdown", onPointer, true)
