@@ -1,6 +1,5 @@
 import { ContextMenuHost, DialogHost, TooltipHost } from "@passui/react"
-import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { CloseIcon, MenuIcon } from "@passui/react/icons"
 import { buttonStyle } from "@passui/react/button"
 import { IconButton } from "@passui/react/icon-button"
 import { Sheet } from "@passui/react/sheet"
@@ -105,7 +104,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         className="md:hidden"
                         onClick={() => setMenuOpen(true)}
                     >
-                        <HugeiconsIcon icon={Menu01Icon} size={20} />
+                        <MenuIcon size={20} />
                     </IconButton>
                 </div>
             </header>
@@ -114,7 +113,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                     <div className="flex items-center justify-between px-3 pb-2">
                         <span className="text-headline font-semibold text-label">Passui</span>
                         <IconButton label="Close" variant="ghost" size="icon-sm" onClick={close}>
-                            <HugeiconsIcon icon={Cancel01Icon} size={20} />
+                            <CloseIcon size={20} />
                         </IconButton>
                     </div>
                     <Link

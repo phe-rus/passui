@@ -1,5 +1,4 @@
-import { NextIcon, PauseIcon, PlayIcon, PreviousIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { NextTrackIcon, PauseIcon, PlayIcon, PreviousTrackIcon } from "@passui/react/icons"
 import { Button, Chip, SegmentedControl, StatusIndicator, Toggle, toast } from "@passui/react"
 import { cn } from "@passui/react/cn"
 import { IconButton } from "@passui/react/icon-button"
@@ -81,7 +80,7 @@ function Player({ theme }: ShowcaseCardBodyProps) {
             </div>
             <div className="flex items-center justify-center gap-3">
                 <IconButton label="Previous" variant="ghost">
-                    <HugeiconsIcon icon={PreviousIcon} size={20} />
+                    <PreviousTrackIcon size={20} />
                 </IconButton>
                 <IconButton
                     label={playing ? "Pause" : "Play"}
@@ -89,10 +88,10 @@ function Player({ theme }: ShowcaseCardBodyProps) {
                     size="icon-lg"
                     onClick={() => setPlaying((value) => !value)}
                 >
-                    <HugeiconsIcon icon={playing ? PauseIcon : PlayIcon} size={22} />
+                    {playing ? <PauseIcon size={22} /> : <PlayIcon size={22} />}
                 </IconButton>
                 <IconButton label="Next" variant="ghost">
-                    <HugeiconsIcon icon={NextIcon} size={20} />
+                    <NextTrackIcon size={20} />
                 </IconButton>
             </div>
         </ShowcaseCard>

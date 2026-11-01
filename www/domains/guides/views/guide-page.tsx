@@ -1,5 +1,4 @@
-import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { ChevronLeftIcon, ChevronRightIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
 import type { ComponentType } from "react"
 import { OnThisPage, type TocItem } from "@/domains/catalog"
@@ -76,7 +75,7 @@ export function GuidePage({ slug }: { slug: string }) {
                             to={previous.path}
                             className="flex items-center gap-2 text-subheadline text-label-secondary no-underline hover:text-label"
                         >
-                            <HugeiconsIcon icon={ArrowLeft01Icon} size={16} />
+                            <ChevronLeftIcon size={16} />
                             {previous.title}
                         </Link>
                     ) : (
@@ -88,7 +87,7 @@ export function GuidePage({ slug }: { slug: string }) {
                             className="flex items-center gap-2 text-subheadline text-label-secondary no-underline hover:text-label"
                         >
                             {next.title}
-                            <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+                            <ChevronRightIcon size={16} />
                         </Link>
                     )}
                 </nav>

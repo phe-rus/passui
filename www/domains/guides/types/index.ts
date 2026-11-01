@@ -1,4 +1,5 @@
-import type { IconSvgElement } from "@hugeicons/react"
+import type { IconProps } from "@passui/react/icons"
+import type { ComponentType } from "react"
 
 /** A getting-started page, served at /docs/<slug>. */
 export type GuideSlug = "introduction" | "installation" | "theming" | "typeset" | "skills"
@@ -10,5 +11,5 @@ export type Guide = {
     summary: string
     path: string
     /** The sidebar icon. */
-    icon: IconSvgElement
+    icon: ComponentType<IconProps>
 }

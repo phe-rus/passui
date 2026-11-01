@@ -1,6 +1,8 @@
 import { CopyIcon, CheckIcon } from "@passui/react/icons"
 import { cn } from "@passui/react/cn"
 import { IconButton } from "@passui/react/icon-button"
+import { Button } from "@passui/react/button"
+import { haptic } from "@passui/react"
 import { useState } from "react"
 import { useCopyText } from "@/domains/clipboard/use-copy-text"
 import { type CodeLang, useHighlight } from "../use-highlight"
@@ -31,6 +33,7 @@ export function CodeView({ code, label, collapsible = true, lang = "tsx" }: Code
 
     async function copy() {
         if (await clipboard.copy(code, "Copied to the clipboard")) {
+            haptic("success")
             setCopied(true)
             window.setTimeout(() => setCopied(false), 1600)
         }
@@ -68,14 +71,18 @@ export function CodeView({ code, label, collapsible = true, lang = "tsx" }: Code
                         folded ? "absolute inset-x-0 bottom-3" : "pb-4"
                     )}
                 >
-                    <button
+                    <Button
                         type="button"
+                        size="sm"
+                        variant="secondary"
                         aria-expanded={expanded}
-                        onClick={() => setExpanded((value) => !value)}
-                        className="cursor-pointer rounded-full bg-background px-3.5 py-1.5 text-footnote font-semibold text-label shadow-sm ring-1 ring-separator/70 transition-colors hover:bg-fill"
+                        onClick={() => {
+                            haptic("selection")
+                            setExpanded((value) => !value)
+                        }}
                     >
                         {expanded ? "Collapse code" : "Expand code"}
-                    </button>
+                    </Button>
                 </div>
             )}
             <IconButton

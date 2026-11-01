@@ -13,8 +13,7 @@ export const typesetSections: TocItem[] = [
 const className = (name: string) =>
     `text-${name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}`
 
-export function TypesetGuide({ framework = "react" }: { framework?: "react" | "solid" }) {
-    const attribute = framework === "solid" ? "class" : "className"
+export function TypesetGuide() {
     return (
         <>
             <DocSection
@@ -72,7 +71,7 @@ export function TypesetGuide({ framework = "react" }: { framework?: "react" | "s
                     </div>
                 </div>
                 <CodeBlock
-                    code={`<article ${attribute}="typeset">
+                    code={`<article className="typeset">
     <h2>Getting back into your account</h2>
     <p>If you lose your phone, you can still sign in…</p>
 </article>`}
@@ -89,7 +88,7 @@ export function TypesetGuide({ framework = "react" }: { framework?: "react" | "s
                     <Code>typeset-base</Code>, <Code>typeset-md</Code>, <Code>typeset-lg</Code> or{" "}
                     <Code>typeset-xl</Code>.
                 </Prose>
-                <CodeBlock code={`<article ${attribute}="typeset typeset-sm">…</article>`} />
+                <CodeBlock code={'<article className="typeset typeset-sm">…</article>'} />
                 <CodeBlock
                     lang="css"
                     code={`.release-notes {

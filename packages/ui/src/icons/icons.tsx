@@ -68,6 +68,7 @@ import {
     Location01Icon,
     LockIcon as LockIconSvg,
     Mic01Icon,
+    Menu01Icon,
     Mail01Icon,
     MailReply01Icon,
     Moon02Icon,
@@ -110,6 +111,47 @@ import {
     Wallet01Icon,
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react"
+import {
+    Analytics01Icon as CatalogAnalyticsGlyph,
+    Calendar03Icon as CatalogCalendarGlyph,
+    Clock01Icon as CatalogClockGlyph,
+    ColorsIcon as CatalogColorsGlyph,
+    InputTextIcon as CatalogInputTextGlyph,
+    LabelIcon as CatalogLabelGlyph,
+    LayoutTwoColumnIcon as CatalogColumnsGlyph,
+    ListViewIcon as CatalogListGlyph,
+    LockPasswordIcon as CatalogPasswordGlyph,
+    Search01Icon as CatalogSearchGlyph,
+    SearchList01Icon as CatalogSearchListGlyph,
+    Settings02Icon as CatalogSettingsGlyph,
+    StatusIcon as CatalogStatusGlyph,
+    Tag01Icon as CatalogTagGlyph,
+    Tap01Icon as CatalogTapGlyph,
+    TextAlignLeftIcon as CatalogTextGlyph,
+    ToggleOnIcon as CatalogToggleGlyph,
+    UnfoldMoreIcon as CatalogUnfoldGlyph,
+    UserCircleIcon as CatalogUserGlyph,
+    LayoutTopIcon as CatalogLayoutTopGlyph,
+    LayoutBottomIcon as CatalogLayoutBottomGlyph,
+    SidebarLeftIcon as CatalogSidebarGlyph,
+    BrowserIcon as CatalogBrowserGlyph,
+    Table01Icon as CatalogTableGlyph,
+    CardsIcon as CatalogCardsGlyph,
+    Message01Icon as CatalogMessageGlyph,
+    Sun03Icon as CatalogSunGlyph,
+    AlertSquareIcon as CatalogAlertGlyph,
+    PanelBottomIcon as CatalogPanelGlyph,
+    BubbleChatIcon as CatalogBubbleGlyph,
+    Notification03Icon as CatalogNotificationGlyph,
+    MenuSquareIcon as CatalogMenuGlyph,
+    HelpCircleIcon as CatalogHelpGlyph,
+    TranslateIcon as CatalogTranslateGlyph,
+    PaintBoardIcon as GuidePaintGlyph,
+    TextIcon as GuideTextGlyph,
+    Layers01Icon as GuideLayersGlyph,
+    ArrowUp02Icon as UploadGlyph,
+    PlusSignIcon as AttachGlyph,
+} from "@hugeicons/core-free-icons"
 import type { SVGProps } from "react"
 import { cn } from "../lib/class-names"
 
@@ -144,6 +186,44 @@ function toggleIcon(svg: IconSvgElement, displayName: string) {
     Icon.displayName = displayName
     return Icon
 }
+
+/** Existing catalog glyphs rendered through PassUI's common icon contract. */
+export const catalogIcons = {
+    tap: icon(CatalogTapGlyph, "CatalogTapIcon"),
+    settings: icon(CatalogSettingsGlyph, "CatalogSettingsIcon"),
+    tag: icon(CatalogTagGlyph, "CatalogTagIcon"),
+    input: icon(CatalogInputTextGlyph, "CatalogInputIcon"),
+    password: icon(CatalogPasswordGlyph, "CatalogPasswordIcon"),
+    search: icon(CatalogSearchGlyph, "CatalogSearchIcon"),
+    toggle: icon(CatalogToggleGlyph, "CatalogToggleIcon"),
+    columns: icon(CatalogColumnsGlyph, "CatalogColumnsIcon"),
+    unfold: icon(CatalogUnfoldGlyph, "CatalogUnfoldIcon"),
+    colors: icon(CatalogColorsGlyph, "CatalogColorsIcon"),
+    calendar: icon(CatalogCalendarGlyph, "CatalogCalendarIcon"),
+    clock: icon(CatalogClockGlyph, "CatalogClockIcon"),
+    text: icon(CatalogTextGlyph, "CatalogTextIcon"),
+    searchList: icon(CatalogSearchListGlyph, "CatalogSearchListIcon"),
+    list: icon(CatalogListGlyph, "CatalogListIcon"),
+    label: icon(CatalogLabelGlyph, "CatalogLabelIcon"),
+    table: icon(CatalogTableGlyph, "CatalogTableIcon"),
+    cards: icon(CatalogCardsGlyph, "CatalogCardsIcon"),
+    message: icon(CatalogMessageGlyph, "CatalogMessageIcon"),
+    sun: icon(CatalogSunGlyph, "CatalogSunIcon"),
+    status: icon(CatalogStatusGlyph, "CatalogStatusIcon"),
+    analytics: icon(CatalogAnalyticsGlyph, "CatalogAnalyticsIcon"),
+    alert: icon(CatalogAlertGlyph, "CatalogAlertIcon"),
+    panel: icon(CatalogPanelGlyph, "CatalogPanelIcon"),
+    bubble: icon(CatalogBubbleGlyph, "CatalogBubbleIcon"),
+    notification: icon(CatalogNotificationGlyph, "CatalogNotificationIcon"),
+    menu: icon(CatalogMenuGlyph, "CatalogMenuIcon"),
+    help: icon(CatalogHelpGlyph, "CatalogHelpIcon"),
+    translate: icon(CatalogTranslateGlyph, "CatalogTranslateIcon"),
+    layoutTop: icon(CatalogLayoutTopGlyph, "CatalogLayoutTopIcon"),
+    layoutBottom: icon(CatalogLayoutBottomGlyph, "CatalogLayoutBottomIcon"),
+    sidebar: icon(CatalogSidebarGlyph, "CatalogSidebarIcon"),
+    browser: icon(CatalogBrowserGlyph, "CatalogBrowserIcon"),
+    user: icon(CatalogUserGlyph, "CatalogUserIcon"),
+} as const
 
 export const NoteIcon = icon(Note01Icon, "NoteIcon")
 export const LanguageIcon = icon(LanguagesIcon, "LanguageIcon")
@@ -180,6 +260,12 @@ export const ChevronRightIcon = icon(ArrowRight01Icon, "ChevronRightIcon")
 export const ChevronUpIcon = icon(ArrowUp01Icon, "ChevronUpIcon")
 export const ChevronDownIcon = icon(ArrowDown01Icon, "ChevronDownIcon")
 export const CloseIcon = icon(Cancel01Icon, "CloseIcon")
+export const MenuIcon = icon(Menu01Icon, "MenuIcon")
+export const ThemingIcon = icon(GuidePaintGlyph, "ThemingIcon")
+export const TypesetIcon = icon(GuideTextGlyph, "TypesetIcon")
+export const LayersIcon = icon(GuideLayersGlyph, "LayersIcon")
+export const UploadIcon = icon(UploadGlyph, "UploadIcon")
+export const AttachIcon = icon(AttachGlyph, "AttachIcon")
 export const PlusIcon = icon(Add01Icon, "PlusIcon")
 export const LinkIcon = icon(Link01Icon, "LinkIcon")
 export const CommentIcon = icon(Comment01Icon, "CommentIcon")

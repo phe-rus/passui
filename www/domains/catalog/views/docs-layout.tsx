@@ -1,4 +1,3 @@
-import { HugeiconsIcon } from "@hugeicons/react"
 import { Button } from "@passui/react/button"
 import { ChevronDownIcon, SidebarIcon } from "@passui/react/icons"
 import { SidebarItemContent, SidebarSection, sidebarItemClass } from "@passui/react/sidebar"
@@ -110,7 +109,7 @@ function DocsNav() {
                             <span className={rowClass(isActive)}>
                                 <SidebarItemContent
                                     active={isActive}
-                                    icon={<HugeiconsIcon icon={guide.icon} size={16} />}
+                                    icon={<guide.icon size={16} />}
                                 >
                                     {guide.title}
                                 </SidebarItemContent>
@@ -148,7 +147,7 @@ function DocsNav() {
                             hidden={!open}
                             className="ms-4 border-s border-separator/60 ps-1"
                         >
-                            {entries.map(({ docs, icon }) => (
+                            {entries.map(({ docs, icon: Icon }) => (
                                 <Link
                                     key={docs.slug}
                                     to="/components/react/$slug"
@@ -165,7 +164,7 @@ function DocsNav() {
                                         <span className={rowClass(isActive)}>
                                             <SidebarItemContent
                                                 active={isActive}
-                                                icon={<HugeiconsIcon icon={icon} size={12} />}
+                                                icon={<Icon size={12} />}
                                             >
                                                 {componentTitle({ docs })}
                                             </SidebarItemContent>

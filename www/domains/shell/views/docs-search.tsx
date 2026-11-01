@@ -1,4 +1,5 @@
 import { SearchIcon } from "@passui/react/icons"
+import { Button } from "@passui/react/button"
 import {
     SearchList,
     SearchListField,
@@ -41,21 +42,21 @@ export function DocsSearch() {
 
     return (
         <>
-            <button
+            <Button
                 type="button"
+                size="sm"
+                variant="secondary"
                 onClick={() => setOpen(true)}
                 aria-haspopup="dialog"
                 aria-expanded={open}
                 aria-keyshortcuts="Control+k Meta+k"
                 aria-label="Search documentation"
-                className="inline-flex h-9 shrink-0 items-center gap-2 rounded-lg bg-fill/60 px-3 text-footnote text-label-secondary transition-colors hover:bg-fill focus-visible:outline-2 focus-visible:outline-accent-text lg:w-52"
+                className="shrink-0 justify-start lg:w-52"
             >
                 <SearchIcon size={16} />
                 <span className="hidden lg:inline">Search docs…</span>
-                <kbd className="ms-auto hidden rounded-md bg-background px-1.5 py-0.5 text-caption2 text-label-tertiary lg:inline">
-                    {shortcut}
-                </kbd>
-            </button>
+                <kbd className="ms-auto hidden lg:inline">{shortcut}</kbd>
+            </Button>
             <Sheet
                 open={open}
                 onClose={() => setOpen(false)}

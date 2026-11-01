@@ -1,22 +1,22 @@
 import { useState } from "react"
 import { InlineDisclosure } from "@passui/react/inline-disclosure"
+import { Button } from "@passui/react/button"
 
 export function InlineDisclosureSettings() {
     const [open, setOpen] = useState(false)
     return (
         <div className="w-full max-w-sm">
-            <button
+            <Button
                 type="button"
+                variant="secondary"
                 aria-expanded={open}
-                className="w-full rounded-2xl bg-fill p-4 text-left text-body"
+                className="w-full justify-start"
                 onClick={() => setOpen((value) => !value)}
             >
                 Account settings
-            </button>
+            </Button>
             <InlineDisclosure open={open}>
-                <p className="p-4 text-subheadline text-label-secondary">
-                    The following content settles into place with a spring.
-                </p>
+                <p className="p-4">The following content settles into place with a spring.</p>
             </InlineDisclosure>
         </div>
     )

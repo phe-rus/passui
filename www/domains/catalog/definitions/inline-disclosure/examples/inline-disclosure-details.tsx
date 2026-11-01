@@ -1,20 +1,22 @@
 import { useState } from "react"
 import { InlineDisclosure } from "@passui/react/inline-disclosure"
+import { Button } from "@passui/react/button"
 
 export function InlineDisclosureDetails() {
     const [open, setOpen] = useState(true)
     return (
         <div className="w-full max-w-sm">
-            <button
+            <Button
                 type="button"
+                variant="secondary"
                 aria-expanded={open}
-                className="w-full rounded-2xl bg-fill p-4 text-left text-body"
+                className="w-full justify-start"
                 onClick={() => setOpen((value) => !value)}
             >
                 More details
-            </button>
+            </Button>
             <InlineDisclosure open={open}>
-                <div className="space-y-2 p-4 text-subheadline text-label-secondary">
+                <div className="flex flex-col gap-2 p-4">
                     <p>Additional information stays in the document flow.</p>
                     <p>Following content moves with the disclosure.</p>
                 </div>

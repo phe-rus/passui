@@ -1,5 +1,4 @@
-import { ColorsIcon, Layers01Icon, Tap01Icon, TextIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { catalogIcons, LayersIcon, TypesetIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
 import { DocSection, type TocItem } from "@/domains/catalog"
 import { Code, Prose } from "./guide-parts"
@@ -13,22 +12,22 @@ export const introductionSections: TocItem[] = [
 
 const parts = [
     {
-        icon: Tap01Icon,
+        icon: catalogIcons.tap,
         title: "Native controls",
         text: "Buttons, fields, pickers, sheets and menus, implemented natively in React.",
     },
     {
-        icon: ColorsIcon,
+        icon: catalogIcons.colors,
         title: "Design tokens",
         text: "Color roles, text styles, corners and springs, the same in light and dark.",
     },
     {
-        icon: Layers01Icon,
+        icon: LayersIcon,
         title: "Appearance",
         text: "Theme and platform providers, so every control follows the system it runs on.",
     },
     {
-        icon: TextIcon,
+        icon: TypesetIcon,
         title: "Typeset",
         text: "Calm styles for long-form writing, from help pages to legal text.",
     },
@@ -56,15 +55,9 @@ export function IntroductionGuide() {
                             key={part.title}
                             className="flex flex-col gap-2 rounded-4xl bg-elevated p-5 shadow-sm ring-1 ring-separator/60"
                         >
-                            <HugeiconsIcon
-                                icon={part.icon}
-                                size={22}
-                                className="text-accent-text"
-                            />
-                            <span className="text-headline font-semibold text-label">
-                                {part.title}
-                            </span>
-                            <span className="text-footnote text-label-secondary">{part.text}</span>
+                            <part.icon size={22} className="text-accent-text" />
+                            <strong>{part.title}</strong>
+                            <span>{part.text}</span>
                         </div>
                     ))}
                 </div>

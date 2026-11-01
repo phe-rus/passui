@@ -1,5 +1,6 @@
 import type { CodeLang } from "@/domains/playground"
-import type { IconSvgElement } from "@hugeicons/react"
+import type { IconProps } from "@passui/react/icons"
+import type { ComponentType } from "react"
 import type { RegisteredDocs } from "@/domains/catalog/definitions"
 
 type DocsShape = {
@@ -53,7 +54,7 @@ export type CatalogGroup =
 export type CatalogEntry = {
     group: CatalogGroup
     /** The sidebar icon, picked to picture this component. */
-    icon: IconSvgElement
+    icon: ComponentType<IconProps>
     docs: RegisteredDocs
     content: ComponentContent<DocsShape>
 }

@@ -1,4 +1,3 @@
-import { HugeiconsIcon } from "@hugeicons/react"
 import { buttonStyle } from "@passui/react/button"
 import { Link } from "@tanstack/react-router"
 import { catalogGroups, getCatalog } from "../get-catalog"
@@ -50,13 +49,13 @@ export function ComponentsOverview() {
                             {group}
                         </h2>
                         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                            {entries.map(({ docs, content, icon }) => (
+                            {entries.map(({ docs, content, icon: Icon }) => (
                                 <div
                                     key={docs.slug}
                                     className="group flex flex-col gap-2 rounded-4xl bg-elevated p-5 shadow-sm ring-1 ring-separator/60 transition-shadow hover:shadow-md"
                                 >
                                     <span className="flex size-10 items-center justify-center rounded-2xl bg-accent-soft text-accent-text">
-                                        <HugeiconsIcon icon={icon} size={20} />
+                                        <Icon size={20} />
                                     </span>
                                     <strong>
                                         {componentTitle({

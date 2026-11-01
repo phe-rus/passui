@@ -1,4 +1,6 @@
 import { SparkleIcon } from "@passui/react/icons"
+import { Button } from "@passui/react/button"
+import { haptic } from "@passui/react"
 import { useCopyText } from "@/domains/clipboard/use-copy-text"
 import { getEntry } from "@/domains/catalog/get-catalog"
 import { getComponentMarkdown } from "../get-ai-context"
@@ -9,22 +11,19 @@ export function CopyForAi({ slug }: { slug: string }) {
     async function copy() {
         const entry = getEntry(slug)
         if (!entry) return
-        await clipboard.copy(
+        const copied = await clipboard.copy(
             getComponentMarkdown(entry, window.location.origin),
             "Copied as Markdown"
         )
+        if (copied) haptic("success")
     }
 
     return (
         <>
-            <button
-                type="button"
-                onClick={copy}
-                className="inline-flex items-center gap-1.5 rounded-full bg-fill/70 px-3 py-1.5 text-footnote font-semibold text-label transition-colors hover:bg-fill"
-            >
+            <Button type="button" size="sm" variant="secondary" onClick={copy}>
                 <SparkleIcon size={14} />
                 Copy for AI
-            </button>
+            </Button>
             {clipboard.fallback}
         </>
     )

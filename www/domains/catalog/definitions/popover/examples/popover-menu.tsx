@@ -28,18 +28,20 @@ export function PopoverMenu() {
                 className="top-full right-0 mt-2 flex w-56 flex-col p-1.5"
             >
                 {actions.map((action) => (
-                    <button
+                    <Button
                         key={action}
                         type="button"
                         role="menuitem"
-                        className="rounded-3xl px-3 py-2 text-start text-subheadline text-label hover:bg-fill"
+                        variant="ghost"
+                        size="sm"
+                        className="w-full justify-start"
                         onClick={() => {
                             setOpen(false)
                             toast(action)
                         }}
                     >
                         {action}
-                    </button>
+                    </Button>
                 ))}
             </Popover>
         </div>

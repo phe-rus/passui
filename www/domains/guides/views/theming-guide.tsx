@@ -1,5 +1,6 @@
 import { Button } from "@passui/react/button"
 import { Toggle } from "@passui/react/toggle"
+import { SwatchPicker } from "@passui/react"
 import { type AccentId, accents, dark, light, radius } from "@passui/react/tokens"
 import { type CSSProperties, useState } from "react"
 import { DocSection, type TocItem } from "@/domains/catalog"
@@ -42,26 +43,18 @@ function AccentPreview() {
     } as CSSProperties
 
     return (
-        <div className="grid gap-4 md:grid-cols-[1fr_16rem]">
-            <div className="flex flex-wrap gap-3">
-                {Object.values(accents).map((accent) => (
-                    <button
-                        key={accent.id}
-                        type="button"
-                        aria-pressed={accent.id === chosen}
-                        onClick={() => setChosen(accent.id)}
-                        className="flex flex-col items-center gap-1.5 rounded-3xl p-2 text-caption text-label-secondary hover:bg-fill/60 aria-pressed:text-label"
-                    >
-                        <span
-                            className="size-10 rounded-full ring-2 ring-separator/60 in-aria-pressed:ring-label"
-                            style={{
-                                background: accent.swatch,
-                            }}
-                        />
-                        {accent.name}
-                    </button>
-                ))}
-            </div>
+        <div className="grid gap-5 md:grid-cols-[1fr_16rem]">
+            <SwatchPicker
+                label="Accent color"
+                value={chosen}
+                onChange={setChosen}
+                options={Object.values(accents).map((accent) => ({
+                    value: accent.id,
+                    label: accent.name,
+                    color: accent.swatch,
+                    ink: accent.light.accentText,
+                }))}
+            />
             <div data-theme="light" style={style}>
                 <SampleCard title={accents[chosen].name} />
             </div>
@@ -69,7 +62,7 @@ function AccentPreview() {
     )
 }
 
-export function ThemingGuide({ framework = "react" }: { framework?: "react" | "solid" }) {
+export function ThemingGuide() {
     const roles = Object.keys(light) as (keyof typeof light)[]
 
     return (
@@ -94,7 +87,7 @@ export function ThemingGuide({ framework = "react" }: { framework?: "react" | "s
                     </div>
                 </div>
                 <CodeBlock
-                    code={`<section data-theme="dark" ${framework === "solid" ? "class" : "className"}="bg-background">
+                    code={`<section data-theme="dark" className="bg-background">
     {/* always dark, whatever the app's appearance */}
 </section>`}
                 />
@@ -122,7 +115,7 @@ export function ThemingGuide({ framework = "react" }: { framework?: "react" | "s
                     platform. Try each in the playground's settings on any component page.
                 </Prose>
                 <CodeBlock
-                    code={`<nav ${framework === "solid" ? "class" : "className"}="glass android:bg-elevated android:shadow-none">
+                    code={`<nav className="glass android:bg-elevated android:shadow-none">
     {/* glass on Apple platforms, a solid bar on Android */}
 </nav>`}
                 />

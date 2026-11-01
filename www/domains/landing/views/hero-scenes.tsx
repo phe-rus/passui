@@ -1,12 +1,11 @@
 import {
-    ArrowUp02Icon,
-    NextIcon,
+    AttachIcon,
+    NextTrackIcon,
     PauseIcon,
     PlayIcon,
-    PlusSignIcon,
-    PreviousIcon,
-} from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+    PreviousTrackIcon,
+    UploadIcon,
+} from "@passui/react/icons"
 import { Button, Chip, Toggle, toast } from "@passui/react"
 import { cn } from "@passui/react/cn"
 import { IconButton } from "@passui/react/icon-button"
@@ -65,17 +64,17 @@ export function PlayerScene({ className }: SceneProps) {
             </div>
             <div className="flex items-center justify-between px-3">
                 <IconButton label="Previous" variant="ghost" size="icon-sm">
-                    <HugeiconsIcon icon={PreviousIcon} size={18} />
+                    <PreviousTrackIcon size={18} />
                 </IconButton>
                 <IconButton
                     label={playing ? "Pause" : "Play"}
                     variant="accent"
                     onClick={() => setPlaying((value) => !value)}
                 >
-                    <HugeiconsIcon icon={playing ? PauseIcon : PlayIcon} size={20} />
+                    {playing ? <PauseIcon size={20} /> : <PlayIcon size={20} />}
                 </IconButton>
                 <IconButton label="Next" variant="ghost" size="icon-sm">
-                    <HugeiconsIcon icon={NextIcon} size={18} />
+                    <NextTrackIcon size={18} />
                 </IconButton>
             </div>
         </Panel>
@@ -95,7 +94,7 @@ export function ComposerScene({ className }: SceneProps) {
             />
             <div className="flex items-center justify-between">
                 <IconButton label="Attach" variant="secondary" size="icon-sm">
-                    <HugeiconsIcon icon={PlusSignIcon} size={18} />
+                    <AttachIcon size={18} />
                 </IconButton>
                 <IconButton
                     label="Send"
@@ -106,7 +105,7 @@ export function ComposerScene({ className }: SceneProps) {
                         toast.success("Sent (just a demo)")
                     }}
                 >
-                    <HugeiconsIcon icon={ArrowUp02Icon} size={18} />
+                    <UploadIcon size={18} />
                 </IconButton>
             </div>
         </Panel>

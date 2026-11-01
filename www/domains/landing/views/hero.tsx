@@ -1,5 +1,5 @@
-import { spring } from "@passui/react"
-import { buttonStyle } from "@passui/react/button"
+import { haptic, spring } from "@passui/react"
+import { Button, buttonStyle } from "@passui/react/button"
 import { cn } from "@passui/react/cn"
 import { accents } from "@passui/react/tokens"
 import { Link } from "@tanstack/react-router"
@@ -215,20 +215,26 @@ export function Hero({ cycle }: HeroProps) {
                 {accentOrder.map((id) => {
                     const current = id === cycle.accent
                     return (
-                        <button
+                        <Button
                             key={id}
                             type="button"
+                            variant="ghost"
+                            size="icon-xs"
                             aria-label={accentNames[id]}
                             aria-pressed={current}
-                            onClick={() => cycle.select(id)}
-                            className={cn(
-                                "h-2.5 cursor-pointer rounded-full ring-1 ring-black/10 transition-all duration-500",
-                                current ? "w-8" : "w-2.5"
-                            )}
-                            style={{
-                                backgroundColor: accents[id].light.accent,
+                            onClick={() => {
+                                haptic("selection")
+                                cycle.select(id)
                             }}
-                        />
+                        >
+                            <span
+                                className={cn(
+                                    "h-2.5 rounded-full ring-1 ring-black/10 transition-all duration-500",
+                                    current ? "w-8" : "w-2.5"
+                                )}
+                                style={{ backgroundColor: accents[id].light.accent }}
+                            />
+                        </Button>
                     )
                 })}
             </fieldset>

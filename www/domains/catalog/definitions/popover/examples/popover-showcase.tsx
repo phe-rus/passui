@@ -1,4 +1,5 @@
 import { Button } from "@passui/react/button"
+import { IconButton } from "@passui/react/icon-button"
 import { Popover } from "@passui/react/popover"
 import {
     ProfileImage,
@@ -16,18 +17,18 @@ export function PopoverShowcase() {
     return (
         <div className="flex h-80 w-full max-w-sm justify-end">
             <div ref={anchor} className="relative">
-                <button
+                <IconButton
                     type="button"
-                    aria-label="Account"
+                    label="Account"
+                    variant="ghost"
                     aria-expanded={open}
                     onClick={() => setOpen(!open)}
-                    className="rounded-full"
                 >
                     <ProfileImage className="size-11">
                         <ProfileImageContent src="/avatars/aiko.svg" />
                         <ProfileImageFallback>AK</ProfileImageFallback>
                     </ProfileImage>
-                </button>
+                </IconButton>
                 <Popover
                     open={open}
                     origin="top-right"
