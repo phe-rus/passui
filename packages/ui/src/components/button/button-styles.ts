@@ -7,18 +7,17 @@ export type ButtonVariant =
     | "link"
     | "accent"
 
-export type ButtonSize =
-    | "default"
-    | "xs"
-    | "sm"
-    | "lg"
-    | "icon"
-    | "icon-xs"
-    | "icon-sm"
-    | "icon-lg"
-    | "icon-full"
+/** Icon-only buttons use the same sizing contract as Button. */
+export const iconButtonSizes = {
+    icon: "size-11 p-0 rounded-full",
+    "icon-xs": "size-8 p-0 rounded-full",
+    "icon-sm": "size-9 p-0 rounded-full",
+    "icon-lg": "size-12 p-0 rounded-full",
+} as const
 
-export type IconButtonSize = "icon" | "icon-xs" | "icon-sm" | "icon-lg"
+export type IconButtonSize = keyof typeof iconButtonSizes
+
+export type ButtonSize = "default" | "xs" | "sm" | "lg" | "icon-full" | IconButtonSize
 
 export const buttonVariants: Record<ButtonVariant, string> = {
     default:
@@ -38,16 +37,6 @@ export const buttonSizes: Record<ButtonSize, string> = {
     xs: "h-8 px-3 text-caption rounded-full",
     sm: "h-9 px-4 text-subheadline rounded-full",
     lg: "h-12 px-6 text-body rounded-full",
-    icon: "size-11 p-0 rounded-full",
-    "icon-xs": "size-8 p-0 rounded-full",
-    "icon-sm": "size-9 p-0 rounded-full",
-    "icon-lg": "size-12 p-0 rounded-full",
+    ...iconButtonSizes,
     "icon-full": "h-11 w-full px-5 text-subheadline rounded-full",
-}
-
-export const iconButtonSizes: Record<IconButtonSize, string> = {
-    icon: "size-11",
-    "icon-xs": "size-8",
-    "icon-sm": "size-9",
-    "icon-lg": "size-12",
 }

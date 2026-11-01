@@ -1,6 +1,7 @@
-import type { ReactNode } from "react"
+import type { HTMLAttributes, ReactNode } from "react"
+import { cn } from "../../lib/class-names"
 
-export interface SectionProps {
+export interface SectionProps extends HTMLAttributes<HTMLElement> {
     /** Optional group heading and accessible name. */
     title?: string
     /** Supporting text below the grouped rows. */
@@ -14,9 +15,9 @@ export interface SectionProps {
  * and SwiftUI's grouped `List` with `Section(header:footer:)`. Rows are
  * usually `LabeledContent`; dividers between them come for free.
  */
-export function Section({ title, footer, children }: SectionProps) {
+export function Section({ title, footer, children, className, ...props }: SectionProps) {
     return (
-        <section aria-label={title} className="flex flex-col gap-2">
+        <section aria-label={title} className={cn("flex flex-col gap-2", className)} {...props}>
             {title && (
                 <h2 className="px-4 text-footnote font-medium text-label-tertiary">{title}</h2>
             )}
@@ -27,7 +28,7 @@ export function Section({ title, footer, children }: SectionProps) {
                 </div>
             ) : null}
             {footer && (
-                <p className="px-4 text-caption leading-snug text-label-tertiary">{footer}</p>
+                <div className="px-4 text-caption leading-snug text-label-tertiary">{footer}</div>
             )}
         </section>
     )

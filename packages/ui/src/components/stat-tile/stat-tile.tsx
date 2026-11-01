@@ -3,7 +3,7 @@ import { cn } from "../../lib/class-names"
 
 export type StatTileTone = "critical"
 
-type StatTileProps = {
+export interface StatTileProps {
     label: string
     value: number
     /** A quiet line under the number, like "3 signed in now". */

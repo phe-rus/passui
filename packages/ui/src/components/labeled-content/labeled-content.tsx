@@ -1,7 +1,7 @@
-import type { ReactNode } from "react"
+import type { HTMLAttributes, ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
-export interface LabeledContentProps {
+export interface LabeledContentProps extends HTMLAttributes<HTMLDivElement> {
     /** The visible name of the row. */
     label: string
     /** Supporting text below the label. */
@@ -25,22 +25,26 @@ export function LabeledContent({
     children,
     stacked,
     wide,
+    className,
+    ...props
 }: LabeledContentProps) {
     return (
         <div
             className={cn(
-                "flex flex-wrap gap-x-4 gap-y-2.5 px-4 py-3",
+                "flex flex-wrap gap-x-4 gap-y-2 px-4 py-3",
                 stacked
                     ? "flex-col items-stretch"
                     : cn(
                           "items-center justify-between",
-                          wide && "max-sm:flex-col max-sm:items-stretch max-sm:gap-2.5"
-                      )
+                          wide && "max-sm:flex-col max-sm:items-stretch max-sm:gap-2"
+                      ),
+                className
             )}
+            {...props}
         >
             <div
                 className={cn(
-                    "flex min-w-0 flex-1 flex-col break-normal",
+                    "flex min-w-0 flex-1 flex-col gap-2 break-normal",
                     !stacked && "basis-36",
                     wide && "max-sm:basis-auto"
                 )}
