@@ -6,6 +6,8 @@ import { spring } from "../../motion/transitions"
 import { SheetPortal } from "./sheet-portal"
 import { useSheetFocus } from "./use-sheet-focus"
 
+export type SheetPlacement = "adaptive" | "center"
+
 export interface SheetProps {
     /** Controls whether the sheet is presented. */
     open: boolean
@@ -15,6 +17,8 @@ export interface SheetProps {
     label: string
     /** ID of a visible heading to use instead of label for the accessible name. */
     labelledBy?: string
+    /** `adaptive` rises from the bottom on phones; `center` always floats. @default "adaptive" */
+    placement?: SheetPlacement
     className?: string
     children: ReactNode
 }
@@ -35,7 +39,14 @@ export function Sheet({ open, ...props }: SheetProps) {
     )
 }
 
-function OpenSheet({ onClose, label, labelledBy, className, children }: Omit<SheetProps, "open">) {
+function OpenSheet({
+    onClose,
+    label,
+    labelledBy,
+    placement = "adaptive",
+    className,
+    children,
+}: Omit<SheetProps, "open">) {
     const panel = useRef<HTMLDivElement>(null)
     const reducedMotion = useReducedMotion()
     const viewport = useVisualViewport()
@@ -44,8 +55,8 @@ function OpenSheet({ onClose, label, labelledBy, className, children }: Omit<She
     return (
         <div
             className={cn(
-                "fixed inset-0 z-[65] flex items-end justify-center",
-                "sm:items-center sm:p-6"
+                "fixed inset-0 z-[65] flex justify-center",
+                placement === "center" ? "items-center p-6" : "items-end sm:items-center sm:p-6"
             )}
             style={
                 viewport
@@ -78,7 +89,7 @@ function OpenSheet({ onClose, label, labelledBy, className, children }: Omit<She
                 className={cn(
                     "glass-menu relative flex w-full flex-col overflow-hidden",
                     "max-h-[92%] max-w-[560px]",
-                    "rounded-t-sheet sm:rounded-sheet",
+                    placement === "center" ? "rounded-sheet" : "rounded-t-sheet sm:rounded-sheet",
                     className
                 )}
                 initial={reducedMotion ? { opacity: 0 } : { y: 40, opacity: 0 }}

@@ -1,6 +1,5 @@
 import { Sheet } from "../sheet/sheet"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
-import { createPortal } from "react-dom"
 import { Button } from "../button/button"
 import { cn } from "../../lib/class-names"
 import { spring } from "../../motion/transitions"
@@ -52,7 +51,7 @@ export function Dialog({
                     {title}
                 </h2>
             )}
-            {description && <p className="text-footnote text-label-secondary">{description}</p>}
+            {description && <div className="text-footnote text-label-secondary">{description}</div>}
             {children && <div className="flex flex-col gap-4">{children}</div>}
             {footer && <div className="flex flex-wrap justify-end gap-2 pt-3">{footer}</div>}
         </>
@@ -99,12 +98,16 @@ export function Dialog({
                 )}
             </AnimatePresence>
         )
-    if (typeof document === "undefined") return null
-    return createPortal(
-        <Sheet open={open} onClose={close} label="" labelledBy={titleId}>
+    return (
+        <Sheet
+            open={open}
+            onClose={close}
+            label=""
+            labelledBy={titleId}
+            placement={presentation === "center" ? "center" : "adaptive"}
+        >
             {body}
-        </Sheet>,
-        document.body
+        </Sheet>
     )
 }
 

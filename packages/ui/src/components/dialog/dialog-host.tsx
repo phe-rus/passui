@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useSyncExternalStore } from "react"
-import { cn } from "../../lib/class-names"
+import { Button } from "../button/button"
 import { spring } from "../../motion/transitions"
 import { getDialog, type PendingDialog, settleDialog, subscribeDialogs } from "./dialog-store"
 
@@ -52,10 +52,8 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
 
     return (
         <div className="fixed inset-0 z-[70] flex items-center justify-center p-5">
-            <motion.button
-                type="button"
-                tabIndex={-1}
-                aria-label="Cancel"
+            <motion.div
+                aria-hidden="true"
                 className="absolute inset-0 bg-black/25 backdrop-blur-md"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -88,27 +86,24 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                     )}
                 </div>
                 <div className="flex gap-2.5">
-                    <button
+                    <Button
                         ref={cancelRef}
                         type="button"
+                        variant="secondary"
                         onClick={() => settleDialog(false)}
-                        className="h-11 grow rounded-2xl bg-fill text-subheadline font-semibold text-label transition-[background-color,transform] hover:bg-separator/70 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70"
+                        className="min-w-0 grow rounded-2xl"
                     >
                         {dialog.cancelLabel ?? "Cancel"}
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                         ref={confirmRef}
                         type="button"
+                        variant={dialog.destructive ? "destructive" : "default"}
                         onClick={() => settleDialog(true)}
-                        className={cn(
-                            "h-11 grow rounded-2xl text-subheadline font-semibold transition-[filter,transform] hover:brightness-105 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70",
-                            dialog.destructive
-                                ? "bg-danger text-white"
-                                : "bg-inverse text-on-inverse"
-                        )}
+                        className="min-w-0 grow rounded-2xl"
                     >
                         {dialog.confirmLabel ?? "OK"}
-                    </button>
+                    </Button>
                 </div>
             </motion.div>
         </div>
