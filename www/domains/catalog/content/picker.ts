@@ -8,6 +8,7 @@ export const pickerContent: ComponentContent<typeof pickerDocs> = {
     propDescriptions: {
         label: "Names the choice for screen readers and the menu.",
         searchable: "Adds a search field to the menu, for long lists.",
+        disabled: "Prevents opening the list or changing the selection.",
     },
     examples: {
         searchable: {

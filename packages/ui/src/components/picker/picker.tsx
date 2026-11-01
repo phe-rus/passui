@@ -10,14 +10,14 @@ import {
     useState,
 } from "react"
 import { createPortal } from "react-dom"
+import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
 import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
-import { type AnchoredPlacement, placeInViewport } from "../../lib/anchored-placement"
 import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
-import { screenEdges } from "../../lib/screen-edges"
 import { floatingPanelMotion } from "../../motion/transitions"
+import { pickerTriggerStyle } from "./picker-trigger"
 
 export interface PickerOption<T extends string> {
     value: T
@@ -47,6 +47,8 @@ export interface PickerProps<T extends string> {
     /** Shown when the filter matches nothing. @default "No matches" */
     emptyLabel?: string
     className?: string
+    /** Prevents opening or choosing an option. @default false */
+    disabled?: boolean
 }
 
 /** Long lists get a filter field, as in the system pickers. */
@@ -68,6 +70,7 @@ export function Picker<T extends string>({
     searchPlaceholder = "Search",
     emptyLabel = "No matches",
     className,
+    disabled = false,
 }: PickerProps<T>) {
     const [open, setOpen] = useState(false)
     const trigger = useRef<HTMLButtonElement>(null)
@@ -94,14 +97,12 @@ export function Picker<T extends string>({
                 role="combobox"
                 aria-label={label}
                 aria-haspopup="listbox"
-                aria-expanded={open}
-                aria-controls={open ? listId : undefined}
+                aria-expanded={open && !disabled}
+                aria-controls={open && !disabled ? listId : undefined}
+                disabled={disabled}
                 onClick={() => setOpen((current) => !current)}
                 onKeyDown={onTriggerKey}
-                className={cn(
-                    "flex w-full min-w-0 items-center gap-2 rounded-lg control-field px-3 py-2 text-start text-subheadline text-label",
-                    className
-                )}
+                className={pickerTriggerStyle(className)}
             >
                 <span
                     lang={selected?.lang}
@@ -114,7 +115,7 @@ export function Picker<T extends string>({
             {typeof document !== "undefined" &&
                 createPortal(
                     <AnimatePresence>
-                        {open && trigger.current && (
+                        {open && !disabled && trigger.current && (
                             <SelectList
                                 id={listId}
                                 anchor={trigger.current}
@@ -138,30 +139,6 @@ export function Picker<T extends string>({
                 )}
         </>
     )
-}
-
-function place(anchor: HTMLElement): AnchoredPlacement {
-    const rect = anchor.getBoundingClientRect()
-    const viewport = window.visualViewport
-    const frame = {
-        anchor: {
-            top: rect.top,
-            bottom: rect.bottom,
-            left: rect.left,
-        },
-        viewport: {
-            width: viewport?.width ?? window.innerWidth,
-            height: viewport?.height ?? window.innerHeight,
-        },
-        edges: screenEdges(),
-    }
-    const width = Math.min(Math.max(rect.width, 220), 360)
-    const placed = placeInViewport(frame, width, 240)
-    // Long lists scroll rather than stretch past 420 px.
-    return {
-        ...placed,
-        maxHeight: Math.min(placed.maxHeight ?? 420, 420),
-    }
 }
 
 function SelectList<T extends string>({
@@ -191,7 +168,11 @@ function SelectList<T extends string>({
     const reducedMotion = useReducedMotion()
     const list = useRef<HTMLDivElement>(null)
     const search = useRef<HTMLInputElement>(null)
-    const [placement, setPlacement] = useState(() => place(anchor))
+    const placement = useAnchoredPlacement(
+        anchor,
+        Math.min(Math.max(anchor.getBoundingClientRect().width, 220), 360),
+        240
+    )
     const [query, setQuery] = useState("")
     const typed = useRef({ text: "", at: 0 })
 
@@ -234,21 +215,11 @@ function SelectList<T extends string>({
             const target = event.target as Node
             if (!root.current?.contains(target) && !anchor.contains(target)) onClose(false)
         }
-        const onScroll = (event: Event) => {
-            if (!root.current?.contains(event.target as Node)) setPlacement(place(anchor))
-        }
-        const onResize = () => setPlacement(place(anchor))
         const onBlur = () => onClose(false)
         document.addEventListener("pointerdown", onPointer, true)
-        window.addEventListener("scroll", onScroll, true)
-        window.addEventListener("resize", onResize)
-        window.visualViewport?.addEventListener("resize", onResize)
         window.addEventListener("blur", onBlur)
         return () => {
             document.removeEventListener("pointerdown", onPointer, true)
-            window.removeEventListener("scroll", onScroll, true)
-            window.removeEventListener("resize", onResize)
-            window.visualViewport?.removeEventListener("resize", onResize)
             window.removeEventListener("blur", onBlur)
         }
     }, [anchor, onClose])
@@ -319,7 +290,7 @@ function SelectList<T extends string>({
                 width: placement.width,
                 top: placement.top,
                 bottom: placement.bottom,
-                maxHeight: placement.maxHeight,
+                maxHeight: Math.min(placement.maxHeight ?? 420, 420),
                 transformOrigin: placement.above ? "50% 100%" : "50% 0%",
             }}
             className="glass-menu fixed z-[80] flex flex-col overflow-hidden rounded-3xl"

@@ -6,7 +6,7 @@ import { PickerShowcase } from "./examples/picker-showcase"
 import { PickerUsage } from "./examples/picker-usage"
 import { Picker } from "@passui/react/picker"
 
-type DemoProps = { label: string; searchable?: boolean }
+type DemoProps = { label: string; searchable?: boolean; disabled?: boolean }
 
 function PickerDemo(props: DemoProps) {
     const [size, setSize] = useState("medium")
@@ -42,6 +42,7 @@ export const pickerDocs = defineDocs<DemoProps>()({
             required: true,
         },
         searchable: { kind: "boolean", default: false },
+        disabled: { kind: "boolean", default: false },
     },
     render: (values) => <PickerDemo {...values} />,
     childrenSnippet: () => ({

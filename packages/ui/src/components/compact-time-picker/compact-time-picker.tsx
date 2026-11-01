@@ -8,6 +8,7 @@ import { cn } from "../../lib/class-names"
 import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
 import { floatingPanelMotion } from "../../motion/transitions"
+import { pickerTriggerStyle } from "../picker/picker-trigger"
 import {
     formatTime,
     fromTwelveHours,
@@ -31,6 +32,8 @@ export interface CompactTimePickerProps {
     placeholder?: string
     labels: { hour: string; minute: string; period: string }
     className?: string
+    /** Prevents opening the time panel. @default false */
+    disabled?: boolean
 }
 
 /**
@@ -47,6 +50,7 @@ export function CompactTimePicker({
     placeholder,
     labels,
     className,
+    disabled = false,
 }: CompactTimePickerProps) {
     const [open, setOpen] = useState(false)
     const trigger = useRef<HTMLButtonElement>(null)
@@ -67,13 +71,11 @@ export function CompactTimePicker({
                 type="button"
                 aria-label={chosen ? `${label}, ${shown}` : label}
                 aria-haspopup="dialog"
-                aria-expanded={open}
-                aria-controls={open ? panelId : undefined}
+                aria-expanded={open && !disabled}
+                aria-controls={open && !disabled ? panelId : undefined}
+                disabled={disabled}
                 onClick={() => setOpen((current) => !current)}
-                className={cn(
-                    "flex w-full min-w-0 items-center gap-2 rounded-lg control-field px-3 py-2 text-start text-subheadline text-label",
-                    className
-                )}
+                className={pickerTriggerStyle(className)}
             >
                 <span
                     className={cn(
@@ -88,7 +90,7 @@ export function CompactTimePicker({
             {typeof document !== "undefined" &&
                 createPortal(
                     <AnimatePresence>
-                        {open && trigger.current && (
+                        {open && !disabled && trigger.current && (
                             <TimeColumns
                                 id={panelId}
                                 anchor={trigger.current}

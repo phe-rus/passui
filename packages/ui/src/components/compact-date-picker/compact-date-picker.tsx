@@ -17,6 +17,7 @@ import { haptic } from "../../lib/haptics"
 import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
 import { floatingPanelMotion } from "../../motion/transitions"
 import { IconButton } from "../button/icon-button"
+import { pickerTriggerStyle } from "../picker/picker-trigger"
 import {
     addDays,
     addMonths,
@@ -46,6 +47,8 @@ export interface CompactDatePickerProps {
         clear?: string
     }
     className?: string
+    /** Prevents opening the date panel. @default false */
+    disabled?: boolean
 }
 
 const WIDTH = 308
@@ -76,6 +79,7 @@ export function CompactDatePicker({
     placeholder,
     labels,
     className,
+    disabled = false,
 }: CompactDatePickerProps) {
     const [open, setOpen] = useState(false)
     const trigger = useRef<HTMLButtonElement>(null)
@@ -100,13 +104,11 @@ export function CompactDatePicker({
                 type="button"
                 aria-label={chosen ? `${label}, ${shown}` : label}
                 aria-haspopup="dialog"
-                aria-expanded={open}
-                aria-controls={open ? calendarId : undefined}
+                aria-expanded={open && !disabled}
+                aria-controls={open && !disabled ? calendarId : undefined}
+                disabled={disabled}
                 onClick={() => setOpen((current) => !current)}
-                className={cn(
-                    "flex w-full min-w-0 items-center gap-2 rounded-lg control-field px-3 py-2 text-start text-subheadline text-label",
-                    className
-                )}
+                className={pickerTriggerStyle(className)}
             >
                 <span
                     className={cn(
@@ -121,7 +123,7 @@ export function CompactDatePicker({
             {typeof document !== "undefined" &&
                 createPortal(
                     <AnimatePresence>
-                        {open && trigger.current && (
+                        {open && !disabled && trigger.current && (
                             <MonthCalendar
                                 id={calendarId}
                                 anchor={trigger.current}
