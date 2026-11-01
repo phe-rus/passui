@@ -7,6 +7,7 @@ import { belongsToFloatingSurface, registerFloatingLayer } from "../../lib/float
 import { screenEdges } from "../../lib/screen-edges"
 import { spring } from "../../motion/transitions"
 import { concealMenuSource } from "./conceal-menu-source"
+import { findMenuTypeaheadIndex, isMenuNavigationKey, nextMenuIndex } from "./menu-navigation"
 import { menuPosition } from "./menu-position"
 import { menuSurfaceReveal } from "./menu-reveal"
 import {
@@ -38,6 +39,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
         ready: false,
     })
     const [focused, setFocused] = useState(-1)
+    const typeahead = useRef({ query: "", at: 0 })
 
     useLayoutEffect(() => {
         if (
@@ -205,26 +207,43 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     closeContextMenu()
                     return
                 }
-                const keys = ["ArrowDown", "ArrowUp", "Home", "End"]
-                if (!keys.includes(event.key)) return
-                event.preventDefault()
                 const controls = Array.from(
                     ref.current?.querySelectorAll<HTMLButtonElement>(
                         "[role=menuitem]:not(:disabled)"
                     ) ?? []
                 )
+                if (!isMenuNavigationKey(event.key)) {
+                    if (
+                        event.key.length !== 1 ||
+                        !event.key.trim() ||
+                        event.altKey ||
+                        event.ctrlKey ||
+                        event.metaKey ||
+                        event.nativeEvent.isComposing
+                    )
+                        return
+                    const now = performance.now()
+                    const query =
+                        (now - typeahead.current.at < 700 ? typeahead.current.query : "") +
+                        event.key
+                    typeahead.current = { query, at: now }
+                    const labels = controls.map((control) => control.textContent ?? "")
+                    const current = controls.indexOf(document.activeElement as HTMLButtonElement)
+                    let next = findMenuTypeaheadIndex(labels, query, current)
+                    if (next < 0) {
+                        typeahead.current.query = event.key
+                        next = findMenuTypeaheadIndex(labels, event.key, current)
+                    }
+                    if (next >= 0) {
+                        event.preventDefault()
+                        controls[next]?.focus()
+                    }
+                    return
+                }
+                event.preventDefault()
                 if (!controls.length) return
                 const current = controls.indexOf(document.activeElement as HTMLButtonElement)
-                const next =
-                    event.key === "Home"
-                        ? 0
-                        : event.key === "End"
-                          ? controls.length - 1
-                          : event.key === "ArrowDown"
-                            ? (current + 1) % controls.length
-                            : current < 0
-                              ? controls.length - 1
-                              : (current - 1 + controls.length) % controls.length
+                const next = nextMenuIndex(event.key, current, controls.length)
                 controls[next]?.focus()
             }}
             {...{ [FLOATING_LAYER]: "" }}

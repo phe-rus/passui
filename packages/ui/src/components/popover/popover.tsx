@@ -110,12 +110,15 @@ function OpenPopover({
             cancelAnimationFrame(frame)
             frame = requestAnimationFrame(refit)
         }
+        const observer = new ResizeObserver(scheduleRefit)
+        if (ref.current) observer.observe(ref.current)
         const viewport = window.visualViewport
         viewport?.addEventListener("resize", scheduleRefit)
         viewport?.addEventListener("scroll", scheduleRefit)
         window.addEventListener("resize", scheduleRefit)
         window.addEventListener("scroll", scheduleRefit, true)
         return () => {
+            observer.disconnect()
             cancelAnimationFrame(frame)
             viewport?.removeEventListener("resize", scheduleRefit)
             viewport?.removeEventListener("scroll", scheduleRefit)

@@ -96,3 +96,16 @@ test("visual viewport offsets keep a panned mobile popover inside view", () => {
         above: true,
     })
 })
+
+test("a growing popover recomputes its available height without changing its anchor", () => {
+    const anchor = { top: 150, bottom: 190 }
+    const panel = { left: 100, top: 196, width: 240 }
+    const smallViewport = { ...frame, viewport: { width: 800, height: 300 } }
+    const compact = fitPopover({ ...panel, height: 50 }, anchor, smallViewport)
+    const expanded = fitPopover({ ...panel, height: 400 }, anchor, smallViewport)
+
+    expect(compact.above).toBe(false)
+    expect(compact.maxHeight).toBeUndefined()
+    expect(expanded.above).toBe(true)
+    expect(expanded.maxHeight).toBe(136)
+})
