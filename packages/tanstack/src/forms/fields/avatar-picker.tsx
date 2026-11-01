@@ -1,9 +1,4 @@
-import {
-    Camera01Icon,
-    Delete02Icon,
-    Image01Icon,
-    TextFontIcon,
-} from "@hugeicons/core-free-icons"
+import { Camera01Icon, Delete02Icon, Image01Icon, TextFontIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { useEffect, useRef, useState } from "react"
 import type { ReactNode } from "react"
@@ -69,45 +64,24 @@ const MONOGRAM_GRADIENTS = [
 
 function initialsOf(label: string) {
     const parts = label.trim().split(/\s+/).filter(Boolean)
-    const letters =
-        parts.length > 1
-            ? [parts[0], parts[parts.length - 1]]
-            : parts
-    return (
-        letters
-            .map((part) => part[0]?.toUpperCase() ?? "")
-            .join("") || "?"
-    )
+    const letters = parts.length > 1 ? [parts[0], parts[parts.length - 1]] : parts
+    return letters.map((part) => part[0]?.toUpperCase() ?? "").join("") || "?"
 }
 
-async function toFile(
-    canvas: HTMLCanvasElement,
-    name: string,
-    type: string
-) {
-    const blob = await new Promise<Blob | null>((resolve) =>
-        canvas.toBlob(resolve, type, 0.92)
-    )
+async function toFile(canvas: HTMLCanvasElement, name: string, type: string) {
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, 0.92))
     if (!blob) throw new Error("Could not export the image")
     return new File([blob], name, { type })
 }
 
-async function renderMonogram(
-    initials: string,
-    [from, to]: readonly [string, string]
-) {
+async function renderMonogram(initials: string, [from, to]: readonly [string, string]) {
     const size = 512
     const canvas = document.createElement("canvas")
     canvas.width = size
     canvas.height = size
     const context = canvas.getContext("2d")
     if (!context) throw new Error("Canvas is not available")
-    const gradient = context.createLinearGradient(
-        0,
-        0,
-        0,
-        size
-    )
+    const gradient = context.createLinearGradient(0, 0, 0, size)
     gradient.addColorStop(0, from)
     gradient.addColorStop(1, to)
     context.fillStyle = gradient
@@ -120,12 +94,7 @@ async function renderMonogram(
     return toFile(canvas, "monogram.png", "image/png")
 }
 
-function Option({
-    icon,
-    tone = "default",
-    onClick,
-    children,
-}: OptionProps) {
+function Option({ icon, tone = "default", onClick, children }: OptionProps) {
     return (
         <button
             type="button"
@@ -136,21 +105,14 @@ function Option({
                 tone === "destructive" && "text-destructive"
             )}
         >
-            <HugeiconsIcon
-                icon={icon}
-                className="size-4.5 shrink-0 opacity-80"
-            />
+            <HugeiconsIcon icon={icon} className="size-4.5 shrink-0 opacity-80" />
             {children}
         </button>
     )
 }
 
 /** The live selfie view: the frame under a circle, an iOS shutter below. */
-function CameraView({
-    labels,
-    onCapture,
-    onCancel,
-}: CameraViewProps) {
+function CameraView({ labels, onCapture, onCancel }: CameraViewProps) {
     const videoRef = useRef<HTMLVideoElement>(null)
     const [failed, setFailed] = useState(false)
 
@@ -166,13 +128,11 @@ function CameraView({
             })
             .then((media) => {
                 stream = media
-                if (videoRef.current)
-                    videoRef.current.srcObject = media
+                if (videoRef.current) videoRef.current.srcObject = media
             })
             .catch(() => setFailed(true))
         return () => {
-            for (const track of stream?.getTracks() ?? [])
-                track.stop()
+            for (const track of stream?.getTracks() ?? []) track.stop()
         }
     }, [])
 
@@ -188,9 +148,7 @@ function CameraView({
         context.translate(canvas.width, 0)
         context.scale(-1, 1)
         context.drawImage(video, 0, 0)
-        onCapture(
-            await toFile(canvas, "photo.jpg", "image/jpeg")
-        )
+        onCapture(await toFile(canvas, "photo.jpg", "image/jpeg"))
     }
 
     return (
@@ -250,17 +208,13 @@ export function AvatarPicker({
     onChoose,
     onRemove,
 }: AvatarPickerProps) {
-    const [mode, setMode] = useState<"menu" | "camera">(
-        "menu"
-    )
+    const [mode, setMode] = useState<"menu" | "camera">("menu")
     const [monogramOpen, setMonogramOpen] = useState(false)
     const [canUseCamera, setCanUseCamera] = useState(false)
     const initials = initialsOf(label)
 
     useEffect(() => {
-        setCanUseCamera(
-            Boolean(navigator.mediaDevices?.getUserMedia)
-        )
+        setCanUseCamera(Boolean(navigator.mediaDevices?.getUserMedia))
     }, [])
 
     useEffect(() => {
@@ -275,18 +229,12 @@ export function AvatarPicker({
         <Sheet
             open={open}
             onClose={() => onOpenChange(false)}
-            label={
-                mode === "camera"
-                    ? labels.takePhoto
-                    : labels.photo
-            }
+            label={mode === "camera" ? labels.takePhoto : labels.photo}
             className="gap-0 overflow-hidden rounded-3xl p-0 sm:max-w-[22rem]"
         >
             {mode === "camera" ? (
                 <>
-                    <h2 className="sr-only">
-                        {labels.takePhoto}
-                    </h2>
+                    <h2 className="sr-only">{labels.takePhoto}</h2>
                     <CameraView
                         labels={labels}
                         onCapture={onCapture}
@@ -300,10 +248,7 @@ export function AvatarPicker({
                         className="flex flex-col items-center gap-3 px-5 pt-8 pb-6 text-center"
                     >
                         <ProfileImage className="size-28 shadow-[0_12px_32px_-12px_rgb(0_0_0/0.45)] ring-1 ring-white/50">
-                            <ProfileImageContent
-                                src={image}
-                                alt={label}
-                            />
+                            <ProfileImageContent src={image} alt={label} />
                             <ProfileImageFallback className="text-3xl">
                                 {initials}
                             </ProfileImageFallback>
@@ -315,65 +260,42 @@ export function AvatarPicker({
                     </Ambient>
 
                     <div className="m-3 flex flex-col divide-y divide-border/40 overflow-hidden rounded-2xl border border-border/35 bg-card shadow-xs">
-                        <Option
-                            icon={Image01Icon}
-                            onClick={onChooseFile}
-                        >
+                        <Option icon={Image01Icon} onClick={onChooseFile}>
                             {labels.choosePhoto}
                         </Option>
                         {canUseCamera && (
-                            <Option
-                                icon={Camera01Icon}
-                                onClick={() =>
-                                    setMode("camera")
-                                }
-                            >
+                            <Option icon={Camera01Icon} onClick={() => setMode("camera")}>
                                 {labels.takePhoto}
                             </Option>
                         )}
                         <Option
                             icon={TextFontIcon}
-                            onClick={() =>
-                                setMonogramOpen(
-                                    (current) => !current
-                                )
-                            }
+                            onClick={() => setMonogramOpen((current) => !current)}
                         >
                             {labels.monogram}
                         </Option>
                         {monogramOpen && (
                             <div className="flex items-center justify-between gap-2 px-4 py-3">
-                                {MONOGRAM_GRADIENTS.map(
-                                    (gradient) => (
-                                        <button
-                                            key={gradient[0]}
-                                            type="button"
-                                            aria-label={`${labels.monogram} ${gradient[0]}`}
-                                            onClick={() =>
-                                                void renderMonogram(
-                                                    initials,
-                                                    gradient
-                                                ).then(
-                                                    onChoose
-                                                )
-                                            }
-                                            className="flex size-10 items-center justify-center rounded-full text-sm font-semibold text-white shadow-xs ring-1 ring-black/5 transition-transform hover:scale-105 active:scale-95"
-                                            style={{
-                                                backgroundImage: `linear-gradient(${gradient[0]}, ${gradient[1]})`,
-                                            }}
-                                        >
-                                            {initials}
-                                        </button>
-                                    )
-                                )}
+                                {MONOGRAM_GRADIENTS.map((gradient) => (
+                                    <button
+                                        key={gradient[0]}
+                                        type="button"
+                                        aria-label={`${labels.monogram} ${gradient[0]}`}
+                                        onClick={() =>
+                                            void renderMonogram(initials, gradient).then(onChoose)
+                                        }
+                                        className="flex size-10 items-center justify-center rounded-full text-sm font-semibold text-white shadow-xs ring-1 ring-black/5 transition-transform hover:scale-105 active:scale-95"
+                                        style={{
+                                            backgroundImage: `linear-gradient(${gradient[0]}, ${gradient[1]})`,
+                                        }}
+                                    >
+                                        {initials}
+                                    </button>
+                                ))}
                             </div>
                         )}
                         {clearable && image && (
-                            <Option
-                                icon={Delete02Icon}
-                                tone="destructive"
-                                onClick={onRemove}
-                            >
+                            <Option icon={Delete02Icon} tone="destructive" onClick={onRemove}>
                                 {labels.removePhoto}
                             </Option>
                         )}
@@ -384,9 +306,7 @@ export function AvatarPicker({
                             type="button"
                             variant="secondary"
                             className="w-full rounded-2xl"
-                            onClick={() =>
-                                onOpenChange(false)
-                            }
+                            onClick={() => onOpenChange(false)}
                         >
                             {labels.cancel}
                         </Button>

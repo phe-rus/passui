@@ -7,9 +7,7 @@ import type { ShowcaseTheme } from "./types"
  * accent while the page wears another (the tokens only switch accents on
  * the root).
  */
-export function getThemeStyle(
-    theme: ShowcaseTheme
-): CSSProperties {
+export function getThemeStyle(theme: ShowcaseTheme): CSSProperties {
     const colors = accents[theme.accent][theme.scheme]
     return {
         "--color-accent": colors.accent,

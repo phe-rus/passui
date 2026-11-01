@@ -11,9 +11,7 @@ export const spring = {
 export type FloatingPanelSide = "above" | "below"
 
 /** Anchored panels settle toward their source without shrinking their text. */
-export function floatingPanelMotion(
-    side: FloatingPanelSide = "below"
-) {
+export function floatingPanelMotion(side: FloatingPanelSide = "below") {
     const direction = side === "above" ? 1 : -1
     return {
         initial: { opacity: 0, scale: 1, y: direction * 6 },

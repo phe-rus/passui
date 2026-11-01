@@ -1,9 +1,6 @@
 /** Host setup is separate from the options shown in the playground. */
 export function getSetup(slug: string) {
-    const hosts: Record<
-        string,
-        { name: string; purpose: string }
-    > = {
+    const hosts: Record<string, { name: string; purpose: string }> = {
         "context-menu": {
             name: "ContextMenuHost",
             purpose:

@@ -71,7 +71,7 @@ import {
     contextMenuDocs,
     tooltipDocs,
     localeSwitcherDocs,
-} from "@passui/react/docs"
+} from "@/domains/catalog/definitions"
 import { buttonContent } from "./content/button"
 import { chipContent } from "./content/chip"
 import { iconButtonContent } from "./content/icon-button"
@@ -344,17 +344,13 @@ export function getCatalog(): readonly CatalogEntry[] {
     return entries
 }
 
-export function getEntry(
-    slug: string
-): CatalogEntry | undefined {
+export function getEntry(slug: string): CatalogEntry | undefined {
     return entries.find((entry) => entry.docs.slug === slug)
 }
 
 /** The components before and after this one, in sidebar order. */
 export function getNeighbours(slug: string) {
-    const index = entries.findIndex(
-        (entry) => entry.docs.slug === slug
-    )
+    const index = entries.findIndex((entry) => entry.docs.slug === slug)
     return {
         previous: index > 0 ? entries[index - 1] : undefined,
         next: index >= 0 ? entries[index + 1] : undefined,

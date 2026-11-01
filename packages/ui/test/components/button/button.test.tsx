@@ -2,15 +2,8 @@ import { expect, test } from "vitest"
 import { createElement } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
-import {
-    Button,
-    buttonStyle,
-    type ButtonProps,
-} from "../../../src/components/button/button"
-import {
-    IconButton,
-    type IconButtonProps,
-} from "../../../src/components/button/icon-button"
+import { Button, buttonStyle, type ButtonProps } from "../../../src/components/button/button"
+import { IconButton, type IconButtonProps } from "../../../src/components/button/icon-button"
 
 const validButtonProps: ButtonProps = {
     variant: "default",
@@ -59,42 +52,20 @@ test("button sizes use the shared semantic size map", () => {
     expect(buttonStyle({ size: "sm" })).toContain("h-9")
     expect(buttonStyle({ size: "lg" })).toContain("h-12")
     expect(buttonStyle({ size: "icon" })).toContain("size-11")
-    expect(buttonStyle({ size: "icon-xs" })).toContain(
-        "size-8"
-    )
-    expect(buttonStyle({ size: "icon-sm" })).toContain(
-        "size-9"
-    )
-    expect(buttonStyle({ size: "icon-lg" })).toContain(
-        "size-12"
-    )
-    expect(buttonStyle({ size: "icon-full" })).toContain(
-        "w-full"
-    )
+    expect(buttonStyle({ size: "icon-xs" })).toContain("size-8")
+    expect(buttonStyle({ size: "icon-sm" })).toContain("size-9")
+    expect(buttonStyle({ size: "icon-lg" })).toContain("size-12")
+    expect(buttonStyle({ size: "icon-full" })).toContain("w-full")
 })
 
 test("button variants map to Passui semantic treatments", () => {
-    expect(buttonStyle({ variant: "default" })).toContain(
-        "bg-inverse"
-    )
-    expect(buttonStyle({ variant: "destructive" })).toContain(
-        "bg-danger"
-    )
-    expect(buttonStyle({ variant: "outline" })).toContain(
-        "border-separator"
-    )
-    expect(buttonStyle({ variant: "secondary" })).toContain(
-        "bg-elevated"
-    )
-    expect(buttonStyle({ variant: "ghost" })).toContain(
-        "bg-transparent"
-    )
-    expect(buttonStyle({ variant: "link" })).toContain(
-        "text-accent-text"
-    )
-    expect(buttonStyle({ variant: "accent" })).toContain(
-        "bg-accent"
-    )
+    expect(buttonStyle({ variant: "default" })).toContain("bg-inverse")
+    expect(buttonStyle({ variant: "destructive" })).toContain("bg-danger")
+    expect(buttonStyle({ variant: "outline" })).toContain("border-separator")
+    expect(buttonStyle({ variant: "secondary" })).toContain("bg-elevated")
+    expect(buttonStyle({ variant: "ghost" })).toContain("bg-transparent")
+    expect(buttonStyle({ variant: "link" })).toContain("text-accent-text")
+    expect(buttonStyle({ variant: "accent" })).toContain("bg-accent")
 })
 
 test("icon button shares variants and uses square semantic sizes", () => {
@@ -116,13 +87,7 @@ test("icon button shares variants and uses square semantic sizes", () => {
 })
 
 test("a pending button stays disabled without replacing its label", () => {
-    const markup = renderToStaticMarkup(
-        createElement(
-            Button,
-            { isPending: true },
-            "Save changes"
-        )
-    )
+    const markup = renderToStaticMarkup(createElement(Button, { isPending: true }, "Save changes"))
 
     expect(markup).toContain("disabled")
     expect(markup).toContain('aria-busy="true"')

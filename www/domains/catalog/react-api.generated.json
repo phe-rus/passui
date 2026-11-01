@@ -253,16 +253,12 @@
             {
                 "name": "ContentView.Row",
                 "props": [],
-                "native": [
-                    "ComponentPropsWithoutRef<\"div\">"
-                ]
+                "native": ["ComponentPropsWithoutRef<\"div\">"]
             },
             {
                 "name": "ContentView.Section",
                 "props": [],
-                "native": [
-                    "ComponentPropsWithoutRef<\"section\">"
-                ]
+                "native": ["ComponentPropsWithoutRef<\"section\">"]
             },
             {
                 "name": "ContentView.Header",
@@ -351,16 +347,12 @@
             {
                 "name": "ContentView.Span",
                 "props": [],
-                "native": [
-                    "ComponentPropsWithoutRef<\"span\">"
-                ]
+                "native": ["ComponentPropsWithoutRef<\"span\">"]
             },
             {
                 "name": "ContentView.Sub",
                 "props": [],
-                "native": [
-                    "ComponentPropsWithoutRef<\"sub\">"
-                ]
+                "native": ["ComponentPropsWithoutRef<\"sub\">"]
             }
         ]
     },
@@ -900,9 +892,7 @@
                         "defaultValue": null
                     }
                 ],
-                "native": [
-                    "Omit<ComponentProps<\"input\">, \"value\" | \"onChange\">"
-                ]
+                "native": ["Omit<ComponentProps<\"input\">, \"value\" | \"onChange\">"]
             },
             {
                 "name": "SearchListResults",
@@ -952,9 +942,7 @@
                         "defaultValue": null
                     }
                 ],
-                "native": [
-                    "Omit<ComponentProps<\"button\">, \"value\" | \"onSelect\">"
-                ]
+                "native": ["Omit<ComponentProps<\"button\">, \"value\" | \"onSelect\">"]
             }
         ]
     },
@@ -1039,9 +1027,7 @@
                 "defaultValue": null
             }
         ],
-        "native": [
-            "Omit<ComponentProps<\"input\">, \"type\">"
-        ],
+        "native": ["Omit<ComponentProps<\"input\">, \"type\">"],
         "parts": []
     },
     "segmented-control": {

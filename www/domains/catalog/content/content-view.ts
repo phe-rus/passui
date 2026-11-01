@@ -1,25 +1,18 @@
-import type { contentViewDocs } from "@passui/react/docs"
+import type { contentViewDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const contentViewContent: ComponentContent<
-    typeof contentViewDocs
-> = {
-    summary:
-        "A raised card with parts for its heading, rows, dividers and large figures.",
+export const contentViewContent: ComponentContent<typeof contentViewDocs> = {
+    summary: "A raised card with parts for its heading, rows, dividers and large figures.",
     usage: "Use it for a tappable summary that leads somewhere, such as a security setting or a stat. Put a link inside that covers the card.",
     propDescriptions: {
-        variant:
-            "The card style. Elevated is raised with a shadow that deepens on hover.",
-        heading:
-            "The heading prop of ContentView.Header: the card's title.",
-        description:
-            "The p prop of ContentView.Header: one line under the title.",
+        variant: "The card style. Elevated is raised with a shadow that deepens on hover.",
+        heading: "The heading prop of ContentView.Header: the card's title.",
+        description: "The p prop of ContentView.Header: one line under the title.",
     },
     examples: {
         stats: {
             title: "Figures",
-            description:
-                "Two numbers side by side with Row, Divider, H1, H2, Span and Sub.",
+            description: "Two numbers side by side with Row, Divider, H1, H2, Span and Sub.",
         },
         "header-action": {
             title: "Header with an icon and action",
@@ -35,18 +28,15 @@ export const contentViewContent: ComponentContent<
         },
         {
             element: "ContentView.Header",
-            description:
-                "A heading with an optional icon, line of text and action.",
+            description: "A heading with an optional icon, line of text and action.",
         },
         {
             element: "ContentView.Section and Row",
-            description:
-                "Stack parts on top of each other, or side by side.",
+            description: "Stack parts on top of each other, or side by side.",
         },
         {
             element: "ContentView.Divider",
-            description:
-                "A thin vertical line between parts of a Row.",
+            description: "A thin vertical line between parts of a Row.",
         },
         {
             element: "H1, H2, P, Span and Sub",

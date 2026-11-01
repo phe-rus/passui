@@ -1,14 +1,9 @@
 import { getPageHead } from "@/domains/seo/get-page-head"
 import { ComponentNotFound } from "@/domains/catalog"
 import { GuidePage, getGuide } from "@/domains/guides"
-import {
-    createFileRoute,
-    notFound,
-} from "@tanstack/react-router"
+import { createFileRoute, notFound } from "@tanstack/react-router"
 
-export const Route = createFileRoute(
-    "/_site/_docs/docs/$slug"
-)({
+export const Route = createFileRoute("/_site/_docs/docs/$slug")({
     loader: ({ params }) => {
         if (!getGuide(params.slug)) throw notFound()
     },

@@ -1,16 +1,13 @@
-import type { localeSwitcherDocs } from "@passui/react/docs"
+import type { localeSwitcherDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const localeSwitcherContent: ComponentContent<
-    typeof localeSwitcherDocs
-> = {
+export const localeSwitcherContent: ComponentContent<typeof localeSwitcherDocs> = {
     summary:
         "A small floating language button that opens into a list of languages, each in its own name, and can be dragged to any corner.",
     usage: "Use it on public pages where people may arrive in the wrong language. It remembers the corner it was dragged to under storageKey.",
     propDescriptions: {
         label: "Names the button for screen readers, such as Change language.",
-        locales:
-            "The locales prop: the language codes offered, each shown in its own language.",
+        locales: "The locales prop: the language codes offered, each shown in its own language.",
     },
     examples: {
         "native-names": {
@@ -20,21 +17,18 @@ export const localeSwitcherContent: ComponentContent<
         },
         "translated-page": {
             title: "Switching a page's language",
-            description:
-                "The page's words and its lang attribute follow the chosen language.",
+            description: "The page's words and its lang attribute follow the chosen language.",
         },
     },
     anatomy: [
         {
             element: "Button",
-            description:
-                "Shows the current language's code. Drag it to move it.",
+            description: "Shows the current language's code. Drag it to move it.",
             required: true,
         },
         {
             element: "List",
-            description:
-                "Every language in its own name, with the current one marked.",
+            description: "Every language in its own name, with the current one marked.",
             required: true,
         },
     ],

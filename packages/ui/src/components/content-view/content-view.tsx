@@ -1,17 +1,12 @@
-import type {
-    ComponentPropsWithoutRef,
-    PropsWithChildren,
-    ReactNode,
-} from "react"
+import type { ComponentPropsWithoutRef, PropsWithChildren, ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
 export type ContentViewVariant = keyof typeof variants
 export type ContentViewHeadingLevel = "h1" | "h2" | "h3"
 
-type ContentViewProps =
-    ComponentPropsWithoutRef<"section"> & {
-        variant?: ContentViewVariant
-    }
+type ContentViewProps = ComponentPropsWithoutRef<"section"> & {
+    variant?: ContentViewVariant
+}
 
 type RowProps = ComponentPropsWithoutRef<"div">
 
@@ -48,10 +43,7 @@ export function ContentView({
     ...props
 }: ContentViewProps) {
     return (
-        <section
-            className={cn(variants[variant], className)}
-            {...props}
-        >
+        <section className={cn(variants[variant], className)} {...props}>
             {children}
         </section>
     )
@@ -59,25 +51,15 @@ export function ContentView({
 
 function Row({ className, children, ...props }: RowProps) {
     return (
-        <div
-            className={cn("flex items-center", className)}
-            {...props}
-        >
+        <div className={cn("flex items-center", className)} {...props}>
             {children}
         </div>
     )
 }
 
-function Section({
-    className,
-    children,
-    ...props
-}: SectionProps) {
+function Section({ className, children, ...props }: SectionProps) {
     return (
-        <section
-            className={cn("flex flex-col gap-3", className)}
-            {...props}
-        >
+        <section className={cn("flex flex-col gap-3", className)} {...props}>
             {children}
         </section>
     )
@@ -95,9 +77,7 @@ function Header({
     children,
 }: HeaderProps) {
     const title = (
-        <Tag
-            className={cn(icon && "flex items-center gap-2")}
-        >
+        <Tag className={cn(icon && "flex items-center gap-2")}>
             {icon}
             {heading}
         </Tag>
@@ -106,12 +86,7 @@ function Header({
     return (
         <div className={className}>
             {action ? (
-                <div
-                    className={cn(
-                        "flex items-center gap-3",
-                        actionClassName
-                    )}
-                >
+                <div className={cn("flex items-center gap-3", actionClassName)}>
                     {title}
                     {action}
                 </div>
@@ -146,13 +121,7 @@ function H2({ className, children, ...props }: H2Props) {
 
 function P({ className, children, ...props }: PProps) {
     return (
-        <p
-            className={cn(
-                "leading-tight font-medium",
-                className
-            )}
-            {...props}
-        >
+        <p className={cn("leading-tight font-medium", className)} {...props}>
             {children}
         </p>
     )
@@ -160,13 +129,7 @@ function P({ className, children, ...props }: PProps) {
 
 function Span({ className, children, ...props }: SpanProps) {
     return (
-        <span
-            className={cn(
-                "text-callout tracking-tighter font-light",
-                className
-            )}
-            {...props}
-        >
+        <span className={cn("text-callout tracking-tighter font-light", className)} {...props}>
             {children}
         </span>
     )
@@ -174,13 +137,7 @@ function Span({ className, children, ...props }: SpanProps) {
 
 function Sub({ className, children, ...props }: SubProps) {
     return (
-        <sub
-            className={cn(
-                "text-subheadline text-label",
-                className
-            )}
-            {...props}
-        >
+        <sub className={cn("text-subheadline text-label", className)} {...props}>
             {children}
         </sub>
     )

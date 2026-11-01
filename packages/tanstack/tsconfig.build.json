@@ -2,13 +2,12 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "noEmit": false,
-        "jsx": "preserve",
-        "jsxImportSource": "solid-js",
+        "jsx": "react-jsx",
         "declaration": true,
         "emitDeclarationOnly": true,
         "rootDir": ".",
         "outDir": "dist/types"
     },
-    "include": ["src/solid"],
+    "include": ["src"],
     "exclude": ["test", "dist"]
 }

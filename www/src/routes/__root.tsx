@@ -1,16 +1,8 @@
 import { usePreviewDocumentAttributes } from "@/domains/preview"
 import { ComposeViewport } from "@passui/tanstack/document"
 import tailwind from "@/styles/site.css?url"
-import {
-    PlatformProvider,
-    PlatformScript,
-} from "@passui/react/appearance"
-import {
-    HeadContent,
-    Outlet,
-    Scripts,
-    createRootRoute,
-} from "@tanstack/react-router"
+import { PlatformProvider, PlatformScript } from "@passui/react/appearance"
+import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router"
 
 export const Route = createRootRoute({
     head: () => ({
@@ -24,8 +16,7 @@ export const Route = createRootRoute({
             },
             {
                 name: "viewport",
-                content:
-                    "width=device-width, initial-scale=1",
+                content: "width=device-width, initial-scale=1",
             },
             { name: "theme-color", content: "#d16988" },
         ],

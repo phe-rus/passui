@@ -1,26 +1,13 @@
-import { Sheet } from "@passui/react/sheet"
-import {
-    AnimatePresence,
-    motion,
-    useReducedMotion,
-} from "motion/react"
+import { Sheet } from "../sheet/sheet"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { createPortal } from "react-dom"
-import { Button } from "@passui/react/button"
-import { cn } from "@passui/react/cn"
+import { Button } from "../button/button"
+import { cn } from "../../lib/class-names"
 import { spring } from "../../motion/transitions"
-import {
-    createContext,
-    useContext,
-    useId,
-    type FormEvent,
-    type ReactNode,
-} from "react"
+import { createContext, useContext, useId, type FormEvent, type ReactNode } from "react"
 
 const CloseContext = createContext<() => void>(() => {})
-export type DialogPresentation =
-    | "drawer"
-    | "center"
-    | "inline"
+export type DialogPresentation = "drawer" | "center" | "inline"
 export type DialogTone = "default" | "destructive"
 
 export type DialogProps = {
@@ -61,28 +48,13 @@ export function Dialog({
     const content = (
         <>
             {presentation !== "inline" && (
-                <h2
-                    id={titleId}
-                    className="text-title3 font-semibold"
-                >
+                <h2 id={titleId} className="text-title3 font-semibold">
                     {title}
                 </h2>
             )}
-            {description && (
-                <p className="text-footnote text-label-secondary">
-                    {description}
-                </p>
-            )}
-            {children && (
-                <div className="flex flex-col gap-4">
-                    {children}
-                </div>
-            )}
-            {footer && (
-                <div className="flex flex-wrap justify-end gap-2 pt-3">
-                    {footer}
-                </div>
-            )}
+            {description && <p className="text-footnote text-label-secondary">{description}</p>}
+            {children && <div className="flex flex-col gap-4">{children}</div>}
+            {footer && <div className="flex flex-wrap justify-end gap-2 pt-3">{footer}</div>}
         </>
     )
     const body = (
@@ -90,20 +62,12 @@ export function Dialog({
             {onSubmit ? (
                 <form
                     onSubmit={onSubmit}
-                    className={cn(
-                        "flex min-h-0 flex-col gap-4 overflow-y-auto p-5",
-                        className
-                    )}
+                    className={cn("flex min-h-0 flex-col gap-4 overflow-y-auto p-5", className)}
                 >
                     {content}
                 </form>
             ) : (
-                <div
-                    className={cn(
-                        "flex min-h-0 flex-col gap-4 overflow-y-auto p-5",
-                        className
-                    )}
-                >
+                <div className={cn("flex min-h-0 flex-col gap-4 overflow-y-auto p-5", className)}>
                     {content}
                 </div>
             )}
@@ -116,9 +80,7 @@ export function Dialog({
                     <motion.div
                         key={titleId}
                         initial={{
-                            height: reducedMotion
-                                ? "auto"
-                                : 0,
+                            height: reducedMotion ? "auto" : 0,
                             opacity: 0,
                         }}
                         animate={{
@@ -126,16 +88,10 @@ export function Dialog({
                             opacity: 1,
                         }}
                         exit={{
-                            height: reducedMotion
-                                ? "auto"
-                                : 0,
+                            height: reducedMotion ? "auto" : 0,
                             opacity: 0,
                         }}
-                        transition={
-                            reducedMotion
-                                ? { duration: 0 }
-                                : spring.smooth
-                        }
+                        transition={reducedMotion ? { duration: 0 } : spring.smooth}
                         className="overflow-hidden"
                     >
                         {body}
@@ -145,12 +101,7 @@ export function Dialog({
         )
     if (typeof document === "undefined") return null
     return createPortal(
-        <Sheet
-            open={open}
-            onClose={close}
-            label=""
-            labelledBy={titleId}
-        >
+        <Sheet open={open} onClose={close} label="" labelledBy={titleId}>
             {body}
         </Sheet>,
         document.body
@@ -171,27 +122,15 @@ function Actions({
         <>
             <Button
                 type={onConfirm ? "button" : "submit"}
-                variant={
-                    tone === "destructive"
-                        ? "ghost"
-                        : "default"
-                }
-                className={
-                    tone === "destructive"
-                        ? "bg-danger/10 text-danger"
-                        : undefined
-                }
+                variant={tone === "destructive" ? "ghost" : "default"}
+                className={tone === "destructive" ? "bg-danger/10 text-danger" : undefined}
                 isPending={pending}
                 disabled={disabled}
                 onClick={onConfirm}
             >
                 {submitLabel}
             </Button>
-            <Button
-                type="button"
-                variant="secondary"
-                onClick={close}
-            >
+            <Button type="button" variant="secondary" onClick={close}>
                 {cancelLabel}
             </Button>
         </>

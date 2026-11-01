@@ -1,16 +1,12 @@
-import type { secureFieldDocs } from "@passui/react/docs"
+import type { secureFieldDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const secureFieldContent: ComponentContent<
-    typeof secureFieldDocs
-> = {
-    summary:
-        "A password field with an optional Show and Hide button.",
+export const secureFieldContent: ComponentContent<typeof secureFieldDocs> = {
+    summary: "A password field with an optional Show and Hide button.",
     usage: "Use it for passwords and other secrets. Give it revealLabels so people can check what they typed.",
     propDescriptions: {
         label: "The visible name of the field.",
-        placeholder:
-            "A hint about the rules, like the minimum length.",
+        placeholder: "A hint about the rules, like the minimum length.",
         disabled: "Shows the field but blocks typing.",
     },
     examples: {
@@ -21,8 +17,7 @@ export const secureFieldContent: ComponentContent<
         },
         "new-password": {
             title: "Choosing a new password",
-            description:
-                "A hint while typing, then an error until the two fields match.",
+            description: "A hint while typing, then an error until the two fields match.",
         },
     },
     anatomy: [
@@ -38,8 +33,7 @@ export const secureFieldContent: ComponentContent<
         },
         {
             element: "Reveal button",
-            description:
-                "Shows or hides the text, when revealLabels is set.",
+            description: "Shows or hides the text, when revealLabels is set.",
         },
     ],
     practices: [

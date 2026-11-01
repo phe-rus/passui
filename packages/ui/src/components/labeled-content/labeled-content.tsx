@@ -34,8 +34,7 @@ export function LabeledContent({
                     ? "flex-col items-stretch"
                     : cn(
                           "items-center justify-between",
-                          wide &&
-                              "max-sm:flex-col max-sm:items-stretch max-sm:gap-2.5"
+                          wide && "max-sm:flex-col max-sm:items-stretch max-sm:gap-2.5"
                       )
             )}
         >
@@ -46,9 +45,7 @@ export function LabeledContent({
                     wide && "max-sm:basis-auto"
                 )}
             >
-                <span className="text-subheadline text-label">
-                    {label}
-                </span>
+                <span className="text-subheadline text-label">{label}</span>
                 {description && (
                     <span className="text-footnote leading-snug text-label-secondary">
                         {description}

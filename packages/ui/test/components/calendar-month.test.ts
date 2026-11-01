@@ -18,22 +18,22 @@ test("reads only real dates", () => {
     })
     expect(parseDay("2026-02-30")).toBeNull()
     expect(parseDay("")).toBeNull()
-    expect(formatDay({ year: 987, month: 3, day: 4 })).toBe(
-        "0987-03-04"
-    )
+    expect(formatDay({ year: 987, month: 3, day: 4 })).toBe("0987-03-04")
 })
 
 test("moves across months and years", () => {
-    expect(
-        addDays({ year: 2026, month: 12, day: 31 }, 1)
-    ).toEqual({ year: 2027, month: 1, day: 1 })
+    expect(addDays({ year: 2026, month: 12, day: 31 }, 1)).toEqual({ year: 2027, month: 1, day: 1 })
     // The day shortens to fit the month.
-    expect(
-        addMonths({ year: 2028, month: 1, day: 31 }, 1)
-    ).toEqual({ year: 2028, month: 2, day: 29 })
-    expect(
-        addMonths({ year: 2026, month: 1, day: 15 }, -1)
-    ).toEqual({ year: 2025, month: 12, day: 15 })
+    expect(addMonths({ year: 2028, month: 1, day: 31 }, 1)).toEqual({
+        year: 2028,
+        month: 2,
+        day: 29,
+    })
+    expect(addMonths({ year: 2026, month: 1, day: 15 }, -1)).toEqual({
+        year: 2025,
+        month: 12,
+        day: 15,
+    })
 })
 
 test("lays out six weeks from the locale's first weekday", () => {
@@ -62,13 +62,7 @@ test("knows where weeks start", () => {
 })
 
 test("respects bounds", () => {
-    expect(
-        withinBounds("2026-10-15", "2026-10-01", "2026-10-31")
-    ).toBe(true)
-    expect(withinBounds("2026-09-30", "2026-10-01")).toBe(
-        false
-    )
-    expect(
-        withinBounds("2026-11-01", undefined, "2026-10-31")
-    ).toBe(false)
+    expect(withinBounds("2026-10-15", "2026-10-01", "2026-10-31")).toBe(true)
+    expect(withinBounds("2026-09-30", "2026-10-01")).toBe(false)
+    expect(withinBounds("2026-11-01", undefined, "2026-10-31")).toBe(false)
 })

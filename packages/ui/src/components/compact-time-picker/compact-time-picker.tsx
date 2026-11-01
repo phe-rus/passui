@@ -1,16 +1,5 @@
-import {
-    AnimatePresence,
-    motion,
-    useReducedMotion,
-} from "motion/react"
-import {
-    type KeyboardEvent,
-    useEffect,
-    useId,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from "react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { type KeyboardEvent, useEffect, useId, useLayoutEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
 import { ClockIcon } from "../../icons/icons"
@@ -68,17 +57,7 @@ export function CompactTimePicker({
               hour: "numeric",
               minute: "2-digit",
               timeZone: "UTC",
-          }).format(
-              new Date(
-                  Date.UTC(
-                      2000,
-                      0,
-                      1,
-                      chosen.hour,
-                      chosen.minute
-                  )
-              )
-          )
+          }).format(new Date(Date.UTC(2000, 0, 1, chosen.hour, chosen.minute)))
         : (placeholder ?? "")
 
     return (
@@ -86,9 +65,7 @@ export function CompactTimePicker({
             <button
                 ref={trigger}
                 type="button"
-                aria-label={
-                    chosen ? `${label}, ${shown}` : label
-                }
+                aria-label={chosen ? `${label}, ${shown}` : label}
                 aria-haspopup="dialog"
                 aria-expanded={open}
                 aria-controls={open ? panelId : undefined}
@@ -106,10 +83,7 @@ export function CompactTimePicker({
                 >
                     {shown}
                 </span>
-                <ClockIcon
-                    size={16}
-                    className="shrink-0 text-label-tertiary"
-                />
+                <ClockIcon size={16} className="shrink-0 text-label-tertiary" />
             </button>
             {typeof document !== "undefined" &&
                 createPortal(
@@ -174,11 +148,7 @@ function TimeColumns({
     const root = useRef<HTMLDivElement>(null)
     const reducedMotion = useReducedMotion()
     const twelve = usesTwelveHours(locale)
-    const placement = useAnchoredPlacement(
-        anchor,
-        twelve ? 240 : 180,
-        280
-    )
+    const placement = useAnchoredPlacement(anchor, twelve ? 240 : 180, 280)
     const number = new Intl.NumberFormat(locale, {
         minimumIntegerDigits: 2,
     })
@@ -186,20 +156,15 @@ function TimeColumns({
     const clock = toTwelveHours(time.hour)
 
     const hours: ColumnItem[] = twelve
-        ? [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(
-              (hour) => ({
-                  key: hour,
-                  text: plain.format(hour),
-              })
-          )
+        ? [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((hour) => ({
+              key: hour,
+              text: plain.format(hour),
+          }))
         : Array.from({ length: 24 }, (_, hour) => ({
               key: hour,
               text: number.format(hour),
           }))
-    const minutes = minuteChoices(
-        minuteStep,
-        time.minute
-    ).map((minute) => ({
+    const minutes = minuteChoices(minuteStep, time.minute).map((minute) => ({
         key: minute,
         text: number.format(minute),
     }))
@@ -210,11 +175,8 @@ function TimeColumns({
             hour12: true,
             timeZone: "UTC",
         })
-            .formatToParts(
-                new Date(Date.UTC(2000, 0, 1, pm ? 13 : 1))
-            )
-            .find((part) => part.type === "dayPeriod")
-            ?.value ?? (pm ? "PM" : "AM")
+            .formatToParts(new Date(Date.UTC(2000, 0, 1, pm ? 13 : 1)))
+            .find((part) => part.type === "dayPeriod")?.value ?? (pm ? "PM" : "AM")
     const periods = [
         { key: 0, text: periodName(false) },
         { key: 1, text: periodName(true) },
@@ -228,18 +190,10 @@ function TimeColumns({
     useEffect(() => {
         const onPointer = (event: PointerEvent) => {
             const target = event.target as Node
-            if (
-                !root.current?.contains(target) &&
-                !anchor.contains(target)
-            )
-                onClose()
+            if (!root.current?.contains(target) && !anchor.contains(target)) onClose()
         }
         document.addEventListener("pointerdown", onPointer)
-        return () =>
-            document.removeEventListener(
-                "pointerdown",
-                onPointer
-            )
+        return () => document.removeEventListener("pointerdown", onPointer)
     }, [anchor, onClose])
 
     return (
@@ -270,9 +224,7 @@ function TimeColumns({
             transition={
                 reducedMotion
                     ? { duration: 0 }
-                    : floatingPanelMotion(
-                          placement.above ? "above" : "below"
-                      ).transition
+                    : floatingPanelMotion(placement.above ? "above" : "below").transition
             }
             style={{
                 left: placement.left,
@@ -280,12 +232,8 @@ function TimeColumns({
                 top: placement.top,
                 bottom: placement.bottom,
                 maxHeight: placement.maxHeight,
-                overflowY: placement.maxHeight
-                    ? "auto"
-                    : undefined,
-                transformOrigin: placement.above
-                    ? "50% 100%"
-                    : "50% 0%",
+                overflowY: placement.maxHeight ? "auto" : undefined,
+                transformOrigin: placement.above ? "50% 100%" : "50% 0%",
             }}
             className="glass-menu fixed z-[80] flex gap-1 rounded-3xl p-2"
             {...{ [FLOATING_LAYER]: "" }}
@@ -304,9 +252,7 @@ function TimeColumns({
                 onSelect={(hour) =>
                     onChange({
                         ...time,
-                        hour: twelve
-                            ? fromTwelveHours(hour, clock.pm)
-                            : hour,
+                        hour: twelve ? fromTwelveHours(hour, clock.pm) : hour,
                     })
                 }
             />
@@ -314,9 +260,7 @@ function TimeColumns({
                 label={labels.minute}
                 items={minutes}
                 selected={time.minute}
-                onSelect={(minute) =>
-                    onChange({ ...time, minute })
-                }
+                onSelect={(minute) => onChange({ ...time, minute })}
             />
             {twelve && (
                 <Column
@@ -326,10 +270,7 @@ function TimeColumns({
                     onSelect={(period) =>
                         onChange({
                             ...time,
-                            hour: fromTwelveHours(
-                                clock.hour,
-                                period === 1
-                            ),
+                            hour: fromTwelveHours(clock.hour, period === 1),
                         })
                     }
                 />
@@ -356,45 +297,21 @@ function Column({
 
     // The chosen item starts in the middle of the column, then follows changes.
     useEffect(() => {
-        const element =
-            list.current?.querySelector<HTMLElement>(
-                `[data-key="${selected}"]`
-            )
+        const element = list.current?.querySelector<HTMLElement>(`[data-key="${selected}"]`)
         element?.scrollIntoView({ block: "center" })
-        if (
-            autoFocus &&
-            list.current?.contains(document.activeElement) ===
-                false
-        )
-            element?.focus()
+        if (autoFocus && list.current?.contains(document.activeElement) === false) element?.focus()
     }, [selected, autoFocus])
 
-    const onKeyDown = (
-        event: KeyboardEvent<HTMLDivElement>
-    ) => {
-        const step =
-            event.key === "ArrowDown"
-                ? 1
-                : event.key === "ArrowUp"
-                  ? -1
-                  : 0
+    const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        const step = event.key === "ArrowDown" ? 1 : event.key === "ArrowUp" ? -1 : 0
         if (!step) return
         event.preventDefault()
-        const index = items.findIndex(
-            (item) => item.key === selected
-        )
-        const next =
-            items[
-                (index + step + items.length) % items.length
-            ]
+        const index = items.findIndex((item) => item.key === selected)
+        const next = items[(index + step + items.length) % items.length]
         if (!next) return
         onSelect(next.key)
         requestAnimationFrame(() =>
-            list.current
-                ?.querySelector<HTMLElement>(
-                    `[data-key="${next.key}"]`
-                )
-                ?.focus()
+            list.current?.querySelector<HTMLElement>(`[data-key="${next.key}"]`)?.focus()
         )
     }
 

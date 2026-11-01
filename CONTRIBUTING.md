@@ -17,7 +17,7 @@ Crostini. The documentation site uses the local workspace packages.
 
 ## Ownership and architecture
 
-`packages/ui` owns React controls and appearance. `packages/tokens` owns shared tokens and styles. `packages/solid` owns native SolidJS controls, appearance and examples.
+`packages/ui` owns React controls and appearance. `packages/tokens` owns shared tokens and styles. Website documentation and examples belong in `www/`.
 `packages/tanstack` owns optional forms, tables, routing and query
 integrations. `packages/cli` owns additive setup and starter templates.
 `www` owns documentation, playgrounds, catalog prose and the public Worker.
@@ -82,4 +82,4 @@ headers after deployment. See [SEO](docs/seo.md) for the URL contract.
 Before releasing this migration, complete [the release checkpoint](docs/passui-release.md).
 External apps follow [the consumer migration guide](docs/migration-to-passui.md).
 
-The CLI detects React and Solid, with an explicit `--framework` override. TanStack keeps existing React paths and adds `/react/*` aliases, native `/solid/*` adapters and framework independent `/core` helpers. Framework dependencies are optional peers; the CLI installs those selected by the app. Verify new starters from packed archives as well as testing the workspace.
+The CLI targets React, with an explicit `--framework react` override. TanStack keeps existing React paths and `/react/*` aliases alongside framework-independent `/core` helpers. Framework dependencies are optional peers; the CLI installs those selected by the app. Verify new starters from packed archives as well as testing the workspace.

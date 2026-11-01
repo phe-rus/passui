@@ -14,9 +14,7 @@ let player: (kind: HapticKind) => void = () => {}
  * Components only ask for feedback; the app decides how it plays on this
  * device (system haptics, a vibration, or nothing) and whether it's on.
  */
-export function setHapticPlayer(
-    next: (kind: HapticKind) => void
-): void {
+export function setHapticPlayer(next: (kind: HapticKind) => void): void {
     player = next
 }
 

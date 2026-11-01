@@ -1,20 +1,9 @@
 import { getPageHead } from "@/domains/seo/get-page-head"
-import {
-    ComponentNotFound,
-    ComponentPage,
-    getEntry,
-} from "@/domains/catalog"
+import { ComponentNotFound, ComponentPage, getEntry } from "@/domains/catalog"
 import { componentSearchSchema } from "@/domains/settings"
-import {
-    createFileRoute,
-    notFound,
-    redirect,
-    stripSearchParams,
-} from "@tanstack/react-router"
+import { createFileRoute, notFound, redirect, stripSearchParams } from "@tanstack/react-router"
 
-export const Route = createFileRoute(
-    "/_site/_docs/components/$slug"
-)({
+export const Route = createFileRoute("/_site/_docs/components/$slug")({
     beforeLoad: ({ params }) => {
         throw redirect({
             to: "/components/react/$slug",
@@ -44,11 +33,6 @@ function RouteComponent() {
     const { props, ...settings } = Route.useSearch()
     return (
         // a fresh page per component: folds and local state start over
-        <ComponentPage
-            key={slug}
-            slug={slug}
-            settings={settings}
-            rawProps={props}
-        />
+        <ComponentPage key={slug} slug={slug} settings={settings} rawProps={props} />
     )
 }

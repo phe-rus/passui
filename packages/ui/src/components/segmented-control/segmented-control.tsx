@@ -1,10 +1,5 @@
 import { motion } from "motion/react"
-import {
-    useId,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from "react"
+import { useId, useLayoutEffect, useRef, useState } from "react"
 import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"
 import { spring } from "../../motion/transitions"
@@ -42,10 +37,7 @@ export function SegmentedControl<T extends string>({
         const box = frame.current
         const natural = measure.current
         if (!box || !natural) return
-        const check = () =>
-            setFits(
-                natural.offsetWidth <= box.clientWidth + 0.5
-            )
+        const check = () => setFits(natural.offsetWidth <= box.clientWidth + 0.5)
         check()
         const observer = new ResizeObserver(check)
         observer.observe(box)
@@ -62,22 +54,16 @@ export function SegmentedControl<T extends string>({
                 className="pointer-events-none invisible absolute top-0 flex w-max p-[3px] text-footnote font-semibold"
             >
                 {options.map((option) => (
-                    <span
-                        key={option.value}
-                        className="min-w-[64px] px-3 py-1 whitespace-nowrap"
-                    >
+                    <span key={option.value} className="min-w-[64px] px-3 py-1 whitespace-nowrap">
                         {option.label}
                     </span>
                 ))}
             </div>
             {fits ? (
                 <fieldset className="flex w-full rounded-lg bg-fill p-[3px] shadow-[inset_0_1px_2px_rgb(40_30_0/0.06)]">
-                    <legend className="sr-only">
-                        {label}
-                    </legend>
+                    <legend className="sr-only">{label}</legend>
                     {options.map((option) => {
-                        const selected =
-                            option.value === value
+                        const selected = option.value === value
                         return (
                             <label
                                 key={option.value}
@@ -103,9 +89,7 @@ export function SegmentedControl<T extends string>({
                                     <motion.span
                                         layoutId={`segment-${id}`}
                                         className="absolute inset-0 -z-10 rounded-md bg-elevated shadow-[0_0_0_0.5px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.08),0_3px_8px_-2px_rgb(0_0_0/0.10)]"
-                                        transition={
-                                            spring.snappy
-                                        }
+                                        transition={spring.snappy}
                                     />
                                 )}
                                 {option.label}

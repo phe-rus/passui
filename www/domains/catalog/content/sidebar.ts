@@ -1,9 +1,7 @@
-import type { sidebarDocs } from "@passui/react/docs"
+import type { sidebarDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const sidebarContent: ComponentContent<
-    typeof sidebarDocs
-> = {
+export const sidebarContent: ComponentContent<typeof sidebarDocs> = {
     summary:
         "Titled groups of navigation rows for a sidebar, with an icon, a label and an optional count on each row.",
     usage: "Use it for an app's places on larger screens. Rows are your router's links: give them sidebarItemClass and put SidebarItemContent inside.",
@@ -14,8 +12,7 @@ export const sidebarContent: ComponentContent<
     examples: {
         groups: {
             title: "Several groups",
-            description:
-                "Groups for places, folders and housekeeping, on the sidebar background.",
+            description: "Groups for places, folders and housekeeping, on the sidebar background.",
         },
         unread: {
             title: "Counts that change",
@@ -31,8 +28,7 @@ export const sidebarContent: ComponentContent<
         },
         {
             element: "Row link",
-            description:
-                "Your router's link, styled by sidebarItemClass(active).",
+            description: "Your router's link, styled by sidebarItemClass(active).",
             required: true,
         },
         {

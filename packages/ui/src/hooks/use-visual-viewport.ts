@@ -5,8 +5,7 @@ export type { ViewportMetrics } from "./viewport/types"
 
 /** Measures once per frame, including Android resize and Safari viewport panning. */
 export function useVisualViewport(): ViewportMetrics | null {
-    const [metrics, setMetrics] =
-        useState<ViewportMetrics | null>(null)
+    const [metrics, setMetrics] = useState<ViewportMetrics | null>(null)
     useLayoutEffect(() => {
         const viewport = window.visualViewport
         let baseline = {
@@ -21,14 +20,9 @@ export function useVisualViewport(): ViewportMetrics | null {
                 const editing = !!active?.matches(
                     "input:not([type=button]):not([type=checkbox]):not([type=radio]), textarea, [contenteditable=true]"
                 )
-                const width =
-                    viewport?.width ?? window.innerWidth
-                const height =
-                    viewport?.height ?? window.innerHeight
-                if (
-                    Math.abs(baseline.width - width) > 80 ||
-                    !editing
-                )
+                const width = viewport?.width ?? window.innerWidth
+                const height = viewport?.height ?? window.innerHeight
+                if (Math.abs(baseline.width - width) > 80 || !editing)
                     baseline = {
                         width,
                         height: window.innerHeight,
@@ -47,10 +41,7 @@ export function useVisualViewport(): ViewportMetrics | null {
                 setMetrics((previous) =>
                     previous &&
                     Object.entries(next).every(
-                        ([key, value]) =>
-                            previous[
-                                key as keyof ViewportMetrics
-                            ] === value
+                        ([key, value]) => previous[key as keyof ViewportMetrics] === value
                     )
                         ? previous
                         : next

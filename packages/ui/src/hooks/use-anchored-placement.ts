@@ -1,8 +1,5 @@
 import { useLayoutEffect, useState } from "react"
-import {
-    type AnchoredPlacement,
-    placeAnchored,
-} from "../lib/anchored-placement"
+import { type AnchoredPlacement, placeAnchored } from "../lib/anchored-placement"
 
 /**
  * Places a panel of `width` and `needed` height under its anchor and
@@ -14,13 +11,10 @@ export function useAnchoredPlacement(
     width: number,
     needed: number
 ): AnchoredPlacement {
-    const [placement, setPlacement] = useState(() =>
-        placeAnchored(anchor, width, needed)
-    )
+    const [placement, setPlacement] = useState(() => placeAnchored(anchor, width, needed))
 
     useLayoutEffect(() => {
-        const replace = () =>
-            setPlacement(placeAnchored(anchor, width, needed))
+        const replace = () => setPlacement(placeAnchored(anchor, width, needed))
         replace()
         const viewport = window.visualViewport
         viewport?.addEventListener("resize", replace)
@@ -31,11 +25,7 @@ export function useAnchoredPlacement(
             viewport?.removeEventListener("resize", replace)
             viewport?.removeEventListener("scroll", replace)
             window.removeEventListener("resize", replace)
-            window.removeEventListener(
-                "scroll",
-                replace,
-                true
-            )
+            window.removeEventListener("scroll", replace, true)
         }
     }, [anchor, width, needed])
 

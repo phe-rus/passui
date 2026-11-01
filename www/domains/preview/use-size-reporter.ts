@@ -1,9 +1,4 @@
-import {
-    type RefObject,
-    useCallback,
-    useEffect,
-    useRef,
-} from "react"
+import { type RefObject, useCallback, useEffect, useRef } from "react"
 import { postToParent } from "./use-preview-channel"
 
 /**
@@ -13,17 +8,13 @@ import { postToParent } from "./use-preview-channel"
  * the parent starts listening after the last report: a preview whose
  * height never changes again would otherwise leave the frame too short.
  */
-export function useSizeReporter(
-    target: RefObject<HTMLElement | null>
-) {
+export function useSizeReporter(target: RefObject<HTMLElement | null>) {
     const last = useRef<number | null>(null)
     useEffect(() => {
         const element = target.current
         if (!element) return
         const observer = new ResizeObserver(([entry]) => {
-            last.current = Math.ceil(
-                entry.borderBoxSize[0].blockSize
-            )
+            last.current = Math.ceil(entry.borderBoxSize[0].blockSize)
             postToParent({
                 type: "passui:size",
                 height: last.current,

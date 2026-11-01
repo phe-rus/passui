@@ -1,27 +1,12 @@
-import {
-    TextField,
-    type TextFieldProps,
-} from "@passui/react/text-field"
+import { TextField, type TextFieldProps } from "@passui/react/text-field"
 import { TextEditor } from "@passui/react/text-editor"
 import { Toggle } from "@passui/react/toggle"
 import { useFieldContext } from "../forms/contexts"
-import {
-    createContext,
-    useContext,
-    type ComponentProps,
-    type ReactNode,
-} from "react"
+import { createContext, useContext, type ComponentProps, type ReactNode } from "react"
 
-export const PeachFieldLabels = createContext<
-    { show: string; hide: string } | undefined
->(undefined)
+export const PeachFieldLabels = createContext<{ show: string; hide: string } | undefined>(undefined)
 
-export function FieldInput(
-    props: Omit<
-        TextFieldProps,
-        "value" | "onChange" | "onBlur" | "name"
-    >
-) {
+export function FieldInput(props: Omit<TextFieldProps, "value" | "onChange" | "onBlur" | "name">) {
     const field = useFieldContext<string>()
     const revealLabels = useContext(PeachFieldLabels)
     return (
@@ -30,17 +15,12 @@ export function FieldInput(
             {...props}
             name={field.name}
             value={field.state.value}
-            onChange={(event) =>
-                field.handleChange(event.target.value)
-            }
+            onChange={(event) => field.handleChange(event.target.value)}
             onBlur={field.handleBlur}
             errors={
                 field.state.meta.isTouched
-                    ? field.state.meta.errors.flatMap(
-                          (error) =>
-                              error?.message
-                                  ? [error.message]
-                                  : []
+                    ? field.state.meta.errors.flatMap((error) =>
+                          error?.message ? [error.message] : []
                       )
                     : []
             }
@@ -77,11 +57,7 @@ export function FieldSwitch({
         <div className="flex items-center justify-between gap-4">
             <div className="text-subheadline">
                 {label}
-                {description && (
-                    <p className="text-footnote text-label-secondary">
-                        {description}
-                    </p>
-                )}
+                {description && <p className="text-footnote text-label-secondary">{description}</p>}
             </div>
             <Toggle
                 label={label}
@@ -106,16 +82,11 @@ export function FieldTextarea({
 }) {
     const field = useFieldContext<string>()
     const errors = field.state.meta.isTouched
-        ? field.state.meta.errors.flatMap((error) =>
-              error?.message ? [error.message] : []
-          )
+        ? field.state.meta.errors.flatMap((error) => (error?.message ? [error.message] : []))
         : []
     return (
         <div className="flex flex-col gap-2">
-            <label
-                htmlFor={field.name}
-                className="text-subheadline font-semibold"
-            >
+            <label htmlFor={field.name} className="text-subheadline font-semibold">
                 {icon}
                 {label}
             </label>
@@ -124,23 +95,13 @@ export function FieldTextarea({
                 id={field.name}
                 name={field.name}
                 aria-invalid={errors.length > 0}
-                aria-describedby={
-                    errors.length
-                        ? `${field.name}-errors`
-                        : undefined
-                }
+                aria-describedby={errors.length ? `${field.name}-errors` : undefined}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(event) =>
-                    field.handleChange(event.target.value)
-                }
+                onChange={(event) => field.handleChange(event.target.value)}
             />
             {errors.length > 0 && (
-                <p
-                    id={`${field.name}-errors`}
-                    role="alert"
-                    className="text-footnote text-danger"
-                >
+                <p id={`${field.name}-errors`} role="alert" className="text-footnote text-danger">
                     {Array.from(new Set(errors)).join(". ")}
                 </p>
             )}
@@ -170,20 +131,14 @@ export function FieldOtp({
             autoFocus
             onBlur={field.handleBlur}
             onChange={(event) => {
-                const code = event.target.value
-                    .replace(/\D/g, "")
-                    .slice(0, maxLength)
+                const code = event.target.value.replace(/\D/g, "").slice(0, maxLength)
                 field.handleChange(code)
-                if (code.length === maxLength)
-                    onComplete?.(code)
+                if (code.length === maxLength) onComplete?.(code)
             }}
             errors={
                 field.state.meta.isTouched
-                    ? field.state.meta.errors.flatMap(
-                          (error) =>
-                              error?.message
-                                  ? [error.message]
-                                  : []
+                    ? field.state.meta.errors.flatMap((error) =>
+                          error?.message ? [error.message] : []
                       )
                     : []
             }

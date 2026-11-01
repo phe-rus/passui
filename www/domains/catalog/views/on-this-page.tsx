@@ -12,10 +12,7 @@ type OnThisPageProps = {
 }
 
 function flatten(items: TocItem[]): TocItem[] {
-    return items.flatMap((item) => [
-        item,
-        ...flatten(item.children ?? []),
-    ])
+    return items.flatMap((item) => [item, ...flatten(item.children ?? [])])
 }
 
 /** The page's sections, with the one being read marked as you scroll. */
@@ -30,11 +27,8 @@ export function OnThisPage({ items }: OnThisPageProps) {
         function update() {
             let current = ids[0]
             for (const id of ids) {
-                const top = document
-                    .getElementById(id)
-                    ?.getBoundingClientRect().top
-                if (top !== undefined && top <= headerOffset)
-                    current = id
+                const top = document.getElementById(id)?.getBoundingClientRect().top
+                if (top !== undefined && top <= headerOffset) current = id
             }
             setActive(current)
         }
@@ -57,11 +51,7 @@ export function OnThisPage({ items }: OnThisPageProps) {
                     <li key={item.id}>
                         <a
                             href={`#${item.id}`}
-                            aria-current={
-                                item.id === active
-                                    ? "location"
-                                    : undefined
-                            }
+                            aria-current={item.id === active ? "location" : undefined}
                             className={cn(
                                 "-ms-px block border-s-2 py-1 text-footnote no-underline transition-colors",
                                 depth === 0 ? "ps-3" : "ps-6",
@@ -72,11 +62,7 @@ export function OnThisPage({ items }: OnThisPageProps) {
                         >
                             {item.title}
                         </a>
-                        {item.children &&
-                            renderItems(
-                                item.children,
-                                depth + 1
-                            )}
+                        {item.children && renderItems(item.children, depth + 1)}
                     </li>
                 ))}
             </ul>
@@ -84,16 +70,9 @@ export function OnThisPage({ items }: OnThisPageProps) {
     }
 
     return (
-        <nav
-            aria-label="On this page"
-            className="flex flex-col gap-3"
-        >
-            <span className="text-footnote font-semibold text-label">
-                On this page
-            </span>
-            <div className="border-separator/70 border-s">
-                {renderItems(items, 0)}
-            </div>
+        <nav aria-label="On this page" className="flex flex-col gap-3">
+            <span className="text-footnote font-semibold text-label">On this page</span>
+            <div className="border-separator/70 border-s">{renderItems(items, 0)}</div>
         </nav>
     )
 }

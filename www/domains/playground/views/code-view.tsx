@@ -21,28 +21,16 @@ const foldAfterLines = 6
  * Code with a copy button. Plain text shows at the same size until the
  * highlighter loads, so nothing shifts when the colours arrive.
  */
-export function CodeView({
-    code,
-    label,
-    collapsible = true,
-    lang = "tsx",
-}: CodeViewProps) {
+export function CodeView({ code, label, collapsible = true, lang = "tsx" }: CodeViewProps) {
     const html = useHighlight(code, lang)
     const [copied, setCopied] = useState(false)
     const [expanded, setExpanded] = useState(false)
     const clipboard = useCopyText()
-    const foldable =
-        collapsible &&
-        code.split("\n").length > foldAfterLines
+    const foldable = collapsible && code.split("\n").length > foldAfterLines
     const folded = foldable && !expanded
 
     async function copy() {
-        if (
-            await clipboard.copy(
-                code,
-                "Copied to the clipboard"
-            )
-        ) {
+        if (await clipboard.copy(code, "Copied to the clipboard")) {
             setCopied(true)
             window.setTimeout(() => setCopied(false), 1600)
         }
@@ -55,12 +43,7 @@ export function CodeView({
                     {label}
                 </div>
             )}
-            <div
-                className={cn(
-                    "relative",
-                    folded && "max-h-36 overflow-hidden"
-                )}
-            >
+            <div className={cn("relative", folded && "max-h-36 overflow-hidden")}>
                 {html ? (
                     <div
                         className="[&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:p-5 [&_pre]:pe-16 [&_pre]:font-mono [&_pre]:text-footnote [&_pre]:leading-relaxed"
@@ -82,22 +65,16 @@ export function CodeView({
                 <div
                     className={cn(
                         "flex justify-center",
-                        folded
-                            ? "absolute inset-x-0 bottom-3"
-                            : "pb-4"
+                        folded ? "absolute inset-x-0 bottom-3" : "pb-4"
                     )}
                 >
                     <button
                         type="button"
                         aria-expanded={expanded}
-                        onClick={() =>
-                            setExpanded((value) => !value)
-                        }
+                        onClick={() => setExpanded((value) => !value)}
                         className="cursor-pointer rounded-full bg-background px-3.5 py-1.5 text-footnote font-semibold text-label shadow-sm ring-1 ring-separator/70 transition-colors hover:bg-fill"
                     >
-                        {expanded
-                            ? "Collapse code"
-                            : "Expand code"}
+                        {expanded ? "Collapse code" : "Expand code"}
                     </button>
                 </div>
             )}
@@ -106,16 +83,9 @@ export function CodeView({
                 variant="ghost"
                 size="icon-sm"
                 onClick={copy}
-                className={cn(
-                    "absolute right-3",
-                    label ? "top-1" : "top-3"
-                )}
+                className={cn("absolute right-3", label ? "top-1" : "top-3")}
             >
-                {copied ? (
-                    <CheckIcon size={18} />
-                ) : (
-                    <CopyIcon size={18} />
-                )}
+                {copied ? <CheckIcon size={18} /> : <CopyIcon size={18} />}
             </IconButton>
             {clipboard.fallback}
         </div>

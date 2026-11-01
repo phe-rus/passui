@@ -1,29 +1,11 @@
-import {
-    lstat,
-    mkdir,
-    readFile,
-    readdir,
-    writeFile,
-} from "node:fs/promises"
-import {
-    basename,
-    dirname,
-    join,
-    resolve,
-    relative,
-    sep,
-} from "node:path"
+import { lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises"
+import { basename, dirname, join, resolve, relative, sep } from "node:path"
 import { spawn } from "node:child_process"
-import {
-    setupFiles,
-    starterFiles,
-    versions,
-} from "./templates"
-import { solidVersions } from "./solid-templates"
+import { setupFiles, starterFiles, versions } from "./templates"
 
 export type PackageManager = "bun" | "npm" | "pnpm" | "yarn"
 export type Options = {
-    framework?: "react" | "solid"
+    framework?: "react"
     directory: string
     command: "init" | "create"
     template: "vite" | "tanstack"
@@ -50,42 +32,28 @@ async function stat(path: string) {
     try {
         return await lstat(path)
     } catch (error) {
-        if (
-            (error as NodeJS.ErrnoException).code === "ENOENT"
-        )
-            return null
+        if ((error as NodeJS.ErrnoException).code === "ENOENT") return null
         throw error
     }
 }
 
 async function checkPath(root: string, path: string) {
     const target = resolve(root, path)
-    if (
-        relative(root, target).startsWith(`..${sep}`) ||
-        target === root
-    ) {
+    if (relative(root, target).startsWith(`..${sep}`) || target === root) {
         throw new Error(`Invalid generated path: ${path}`)
     }
     let current = target
     while (true) {
         const entry = await stat(current)
-        if (entry?.isSymbolicLink())
-            throw new Error(`Refusing symlink: ${current}`)
-        if (
-            entry &&
-            current !== target &&
-            !entry.isDirectory()
-        )
+        if (entry?.isSymbolicLink()) throw new Error(`Refusing symlink: ${current}`)
+        if (entry && current !== target && !entry.isDirectory())
             throw new Error(`Not a directory: ${current}`)
         if (dirname(current) === current) break
         current = dirname(current)
     }
 }
 
-export async function detectManager(
-    root: string,
-    manifest: Manifest
-): Promise<PackageManager> {
+export async function detectManager(root: string, manifest: Manifest): Promise<PackageManager> {
     const configured = manifest.packageManager?.split("@")[0]
     if (
         configured === "bun" ||
@@ -106,11 +74,7 @@ export async function detectManager(
     return "bun"
 }
 
-function requireMajor(
-    name: string,
-    version: string | undefined,
-    major: number
-) {
+function requireMajor(name: string, version: string | undefined, major: number) {
     if (!version) return
     const match = version.match(/^[~^]?(\d+)(?:\.|$)/)
     if (match && Number(match[1]) !== major) {
@@ -120,9 +84,7 @@ function requireMajor(
     }
 }
 
-export async function planProject(
-    options: Options
-): Promise<Plan> {
+export async function planProject(options: Options): Promise<Plan> {
     const root = resolve(options.directory)
     await checkPath(root, "package.json")
     let manifest: Manifest = {}
@@ -130,161 +92,52 @@ export async function planProject(
     let framework: string = `${options.framework ?? "react"}/${options.template}`
     if (options.command === "create") {
         const entry = await stat(root)
-        if (
-            entry &&
-            (!entry.isDirectory() ||
-                (await readdir(root)).length)
-        )
-            throw new Error(
-                `Create needs an empty directory: ${root}`
-            )
+        if (entry && (!entry.isDirectory() || (await readdir(root)).length))
+            throw new Error(`Create needs an empty directory: ${root}`)
         const name =
             basename(root)
                 .toLowerCase()
                 .replace(/[^a-z0-9-]/g, "-")
                 .replace(/^-+/, "") || "passui-app"
-        files = starterFiles(
-            name,
-            options.template,
-            options.framework
-        )
+        files = starterFiles(name, options.template, options.framework)
     } else {
         try {
-            manifest = JSON.parse(
-                await readFile(
-                    join(root, "package.json"),
-                    "utf8"
-                )
-            )
+            manifest = JSON.parse(await readFile(join(root, "package.json"), "utf8"))
         } catch {
-            throw new Error(
-                `init needs a valid package.json in ${root}`
-            )
+            throw new Error(`init needs a valid package.json in ${root}`)
         }
-        if (
-            !manifest ||
-            typeof manifest !== "object" ||
-            Array.isArray(manifest)
-        )
-            throw new Error(
-                "package.json must contain an object"
-            )
+        if (!manifest || typeof manifest !== "object" || Array.isArray(manifest))
+            throw new Error("package.json must contain an object")
         const dependencies = {
             ...manifest.devDependencies,
             ...manifest.dependencies,
         }
-        const detected = dependencies["solid-js"]
-            ? "solid"
-            : dependencies.react
-              ? "react"
-              : undefined
-        if (
-            !options.framework &&
-            dependencies["solid-js"] &&
-            dependencies.react
-        )
-            throw new Error(
-                "Both React and Solid are installed. Choose --framework react or --framework solid."
-            )
-        const frameworkType = options.framework ?? detected
-        if (
-            !frameworkType ||
-            !dependencies[
-                frameworkType === "solid"
-                    ? "solid-js"
-                    : frameworkType
-            ]
-        )
-            throw new Error(
-                "No matching React or Solid dependency found. Run init in the application workspace."
-            )
-        if (frameworkType === "react") {
-            requireMajor("react", dependencies.react, 19)
-            requireMajor(
-                "react-dom",
-                dependencies["react-dom"],
-                19
-            )
-        } else
-            requireMajor(
-                "solid-js",
-                dependencies["solid-js"],
-                1
-            )
-        requireMajor(
-            "tailwindcss",
-            dependencies.tailwindcss,
-            4
-        )
-        framework =
-            frameworkType === "react" && dependencies.next
-                ? "next"
-                : dependencies[
-                        `@tanstack/${frameworkType}-start`
-                    ]
-                  ? "tanstack"
-                  : dependencies.vite
-                    ? "vite"
-                    : frameworkType
+        const frameworkType = options.framework ?? "react"
+        if (!dependencies.react)
+            throw new Error("No React dependency found. Run init in a React application workspace.")
+        requireMajor("react", dependencies.react, 19)
+        requireMajor("react-dom", dependencies["react-dom"], 19)
+        requireMajor("tailwindcss", dependencies.tailwindcss, 4)
+        framework = dependencies.next
+            ? "next"
+            : dependencies["@tanstack/react-start"]
+              ? "tanstack"
+              : dependencies.vite
+                ? "vite"
+                : frameworkType
         const runtime = { ...manifest.dependencies }
         const dev = { ...manifest.devDependencies }
-        const add = (
-            target: Record<string, string>,
-            name: string,
-            version: string
-        ) => {
+        const add = (target: Record<string, string>, name: string, version: string) => {
             if (!dependencies[name]) target[name] = version
         }
-        add(
-            runtime,
-            frameworkType === "solid"
-                ? "@passui/solid"
-                : "@passui/react",
-            frameworkType === "solid"
-                ? solidVersions.passui
-                : versions.passui
-        )
-        if (frameworkType === "react")
-            add(runtime, "react-dom", versions.react)
+        add(runtime, "@passui/react", versions.passui)
+        add(runtime, "react-dom", versions.react)
         add(dev, "tailwindcss", versions.tailwind)
         if (options.integration) {
-            add(
-                runtime,
-                "@passui/tanstack",
-                versions.integration
-            )
-            if (frameworkType === "solid") {
-                add(
-                    runtime,
-                    "@tanstack/solid-query",
-                    solidVersions.query
-                )
-                add(
-                    runtime,
-                    "@tanstack/solid-form",
-                    solidVersions.form
-                )
-                add(
-                    runtime,
-                    "@tanstack/solid-router",
-                    solidVersions.router
-                )
-                add(
-                    runtime,
-                    "@tanstack/solid-table",
-                    solidVersions.table
-                )
-            } else
-                add(
-                    runtime,
-                    "@tanstack/react-query",
-                    "^5.104.0"
-                )
+            add(runtime, "@passui/tanstack", versions.integration)
+            add(runtime, "@tanstack/react-query", "^5.104.0")
         }
-        if (
-            options.integration &&
-            frameworkType === "react"
-        ) {
+        if (options.integration) {
             for (const [name, version] of Object.entries({
                 "@tanstack/react-form": "^1.33.5",
                 "@tanstack/react-table": "^9.2.4",
@@ -310,17 +163,11 @@ export async function planProject(
             devDependencies: dev,
         }
         files = {
-            ...setupFiles(
-                framework,
-                options.integration,
-                frameworkType
-            ),
+            ...setupFiles(framework, options.integration, frameworkType),
             "package.json": `${JSON.stringify(manifest, null, 4)}\n`,
         }
     }
-    const manager =
-        options.manager ??
-        (await detectManager(root, manifest))
+    const manager = options.manager ?? (await detectManager(root, manifest))
     const changed: Record<string, string> = {}
     const originals: Record<string, string | null> = {}
     for (const [path, content] of Object.entries(files)) {
@@ -328,12 +175,8 @@ export async function planProject(
         const entry = await stat(join(root, path))
         originals[path] = null
         if (entry) {
-            if (!entry.isFile())
-                throw new Error(`Not a file: ${path}`)
-            const old = await readFile(
-                join(root, path),
-                "utf8"
-            )
+            if (!entry.isFile()) throw new Error(`Not a file: ${path}`)
+            const old = await readFile(join(root, path), "utf8")
             originals[path] = old
             if (old === content) continue
             if (path !== "package.json")
@@ -356,21 +199,12 @@ export async function writePlan(plan: Plan) {
     for (const path of Object.keys(plan.files)) {
         await checkPath(plan.root, path)
         const entry = await stat(join(plan.root, path))
-        const current = entry?.isFile()
-            ? await readFile(join(plan.root, path), "utf8")
-            : null
-        if (
-            (entry && !entry.isFile()) ||
-            current !== plan.originals[path]
-        ) {
-            throw new Error(
-                `Project changed after planning: ${path}. Run setup again.`
-            )
+        const current = entry?.isFile() ? await readFile(join(plan.root, path), "utf8") : null
+        if ((entry && !entry.isFile()) || current !== plan.originals[path]) {
+            throw new Error(`Project changed after planning: ${path}. Run setup again.`)
         }
     }
-    for (const [path, content] of Object.entries(
-        plan.files
-    )) {
+    for (const [path, content] of Object.entries(plan.files)) {
         await checkPath(plan.root, path)
         await mkdir(dirname(join(plan.root, path)), {
             recursive: true,
@@ -381,10 +215,7 @@ export async function writePlan(plan: Plan) {
     }
 }
 
-export async function installProject(
-    root: string,
-    manager: PackageManager
-) {
+export async function installProject(root: string, manager: PackageManager) {
     await new Promise<void>((accept, reject) => {
         const child = spawn(manager, ["install"], {
             cwd: root,

@@ -16,7 +16,7 @@ const help = `Passui project setup
   bunx @passui/cli create my-app [--template vite|tanstack]
 
 Options:
-  --framework react|solid  UI framework (detected for init, React for create)
+  --framework react        UI framework (React only)
   --pm bun|npm|pnpm|yarn  Package manager (detected, otherwise Bun)
   --no-install           Generate files without installing
   --dry-run              Show planned files without changing the project
@@ -42,10 +42,7 @@ async function main() {
             "dry-run": { type: "boolean" },
         },
     })
-    if (
-        values.help ||
-        (!positionals.length && !values.version)
-    ) {
+    if (values.help || (!positionals.length && !values.version)) {
         console.log(help)
         return
     }
@@ -55,56 +52,27 @@ async function main() {
     }
     const [command, destination, ...extra] = positionals
     if (command !== "init" && command !== "create")
-        throw new Error(
-            "Choose init or create. Use --help for examples."
-        )
+        throw new Error("Choose init or create. Use --help for examples.")
     if (
         extra.length ||
         (command === "init" && destination) ||
-        (command === "create" &&
-            (!destination ||
-                values.dir ||
-                values.integration)) ||
+        (command === "create" && (!destination || values.dir || values.integration)) ||
         (command === "init" && values.template)
     )
-        throw new Error(
-            "Invalid command arguments. Use --help for examples."
-        )
+        throw new Error("Invalid command arguments. Use --help for examples.")
     const template = values.template ?? "vite"
     if (template !== "vite" && template !== "tanstack")
         throw new Error("Template must be vite or tanstack.")
-    if (
-        values.integration &&
-        values.integration !== "none" &&
-        values.integration !== "tanstack"
-    )
-        throw new Error(
-            "Integration must be none or tanstack."
-        )
-    if (
-        values.pm &&
-        !["bun", "npm", "pnpm", "yarn"].includes(values.pm)
-    )
-        throw new Error(
-            "Package manager must be bun, npm, pnpm or yarn."
-        )
-    if (
-        values.framework &&
-        values.framework !== "react" &&
-        values.framework !== "solid"
-    )
-        throw new Error("Framework must be react or solid.")
+    if (values.integration && values.integration !== "none" && values.integration !== "tanstack")
+        throw new Error("Integration must be none or tanstack.")
+    if (values.pm && !["bun", "npm", "pnpm", "yarn"].includes(values.pm))
+        throw new Error("Package manager must be bun, npm, pnpm or yarn.")
+    if (values.framework && values.framework !== "react")
+        throw new Error("Framework must be react.")
     const options: Options = {
-        framework: values.framework as
-            | "react"
-            | "solid"
-            | undefined,
+        framework: values.framework as "react" | undefined,
         command,
-        directory: resolve(
-            command === "create"
-                ? destination!
-                : (values.dir ?? ".")
-        ),
+        directory: resolve(command === "create" ? destination! : (values.dir ?? ".")),
         template,
         integration: values.integration === "tanstack",
         manager: values.pm as PackageManager | undefined,
@@ -115,12 +83,10 @@ async function main() {
     console.log(
         `${options.dryRun ? "Plan for" : "Setting up"} ${plan.root} (${plan.framework}, ${plan.manager})`
     )
-    for (const path of Object.keys(plan.files))
-        console.log(`  ${path}`)
+    for (const path of Object.keys(plan.files)) console.log(`  ${path}`)
     if (options.dryRun) return
     await writePlan(plan)
-    if (options.install)
-        await installProject(plan.root, plan.manager)
+    if (options.install) await installProject(plan.root, plan.manager)
     console.log(
         command === "create"
             ? `Ready. Run ${plan.manager} run dev in ${plan.root}.`

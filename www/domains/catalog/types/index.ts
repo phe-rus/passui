@@ -1,6 +1,6 @@
 import type { CodeLang } from "@/domains/playground"
 import type { IconSvgElement } from "@hugeicons/react"
-import type { RegisteredDocs } from "@passui/react/docs"
+import type { RegisteredDocs } from "@/domains/catalog/definitions"
 
 type DocsShape = {
     controls: object
@@ -32,14 +32,8 @@ export type ComponentContent<D extends DocsShape> = {
     summary: string
     /** One sentence on when to reach for it, above the import. */
     usage: string
-    propDescriptions: Record<
-        keyof D["controls"] & string,
-        string
-    >
-    examples: Record<
-        D["examples"][number]["id"],
-        ExampleContent
-    >
+    propDescriptions: Record<keyof D["controls"] & string, string>
+    examples: Record<D["examples"][number]["id"], ExampleContent>
     anatomy: AnatomyPart[]
     practices: Practice[]
     accessibility: string[]

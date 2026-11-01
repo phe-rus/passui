@@ -11,14 +11,7 @@ export interface AccentColors {
     accentSoft: string
 }
 
-export type AccentId =
-    | "blush"
-    | "honey"
-    | "sage"
-    | "ocean"
-    | "lavender"
-    | "rose"
-    | "graphite"
+export type AccentId = "blush" | "honey" | "sage" | "ocean" | "lavender" | "rose" | "graphite"
 
 export interface Accent {
     id: AccentId
@@ -159,8 +152,6 @@ export const accents: Record<AccentId, Accent> = {
 
 export const defaultAccent: AccentId = "blush"
 
-export function isAccentId(
-    value: unknown
-): value is AccentId {
+export function isAccentId(value: unknown): value is AccentId {
     return typeof value === "string" && value in accents
 }

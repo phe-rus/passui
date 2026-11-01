@@ -1,12 +1,5 @@
-import {
-    ContextMenuHost,
-    DialogHost,
-    TooltipHost,
-} from "@passui/react"
-import {
-    Cancel01Icon,
-    Menu01Icon,
-} from "@hugeicons/core-free-icons"
+import { ContextMenuHost, DialogHost, TooltipHost } from "@passui/react"
+import { Cancel01Icon, Menu01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { buttonStyle } from "@passui/react/button"
 import { IconButton } from "@passui/react/icon-button"
@@ -15,23 +8,12 @@ import { Toaster } from "@passui/react/toaster"
 import { Link } from "@tanstack/react-router"
 import { PassuiMark } from "./passui-mark"
 import { DocsSearch } from "./docs-search"
-import { frameworkPath } from "@/domains/framework/framework"
-import { useDocsFramework } from "@/domains/framework/use-docs-framework"
 import { cn } from "@passui/react/cn"
-import {
-    type ReactNode,
-    useEffect,
-    useRef,
-    useState,
-} from "react"
+import { type ReactNode, useEffect, useRef, useState } from "react"
 
 function Mark() {
     return (
-        <Link
-            to="/"
-            aria-label="Passui home"
-            className="flex items-center gap-2 no-underline"
-        >
+        <Link to="/" aria-label="Passui home" className="flex items-center gap-2 no-underline">
             <PassuiMark />
             <span className="font-display text-title3 font-black tracking-[-0.05em] text-label">
                 passui
@@ -52,7 +34,6 @@ type SiteLayoutProps = {
 
 /** The site's frame: a top bar, the page, and a footer. */
 export function SiteLayout({ children }: SiteLayoutProps) {
-    const framework = useDocsFramework()
     const top = useRef<HTMLDivElement>(null)
     const [scrolled, setScrolled] = useState(false)
     // the site's links on phones, where the bar has no room for them
@@ -63,48 +44,32 @@ export function SiteLayout({ children }: SiteLayoutProps) {
     useEffect(() => {
         const marker = top.current
         if (!marker) return
-        const observer = new IntersectionObserver(([entry]) =>
-            setScrolled(!entry.isIntersecting)
-        )
+        const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting))
         observer.observe(marker)
         return () => observer.disconnect()
     }, [])
 
     return (
         <div className="flex min-h-svh shrink-0 flex-col">
-            <div
-                ref={top}
-                aria-hidden="true"
-                className="h-px"
-            />
+            <div ref={top} aria-hidden="true" className="h-px" />
             <header
                 className={cn(
                     "sticky top-0 z-40 -mt-px transition-[background-color,box-shadow,backdrop-filter] duration-300",
-                    scrolled
-                        ? "glass-bar shadow-[0_1px_0_rgb(0_0_0/0.06)]"
-                        : "bg-transparent"
+                    scrolled ? "glass-bar shadow-[0_1px_0_rgb(0_0_0/0.06)]" : "bg-transparent"
                 )}
             >
                 <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 md:px-6 lg:gap-6">
                     <Mark />
-                    <nav
-                        aria-label="Site"
-                        className="mx-auto hidden items-center gap-1 md:flex"
-                    >
+                    <nav aria-label="Site" className="mx-auto hidden items-center gap-1 md:flex">
                         <Link
-                            to={frameworkPath(
-                                "/docs/introduction",
-                                framework
-                            )}
+                            to="/docs/$slug"
+                            params={{ slug: "introduction" }}
                             className="rounded-full px-3 py-1.5 text-subheadline text-label-secondary no-underline transition-colors hover:bg-fill/70 hover:text-label"
                         >
                             Docs
                         </Link>
                         <Link
-                            to={frameworkPath(
-                                "/components",
-                                framework
-                            )}
+                            to={"/components"}
                             className="rounded-full px-3 py-1.5 text-subheadline text-label-secondary no-underline transition-colors hover:bg-fill/70 hover:text-label"
                         >
                             Components
@@ -123,10 +88,8 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                     <div className="ms-auto flex items-center gap-2 md:ms-0">
                         <DocsSearch />
                         <Link
-                            to={frameworkPath(
-                                "/docs/installation",
-                                framework
-                            )}
+                            to="/docs/$slug"
+                            params={{ slug: "installation" }}
                             className={buttonStyle({
                                 size: "sm",
                             })}
@@ -142,53 +105,28 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         className="md:hidden"
                         onClick={() => setMenuOpen(true)}
                     >
-                        <HugeiconsIcon
-                            icon={Menu01Icon}
-                            size={20}
-                        />
+                        <HugeiconsIcon icon={Menu01Icon} size={20} />
                     </IconButton>
                 </div>
             </header>
-            <Sheet
-                open={menuOpen}
-                onClose={close}
-                label="Menu"
-            >
-                <nav
-                    aria-label="Site"
-                    className="flex flex-col gap-1 p-4"
-                >
+            <Sheet open={menuOpen} onClose={close} label="Menu">
+                <nav aria-label="Site" className="flex flex-col gap-1 p-4">
                     <div className="flex items-center justify-between px-3 pb-2">
-                        <span className="text-headline font-semibold text-label">
-                            Passui
-                        </span>
-                        <IconButton
-                            label="Close"
-                            variant="ghost"
-                            size="icon-sm"
-                            onClick={close}
-                        >
-                            <HugeiconsIcon
-                                icon={Cancel01Icon}
-                                size={20}
-                            />
+                        <span className="text-headline font-semibold text-label">Passui</span>
+                        <IconButton label="Close" variant="ghost" size="icon-sm" onClick={close}>
+                            <HugeiconsIcon icon={Cancel01Icon} size={20} />
                         </IconButton>
                     </div>
                     <Link
-                        to={frameworkPath(
-                            "/docs/introduction",
-                            framework
-                        )}
+                        to="/docs/$slug"
+                        params={{ slug: "introduction" }}
                         onClick={close}
                         className="rounded-3xl px-3 py-3 text-body text-label no-underline hover:bg-fill"
                     >
                         Docs
                     </Link>
                     <Link
-                        to={frameworkPath(
-                            "/components",
-                            framework
-                        )}
+                        to={"/components"}
                         onClick={close}
                         className="rounded-3xl px-3 py-3 text-body text-label no-underline hover:bg-fill"
                     >
@@ -207,21 +145,13 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                     ))}
                 </nav>
             </Sheet>
-            <main className="flex flex-1 flex-col">
-                {children}
-            </main>
+            <main className="flex flex-1 flex-col">{children}</main>
             <footer className="border-separator/60 border-t">
                 <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 md:flex-row md:items-center md:px-6">
                     <Mark />
-                    <nav
-                        aria-label="Footer"
-                        className="flex flex-wrap gap-x-5 gap-y-2 md:mx-auto"
-                    >
+                    <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 md:mx-auto">
                         <Link
-                            to={frameworkPath(
-                                "/components",
-                                framework
-                            )}
+                            to={"/components"}
                             className="text-footnote text-label-secondary no-underline hover:text-label"
                         >
                             Components
@@ -237,9 +167,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                             </Link>
                         ))}
                     </nav>
-                    <span className="text-footnote text-label-tertiary">
-                        © 2026 Pherus
-                    </span>
+                    <span className="text-footnote text-label-tertiary">© 2026 Pherus</span>
                 </div>
             </footer>
             <Toaster />

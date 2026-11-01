@@ -1,8 +1,4 @@
-import {
-    Picker,
-    SegmentedControl,
-    SwatchPicker,
-} from "@passui/react"
+import { Picker, SegmentedControl, SwatchPicker } from "@passui/react"
 import { accents } from "@passui/react/tokens"
 import { accentNames } from "../content/accent-names"
 import {
@@ -39,9 +35,7 @@ const viewportLabels: Record<PreviewViewport, string> = {
     fill: "Fill",
 }
 
-function options<T extends string>(
-    labels: Record<T, string>
-) {
+function options<T extends string>(labels: Record<T, string>) {
     return (Object.keys(labels) as T[]).map((value) => ({
         value,
         label: labels[value],
@@ -49,10 +43,7 @@ function options<T extends string>(
 }
 
 /** How the preview looks: theme, accent, platform and frame size (AC-4). */
-export function SettingsBar({
-    settings,
-    onChange,
-}: SettingsBarProps) {
+export function SettingsBar({ settings, onChange }: SettingsBarProps) {
     return (
         <div className="flex flex-col gap-5 p-5 md:p-6">
             <div className="grid gap-5 sm:grid-cols-3">
@@ -75,23 +66,19 @@ export function SettingsBar({
                     label="Viewport"
                     value={settings.viewport}
                     options={options(viewportLabels)}
-                    onChange={(viewport) =>
-                        onChange({ viewport })
-                    }
+                    onChange={(viewport) => onChange({ viewport })}
                 />
             </div>
             <SwatchPicker
                 label="Accent"
                 value={settings.accent}
                 onChange={(accent) => onChange({ accent })}
-                options={Object.values(accents).map(
-                    (accent) => ({
-                        value: accent.id,
-                        label: accentNames[accent.id],
-                        color: accent.swatch,
-                        ink: accent.light.accentText,
-                    })
-                )}
+                options={Object.values(accents).map((accent) => ({
+                    value: accent.id,
+                    label: accentNames[accent.id],
+                    color: accent.swatch,
+                    ink: accent.light.accentText,
+                }))}
             />
         </div>
     )

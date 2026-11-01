@@ -17,18 +17,10 @@ export function StatusIndicator({
 }) {
     return (
         <span
-            className={cn(
-                "flex items-center gap-1.5 text-footnote text-label-tertiary",
-                className
-            )}
+            className={cn("flex items-center gap-1.5 text-footnote text-label-tertiary", className)}
             {...props}
         >
-            <span
-                className={cn(
-                    "size-[7px] rounded-full",
-                    dots[state]
-                )}
-            />
+            <span className={cn("size-[7px] rounded-full", dots[state])} />
             {children}
         </span>
     )

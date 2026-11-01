@@ -109,17 +109,11 @@ import {
     ViewOffSlashIcon,
     Wallet01Icon,
 } from "@hugeicons/core-free-icons"
-import {
-    HugeiconsIcon,
-    type IconSvgElement,
-} from "@hugeicons/react"
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react"
 import type { SVGProps } from "react"
 import { cn } from "../lib/class-names"
 
-export type IconProps = Omit<
-    SVGProps<SVGSVGElement>,
-    "ref"
-> & {
+export type IconProps = Omit<SVGProps<SVGSVGElement>, "ref"> & {
     /** Width and height in CSS pixels. @default 20 */
     size?: number
     /** Stroke weight shared across Passui icons. @default 1.6 */
@@ -128,11 +122,7 @@ export type IconProps = Omit<
 
 /** Rounded stroke icons with Passui's default size, weight, and decorative semantics. */
 function icon(svg: IconSvgElement, displayName: string) {
-    const Icon = ({
-        size = 20,
-        strokeWidth = 1.6,
-        ...props
-    }: IconProps) => (
+    const Icon = ({ size = 20, strokeWidth = 1.6, ...props }: IconProps) => (
         <HugeiconsIcon
             icon={svg}
             size={size}
@@ -146,95 +136,49 @@ function icon(svg: IconSvgElement, displayName: string) {
 }
 
 /** A filled variant for toggled states (hearted, starred). */
-function toggleIcon(
-    svg: IconSvgElement,
-    displayName: string
-) {
+function toggleIcon(svg: IconSvgElement, displayName: string) {
     const Base = icon(svg, displayName)
-    const Icon = ({
-        filled = false,
-        className,
-        ...props
-    }: IconProps & { filled?: boolean }) => (
-        <Base
-            className={cn(
-                filled && "[&_path]:fill-current",
-                className
-            )}
-            {...props}
-        />
+    const Icon = ({ filled = false, className, ...props }: IconProps & { filled?: boolean }) => (
+        <Base className={cn(filled && "[&_path]:fill-current", className)} {...props} />
     )
     Icon.displayName = displayName
     return Icon
 }
 
 export const NoteIcon = icon(Note01Icon, "NoteIcon")
-export const LanguageIcon = icon(
-    LanguagesIcon,
-    "LanguageIcon"
-)
+export const LanguageIcon = icon(LanguagesIcon, "LanguageIcon")
 export const SignOutIcon = icon(Logout01Icon, "SignOutIcon")
-export const MoreVerticalIcon = icon(
-    MoreVertical,
-    "MoreVerticalIcon"
-)
+export const MoreVerticalIcon = icon(MoreVertical, "MoreVerticalIcon")
 export const SendIcon = icon(SentIcon, "SendIcon")
 export const InboxIcon = icon(InboxGlyph, "InboxIcon")
 export const LaptopIcon = icon(LaptopGlyph, "LaptopIcon")
-export const SmartphoneIcon = icon(
-    SmartPhone01Icon,
-    "SmartphoneIcon"
-)
+export const SmartphoneIcon = icon(SmartPhone01Icon, "SmartphoneIcon")
 export const TabletIcon = icon(Tablet01Icon, "TabletIcon")
 export const HomeIcon = icon(Home01Icon, "HomeIcon")
 export const LibraryIcon = icon(LibraryGlyph, "LibraryIcon")
 export const PersonIcon = icon(UserIcon, "PersonIcon")
 export const ChartIcon = icon(Analytics01Icon, "ChartIcon")
-export const SupportIcon = icon(
-    CustomerSupportIcon,
-    "SupportIcon"
-)
+export const SupportIcon = icon(CustomerSupportIcon, "SupportIcon")
 export const KeyIcon = icon(Key01Icon, "KeyIcon")
-export const PasswordIcon = icon(
-    LockPasswordIcon,
-    "PasswordIcon"
-)
+export const PasswordIcon = icon(LockPasswordIcon, "PasswordIcon")
 export const JournalIcon = icon(NotebookIcon, "JournalIcon")
 export const PenIcon = icon(PencilEdit02Icon, "PenIcon")
 export const StoryIcon = icon(QuillWrite02Icon, "StoryIcon")
 export const BookIcon = icon(BookOpen01Icon, "BookIcon")
 export const ArticleIcon = icon(Book02Icon, "ArticleIcon")
 export const CanvasIcon = icon(HugeCanvasIcon, "CanvasIcon")
-export const LessonIcon = icon(
-    Mortarboard01Icon,
-    "LessonIcon"
-)
+export const LessonIcon = icon(Mortarboard01Icon, "LessonIcon")
 export const PlanIcon = icon(CheckListIcon, "PlanIcon")
 export const MicIcon = icon(Mic01Icon, "MicIcon")
 export const GlobeIcon = icon(Globe02Icon, "GlobeIcon")
-export const ChecklistIcon = icon(
-    CheckmarkCircle02Icon,
-    "ChecklistIcon"
-)
+export const ChecklistIcon = icon(CheckmarkCircle02Icon, "ChecklistIcon")
 export const DrawIcon = icon(PencilIcon, "DrawIcon")
 export const ShareIcon = icon(Share08Icon, "ShareIcon")
 export const SearchIcon = icon(Search01Icon, "SearchIcon")
-export const ChevronLeftIcon = icon(
-    ArrowLeft01Icon,
-    "ChevronLeftIcon"
-)
-export const ChevronRightIcon = icon(
-    ArrowRight01Icon,
-    "ChevronRightIcon"
-)
-export const ChevronUpIcon = icon(
-    ArrowUp01Icon,
-    "ChevronUpIcon"
-)
-export const ChevronDownIcon = icon(
-    ArrowDown01Icon,
-    "ChevronDownIcon"
-)
+export const ChevronLeftIcon = icon(ArrowLeft01Icon, "ChevronLeftIcon")
+export const ChevronRightIcon = icon(ArrowRight01Icon, "ChevronRightIcon")
+export const ChevronUpIcon = icon(ArrowUp01Icon, "ChevronUpIcon")
+export const ChevronDownIcon = icon(ArrowDown01Icon, "ChevronDownIcon")
 export const CloseIcon = icon(Cancel01Icon, "CloseIcon")
 export const PlusIcon = icon(Add01Icon, "PlusIcon")
 export const LinkIcon = icon(Link01Icon, "LinkIcon")
@@ -242,14 +186,8 @@ export const CommentIcon = icon(Comment01Icon, "CommentIcon")
 export const TrashIcon = icon(Delete02Icon, "TrashIcon")
 export const PinIcon = icon(Pin02Icon, "PinIcon")
 export const SidebarIcon = icon(PanelLeftIcon, "SidebarIcon")
-export const SettingsIcon = icon(
-    Settings02Icon,
-    "SettingsIcon"
-)
-export const DragHandleIcon = icon(
-    DragDropVerticalIcon,
-    "DragHandleIcon"
-)
+export const SettingsIcon = icon(Settings02Icon, "SettingsIcon")
+export const DragHandleIcon = icon(DragDropVerticalIcon, "DragHandleIcon")
 export const VisibleIcon = icon(ViewIcon, "VisibleIcon")
 export const HiddenIcon = icon(ViewOffSlashIcon, "HiddenIcon")
 export const CheckIcon = icon(Tick02Icon, "CheckIcon")
@@ -257,57 +195,27 @@ export const InvoiceIcon = icon(Invoice03Icon, "InvoiceIcon")
 export const QrCodeGlyph = icon(QrCodeIcon, "QrCodeGlyph")
 export const WalletIcon = icon(Wallet01Icon, "WalletIcon")
 export const ScanCodeIcon = icon(ScanIcon, "ScanCodeIcon")
-export const VerifiedIcon = icon(
-    CheckmarkBadge01Icon,
-    "VerifiedIcon"
-)
+export const VerifiedIcon = icon(CheckmarkBadge01Icon, "VerifiedIcon")
 export const WarningIcon = icon(Alert02Icon, "WarningIcon")
 export const PrintIcon = icon(PrinterIcon, "PrintIcon")
 export const ImportIcon = icon(FileImportIcon, "ImportIcon")
-export const DownloadIcon = icon(
-    Download01Icon,
-    "DownloadIcon"
-)
+export const DownloadIcon = icon(Download01Icon, "DownloadIcon")
 export const PlayIcon = icon(HugePlayIcon, "PlayIcon")
 export const PauseIcon = icon(HugePauseIcon, "PauseIcon")
-export const SkipBackIcon = icon(
-    GoBackward15SecIcon,
-    "SkipBackIcon"
-)
-export const SkipForwardIcon = icon(
-    GoForward30SecIcon,
-    "SkipForwardIcon"
-)
-export const PreviousTrackIcon = icon(
-    PreviousIcon,
-    "PreviousTrackIcon"
-)
+export const SkipBackIcon = icon(GoBackward15SecIcon, "SkipBackIcon")
+export const SkipForwardIcon = icon(GoForward30SecIcon, "SkipForwardIcon")
+export const PreviousTrackIcon = icon(PreviousIcon, "PreviousTrackIcon")
 export const NextTrackIcon = icon(NextIcon, "NextTrackIcon")
-export const HeadphonesIcon = icon(
-    HugeHeadphonesIcon,
-    "HeadphonesIcon"
-)
-export const HighlighterIcon = icon(
-    HugeHighlighterIcon,
-    "HighlighterIcon"
-)
-export const ChaptersIcon = icon(
-    LeftToRightListBulletIcon,
-    "ChaptersIcon"
-)
+export const HeadphonesIcon = icon(HugeHeadphonesIcon, "HeadphonesIcon")
+export const HighlighterIcon = icon(HugeHighlighterIcon, "HighlighterIcon")
+export const ChaptersIcon = icon(LeftToRightListBulletIcon, "ChaptersIcon")
 export const SleepIcon = icon(Moon02Icon, "SleepIcon")
 export const ExpandIcon = icon(FullScreenIcon, "ExpandIcon")
 export const SparkleIcon = icon(AiMagicIcon, "SparkleIcon")
 export const BellIcon = icon(Notification03Icon, "BellIcon")
 export const BusinessIcon = icon(Store01Icon, "BusinessIcon")
-export const CalendarIcon = icon(
-    Calendar03Icon,
-    "CalendarIcon"
-)
-export const BirthdayIcon = icon(
-    BirthdayCakeIcon,
-    "BirthdayIcon"
-)
+export const CalendarIcon = icon(Calendar03Icon, "CalendarIcon")
+export const BirthdayIcon = icon(BirthdayCakeIcon, "BirthdayIcon")
 export const AlarmIcon = icon(AlarmClockIcon, "AlarmIcon")
 export const RepeatIcon = icon(HugeRepeatIcon, "RepeatIcon")
 export const UndoIcon = icon(HugeUndoIcon, "UndoIcon")
@@ -319,32 +227,17 @@ export const BubbleIcon = icon(BubbleChatIcon, "BubbleIcon")
 export const BrushIcon = icon(PaintBrush02Icon, "BrushIcon")
 export const LayoutIcon = icon(LayoutGridIcon, "LayoutIcon")
 export const ZoomIcon = icon(SearchAddIcon, "ZoomIcon")
-export const SelectorIcon = icon(
-    UnfoldMoreIcon,
-    "SelectorIcon"
-)
+export const SelectorIcon = icon(UnfoldMoreIcon, "SelectorIcon")
 export const MoreIcon = icon(MoreHorizontalIcon, "MoreIcon")
 export const PeopleIcon = icon(UserMultipleIcon, "PeopleIcon")
-export const AddPersonIcon = icon(
-    UserAdd01Icon,
-    "AddPersonIcon"
-)
+export const AddPersonIcon = icon(UserAdd01Icon, "AddPersonIcon")
 export const ClockIcon = icon(Clock01Icon, "ClockIcon")
-export const LocationIcon = icon(
-    Location01Icon,
-    "LocationIcon"
-)
+export const LocationIcon = icon(Location01Icon, "LocationIcon")
 export const TaskIcon = icon(Task01Icon, "TaskIcon")
 export const FolderIcon = icon(Folder01Icon, "FolderIcon")
 export const RecentIcon = icon(Time04Icon, "RecentIcon")
-export const ThumbsUpIcon = toggleIcon(
-    HugeThumbsUpIcon,
-    "ThumbsUpIcon"
-)
-export const HeartIcon = toggleIcon(
-    FavouriteIcon,
-    "HeartIcon"
-)
+export const ThumbsUpIcon = toggleIcon(HugeThumbsUpIcon, "ThumbsUpIcon")
+export const HeartIcon = toggleIcon(FavouriteIcon, "HeartIcon")
 export const StarIcon = toggleIcon(HugeStarIcon, "StarIcon")
 
 // Wallet: adding, copying and protecting cards.
@@ -353,28 +246,13 @@ export const CopyIcon = icon(Copy01Icon, "CopyIcon")
 export const LockIcon = icon(LockIconSvg, "LockIcon")
 export const NfcReadIcon = icon(NfcIcon, "NfcReadIcon")
 export const PhotoIcon = icon(Image01Icon, "PhotoIcon")
-export const BookmarkIcon = icon(
-    Bookmark02Icon,
-    "BookmarkIcon"
-)
+export const BookmarkIcon = icon(Bookmark02Icon, "BookmarkIcon")
 export const MailIcon = icon(Mail01Icon, "MailIcon")
 export const ReplyIcon = icon(MailReply01Icon, "ReplyIcon")
 export const ArchiveIcon = icon(Archive01Icon, "ArchiveIcon")
-export const InfoIcon = icon(
-    InformationCircleIcon,
-    "InfoIcon"
-)
-export const AlignCenterIcon = icon(
-    TextAlignCenterIcon,
-    "AlignCenterIcon"
-)
-export const AlignLeftIcon = icon(
-    TextAlignLeftIcon,
-    "AlignLeftIcon"
-)
+export const InfoIcon = icon(InformationCircleIcon, "InfoIcon")
+export const AlignCenterIcon = icon(TextAlignCenterIcon, "AlignCenterIcon")
+export const AlignLeftIcon = icon(TextAlignLeftIcon, "AlignLeftIcon")
 export const BoldIcon = icon(TextBoldIcon, "BoldIcon")
 export const ItalicIcon = icon(TextItalicIcon, "ItalicIcon")
-export const UnderlineIcon = icon(
-    TextUnderlineIcon,
-    "UnderlineIcon"
-)
+export const UnderlineIcon = icon(TextUnderlineIcon, "UnderlineIcon")

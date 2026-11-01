@@ -10,12 +10,11 @@ on:
             package:
                 description: Package to publish
                 required: true
-                default: solid
+                default: ui
                 type: choice
                 options:
                     - tokens
                     - ui
-                    - solid
                     - tanstack
                     - cli
 
@@ -31,7 +30,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                package: ${{ github.event_name == 'workflow_dispatch' && fromJSON(format('["{0}"]', github.event.inputs.package)) || fromJSON('["solid","tanstack"]') }}
+                package: ${{ github.event_name == 'workflow_dispatch' && fromJSON(format('["{0}"]', github.event.inputs.package)) || fromJSON('["ui","tanstack"]') }}
         if: >-
             (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
             (github.event_name == 'workflow_run' &&
@@ -93,7 +92,6 @@ jobs:
                   bun run build
                   bun run typecheck
                   bun run test
-                  bun run solid:parity
                   bun run publish:check
               working-directory: .
 

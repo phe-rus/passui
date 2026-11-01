@@ -13,10 +13,7 @@ export function parseTime(value: string): TimeOfDay | null {
     return hour < 24 && minute < 60 ? { hour, minute } : null
 }
 
-export function formatTime({
-    hour,
-    minute,
-}: TimeOfDay): string {
+export function formatTime({ hour, minute }: TimeOfDay): string {
     return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`
 }
 
@@ -43,22 +40,13 @@ export function toTwelveHours(hour: number): {
     }
 }
 
-export function fromTwelveHours(
-    hour: number,
-    pm: boolean
-): number {
+export function fromTwelveHours(hour: number, pm: boolean): number {
     return (hour % 12) + (pm ? 12 : 0)
 }
 
 /** Minutes offered in steps of `step`, keeping `current` when it falls between them. */
-export function minuteChoices(
-    step: number,
-    current?: number
-): number[] {
-    const choices = Array.from(
-        { length: Math.ceil(60 / step) },
-        (_, index) => index * step
-    )
+export function minuteChoices(step: number, current?: number): number[] {
+    const choices = Array.from({ length: Math.ceil(60 / step) }, (_, index) => index * step)
     if (current !== undefined && !choices.includes(current)) {
         choices.push(current)
         choices.sort((a, b) => a - b)

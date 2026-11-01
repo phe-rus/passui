@@ -9,11 +9,7 @@ export interface CalendarDay {
 export function parseDay(value: string): CalendarDay | null {
     const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
     if (!match) return null
-    const [year, month, day] = [
-        Number(match[1]),
-        Number(match[2]),
-        Number(match[3]),
-    ]
+    const [year, month, day] = [Number(match[1]), Number(match[2]), Number(match[3])]
     const date = new Date(Date.UTC(year, month - 1, day))
     const real =
         date.getUTCFullYear() === year &&
@@ -22,24 +18,14 @@ export function parseDay(value: string): CalendarDay | null {
     return real ? { year, month, day } : null
 }
 
-export function formatDay({
-    year,
-    month,
-    day,
-}: CalendarDay): string {
-    const pad = (value: number, width: number) =>
-        String(value).padStart(width, "0")
+export function formatDay({ year, month, day }: CalendarDay): string {
+    const pad = (value: number, width: number) => String(value).padStart(width, "0")
     return `${pad(year, 4)}-${pad(month, 2)}-${pad(day, 2)}`
 }
 
 /** Moves by whole days, across months and years. */
-export function addDays(
-    day: CalendarDay,
-    count: number
-): CalendarDay {
-    const date = new Date(
-        Date.UTC(day.year, day.month - 1, day.day + count)
-    )
+export function addDays(day: CalendarDay, count: number): CalendarDay {
+    const date = new Date(Date.UTC(day.year, day.month - 1, day.day + count))
     return {
         year: date.getUTCFullYear(),
         month: date.getUTCMonth() + 1,
@@ -48,18 +34,11 @@ export function addDays(
 }
 
 /** Moves by months, keeping the day where the month allows (31 Jan + 1 is 28 or 29 Feb). */
-export function addMonths(
-    day: CalendarDay,
-    count: number
-): CalendarDay {
-    const first = new Date(
-        Date.UTC(day.year, day.month - 1 + count, 1)
-    )
+export function addMonths(day: CalendarDay, count: number): CalendarDay {
+    const first = new Date(Date.UTC(day.year, day.month - 1 + count, 1))
     const year = first.getUTCFullYear()
     const month = first.getUTCMonth() + 1
-    const last = new Date(
-        Date.UTC(year, month, 0)
-    ).getUTCDate()
+    const last = new Date(Date.UTC(year, month, 0)).getUTCDate()
     return { year, month, day: Math.min(day.day, last) }
 }
 
@@ -70,31 +49,14 @@ export function addMonths(
  */
 export function firstWeekday(locale: string): number {
     try {
-        const info = new Intl.Locale(
-            locale
-        ) as Intl.Locale & {
+        const info = new Intl.Locale(locale) as Intl.Locale & {
             getWeekInfo?: () => { firstDay: number }
             weekInfo?: { firstDay: number }
         }
-        const first =
-            info.getWeekInfo?.().firstDay ??
-            info.weekInfo?.firstDay
+        const first = info.getWeekInfo?.().firstDay ?? info.weekInfo?.firstDay
         if (first) return first
         const region = info.maximize().region ?? ""
-        return [
-            "US",
-            "CA",
-            "JP",
-            "KR",
-            "TW",
-            "BR",
-            "MX",
-            "IL",
-            "PH",
-            "IN",
-        ].includes(region)
-            ? 7
-            : 1
+        return ["US", "CA", "JP", "KR", "TW", "BR", "MX", "IL", "PH", "IN"].includes(region) ? 7 : 1
     } catch {
         return 1
     }
@@ -107,9 +69,7 @@ export function monthGrid(
     firstDay: number
 ): Array<CalendarDay & { inMonth: boolean }> {
     // getUTCDay counts Sunday as 0; weeks here count it as 7.
-    const weekday =
-        new Date(Date.UTC(year, month - 1, 1)).getUTCDay() ||
-        7
+    const weekday = new Date(Date.UTC(year, month - 1, 1)).getUTCDay() || 7
     const lead = (weekday - firstDay + 7) % 7
     const start = addDays({ year, month, day: 1 }, -lead)
     return Array.from({ length: 42 }, (_, index) => {
@@ -122,10 +82,6 @@ export function monthGrid(
 }
 
 /** Whether `value` (`YYYY-MM-DD`) lies within the optional bounds. */
-export function withinBounds(
-    value: string,
-    min?: string,
-    max?: string
-): boolean {
+export function withinBounds(value: string, min?: string, max?: string): boolean {
     return (!min || value >= min) && (!max || value <= max)
 }

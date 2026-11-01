@@ -14,25 +14,20 @@ export const pingMessageSchema = z.object({
 })
 
 /** Everything a preview accepts from its parent. */
-export const parentMessageSchema = z.discriminatedUnion(
-    "type",
-    [stateMessageSchema, pingMessageSchema]
-)
+export const parentMessageSchema = z.discriminatedUnion("type", [
+    stateMessageSchema,
+    pingMessageSchema,
+])
 
 /** Preview to parent: it is listening, or its content changed height. */
-export const frameMessageSchema = z.discriminatedUnion(
-    "type",
-    [
-        z.object({ type: z.literal("passui:ready") }),
-        z.object({
-            type: z.literal("passui:size"),
-            height: z.number().nonnegative(),
-        }),
-    ]
-)
+export const frameMessageSchema = z.discriminatedUnion("type", [
+    z.object({ type: z.literal("passui:ready") }),
+    z.object({
+        type: z.literal("passui:size"),
+        height: z.number().nonnegative(),
+    }),
+])
 
 export type StateMessage = z.infer<typeof stateMessageSchema>
 export type FrameMessage = z.infer<typeof frameMessageSchema>
-export type ParentMessage = z.infer<
-    typeof parentMessageSchema
->
+export type ParentMessage = z.infer<typeof parentMessageSchema>

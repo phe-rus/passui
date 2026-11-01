@@ -1,21 +1,8 @@
-import {
-    AnimatePresence,
-    motion,
-    useReducedMotion,
-} from "motion/react"
-import {
-    useEffect,
-    useRef,
-    useSyncExternalStore,
-} from "react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { useEffect, useRef, useSyncExternalStore } from "react"
 import { cn } from "../../lib/class-names"
 import { spring } from "../../motion/transitions"
-import {
-    getDialog,
-    type PendingDialog,
-    settleDialog,
-    subscribeDialogs,
-} from "./dialog-store"
+import { getDialog, type PendingDialog, settleDialog, subscribeDialogs } from "./dialog-store"
 
 /**
  * Renders confirmation dialogs: a glass card that springs up over blurred
@@ -23,19 +10,10 @@ import {
  * action is destructive, where the safe choice has focus.
  */
 export function DialogHost() {
-    const dialog = useSyncExternalStore(
-        subscribeDialogs,
-        getDialog,
-        () => null
-    )
+    const dialog = useSyncExternalStore(subscribeDialogs, getDialog, () => null)
     return (
         <AnimatePresence>
-            {dialog && (
-                <ConfirmCard
-                    key={dialog.id}
-                    dialog={dialog}
-                />
-            )}
+            {dialog && <ConfirmCard key={dialog.id} dialog={dialog} />}
         </AnimatePresence>
     )
 }
@@ -48,12 +26,8 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
     const messageId = `dialog-message-${dialog.id}`
 
     useEffect(() => {
-        const previous = window.document
-            .activeElement as HTMLElement | null
-        ;(dialog.destructive
-            ? cancelRef
-            : confirmRef
-        ).current?.focus()
+        const previous = window.document.activeElement as HTMLElement | null
+        ;(dialog.destructive ? cancelRef : confirmRef).current?.focus()
         const onKey = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
                 event.preventDefault()
@@ -61,21 +35,12 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
             }
             // Keep focus inside the dialog.
             if (event.key === "Tab") {
-                const order = [
-                    cancelRef.current,
-                    confirmRef.current,
-                ].filter(Boolean) as HTMLElement[]
-                const at = order.indexOf(
-                    window.document
-                        .activeElement as HTMLElement
-                )
+                const order = [cancelRef.current, confirmRef.current].filter(
+                    Boolean
+                ) as HTMLElement[]
+                const at = order.indexOf(window.document.activeElement as HTMLElement)
                 event.preventDefault()
-                order[
-                    (at +
-                        (event.shiftKey ? -1 : 1) +
-                        order.length) %
-                        order.length
-                ]?.focus()
+                order[(at + (event.shiftKey ? -1 : 1) + order.length) % order.length]?.focus()
             }
         }
         window.addEventListener("keydown", onKey)
@@ -95,43 +60,22 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={
-                    reducedMotion
-                        ? { duration: 0 }
-                        : spring.smooth
-                }
+                transition={reducedMotion ? { duration: 0 } : spring.smooth}
                 onClick={() => settleDialog(false)}
             />
             <motion.div
                 role="alertdialog"
                 aria-modal="true"
                 aria-labelledby={titleId}
-                aria-describedby={
-                    dialog.message ? messageId : undefined
-                }
+                aria-describedby={dialog.message ? messageId : undefined}
                 className="glass-menu relative flex w-full max-w-[340px] flex-col gap-4 rounded-5xl p-5 text-center"
-                initial={
-                    reducedMotion
-                        ? { opacity: 0 }
-                        : { opacity: 0, y: 12 }
-                }
+                initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={
-                    reducedMotion
-                        ? { opacity: 0 }
-                        : { opacity: 0, y: 6 }
-                }
-                transition={
-                    reducedMotion
-                        ? { duration: 0 }
-                        : spring.smooth
-                }
+                exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
+                transition={reducedMotion ? { duration: 0 } : spring.smooth}
             >
                 <div className="flex flex-col gap-1.5 px-1 pt-1">
-                    <h2
-                        id={titleId}
-                        className="text-body font-semibold text-label"
-                    >
+                    <h2 id={titleId} className="text-body font-semibold text-label">
                         {dialog.title}
                     </h2>
                     {dialog.message && (

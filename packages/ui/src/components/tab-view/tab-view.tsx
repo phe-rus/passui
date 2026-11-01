@@ -1,9 +1,4 @@
-import {
-    useId,
-    useRef,
-    useState,
-    type ReactNode,
-} from "react"
+import { useId, useRef, useState, type ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
 export type TabViewAlign = "start" | "center"
@@ -44,28 +39,17 @@ export function TabView<Value extends string>({
         if (controlledValue === undefined) setSelected(next)
         onValueChange?.(next)
     }
-    const value = options.some(
-        (option) => option.value === current
-    )
-        ? current
-        : options[0]?.value
+    const value = options.some((option) => option.value === current) ? current : options[0]?.value
     if (value === undefined) return null
 
     return (
-        <div
-            className={cn(
-                "flex w-full flex-col gap-5",
-                className
-            )}
-        >
+        <div className={cn("flex w-full flex-col gap-5", className)}>
             <div
                 role="tablist"
                 aria-label={label}
                 className={cn(
                     "inline-flex h-8 w-fit max-w-full items-center gap-5 p-[3px]",
-                    align === "start"
-                        ? "self-start"
-                        : "mx-auto justify-center"
+                    align === "start" ? "self-start" : "mx-auto justify-center"
                 )}
             >
                 {options.map((option, index) => (
@@ -76,35 +60,21 @@ export function TabView<Value extends string>({
                         id={`${id}-tab-${index}`}
                         aria-controls={`${id}-panel-${index}`}
                         aria-selected={option.value === value}
-                        tabIndex={
-                            option.value === value ? 0 : -1
-                        }
+                        tabIndex={option.value === value ? 0 : -1}
                         ref={(element) => {
                             buttons.current[index] = element
                         }}
                         onClick={() => select(option.value)}
                         onKeyDown={(event) => {
-                            const rtl =
-                                getComputedStyle(
-                                    event.currentTarget
-                                ).direction === "rtl"
+                            const rtl = getComputedStyle(event.currentTarget).direction === "rtl"
                             let next: number
                             if (event.key === "Home") next = 0
-                            else if (event.key === "End")
-                                next = options.length - 1
-                            else if (
-                                event.key === "ArrowRight"
-                            )
-                                next = index + (rtl ? -1 : 1)
-                            else if (
-                                event.key === "ArrowLeft"
-                            )
-                                next = index + (rtl ? 1 : -1)
+                            else if (event.key === "End") next = options.length - 1
+                            else if (event.key === "ArrowRight") next = index + (rtl ? -1 : 1)
+                            else if (event.key === "ArrowLeft") next = index + (rtl ? 1 : -1)
                             else return
                             event.preventDefault()
-                            next =
-                                (next + options.length) %
-                                options.length
+                            next = (next + options.length) % options.length
                             const option = options[next]
                             if (option) select(option.value)
                             buttons.current[next]?.focus()
@@ -131,8 +101,7 @@ export function TabView<Value extends string>({
                     hidden={option.value !== value}
                     className="w-full outline-offset-4"
                 >
-                    {option.value === value &&
-                        children(option.value)}
+                    {option.value === value && children(option.value)}
                 </div>
             ))}
         </div>

@@ -1,9 +1,4 @@
-import {
-    AnimatePresence,
-    type HTMLMotionProps,
-    motion,
-    useReducedMotion,
-} from "motion/react"
+import { AnimatePresence, type HTMLMotionProps, motion, useReducedMotion } from "motion/react"
 import { useLayoutEffect, useRef, useState } from "react"
 import { cn } from "../../lib/class-names"
 import { screenEdges } from "../../lib/screen-edges"
@@ -25,11 +20,7 @@ export interface PopoverProps extends HTMLMotionProps<"div"> {
  * stays inside the visible viewport as it resizes or scrolls.
  */
 export function Popover({ open, ...props }: PopoverProps) {
-    return (
-        <AnimatePresence>
-            {open && <OpenPopover {...props} />}
-        </AnimatePresence>
-    )
+    return <AnimatePresence>{open && <OpenPopover {...props} />}</AnimatePresence>
 }
 
 function OpenPopover({
@@ -47,9 +38,7 @@ function OpenPopover({
         maxWidth: 0,
         above: false,
     })
-    const popoverMotion = floatingPanelMotion(
-        fit.above ? "above" : "below"
-    )
+    const popoverMotion = floatingPanelMotion(fit.above ? "above" : "below")
 
     useLayoutEffect(() => {
         const refit = () => {
@@ -66,10 +55,7 @@ function OpenPopover({
             element.style.maxHeight = "none"
             element.style.maxWidth = "none"
             const rect = element.getBoundingClientRect()
-            const neededHeight = Math.max(
-                rect.height,
-                element.scrollHeight
-            )
+            const neededHeight = Math.max(rect.height, element.scrollHeight)
             element.style.transform = transform
             element.style.translate = translate
             element.style.maxHeight = maxHeight
@@ -81,8 +67,7 @@ function OpenPopover({
             const edges = screenEdges()
             const offsetParent = element.offsetParent
             const anchor =
-                offsetParent instanceof HTMLElement &&
-                offsetParent !== document.body
+                offsetParent instanceof HTMLElement && offsetParent !== document.body
                     ? offsetParent.getBoundingClientRect()
                     : undefined
             const next = fitPopover(
@@ -95,14 +80,8 @@ function OpenPopover({
                 anchor,
                 {
                     viewport: {
-                        width:
-                            offsetLeft +
-                            (visualViewport?.width ??
-                                window.innerWidth),
-                        height:
-                            offsetTop +
-                            (visualViewport?.height ??
-                                window.innerHeight),
+                        width: offsetLeft + (visualViewport?.width ?? window.innerWidth),
+                        height: offsetTop + (visualViewport?.height ?? window.innerHeight),
                     },
                     edges: {
                         ...edges,
@@ -138,23 +117,10 @@ function OpenPopover({
         window.addEventListener("scroll", scheduleRefit, true)
         return () => {
             cancelAnimationFrame(frame)
-            viewport?.removeEventListener(
-                "resize",
-                scheduleRefit
-            )
-            viewport?.removeEventListener(
-                "scroll",
-                scheduleRefit
-            )
-            window.removeEventListener(
-                "resize",
-                scheduleRefit
-            )
-            window.removeEventListener(
-                "scroll",
-                scheduleRefit,
-                true
-            )
+            viewport?.removeEventListener("resize", scheduleRefit)
+            viewport?.removeEventListener("scroll", scheduleRefit)
+            window.removeEventListener("resize", scheduleRefit)
+            window.removeEventListener("scroll", scheduleRefit, true)
         }
     }, [origin])
 
@@ -162,26 +128,10 @@ function OpenPopover({
         <motion.div
             ref={ref}
             {...popoverMotion}
-            initial={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : popoverMotion.initial
-            }
-            animate={
-                reducedMotion
-                    ? { opacity: 1 }
-                    : popoverMotion.animate
-            }
-            exit={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : popoverMotion.exit
-            }
-            transition={
-                reducedMotion
-                    ? { duration: 0 }
-                    : popoverMotion.transition
-            }
+            initial={reducedMotion ? { opacity: 0 } : popoverMotion.initial}
+            animate={reducedMotion ? { opacity: 1 } : popoverMotion.animate}
+            exit={reducedMotion ? { opacity: 0 } : popoverMotion.exit}
+            transition={reducedMotion ? { duration: 0 } : popoverMotion.transition}
             style={{
                 transformOrigin:
                     origin === "top-left"
@@ -190,16 +140,10 @@ function OpenPopover({
                 translate: `${fit.shiftX}px ${fit.shiftY}px`,
                 maxWidth: fit.maxWidth || undefined,
                 maxHeight: fit.maxHeight,
-                overflowY:
-                    fit.maxHeight !== undefined
-                        ? "auto"
-                        : undefined,
+                overflowY: fit.maxHeight !== undefined ? "auto" : undefined,
                 ...style,
             }}
-            className={cn(
-                "glass-menu absolute z-40 rounded-5xl",
-                className
-            )}
+            className={cn("glass-menu absolute z-40 rounded-5xl", className)}
             {...props}
         >
             {children}

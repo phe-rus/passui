@@ -1,55 +1,26 @@
 import { existsSync } from "node:fs"
 import { describe, expect, test } from "vitest"
 import { getPageHead } from "@/domains/seo/get-page-head"
-import {
-    getRobots,
-    getSitemap,
-    getSitemapPaths,
-} from "@/domains/seo/sitemap"
+import { getRobots, getSitemap, getSitemapPaths } from "@/domains/seo/sitemap"
 import { getCatalog } from "@/domains/catalog/get-catalog"
 import { guides } from "@/domains/guides/get-guides"
-import { solidComponentSlugs } from "@passui/solid/docs"
 
 describe("search discovery", () => {
     test("every public guide and component has one canonical sitemap URL", () => {
         const paths = getSitemapPaths()
-        expect(paths).toHaveLength(
-            1 +
-                guides.length * 2 +
-                getCatalog().length +
-                solidComponentSlugs.length
-        )
+        expect(paths).toHaveLength(1 + guides.length + getCatalog().length)
         expect(paths).toContain("/")
-        for (const guide of guides)
-            expect(paths).toContain(guide.path)
-        for (const guide of guides)
-            expect(paths).toContain(`/solid${guide.path}`)
+        for (const guide of guides) expect(paths).toContain(guide.path)
         for (const entry of getCatalog())
-            expect(paths).toContain(
-                `/components/react/${entry.docs.slug}`
-            )
-        for (const slug of solidComponentSlugs)
-            expect(paths).toContain(
-                `/components/solid/${slug}`
-            )
+            expect(paths).toContain(`/components/react/${entry.docs.slug}`)
         const xml = getSitemap()
         for (const path of paths) {
-            const head = getPageHead(
-                path,
-                "Page · Passui",
-                "Description"
-            )
-            expect(xml).toContain(
-                `<loc>${head.links[0].href}</loc>`
-            )
+            const head = getPageHead(path, "Page · Passui", "Description")
+            expect(xml).toContain(`<loc>${head.links[0].href}</loc>`)
         }
         expect(xml).not.toMatch(/preview|llms|SKILL|lastmod/)
-        expect(getRobots()).toContain(
-            "Sitemap: https://passui.pherus.org/sitemap.xml"
-        )
-        expect(getRobots()).not.toContain(
-            "Disallow: /preview"
-        )
+        expect(getRobots()).toContain("Sitemap: https://passui.pherus.org/sitemap.xml")
+        expect(getRobots()).not.toContain("Disallow: /preview")
     })
 
     test("playground settings and trailing slashes cannot split canonical URLs", () => {
@@ -68,77 +39,27 @@ describe("search discovery", () => {
             property: "og:url",
             content: head.links[0].href,
         })
-        const graph = JSON.parse(head.scripts[0].children)[
-            "@graph"
-        ]
+        const graph = JSON.parse(head.scripts[0].children)["@graph"]
         expect(
             graph
-                .find(
-                    (item: { "@type": string }) =>
-                        item["@type"] === "BreadcrumbList"
-                )
-                .itemListElement.map(
-                    (item: { name: string }) => item.name
-                )
+                .find((item: { "@type": string }) => item["@type"] === "BreadcrumbList")
+                .itemListElement.map((item: { name: string }) => item.name)
         ).toEqual(["Passui", "Components", "Button"])
     })
 
     test("structured data escapes HTML and describes the actual source project", () => {
-        const head = getPageHead(
-            "/",
-            "Passui",
-            "Controls </script>"
-        )
-        expect(head.scripts[0].children).not.toContain(
-            "</script>"
-        )
-        const graph = JSON.parse(head.scripts[0].children)[
-            "@graph"
-        ]
+        const head = getPageHead("/", "Passui", "Controls </script>")
+        expect(head.scripts[0].children).not.toContain("</script>")
+        const graph = JSON.parse(head.scripts[0].children)["@graph"]
         expect(
-            graph.find(
-                (item: { "@type": string }) =>
-                    item["@type"] === "SoftwareSourceCode"
-            ).codeRepository
+            graph.find((item: { "@type": string }) => item["@type"] === "SoftwareSourceCode")
+                .codeRepository
         ).toBe("https://github.com/phe-rus/passui")
-    })
-
-    test("Solid documentation has its own canonical identity", () => {
-        const head = getPageHead(
-            "/solid/components/button?theme=dark",
-            "Button · SolidJS · Passui",
-            "Native Solid button"
-        )
-        expect(head.links[0].href).toBe(
-            "https://passui.pherus.org/solid/components/button"
-        )
-        const graph = JSON.parse(head.scripts[0].children)[
-            "@graph"
-        ]
-        expect(
-            graph
-                .find(
-                    (item: { "@type": string }) =>
-                        item["@type"] === "BreadcrumbList"
-                )
-                .itemListElement.map(
-                    (item: { name: string }) => item.name
-                )
-        ).toEqual([
-            "Passui",
-            "SolidJS",
-            "Components",
-            "Button · SolidJS",
-        ])
     })
 })
 
 test("discovery routes cannot be shadowed by static assets", () => {
     for (const file of ["robots.txt", "sitemap.xml"]) {
-        expect(
-            existsSync(
-                new URL(`../public/${file}`, import.meta.url)
-            )
-        ).toBe(false)
+        expect(existsSync(new URL(`../public/${file}`, import.meta.url))).toBe(false)
     }
 })

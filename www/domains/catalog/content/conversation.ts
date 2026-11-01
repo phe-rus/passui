@@ -1,9 +1,7 @@
-import type { conversationDocs } from "@passui/react/docs"
+import type { conversationDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const conversationContent: ComponentContent<
-    typeof conversationDocs
-> = {
+export const conversationContent: ComponentContent<typeof conversationDocs> = {
     summary:
         "A thread of messages like Messages on iPhone, and a reply field with a round Send button.",
     usage: "Use Conversation.Messages for a thread between the reader and someone else, such as a support request, and Conversation.Composer to reply.",
@@ -32,8 +30,7 @@ export const conversationContent: ComponentContent<
         },
         {
             element: "Message bubble",
-            description:
-                "Plain text. Yours on the right in the strong color, theirs on the left.",
+            description: "Plain text. Yours on the right in the strong color, theirs on the left.",
             required: true,
         },
         {

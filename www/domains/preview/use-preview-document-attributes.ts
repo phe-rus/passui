@@ -1,8 +1,5 @@
 import { useMatch } from "@tanstack/react-router"
-import {
-    type DocumentAttributes,
-    getDocumentAttributes,
-} from "./get-document-attributes"
+import { type DocumentAttributes, getDocumentAttributes } from "./get-document-attributes"
 
 /**
  * For `__root`: on the preview page, its settings go on `<html>` in the

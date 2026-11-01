@@ -1,11 +1,8 @@
-import type { sectionDocs } from "@passui/react/docs"
+import type { sectionDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const sectionContent: ComponentContent<
-    typeof sectionDocs
-> = {
-    summary:
-        "A titled, inset group of rows with a footer note, as in iOS Settings.",
+export const sectionContent: ComponentContent<typeof sectionDocs> = {
+    summary: "A titled, inset group of rows with a footer note, as in iOS Settings.",
     usage: "Use sections to group related settings or details, with LabeledContent rows inside.",
     propDescriptions: {
         title: "The small heading above the group. Groups can stand without one.",
@@ -26,18 +23,15 @@ export const sectionContent: ComponentContent<
     anatomy: [
         {
             element: "Title",
-            description:
-                "A small heading that names the group.",
+            description: "A small heading that names the group.",
         },
         {
             element: "Rows",
-            description:
-                "The inset card holding the rows, divided by thin lines.",
+            description: "The inset card holding the rows, divided by thin lines.",
         },
         {
             element: "Footer",
-            description:
-                "An optional explanation under the card.",
+            description: "An optional explanation under the card.",
         },
     ],
     practices: [

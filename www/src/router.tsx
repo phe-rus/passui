@@ -1,8 +1,5 @@
 import { createRouter as createTanStackRouter } from "@tanstack/react-router"
-import {
-    DefaultBoundary,
-    NotFound,
-} from "@passui/tanstack/route-boundary"
+import { DefaultBoundary, NotFound } from "@passui/tanstack/route-boundary"
 import { routeTree } from "./routeTree.gen"
 
 export function getRouter() {

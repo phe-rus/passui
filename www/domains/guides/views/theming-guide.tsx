@@ -1,12 +1,6 @@
 import { Button } from "@passui/react/button"
 import { Toggle } from "@passui/react/toggle"
-import {
-    type AccentId,
-    accents,
-    dark,
-    light,
-    radius,
-} from "@passui/react/tokens"
+import { type AccentId, accents, dark, light, radius } from "@passui/react/tokens"
 import { type CSSProperties, useState } from "react"
 import { DocSection, type TocItem } from "@/domains/catalog"
 import { Code, CodeBlock, Prose } from "./guide-parts"
@@ -20,30 +14,16 @@ export const themingSections: TocItem[] = [
 ]
 
 /** labelSecondary → label-secondary, as the Tailwind classes name it. */
-const kebab = (name: string) =>
-    name.replace(
-        /[A-Z]/g,
-        (letter) => `-${letter.toLowerCase()}`
-    )
+const kebab = (name: string) => name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
 
 /** A small settings card, used to show a theme or an accent. */
 function SampleCard({ title }: { title: string }) {
     const [on, setOn] = useState(true)
     return (
         <div className="flex flex-col gap-3 rounded-4xl bg-elevated p-5 text-label shadow-sm ring-1 ring-separator/60">
-            <span className="text-headline font-semibold">
-                {title}
-            </span>
-            <Toggle
-                label="Sync across devices"
-                checked={on}
-                onChange={setOn}
-            />
-            <Button
-                variant="accent"
-                size="sm"
-                className="self-start"
-            >
+            <span className="text-headline font-semibold">{title}</span>
+            <Toggle label="Sync across devices" checked={on} onChange={setOn} />
+            <Button variant="accent" size="sm" className="self-start">
                 Save
             </Button>
         </div>
@@ -89,11 +69,7 @@ function AccentPreview() {
     )
 }
 
-export function ThemingGuide({
-    framework = "react",
-}: {
-    framework?: "react" | "solid"
-}) {
+export function ThemingGuide({ framework = "react" }: { framework?: "react" | "solid" }) {
     const roles = Object.keys(light) as (keyof typeof light)[]
 
     return (
@@ -104,25 +80,16 @@ export function ThemingGuide({
                 description="Every color is a role with a light and a dark value, so nothing needs a dark: variant."
             >
                 <Prose>
-                    <Code>ThemeProvider</Code> sets{" "}
-                    <Code>data-theme</Code> on the root from
-                    the person's choice or the system. Like
-                    SwiftUI's <Code>colorScheme</Code>,{" "}
-                    <Code>data-theme</Code> also works on any
-                    element, so one surface can keep its own
-                    appearance.
+                    <Code>ThemeProvider</Code> sets <Code>data-theme</Code> on the root from the
+                    person's choice or the system. Like SwiftUI's <Code>colorScheme</Code>,{" "}
+                    <Code>data-theme</Code> also works on any element, so one surface can keep its
+                    own appearance.
                 </Prose>
                 <div className="grid gap-4 sm:grid-cols-2">
-                    <div
-                        data-theme="light"
-                        className="rounded-5xl bg-background p-4"
-                    >
+                    <div data-theme="light" className="rounded-5xl bg-background p-4">
                         <SampleCard title="Light" />
                     </div>
-                    <div
-                        data-theme="dark"
-                        className="rounded-5xl bg-background p-4"
-                    >
+                    <div data-theme="dark" className="rounded-5xl bg-background p-4">
                         <SampleCard title="Dark" />
                     </div>
                 </div>
@@ -139,13 +106,8 @@ export function ThemingGuide({
                 description="Seven accents, each setting accent, on-accent, accent-text and accent-soft. Blush is the default."
             >
                 <AccentPreview />
-                <Prose>
-                    Set the accent on the root, and every
-                    control follows it.
-                </Prose>
-                <CodeBlock
-                    code={`<html data-accent="ocean">`}
-                />
+                <Prose>Set the accent on the root, and every control follows it.</Prose>
+                <CodeBlock code={`<html data-accent="ocean">`} />
             </DocSection>
 
             <DocSection
@@ -154,15 +116,10 @@ export function ThemingGuide({
                 description="Apple platforms get glass; Android keeps the solid bars people expect there."
             >
                 <Prose>
-                    <Code>PlatformScript</Code> sets{" "}
-                    <Code>data-os</Code> before the first
-                    paint. The <Code>ios:</Code>,{" "}
-                    <Code>android:</Code>, <Code>macos:</Code>
-                    , <Code>windows:</Code> and{" "}
-                    <Code>linux:</Code> variants then style
-                    for one platform. Try each in the
-                    playground's settings on any component
-                    page.
+                    <Code>PlatformScript</Code> sets <Code>data-os</Code> before the first paint.
+                    The <Code>ios:</Code>, <Code>android:</Code>, <Code>macos:</Code>,{" "}
+                    <Code>windows:</Code> and <Code>linux:</Code> variants then style for one
+                    platform. Try each in the playground's settings on any component page.
                 </Prose>
                 <CodeBlock
                     code={`<nav ${framework === "solid" ? "class" : "className"}="glass android:bg-elevated android:shadow-none">
@@ -180,15 +137,9 @@ export function ThemingGuide({
                     <table className="w-full text-start text-subheadline">
                         <thead>
                             <tr className="border-separator/60 border-b text-footnote text-label-secondary">
-                                <th className="p-3 text-start font-semibold">
-                                    Role
-                                </th>
-                                <th className="p-3 text-start font-semibold">
-                                    Light
-                                </th>
-                                <th className="p-3 text-start font-semibold">
-                                    Dark
-                                </th>
+                                <th className="p-3 text-start font-semibold">Role</th>
+                                <th className="p-3 text-start font-semibold">Light</th>
+                                <th className="p-3 text-start font-semibold">Dark</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -198,24 +149,15 @@ export function ThemingGuide({
                                     className="border-separator/60 border-b last:border-0"
                                 >
                                     <td className="p-3">
-                                        <Code>
-                                            {kebab(role)}
-                                        </Code>
+                                        <Code>{kebab(role)}</Code>
                                     </td>
-                                    {[
-                                        light[role],
-                                        dark[role],
-                                    ].map((value, index) => (
-                                        <td
-                                            key={index}
-                                            className="p-3"
-                                        >
+                                    {[light[role], dark[role]].map((value, index) => (
+                                        <td key={index} className="p-3">
                                             <span className="flex items-center gap-2 font-mono text-caption text-label-secondary">
                                                 <span
                                                     className="size-5 shrink-0 rounded-md ring-1 ring-separator/60"
                                                     style={{
-                                                        background:
-                                                            value,
+                                                        background: value,
                                                     }}
                                                 />
                                                 {value}
@@ -238,10 +180,7 @@ export function ThemingGuide({
                     {Object.entries(radius)
                         .filter(([name]) => name !== "full")
                         .map(([name, value]) => (
-                            <div
-                                key={name}
-                                className="flex flex-col items-center gap-2"
-                            >
+                            <div key={name} className="flex flex-col items-center gap-2">
                                 <span
                                     className="size-16 bg-accent-soft ring-1 ring-accent-text/30"
                                     style={{

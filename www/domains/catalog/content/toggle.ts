@@ -1,31 +1,25 @@
-import type { toggleDocs } from "@passui/react/docs"
+import type { toggleDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const toggleContent: ComponentContent<
-    typeof toggleDocs
-> = {
+export const toggleContent: ComponentContent<typeof toggleDocs> = {
     summary:
         "An on and off control: a switch for settings that apply at once, or a checkbox for choices you confirm later.",
     usage: "Use the switch when the change takes effect right away. Use the checkbox inside forms and lists of choices.",
     propDescriptions: {
         style: "Switch for instant settings, checkbox for forms and lists.",
-        disabled:
-            "Shown but not changeable, as iOS dims a switch it cannot change.",
+        disabled: "Shown but not changeable, as iOS dims a switch it cannot change.",
         mixed: "Shows a checkbox as partly on, for a parent of some checked items.",
-        labelHidden:
-            "Keeps the label for screen readers when a nearby row already shows it.",
+        labelHidden: "Keeps the label for screen readers when a nearby row already shows it.",
         label: "What it turns on or off.",
     },
     examples: {
         settings: {
             title: "Settings rows",
-            description:
-                "Switches in a Section, each row naming the setting.",
+            description: "Switches in a Section, each row naming the setting.",
         },
         checkboxes: {
             title: "Checkbox list",
-            description:
-                "A parent checkbox that is mixed while only some tasks are done.",
+            description: "A parent checkbox that is mixed while only some tasks are done.",
         },
     },
     anatomy: [
@@ -36,8 +30,7 @@ export const toggleContent: ComponentContent<
         },
         {
             element: "Label",
-            description:
-                "What the toggle controls; can be hidden when the row shows it.",
+            description: "What the toggle controls; can be hidden when the row shows it.",
             required: true,
         },
     ],

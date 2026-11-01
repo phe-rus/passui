@@ -1,9 +1,7 @@
-import type { sheetDocs } from "@passui/react/docs"
+import type { sheetDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const sheetContent: ComponentContent<
-    typeof sheetDocs
-> = {
+export const sheetContent: ComponentContent<typeof sheetDocs> = {
     summary:
         "A modal card that rises from the bottom on phones and floats in the middle on larger screens, holding whatever you put in it.",
     usage: "Use it for a self-contained task over the page, such as sharing or choosing a color. Dialog is a Sheet with a title, description and actions already laid out.",
@@ -18,15 +16,13 @@ export const sheetContent: ComponentContent<
         },
         choices: {
             title: "Choosing from a list",
-            description:
-                "A list of choices in a sheet, closing as soon as one is picked.",
+            description: "A list of choices in a sheet, closing as soon as one is picked.",
         },
     },
     anatomy: [
         {
             element: "Backdrop",
-            description:
-                "Dims and blurs the page. A tap on it closes the sheet.",
+            description: "Dims and blurs the page. A tap on it closes the sheet.",
             required: true,
         },
         {
@@ -37,8 +33,7 @@ export const sheetContent: ComponentContent<
         },
         {
             element: "Content",
-            description:
-                "Your own layout, with its own padding.",
+            description: "Your own layout, with its own padding.",
             required: true,
         },
     ],

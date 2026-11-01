@@ -1,12 +1,9 @@
 import { Button } from "@passui/react/button"
-import type { RegisteredDocs } from "@passui/react/docs"
+import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { useNavigate } from "@tanstack/react-router"
 import { CodeView } from "@/domains/playground"
 import { getExampleSource } from "../get-example-source"
-import {
-    getChangedProps,
-    resolveProps,
-} from "../resolve-props"
+import { getChangedProps, resolveProps } from "../resolve-props"
 import type { ExampleContent } from "../types"
 import { DocSection } from "./doc-section"
 
@@ -22,11 +19,7 @@ type ExampleCardProps = {
  * One example: its words, the live component, and its real source. Those
  * with playground values can also open in the playground above.
  */
-export function ExampleCard({
-    docs,
-    example,
-    content,
-}: ExampleCardProps) {
+export function ExampleCard({ docs, example, content }: ExampleCardProps) {
     const navigate = useNavigate({
         from: "/components/$slug",
     })
@@ -38,22 +31,17 @@ export function ExampleCard({
         navigate({
             search: (previous) => ({
                 ...previous,
-                props: getChangedProps(
-                    docs,
-                    resolveProps(docs, playground)
-                ),
+                props: getChangedProps(docs, resolveProps(docs, playground)),
             }),
             replace: true,
             resetScroll: false,
         })
         // after the update lands, or the re-render cancels the scroll
         requestAnimationFrame(() =>
-            document
-                .getElementById("playground")
-                ?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                })
+            document.getElementById("playground")?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            })
         )
     }
 
@@ -70,10 +58,7 @@ export function ExampleCard({
                 </div>
                 <div className="border-separator/60 border-t *:text-sm!">
                     <CodeView
-                        code={getExampleSource(
-                            docs.slug,
-                            example.id
-                        )}
+                        code={getExampleSource(docs.slug, example.id)}
                         label={`${docs.slug}-${example.id}.tsx`}
                         collapsible
                     />

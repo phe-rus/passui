@@ -1,9 +1,7 @@
-import type { searchListDocs } from "@passui/react/docs"
+import type { searchListDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const searchListContent: ComponentContent<
-    typeof searchListDocs
-> = {
+export const searchListContent: ComponentContent<typeof searchListDocs> = {
     summary:
         "A search field with a list of results that filters as you type and can be driven with the arrow keys.",
     usage: "Use it to jump to one item in a known set: settings, people, commands. Each item matches on its value and keywords.",
@@ -28,8 +26,7 @@ export const searchListContent: ComponentContent<
     anatomy: [
         {
             element: "SearchList",
-            description:
-                "Holds the query and handles the keyboard.",
+            description: "Holds the query and handles the keyboard.",
             required: true,
         },
         {
@@ -44,14 +41,12 @@ export const searchListContent: ComponentContent<
         },
         {
             element: "SearchListItem",
-            description:
-                "One result, hidden when it doesn't match the query.",
+            description: "One result, hidden when it doesn't match the query.",
             required: true,
         },
         {
             element: "SearchListGroup",
-            description:
-                "A titled set of results, hidden when none match.",
+            description: "A titled set of results, hidden when none match.",
         },
         {
             element: "SearchListEmpty",

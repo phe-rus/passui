@@ -52,9 +52,7 @@ export function openContextMenu(
     y: number,
     items: ContextMenuItem[],
     touch = false,
-    anchor: Element | null = typeof document === "undefined"
-        ? null
-        : document.activeElement
+    anchor: Element | null = typeof document === "undefined" ? null : document.activeElement
 ) {
     menu = {
         id: nextId++,
@@ -111,14 +109,8 @@ export function openMenu(
     menu = {
         id: nextId++,
         anchor,
-        x: right
-            ? (toolbarRect ?? rect).right
-            : (toolbarRect ?? rect).left,
-        y: toolbar
-            ? rect.top
-            : above
-              ? rect.top - gap
-              : rect.bottom + gap,
+        x: right ? (toolbarRect ?? rect).right : (toolbarRect ?? rect).left,
+        y: toolbar ? rect.top : above ? rect.top - gap : rect.bottom + gap,
         items,
         touch: false,
         alignX: right ? "end" : "start",

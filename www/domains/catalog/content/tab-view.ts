@@ -1,16 +1,12 @@
-import type { tabViewDocs } from "@passui/react/docs"
+import type { tabViewDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const tabViewContent: ComponentContent<
-    typeof tabViewDocs
-> = {
-    summary:
-        "A row of tabs that switches between panels of content on the same screen.",
+export const tabViewContent: ComponentContent<typeof tabViewDocs> = {
+    summary: "A row of tabs that switches between panels of content on the same screen.",
     usage: "Use it to split one screen into a few views of the same thing, such as a project's overview, activity and settings.",
     propDescriptions: {
         label: "Names the tab row for screen readers, such as Project or Account.",
-        defaultValue:
-            "The tab shown first. TabView remembers the choice itself after that.",
+        defaultValue: "The tab shown first. TabView remembers the choice itself after that.",
     },
     examples: {
         keyboard: {
@@ -27,8 +23,7 @@ export const tabViewContent: ComponentContent<
     anatomy: [
         {
             element: "Tab row",
-            description:
-                "The tablist, centered, with a line under the current tab.",
+            description: "The tablist, centered, with a line under the current tab.",
             required: true,
         },
         {
@@ -38,8 +33,7 @@ export const tabViewContent: ComponentContent<
         },
         {
             element: "Panel",
-            description:
-                "What children returns for the current tab. Only that panel is rendered.",
+            description: "What children returns for the current tab. Only that panel is rendered.",
             required: true,
         },
     ],

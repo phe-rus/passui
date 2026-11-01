@@ -10,16 +10,9 @@ type PassuiMarkProps = {
  * The Passui mark: the sun in Blush. The brand colour stays
  * fixed whatever accent the page wears; dark mode uses the soft Blush.
  */
-export function PassuiMark({
-    className,
-    animated,
-}: PassuiMarkProps) {
+export function PassuiMark({ className, animated }: PassuiMarkProps) {
     return (
-        <svg
-            viewBox="0 0 32 32"
-            aria-hidden="true"
-            className={cn("size-7 shrink-0", className)}
-        >
+        <svg viewBox="0 0 32 32" aria-hidden="true" className={cn("size-7 shrink-0", className)}>
             <circle
                 cx="16"
                 cy="16"

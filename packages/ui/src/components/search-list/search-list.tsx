@@ -22,10 +22,7 @@ type SearchState = {
 const SearchContext = createContext<SearchState | null>(null)
 function useSearch() {
     const search = useContext(SearchContext)
-    if (!search)
-        throw new Error(
-            "Search list controls need a SearchList parent"
-        )
+    if (!search) throw new Error("Search list controls need a SearchList parent")
     return search
 }
 
@@ -41,9 +38,7 @@ export function SearchList({
 }) {
     const [query, setQuery] = useState("")
     const [active, setActive] = useState("")
-    const [results, setResults] = useState<
-        Record<string, boolean>
-    >({})
+    const [results, setResults] = useState<Record<string, boolean>>({})
     const listId = useId()
     const ref = useRef<HTMLDivElement>(null)
     const register = useCallback(
@@ -70,9 +65,7 @@ export function SearchList({
                 active,
                 listId,
                 open,
-                visible:
-                    Object.values(results).filter(Boolean)
-                        .length,
+                visible: Object.values(results).filter(Boolean).length,
                 register,
             }}
         >
@@ -82,38 +75,27 @@ export function SearchList({
                 className={cn("relative", className)}
                 onKeyDown={(event) => {
                     onKeyDown?.(event)
-                    if (event.defaultPrevented || !open)
-                        return
+                    if (event.defaultPrevented || !open) return
                     const items = Array.from(
                         ref.current?.querySelectorAll<HTMLButtonElement>(
                             "[data-search-result]:not([hidden]):not(:disabled)"
                         ) ?? []
                     )
                     if (!items.length) return
-                    const index = items.findIndex(
-                        (item) => item.id === active
-                    )
+                    const index = items.findIndex((item) => item.id === active)
                     if (event.key === "Enter") {
                         event.preventDefault()
                         ;(items[index] ?? items[0])?.click()
                         return
                     }
-                    if (
-                        event.key !== "ArrowDown" &&
-                        event.key !== "ArrowUp"
-                    )
-                        return
+                    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return
                     event.preventDefault()
                     const next =
                         index < 0
                             ? event.key === "ArrowDown"
                                 ? 0
                                 : items.length - 1
-                            : (index +
-                                  (event.key === "ArrowDown"
-                                      ? 1
-                                      : -1) +
-                                  items.length) %
+                            : (index + (event.key === "ArrowDown" ? 1 : -1) + items.length) %
                               items.length
                     const item = items[next]
                     if (!item) return
@@ -143,14 +125,8 @@ export function SearchListField({
             aria-autocomplete="list"
             aria-expanded={search.open}
             aria-controls={search.listId}
-            aria-activedescendant={
-                search.open && search.active
-                    ? search.active
-                    : undefined
-            }
-            aria-label={
-                props["aria-label"] ?? props.placeholder
-            }
+            aria-activedescendant={search.open && search.active ? search.active : undefined}
+            aria-label={props["aria-label"] ?? props.placeholder}
             value={value ?? search.query}
             onChange={(event) => {
                 search.setQuery(event.target.value)
@@ -163,10 +139,7 @@ export function SearchListField({
         />
     )
 }
-export function SearchListResults({
-    className,
-    ...props
-}: ComponentProps<"div">) {
+export function SearchListResults({ className, ...props }: ComponentProps<"div">) {
     const search = useSearch()
     return (
         <div
@@ -178,13 +151,9 @@ export function SearchListResults({
         />
     )
 }
-export function SearchListEmpty(
-    props: ComponentProps<"div">
-) {
+export function SearchListEmpty(props: ComponentProps<"div">) {
     const search = useSearch()
-    return search.visible ? null : (
-        <div {...props} role="status" />
-    )
+    return search.visible ? null : <div {...props} role="status" />
 }
 export function SearchListGroup({
     heading,
@@ -198,17 +167,11 @@ export function SearchListGroup({
     return (
         <fieldset
             {...props}
-            className={cn(
-                "not-has-[[data-search-result]:not([hidden])]:hidden",
-                className
-            )}
+            className={cn("not-has-[[data-search-result]:not([hidden])]:hidden", className)}
             aria-labelledby={heading ? id : undefined}
         >
             {heading && (
-                <legend
-                    id={id}
-                    className="px-2 py-2 text-caption font-medium text-label-tertiary"
-                >
+                <legend id={id} className="px-2 py-2 text-caption font-medium text-label-tertiary">
                     {heading}
                 </legend>
             )}
@@ -229,9 +192,7 @@ export function SearchListItem({
 }) {
     const search = useSearch()
     const id = useId()
-    const haystack = [value, ...keywords]
-        .join(" ")
-        .toLocaleLowerCase()
+    const haystack = [value, ...keywords].join(" ").toLocaleLowerCase()
     const visible = search.query
         .toLocaleLowerCase()
         .trim()
@@ -251,9 +212,7 @@ export function SearchListItem({
             hidden={!visible}
             data-search-result=""
             aria-selected={search.active === id}
-            data-selected={
-                search.active === id ? "true" : undefined
-            }
+            data-selected={search.active === id ? "true" : undefined}
             className={cn(
                 "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left hover:bg-fill aria-selected:bg-accent-soft",
                 className

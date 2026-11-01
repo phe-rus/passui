@@ -1,11 +1,4 @@
-import {
-    Button,
-    spring,
-    Chip,
-    SearchField,
-    SwatchPicker,
-    Toggle,
-} from "@passui/react"
+import { Button, spring, Chip, SearchField, SwatchPicker, Toggle } from "@passui/react"
 import { cn } from "@passui/react/cn"
 import { accents } from "@passui/react/tokens"
 import { motion } from "motion/react"
@@ -27,13 +20,7 @@ type BentoProps = {
     cycle: AccentCycle
 }
 
-function Tile({
-    title,
-    body,
-    className,
-    delay = 0,
-    children,
-}: TileProps) {
+function Tile({ title, body, className, delay = 0, children }: TileProps) {
     return (
         <motion.article
             initial={{ opacity: 0, y: 40, scale: 0.97 }}
@@ -47,12 +34,8 @@ function Tile({
             )}
         >
             <div className="flex flex-col gap-2">
-                <h3 className="text-title3 font-semibold tracking-tight text-label">
-                    {title}
-                </h3>
-                <p className="max-w-sm text-callout text-label-secondary">
-                    {body}
-                </p>
+                <h3 className="text-title3 font-semibold tracking-tight text-label">{title}</h3>
+                <p className="max-w-sm text-callout text-label-secondary">{body}</p>
             </div>
             <div className="mt-auto">{children}</div>
         </motion.article>
@@ -66,26 +49,15 @@ function ComponentsDemo() {
             <div className="flex flex-wrap items-center gap-2">
                 <Chip tone="accent">Accent</Chip>
                 <Chip tone="neutral">Neutral</Chip>
-                <Toggle
-                    checked={on}
-                    onChange={setOn}
-                    label="Demo toggle"
-                    labelHidden
-                />
+                <Toggle checked={on} onChange={setOn} label="Demo toggle" labelHidden />
             </div>
             <div className="flex gap-2">
-                <Button
-                    variant="secondary"
-                    className="flex-1"
-                >
+                <Button variant="secondary" className="flex-1">
                     Secondary
                 </Button>
                 <Button className="flex-1">Primary</Button>
             </div>
-            <SearchField
-                placeholder="Search"
-                aria-label="Search"
-            />
+            <SearchField placeholder="Search" aria-label="Search" />
         </div>
     )
 }
@@ -125,31 +97,16 @@ function TokensDemo() {
     return (
         <div className="flex items-end justify-between gap-4">
             <div className="flex flex-col gap-1">
-                <span className="text-large-title font-bold text-label">
-                    Title
-                </span>
-                <span className="text-headline font-semibold text-label">
-                    Headline
-                </span>
-                <span className="text-body text-label-secondary">
-                    Body
-                </span>
-                <span className="text-footnote text-label-tertiary">
-                    Footnote
-                </span>
+                <span className="text-large-title font-bold text-label">Title</span>
+                <span className="text-headline font-semibold text-label">Headline</span>
+                <span className="text-body text-label-secondary">Body</span>
+                <span className="text-footnote text-label-tertiary">Footnote</span>
             </div>
             <div className="flex items-end gap-2">
-                {[
-                    "rounded-md",
-                    "rounded-2xl",
-                    "rounded-4xl",
-                ].map((radius) => (
+                {["rounded-md", "rounded-2xl", "rounded-4xl"].map((radius) => (
                     <span
                         key={radius}
-                        className={cn(
-                            "size-12 bg-accent transition-colors duration-700",
-                            radius
-                        )}
+                        className={cn("size-12 bg-accent transition-colors duration-700", radius)}
                     />
                 ))}
             </div>
@@ -176,10 +133,8 @@ export function Bento({ cycle }: BentoProps) {
                     Works everywhere.
                 </h2>
                 <p className="max-w-sm text-body text-label-secondary">
-                    Controls with the care of a native app,
-                    colors you can make your own, and
-                    conventions each platform's people already
-                    know.
+                    Controls with the care of a native app, colors you can make your own, and
+                    conventions each platform's people already know.
                 </p>
             </div>
             <Tile

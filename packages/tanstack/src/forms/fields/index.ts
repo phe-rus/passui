@@ -5,10 +5,7 @@ import {
     FieldSwitch,
     FieldOtp,
 } from "../../form-fields/fields"
-import {
-    FieldRadioCard,
-    FieldMultiselect,
-} from "../../form-fields/selection"
+import { FieldRadioCard, FieldMultiselect } from "../../form-fields/selection"
 import { FieldAvatar } from "./avatar"
 
 export const fields = {

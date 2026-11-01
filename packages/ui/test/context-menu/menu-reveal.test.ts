@@ -20,15 +20,8 @@ test("point menus and detached empty anchors do not produce invalid transforms",
         width: 200,
         height: 300,
     }
-    expect(menuSurfaceReveal(undefined, target).opacity).toBe(
-        0
-    )
-    expect(
-        menuSurfaceReveal(
-            { left: 0, top: 0, width: 0, height: 0 },
-            target
-        ).width
-    ).toBe(200)
+    expect(menuSurfaceReveal(undefined, target).opacity).toBe(0)
+    expect(menuSurfaceReveal({ left: 0, top: 0, width: 0, height: 0 }, target).width).toBe(200)
 })
 
 test("toolbar material starts at the group's bounds without stretching its text", () => {

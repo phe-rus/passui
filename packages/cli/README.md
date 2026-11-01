@@ -1,6 +1,6 @@
 # Passui CLI
 
-Set up Passui in an existing React or SolidJS project:
+Set up Passui in an existing React project:
 
 ```bash
 bunx @passui/cli init
@@ -28,7 +28,7 @@ Add `--integration tanstack` when you want the optional form, table, routing and
 | Option | Effect |
 |---|---|
 | `--template vite` | Vite starter for the selected framework, the default for create |
-| `--framework react\|solid` | Choose the UI framework; init detects it, create defaults to React |
+| `--framework react` | Explicitly select React |
 | `--template tanstack` | TanStack Start starter with the optional integration |
 | `--pm bun\|npm\|pnpm\|yarn` | Override package manager detection |
 | `--no-install` | Write files without running install |
@@ -52,21 +52,6 @@ Source lives in `src/`; tests and fixtures live in `test/`. Bun bundles a standa
 
 [Official docs](https://passui.pherus.org/docs/installation). MIT licensed.
 
-## React and SolidJS
-
-`init` detects React or SolidJS from the app manifest. Use `--framework react`
-or `--framework solid` to select explicitly, including in mixed projects.
-`create` defaults to React and supports both Vite and TanStack Start for
-both frameworks:
-
-```bash
-bunx @passui/cli@latest create my-solid-app --framework solid --template vite
-bunx @passui/cli@latest create my-solid-start --framework solid --template tanstack
-bunx @passui/cli@latest init --framework solid --integration tanstack
-```
-
-Solid setup uses `@passui/solid`, Solid JSX, native appearance and hosts,
-and `@passui/tanstack/solid/*` when integrations are enabled. Framework
-peers are installed for the selected framework only. Existing app source,
-bundler configuration and dependency versions are preserved by `init`.
-Follow the generated `passui/README.md` to wire an existing app.
+React setup installs `@passui/react` and, if selected, the React TanStack
+adapters. Existing app source, bundler configuration and dependency versions
+are preserved by `init`. Follow the generated `passui/README.md` to finish setup.

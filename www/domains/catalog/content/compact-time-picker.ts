@@ -1,9 +1,7 @@
-import type { compactTimePickerDocs } from "@passui/react/docs"
+import type { compactTimePickerDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const compactTimePickerContent: ComponentContent<
-    typeof compactTimePickerDocs
-> = {
+export const compactTimePickerContent: ComponentContent<typeof compactTimePickerDocs> = {
     summary:
         "A time shown as a compact button that opens columns of hours and minutes, on the clock people read where they live.",
     usage: "Use it beside CompactDatePicker for when something happens, such as an event's start and end. It never opens the system's time dialog.",
@@ -15,14 +13,12 @@ export const compactTimePickerContent: ComponentContent<
     anatomy: [
         {
             element: "Button",
-            description:
-                "Shows the chosen time in the locale's format.",
+            description: "Shows the chosen time in the locale's format.",
             required: true,
         },
         {
             element: "Columns",
-            description:
-                "Hours, minutes in steps, and AM or PM where the locale uses them.",
+            description: "Hours, minutes in steps, and AM or PM where the locale uses them.",
             required: true,
         },
     ],

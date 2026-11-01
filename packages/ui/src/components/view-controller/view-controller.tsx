@@ -19,11 +19,7 @@ const titleSizes = {
     compact: "text-[1.75rem] font-semibold tracking-tight",
 } as const
 
-export function ViewController({
-    heading,
-    className,
-    children,
-}: ViewControllerProps) {
+export function ViewController({ heading, className, children }: ViewControllerProps) {
     return (
         <article
             className={cn(
@@ -38,12 +34,7 @@ export function ViewController({
     )
 }
 
-function Heading({
-    title,
-    description,
-    action,
-    size = "default",
-}: HeadingProps) {
+function Heading({ title, description, action, size = "default" }: HeadingProps) {
     const centered = size === "compact"
     return (
         <>
@@ -53,22 +44,14 @@ function Heading({
                     centered && "justify-center text-center"
                 )}
             >
-                <h1
-                    className={cn(
-                        "min-w-0 wrap-anywhere",
-                        titleSizes[size]
-                    )}
-                >
-                    {title}
-                </h1>
+                <h1 className={cn("min-w-0 wrap-anywhere", titleSizes[size])}>{title}</h1>
                 {action}
             </div>
             {description && (
                 <p
                     className={cn(
                         "mt-2 max-w-prose text-subheadline leading-relaxed text-label-secondary",
-                        centered &&
-                            "mt-1 text-center text-[15px]"
+                        centered && "mt-1 text-center text-[15px]"
                     )}
                 >
                     {description}

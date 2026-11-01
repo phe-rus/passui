@@ -8,9 +8,8 @@ remain outside this repo.
 ## Packages
 
 * `packages/tokens`, `@passui/tokens`: shared framework independent tokens and styles.
-* `packages/solid`, `@passui/solid`: native SolidJS controls, appearance and examples. See `packages/solid/README.md`.
 * `packages/ui`, `@passui/react`: native React controls,
-  appearance, typed docs and examples. See `packages/ui/AGENTS.md`.
+  appearance and public component APIs. See `packages/ui/AGENTS.md`.
 * `packages/tanstack`, `@passui/tanstack`: optional form, table,
   router and query integrations. See `packages/tanstack/AGENTS.md`.
 * `packages/cli`, `@passui/cli`: project setup tooling. See
@@ -40,7 +39,7 @@ workflows live in this repository, not private Pherus.
 `id-token: write`. npm publishes Bun packed tarballs using OIDC;
 no npm token secret is needed. Each package needs its own npm trusted
 publisher matching `phe-rus/passui`, `publish.yml` and `npm-publish`.
-Publish tokens before React or Solid, and changed UI runtimes before TanStack. npm versions
+Publish tokens before React, and changed UI packages before TanStack. npm versions
 cannot be overwritten. Credentials stay outside tracked files.
 
 Route files contain only imports, `export const Route` and an optional

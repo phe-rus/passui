@@ -24,36 +24,20 @@ function useQuickFilterValues<TData>(
         if (exclude.includes(colId)) return []
         if (isArrayColumn) {
             const flattened = data.flatMap((row) => {
-                const value = (
-                    row as Record<string, unknown>
-                )[colId]
+                const value = (row as Record<string, unknown>)[colId]
                 return Array.isArray(value) ? value : []
             })
             const unique = [
-                ...new Set(
-                    flattened.filter(
-                        (v) =>
-                            v !== null &&
-                            v !== undefined &&
-                            v !== ""
-                    )
-                ),
+                ...new Set(flattened.filter((v) => v !== null && v !== undefined && v !== "")),
             ]
-            if (unique.length < 2 || unique.length > 20)
-                return []
+            if (unique.length < 2 || unique.length > 20) return []
             return unique.map((v) => String(v))
         }
-        const raw = data.map(
-            (row) => (row as Record<string, unknown>)[colId]
-        )
+        const raw = data.map((row) => (row as Record<string, unknown>)[colId])
         const unique = [
             ...new Set(
                 raw.filter(
-                    (v) =>
-                        v !== null &&
-                        v !== undefined &&
-                        v !== "" &&
-                        typeof v !== "object"
+                    (v) => v !== null && v !== undefined && v !== "" && typeof v !== "object"
                 )
             ),
         ]
@@ -75,22 +59,14 @@ export function FilterRow<TData extends RowData>({
     isArrayColumn: boolean
     isDateColumn: boolean
 }) {
-    const uniqueValues = useQuickFilterValues(
-        data,
-        column.id,
-        skip,
-        isArrayColumn
-    )
+    const uniqueValues = useQuickFilterValues(data, column.id, skip, isArrayColumn)
     const label = getColumnLabel(column)
 
     // A date column never gets the enumerated-values treatment below —
     // every row realistically has its own distinct timestamp — a from/to
     // range is what's actually useful.
     if (isDateColumn) {
-        const [from, to] =
-            (column.getFilterValue() as
-                | [string?, string?]
-                | undefined) ?? []
+        const [from, to] = (column.getFilterValue() as [string?, string?] | undefined) ?? []
         return (
             <div className="flex items-center gap-3">
                 <span className="w-20 shrink-0 text-[11px] font-medium text-muted-foreground">
@@ -100,26 +76,14 @@ export function FilterRow<TData extends RowData>({
                     <input
                         type="date"
                         value={from ?? ""}
-                        onChange={(e) =>
-                            column.setFilterValue([
-                                e.target.value || undefined,
-                                to,
-                            ])
-                        }
+                        onChange={(e) => column.setFilterValue([e.target.value || undefined, to])}
                         className="h-7 rounded-none border border-dashed border-input/40 bg-background px-2 text-xs outline-none"
                     />
-                    <span className="text-[11px] text-muted-foreground">
-                        to
-                    </span>
+                    <span className="text-[11px] text-muted-foreground">to</span>
                     <input
                         type="date"
                         value={to ?? ""}
-                        onChange={(e) =>
-                            column.setFilterValue([
-                                from,
-                                e.target.value || undefined,
-                            ])
-                        }
+                        onChange={(e) => column.setFilterValue([from, e.target.value || undefined])}
                         className="h-7 rounded-none border border-dashed border-input/40 bg-background px-2 text-xs outline-none"
                     />
                     {(from || to) && (
@@ -127,17 +91,10 @@ export function FilterRow<TData extends RowData>({
                             label="Clear filter"
                             type="button"
                             size="icon-sm"
-                            onClick={() =>
-                                column.setFilterValue(
-                                    undefined
-                                )
-                            }
+                            onClick={() => column.setFilterValue(undefined)}
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            <HugeiconsIcon
-                                icon={Cancel01Icon}
-                                className="size-3"
-                            />
+                            <HugeiconsIcon icon={Cancel01Icon} className="size-3" />
                         </IconButton>
                     )}
                 </div>
@@ -149,10 +106,7 @@ export function FilterRow<TData extends RowData>({
     // one-element array for an array-valued column (array-contains matching
     // needs an array of values to check for overlap, even when only one is
     // ever picked here).
-    const activeFilter = column.getFilterValue() as
-        | string
-        | string[]
-        | undefined
+    const activeFilter = column.getFilterValue() as string | string[] | undefined
     const activeValue = isArrayColumn
         ? Array.isArray(activeFilter)
             ? activeFilter[0]
@@ -168,11 +122,7 @@ export function FilterRow<TData extends RowData>({
                         const active = activeValue === value
                         const setActive = () =>
                             column.setFilterValue(
-                                active
-                                    ? undefined
-                                    : isArrayColumn
-                                      ? [value]
-                                      : value
+                                active ? undefined : isArrayColumn ? [value] : value
                             )
                         return (
                             <div
@@ -187,9 +137,7 @@ export function FilterRow<TData extends RowData>({
                                     checked={active}
                                     onChange={setActive}
                                 />
-                                <span className="text-xs">
-                                    {value}
-                                </span>
+                                <span className="text-xs">{value}</span>
                             </div>
                         )
                     })}
@@ -198,17 +146,10 @@ export function FilterRow<TData extends RowData>({
                             type="button"
                             variant="ghost"
                             size="sm"
-                            onClick={() =>
-                                column.setFilterValue(
-                                    undefined
-                                )
-                            }
+                            onClick={() => column.setFilterValue(undefined)}
                             className="text-muted-foreground hover:text-foreground"
                         >
-                            <HugeiconsIcon
-                                icon={Cancel01Icon}
-                                className="size-3"
-                            />
+                            <HugeiconsIcon icon={Cancel01Icon} className="size-3" />
                             Clear
                         </Button>
                     )}
@@ -243,15 +184,10 @@ export function FilterRow<TData extends RowData>({
                         label="Clear filter"
                         type="button"
                         size="icon-sm"
-                        onClick={() =>
-                            column.setFilterValue(undefined)
-                        }
+                        onClick={() => column.setFilterValue(undefined)}
                         className="absolute top-1/2 right-1 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                     >
-                        <HugeiconsIcon
-                            icon={Cancel01Icon}
-                            className="size-3"
-                        />
+                        <HugeiconsIcon icon={Cancel01Icon} className="size-3" />
                     </IconButton>
                 )}
             </div>

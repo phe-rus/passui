@@ -29,21 +29,15 @@ export function DocSection({
     useEffect(() => {
         if (!collapsible) return
         const reveal = () => {
-            if (window.location.hash === `#${id}`)
-                setExpanded(true)
+            if (window.location.hash === `#${id}`) setExpanded(true)
         }
         reveal()
         window.addEventListener("hashchange", reveal)
-        return () =>
-            window.removeEventListener("hashchange", reveal)
+        return () => window.removeEventListener("hashchange", reveal)
     }, [collapsible, id])
     if (collapsible)
         return (
-            <section
-                id={id}
-                aria-labelledby={`${id}-title`}
-                className="scroll-mt-24"
-            >
+            <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-24">
                 <div className="flex flex-col gap-2">
                     <Heading id={`${id}-title`}>
                         <Button
@@ -51,9 +45,7 @@ export function DocSection({
                             size="sm"
                             aria-expanded={expanded}
                             aria-controls={`${id}-content`}
-                            onClick={() =>
-                                setExpanded((value) => !value)
-                            }
+                            onClick={() => setExpanded((value) => !value)}
                             className="w-full px-0 [&>span]:w-full [&>span]:justify-between"
                         >
                             {title}
@@ -69,9 +61,7 @@ export function DocSection({
                     <div id={`${id}-content`}>
                         <InlineDisclosure open={expanded}>
                             <div className="flex flex-col gap-5">
-                                {description && (
-                                    <p>{description}</p>
-                                )}
+                                {description && <p>{description}</p>}
                                 {children}
                             </div>
                         </InlineDisclosure>
@@ -94,16 +84,11 @@ export function DocSection({
                             : "text-title3 font-semibold tracking-tight text-label"
                     }
                 >
-                    <a
-                        href={`#${id}`}
-                        className="text-inherit no-underline hover:underline"
-                    >
+                    <a href={`#${id}`} className="text-inherit no-underline hover:underline">
                         {title}
                     </a>
                 </Heading>
-                {description && (
-                    <p className="max-w-2xl">{description}</p>
-                )}
+                {description && <p className="max-w-2xl">{description}</p>}
             </div>
             {children}
         </section>

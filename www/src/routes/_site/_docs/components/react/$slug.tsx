@@ -1,19 +1,9 @@
 import { getPageHead } from "@/domains/seo/get-page-head"
-import {
-    ComponentNotFound,
-    ComponentPage,
-    getEntry,
-} from "@/domains/catalog"
+import { ComponentNotFound, ComponentPage, getEntry } from "@/domains/catalog"
 import { componentSearchSchema } from "@/domains/settings"
-import {
-    createFileRoute,
-    notFound,
-    stripSearchParams,
-} from "@tanstack/react-router"
+import { createFileRoute, notFound, stripSearchParams } from "@tanstack/react-router"
 
-export const Route = createFileRoute(
-    "/_site/_docs/components/react/$slug"
-)({
+export const Route = createFileRoute("/_site/_docs/components/react/$slug")({
     validateSearch: componentSearchSchema,
     search: {
         middlewares: [stripSearchParams({ props: {} })],
@@ -34,12 +24,5 @@ export const Route = createFileRoute(
 function RouteComponent() {
     const { slug } = Route.useParams()
     const { props, ...settings } = Route.useSearch()
-    return (
-        <ComponentPage
-            key={slug}
-            slug={slug}
-            settings={settings}
-            rawProps={props}
-        />
-    )
+    return <ComponentPage key={slug} slug={slug} settings={settings} rawProps={props} />
 }

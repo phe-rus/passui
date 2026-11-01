@@ -15,7 +15,6 @@ is verified, one tested stage at a time.
 | `@passui/react` | `0.1.14`, publish after tokens |
 | `@passui/tanstack` | `0.1.2`, publish after React |
 | `@passui/cli` | `0.1.1`, templates match these package versions |
-| `@passui/solid` | Unpublished; marked private and excluded from the publishing workflow |
 | New website | Worker `passui`, custom domain `passui.pherus.org` |
 | Old website | Existing Worker `hino`, custom domain `hino.pherus.org`, convert to redirects only after the new site is verified |
 

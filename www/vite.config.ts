@@ -1,15 +1,10 @@
 import { cloudflare } from "@cloudflare/vite-plugin"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import babel from "@rolldown/plugin-babel"
-import viteReact, {
-    reactCompilerPreset,
-} from "@vitejs/plugin-react"
+import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import { defineConfig } from "vite"
 import path from "node:path"
-import solid from "vite-plugin-solid"
-
-const solidSources = /\/packages\/solid\//
 
 export default defineConfig({
     server: {
@@ -19,7 +14,6 @@ export default defineConfig({
         dedupe: [
             "react",
             "react-dom",
-            "solid-js",
             "@tanstack/react-query",
             "@tanstack/react-router",
             "@tanstack/react-start",
@@ -45,13 +39,12 @@ export default defineConfig({
               }),
               tailwindcss(),
               tanstackStart(),
-              solid({ include: solidSources, ssr: true }),
               babel({
-                  exclude: [/node_modules/, solidSources],
+                  exclude: [/node_modules/],
                   presets: [reactCompilerPreset()],
               }),
               viteReact({
-                  exclude: [/node_modules/, solidSources],
+                  exclude: [/node_modules/],
               }),
           ],
 })

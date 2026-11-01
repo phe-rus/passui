@@ -1,17 +1,13 @@
-import type { contextMenuDocs } from "@passui/react/docs"
+import type { contextMenuDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const contextMenuContent: ComponentContent<
-    typeof contextMenuDocs
-> = {
+export const contextMenuContent: ComponentContent<typeof contextMenuDocs> = {
     summary:
         "Actions for one thing, opened by right-clicking on a computer or pressing and holding on a touch screen.",
     usage: "Spread useContextMenu's handlers onto the element, passing a function that returns its rows. Render one ContextMenuHost near the root of the app.",
     propDescriptions: {
-        heading:
-            "Adds a { heading } row: a small title naming what the menu acts on.",
-        destructive:
-            "Adds a divider and a destructive row, shown in red, for actions like Delete.",
+        heading: "Adds a { heading } row: a small title naming what the menu acts on.",
+        destructive: "Adds a divider and a destructive row, shown in red, for actions like Delete.",
     },
     examples: {
         toolbar: {
@@ -26,8 +22,7 @@ export const contextMenuContent: ComponentContent<
         },
         checked: {
             title: "Choices in a menu",
-            description:
-                "checked marks the current choice, such as the sort order of a list.",
+            description: "checked marks the current choice, such as the sort order of a list.",
         },
     },
     anatomy: [

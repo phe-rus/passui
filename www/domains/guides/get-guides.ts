@@ -13,32 +13,28 @@ export const guides: readonly Guide[] = [
     {
         slug: "introduction",
         title: "Introduction",
-        summary:
-            "What Passui is, what it's made of, and the ideas behind it.",
+        summary: "What Passui is, what it's made of, and the ideas behind it.",
         path: "/docs/introduction",
         icon: BookOpen01Icon,
     },
     {
         slug: "components",
         title: "Components",
-        summary:
-            "Every control, grouped by what it does, each with a live playground.",
+        summary: "Every control, grouped by what it does, each with a live playground.",
         path: "/components",
         icon: LayoutGridIcon,
     },
     {
         slug: "installation",
         title: "Installation",
-        summary:
-            "Set up any React app with the Passui CLI, create a starter, or install manually.",
+        summary: "Set up any React app with the Passui CLI, create a starter, or install manually.",
         path: "/docs/installation",
         icon: Download01Icon,
     },
     {
         slug: "theming",
         title: "Theming",
-        summary:
-            "Light and dark, seven accents, platform looks, and the color roles behind them.",
+        summary: "Light and dark, seven accents, platform looks, and the color roles behind them.",
         path: "/docs/theming",
         icon: PaintBoardIcon,
     },
@@ -69,9 +65,7 @@ export function getGuide(slug: string) {
 
 /** The guides before and after this one, in sidebar order. */
 export function getGuideNeighbours(slug: string) {
-    const index = guides.findIndex(
-        (guide) => guide.slug === slug
-    )
+    const index = guides.findIndex((guide) => guide.slug === slug)
     return {
         previous: index > 0 ? guides[index - 1] : undefined,
         next: index >= 0 ? guides[index + 1] : undefined,

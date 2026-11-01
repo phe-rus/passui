@@ -1,9 +1,4 @@
-import {
-    type ComponentProps,
-    type ReactNode,
-    useId,
-    useState,
-} from "react"
+import { type ComponentProps, type ReactNode, useId, useState } from "react"
 import { Button } from "../button/button"
 import { cn } from "../../lib/class-names"
 
@@ -14,8 +9,7 @@ export const textControlClasses = cn(
     "disabled:cursor-not-allowed disabled:opacity-40 aria-invalid:border-danger"
 )
 
-const fieldIconClasses =
-    "flex shrink-0 items-center text-label-secondary"
+const fieldIconClasses = "flex shrink-0 items-center text-label-secondary"
 
 export type TextFieldProps = ComponentProps<"input"> & {
     label: string
@@ -50,18 +44,12 @@ export function TextField({
     const reveal = type === "password" && revealLabels
     return (
         <div className="flex flex-col gap-2">
-            <label
-                htmlFor={id}
-                className="text-subheadline font-semibold"
-            >
+            <label htmlFor={id} className="text-subheadline font-semibold">
                 {label}
             </label>
             <div className="flex items-center gap-2 rounded-xl border border-separator bg-elevated px-3 focus-within:ring-1 focus-within:ring-accent/40 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-text/70">
                 {icon && (
-                    <span
-                        aria-hidden
-                        className={fieldIconClasses}
-                    >
+                    <span aria-hidden className={fieldIconClasses}>
                         {icon}
                     </span>
                 )}
@@ -71,9 +59,7 @@ export function TextField({
                     type={reveal && revealed ? "text" : type}
                     aria-invalid={messages.length > 0}
                     aria-describedby={
-                        messages.length || description
-                            ? `${id}-description`
-                            : undefined
+                        messages.length || description ? `${id}-description` : undefined
                     }
                     className={cn(
                         "h-11 w-full min-w-0 bg-transparent text-body text-label outline-none",
@@ -82,10 +68,7 @@ export function TextField({
                     )}
                 />
                 {trailingIcon && (
-                    <span
-                        aria-hidden
-                        className={fieldIconClasses}
-                    >
+                    <span aria-hidden className={fieldIconClasses}>
                         {trailingIcon}
                     </span>
                 )}
@@ -97,17 +80,11 @@ export function TextField({
                         // wider invisible area keeps a 44px target
                         className="-mr-1.5 shrink-0 whitespace-nowrap [@media(pointer:coarse)]:before:absolute [@media(pointer:coarse)]:before:-inset-1.5 [@media(pointer:coarse)]:before:content-['']"
                         aria-controls={id}
-                        aria-label={
-                            revealed
-                                ? revealLabels.hide
-                                : revealLabels.show
-                        }
+                        aria-label={revealed ? revealLabels.hide : revealLabels.show}
                         aria-pressed={revealed}
                         onClick={() => setRevealed(!revealed)}
                     >
-                        {revealed
-                            ? revealLabels.hide
-                            : revealLabels.show}
+                        {revealed ? revealLabels.hide : revealLabels.show}
                     </Button>
                 )}
                 {action}
@@ -115,19 +92,13 @@ export function TextField({
             {(messages.length > 0 || description) && (
                 <div
                     id={`${id}-description`}
-                    role={
-                        messages.length ? "alert" : undefined
-                    }
+                    role={messages.length ? "alert" : undefined}
                     className={cn(
                         "text-footnote",
-                        messages.length
-                            ? "text-danger"
-                            : "text-label-secondary"
+                        messages.length ? "text-danger" : "text-label-secondary"
                     )}
                 >
-                    {messages.length
-                        ? messages.join(". ")
-                        : description}
+                    {messages.length ? messages.join(". ") : description}
                 </div>
             )}
         </div>

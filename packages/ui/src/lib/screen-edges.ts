@@ -14,10 +14,7 @@ let probe: HTMLDivElement | undefined
  */
 export function screenEdges(): ScreenEdges {
     const margin =
-        typeof window !== "undefined" &&
-        window.matchMedia("(pointer: coarse)").matches
-            ? 12
-            : 8
+        typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? 12 : 8
     if (typeof document === "undefined") {
         return {
             top: margin,
@@ -38,8 +35,7 @@ export function screenEdges(): ScreenEdges {
     return {
         top: Number.parseFloat(style.paddingTop) + margin,
         right: Number.parseFloat(style.paddingRight) + margin,
-        bottom:
-            Number.parseFloat(style.paddingBottom) + margin,
+        bottom: Number.parseFloat(style.paddingBottom) + margin,
         left: Number.parseFloat(style.paddingLeft) + margin,
     }
 }

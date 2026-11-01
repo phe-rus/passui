@@ -37,16 +37,9 @@ export function placeInViewport(
     needed: number,
     gap = 6
 ): AnchoredPlacement {
-    const fitted = Math.min(
-        width,
-        viewport.width - edges.left - edges.right
-    )
-    const left = Math.min(
-        Math.max(edges.left, anchor.left),
-        viewport.width - fitted - edges.right
-    )
-    const roomBelow =
-        viewport.height - anchor.bottom - gap - edges.bottom
+    const fitted = Math.min(width, viewport.width - edges.left - edges.right)
+    const left = Math.min(Math.max(edges.left, anchor.left), viewport.width - fitted - edges.right)
+    const roomBelow = viewport.height - anchor.bottom - gap - edges.bottom
     const roomAbove = anchor.top - gap - edges.top
     const above = roomBelow < needed && roomAbove > roomBelow
     const room = above ? roomAbove : roomBelow
@@ -54,9 +47,7 @@ export function placeInViewport(
         left,
         width: fitted,
         above,
-        ...(above
-            ? { bottom: viewport.height - anchor.top + gap }
-            : { top: anchor.bottom + gap }),
+        ...(above ? { bottom: viewport.height - anchor.top + gap } : { top: anchor.bottom + gap }),
     }
     if (room < needed) placement.maxHeight = room
     return placement
@@ -80,8 +71,7 @@ export function placeAnchored(
             },
             viewport: {
                 width: viewport?.width ?? window.innerWidth,
-                height:
-                    viewport?.height ?? window.innerHeight,
+                height: viewport?.height ?? window.innerHeight,
             },
             edges: screenEdges(),
         },

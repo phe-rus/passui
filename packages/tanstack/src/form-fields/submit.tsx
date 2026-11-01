@@ -18,12 +18,7 @@ export function Submit({ label }: { label: string }) {
                     variant="default"
                     size="default"
                     aria-busy={pending}
-                    disabled={
-                        pending ||
-                        !valid ||
-                        !dirty ||
-                        !touched
-                    }
+                    disabled={pending || !valid || !dirty || !touched}
                     className="w-full"
                 >
                     {pending && (

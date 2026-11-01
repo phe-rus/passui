@@ -1,6 +1,5 @@
-import { IconButton } from "@passui/react/icon-button"
-import { ArrowUp02Icon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
+import { IconButton } from "../button/icon-button"
+import { SendIcon } from "../../icons/icons"
 import type { ReactNode } from "react"
 import { useState } from "react"
 import { formatTime } from "../../lib/date"
@@ -43,10 +42,7 @@ function dayLabel(iso: string, locale?: string) {
     const word = new Intl.RelativeTimeFormat(locale, {
         numeric: "auto",
     }).format(offset, "day")
-    return (
-        word.charAt(0).toLocaleUpperCase(locale) +
-        word.slice(1)
-    )
+    return word.charAt(0).toLocaleUpperCase(locale) + word.slice(1)
 }
 
 const clock = (iso: string, locale?: string) =>
@@ -75,90 +71,64 @@ function Messages({
                 const next = messages[index + 1]
                 const newDay =
                     !prev ||
-                    new Date(
-                        prev.createdAt
-                    ).toDateString() !==
-                        new Date(
-                            message.createdAt
-                        ).toDateString()
+                    new Date(prev.createdAt).toDateString() !==
+                        new Date(message.createdAt).toDateString()
                 const startsGroup =
                     newDay ||
                     prev.mine !== message.mine ||
-                    new Date(message.createdAt).getTime() -
-                        new Date(prev.createdAt).getTime() >
+                    new Date(message.createdAt).getTime() - new Date(prev.createdAt).getTime() >
                         GROUP_GAP_MS
                 const endsGroup =
                     !next ||
                     next.mine !== message.mine ||
-                    new Date(next.createdAt).getTime() -
-                        new Date(
-                            message.createdAt
-                        ).getTime() >
+                    new Date(next.createdAt).getTime() - new Date(message.createdAt).getTime() >
                         GROUP_GAP_MS
 
                 return (
-                    <li
-                        key={message.id}
-                        className="flex flex-col"
-                    >
+                    <li key={message.id} className="flex flex-col">
                         {newDay && (
                             // the reader's own day and clock, which a server can't know
                             <span
                                 suppressHydrationWarning
                                 className="my-4 text-center text-caption2 font-medium text-label-secondary"
                             >
-                                {dayLabel(
-                                    message.createdAt,
-                                    locale
-                                )}
+                                {dayLabel(message.createdAt, locale)}
                             </span>
                         )}
                         <div
                             className={cn(
                                 "flex items-end gap-2",
-                                message.mine
-                                    ? "justify-end"
-                                    : "justify-start",
-                                startsGroup
-                                    ? "mt-3"
-                                    : "mt-0.5"
+                                message.mine ? "justify-end" : "justify-start",
+                                startsGroup ? "mt-3" : "mt-0.5"
                             )}
                         >
                             {!message.mine && (
                                 <span className="flex size-7 shrink-0 items-center justify-center">
-                                    {endsGroup &&
-                                        message.avatar}
+                                    {endsGroup && message.avatar}
                                 </span>
                             )}
                             <div
                                 className={cn(
                                     "flex max-w-[78%] flex-col gap-1",
-                                    message.mine
-                                        ? "items-end"
-                                        : "items-start"
+                                    message.mine ? "items-end" : "items-start"
                                 )}
                             >
-                                {startsGroup &&
-                                    message.author && (
-                                        <span className="px-3 text-caption2 text-label-secondary">
-                                            {message.author}
-                                        </span>
-                                    )}
+                                {startsGroup && message.author && (
+                                    <span className="px-3 text-caption2 text-label-secondary">
+                                        {message.author}
+                                    </span>
+                                )}
                                 {/* text only: a message can never become markup */}
                                 <p
                                     suppressHydrationWarning
-                                    title={formatTime(
-                                        message.createdAt
-                                    )}
+                                    title={formatTime(message.createdAt)}
                                     className={cn(
                                         "rounded-4xl px-3.5 py-2 text-subheadline leading-snug whitespace-pre-wrap wrap-break-word",
                                         message.mine
                                             ? "bg-inverse text-on-inverse"
                                             : "bg-fill text-label",
                                         endsGroup &&
-                                            (message.mine
-                                                ? "rounded-br-md"
-                                                : "rounded-bl-md")
+                                            (message.mine ? "rounded-br-md" : "rounded-bl-md")
                                     )}
                                 >
                                     {message.body}
@@ -166,15 +136,10 @@ function Messages({
                                 {endsGroup && (
                                     <time
                                         suppressHydrationWarning
-                                        dateTime={
-                                            message.createdAt
-                                        }
+                                        dateTime={message.createdAt}
                                         className="px-3 text-caption2 text-label-secondary tabular-nums"
                                     >
-                                        {clock(
-                                            message.createdAt,
-                                            locale
-                                        )}
+                                        {clock(message.createdAt, locale)}
                                     </time>
                                 )}
                             </div>
@@ -232,14 +197,9 @@ function Composer({
             <div className="flex items-end gap-2 rounded-5xl border border-separator bg-elevated py-1.5 pr-1.5 pl-4 transition-colors focus-within:border-accent-text/60">
                 <textarea
                     value={body}
-                    onChange={(event) =>
-                        setBody(event.target.value)
-                    }
+                    onChange={(event) => setBody(event.target.value)}
                     onKeyDown={(event) => {
-                        if (
-                            event.key === "Enter" &&
-                            (event.metaKey || event.ctrlKey)
-                        ) {
+                        if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
                             event.preventDefault()
                             void send()
                         }
@@ -256,20 +216,14 @@ function Composer({
                     label={sendLabel}
                     className="size-8 shrink-0 rounded-full"
                 >
-                    <HugeiconsIcon
-                        icon={ArrowUp02Icon}
-                        strokeWidth={2.5}
-                    />
+                    <SendIcon size={18} strokeWidth={2.5} />
                 </IconButton>
             </div>
             <div className="flex min-h-6 items-center gap-2 px-1">
                 {actions}
                 <span className="ml-auto text-caption2 text-label-secondary tabular-nums">
                     {body.length > maxLength * 0.8 &&
-                        (remaining?.(
-                            maxLength - body.length
-                        ) ??
-                            maxLength - body.length)}
+                        (remaining?.(maxLength - body.length) ?? maxLength - body.length)}
                 </span>
             </div>
         </form>

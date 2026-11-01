@@ -6,10 +6,7 @@ type ConcealedSource = {
 const sources = new WeakMap<HTMLElement, ConcealedSource>()
 
 /** Follow-up menus share ownership until the last surface finishes closing. */
-export function concealMenuSource(
-    element: HTMLElement,
-    inert: boolean
-) {
+export function concealMenuSource(element: HTMLElement, inert: boolean) {
     const state = sources.get(element) ?? {
         count: 0,
         opacity: element.style.opacity,

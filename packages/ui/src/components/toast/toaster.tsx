@@ -1,11 +1,5 @@
 import { AnimatePresence, motion } from "motion/react"
-import {
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-    useSyncExternalStore,
-} from "react"
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react"
 import { CheckIcon, CloseIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { spring } from "../../motion/transitions"
@@ -35,16 +29,8 @@ const BODY_SPRING = {
  * filter, so where they meet looks liquid while they grow, morph between
  * states and shrink away. Text is drawn above the filter to stay crisp.
  */
-export function Toaster({
-    className,
-}: {
-    className?: string
-}) {
-    const toasts = useSyncExternalStore(
-        subscribeToasts,
-        getToasts,
-        () => EMPTY
-    )
+export function Toaster({ className }: { className?: string }) {
+    const toasts = useSyncExternalStore(subscribeToasts, getToasts, () => EMPTY)
     const [hovered, setHovered] = useState(false)
     const visible = toasts.slice(0, toastLimits.visible)
 
@@ -83,28 +69,17 @@ export function Toaster({
 
 function GooFilter() {
     return (
-        <svg
-            aria-hidden="true"
-            className="pointer-events-none absolute size-0"
-        >
+        <svg aria-hidden="true" className="pointer-events-none absolute size-0">
             <defs>
                 <filter id={GOO_FILTER_ID}>
-                    <feGaussianBlur
-                        in="SourceGraphic"
-                        stdDeviation="7"
-                        result="blur"
-                    />
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
                     <feColorMatrix
                         in="blur"
                         mode="matrix"
                         values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"
                         result="goo"
                     />
-                    <feComposite
-                        in="SourceGraphic"
-                        in2="goo"
-                        operator="atop"
-                    />
+                    <feComposite in="SourceGraphic" in2="goo" operator="atop" />
                 </filter>
             </defs>
         </svg>
@@ -151,10 +126,7 @@ function ToastItem({
 
     useEffect(() => {
         if (toast.duration === null || paused) return
-        const timer = setTimeout(
-            () => toastApi.dismiss(toast.id),
-            toast.duration
-        )
+        const timer = setTimeout(() => toastApi.dismiss(toast.id), toast.duration)
         return () => clearTimeout(timer)
     }, [toast.id, toast.duration, paused])
 
@@ -171,9 +143,7 @@ function ToastItem({
             initial={{ opacity: 0, y: -24, scale: 0.6 }}
             animate={{
                 opacity: stacked ? 1 - index * 0.25 : 1,
-                y: stacked
-                    ? index * 9
-                    : index * (PILL + 14) + index * 6,
+                y: stacked ? index * 9 : index * (PILL + 14) + index * 6,
                 scale: stacked ? 1 - index * 0.05 : 1,
             }}
             exit={{
@@ -187,11 +157,7 @@ function ToastItem({
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0.6, bottom: 0.1 }}
             onDragEnd={(_, info) => {
-                if (
-                    info.offset.y < -30 ||
-                    info.velocity.y < -300
-                )
-                    toastApi.dismiss(toast.id)
+                if (info.offset.y < -30 || info.velocity.y < -300) toastApi.dismiss(toast.id)
             }}
         >
             <motion.div
@@ -225,11 +191,7 @@ function ToastItem({
                         animate={{
                             width,
                             height,
-                            borderRadius: Math.min(
-                                PILL / 2,
-                                height / 2,
-                                22
-                            ),
+                            borderRadius: Math.min(PILL / 2, height / 2, 22),
                         }}
                         transition={BODY_SPRING}
                     />
@@ -248,10 +210,7 @@ function ToastItem({
                 >
                     <ToneIcon tone={toast.tone} />
                     <div className="flex min-w-0 flex-col py-px">
-                        <AnimatePresence
-                            mode="popLayout"
-                            initial={false}
-                        >
+                        <AnimatePresence mode="popLayout" initial={false}>
                             <motion.span
                                 key={toast.title}
                                 className="text-subheadline leading-5 font-semibold"
@@ -324,16 +283,10 @@ function ToneIcon({ tone }: { tone: ToastTone }) {
                 exit={{ scale: 0.3, opacity: 0 }}
                 transition={spring.bouncy}
             >
-                {tone === "success" && (
-                    <CheckIcon size={13} strokeWidth={3} />
-                )}
-                {tone === "error" && (
-                    <CloseIcon size={12} strokeWidth={3} />
-                )}
+                {tone === "success" && <CheckIcon size={13} strokeWidth={3} />}
+                {tone === "error" && <CloseIcon size={12} strokeWidth={3} />}
                 {/* The full stop from the Notables mark. */}
-                {tone === "neutral" && (
-                    <span className="size-2 rounded-full bg-[#EE8A2A]" />
-                )}
+                {tone === "neutral" && <span className="size-2 rounded-full bg-[#EE8A2A]" />}
                 {tone === "loading" && <Spinner />}
             </motion.span>
         </AnimatePresence>

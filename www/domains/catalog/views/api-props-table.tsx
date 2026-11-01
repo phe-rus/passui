@@ -30,18 +30,10 @@ function SurfaceTable({
                     <table className="w-full min-w-xl border-collapse text-left">
                         <thead className="bg-fill/50 *:text-sm!">
                             <tr>
-                                <th className="px-3 py-2">
-                                    Prop
-                                </th>
-                                <th className="px-3 py-2">
-                                    Type
-                                </th>
-                                <th className="px-3 py-2">
-                                    Default
-                                </th>
-                                <th className="px-3 py-2">
-                                    Description
-                                </th>
+                                <th className="px-3 py-2">Prop</th>
+                                <th className="px-3 py-2">Type</th>
+                                <th className="px-3 py-2">Default</th>
+                                <th className="px-3 py-2">Description</th>
                             </tr>
                         </thead>
                         <tbody className="*:text-xs!">
@@ -65,15 +57,10 @@ function SurfaceTable({
                                         {prop.type}
                                     </td>
                                     <td className="px-3 py-2 font-mono">
-                                        {prop.defaultValue ??
-                                            "—"}
+                                        {prop.defaultValue ?? "—"}
                                     </td>
                                     <td className="px-3 py-2">
-                                        {prop.description ||
-                                            descriptions[
-                                            prop.name
-                                            ] ||
-                                            "—"}
+                                        {prop.description || descriptions[prop.name] || "—"}
                                     </td>
                                 </tr>
                             ))}
@@ -82,9 +69,7 @@ function SurfaceTable({
                 </div>
             )}
             {surface.props.some((prop) => prop.required) && (
-                <p className="text-caption text-label-tertiary">
-                    * Required
-                </p>
+                <p className="text-caption text-label-tertiary">* Required</p>
             )}
             {surface.native.length > 0 && (
                 <p className="text-footnote text-label-secondary">
@@ -112,18 +97,12 @@ export function ApiPropsTable({
 }) {
     return (
         <div className="flex flex-col gap-5">
-            <SurfaceTable
-                surface={reference}
-                descriptions={descriptions}
-            />
-            {!reference.props.length &&
-                !reference.native.length &&
-                !reference.parts.length && (
-                    <p className="text-footnote text-label-secondary">
-                        This host has no component props. Its
-                        setup is described above.
-                    </p>
-                )}
+            <SurfaceTable surface={reference} descriptions={descriptions} />
+            {!reference.props.length && !reference.native.length && !reference.parts.length && (
+                <p className="text-footnote text-label-secondary">
+                    This host has no component props. Its setup is described above.
+                </p>
+            )}
             {reference.parts.map((part) => (
                 <DocSection
                     key={part.name}

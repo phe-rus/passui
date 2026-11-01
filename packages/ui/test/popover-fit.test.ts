@@ -8,11 +8,7 @@ const frame = {
 
 test("popover stays in its authored position when it fits", () => {
     expect(
-        fitPopover(
-            { left: 160, top: 100, width: 240, height: 200 },
-            { top: 52, bottom: 92 },
-            frame
-        )
+        fitPopover({ left: 160, top: 100, width: 240, height: 200 }, { top: 52, bottom: 92 }, frame)
     ).toMatchObject({
         shiftX: 0,
         shiftY: 0,
@@ -56,11 +52,7 @@ test("popover stays scrollable when neither side has enough height", () => {
 
 test("a popover without a relative anchor clamps instead of flipping", () => {
     expect(
-        fitPopover(
-            { left: 600, top: 650, width: 240, height: 200 },
-            undefined,
-            frame
-        )
+        fitPopover({ left: 600, top: 650, width: 240, height: 200 }, undefined, frame)
     ).toMatchObject({
         shiftX: -48,
         shiftY: -158,

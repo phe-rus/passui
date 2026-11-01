@@ -26,24 +26,10 @@ export function FieldRadioCard({
 }) {
     const field = useFieldContext<string>()
     return (
-        <fieldset
-            disabled={disabled}
-            className="flex flex-col gap-2"
-        >
-            <legend className="text-subheadline font-semibold">
-                {label}
-            </legend>
-            {description && (
-                <p className="text-footnote text-label-secondary">
-                    {description}
-                </p>
-            )}
-            <div
-                className={cn(
-                    "grid gap-2",
-                    columns === 2 && "md:grid-cols-2"
-                )}
-            >
+        <fieldset disabled={disabled} className="flex flex-col gap-2">
+            <legend className="text-subheadline font-semibold">{label}</legend>
+            {description && <p className="text-footnote text-label-secondary">{description}</p>}
+            <div className={cn("grid gap-2", columns === 2 && "md:grid-cols-2")}>
                 {options.map((option) => (
                     <label
                         key={option.value}
@@ -52,25 +38,17 @@ export function FieldRadioCard({
                             field.state.value === option.value
                                 ? "border-accent-text bg-accent/10"
                                 : "border-separator bg-elevated",
-                            (disabled || option.disabled) &&
-                                "opacity-40"
+                            (disabled || option.disabled) && "opacity-40"
                         )}
                     >
                         <input
                             type="radio"
                             name={field.name}
                             value={option.value}
-                            checked={
-                                field.state.value ===
-                                option.value
-                            }
+                            checked={field.state.value === option.value}
                             disabled={option.disabled}
                             onBlur={field.handleBlur}
-                            onChange={() =>
-                                field.handleChange(
-                                    option.value
-                                )
-                            }
+                            onChange={() => field.handleChange(option.value)}
                             className="mt-1 accent-accent-text"
                         />
                         {option.icon}
@@ -101,38 +79,20 @@ export function FieldMultiselect({
     const field = useFieldContext<string[]>()
     return (
         <fieldset className="flex flex-col gap-3">
-            <legend className="text-subheadline font-semibold">
-                {label}
-            </legend>
-            {description && (
-                <p className="text-footnote text-label-secondary">
-                    {description}
-                </p>
-            )}
+            <legend className="text-subheadline font-semibold">{label}</legend>
+            {description && <p className="text-footnote text-label-secondary">{description}</p>}
             {options.map((option) => (
                 <div key={option.value}>
                     <Toggle
                         style="checkbox"
                         label={option.label}
                         disabled={option.disabled}
-                        checked={field.state.value.includes(
-                            option.value
-                        )}
+                        checked={field.state.value.includes(option.value)}
                         onChange={(checked) => {
                             field.handleChange(
                                 checked
-                                    ? Array.from(
-                                          new Set([
-                                              ...field.state
-                                                  .value,
-                                              option.value,
-                                          ])
-                                      )
-                                    : field.state.value.filter(
-                                          (value) =>
-                                              value !==
-                                              option.value
-                                      )
+                                    ? Array.from(new Set([...field.state.value, option.value]))
+                                    : field.state.value.filter((value) => value !== option.value)
                             )
                             field.handleBlur()
                         }}

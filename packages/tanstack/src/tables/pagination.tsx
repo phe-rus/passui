@@ -6,10 +6,7 @@ import {
     ChevronLeftIcon,
     ChevronRightIcon,
 } from "@hugeicons/core-free-icons"
-import type {
-    ReactTable,
-    RowData,
-} from "@tanstack/react-table"
+import type { ReactTable, RowData } from "@tanstack/react-table"
 import { Picker } from "@passui/react"
 import type { DataTableFeatures } from "./data-table"
 
@@ -28,8 +25,7 @@ export function DataTablePagination<TData extends RowData>({
     return (
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <p className="shrink-0 whitespace-nowrap text-footnote text-label-secondary">
-                Page {pageCount ? pageIndex + 1 : 0} of{" "}
-                {pageCount}
+                Page {pageCount ? pageIndex + 1 : 0} of {pageCount}
             </p>
 
             <div className="flex items-center gap-1">
@@ -65,9 +61,7 @@ export function DataTablePagination<TData extends RowData>({
                     type="button"
                     size="icon-sm"
                     disabled={!table.getCanNextPage()}
-                    onClick={() =>
-                        table.setPageIndex(pageCount - 1)
-                    }
+                    onClick={() => table.setPageIndex(pageCount - 1)}
                 >
                     <HugeiconsIcon icon={ChevronLastIcon} />
                 </IconButton>
@@ -78,9 +72,7 @@ export function DataTablePagination<TData extends RowData>({
                     className="w-full"
                     label="Rows per page"
                     value={String(pageSize)}
-                    onChange={(value) =>
-                        table.setPageSize(Number(value))
-                    }
+                    onChange={(value) => table.setPageSize(Number(value))}
                     options={pageSizeOptions.map((size) => ({
                         value: String(size),
                         label: String(size),

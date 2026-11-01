@@ -1,9 +1,7 @@
-import type { segmentedControlDocs } from "@passui/react/docs"
+import type { segmentedControlDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const segmentedControlContent: ComponentContent<
-    typeof segmentedControlDocs
-> = {
+export const segmentedControlContent: ComponentContent<typeof segmentedControlDocs> = {
     summary:
         "A row of two to five options where exactly one is chosen, that turns into a Picker when it runs out of room.",
     usage: "Use it to switch between views or modes of the same content, like Day, Week and Month.",
@@ -13,8 +11,7 @@ export const segmentedControlContent: ComponentContent<
     examples: {
         views: {
             title: "Switching views",
-            description:
-                "Choose how the same content is shown; the content below follows at once.",
+            description: "Choose how the same content is shown; the content below follows at once.",
         },
         overflow: {
             title: "Too many to fit",
@@ -25,14 +22,12 @@ export const segmentedControlContent: ComponentContent<
     anatomy: [
         {
             element: "Track",
-            description:
-                "The rounded row holding the options.",
+            description: "The rounded row holding the options.",
             required: true,
         },
         {
             element: "Segment",
-            description:
-                "One option; the chosen one sits on a raised surface.",
+            description: "One option; the chosen one sits on a raised surface.",
             required: true,
         },
     ],

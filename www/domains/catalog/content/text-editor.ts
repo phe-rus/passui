@@ -1,19 +1,14 @@
-import type { textEditorDocs } from "@passui/react/docs"
+import type { textEditorDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const textEditorContent: ComponentContent<
-    typeof textEditorDocs
-> = {
+export const textEditorContent: ComponentContent<typeof textEditorDocs> = {
     summary:
         "A multi-line text area that matches the look of Passui's text fields and grows when dragged.",
     usage: "Use it for text that runs past one line: a bio, a message, a note. Give it a visible label.",
     propDescriptions: {
-        placeholder:
-            "An example of what to write. Never a replacement for the label.",
-        disabled:
-            "Shows the text but blocks editing and skips it when tabbing.",
-        readOnly:
-            "Shows the text and lets people select and copy it, without editing.",
+        placeholder: "An example of what to write. Never a replacement for the label.",
+        disabled: "Shows the text but blocks editing and skips it when tabbing.",
+        readOnly: "Shows the text and lets people select and copy it, without editing.",
     },
     examples: {
         count: {
@@ -23,27 +18,23 @@ export const textEditorContent: ComponentContent<
         },
         comment: {
             title: "Comment box",
-            description:
-                "A labelled editor with Cancel and Post, Post enabled once there's text.",
+            description: "A labelled editor with Cancel and Post, Post enabled once there's text.",
         },
     },
     anatomy: [
         {
             element: "Label",
-            description:
-                "Supplied by the app and linked with htmlFor.",
+            description: "Supplied by the app and linked with htmlFor.",
             required: true,
         },
         {
             element: "Text area",
-            description:
-                "Starts at about four lines and can be resized taller.",
+            description: "Starts at about four lines and can be resized taller.",
             required: true,
         },
         {
             element: "Helper line",
-            description:
-                "An optional count or hint placed under it by the app.",
+            description: "An optional count or hint placed under it by the app.",
         },
     ],
     practices: [

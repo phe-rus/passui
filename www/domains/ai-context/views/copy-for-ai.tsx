@@ -1,30 +1,16 @@
 import { SparkleIcon } from "@passui/react/icons"
 import { useCopyText } from "@/domains/clipboard/use-copy-text"
 import { getEntry } from "@/domains/catalog/get-catalog"
-import {
-    getComponentMarkdown,
-    getSolidComponentMarkdown,
-} from "../get-ai-context"
+import { getComponentMarkdown } from "../get-ai-context"
 
 /** Copies one component's docs as Markdown, for pasting into an AI chat. */
-export function CopyForAi({
-    slug,
-    framework = "react",
-}: {
-    slug: string
-    framework?: "react" | "solid"
-}) {
+export function CopyForAi({ slug }: { slug: string }) {
     const clipboard = useCopyText()
     async function copy() {
         const entry = getEntry(slug)
         if (!entry) return
         await clipboard.copy(
-            (framework === "solid"
-                ? getSolidComponentMarkdown
-                : getComponentMarkdown)(
-                entry,
-                window.location.origin
-            ),
+            getComponentMarkdown(entry, window.location.origin),
             "Copied as Markdown"
         )
     }

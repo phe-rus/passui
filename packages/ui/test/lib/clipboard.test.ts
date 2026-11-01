@@ -6,20 +6,14 @@ afterEach(() => vi.unstubAllGlobals())
 test("copies the exact text and waits for confirmation", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
     vi.stubGlobal("navigator", { clipboard: { writeText } })
-    expect(await copyText("first line\nsecond line")).toBe(
-        true
-    )
-    expect(writeText).toHaveBeenCalledWith(
-        "first line\nsecond line"
-    )
+    expect(await copyText("first line\nsecond line")).toBe(true)
+    expect(writeText).toHaveBeenCalledWith("first line\nsecond line")
 })
 
 test("denied access is reported as failure, never success", async () => {
     vi.stubGlobal("navigator", {
         clipboard: {
-            writeText: vi
-                .fn()
-                .mockRejectedValue(new Error("Not allowed")),
+            writeText: vi.fn().mockRejectedValue(new Error("Not allowed")),
         },
     })
     expect(await copyText("private draft")).toBe(false)

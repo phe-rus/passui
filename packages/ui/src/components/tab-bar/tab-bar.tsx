@@ -19,10 +19,7 @@ export interface TabBarLinkProps {
     children: ReactNode
 }
 
-export type TabBarMinimizeBehavior =
-    | "platform"
-    | "scroll"
-    | "never"
+export type TabBarMinimizeBehavior = "platform" | "scroll" | "never"
 
 export interface TabBarProps<Tab extends TabBarTab> {
     /** `platform` follows the platform, `scroll` always minimizes, `never` stays expanded. @default "platform" */
@@ -31,10 +28,7 @@ export interface TabBarProps<Tab extends TabBarTab> {
     /** Active tab ID, or null for a destination outside the bar. */
     active: Tab["id"] | null
     /** Renders your router's link with the supplied appearance and accessibility props. */
-    renderLink: (
-        tab: Tab,
-        props: TabBarLinkProps
-    ) => ReactNode
+    renderLink: (tab: Tab, props: TabBarLinkProps) => ReactNode
     search?: { label: string; onPress: () => void }
     /** Accessible name for the navigation. */
     label: string
@@ -62,8 +56,7 @@ export function TabBar<Tab extends TabBarTab>({
     // Scopes the sliding selection to this bar, so two bars on one
     // screen (a docs page, a split view) never trade their highlight.
     const selectionId = `${useId()}-tab-selection`
-    const [scrolledAway, setScrolledAway] =
-        useMinimizeOnScroll()
+    const [scrolledAway, setScrolledAway] = useMinimizeOnScroll()
     // Platform behavior keeps Android expanded; apps can opt into scroll minimization.
     const minimized =
         scrolledAway &&
@@ -97,19 +90,13 @@ export function TabBar<Tab extends TabBarTab>({
                     const current = tab.id === active
                     if (minimized && !current) return null
                     return renderLink(tab, {
-                        "aria-current": current
-                            ? "page"
-                            : undefined,
+                        "aria-current": current ? "page" : undefined,
                         // Switching tabs is silent, as on Apple and Android: no haptic.
                         onClick: () => {},
                         className: cn(
                             "relative isolate flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 rounded-full font-semibold text-[10px] tracking-[0.01em] no-underline transition-[color,transform] duration-fast active:scale-[0.94]",
-                            minimized
-                                ? "w-11"
-                                : "flex-1 px-1",
-                            current
-                                ? "text-accent-text"
-                                : "text-label-secondary"
+                            minimized ? "w-11" : "flex-1 px-1",
+                            current ? "text-accent-text" : "text-label-secondary"
                         ),
                         children: (
                             <>
@@ -117,16 +104,12 @@ export function TabBar<Tab extends TabBarTab>({
                                     <motion.span
                                         layoutId={selectionId}
                                         className="glass-lens absolute inset-0 -z-10 rounded-full"
-                                        transition={
-                                            spring.snappy
-                                        }
+                                        transition={spring.snappy}
                                     />
                                 )}
                                 {tab.icon}
                                 {!minimized && (
-                                    <span className="max-w-full truncate">
-                                        {tab.label}
-                                    </span>
+                                    <span className="max-w-full truncate">{tab.label}</span>
                                 )}
                             </>
                         ),
@@ -150,8 +133,5 @@ export function TabBar<Tab extends TabBarTab>({
 }
 
 function onAndroid() {
-    return (
-        typeof document !== "undefined" &&
-        document.documentElement.dataset.os === "android"
-    )
+    return typeof document !== "undefined" && document.documentElement.dataset.os === "android"
 }

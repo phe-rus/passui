@@ -35,13 +35,7 @@ type FloatProps = {
 const letters = ["p", "a", "s", "s", "u", "ı"] as const
 
 /** Slides in once, then drifts gently, like it is floating. */
-function Float({
-    className,
-    from,
-    delay,
-    bob,
-    children,
-}: FloatProps) {
+function Float({ className, from, delay, bob, children }: FloatProps) {
     return (
         <motion.div
             className={cn("absolute", className)}
@@ -131,9 +125,7 @@ export function Hero({ cycle }: HeroProps) {
                 >
                     Native controls for the web,
                     <br />
-                    <strong className="font-bold">
-                        tuned to feel at home everywhere
-                    </strong>
+                    <strong className="font-bold">tuned to feel at home everywhere</strong>
                 </motion.p>
                 <motion.div
                     initial={{ opacity: 0, y: 24 }}
@@ -166,8 +158,7 @@ export function Hero({ cycle }: HeroProps) {
                         </Link>
                     </div>
                     <p className="text-footnote text-label-secondary">
-                        Early preview · Built with React and
-                        Tailwind CSS
+                        Early preview · Built with React and Tailwind CSS
                     </p>
                 </motion.div>
             </div>
@@ -220,9 +211,7 @@ export function Hero({ cycle }: HeroProps) {
 
             {/* the theme indicator, like a carousel */}
             <fieldset className="absolute inset-x-0 bottom-24 z-10 flex items-center justify-center gap-2">
-                <legend className="sr-only">
-                    Accent color
-                </legend>
+                <legend className="sr-only">Accent color</legend>
                 {accentOrder.map((id) => {
                     const current = id === cycle.accent
                     return (
@@ -237,8 +226,7 @@ export function Hero({ cycle }: HeroProps) {
                                 current ? "w-8" : "w-2.5"
                             )}
                             style={{
-                                backgroundColor:
-                                    accents[id].light.accent,
+                                backgroundColor: accents[id].light.accent,
                             }}
                         />
                     )

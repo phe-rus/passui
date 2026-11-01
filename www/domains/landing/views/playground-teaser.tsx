@@ -1,25 +1,13 @@
-import {
-    Button,
-    LabeledContent,
-    SegmentedControl,
-    Toggle,
-} from "@passui/react"
+import { Button, LabeledContent, SegmentedControl, Toggle } from "@passui/react"
 import type { ButtonVariant } from "@passui/react/button"
 import { useState } from "react"
 
-type TeaserVariant = Extract<
-    ButtonVariant,
-    "default" | "secondary" | "outline" | "accent"
->
+type TeaserVariant = Extract<ButtonVariant, "default" | "secondary" | "outline" | "accent">
 
 export function PlaygroundTeaser() {
-    const [variant, setVariant] =
-        useState<TeaserVariant>("accent")
+    const [variant, setVariant] = useState<TeaserVariant>("accent")
     const [pending, setPending] = useState(false)
-    const props = [
-        variant !== "default" && `variant="${variant}"`,
-        pending && "isPending",
-    ]
+    const props = [variant !== "default" && `variant="${variant}"`, pending && "isPending"]
         .filter(Boolean)
         .join(" ")
     const code = `<Button${props ? ` ${props}` : ""}>Continue</Button>`
@@ -38,10 +26,8 @@ export function PlaygroundTeaser() {
                     Try it right here
                 </h2>
                 <p className="max-w-md text-body text-label-secondary">
-                    Every component has a playground: flip its
-                    options, switch theme, accent and
-                    platform, and copy code that matches what
-                    you see.
+                    Every component has a playground: flip its options, switch theme, accent and
+                    platform, and copy code that matches what you see.
                 </p>
                 <div className="flex max-w-md flex-col gap-4">
                     <SegmentedControl
@@ -82,10 +68,7 @@ export function PlaygroundTeaser() {
             </div>
             <div className="overflow-hidden rounded-5xl bg-elevated ring-1 ring-separator/60">
                 <div className="flex min-h-56 items-center justify-center bg-accent-soft/50 p-10 transition-colors duration-700">
-                    <Button
-                        variant={variant}
-                        isPending={pending}
-                    >
+                    <Button variant={variant} isPending={pending}>
                         Continue
                     </Button>
                 </div>

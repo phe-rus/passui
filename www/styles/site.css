@@ -34,4 +34,4 @@
         color: var(--shiki-dark);
     }
 }
-@source "../../packages/solid/src";
+@source "../domains/catalog/definitions";

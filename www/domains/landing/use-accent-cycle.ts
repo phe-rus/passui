@@ -7,21 +7,16 @@ const order = Object.keys(accents) as AccentId[]
 function applyAccent(accent: AccentId) {
     const root = document.documentElement
     // Blush is the root default, so it needs no attribute.
-    if (accent === "blush")
-        root.removeAttribute("data-accent")
+    if (accent === "blush") root.removeAttribute("data-accent")
     else root.setAttribute("data-accent", accent)
 }
 
 function prefersReducedMotion() {
-    return window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches
 }
 
 /** Walks the page through every accent, like a slow color carousel. */
-export function useAccentCycle(
-    intervalMs = 3800
-): AccentCycle {
+export function useAccentCycle(intervalMs = 3800): AccentCycle {
     const [accent, setAccent] = useState<AccentId>("blush")
     const [pinned, setPinned] = useState(false)
     const [held, setHeld] = useState(false)
@@ -36,13 +31,7 @@ export function useAccentCycle(
     useEffect(() => {
         if (pinned || held || prefersReducedMotion()) return
         const timer = window.setInterval(() => {
-            setAccent(
-                (current) =>
-                    order[
-                        (order.indexOf(current) + 1) %
-                            order.length
-                    ]
-            )
+            setAccent((current) => order[(order.indexOf(current) + 1) % order.length])
         }, intervalMs)
         return () => window.clearInterval(timer)
     }, [pinned, held, intervalMs])

@@ -2,12 +2,7 @@ import { type ButtonHTMLAttributes, forwardRef } from "react"
 import { cn } from "../../lib/class-names"
 import { PendingSpinner } from "./pending-spinner"
 import { usePendingIndicator } from "./use-pending-indicator"
-import {
-    buttonSizes,
-    buttonVariants,
-    type ButtonSize,
-    type ButtonVariant,
-} from "./button-styles"
+import { buttonSizes, buttonVariants, type ButtonSize, type ButtonVariant } from "./button-styles"
 
 export type { ButtonSize, ButtonVariant }
 
@@ -15,8 +10,7 @@ export type { ButtonSize, ButtonVariant }
  * Each variant has a little depth: a fine highlight along the top edge and
  * a soft, layered shadow, like a well-made physical key.
  */
-export interface ButtonProps
-    extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     /**
      * Visual emphasis: `default` (solid), `accent` (main action),
      * `secondary` (quiet fill), `outline`, `ghost`, `link`, or `destructive`.
@@ -54,10 +48,7 @@ export function buttonStyle({
 }
 
 /** A native button with Passui styling, pending feedback, and an HTMLButtonElement ref. */
-export const Button = forwardRef<
-    HTMLButtonElement,
-    ButtonProps
->(function Button(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
         variant = "default",
         size = "default",
@@ -70,8 +61,7 @@ export const Button = forwardRef<
     },
     ref
 ) {
-    const showPendingIndicator =
-        usePendingIndicator(isPending)
+    const showPendingIndicator = usePendingIndicator(isPending)
 
     return (
         <button

@@ -2,11 +2,7 @@
  * App-wide toasts: short messages that confirm, report progress or explain
  * a failure. Call `toast` from anywhere; render one `<Toaster />`.
  */
-export type ToastTone =
-    | "neutral"
-    | "success"
-    | "error"
-    | "loading"
+export type ToastTone = "neutral" | "success" | "error" | "loading"
 
 export interface ToastAction {
     label: string
@@ -41,11 +37,7 @@ const emit = () => {
     for (const listener of listeners) listener()
 }
 
-function show(
-    tone: ToastTone,
-    title: string,
-    options: ToastOptions = {}
-): number {
+function show(tone: ToastTone, title: string, options: ToastOptions = {}): number {
     const id = nextId++
     const duration =
         options.duration !== undefined
@@ -70,14 +62,8 @@ function show(
 }
 
 /** Changes a toast in place; it morphs to its new state. */
-function update(
-    id: number,
-    tone: ToastTone,
-    title: string,
-    options: ToastOptions = {}
-) {
-    if (!toasts.some((t) => t.id === id))
-        return show(tone, title, options)
+function update(id: number, tone: ToastTone, title: string, options: ToastOptions = {}) {
+    if (!toasts.some((t) => t.id === id)) return show(tone, title, options)
     toasts = toasts.map((t) =>
         t.id === id
             ? {
@@ -112,22 +98,15 @@ interface PromiseMessages<T> {
 }
 
 export const toast = Object.assign(
-    (title: string, options?: ToastOptions) =>
-        show("neutral", title, options),
+    (title: string, options?: ToastOptions) => show("neutral", title, options),
     {
-        success: (title: string, options?: ToastOptions) =>
-            show("success", title, options),
-        error: (title: string, options?: ToastOptions) =>
-            show("error", title, options),
-        loading: (title: string, options?: ToastOptions) =>
-            show("loading", title, options),
+        success: (title: string, options?: ToastOptions) => show("success", title, options),
+        error: (title: string, options?: ToastOptions) => show("error", title, options),
+        loading: (title: string, options?: ToastOptions) => show("loading", title, options),
         update,
         dismiss,
         /** Shows progress, then morphs into the outcome. Returns the promise. */
-        promise<T>(
-            promise: Promise<T>,
-            messages: PromiseMessages<T>
-        ): Promise<T> {
+        promise<T>(promise: Promise<T>, messages: PromiseMessages<T>): Promise<T> {
             const id = show("loading", messages.loading)
             promise.then(
                 (value) =>

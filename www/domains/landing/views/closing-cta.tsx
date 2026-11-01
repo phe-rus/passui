@@ -13,8 +13,7 @@ export function ClosingCta() {
                     can do
                 </h2>
                 <p className="max-w-md text-body text-label-secondary">
-                    Browse the components, try every option
-                    live, and tune the look to your brand.
+                    Browse the components, try every option live, and tune the look to your brand.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                     <Link

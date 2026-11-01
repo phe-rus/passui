@@ -1,18 +1,13 @@
-import type { statTileDocs } from "@passui/react/docs"
+import type { statTileDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const statTileContent: ComponentContent<
-    typeof statTileDocs
-> = {
-    summary:
-        "A number with a label and a quiet caption, for dashboards and summaries.",
+export const statTileContent: ComponentContent<typeof statTileDocs> = {
+    summary: "A number with a label and a quiet caption, for dashboards and summaries.",
     usage: "Use tiles in a grid to show the numbers people check most. Give them onClick to act as filters.",
     propDescriptions: {
         label: "What the number counts.",
-        caption:
-            "A quiet line under the number, like 3 signed in now.",
-        critical:
-            "Turns the number red once it is above zero, for things that need attention.",
+        caption: "A quiet line under the number, like 3 signed in now.",
+        critical: "Turns the number red once it is above zero, for things that need attention.",
         active: "Marks the tile as the chosen filter.",
     },
     examples: {
@@ -23,8 +18,7 @@ export const statTileContent: ComponentContent<
         },
         filters: {
             title: "Tiles as filters",
-            description:
-                "With onClick, a tile becomes a toggle: active marks the filter in use.",
+            description: "With onClick, a tile becomes a toggle: active marks the filter in use.",
         },
     },
     anatomy: [

@@ -28,8 +28,7 @@ export function Changelog() {
                         key={entry.title}
                         className={cn(
                             "flex flex-col gap-4",
-                            index === 0 &&
-                                "md:col-span-2 md:row-span-2"
+                            index === 0 && "md:col-span-2 md:row-span-2"
                         )}
                     >
                         <div
@@ -43,37 +42,27 @@ export function Changelog() {
                             <span
                                 className={cn(
                                     "font-mono font-bold tracking-tight text-accent-text transition-colors duration-700",
-                                    index === 0
-                                        ? "text-[clamp(2.5rem,7vw,5rem)]"
-                                        : "text-title"
+                                    index === 0 ? "text-[clamp(2.5rem,7vw,5rem)]" : "text-title"
                                 )}
                             >
-                                {entry.date
-                                    .slice(5)
-                                    .replace("-", ".")}
+                                {entry.date.slice(5).replace("-", ".")}
                             </span>
                         </div>
                         <div className="flex flex-col gap-1">
                             <h3
                                 className={cn(
                                     "font-semibold tracking-tight text-label",
-                                    index === 0
-                                        ? "text-title3"
-                                        : "text-headline"
+                                    index === 0 ? "text-title3" : "text-headline"
                                 )}
                             >
                                 {entry.title}
                             </h3>
-                            <p className="text-callout text-label-secondary">
-                                {entry.summary}
-                            </p>
+                            <p className="text-callout text-label-secondary">{entry.summary}</p>
                             <time
                                 dateTime={entry.date}
                                 className="text-footnote text-label-tertiary"
                             >
-                                {dateFormat.format(
-                                    new Date(entry.date)
-                                )}
+                                {dateFormat.format(new Date(entry.date))}
                             </time>
                         </div>
                     </article>

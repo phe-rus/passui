@@ -39,8 +39,7 @@ Check light and dark themes, platform adaptation, overlays, keyboard focus,
 forms, toasts and SSR hydration in the actual app before deployment.
 Source exports still require a TS/TSX-capable bundler.
 
-SolidJS currently has only a foundation package. It is not a replacement
-for the React controls, and the CLI does not provide SolidJS templates.
+Passui currently targets React. SolidJS integration is outside the supported package set.
 
 The canonical documentation origin becomes `https://passui.pherus.org`.
 The AI skill endpoint becomes `/skills/passui/SKILL.md`. Keep the old

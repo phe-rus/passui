@@ -19,39 +19,21 @@ export function useDismiss(
         const onPointerDown = (event: PointerEvent) => {
             const target = event.target as Element
             const surface = ref.current
-            if (
-                surface &&
-                (surface.contains(target) ||
-                    ownsFloatingLayer(surface, target))
-            )
-                return
+            if (surface && (surface.contains(target) || ownsFloatingLayer(surface, target))) return
             onDismiss()
         }
         const onKeyDown = (event: KeyboardEvent) => {
             if (event.defaultPrevented) return
-            if (
-                ref.current &&
-                ownsFloatingLayer(
-                    ref.current,
-                    document.activeElement
-                )
-            )
-                return
+            if (ref.current && ownsFloatingLayer(ref.current, document.activeElement)) return
             if (event.key === "Escape") {
                 event.preventDefault()
                 onDismiss()
             }
         }
-        document.addEventListener(
-            "pointerdown",
-            onPointerDown
-        )
+        document.addEventListener("pointerdown", onPointerDown)
         window.addEventListener("keydown", onKeyDown)
         return () => {
-            document.removeEventListener(
-                "pointerdown",
-                onPointerDown
-            )
+            document.removeEventListener("pointerdown", onPointerDown)
             window.removeEventListener("keydown", onKeyDown)
         }
     }, [ref, active, onDismiss])

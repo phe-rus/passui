@@ -1,7 +1,3 @@
-import {
-    solidSetupFiles,
-    solidStarterFiles,
-} from "./solid-templates"
 export const versions = {
     passui: "^0.1.15",
     integration: "^0.2.1",
@@ -34,10 +30,8 @@ export function PassuiProvider({ children }: PropsWithChildren) {
 export function setupFiles(
     framework: string,
     integration: boolean,
-    frameworkType: "react" | "solid" = "react"
+    frameworkType: "react" = "react"
 ) {
-    if (frameworkType === "solid")
-        return solidSetupFiles(integration)
     const pipeline =
         framework === "next"
             ? 'Add @tailwindcss/postcss to your PostCSS plugins. Add "@passui/react" to transpilePackages in next.config, and "@passui/tanstack" if using the integration.'
@@ -54,15 +48,10 @@ export function setupFiles(
 export function starterFiles(
     name: string,
     template: "vite" | "tanstack",
-    frameworkType: "react" | "solid" = "react"
+    frameworkType: "react" = "react"
 ) {
-    if (frameworkType === "solid")
-        return solidStarterFiles(name, template)
     const tanstack = template === "tanstack"
-    const files: Record<string, string> = setupFiles(
-        template,
-        tanstack
-    )
+    const files: Record<string, string> = setupFiles(template, tanstack)
     files["package.json"] = `${JSON.stringify(
         {
             name,
@@ -81,21 +70,15 @@ export function starterFiles(
                 tailwindcss: versions.tailwind,
                 ...(tanstack
                     ? {
-                          "@passui/tanstack":
-                              versions.integration,
-                          "@tanstack/react-start":
-                              "^1.168.58",
-                          "@tanstack/react-router":
-                              "^1.170.39",
+                          "@passui/tanstack": versions.integration,
+                          "@tanstack/react-start": "^1.168.58",
+                          "@tanstack/react-router": "^1.170.39",
                           "@tanstack/react-query": "^5.104.0",
                           "@tanstack/react-form": "^1.33.5",
                           "@tanstack/react-table": "^9.2.4",
-                          "@tanstack/react-devtools":
-                              "^0.10.13",
-                          "@tanstack/react-query-devtools":
-                              "^5.104.0",
-                          "@tanstack/react-router-devtools":
-                              "^1.167.2",
+                          "@tanstack/react-devtools": "^0.10.13",
+                          "@tanstack/react-query-devtools": "^5.104.0",
+                          "@tanstack/react-router-devtools": "^1.167.2",
                           "@hugeicons/react": "^1.1.10",
                           motion: "^13.4.4",
                       }
@@ -135,15 +118,13 @@ export function starterFiles(
     )}\n`
     files[".gitignore"] =
         "node_modules/\ndist/\n.output/\n.tanstack/\n.env*\n!.env.example\nsrc/routeTree.gen.ts\n"
-    files["vite.config.ts"] =
-        `import { defineConfig } from "vite"
+    files["vite.config.ts"] = `import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 ${tanstack ? 'import { tanstackStart } from "@tanstack/react-start/plugin/vite"\n' : ""}
 export default defineConfig({ plugins: [tailwindcss(), ${tanstack ? "tanstackStart(), " : ""}react()] })
 `
-    files["src/app.tsx"] =
-        `import { Button } from "@passui/react/button"
+    files["src/app.tsx"] = `import { Button } from "@passui/react/button"
 import { toast } from "@passui/react/toast"
 
 export function App() {
@@ -156,8 +137,7 @@ export function App() {
 }
 `
     if (tanstack) {
-        files["src/router.tsx"] =
-            `import { createRouter } from "@tanstack/react-router"
+        files["src/router.tsx"] = `import { createRouter } from "@tanstack/react-router"
 import { routeTree } from "./routeTree.gen"
 
 export function getRouter() {
@@ -191,8 +171,7 @@ function RouteComponent() {
     )
 }
 `
-        files["src/routes/index.tsx"] =
-            `import { createFileRoute } from "@tanstack/react-router"
+        files["src/routes/index.tsx"] = `import { createFileRoute } from "@tanstack/react-router"
 import { App } from "../app"
 
 export const Route = createFileRoute("/")({ component: RouteComponent })
@@ -202,8 +181,7 @@ function RouteComponent() { return <App /> }
     } else {
         files["index.html"] =
             '<!doctype html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Passui</title></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>\n'
-        files["src/main.tsx"] =
-            `import { StrictMode } from "react"
+        files["src/main.tsx"] = `import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { PassuiProvider } from "../passui/providers"
 import "../passui/styles.css"

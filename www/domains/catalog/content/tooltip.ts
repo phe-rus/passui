@@ -1,15 +1,12 @@
-import type { tooltipDocs } from "@passui/react/docs"
+import type { tooltipDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const tooltipContent: ComponentContent<
-    typeof tooltipDocs
-> = {
+export const tooltipContent: ComponentContent<typeof tooltipDocs> = {
     summary:
         "A small label that appears on hover for any element with data-tooltip, shown by one host for the whole app.",
     usage: "Render one TooltipHost near the root of the app. Add data-tooltip to any element. IconButton adds its label as a tooltip by itself.",
     propDescriptions: {
-        tooltip:
-            "The data-tooltip attribute: the words shown on hover.",
+        tooltip: "The data-tooltip attribute: the words shown on hover.",
     },
     examples: {
         "icon-buttons": {
@@ -19,21 +16,18 @@ export const tooltipContent: ComponentContent<
         },
         shortcuts: {
             title: "Keyboard shortcuts",
-            description:
-                "Tips that also teach the shortcut, on a formatting toolbar.",
+            description: "Tips that also teach the shortcut, on a formatting toolbar.",
         },
     },
     anatomy: [
         {
             element: "TooltipHost",
-            description:
-                "One listener for the whole app that draws the tip.",
+            description: "One listener for the whole app that draws the tip.",
             required: true,
         },
         {
             element: "data-tooltip",
-            description:
-                "The attribute on the element that needs a tip.",
+            description: "The attribute on the element that needs a tip.",
             required: true,
         },
     ],

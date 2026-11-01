@@ -1,12 +1,10 @@
 import { describe, expect, test } from "vitest"
-import type { RegisteredDocs } from "@passui/react/docs"
+import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { resolveProps } from "@/domains/catalog/resolve-props"
 import { getSnippet } from "@/domains/playground/get-snippet"
 
 // A small stand-in for a component's docs, so each rule is tested alone.
-function docsWith(
-    overrides: Partial<RegisteredDocs> = {}
-): RegisteredDocs {
+function docsWith(overrides: Partial<RegisteredDocs> = {}): RegisteredDocs {
     return {
         slug: "widget",
         name: "Widget",
@@ -33,20 +31,14 @@ function docsWith(
     }
 }
 
-const snippet = (
-    docs: RegisteredDocs,
-    raw: Record<string, unknown> = {}
-) => getSnippet(docs, resolveProps(docs, raw))
+const snippet = (docs: RegisteredDocs, raw: Record<string, unknown> = {}) =>
+    getSnippet(docs, resolveProps(docs, raw))
 
 describe("getSnippet", () => {
     test("wraps the element in an exported component", () => {
         const code = snippet(docsWith())
-        expect(code).toContain(
-            'import { Widget } from "@passui/react/widget"'
-        )
-        expect(code).toContain(
-            "export function WidgetExample() {"
-        )
+        expect(code).toContain('import { Widget } from "@passui/react/widget"')
+        expect(code).toContain("export function WidgetExample() {")
         expect(code).toContain("return (<Widget")
     })
 
@@ -62,29 +54,19 @@ describe("getSnippet", () => {
     })
 
     test("writes changed selects, true flags and false flags", () => {
-        expect(
-            snippet(docsWith(), { tone: "loud" })
-        ).toContain('tone="loud"')
-        expect(
-            snippet(docsWith(), { disabled: true })
-        ).toMatch(/<Widget[^>]* disabled/)
+        expect(snippet(docsWith(), { tone: "loud" })).toContain('tone="loud"')
+        expect(snippet(docsWith(), { disabled: true })).toMatch(/<Widget[^>]* disabled/)
         const flagOn = docsWith({
             controls: {
                 open: { kind: "boolean", default: true },
             },
         })
-        expect(snippet(flagOn, { open: false })).toContain(
-            "open={false}"
-        )
+        expect(snippet(flagOn, { open: false })).toContain("open={false}")
     })
 
     test("escapes text JSX would misread", () => {
-        expect(
-            snippet(docsWith(), { label: 'Say "hi"' })
-        ).toContain('label={"Say \\"hi\\""}')
-        expect(
-            snippet(docsWith(), { hint: "{x}" })
-        ).toContain('hint={"{x}"}')
+        expect(snippet(docsWith(), { label: 'Say "hi"' })).toContain('label={"Say \\"hi\\""}')
+        expect(snippet(docsWith(), { hint: "{x}" })).toContain('hint={"{x}"}')
     })
 
     test("falls back to defaults for unknown values", () => {
@@ -113,12 +95,8 @@ describe("getSnippet", () => {
             }),
         })
         const code = snippet(docs, { tone: "loud" })
-        expect(code).toContain(
-            'import { Widget, WidgetPart } from "@passui/react/widget"'
-        )
-        expect(code).toContain(
-            "const [on, setOn] = useState(true)"
-        )
+        expect(code).toContain('import { Widget, WidgetPart } from "@passui/react/widget"')
+        expect(code).toContain("const [on, setOn] = useState(true)")
         expect(code).not.toContain("tone=")
         expect(code).toContain('aria-label="Close"')
         expect(code).toContain("onChange={setOn}")
@@ -130,8 +108,6 @@ describe("getSnippet", () => {
 
     test("capitalizes the component name for function exports", () => {
         const docs = docsWith({ name: "toast" })
-        expect(snippet(docs)).toContain(
-            "export function ToastExample() {"
-        )
+        expect(snippet(docs)).toContain("export function ToastExample() {")
     })
 })

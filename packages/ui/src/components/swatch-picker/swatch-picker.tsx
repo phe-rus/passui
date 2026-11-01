@@ -87,9 +87,7 @@ export function SwatchPicker<T extends string>({
                         <span
                             className={cn(
                                 "text-caption2",
-                                selected
-                                    ? "font-semibold text-label"
-                                    : "text-label-tertiary"
+                                selected ? "font-semibold text-label" : "text-label-tertiary"
                             )}
                         >
                             {option.label}

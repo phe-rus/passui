@@ -1,8 +1,4 @@
-import {
-    AnimatePresence,
-    motion,
-    useReducedMotion,
-} from "motion/react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import {
     type KeyboardEvent,
     useEffect,
@@ -14,11 +10,7 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
-import {
-    CalendarIcon,
-    ChevronLeftIcon,
-    ChevronRightIcon,
-} from "../../icons/icons"
+import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
@@ -58,8 +50,7 @@ export interface CompactDatePickerProps {
 
 const WIDTH = 308
 
-const toDate = ({ year, month, day }: CalendarDay) =>
-    new Date(Date.UTC(year, month - 1, day))
+const toDate = ({ year, month, day }: CalendarDay) => new Date(Date.UTC(year, month - 1, day))
 
 function todayDay(): CalendarDay {
     const now = new Date()
@@ -107,9 +98,7 @@ export function CompactDatePicker({
             <button
                 ref={trigger}
                 type="button"
-                aria-label={
-                    chosen ? `${label}, ${shown}` : label
-                }
+                aria-label={chosen ? `${label}, ${shown}` : label}
                 aria-haspopup="dialog"
                 aria-expanded={open}
                 aria-controls={open ? calendarId : undefined}
@@ -127,10 +116,7 @@ export function CompactDatePicker({
                 >
                     {shown}
                 </span>
-                <CalendarIcon
-                    size={16}
-                    className="shrink-0 text-label-tertiary"
-                />
+                <CalendarIcon size={16} className="shrink-0 text-label-tertiary" />
             </button>
             {typeof document !== "undefined" &&
                 createPortal(
@@ -187,18 +173,9 @@ function MonthCalendar({
     const reducedMotion = useReducedMotion()
     const placement = useAnchoredPlacement(anchor, WIDTH, 360)
     const today = todayDay()
-    const [focused, setFocused] = useState<CalendarDay>(
-        () => parseDay(value) ?? today
-    )
-    const firstDay = useMemo(
-        () => firstWeekday(locale),
-        [locale]
-    )
-    const days = monthGrid(
-        focused.year,
-        focused.month,
-        firstDay
-    )
+    const [focused, setFocused] = useState<CalendarDay>(() => parseDay(value) ?? today)
+    const firstDay = useMemo(() => firstWeekday(locale), [locale])
+    const days = monthGrid(focused.year, focused.month, firstDay)
     const title = new Intl.DateTimeFormat(locale, {
         month: "long",
         year: "numeric",
@@ -223,58 +200,30 @@ function MonthCalendar({
     // The focused day takes keyboard focus as it moves.
     useEffect(() => {
         root.current
-            ?.querySelector<HTMLButtonElement>(
-                `[data-day="${formatDay(focused)}"]`
-            )
+            ?.querySelector<HTMLButtonElement>(`[data-day="${formatDay(focused)}"]`)
             ?.focus()
     }, [focused])
 
     useEffect(() => {
         const onPointer = (event: PointerEvent) => {
             const target = event.target as Node
-            if (
-                !root.current?.contains(target) &&
-                !anchor.contains(target)
-            )
-                onClose()
+            if (!root.current?.contains(target) && !anchor.contains(target)) onClose()
         }
         document.addEventListener("pointerdown", onPointer)
-        return () =>
-            document.removeEventListener(
-                "pointerdown",
-                onPointer
-            )
+        return () => document.removeEventListener("pointerdown", onPointer)
     }, [anchor, onClose])
 
     const move = (next: CalendarDay) => setFocused(next)
 
-    const onKeyDown = (
-        event: KeyboardEvent<HTMLDivElement>
-    ) => {
-        const rtl =
-            getComputedStyle(event.currentTarget)
-                .direction === "rtl"
-                ? -1
-                : 1
+    const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+        const rtl = getComputedStyle(event.currentTarget).direction === "rtl" ? -1 : 1
         const keys: Record<string, () => void> = {
             ArrowLeft: () => move(addDays(focused, -rtl)),
             ArrowRight: () => move(addDays(focused, rtl)),
             ArrowUp: () => move(addDays(focused, -7)),
             ArrowDown: () => move(addDays(focused, 7)),
-            PageUp: () =>
-                move(
-                    addMonths(
-                        focused,
-                        event.shiftKey ? -12 : -1
-                    )
-                ),
-            PageDown: () =>
-                move(
-                    addMonths(
-                        focused,
-                        event.shiftKey ? 12 : 1
-                    )
-                ),
+            PageUp: () => move(addMonths(focused, event.shiftKey ? -12 : -1)),
+            PageDown: () => move(addMonths(focused, event.shiftKey ? 12 : 1)),
             Escape: onClose,
         }
         const action = keys[event.key]
@@ -312,9 +261,7 @@ function MonthCalendar({
             transition={
                 reducedMotion
                     ? { duration: 0 }
-                    : floatingPanelMotion(
-                          placement.above ? "above" : "below"
-                      ).transition
+                    : floatingPanelMotion(placement.above ? "above" : "below").transition
             }
             style={{
                 left: placement.left,
@@ -322,22 +269,15 @@ function MonthCalendar({
                 top: placement.top,
                 bottom: placement.bottom,
                 maxHeight: placement.maxHeight,
-                overflowY: placement.maxHeight
-                    ? "auto"
-                    : undefined,
-                transformOrigin: placement.above
-                    ? "50% 100%"
-                    : "50% 0%",
+                overflowY: placement.maxHeight ? "auto" : undefined,
+                transformOrigin: placement.above ? "50% 100%" : "50% 0%",
             }}
             className="glass-menu fixed z-[80] flex flex-col gap-2 rounded-3xl p-3"
             {...{ [FLOATING_LAYER]: "" }}
             onKeyDown={onKeyDown}
         >
             <div className="flex items-center justify-between gap-2 ps-2">
-                <p
-                    className="text-headline font-semibold"
-                    aria-live="polite"
-                >
+                <p className="text-headline font-semibold" aria-live="polite">
                     {title}
                 </p>
                 <div className="flex items-center rtl:flex-row-reverse">
@@ -345,9 +285,7 @@ function MonthCalendar({
                         variant="ghost"
                         size="icon-sm"
                         label={labels.previousMonth}
-                        onClick={() =>
-                            move(addMonths(focused, -1))
-                        }
+                        onClick={() => move(addMonths(focused, -1))}
                         className="text-accent-text"
                     >
                         <ChevronLeftIcon size={20} />
@@ -356,20 +294,14 @@ function MonthCalendar({
                         variant="ghost"
                         size="icon-sm"
                         label={labels.nextMonth}
-                        onClick={() =>
-                            move(addMonths(focused, 1))
-                        }
+                        onClick={() => move(addMonths(focused, 1))}
                         className="text-accent-text"
                     >
                         <ChevronRightIcon size={20} />
                     </IconButton>
                 </div>
             </div>
-            <div
-                role="grid"
-                aria-label={title}
-                className="grid grid-cols-7 gap-y-0.5"
-            >
+            <div role="grid" aria-label={title} className="grid grid-cols-7 gap-y-0.5">
                 <div role="row" className="contents">
                     {weekdays.map((weekday, index) => (
                         <span
@@ -385,13 +317,8 @@ function MonthCalendar({
                     const key = formatDay(day)
                     const selected = key === value
                     const isToday = key === formatDay(today)
-                    const isFocused =
-                        key === formatDay(focused)
-                    const allowed = withinBounds(
-                        key,
-                        min,
-                        max
-                    )
+                    const isFocused = key === formatDay(focused)
+                    const allowed = withinBounds(key, min, max)
                     return (
                         <button
                             key={key}
@@ -401,12 +328,8 @@ function MonthCalendar({
                             tabIndex={isFocused ? 0 : -1}
                             disabled={!allowed}
                             aria-selected={selected}
-                            aria-current={
-                                isToday ? "date" : undefined
-                            }
-                            aria-label={fullDate.format(
-                                toDate(day)
-                            )}
+                            aria-current={isToday ? "date" : undefined}
+                            aria-label={fullDate.format(toDate(day))}
                             onClick={() => onChoose(key)}
                             className={cn(
                                 "mx-auto flex size-10 items-center justify-center rounded-full text-body tabular-nums transition-colors",

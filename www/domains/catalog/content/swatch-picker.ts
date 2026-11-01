@@ -1,11 +1,8 @@
-import type { swatchPickerDocs } from "@passui/react/docs"
+import type { swatchPickerDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const swatchPickerContent: ComponentContent<
-    typeof swatchPickerDocs
-> = {
-    summary:
-        "A row of colour swatches with names, for choosing one colour.",
+export const swatchPickerContent: ComponentContent<typeof swatchPickerDocs> = {
+    summary: "A row of colour swatches with names, for choosing one colour.",
     usage: "Use it for colour choices like an accent, a label or a notebook colour. Each swatch has a name under it.",
     propDescriptions: {
         label: "Names the choice for screen readers.",
@@ -25,14 +22,12 @@ export const swatchPickerContent: ComponentContent<
     anatomy: [
         {
             element: "Swatch",
-            description:
-                "A round colour; the chosen one shows a check in its ink colour.",
+            description: "A round colour; the chosen one shows a check in its ink colour.",
             required: true,
         },
         {
             element: "Name",
-            description:
-                "The colour's name under each swatch.",
+            description: "The colour's name under each swatch.",
             required: true,
         },
     ],

@@ -1,8 +1,4 @@
-import {
-    AnimatePresence,
-    motion,
-    useReducedMotion,
-} from "motion/react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { type ReactNode, useRef } from "react"
 import { useVisualViewport } from "../../hooks/use-visual-viewport"
 import { cn } from "../../lib/class-names"
@@ -39,13 +35,7 @@ export function Sheet({ open, ...props }: SheetProps) {
     )
 }
 
-function OpenSheet({
-    onClose,
-    label,
-    labelledBy,
-    className,
-    children,
-}: Omit<SheetProps, "open">) {
+function OpenSheet({ onClose, label, labelledBy, className, children }: Omit<SheetProps, "open">) {
     const panel = useRef<HTMLDivElement>(null)
     const reducedMotion = useReducedMotion()
     const viewport = useVisualViewport()
@@ -91,22 +81,10 @@ function OpenSheet({
                     "rounded-t-sheet sm:rounded-sheet",
                     className
                 )}
-                initial={
-                    reducedMotion
-                        ? { opacity: 0 }
-                        : { y: 40, opacity: 0 }
-                }
+                initial={reducedMotion ? { opacity: 0 } : { y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={
-                    reducedMotion
-                        ? { opacity: 0 }
-                        : { y: 30, opacity: 0 }
-                }
-                transition={
-                    reducedMotion
-                        ? { duration: 0 }
-                        : spring.smooth
-                }
+                exit={reducedMotion ? { opacity: 0 } : { y: 30, opacity: 0 }}
+                transition={reducedMotion ? { duration: 0 } : spring.smooth}
             >
                 {children}
             </motion.div>

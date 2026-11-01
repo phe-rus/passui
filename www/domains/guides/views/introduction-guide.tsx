@@ -1,9 +1,4 @@
-import {
-    ColorsIcon,
-    Layers01Icon,
-    Tap01Icon,
-    TextIcon,
-} from "@hugeicons/core-free-icons"
+import { ColorsIcon, Layers01Icon, Tap01Icon, TextIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Link } from "@tanstack/react-router"
 import { DocSection, type TocItem } from "@/domains/catalog"
@@ -20,7 +15,7 @@ const parts = [
     {
         icon: Tap01Icon,
         title: "Native controls",
-        text: "Buttons, fields, pickers, sheets and menus, implemented natively in React and SolidJS.",
+        text: "Buttons, fields, pickers, sheets and menus, implemented natively in React.",
     },
     {
         icon: ColorsIcon,
@@ -52,11 +47,8 @@ export function IntroductionGuide() {
         <>
             <DocSection id="what" title="What's in Passui">
                 <Prose>
-                    Passui is Pherus's design language, with
-                    native React and SolidJS components that
-                    share the same appearance, motion and
-                    interaction principles. It belongs to no
-                    single application or framework.
+                    Passui is Pherus's design language, with native React components that share the
+                    same appearance, motion and interaction principles across applications.
                 </Prose>
                 <div className="grid gap-3 sm:grid-cols-2">
                     {parts.map((part) => (
@@ -72,9 +64,7 @@ export function IntroductionGuide() {
                             <span className="text-headline font-semibold text-label">
                                 {part.title}
                             </span>
-                            <span className="text-footnote text-label-secondary">
-                                {part.text}
-                            </span>
+                            <span className="text-footnote text-label-secondary">{part.text}</span>
                         </div>
                     ))}
                 </div>
@@ -97,46 +87,26 @@ export function IntroductionGuide() {
                                     <Code>@passui/react</Code>
                                 </td>
                                 <td className="p-4 text-label-secondary">
-                                    Native React controls,
-                                    appearance and hooks.
-                                    Independent of routers and
-                                    form libraries.
+                                    Native React controls, appearance and hooks. Independent of
+                                    routers and form libraries.
                                 </td>
                             </tr>
                             <tr className="border-separator/60 border-b">
                                 <td className="p-4 align-top">
-                                    <Code>@passui/solid</Code>
+                                    <Code>@passui/tokens</Code>
                                 </td>
                                 <td className="p-4 text-label-secondary">
-                                    Native SolidJS controls,
-                                    signals and appearance,
-                                    using the same styles and
-                                    design tokens as React.
-                                </td>
-                            </tr>
-                            <tr className="border-separator/60 border-b">
-                                <td className="p-4 align-top">
-                                    <Code>
-                                        @passui/tokens
-                                    </Code>
-                                </td>
-                                <td className="p-4 text-label-secondary">
-                                    Framework-independent
-                                    colors, typography, layout
-                                    and motion tokens.
+                                    Framework-independent colors, typography, layout and motion
+                                    tokens.
                                 </td>
                             </tr>
                             <tr>
                                 <td className="p-4 align-top">
-                                    <Code>
-                                        @passui/tanstack
-                                    </Code>
+                                    <Code>@passui/tanstack</Code>
                                 </td>
                                 <td className="p-4 text-label-secondary">
-                                    Optional TanStack forms,
-                                    tables, route boundaries
-                                    and document helpers for
-                                    both frameworks.
+                                    Optional TanStack forms, tables, route boundaries and document
+                                    helpers for React applications.
                                 </td>
                             </tr>
                         </tbody>
@@ -147,27 +117,12 @@ export function IntroductionGuide() {
             <DocSection id="next" title="Next steps">
                 <Prose>
                     Start with the{" "}
-                    <Link
-                        to="/docs/$slug"
-                        params={{ slug: "installation" }}
-                    >
-                        React installation guide
-                    </Link>{" "}
-                    or the{" "}
-                    <Link
-                        to="/solid/docs/$slug"
-                        params={{ slug: "installation" }}
-                    >
-                        SolidJS installation guide
+                    <Link to="/docs/$slug" params={{ slug: "installation" }}>
+                        installation guide
                     </Link>
-                    , browse the{" "}
-                    <Link to="/components">components</Link>,
-                    or give your AI agent Passui's rules with
-                    a{" "}
-                    <Link
-                        to="/docs/$slug"
-                        params={{ slug: "skills" }}
-                    >
+                    , browse the <Link to="/components">components</Link>, or give your AI agent
+                    Passui's rules with a{" "}
+                    <Link to="/docs/$slug" params={{ slug: "skills" }}>
                         skill
                     </Link>
                     .

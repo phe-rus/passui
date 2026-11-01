@@ -1,16 +1,9 @@
 import type { ErrorComponentProps } from "@tanstack/react-router"
 import { Button, buttonStyle } from "@passui/react/button"
-import {
-    ErrorComponent,
-    Link,
-    useLocation,
-    useRouter,
-} from "@tanstack/react-router"
+import { ErrorComponent, Link, useLocation, useRouter } from "@tanstack/react-router"
 import { cn } from "@passui/react/cn"
 
-export function DefaultBoundary({
-    error,
-}: ErrorComponentProps) {
+export function DefaultBoundary({ error }: ErrorComponentProps) {
     const router = useRouter()
     const isRoot = useLocation({
         select: (location) => location.pathname === "/",
@@ -26,11 +19,7 @@ export function DefaultBoundary({
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-2">
-                <Button
-                    onClick={() => router.invalidate()}
-                    variant="secondary"
-                    size="sm"
-                >
+                <Button onClick={() => router.invalidate()} variant="secondary" size="sm">
                     Try Again
                 </Button>
 
@@ -47,11 +36,7 @@ export function DefaultBoundary({
                         Go Home
                     </Link>
                 ) : (
-                    <Button
-                        onClick={() => router.history.back()}
-                        variant="default"
-                        size="sm"
-                    >
+                    <Button onClick={() => router.history.back()} variant="default" size="sm">
                         Go Back
                     </Button>
                 )}

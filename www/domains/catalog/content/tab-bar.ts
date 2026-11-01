@@ -1,9 +1,7 @@
-import type { tabBarDocs } from "@passui/react/docs"
+import type { tabBarDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const tabBarContent: ComponentContent<
-    typeof tabBarDocs
-> = {
+export const tabBarContent: ComponentContent<typeof tabBarDocs> = {
     summary:
         "The app's main places in a floating glass capsule at the bottom of the screen, as iOS 26 draws it, with an optional Search button.",
     usage: "Use it on phones for three to five top-level places. It works with any router: renderLink spreads the bar's props onto your own link.",
@@ -20,27 +18,23 @@ export const tabBarContent: ComponentContent<
         },
         "five-tabs": {
             title: "Five tabs",
-            description:
-                "The most a bar should hold; labels shorten to fit a phone's width.",
+            description: "The most a bar should hold; labels shorten to fit a phone's width.",
         },
     },
     anatomy: [
         {
             element: "Capsule",
-            description:
-                "Glass that holds the tabs and slides the selection between them.",
+            description: "Glass that holds the tabs and slides the selection between them.",
             required: true,
         },
         {
             element: "Tab",
-            description:
-                "Your router's link with an icon and a short label, from renderLink.",
+            description: "Your router's link with an icon and a short label, from renderLink.",
             required: true,
         },
         {
             element: "Search button",
-            description:
-                "A separate round button at the trailing end.",
+            description: "A separate round button at the trailing end.",
         },
     ],
     practices: [

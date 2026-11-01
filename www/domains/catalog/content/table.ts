@@ -1,15 +1,12 @@
-import type { tableDocs } from "@passui/react/docs"
+import type { tableDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const tableContent: ComponentContent<
-    typeof tableDocs
-> = {
+export const tableContent: ComponentContent<typeof tableDocs> = {
     summary:
         "Styled parts for a plain HTML table: header, rows, cells, a footer and a caption, scrolling sideways when it's wider than the screen.",
     usage: "Use it for small sets of rows you write out yourself. For sorting, filtering and pages of server data, use DataTable from @passui/tanstack, which is built on these parts.",
     propDescriptions: {
-        caption:
-            "The children of TableCaption: a short line under the table that names it.",
+        caption: "The children of TableCaption: a short line under the table that names it.",
         footer: "Adds a TableFooter for totals, on a shaded row.",
     },
     examples: {
@@ -37,8 +34,7 @@ export const tableContent: ComponentContent<
     anatomy: [
         {
             element: "Table",
-            description:
-                "The table, inside a container that scrolls sideways.",
+            description: "The table, inside a container that scrolls sideways.",
             required: true,
         },
         {
@@ -48,8 +44,7 @@ export const tableContent: ComponentContent<
         },
         {
             element: "TableBody, TableRow and TableCell",
-            description:
-                "The rows. Each row is shaded on hover.",
+            description: "The rows. Each row is shaded on hover.",
             required: true,
         },
         {
@@ -58,8 +53,7 @@ export const tableContent: ComponentContent<
         },
         {
             element: "TableCaption",
-            description:
-                "Optional name for the table, shown under it.",
+            description: "Optional name for the table, shown under it.",
         },
     ],
     practices: [

@@ -2,16 +2,10 @@ import { cn } from "@passui/react/cn"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-import type {
-    ComponentPropsWithoutRef,
-    PropsWithChildren,
-    ReactNode,
-} from "react"
+import type { ComponentPropsWithoutRef, PropsWithChildren, ReactNode } from "react"
 
 /** Extra props (such as `data-theme`) land on `<html>` itself. */
-type ComposeViewportProps = PropsWithChildren<
-    ComponentPropsWithoutRef<"html">
->
+type ComposeViewportProps = PropsWithChildren<ComponentPropsWithoutRef<"html">>
 
 type WindowProps = ComponentPropsWithoutRef<"body"> & {
     /**
@@ -41,12 +35,7 @@ export function ComposeViewport({
     )
 }
 
-function Window({
-    className,
-    children,
-    after,
-    ...props
-}: WindowProps) {
+function Window({ className, children, after, ...props }: WindowProps) {
     return (
         <body
             className={cn(
@@ -58,12 +47,7 @@ function Window({
             )}
             {...props}
         >
-            <main
-                className={cn(
-                    "flex flex-col flex-1 min-h-svh overflow-auto",
-                    "no-scrollbar"
-                )}
-            >
+            <main className={cn("flex flex-col flex-1 min-h-svh overflow-auto", "no-scrollbar")}>
                 {children}
             </main>
             {after}

@@ -182,10 +182,6 @@
             "types": "./dist/types/src/components/dialog/index.d.ts",
             "default": "./src/components/dialog/index.ts"
         },
-        "./docs": {
-            "types": "./dist/types/src/docs/index.d.ts",
-            "default": "./src/docs/index.ts"
-        },
         "./inline-disclosure": {
             "types": "./dist/types/src/components/inline-disclosure/inline-disclosure.d.ts",
             "default": "./src/components/inline-disclosure/inline-disclosure.tsx"

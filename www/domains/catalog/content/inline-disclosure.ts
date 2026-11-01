@@ -1,40 +1,32 @@
-import type { inlineDisclosureDocs } from "@passui/react/docs"
+import type { inlineDisclosureDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const inlineDisclosureContent: ComponentContent<
-    typeof inlineDisclosureDocs
-> = {
-    summary:
-        "A spring-driven inline reveal for account settings and small details.",
+export const inlineDisclosureContent: ComponentContent<typeof inlineDisclosureDocs> = {
+    summary: "A spring-driven inline reveal for account settings and small details.",
     usage: "Use it when a row expands into editable fields without covering the rest of the page.",
     propDescriptions: {
         open: "Whether the details are expanded.",
-        children:
-            "The details to reveal beneath the trigger.",
+        children: "The details to reveal beneath the trigger.",
     },
     examples: {
         settings: {
             title: "Edit settings",
-            description:
-                "Open and close details beneath a settings row.",
+            description: "Open and close details beneath a settings row.",
         },
         details: {
             title: "Read details",
-            description:
-                "Reveal multiple lines without jumping the layout.",
+            description: "Reveal multiple lines without jumping the layout.",
         },
     },
     anatomy: [
         {
             element: "Trigger",
-            description:
-                "Owned by the app; updates the open state.",
+            description: "Owned by the app; updates the open state.",
             required: true,
         },
         {
             element: "Revealed content",
-            description:
-                "Moves surrounding content with a spring.",
+            description: "Moves surrounding content with a spring.",
             required: true,
         },
     ],

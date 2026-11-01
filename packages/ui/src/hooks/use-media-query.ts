@@ -11,35 +11,24 @@ const BREAKPOINTS = {
 } as const
 
 export type Breakpoint = keyof typeof BREAKPOINTS
-export type BreakpointQuery =
-    | Breakpoint
-    | `max-${Breakpoint}`
-    | `${Breakpoint}:max-${Breakpoint}`
+export type BreakpointQuery = Breakpoint | `max-${Breakpoint}` | `${Breakpoint}:max-${Breakpoint}`
 function resolveMin(value: Breakpoint | number): string {
-    const px =
-        typeof value === "number" ? value : BREAKPOINTS[value]
+    const px = typeof value === "number" ? value : BREAKPOINTS[value]
     return `(min-width: ${px}px)`
 }
 
 function resolveMax(value: Breakpoint | number): string {
-    const px =
-        typeof value === "number" ? value : BREAKPOINTS[value]
+    const px = typeof value === "number" ? value : BREAKPOINTS[value]
     return `(max-width: ${px - 1}px)`
 }
 
-function parseQuery(
-    query: BreakpointQuery | MediaQueryInput | (string & {})
-): string {
+function parseQuery(query: BreakpointQuery | MediaQueryInput | (string & {})): string {
     if (typeof query !== "string") {
         const parts: string[] = []
-        if (query.min != null)
-            parts.push(resolveMin(query.min))
-        if (query.max != null)
-            parts.push(resolveMax(query.max))
-        if (query.pointer === "coarse")
-            parts.push("(pointer: coarse)")
-        if (query.pointer === "fine")
-            parts.push("(pointer: fine)")
+        if (query.min != null) parts.push(resolveMin(query.min))
+        if (query.max != null) parts.push(resolveMax(query.max))
+        if (query.pointer === "coarse") parts.push("(pointer: coarse)")
+        if (query.pointer === "fine") parts.push("(pointer: fine)")
         if (parts.length === 0) return "(min-width: 0px)"
         return parts.join(" and ")
     }
@@ -50,8 +39,7 @@ function parseQuery(
     for (const segment of query.split(":")) {
         if (segment.startsWith("max-")) {
             const bp = segment.slice(4)
-            if (bp in BREAKPOINTS)
-                parts.push(resolveMax(bp as Breakpoint))
+            if (bp in BREAKPOINTS) parts.push(resolveMax(bp as Breakpoint))
         } else if (segment in BREAKPOINTS) {
             parts.push(resolveMin(segment as Breakpoint))
         }
@@ -73,9 +61,7 @@ export type MediaQueryInput = {
 
 export type PointerPrecision = "coarse" | "fine"
 
-export function useMediaQuery(
-    query: BreakpointQuery | MediaQueryInput | (string & {})
-): boolean {
+export function useMediaQuery(query: BreakpointQuery | MediaQueryInput | (string & {})): boolean {
     const mediaQuery = parseQuery(query)
 
     const subscribe = useCallback(
@@ -83,8 +69,7 @@ export function useMediaQuery(
             if (typeof window === "undefined") return () => {}
             const mql = window.matchMedia(mediaQuery)
             mql.addEventListener("change", callback)
-            return () =>
-                mql.removeEventListener("change", callback)
+            return () => mql.removeEventListener("change", callback)
         },
         [mediaQuery]
     )
@@ -94,11 +79,7 @@ export function useMediaQuery(
         return window.matchMedia(mediaQuery).matches
     }, [mediaQuery])
 
-    return useSyncExternalStore(
-        subscribe,
-        getSnapshot,
-        getServerSnapshot
-    )
+    return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }
 
 export function useIsMobile(): boolean {

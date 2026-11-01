@@ -1,16 +1,5 @@
-import {
-    AnimatePresence,
-    motion,
-    useIsPresent,
-    useReducedMotion,
-} from "motion/react"
-import {
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-    useSyncExternalStore,
-} from "react"
+import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "motion/react"
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
 import { CheckIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
@@ -29,16 +18,8 @@ import {
 
 /** Renders the open context menu. Mount once, near the app root. */
 export function ContextMenuHost() {
-    const menu = useSyncExternalStore(
-        subscribeContextMenu,
-        getContextMenu,
-        () => null
-    )
-    return (
-        <AnimatePresence>
-            {menu && <Menu key={menu.id} menu={menu} />}
-        </AnimatePresence>
-    )
+    const menu = useSyncExternalStore(subscribeContextMenu, getContextMenu, () => null)
+    return <AnimatePresence>{menu && <Menu key={menu.id} menu={menu} />}</AnimatePresence>
 }
 
 function Menu({ menu }: { menu: OpenMenu }) {
@@ -67,10 +48,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
             return
         const anchor = menu.toolbar ?? menu.anchor
         const surface = ref.current
-        const restore = concealMenuSource(
-            anchor,
-            Boolean(menu.toolbar)
-        )
+        const restore = concealMenuSource(anchor, Boolean(menu.toolbar))
         return () => {
             const restored = restore()
             if (
@@ -88,9 +66,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
     useLayoutEffect(() => {
         const surface = ref.current
         if (!surface || !present || !position.ready) return
-        const unregister = menu.anchor
-            ? registerFloatingLayer(surface, menu.anchor)
-            : undefined
+        const unregister = menu.anchor ? registerFloatingLayer(surface, menu.anchor) : undefined
         surface.focus()
         return unregister
     }, [menu.anchor, present, position.ready])
@@ -114,23 +90,14 @@ function Menu({ menu }: { menu: OpenMenu }) {
                         width: element.offsetWidth,
                         height: Math.max(
                             element.offsetHeight,
-                            (content.current?.scrollHeight ??
-                                0) + 12
+                            (content.current?.scrollHeight ?? 0) + 12
                         ),
                     },
                     {
                         left: left + edges.left,
                         top: top + edges.top,
-                        right:
-                            left +
-                            (viewport?.width ??
-                                window.innerWidth) -
-                            edges.right,
-                        bottom:
-                            top +
-                            (viewport?.height ??
-                                window.innerHeight) -
-                            edges.bottom,
+                        right: left + (viewport?.width ?? window.innerWidth) - edges.right,
+                        bottom: top + (viewport?.height ?? window.innerHeight) - edges.bottom,
                     }
                 ),
                 ready: true,
@@ -155,8 +122,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
     useEffect(() => {
         if (!present) return
         const onPointer = (event: PointerEvent) => {
-            if (!ref.current?.contains(event.target as Node))
-                closeContextMenu(false)
+            if (!ref.current?.contains(event.target as Node)) closeContextMenu(false)
         }
         const close = () => closeContextMenu(false)
         let scrollIntentUntil = 0
@@ -165,16 +131,8 @@ function Menu({ menu }: { menu: OpenMenu }) {
         }
         const onScrollKey = (event: KeyboardEvent) => {
             if (
-                !ref.current?.contains(
-                    event.target as Node
-                ) &&
-                [
-                    "PageDown",
-                    "PageUp",
-                    "Home",
-                    "End",
-                    " ",
-                ].includes(event.key)
+                !ref.current?.contains(event.target as Node) &&
+                ["PageDown", "PageUp", "Home", "End", " "].includes(event.key)
             )
                 markScroll()
         }
@@ -187,11 +145,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
         }
         // Opened by a long-press: ignore the finger lifting off.
         const timer = setTimeout(() => {
-            window.addEventListener(
-                "pointerdown",
-                onPointer,
-                true
-            )
+            window.addEventListener("pointerdown", onPointer, true)
         }, 0)
         window.addEventListener("blur", close)
         window.addEventListener("wheel", markScroll, {
@@ -206,39 +160,17 @@ function Menu({ menu }: { menu: OpenMenu }) {
         window.addEventListener("scroll", onScroll, true)
         return () => {
             clearTimeout(timer)
-            window.removeEventListener(
-                "pointerdown",
-                onPointer,
-                true
-            )
+            window.removeEventListener("pointerdown", onPointer, true)
             window.removeEventListener("blur", close)
-            window.removeEventListener(
-                "wheel",
-                markScroll,
-                true
-            )
-            window.removeEventListener(
-                "touchmove",
-                markScroll,
-                true
-            )
-            window.removeEventListener(
-                "keydown",
-                onScrollKey,
-                true
-            )
-            window.removeEventListener(
-                "scroll",
-                onScroll,
-                true
-            )
+            window.removeEventListener("wheel", markScroll, true)
+            window.removeEventListener("touchmove", markScroll, true)
+            window.removeEventListener("keydown", onScrollKey, true)
+            window.removeEventListener("scroll", onScroll, true)
         }
     }, [present])
 
     const source = menuSurfaceReveal(
-        position.ready
-            ? (menu.toolbarRect ?? menu.source)
-            : undefined,
+        position.ready ? (menu.toolbarRect ?? menu.source) : undefined,
         position
     )
     let actionIndex = -1
@@ -260,12 +192,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     closeContextMenu()
                     return
                 }
-                const keys = [
-                    "ArrowDown",
-                    "ArrowUp",
-                    "Home",
-                    "End",
-                ]
+                const keys = ["ArrowDown", "ArrowUp", "Home", "End"]
                 if (!keys.includes(event.key)) return
                 event.preventDefault()
                 const controls = Array.from(
@@ -274,9 +201,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     ) ?? []
                 )
                 if (!controls.length) return
-                const current = controls.indexOf(
-                    document.activeElement as HTMLButtonElement
-                )
+                const current = controls.indexOf(document.activeElement as HTMLButtonElement)
                 const next =
                     event.key === "Home"
                         ? 0
@@ -286,10 +211,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                             ? (current + 1) % controls.length
                             : current < 0
                               ? controls.length - 1
-                              : (current -
-                                    1 +
-                                    controls.length) %
-                                controls.length
+                              : (current - 1 + controls.length) % controls.length
                 controls[next]?.focus()
             }}
             {...{ [FLOATING_LAYER]: "" }}
@@ -303,17 +225,9 @@ function Menu({ menu }: { menu: OpenMenu }) {
                 top: position.top,
                 maxHeight: position.maxHeight,
                 minWidth: menu.toolbarRect
-                    ? Math.min(
-                          Math.max(
-                              200,
-                              menu.toolbarRect.width
-                          ),
-                          window.innerWidth - 24
-                      )
+                    ? Math.min(Math.max(200, menu.toolbarRect.width), window.innerWidth - 24)
                     : undefined,
-                visibility: position.ready
-                    ? undefined
-                    : "hidden",
+                visibility: position.ready ? undefined : "hidden",
             }}
             onContextMenu={(event) => event.preventDefault()}
         >
@@ -321,11 +235,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                 aria-hidden="true"
                 className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
                 style={{ width: "100%", height: "100%" }}
-                initial={
-                    reducedMotion || !position.ready
-                        ? false
-                        : source
-                }
+                initial={reducedMotion || !position.ready ? false : source}
                 animate={
                     position.ready
                         ? {
@@ -334,17 +244,12 @@ function Menu({ menu }: { menu: OpenMenu }) {
                               width: position.width,
                               height: position.height,
                               opacity: 1,
-                              borderRadius:
-                                  "var(--radius-3xl)",
+                              borderRadius: "var(--radius-3xl)",
                           }
                         : undefined
                 }
                 exit={reducedMotion ? { opacity: 0 } : source}
-                transition={
-                    reducedMotion
-                        ? { duration: 0 }
-                        : spring.smooth
-                }
+                transition={reducedMotion ? { duration: 0 } : spring.smooth}
             />
             <motion.div
                 ref={content}
@@ -359,12 +264,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                         ? false
                         : {
                               opacity: 0,
-                              y:
-                                  menu.source &&
-                                  menu.source.top >
-                                      position.top
-                                      ? 4
-                                      : -4,
+                              y: menu.source && menu.source.top > position.top ? 4 : -4,
                           }
                 }
                 animate={{ opacity: 1, y: 0 }}
@@ -376,10 +276,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                 }}
                 transition={{
                     duration: reducedMotion ? 0 : 0.16,
-                    delay:
-                        reducedMotion || !menu.source
-                            ? 0
-                            : 0.06,
+                    delay: reducedMotion || !menu.source ? 0 : 0.06,
                 }}
             >
                 {menu.items.map((item, index) => {
@@ -410,30 +307,19 @@ function Menu({ menu }: { menu: OpenMenu }) {
                             role="menuitem"
                             tabIndex={-1}
                             disabled={item.disabled}
-                            onFocus={() =>
-                                setFocused(current)
-                            }
-                            onPointerEnter={() =>
-                                !item.disabled &&
-                                setFocused(current)
-                            }
+                            onFocus={() => setFocused(current)}
+                            onPointerEnter={() => !item.disabled && setFocused(current)}
                             onClick={() => {
                                 closeContextMenu()
                                 item.onSelect()
                             }}
                             className={cn(
                                 "flex items-center gap-2.5 rounded-lg px-2.5 text-start text-subheadline transition-colors disabled:opacity-40",
-                                menu.touch
-                                    ? "py-2.5"
-                                    : "py-1.5",
-                                item.destructive
-                                    ? "text-danger"
-                                    : "text-label",
+                                menu.touch ? "py-2.5" : "py-1.5",
+                                item.destructive ? "text-danger" : "text-label",
                                 focused === current &&
                                     !item.disabled &&
-                                    (item.destructive
-                                        ? "bg-danger/10"
-                                        : "bg-fill")
+                                    (item.destructive ? "bg-danger/10" : "bg-fill")
                             )}
                         >
                             <span className="flex w-4 shrink-0 justify-center text-label-secondary">
@@ -447,9 +333,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                                     item.icon
                                 )}
                             </span>
-                            <span className="grow truncate">
-                                {item.label}
-                            </span>
+                            <span className="grow truncate">{item.label}</span>
                         </button>
                     )
                 })}

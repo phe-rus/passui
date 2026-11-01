@@ -10,7 +10,6 @@ Docs and live playgrounds: [passui.pherus.org](https://passui.pherus.org).
 | `@passui/react` | `packages/ui` | Native React controls and appearance |
 | `@passui/tanstack` | `packages/tanstack` | Optional TanStack integrations |
 | `@passui/tokens` | `packages/tokens` | Shared tokens and styles |
-| `@passui/solid` | `packages/solid` | SolidJS foundation, no public controls yet |
 | `@passui/cli` | `packages/cli` | Project setup tooling |
 
 Passui's UI works without the other packages. The official website lives

@@ -22,7 +22,7 @@
         "enabled": true,
         "indentStyle": "space",
         "indentWidth": 4,
-        "lineWidth": 62,
+        "lineWidth": 100,
         "lineEnding": "lf"
     },
     "javascript": {
@@ -59,11 +59,7 @@
     },
     "overrides": [
         {
-            "includes": [
-                "packages/ui/**",
-                "packages/tanstack/**",
-                "www/**"
-            ],
+            "includes": ["packages/ui/**", "packages/tanstack/**", "www/**"],
             "linter": {
                 "domains": {
                     "react": "recommended"
@@ -76,10 +72,7 @@
             }
         },
         {
-            "includes": [
-                "packages/solid/**",
-                "packages/tokens/**"
-            ],
+            "includes": ["packages/solid/**", "packages/tokens/**"],
             "linter": {
                 "domains": {
                     "react": "none"
@@ -114,9 +107,7 @@
             }
         },
         {
-            "includes": [
-                "packages/ui/src/components/compact-date-picker/compact-date-picker.tsx"
-            ],
+            "includes": ["packages/ui/src/components/compact-date-picker/compact-date-picker.tsx"],
             "linter": {
                 "rules": {
                     "a11y": {

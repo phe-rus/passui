@@ -1,10 +1,4 @@
-import {
-    type RefObject,
-    useEffect,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from "react"
+import { type RefObject, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { ownsFloatingLayer } from "../../lib/floating-layers"
 import { enterModalEnvironment } from "./modal-environment"
 
@@ -19,12 +13,8 @@ const focusableSelector = [
     "[contenteditable=true]",
 ].join(",")
 
-function focusableElements(
-    panel: HTMLElement
-): HTMLElement[] {
-    return Array.from(
-        panel.querySelectorAll<HTMLElement>(focusableSelector)
-    ).filter(
+function focusableElements(panel: HTMLElement): HTMLElement[] {
+    return Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector)).filter(
         (element) =>
             element.tabIndex >= 0 &&
             !element.matches(":disabled") &&
@@ -35,15 +25,10 @@ function focusableElements(
 }
 
 /** Keeps keyboard focus in the foremost sheet, including its floating pickers. */
-export function useSheetFocus(
-    panel: RefObject<HTMLDivElement | null>,
-    onClose: () => void
-) {
+export function useSheetFocus(panel: RefObject<HTMLDivElement | null>, onClose: () => void) {
     // Capture before children mount, since a child may use autoFocus.
     const [opener] = useState(() =>
-        typeof document === "undefined"
-            ? null
-            : document.activeElement
+        typeof document === "undefined" ? null : document.activeElement
     )
     const close = useRef(onClose)
     useEffect(() => {
@@ -55,34 +40,22 @@ export function useSheetFocus(
         if (!surface) return
         sheets.push(surface)
         const foremost = () => sheets.at(-1) === surface
-        const focusFirst = () =>
-            (focusableElements(surface)[0] ?? surface).focus()
-        const inFloatingLayer = (element: Element | null) =>
-            ownsFloatingLayer(surface, element)
+        const focusFirst = () => (focusableElements(surface)[0] ?? surface).focus()
+        const inFloatingLayer = (element: Element | null) => ownsFloatingLayer(surface, element)
         const belongsToSheet = (element: Element | null) =>
-            surface.contains(element) ||
-            inFloatingLayer(element)
+            surface.contains(element) || inFloatingLayer(element)
 
-        if (!surface.contains(document.activeElement))
-            surface.focus({ preventScroll: true })
-        const leaveModalEnvironment =
-            enterModalEnvironment(surface)
+        if (!surface.contains(document.activeElement)) surface.focus({ preventScroll: true })
+        const leaveModalEnvironment = enterModalEnvironment(surface)
 
         const onFocus = (event: FocusEvent) => {
-            if (
-                foremost() &&
-                !belongsToSheet(
-                    event.target as Element | null
-                )
-            )
-                focusFirst()
+            if (foremost() && !belongsToSheet(event.target as Element | null)) focusFirst()
         }
         const onKey = (event: KeyboardEvent) => {
             if (!foremost() || event.defaultPrevented) return
             if (event.key === "Escape") {
                 // Floating controls handle their own Escape before the sheet.
-                if (inFloatingLayer(document.activeElement))
-                    return
+                if (inFloatingLayer(document.activeElement)) return
                 event.preventDefault()
                 event.stopPropagation()
                 close.current()
@@ -94,17 +67,13 @@ export function useSheetFocus(
             const active = document.activeElement
             if (
                 event.shiftKey &&
-                (active === surface ||
-                    active === first ||
-                    !surface.contains(active))
+                (active === surface || active === first || !surface.contains(active))
             ) {
                 event.preventDefault()
                 last.focus()
             } else if (
                 !event.shiftKey &&
-                (active === last ||
-                    !surface.contains(active) ||
-                    active === surface)
+                (active === last || !surface.contains(active) || active === surface)
             ) {
                 event.preventDefault()
                 first.focus()
@@ -119,12 +88,7 @@ export function useSheetFocus(
             document.removeEventListener("focusin", onFocus)
             window.removeEventListener("keydown", onKey)
             leaveModalEnvironment()
-            if (
-                wasForemost &&
-                opener instanceof HTMLElement &&
-                opener.isConnected
-            )
-                opener.focus()
+            if (wasForemost && opener instanceof HTMLElement && opener.isConnected) opener.focus()
         }
     }, [panel, opener])
 }

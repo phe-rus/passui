@@ -1,19 +1,6 @@
 import * as React from "react"
-import {
-    createContext,
-    memo,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from "react"
-import type {
-    Dispatch,
-    PropsWithChildren,
-    ReactNode,
-    SetStateAction,
-} from "react"
+import { createContext, memo, useCallback, useContext, useEffect, useMemo, useState } from "react"
+import type { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from "react"
 
 type ValueObject = {
     [themeName: string]: string
@@ -40,8 +27,7 @@ export type SystemTheme = "dark" | "light"
 
 export type Attribute = `data-${string}` | "class"
 
-export interface ThemeProviderProps
-    extends PropsWithChildren {
+export interface ThemeProviderProps extends PropsWithChildren {
     /** List of all available theme names */
     themes?: Array<string> | undefined
     /** Forced theme name for the current page */
@@ -67,9 +53,7 @@ export interface ThemeProviderProps
 const colorSchemes = ["light", "dark"]
 const MEDIA = "(prefers-color-scheme: dark)"
 const isServer = typeof window === "undefined"
-const ThemeContext = createContext<UseThemeProps | undefined>(
-    undefined
-)
+const ThemeContext = createContext<UseThemeProps | undefined>(undefined)
 const defaultContext: UseThemeProps = {
     setTheme: () => {
         /* no-op */
@@ -83,8 +67,7 @@ const defaultContext: UseThemeProps = {
  * @example
  * const { theme, setTheme } = useTheme()
  */
-export const useTheme = (): UseThemeProps =>
-    useContext(ThemeContext) ?? defaultContext
+export const useTheme = (): UseThemeProps => useContext(ThemeContext) ?? defaultContext
 
 /**
  * Theme provider component is used to wrap your app &
@@ -103,9 +86,7 @@ export const useTheme = (): UseThemeProps =>
  *     <App />
  * </ThemeProvider>
  */
-export const ThemeProvider = (
-    props: ThemeProviderProps
-): ReactNode => {
+export const ThemeProvider = (props: ThemeProviderProps): ReactNode => {
     const context = useContext(ThemeContext)
     // Ignore nested context providers, just passthrough children
     if (context) {
@@ -128,15 +109,10 @@ const Theme = ({
     children,
     nonce,
 }: ThemeProviderProps) => {
-    const [theme, setThemeState] = useState(() =>
-        getTheme(storageKey, defaultTheme)
-    )
+    const [theme, setThemeState] = useState(() => getTheme(storageKey, defaultTheme))
 
     const applyClassAttribute = useCallback(
-        (
-            name: string | undefined,
-            attrValues: Array<string>
-        ) => {
+        (name: string | undefined, attrValues: Array<string>) => {
             const d = document.documentElement
             d.classList.remove(...attrValues)
             if (name) {
@@ -146,26 +122,19 @@ const Theme = ({
         []
     )
 
-    const applyDataAttribute = useCallback(
-        (attr: string, name: string | undefined) => {
-            const d = document.documentElement
-            if (name) {
-                d.setAttribute(attr, name)
-            } else {
-                d.removeAttribute(attr)
-            }
-        },
-        []
-    )
+    const applyDataAttribute = useCallback((attr: string, name: string | undefined) => {
+        const d = document.documentElement
+        if (name) {
+            d.setAttribute(attr, name)
+        } else {
+            d.removeAttribute(attr)
+        }
+    }, [])
 
     const applyAttributesToDOM = useCallback(
         (resolved: string) => {
-            const attributeList = Array.isArray(attribute)
-                ? attribute
-                : [attribute]
-            const attrValues = value
-                ? Object.values(value)
-                : themes
+            const attributeList = Array.isArray(attribute) ? attribute : [attribute]
+            const attrValues = value ? Object.values(value) : themes
             const name = value ? value[resolved] : resolved
 
             for (const attr of attributeList) {
@@ -176,13 +145,7 @@ const Theme = ({
                 }
             }
         },
-        [
-            attribute,
-            themes,
-            value,
-            applyClassAttribute,
-            applyDataAttribute,
-        ]
+        [attribute, themes, value, applyClassAttribute, applyDataAttribute]
     )
 
     const applyColorScheme = useCallback(
@@ -190,18 +153,9 @@ const Theme = ({
             if (!enableColorScheme) {
                 return
             }
-            const fallback = colorSchemes.includes(
-                defaultTheme
-            )
-                ? defaultTheme
-                : null
-            const colorScheme = colorSchemes.includes(
-                resolved
-            )
-                ? resolved
-                : fallback
-            document.documentElement.style.colorScheme =
-                colorScheme || ""
+            const fallback = colorSchemes.includes(defaultTheme) ? defaultTheme : null
+            const colorScheme = colorSchemes.includes(resolved) ? resolved : fallback
+            document.documentElement.style.colorScheme = colorScheme || ""
         },
         [enableColorScheme, defaultTheme]
     )
@@ -212,32 +166,19 @@ const Theme = ({
             if (!nextTheme) {
                 return
             }
-            const resolved =
-                nextTheme === "system" && enableSystem
-                    ? getSystemTheme()
-                    : nextTheme
-            const enable = disableTransitionOnChange
-                ? disableAnimation()
-                : null
+            const resolved = nextTheme === "system" && enableSystem ? getSystemTheme() : nextTheme
+            const enable = disableTransitionOnChange ? disableAnimation() : null
             applyAttributesToDOM(resolved)
             applyColorScheme(resolved)
             enable?.()
         },
-        [
-            enableSystem,
-            disableTransitionOnChange,
-            applyAttributesToDOM,
-            applyColorScheme,
-        ]
+        [enableSystem, disableTransitionOnChange, applyAttributesToDOM, applyColorScheme]
     )
 
     // Set theme state and save to local storage
     const setTheme = useCallback(
         (newValue: SetStateAction<string>) => {
-            const newTheme =
-                typeof newValue === "function"
-                    ? newValue(theme ?? "")
-                    : newValue
+            const newTheme = typeof newValue === "function" ? newValue(theme ?? "") : newValue
             setThemeState(newTheme)
 
             // Save to storage
@@ -245,9 +186,7 @@ const Theme = ({
                 localStorage.setItem(storageKey, newTheme)
             } catch {
                 // localStorage might not be available
-                console.error(
-                    "Failed to save theme to localStorage"
-                )
+                console.error("Failed to save theme to localStorage")
             }
         },
         [theme, storageKey]
@@ -255,11 +194,7 @@ const Theme = ({
 
     const handleMediaQuery = useCallback(
         (_event: MediaQueryListEvent | MediaQueryList) => {
-            if (
-                theme === "system" &&
-                enableSystem &&
-                !forcedTheme
-            ) {
+            if (theme === "system" && enableSystem && !forcedTheme) {
                 applyTheme("system")
             }
         },
@@ -276,11 +211,7 @@ const Theme = ({
         // Intentionally use deprecated listener methods to support iOS 13 and older browsers
         media.addEventListener("change", handleMediaQuery)
         handleMediaQuery(media)
-        return () =>
-            media.removeEventListener(
-                "change",
-                handleMediaQuery
-            )
+        return () => media.removeEventListener("change", handleMediaQuery)
     }, [handleMediaQuery])
 
     // localStorage event handling, allow to sync theme changes between tabs
@@ -299,11 +230,7 @@ const Theme = ({
         }
 
         window.addEventListener("storage", handleStorage)
-        return () =>
-            window.removeEventListener(
-                "storage",
-                handleStorage
-            )
+        return () => window.removeEventListener("storage", handleStorage)
     }, [defaultTheme, setTheme, storageKey])
 
     // Whenever theme or forcedTheme changes, apply it
@@ -316,14 +243,9 @@ const Theme = ({
             theme,
             setTheme,
             forcedTheme,
-            themes: enableSystem
-                ? [...themes, "system"]
-                : themes,
+            themes: enableSystem ? [...themes, "system"] : themes,
             systemTheme: enableSystem
-                ? (getSystemTheme() as
-                      | "dark"
-                      | "light"
-                      | undefined)
+                ? (getSystemTheme() as "dark" | "light" | undefined)
                 : undefined,
         }),
         [theme, forcedTheme, enableSystem, themes, setTheme]
@@ -422,9 +344,7 @@ const disableAnimation = () => {
     }
 }
 
-const getSystemTheme = (
-    e?: MediaQueryList | MediaQueryListEvent
-) => {
+const getSystemTheme = (e?: MediaQueryList | MediaQueryListEvent) => {
     if (isServer) {
         return "light"
     }
@@ -451,9 +371,7 @@ export const script = (
 ) => {
     const el = document.documentElement
     const systemThemes = ["light", "dark"]
-    const attributes = Array.isArray(attribute)
-        ? attribute
-        : [attribute]
+    const attributes = Array.isArray(attribute) ? attribute : [attribute]
     const attrValues = value ? Object.values(value) : themes
 
     function applyClassAttr(name: string | undefined) {
@@ -463,10 +381,7 @@ export const script = (
         }
     }
 
-    function applyDataAttr(
-        attr: string,
-        name: string | undefined
-    ) {
+    function applyDataAttr(attr: string, name: string | undefined) {
         if (name) {
             el.setAttribute(attr, name)
         } else {
@@ -493,39 +408,24 @@ export const script = (
             return
         }
 
-        const fallback = systemThemes.includes(defaultTheme)
-            ? defaultTheme
-            : null
-        const colorScheme = systemThemes.includes(theme)
-            ? theme
-            : fallback
+        const fallback = systemThemes.includes(defaultTheme) ? defaultTheme : null
+        const colorScheme = systemThemes.includes(theme) ? theme : fallback
         el.style.colorScheme = colorScheme || ""
     }
 
     function resolveSystemTheme() {
-        return window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        ).matches
-            ? "dark"
-            : "light"
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
     }
 
     if (forcedTheme) {
         const resolvedForcedTheme =
-            forcedTheme === "system" && enableSystem
-                ? resolveSystemTheme()
-                : forcedTheme
+            forcedTheme === "system" && enableSystem ? resolveSystemTheme() : forcedTheme
         updateDOM(resolvedForcedTheme)
     } else {
         try {
-            const themeName =
-                localStorage.getItem(storageKey) ||
-                defaultTheme
-            const isSystem =
-                enableSystem && themeName === "system"
-            const theme = isSystem
-                ? resolveSystemTheme()
-                : themeName
+            const themeName = localStorage.getItem(storageKey) || defaultTheme
+            const isSystem = enableSystem && themeName === "system"
+            const theme = isSystem ? resolveSystemTheme() : themeName
             updateDOM(theme)
         } catch {
             // localStorage might not be available

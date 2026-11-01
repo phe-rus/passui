@@ -27,12 +27,8 @@ test("the visible animated wordmark agrees with its accessible brand name", asyn
         }),
     })
     await router.load()
-    const markup = renderToStaticMarkup(
-        createElement(RouterProvider, { router })
-    )
-    const heading = markup.match(
-        /<h1\b[^>]*aria-label="([^"]+)"[^>]*>([\s\S]*?)<\/h1>/
-    )
+    const markup = renderToStaticMarkup(createElement(RouterProvider, { router }))
+    const heading = markup.match(/<h1\b[^>]*aria-label="([^"]+)"[^>]*>([\s\S]*?)<\/h1>/)
     expect(heading).not.toBeNull()
     const visibleName = heading?.[2]
         .replace(/<[^>]*>/g, "")

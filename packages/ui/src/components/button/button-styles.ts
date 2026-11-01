@@ -18,19 +18,14 @@ export type ButtonSize =
     | "icon-lg"
     | "icon-full"
 
-export type IconButtonSize =
-    | "icon"
-    | "icon-xs"
-    | "icon-sm"
-    | "icon-lg"
+export type IconButtonSize = "icon" | "icon-xs" | "icon-sm" | "icon-lg"
 
 export const buttonVariants: Record<ButtonVariant, string> = {
     default:
         "bg-inverse text-on-inverse shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.18),0_6px_16px_-6px_rgb(0_0_0/0.35)] hover:brightness-[1.12]",
     destructive:
         "bg-danger text-background shadow-[inset_0_1px_0_rgb(255_255_255/0.14),0_1px_2px_rgb(0_0_0/0.18),0_6px_16px_-6px_rgb(0_0_0/0.35)] hover:brightness-[1.08]",
-    outline:
-        "border border-separator bg-transparent text-label hover:bg-fill/60",
+    outline: "border border-separator bg-transparent text-label hover:bg-fill/60",
     secondary:
         "bg-elevated text-label shadow-[inset_0_0_0_0.5px_color-mix(in_srgb,var(--color-separator)_55%,transparent),0_1px_2px_rgb(40_30_0/0.06)] hover:bg-fill/60",
     ghost: "bg-transparent text-label hover:bg-fill/80",
@@ -47,14 +42,12 @@ export const buttonSizes: Record<ButtonSize, string> = {
     "icon-xs": "size-8 p-0 rounded-full",
     "icon-sm": "size-9 p-0 rounded-full",
     "icon-lg": "size-12 p-0 rounded-full",
-    "icon-full":
-        "h-11 w-full px-5 text-subheadline rounded-full",
+    "icon-full": "h-11 w-full px-5 text-subheadline rounded-full",
 }
 
-export const iconButtonSizes: Record<IconButtonSize, string> =
-    {
-        icon: "size-11",
-        "icon-xs": "size-8",
-        "icon-sm": "size-9",
-        "icon-lg": "size-12",
-    }
+export const iconButtonSizes: Record<IconButtonSize, string> = {
+    icon: "size-11",
+    "icon-xs": "size-8",
+    "icon-sm": "size-9",
+    "icon-lg": "size-12",
+}

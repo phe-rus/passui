@@ -1,9 +1,7 @@
-import type { buttonDocs } from "@passui/react/docs"
+import type { buttonDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const buttonContent: ComponentContent<
-    typeof buttonDocs
-> = {
+export const buttonContent: ComponentContent<typeof buttonDocs> = {
     summary:
         "A pressable control for the actions people take most. Each variant has a little depth, like a well made physical key.",
     usage: "Use a button to start an action: saving, sending, confirming or deleting. For moving to another page, style a link with buttonStyle instead.",
@@ -11,17 +9,14 @@ export const buttonContent: ComponentContent<
         variant:
             "How much the button stands out. Give each view one accent or default button for its main action.",
         size: "Height and padding. The icon sizes are square and hold an icon instead of a label.",
-        isPending:
-            "Shows a progress indicator and ignores presses while work is underway.",
+        isPending: "Shows a progress indicator and ignores presses while work is underway.",
         disabled: "Dims the button and ignores presses.",
-        children:
-            "The label. Say what happens, in a word or two.",
+        children: "The label. Say what happens, in a word or two.",
     },
     examples: {
         variants: {
             title: "Variants",
-            description:
-                "Seven levels of emphasis, from the solid default to the quiet link.",
+            description: "Seven levels of emphasis, from the solid default to the quiet link.",
         },
         sizes: {
             title: "Sizes",
@@ -45,8 +40,7 @@ export const buttonContent: ComponentContent<
         },
         disabled: {
             title: "Disabled",
-            description:
-                "For actions that are not available yet. Prefer explaining why nearby.",
+            description: "For actions that are not available yet. Prefer explaining why nearby.",
         },
         link: {
             title: "As a link",
@@ -57,8 +51,7 @@ export const buttonContent: ComponentContent<
     anatomy: [
         {
             element: "Label",
-            description:
-                "The text that names the action. It is also the accessible name.",
+            description: "The text that names the action. It is also the accessible name.",
             required: true,
         },
         {

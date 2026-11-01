@@ -1,24 +1,9 @@
 import { createRef } from "react"
-import {
-    Button,
-    type ButtonVariant,
-} from "@passui/react/button"
+import { Button, type ButtonVariant } from "@passui/react/button"
 import { IconButton } from "@passui/react/icon-button"
-import {
-    ArchiveIcon,
-    InfoIcon,
-    ReplyIcon,
-    SettingsIcon,
-    UnderlineIcon,
-} from "@passui/react/icons"
-import {
-    Picker,
-    type PickerProps,
-} from "@passui/react/picker"
-import {
-    SegmentedControl,
-    type SegmentedControlProps,
-} from "@passui/react/segmented-control"
+import { ArchiveIcon, InfoIcon, ReplyIcon, SettingsIcon, UnderlineIcon } from "@passui/react/icons"
+import { Picker, type PickerProps } from "@passui/react/picker"
+import { SegmentedControl, type SegmentedControlProps } from "@passui/react/segmented-control"
 
 /** Compiled by the package typecheck through consumer-facing export paths. */
 export function publicApiTypes() {

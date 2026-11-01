@@ -11,17 +11,9 @@ type AmbientProps = ComponentPropsWithoutRef<"section"> & {
  * edge: a blown-up, blurred copy of the image masked into a circle that
  * fades into the page, the way Apple lets a photo light its surroundings.
  */
-export function Ambient({
-    src,
-    className,
-    children,
-    ...props
-}: AmbientProps) {
+export function Ambient({ src, className, children, ...props }: AmbientProps) {
     return (
-        <section
-            className={cn("relative isolate", className)}
-            {...props}
-        >
+        <section className={cn("relative isolate", className)} {...props}>
             {src && (
                 <img
                     aria-hidden

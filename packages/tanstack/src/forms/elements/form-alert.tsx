@@ -4,13 +4,7 @@ import type { ReactNode } from "react"
 import { cn } from "@passui/react/cn"
 
 /** A form-level error people can't miss: announced, tinted, and gently shaken in. */
-export function FormAlert({
-    children,
-    className,
-}: {
-    children: ReactNode
-    className?: string
-}) {
+export function FormAlert({ children, className }: { children: ReactNode; className?: string }) {
     return (
         <div
             role="alert"
@@ -20,10 +14,7 @@ export function FormAlert({
                 className
             )}
         >
-            <HugeiconsIcon
-                icon={Alert02Icon}
-                className="mt-px size-4 shrink-0"
-            />
+            <HugeiconsIcon icon={Alert02Icon} className="mt-px size-4 shrink-0" />
             <span className="min-w-0">{children}</span>
         </div>
     )

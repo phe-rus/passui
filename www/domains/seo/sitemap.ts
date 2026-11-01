@@ -1,7 +1,6 @@
 import { getCatalog } from "../catalog/get-catalog"
 import { guides } from "../guides/get-guides"
 import { pageUrl, siteOrigin } from "./site"
-import { hasSolidComponent } from "@passui/solid/docs"
 
 function escapeXml(value: string) {
     return value.replace(
@@ -22,19 +21,7 @@ export function getSitemapPaths() {
         ...new Set([
             "/",
             ...guides.map((guide) => guide.path),
-            ...getCatalog().map(
-                (entry) =>
-                    `/components/react/${entry.docs.slug}`
-            ),
-            ...guides.map((guide) => `/solid${guide.path}`),
-            ...getCatalog()
-                .filter((entry) =>
-                    hasSolidComponent(entry.docs.slug)
-                )
-                .map(
-                    (entry) =>
-                        `/components/solid/${entry.docs.slug}`
-                ),
+            ...getCatalog().map((entry) => `/components/react/${entry.docs.slug}`),
         ]),
     ]
 }
@@ -43,10 +30,7 @@ export function getSitemap() {
     return [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-        ...getSitemapPaths().map(
-            (path) =>
-                `  <url><loc>${escapeXml(pageUrl(path))}</loc></url>`
-        ),
+        ...getSitemapPaths().map((path) => `  <url><loc>${escapeXml(pageUrl(path))}</loc></url>`),
         "</urlset>",
     ].join("\n")
 }

@@ -14,10 +14,7 @@ import { StatTile } from "@passui/react/stat-tile"
 import { type ReactNode, useState } from "react"
 import { accentNames } from "@/domains/settings"
 import { getThemeStyle } from "../get-theme-style"
-import type {
-    ShowcaseCardBodyProps,
-    ShowcaseTheme,
-} from "../types"
+import type { ShowcaseCardBodyProps, ShowcaseTheme } from "../types"
 
 type ShowcaseCardProps = {
     theme: ShowcaseTheme
@@ -26,11 +23,7 @@ type ShowcaseCardProps = {
 }
 
 /** One frame for every card, so a row reads as a set. */
-export function ShowcaseCard({
-    theme,
-    title,
-    children,
-}: ShowcaseCardProps) {
+export function ShowcaseCard({ theme, title, children }: ShowcaseCardProps) {
     return (
         <div
             data-theme={theme.scheme}
@@ -38,16 +31,10 @@ export function ShowcaseCard({
             className="flex h-64 w-72 shrink-0 flex-col gap-4 rounded-4xl bg-elevated p-5 text-label shadow-[0_1px_2px_rgb(0_0_0/0.05),0_4px_12px_-6px_rgb(0_0_0/0.08)] ring-1 ring-separator/70"
         >
             <div className="flex items-center justify-between gap-3">
-                <span className="truncate text-headline font-semibold">
-                    {title}
-                </span>
-                <Chip tone="accent">
-                    {accentNames[theme.accent]}
-                </Chip>
+                <span className="truncate text-headline font-semibold">{title}</span>
+                <Chip tone="accent">{accentNames[theme.accent]}</Chip>
             </div>
-            <div className="flex flex-1 flex-col justify-end gap-3">
-                {children}
-            </div>
+            <div className="flex flex-1 flex-col justify-end gap-3">{children}</div>
         </div>
     )
 }
@@ -69,9 +56,7 @@ function SignIn({ theme }: ShowcaseCardBodyProps) {
                     setPending(true)
                     window.setTimeout(() => {
                         setPending(false)
-                        toast.success(
-                            "Signed in (just a demo)"
-                        )
+                        toast.success("Signed in (just a demo)")
                     }, 900)
                 }}
             >
@@ -88,20 +73,10 @@ function Settings({ theme }: ShowcaseCardBodyProps) {
     return (
         <ShowcaseCard theme={theme} title="Settings">
             <LabeledContent label="Sync">
-                <Toggle
-                    checked={sync}
-                    onChange={setSync}
-                    label="Sync"
-                    labelHidden
-                />
+                <Toggle checked={sync} onChange={setSync} label="Sync" labelHidden />
             </LabeledContent>
             <LabeledContent label="Sounds">
-                <Toggle
-                    checked={sound}
-                    onChange={setSound}
-                    label="Sounds"
-                    labelHidden
-                />
+                <Toggle checked={sound} onChange={setSound} label="Sounds" labelHidden />
             </LabeledContent>
             <SegmentedControl
                 value={size}
@@ -120,14 +95,8 @@ function Settings({ theme }: ShowcaseCardBodyProps) {
 function Stats({ theme }: ShowcaseCardBodyProps) {
     return (
         <ShowcaseCard theme={theme} title="This week">
-            <StatTile
-                label="Active people"
-                value={1284}
-                caption="Up 12% on last week"
-            />
-            <StatusIndicator state="saved">
-                All changes synced
-            </StatusIndicator>
+            <StatTile label="Active people" value={1284} caption="Up 12% on last week" />
+            <StatusIndicator state="saved">All changes synced</StatusIndicator>
         </ShowcaseCard>
     )
 }
@@ -145,10 +114,7 @@ function Upload({ theme }: ShowcaseCardBodyProps) {
                 </div>
             </div>
             <div className="flex gap-2">
-                <Button
-                    variant="secondary"
-                    className="flex-1"
-                >
+                <Button variant="secondary" className="flex-1">
                     Pause
                 </Button>
                 <Button variant="ghost" className="flex-1">
@@ -168,9 +134,7 @@ function Profile({ theme }: ShowcaseCardBodyProps) {
                     AK
                 </span>
                 <div className="flex min-w-0 flex-col">
-                    <span className="truncate text-subheadline font-semibold">
-                        Aiko Kamado
-                    </span>
+                    <span className="truncate text-subheadline font-semibold">Aiko Kamado</span>
                     <span className="truncate text-footnote text-label-secondary">
                         Product designer
                     </span>
@@ -178,9 +142,7 @@ function Profile({ theme }: ShowcaseCardBodyProps) {
             </div>
             <Button
                 variant={following ? "secondary" : "accent"}
-                onClick={() =>
-                    setFollowing((value) => !value)
-                }
+                onClick={() => setFollowing((value) => !value)}
             >
                 {following ? "Following" : "Follow"}
             </Button>
@@ -191,25 +153,19 @@ function Profile({ theme }: ShowcaseCardBodyProps) {
 function Search({ theme }: ShowcaseCardBodyProps) {
     return (
         <ShowcaseCard theme={theme} title="Search">
-            <SearchField
-                placeholder="Find a file"
-                aria-label="Find a file"
-            />
+            <SearchField placeholder="Find a file" aria-label="Find a file" />
             <ul className="m-0 flex list-none flex-col gap-1 p-0 text-subheadline">
-                {["Brand guide", "Q4 roadmap"].map(
-                    (item, index) => (
-                        <li
-                            key={item}
-                            className={cn(
-                                "rounded-xl px-3 py-2",
-                                index === 0 &&
-                                    "bg-accent-soft text-accent-text"
-                            )}
-                        >
-                            {item}
-                        </li>
-                    )
-                )}
+                {["Brand guide", "Q4 roadmap"].map((item, index) => (
+                    <li
+                        key={item}
+                        className={cn(
+                            "rounded-xl px-3 py-2",
+                            index === 0 && "bg-accent-soft text-accent-text"
+                        )}
+                    >
+                        {item}
+                    </li>
+                ))}
             </ul>
         </ShowcaseCard>
     )
@@ -219,20 +175,13 @@ function Confirm({ theme }: ShowcaseCardBodyProps) {
     return (
         <ShowcaseCard theme={theme} title="Delete draft?">
             <p className="text-callout text-label-secondary">
-                This draft and its comments will be removed
-                for everyone.
+                This draft and its comments will be removed for everyone.
             </p>
             <div className="flex gap-2">
-                <Button
-                    variant="secondary"
-                    className="flex-1"
-                >
+                <Button variant="secondary" className="flex-1">
                     Keep
                 </Button>
-                <Button
-                    variant="destructive"
-                    className="flex-1"
-                >
+                <Button variant="destructive" className="flex-1">
                     Delete
                 </Button>
             </div>
@@ -241,12 +190,4 @@ function Confirm({ theme }: ShowcaseCardBodyProps) {
 }
 
 /** The first marquee row; the second row has its own cards. */
-export const showcaseRowOne = [
-    SignIn,
-    Settings,
-    Stats,
-    Upload,
-    Profile,
-    Search,
-    Confirm,
-] as const
+export const showcaseRowOne = [SignIn, Settings, Stats, Upload, Profile, Search, Confirm] as const

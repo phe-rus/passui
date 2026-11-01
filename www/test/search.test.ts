@@ -48,10 +48,7 @@ describe("search params", () => {
     })
 
     test("props that aren't an object fall back to none", () => {
-        expect(
-            componentSearchSchema.parse({ props: "oops" })
-                .props
-        ).toEqual({})
+        expect(componentSearchSchema.parse({ props: "oops" }).props).toEqual({})
         expect(
             componentSearchSchema.parse({
                 props: { size: "lg" },

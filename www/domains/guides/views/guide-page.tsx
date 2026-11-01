@@ -1,36 +1,17 @@
-import {
-    ArrowLeft01Icon,
-    ArrowRight01Icon,
-} from "@hugeicons/core-free-icons"
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Link } from "@tanstack/react-router"
 import type { ComponentType } from "react"
 import { OnThisPage, type TocItem } from "@/domains/catalog"
 import { getGuide, getGuideNeighbours } from "../get-guides"
-import { frameworkPath } from "@/domains/framework/framework"
 import type { GuideSlug } from "../types"
-import {
-    InstallationGuide,
-    installationSections,
-} from "./installation-guide"
-import {
-    IntroductionGuide,
-    introductionSections,
-} from "./introduction-guide"
+import { InstallationGuide, installationSections } from "./installation-guide"
+import { IntroductionGuide, introductionSections } from "./introduction-guide"
 import { SkillsGuide, skillsSections } from "./skills-guide"
-import {
-    ThemingGuide,
-    themingSections,
-} from "./theming-guide"
-import {
-    TypesetGuide,
-    typesetSections,
-} from "./typeset-guide"
+import { ThemingGuide, themingSections } from "./theming-guide"
+import { TypesetGuide, typesetSections } from "./typeset-guide"
 
-const bodies: Record<
-    GuideSlug,
-    { Body: ComponentType; sections: TocItem[] }
-> = {
+const bodies: Record<GuideSlug, { Body: ComponentType; sections: TocItem[] }> = {
     introduction: {
         Body: IntroductionGuide,
         sections: introductionSections,
@@ -51,13 +32,7 @@ const bodies: Record<
 }
 
 /** One getting-started page, laid out like a component page. */
-export function GuidePage({
-    slug,
-    framework = "react",
-}: {
-    slug: string
-    framework?: "react" | "solid"
-}) {
+export function GuidePage({ slug }: { slug: string }) {
     const guide = getGuide(slug)
     if (!guide) return null
     const { Body, sections } = bodies[guide.slug]
@@ -70,27 +45,25 @@ export function GuidePage({
                     <span className="font-mono text-caption text-label-tertiary">
                         {guide.slug === "introduction"
                             ? "Getting started"
-                            : `Getting started · ${framework === "solid" ? "SolidJS" : "React"}`}
+                            : "Getting started · React"}
                     </span>
                     <h1 className="font-brand text-large-title font-extrabold tracking-tight text-label">
                         {guide.title}
                     </h1>
                     <p className="max-w-2xl text-body text-label-secondary">
                         {guide.slug === "installation"
-                            ? `Set up Passui in a ${framework === "solid" ? "SolidJS" : "React"} app with the CLI or a manual install.`
+                            ? "Set up Passui in a React app with the CLI or a manual install."
                             : guide.summary}
                     </p>
                 </header>
                 {guide.slug === "installation" ? (
-                    <InstallationGuide
-                        framework={framework}
-                    />
+                    <InstallationGuide />
                 ) : guide.slug === "skills" ? (
-                    <SkillsGuide framework={framework} />
+                    <SkillsGuide />
                 ) : guide.slug === "theming" ? (
-                    <ThemingGuide framework={framework} />
+                    <ThemingGuide />
                 ) : guide.slug === "typeset" ? (
-                    <TypesetGuide framework={framework} />
+                    <TypesetGuide />
                 ) : (
                     <Body />
                 )}
@@ -100,16 +73,10 @@ export function GuidePage({
                 >
                     {previous ? (
                         <Link
-                            to={frameworkPath(
-                                previous.path,
-                                framework
-                            )}
+                            to={previous.path}
                             className="flex items-center gap-2 text-subheadline text-label-secondary no-underline hover:text-label"
                         >
-                            <HugeiconsIcon
-                                icon={ArrowLeft01Icon}
-                                size={16}
-                            />
+                            <HugeiconsIcon icon={ArrowLeft01Icon} size={16} />
                             {previous.title}
                         </Link>
                     ) : (
@@ -117,17 +84,11 @@ export function GuidePage({
                     )}
                     {next && (
                         <Link
-                            to={frameworkPath(
-                                next.path,
-                                framework
-                            )}
+                            to={next.path}
                             className="flex items-center gap-2 text-subheadline text-label-secondary no-underline hover:text-label"
                         >
                             {next.title}
-                            <HugeiconsIcon
-                                icon={ArrowRight01Icon}
-                                size={16}
-                            />
+                            <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
                         </Link>
                     )}
                 </nav>

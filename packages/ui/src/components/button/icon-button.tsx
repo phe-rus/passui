@@ -1,83 +1,31 @@
-import { type ButtonHTMLAttributes, forwardRef } from "react"
+import { forwardRef } from "react"
 import { cn } from "../../lib/class-names"
-import { PendingSpinner } from "./pending-spinner"
-import { usePendingIndicator } from "./use-pending-indicator"
-import {
-    buttonVariants,
-    iconButtonSizes,
-    type ButtonVariant,
-    type IconButtonSize,
-} from "./button-styles"
+import { Button, type ButtonProps } from "./button"
+import type { ButtonVariant, IconButtonSize } from "./button-styles"
 
 export type { ButtonVariant, IconButtonSize }
 
-export interface IconButtonProps
-    extends ButtonHTMLAttributes<HTMLButtonElement> {
-    /** Required: icon-only buttons need an accessible name. */
+export interface IconButtonProps extends Omit<ButtonProps, "size"> {
+    /** Icon-only actions must have an accessible name. */
     label: string
-    /** `default`, `accent`, `secondary`, `outline`, `ghost`, `link`, or `destructive`.
-     * @default "default"
-     */
-    variant?: ButtonVariant
-    /** Square sizes: `icon-xs`, `icon-sm`, `icon`, or `icon-lg`.
-     * @default "icon"
-     */
     size?: IconButtonSize
-    /** Replaces the icon with a delayed spinner and prevents repeat presses.
-     * @default false
-     */
-    isPending?: boolean
 }
 
-/** An icon action with a required accessible label, tooltip, and native button ref. */
-export const IconButton = forwardRef<
-    HTMLButtonElement,
-    IconButtonProps
->(function IconButton(
-    {
-        label,
-        variant = "default",
-        size = "icon",
-        isPending = false,
-        disabled,
-        children,
-        className,
-        type = "button",
-        ...props
-    },
+/** An accessible icon-only presentation of Button, sharing its interaction behavior. */
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
+    { label, size = "icon", className, children, ...props },
     ref
 ) {
-    const showPendingIndicator =
-        usePendingIndicator(isPending)
-
     return (
-        <button
+        <Button
             ref={ref}
-            type={type}
+            size={size}
             aria-label={label}
             data-tooltip={label}
-            className={cn(
-                "relative",
-                "group inline-flex shrink-0 items-center justify-center rounded-full transition-[background-color,filter,transform,box-shadow] duration-fast ease-standard active:scale-[0.92] disabled:pointer-events-none disabled:opacity-40 data-pending:cursor-progress data-pending:disabled:opacity-100",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-1 focus-visible:ring-offset-background",
-                iconButtonSizes[size],
-                buttonVariants[variant],
-                className
-            )}
+            className={cn("active:scale-[0.92]", className)}
             {...props}
-            data-pending={isPending || undefined}
-            disabled={disabled || isPending}
-            aria-busy={isPending || props["aria-busy"]}
         >
-            <span
-                className={cn(
-                    "inline-flex items-center justify-center transition-opacity duration-200",
-                    showPendingIndicator && "opacity-0"
-                )}
-            >
-                {children}
-            </span>
-            {showPendingIndicator && <PendingSpinner />}
-        </button>
+            {children}
+        </Button>
     )
 })

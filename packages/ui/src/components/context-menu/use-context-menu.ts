@@ -1,13 +1,6 @@
-import {
-    type MouseEvent,
-    type PointerEvent,
-    useRef,
-} from "react"
+import { type MouseEvent, type PointerEvent, useRef } from "react"
 import { haptic } from "../../lib/haptics"
-import {
-    type ContextMenuItem,
-    openContextMenu,
-} from "./context-menu-store"
+import { type ContextMenuItem, openContextMenu } from "./context-menu-store"
 
 const LONG_PRESS_MS = 480
 const MOVE_TOLERANCE = 10
@@ -16,9 +9,7 @@ const MOVE_TOLERANCE = 10
  * Right-click on desktop, long-press on touch screens: both open the same
  * menu of actions. Spread the returned handlers onto the element.
  */
-export function useContextMenu(
-    items: () => ContextMenuItem[]
-) {
+export function useContextMenu(items: () => ContextMenuItem[]) {
     const press = useRef<{
         x: number
         y: number
@@ -35,13 +26,7 @@ export function useContextMenu(
         onContextMenu(event: MouseEvent) {
             event.preventDefault()
             cancel()
-            openContextMenu(
-                event.clientX,
-                event.clientY,
-                items(),
-                false,
-                event.currentTarget
-            )
+            openContextMenu(event.clientX, event.clientY, items(), false, event.currentTarget)
         },
         onPointerDown(event: PointerEvent) {
             if (event.pointerType !== "touch") return
@@ -55,13 +40,7 @@ export function useContextMenu(
                     press.current = null
                     suppressClick.current = true
                     haptic("medium")
-                    openContextMenu(
-                        x,
-                        y,
-                        items(),
-                        true,
-                        anchor
-                    )
+                    openContextMenu(x, y, items(), true, anchor)
                 }, LONG_PRESS_MS),
             }
         },
@@ -69,10 +48,7 @@ export function useContextMenu(
             const start = press.current
             if (
                 start &&
-                Math.hypot(
-                    event.clientX - start.x,
-                    event.clientY - start.y
-                ) > MOVE_TOLERANCE
+                Math.hypot(event.clientX - start.x, event.clientY - start.y) > MOVE_TOLERANCE
             ) {
                 cancel()
             }

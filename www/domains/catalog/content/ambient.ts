@@ -1,9 +1,7 @@
-import type { ambientDocs } from "@passui/react/docs"
+import type { ambientDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const ambientContent: ComponentContent<
-    typeof ambientDocs
-> = {
+export const ambientContent: ComponentContent<typeof ambientDocs> = {
     summary:
         "Content with its image's colors glowing softly behind it, the way Apple lets a photo light its surroundings.",
     usage: "Use it behind a hero image, such as a profile photo, album art or an app icon, to tie the page to the picture without a card or edge.",
@@ -18,26 +16,22 @@ export const ambientContent: ComponentContent<
         },
         "now-playing": {
             title: "Now playing",
-            description:
-                "Album art lighting the player around it, the way Music does.",
+            description: "Album art lighting the player around it, the way Music does.",
         },
     },
     anatomy: [
         {
             element: "Ambient",
-            description:
-                "The section that holds the content and the glow.",
+            description: "The section that holds the content and the glow.",
             required: true,
         },
         {
             element: "Glow",
-            description:
-                "A blurred, faded copy of src, centered a little above the middle.",
+            description: "A blurred, faded copy of src, centered a little above the middle.",
         },
         {
             element: "Content",
-            description:
-                "Your own image and text, drawn above the glow.",
+            description: "Your own image and text, drawn above the glow.",
             required: true,
         },
     ],

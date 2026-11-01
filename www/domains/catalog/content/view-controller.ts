@@ -1,9 +1,7 @@
-import type { viewControllerDocs } from "@passui/react/docs"
+import type { viewControllerDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const viewControllerContent: ComponentContent<
-    typeof viewControllerDocs
-> = {
+export const viewControllerContent: ComponentContent<typeof viewControllerDocs> = {
     summary:
         "The frame of one screen: a large title with an optional description and action, then the screen's content.",
     usage: "Use it as the outermost part of a screen, passing ViewController.Heading as the heading.",
@@ -16,8 +14,7 @@ export const viewControllerContent: ComponentContent<
     examples: {
         action: {
             title: "Heading with an action",
-            description:
-                "A button beside the title for the screen's main action.",
+            description: "A button beside the title for the screen's main action.",
         },
         settings: {
             title: "A settings screen",
@@ -28,14 +25,12 @@ export const viewControllerContent: ComponentContent<
     anatomy: [
         {
             element: "ViewController",
-            description:
-                "The screen's article, centered with room around it.",
+            description: "The screen's article, centered with room around it.",
             required: true,
         },
         {
             element: "ViewController.Heading",
-            description:
-                "The title, plus an optional description and action.",
+            description: "The title, plus an optional description and action.",
             required: true,
         },
         {

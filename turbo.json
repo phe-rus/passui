@@ -38,13 +38,6 @@
         "@passui/react#typecheck": {
             "dependsOn": ["build", "^typecheck"]
         },
-        "@passui/solid#build": {
-            "dependsOn": ["^build"],
-            "outputs": []
-        },
-        "@passui/solid#typecheck": {
-            "dependsOn": ["build", "^typecheck"]
-        },
         "@passui/tanstack#build": {
             "dependsOn": ["^build"],
             "outputs": []

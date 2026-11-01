@@ -1,12 +1,5 @@
-import {
-    IconButton,
-    type IconButtonSize,
-} from "@passui/react/icon-button"
-import {
-    ArrowRight01Icon,
-    Copy01Icon,
-    Tick02Icon,
-} from "@hugeicons/core-free-icons"
+import { IconButton, type IconButtonSize } from "@passui/react/icon-button"
+import { ArrowRight01Icon, Copy01Icon, Tick02Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { cn } from "@passui/react/cn"
 import { Link } from "@tanstack/react-router"
@@ -80,13 +73,9 @@ export function SettingList({
                     <div className="flex items-center gap-3 border-b border-separator/60 px-4 py-4 sm:px-5 [&>span:first-child]:size-9 [&>span:first-child_.glyph]:size-4">
                         {icon}
                         <div className="flex min-w-0 flex-1 flex-col">
-                            <Heading className="text-base">
-                                {title}
-                            </Heading>
+                            <Heading className="text-base">{title}</Heading>
                             {description && (
-                                <p className="text-[13px] text-muted-foreground">
-                                    {description}
-                                </p>
+                                <p className="text-[13px] text-muted-foreground">{description}</p>
                             )}
                         </div>
                         {action}
@@ -124,11 +113,7 @@ export function SettingList({
                         {icon}
                         <div className="min-w-0 wrap-anywhere">
                             <Heading>{title}</Heading>
-                            {description && (
-                                <p className="text-sm">
-                                    {description}
-                                </p>
-                            )}
+                            {description && <p className="text-sm">{description}</p>}
                         </div>
                     </div>
                     {action}
@@ -171,14 +156,10 @@ function Row({
             {icon}
             <span className="flex min-w-0 flex-1 flex-col">
                 <h3 className="truncate text-sm">{title}</h3>
-                {description && (
-                    <p className="text-xs">{description}</p>
-                )}
+                {description && <p className="text-xs">{description}</p>}
             </span>
             {value && (
-                <span className="max-w-[45%] truncate text-sm text-muted-foreground">
-                    {value}
-                </span>
+                <span className="max-w-[45%] truncate text-sm text-muted-foreground">{value}</span>
             )}
             {trailing}
             {(chevron ?? interactive) && (
@@ -192,23 +173,14 @@ function Row({
 
     if (to) {
         return (
-            <Link
-                to={to}
-                params={params}
-                hash={hash}
-                className={className}
-            >
+            <Link to={to} params={params} hash={hash} className={className}>
                 {body}
             </Link>
         )
     }
     if (onClick) {
         return (
-            <button
-                type="button"
-                onClick={onClick}
-                className={className}
-            >
+            <button type="button" onClick={onClick} className={className}>
                 {body}
             </button>
         )
@@ -240,10 +212,7 @@ function Copy({
                 setTimeout(() => setCopied(false), 1500)
             }}
         >
-            <HugeiconsIcon
-                icon={copied ? Tick02Icon : Copy01Icon}
-                className="size-4"
-            />
+            <HugeiconsIcon icon={copied ? Tick02Icon : Copy01Icon} className="size-4" />
         </IconButton>
     )
 }

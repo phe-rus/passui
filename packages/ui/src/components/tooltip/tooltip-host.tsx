@@ -24,12 +24,7 @@ export function TooltipHost() {
     const [tip, setTip] = useState<Tip | null>(null)
 
     useEffect(() => {
-        if (
-            !window.matchMedia(
-                "(hover: hover) and (pointer: fine)"
-            ).matches
-        )
-            return
+        if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return
         let timer: ReturnType<typeof setTimeout> | undefined
         let current: Element | null = null
         let lastShown = 0
@@ -38,14 +33,11 @@ export function TooltipHost() {
             const text = element.getAttribute("data-tooltip")
             if (!text) return
             const rect = element.getBoundingClientRect()
-            const above =
-                rect.bottom + 40 > window.innerHeight
+            const above = rect.bottom + 40 > window.innerHeight
             setTip({
                 text,
                 x: rect.left + rect.width / 2,
-                y: above
-                    ? rect.top - MARGIN
-                    : rect.bottom + MARGIN,
+                y: above ? rect.top - MARGIN : rect.bottom + MARGIN,
                 above,
             })
             lastShown = Date.now()
@@ -57,10 +49,7 @@ export function TooltipHost() {
             setTip(null)
         }
         const onOver = (event: PointerEvent) => {
-            const element =
-                (event.target as Element | null)?.closest?.(
-                    "[data-tooltip]"
-                ) ?? null
+            const element = (event.target as Element | null)?.closest?.("[data-tooltip]") ?? null
             if (element === current) return
             clearTimeout(timer)
             current = element
@@ -72,46 +61,20 @@ export function TooltipHost() {
             if (warm) show(element)
             else {
                 setTip(null)
-                timer = setTimeout(
-                    () =>
-                        current === element && show(element),
-                    DELAY
-                )
+                timer = setTimeout(() => current === element && show(element), DELAY)
             }
         }
 
-        window.document.addEventListener(
-            "pointerover",
-            onOver
-        )
-        window.document.addEventListener(
-            "pointerdown",
-            hide,
-            true
-        )
-        window.document.addEventListener(
-            "keydown",
-            hide,
-            true
-        )
+        window.document.addEventListener("pointerover", onOver)
+        window.document.addEventListener("pointerdown", hide, true)
+        window.document.addEventListener("keydown", hide, true)
         window.addEventListener("scroll", hide, true)
         window.addEventListener("blur", hide)
         return () => {
             clearTimeout(timer)
-            window.document.removeEventListener(
-                "pointerover",
-                onOver
-            )
-            window.document.removeEventListener(
-                "pointerdown",
-                hide,
-                true
-            )
-            window.document.removeEventListener(
-                "keydown",
-                hide,
-                true
-            )
+            window.document.removeEventListener("pointerover", onOver)
+            window.document.removeEventListener("pointerdown", hide, true)
+            window.document.removeEventListener("keydown", hide, true)
             window.removeEventListener("scroll", hide, true)
             window.removeEventListener("blur", hide)
         }
@@ -125,10 +88,7 @@ export function TooltipHost() {
                     role="tooltip"
                     className="pointer-events-none fixed z-[80] max-w-[240px] rounded-md bg-inverse px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-on-inverse shadow-lg"
                     style={{
-                        left: Math.min(
-                            Math.max(tip.x, 128),
-                            window.innerWidth - 128
-                        ),
+                        left: Math.min(Math.max(tip.x, 128), window.innerWidth - 128),
                         top: tip.y,
                         translateX: "-50%",
                         translateY: tip.above ? "-100%" : 0,

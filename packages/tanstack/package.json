@@ -23,7 +23,7 @@
         "typecheck": "tsc --noEmit",
         "test": "vitest run",
         "publish:check": "bun pm pack --dry-run",
-        "build": "vite build --mode client && vite build --mode server && tsc -p tsconfig.build.json"
+        "build": "tsc -p tsconfig.build.json"
     },
     "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5"
@@ -41,13 +41,7 @@
         "@tanstack/react-router-devtools": "^1.167.2",
         "@tanstack/react-table": "^9.2.4",
         "motion": "^13.4.4",
-        "@passui/react": "^0.1.15",
-        "@passui/solid": "^0.1.1",
-        "solid-js": "^1.9.17",
-        "@tanstack/solid-form": "^1.33.5",
-        "@tanstack/solid-query": "^5.104.5",
-        "@tanstack/solid-router": "^1.170.43",
-        "@tanstack/solid-table": "^9.3.1"
+        "@passui/react": "^0.1.15"
     },
     "devDependencies": {
         "@types/node": "^26.6.3",
@@ -66,13 +60,6 @@
         "@tanstack/react-table": "^9.2.4",
         "motion": "^13.4.4",
         "@passui/react": "workspace:^",
-        "@passui/solid": "workspace:^",
-        "solid-js": "1.9.17",
-        "@tanstack/solid-form": "1.33.5",
-        "@tanstack/solid-query": "5.104.5",
-        "@tanstack/solid-router": "1.170.43",
-        "@tanstack/solid-table": "9.3.1",
-        "vite-plugin-solid": "2.11.14",
         "react": "^19.3.0",
         "react-dom": "^19.3.0",
         "@tanstack/react-query": "^5.104.0"
@@ -88,71 +75,14 @@
         "./route-boundary": "./src/route-boundary/index.ts",
         "./styles.css": "./src/styles.css",
         "./react/forms": "./src/forms/index.ts",
-        "./solid/forms": {
-            "types": "./dist/types/src/solid/forms/index.d.ts",
-            "workerd": "./dist/server/src/solid/forms/index.js",
-            "node": "./dist/server/src/solid/forms/index.js",
-            "browser": "./dist/client/src/solid/forms/index.js",
-            "default": "./dist/client/src/solid/forms/index.js"
-        },
         "./react/form-fields": "./src/form-fields/index.ts",
-        "./solid/form-fields": {
-            "types": "./dist/types/src/solid/form-fields/index.d.ts",
-            "workerd": "./dist/server/src/solid/form-fields/index.js",
-            "node": "./dist/server/src/solid/form-fields/index.js",
-            "browser": "./dist/client/src/solid/form-fields/index.js",
-            "default": "./dist/client/src/solid/form-fields/index.js"
-        },
         "./react/tables": "./src/tables/index.ts",
-        "./solid/tables": {
-            "types": "./dist/types/src/solid/tables/index.d.ts",
-            "workerd": "./dist/server/src/solid/tables/index.js",
-            "node": "./dist/server/src/solid/tables/index.js",
-            "browser": "./dist/client/src/solid/tables/index.js",
-            "default": "./dist/client/src/solid/tables/index.js"
-        },
         "./react/document": "./src/document/index.ts",
-        "./solid/document": {
-            "types": "./dist/types/src/solid/document/index.d.ts",
-            "workerd": "./dist/server/src/solid/document/index.js",
-            "node": "./dist/server/src/solid/document/index.js",
-            "browser": "./dist/client/src/solid/document/index.js",
-            "default": "./dist/client/src/solid/document/index.js"
-        },
         "./react/auth-shell": "./src/auth-shell/index.ts",
-        "./solid/auth-shell": {
-            "types": "./dist/types/src/solid/auth-shell/index.d.ts",
-            "workerd": "./dist/server/src/solid/auth-shell/index.js",
-            "node": "./dist/server/src/solid/auth-shell/index.js",
-            "browser": "./dist/client/src/solid/auth-shell/index.js",
-            "default": "./dist/client/src/solid/auth-shell/index.js"
-        },
         "./react/settings": "./src/settings/index.ts",
-        "./solid/settings": {
-            "types": "./dist/types/src/solid/settings/index.d.ts",
-            "workerd": "./dist/server/src/solid/settings/index.js",
-            "node": "./dist/server/src/solid/settings/index.js",
-            "browser": "./dist/client/src/solid/settings/index.js",
-            "default": "./dist/client/src/solid/settings/index.js"
-        },
         "./react/mutation": "./src/mutation/index.ts",
-        "./solid/mutation": {
-            "types": "./dist/types/src/solid/mutation/index.d.ts",
-            "workerd": "./dist/server/src/solid/mutation/index.js",
-            "node": "./dist/server/src/solid/mutation/index.js",
-            "browser": "./dist/client/src/solid/mutation/index.js",
-            "default": "./dist/client/src/solid/mutation/index.js"
-        },
         "./react/route-boundary": "./src/route-boundary/index.ts",
-        "./solid/route-boundary": {
-            "types": "./dist/types/src/solid/route-boundary/index.d.ts",
-            "workerd": "./dist/server/src/solid/route-boundary/index.js",
-            "node": "./dist/server/src/solid/route-boundary/index.js",
-            "browser": "./dist/client/src/solid/route-boundary/index.js",
-            "default": "./dist/client/src/solid/route-boundary/index.js"
-        },
         "./react/styles.css": "./src/styles.css",
-        "./solid/styles.css": "./src/solid/styles.css",
         "./core": "./src/shared/index.ts"
     },
     "description": "TanStack form, table and router integrations for Passui.",
@@ -191,24 +121,6 @@
             "optional": true
         },
         "@passui/react": {
-            "optional": true
-        },
-        "@passui/solid": {
-            "optional": true
-        },
-        "solid-js": {
-            "optional": true
-        },
-        "@tanstack/solid-form": {
-            "optional": true
-        },
-        "@tanstack/solid-query": {
-            "optional": true
-        },
-        "@tanstack/solid-router": {
-            "optional": true
-        },
-        "@tanstack/solid-table": {
             "optional": true
         }
     }

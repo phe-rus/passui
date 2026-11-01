@@ -1,37 +1,18 @@
 import { pageUrl, siteOrigin } from "./site"
 
-export function getPageHead(
-    path: string,
-    title: string,
-    description: string
-) {
+export function getPageHead(path: string, title: string, description: string) {
     const url = pageUrl(path)
     const image = `${siteOrigin}/favicon.png`
     const pathname = new URL(url).pathname
-    const solid =
-        pathname.startsWith("/solid/") ||
-        pathname.startsWith("/components/solid/")
-    const section =
-        pathname.startsWith("/components/") ||
-        pathname.startsWith("/solid/components/")
-            ? {
-                  name: "Components",
-                  path: "/components",
-              }
-            : null
+    const section = pathname.startsWith("/components/")
+        ? {
+              name: "Components",
+              path: "/components",
+          }
+        : null
     const crumbs = [
         { name: "Passui", path: "/" },
-        ...(solid
-            ? [
-                  {
-                      name: "SolidJS",
-                      path: "/solid/docs/introduction",
-                  },
-              ]
-            : []),
-        ...(section && section.path !== pathname
-            ? [section]
-            : []),
+        ...(section && section.path !== pathname ? [section] : []),
         ...(pathname !== "/"
             ? [
                   {
@@ -98,27 +79,22 @@ export function getPageHead(
                         },
                         {
                             "@type": "BreadcrumbList",
-                            itemListElement: crumbs.map(
-                                (crumb, index) => ({
-                                    "@type": "ListItem",
-                                    position: index + 1,
-                                    name: crumb.name,
-                                    item: pageUrl(crumb.path),
-                                })
-                            ),
+                            itemListElement: crumbs.map((crumb, index) => ({
+                                "@type": "ListItem",
+                                position: index + 1,
+                                name: crumb.name,
+                                item: pageUrl(crumb.path),
+                            })),
                         },
                         ...(pathname === "/"
                             ? [
                                   {
-                                      "@type":
-                                          "SoftwareSourceCode",
+                                      "@type": "SoftwareSourceCode",
                                       name: "Passui",
                                       description,
                                       url,
-                                      codeRepository:
-                                          "https://github.com/phe-rus/passui",
-                                      programmingLanguage:
-                                          "TypeScript",
+                                      codeRepository: "https://github.com/phe-rus/passui",
+                                      programmingLanguage: "TypeScript",
                                       license:
                                           "https://github.com/phe-rus/passui/blob/main/LICENSE",
                                   },

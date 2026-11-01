@@ -1,20 +1,11 @@
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-    type ComponentProps,
-} from "react"
+import { createContext, useContext, useEffect, useState, type ComponentProps } from "react"
 import { cn } from "../../lib/class-names"
 
 const ImageContext = createContext<{
     loaded: boolean
     setLoaded: (loaded: boolean) => void
 }>({ loaded: false, setLoaded: () => {} })
-export function ProfileImage({
-    className,
-    ...props
-}: ComponentProps<"span">) {
+export function ProfileImage({ className, ...props }: ComponentProps<"span">) {
     const [loaded, setLoaded] = useState(false)
     return (
         <ImageContext value={{ loaded, setLoaded }}>
@@ -46,10 +37,7 @@ export function ProfileImageContent({
             alt=""
             {...props}
             src={src}
-            className={cn(
-                "absolute inset-0 size-full object-cover",
-                className
-            )}
+            className={cn("absolute inset-0 size-full object-cover", className)}
             onLoad={(event) => {
                 setLoaded(true)
                 onLoad?.(event)
@@ -57,24 +45,14 @@ export function ProfileImageContent({
             onError={(event) => {
                 setLoaded(false)
                 onError?.(event)
-                event.currentTarget.style.visibility =
-                    "hidden"
+                event.currentTarget.style.visibility = "hidden"
             }}
         />
     )
 }
-export function ProfileImageFallback({
-    className,
-    ...props
-}: ComponentProps<"span">) {
+export function ProfileImageFallback({ className, ...props }: ComponentProps<"span">) {
     const { loaded } = useContext(ImageContext)
     return loaded ? null : (
-        <span
-            {...props}
-            className={cn(
-                "text-footnote font-medium",
-                className
-            )}
-        />
+        <span {...props} className={cn("text-footnote font-medium", className)} />
     )
 }

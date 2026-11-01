@@ -14,20 +14,11 @@ export interface SectionProps {
  * and SwiftUI's grouped `List` with `Section(header:footer:)`. Rows are
  * usually `LabeledContent`; dividers between them come for free.
  */
-export function Section({
-    title,
-    footer,
-    children,
-}: SectionProps) {
+export function Section({ title, footer, children }: SectionProps) {
     return (
-        <section
-            aria-label={title}
-            className="flex flex-col gap-2"
-        >
+        <section aria-label={title} className="flex flex-col gap-2">
             {title && (
-                <h2 className="px-4 text-footnote font-medium text-label-tertiary">
-                    {title}
-                </h2>
+                <h2 className="px-4 text-footnote font-medium text-label-tertiary">{title}</h2>
             )}
             {/* A group can be only a note, e.g. where to find something on this device. */}
             {children ? (
@@ -36,9 +27,7 @@ export function Section({
                 </div>
             ) : null}
             {footer && (
-                <p className="px-4 text-caption leading-snug text-label-tertiary">
-                    {footer}
-                </p>
+                <p className="px-4 text-caption leading-snug text-label-tertiary">{footer}</p>
             )}
         </section>
     )

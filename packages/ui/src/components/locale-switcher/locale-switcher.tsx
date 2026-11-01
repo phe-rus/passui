@@ -1,11 +1,6 @@
 import { getNativeLanguageName } from "../../lib/language"
 import { cn } from "../../lib/class-names"
-import {
-    AnimatePresence,
-    motion,
-    useDragControls,
-    useMotionValue,
-} from "motion/react"
+import { AnimatePresence, motion, useDragControls, useMotionValue } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 
 type Side = "left" | "right"
@@ -31,10 +26,8 @@ function loadStoredAnchor(storageKey: string): Anchor | null {
         if (!raw) return null
         const parsed = JSON.parse(raw) as Partial<Anchor>
         if (
-            (parsed.side === "left" ||
-                parsed.side === "right") &&
-            (parsed.edge === "top" ||
-                parsed.edge === "bottom") &&
+            (parsed.side === "left" || parsed.side === "right") &&
+            (parsed.edge === "top" || parsed.edge === "bottom") &&
             typeof parsed.x === "number" &&
             typeof parsed.y === "number"
         ) {
@@ -49,15 +42,9 @@ function loadStoredAnchor(storageKey: string): Anchor | null {
     return null
 }
 
-function saveStoredAnchor(
-    storageKey: string,
-    anchor: Anchor
-) {
+function saveStoredAnchor(storageKey: string, anchor: Anchor) {
     try {
-        localStorage.setItem(
-            storageKey,
-            JSON.stringify(anchor)
-        )
+        localStorage.setItem(storageKey, JSON.stringify(anchor))
     } catch {}
 }
 
@@ -98,50 +85,25 @@ export function LocaleSwitcher<L extends string>({
     useEffect(() => {
         if (!open) return
         function handlePointerDown(e: PointerEvent) {
-            if (
-                containerRef.current &&
-                !containerRef.current.contains(
-                    e.target as Node
-                )
-            ) {
+            if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
                 setOpen(false)
             }
         }
-        document.addEventListener(
-            "pointerdown",
-            handlePointerDown
-        )
-        return () =>
-            document.removeEventListener(
-                "pointerdown",
-                handlePointerDown
-            )
+        document.addEventListener("pointerdown", handlePointerDown)
+        return () => document.removeEventListener("pointerdown", handlePointerDown)
     }, [open])
 
     function commitDraggedPosition() {
         const el = containerRef.current
         if (!el) return
         const rect = el.getBoundingClientRect()
-        const side: Side =
-            rect.left + rect.width / 2 < window.innerWidth / 2
-                ? "left"
-                : "right"
-        const edge: Edge =
-            rect.top + rect.height / 2 <
-            window.innerHeight / 2
-                ? "top"
-                : "bottom"
+        const side: Side = rect.left + rect.width / 2 < window.innerWidth / 2 ? "left" : "right"
+        const edge: Edge = rect.top + rect.height / 2 < window.innerHeight / 2 ? "top" : "bottom"
         const next: Anchor = {
             side,
             edge,
-            x:
-                side === "left"
-                    ? rect.left
-                    : window.innerWidth - rect.right,
-            y:
-                edge === "top"
-                    ? rect.top
-                    : window.innerHeight - rect.bottom,
+            x: side === "left" ? rect.left : window.innerWidth - rect.right,
+            y: edge === "top" ? rect.top : window.innerHeight - rect.bottom,
         }
         setAnchor(next)
         saveStoredAnchor(storageKey, next)
@@ -163,12 +125,8 @@ export function LocaleSwitcher<L extends string>({
                 position: "fixed",
                 x,
                 y,
-                ...(anchor.side === "left"
-                    ? { left: anchor.x }
-                    : { right: anchor.x }),
-                ...(anchor.edge === "top"
-                    ? { top: anchor.y }
-                    : { bottom: anchor.y }),
+                ...(anchor.side === "left" ? { left: anchor.x } : { right: anchor.x }),
+                ...(anchor.edge === "top" ? { top: anchor.y } : { bottom: anchor.y }),
             }}
             onDragEnd={commitDraggedPosition}
             onMouseLeave={() => open && setOpen(false)}
@@ -182,7 +140,7 @@ export function LocaleSwitcher<L extends string>({
                     stiffness: 380,
                 }}
                 className={cn(
-                    "overflow-hidden rounded-2xl border border-border/35 bg-popover/80 shadow-lg",
+                    "overflow-hidden rounded-2xl border border-separator/35 bg-elevated/80 shadow-lg",
                     "backdrop-blur-xl backdrop-saturate-150",
                     "flex",
                     growsUp ? "flex-col-reverse" : "flex-col",
@@ -193,16 +151,12 @@ export function LocaleSwitcher<L extends string>({
                     type="button"
                     aria-label={label}
                     aria-expanded={open}
-                    onPointerDown={(e) =>
-                        dragControls.start(e)
-                    }
+                    onPointerDown={(e) => dragControls.start(e)}
                     onClick={() => setOpen((prev) => !prev)}
                     className={cn(
                         "flex shrink-0 cursor-grab items-center justify-center",
                         "active:cursor-grabbing text-xs font-semibold",
-                        open
-                            ? "h-9 w-full rounded-lg hover:bg-accent"
-                            : "size-10 rounded-2xl"
+                        open ? "h-9 w-full rounded-lg hover:bg-accent" : "size-10 rounded-2xl"
                     )}
                 >
                     {locale.toUpperCase()}
@@ -218,8 +172,7 @@ export function LocaleSwitcher<L extends string>({
                             className="flex flex-col gap-px"
                         >
                             {langs.map((item) => {
-                                const active =
-                                    item.value === locale
+                                const active = item.value === locale
                                 return (
                                     <button
                                         key={item.value}
@@ -227,16 +180,13 @@ export function LocaleSwitcher<L extends string>({
                                         onClick={() => {
                                             setOpen(false)
                                             if (!active) {
-                                                onSelect(
-                                                    item.value
-                                                )
+                                                onSelect(item.value)
                                             }
                                         }}
                                         className={cn(
                                             "rounded-sm px-2 py-1.5 text-left text-sm",
                                             "hover:bg-accent transition-colors",
-                                            active &&
-                                                "text-primary font-medium"
+                                            active && "text-primary font-medium"
                                         )}
                                     >
                                         {item.label}

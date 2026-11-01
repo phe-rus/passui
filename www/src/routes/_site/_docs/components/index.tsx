@@ -2,9 +2,7 @@ import { getPageHead } from "@/domains/seo/get-page-head"
 import { ComponentsOverview } from "@/domains/catalog"
 import { createFileRoute } from "@tanstack/react-router"
 
-export const Route = createFileRoute(
-    "/_site/_docs/components/"
-)({
+export const Route = createFileRoute("/_site/_docs/components/")({
     head: () =>
         getPageHead(
             "/components",

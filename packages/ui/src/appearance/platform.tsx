@@ -1,18 +1,6 @@
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-    type PropsWithChildren,
-} from "react"
+import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react"
 
-export type PlatformOS =
-    | "ios"
-    | "android"
-    | "macos"
-    | "windows"
-    | "linux"
-    | "unknown"
+export type PlatformOS = "ios" | "android" | "macos" | "windows" | "linux" | "unknown"
 
 const PlatformContext = createContext<PlatformOS>("unknown")
 
@@ -21,12 +9,7 @@ export function detectPlatform(
     platform: string,
     maxTouchPoints: number
 ): PlatformOS {
-    return resolvePlatform(
-        null,
-        userAgent,
-        platform,
-        maxTouchPoints
-    )
+    return resolvePlatform(null, userAgent, platform, maxTouchPoints)
 }
 
 export function resolvePlatform(
@@ -48,8 +31,7 @@ export function resolvePlatform(
 
     if (/android/i.test(userAgent)) return "android"
     if (/iPhone|iPad|iPod/i.test(userAgent)) return "ios"
-    if (platform === "MacIntel" && maxTouchPoints > 1)
-        return "ios"
+    if (platform === "MacIntel" && maxTouchPoints > 1) return "ios"
     if (/Mac/i.test(platform)) return "macos"
     if (/Win/i.test(platform)) return "windows"
     if (/Linux/i.test(platform)) return "linux"
@@ -65,20 +47,11 @@ function initializePlatform(
 ) {
     root.setAttribute(
         "data-os",
-        resolve(
-            root.getAttribute("data-os"),
-            userAgent,
-            platform,
-            maxTouchPoints
-        )
+        resolve(root.getAttribute("data-os"), userAgent, platform, maxTouchPoints)
     )
 }
 
-export function PlatformScript({
-    nonce,
-}: {
-    nonce?: string
-}) {
+export function PlatformScript({ nonce }: { nonce?: string }) {
     return (
         <script
             // Run the library's platform bootstrap before first paint.
@@ -91,11 +64,8 @@ export function PlatformScript({
     )
 }
 
-export function PlatformProvider({
-    children,
-}: PropsWithChildren) {
-    const [platform, setPlatform] =
-        useState<PlatformOS>("unknown")
+export function PlatformProvider({ children }: PropsWithChildren) {
+    const [platform, setPlatform] = useState<PlatformOS>("unknown")
 
     useEffect(() => {
         const resolved = resolvePlatform(
@@ -104,18 +74,11 @@ export function PlatformProvider({
             navigator.platform,
             navigator.maxTouchPoints
         )
-        document.documentElement.setAttribute(
-            "data-os",
-            resolved
-        )
+        document.documentElement.setAttribute("data-os", resolved)
         setPlatform(resolved)
     }, [])
 
-    return (
-        <PlatformContext.Provider value={platform}>
-            {children}
-        </PlatformContext.Provider>
-    )
+    return <PlatformContext.Provider value={platform}>{children}</PlatformContext.Provider>
 }
 
 export function usePlatform() {

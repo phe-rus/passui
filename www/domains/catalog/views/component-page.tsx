@@ -9,7 +9,6 @@ import { getSetup } from "../get-setup"
 import { componentTitle } from "../navigation"
 import { getExampleSource } from "../get-example-source"
 import { AnatomyTable } from "./anatomy-table"
-import { ComponentFrameworkTabs } from "./component-framework-tabs"
 import { DocSection } from "./doc-section"
 import { ExampleCard } from "./example-card"
 import { InstallSteps } from "./install-steps"
@@ -28,11 +27,7 @@ type ComponentPageProps = {
  * first, then setup, usage, anatomy, examples, practices, accessibility
  * and the full prop reference, with a map of the page beside it.
  */
-export function ComponentPage({
-    slug,
-    settings,
-    rawProps,
-}: ComponentPageProps) {
+export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) {
     const entry = getEntry(slug)
     if (!entry) return null
     const { docs, content } = entry
@@ -54,12 +49,10 @@ export function ComponentPage({
                   {
                       id: "examples",
                       title: "Examples",
-                      children: examples.map(
-                          ({ example, words }) => ({
-                              id: `example-${example.id}`,
-                              title: words.title,
-                          })
-                      ),
+                      children: examples.map(({ example, words }) => ({
+                          id: `example-${example.id}`,
+                          title: words.title,
+                      })),
                   },
               ]
             : []),
@@ -73,19 +66,11 @@ export function ComponentPage({
         <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_13rem]">
             <article className="flex min-w-0 flex-col gap-5">
                 <header className="flex flex-col gap-2">
-                    <span className="font-mono">
-                        @passui/react · {docs.name}
-                    </span>
+                    <span className="font-mono">@passui/react · {docs.name}</span>
                     <h1 className="font-brand text-large-title font-extrabold tracking-tight">
                         {componentTitle(entry)}
                     </h1>
-                    <p className="max-w-2xl">
-                        {content.summary}
-                    </p>
-                    <ComponentFrameworkTabs
-                        slug={slug}
-                        framework="react"
-                    />
+                    <p className="max-w-2xl">{content.summary}</p>
                     <div className="flex flex-wrap gap-2">
                         <Link
                             to="/preview/$slug"
@@ -121,43 +106,21 @@ export function ComponentPage({
                     title="Playground"
                     description="Change any option and the preview, the code and the address all follow. Share the address to share exactly this state."
                 >
-                    <Playground
-                        docs={docs}
-                        settings={settings}
-                        rawProps={rawProps}
-                    />
+                    <Playground docs={docs} settings={settings} rawProps={rawProps} />
                 </DocSection>
 
-                <DocSection
-                    id="installation"
-                    title="Installation"
-                    collapsible
-                >
+                <DocSection id="installation" title="Installation" collapsible>
                     <InstallSteps />
                 </DocSection>
 
                 {setup && (
-                    <DocSection
-                        id="setup"
-                        title="Setup"
-                        description={setup.description}
-                    >
-                        <CodeView
-                            code={setup.code}
-                            label="tsx"
-                        />
+                    <DocSection id="setup" title="Setup" description={setup.description}>
+                        <CodeView code={setup.code} label="tsx" />
                     </DocSection>
                 )}
-                <DocSection
-                    id="usage"
-                    title="Usage"
-                    description={content.usage}
-                >
+                <DocSection id="usage" title="Usage" description={content.usage}>
                     <div className="overflow-hidden rounded-3xl ring-1 ring-separator/60">
-                        <CodeView
-                            code={importLine}
-                            label="tsx"
-                        />
+                        <CodeView code={importLine} label="tsx" />
                     </div>
                     <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
                         <div className="flex min-h-40 items-center justify-center bg-background p-5">
@@ -165,21 +128,14 @@ export function ComponentPage({
                         </div>
                         <div className="border-separator/60 border-t">
                             <CodeView
-                                code={getExampleSource(
-                                    docs.slug,
-                                    "usage"
-                                )}
+                                code={getExampleSource(docs.slug, "usage")}
                                 label={`${docs.slug}-usage.tsx`}
                             />
                         </div>
                     </div>
                 </DocSection>
 
-                <DocSection
-                    id="anatomy"
-                    title="Anatomy"
-                    collapsible
-                >
+                <DocSection id="anatomy" title="Anatomy" collapsible>
                     <AnatomyTable parts={content.anatomy} />
                 </DocSection>
 
@@ -190,41 +146,26 @@ export function ComponentPage({
                         description="Common setups, variations and states."
                     >
                         <div className="flex flex-col gap-5">
-                            {examples.map(
-                                ({ example, words }) => (
-                                    <ExampleCard
-                                        key={example.id}
-                                        docs={docs}
-                                        example={example}
-                                        content={words}
-                                    />
-                                )
-                            )}
+                            {examples.map(({ example, words }) => (
+                                <ExampleCard
+                                    key={example.id}
+                                    docs={docs}
+                                    example={example}
+                                    content={words}
+                                />
+                            ))}
                         </div>
                     </DocSection>
                 )}
 
-                <DocSection
-                    id="best-practices"
-                    title="Best practices"
-                    collapsible
-                >
-                    <PracticesList
-                        practices={content.practices}
-                    />
+                <DocSection id="best-practices" title="Best practices" collapsible>
+                    <PracticesList practices={content.practices} />
                 </DocSection>
 
-                <DocSection
-                    id="accessibility"
-                    title="Accessibility"
-                    collapsible
-                >
+                <DocSection id="accessibility" title="Accessibility" collapsible>
                     <ul className="m-0 flex list-none flex-col gap-5 p-0">
                         {content.accessibility.map((line) => (
-                            <li
-                                key={line}
-                                className="flex items-start gap-2"
-                            >
+                            <li key={line} className="flex items-start gap-2">
                                 <InfoIcon size={18} />
                                 <span>{line}</span>
                             </li>
@@ -232,16 +173,8 @@ export function ComponentPage({
                     </ul>
                 </DocSection>
 
-                <DocSection
-                    id="api-reference"
-                    title="API reference"
-                >
-                    <PropsTable
-                        docs={docs}
-                        descriptions={
-                            content.propDescriptions
-                        }
-                    />
+                <DocSection id="api-reference" title="API reference">
+                    <PropsTable docs={docs} descriptions={content.propDescriptions} />
                 </DocSection>
             </article>
 

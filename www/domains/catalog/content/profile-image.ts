@@ -1,23 +1,19 @@
-import type { profileImageDocs } from "@passui/react/docs"
+import type { profileImageDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const profileImageContent: ComponentContent<
-    typeof profileImageDocs
-> = {
+export const profileImageContent: ComponentContent<typeof profileImageDocs> = {
     summary:
         "A round photo of a person that falls back to their initials while it loads or if it fails.",
     usage: "Use it wherever a person appears: account menus, member lists, comments. Size it with a class name.",
     propDescriptions: {
         size: "Set with a size class on ProfileImage, such as size-7, size-11 or size-20.",
         photo: "Whether a ProfileImageContent with a src is inside.",
-        initials:
-            "The children of ProfileImageFallback, shown until the photo loads.",
+        initials: "The children of ProfileImageFallback, shown until the photo loads.",
     },
     examples: {
         fallbacks: {
             title: "Fallbacks",
-            description:
-                "A photo, a broken link, and no photo at all. The last two show initials.",
+            description: "A photo, a broken link, and no photo at all. The last two show initials.",
         },
         group: {
             title: "Stacked group",
@@ -28,19 +24,16 @@ export const profileImageContent: ComponentContent<
     anatomy: [
         {
             element: "ProfileImage",
-            description:
-                "The round frame. Its class name sets the size.",
+            description: "The round frame. Its class name sets the size.",
             required: true,
         },
         {
             element: "ProfileImageContent",
-            description:
-                "The photo. Renders nothing without a src.",
+            description: "The photo. Renders nothing without a src.",
         },
         {
             element: "ProfileImageFallback",
-            description:
-                "Initials, hidden once the photo has loaded.",
+            description: "Initials, hidden once the photo has loaded.",
             required: true,
         },
     ],

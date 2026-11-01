@@ -1,7 +1,4 @@
-import {
-    getSitemap,
-    discoveryHeaders,
-} from "@/domains/seo/sitemap"
+import { getSitemap, discoveryHeaders } from "@/domains/seo/sitemap"
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -11,8 +8,7 @@ export const Route = createFileRoute("/sitemap.xml")({
                 new Response(getSitemap(), {
                     headers: {
                         ...discoveryHeaders,
-                        "Content-Type":
-                            "application/xml; charset=utf-8",
+                        "Content-Type": "application/xml; charset=utf-8",
                     },
                 }),
         },

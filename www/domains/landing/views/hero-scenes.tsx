@@ -54,56 +54,28 @@ function Artwork({ className }: SceneProps) {
 export function PlayerScene({ className }: SceneProps) {
     const [playing, setPlaying] = useState(true)
     return (
-        <Panel
-            className={cn(
-                "flex w-64 flex-col gap-3",
-                className
-            )}
-        >
+        <Panel className={cn("flex w-64 flex-col gap-3", className)}>
             <Artwork className="h-40" />
             <div className="flex flex-col px-1">
-                <span className="text-headline font-semibold">
-                    Morning light
-                </span>
-                <span className="text-footnote text-label-secondary">
-                    Quiet Rooms
-                </span>
+                <span className="text-headline font-semibold">Morning light</span>
+                <span className="text-footnote text-label-secondary">Quiet Rooms</span>
             </div>
             <div className="mx-1 h-1 overflow-hidden rounded-full bg-fill">
                 <div className="h-full w-2/5 rounded-full bg-accent transition-colors duration-700" />
             </div>
             <div className="flex items-center justify-between px-3">
-                <IconButton
-                    label="Previous"
-                    variant="ghost"
-                    size="icon-sm"
-                >
-                    <HugeiconsIcon
-                        icon={PreviousIcon}
-                        size={18}
-                    />
+                <IconButton label="Previous" variant="ghost" size="icon-sm">
+                    <HugeiconsIcon icon={PreviousIcon} size={18} />
                 </IconButton>
                 <IconButton
                     label={playing ? "Pause" : "Play"}
                     variant="accent"
-                    onClick={() =>
-                        setPlaying((value) => !value)
-                    }
+                    onClick={() => setPlaying((value) => !value)}
                 >
-                    <HugeiconsIcon
-                        icon={playing ? PauseIcon : PlayIcon}
-                        size={20}
-                    />
+                    <HugeiconsIcon icon={playing ? PauseIcon : PlayIcon} size={20} />
                 </IconButton>
-                <IconButton
-                    label="Next"
-                    variant="ghost"
-                    size="icon-sm"
-                >
-                    <HugeiconsIcon
-                        icon={NextIcon}
-                        size={18}
-                    />
+                <IconButton label="Next" variant="ghost" size="icon-sm">
+                    <HugeiconsIcon icon={NextIcon} size={18} />
                 </IconButton>
             </div>
         </Panel>
@@ -113,31 +85,17 @@ export function PlayerScene({ className }: SceneProps) {
 export function ComposerScene({ className }: SceneProps) {
     const [text, setText] = useState("")
     return (
-        <Panel
-            className={cn(
-                "flex w-72 flex-col gap-3",
-                className
-            )}
-        >
+        <Panel className={cn("flex w-72 flex-col gap-3", className)}>
             <input
                 value={text}
-                onChange={(event) =>
-                    setText(event.target.value)
-                }
+                onChange={(event) => setText(event.target.value)}
                 placeholder="How can I help?"
                 aria-label="Message"
                 className="bg-transparent px-1 text-body outline-none placeholder:text-label-tertiary"
             />
             <div className="flex items-center justify-between">
-                <IconButton
-                    label="Attach"
-                    variant="secondary"
-                    size="icon-sm"
-                >
-                    <HugeiconsIcon
-                        icon={PlusSignIcon}
-                        size={18}
-                    />
+                <IconButton label="Attach" variant="secondary" size="icon-sm">
+                    <HugeiconsIcon icon={PlusSignIcon} size={18} />
                 </IconButton>
                 <IconButton
                     label="Send"
@@ -148,10 +106,7 @@ export function ComposerScene({ className }: SceneProps) {
                         toast.success("Sent (just a demo)")
                     }}
                 >
-                    <HugeiconsIcon
-                        icon={ArrowUp02Icon}
-                        size={18}
-                    />
+                    <HugeiconsIcon icon={ArrowUp02Icon} size={18} />
                 </IconButton>
             </div>
         </Panel>
@@ -161,25 +116,14 @@ export function ComposerScene({ className }: SceneProps) {
 export function ProductScene({ className }: SceneProps) {
     const [added, setAdded] = useState(false)
     return (
-        <Panel
-            className={cn(
-                "flex w-60 flex-col gap-3",
-                className
-            )}
-        >
+        <Panel className={cn("flex w-60 flex-col gap-3", className)}>
             <Artwork className="h-44" />
             <div className="flex items-start justify-between gap-2 px-1">
                 <div className="flex flex-col">
-                    <span className="text-headline font-semibold">
-                        Sun lamp
-                    </span>
-                    <span className="text-footnote text-label-secondary">
-                        Warm light, all day
-                    </span>
+                    <span className="text-headline font-semibold">Sun lamp</span>
+                    <span className="text-footnote text-label-secondary">Warm light, all day</span>
                 </div>
-                <span className="text-headline font-semibold tabular-nums">
-                    $129
-                </span>
+                <span className="text-headline font-semibold tabular-nums">$129</span>
             </div>
             <Button
                 variant={added ? "secondary" : "accent"}
@@ -193,19 +137,10 @@ export function ProductScene({ className }: SceneProps) {
 
 export function RewardsScene({ className }: SceneProps) {
     return (
-        <Panel
-            className={cn(
-                "flex w-64 flex-col gap-3",
-                className
-            )}
-        >
+        <Panel className={cn("flex w-64 flex-col gap-3", className)}>
             <div className="flex items-baseline justify-between px-1">
-                <span className="text-headline font-semibold">
-                    Points
-                </span>
-                <span className="text-footnote text-label-secondary tabular-nums">
-                    6 of 8
-                </span>
+                <span className="text-headline font-semibold">Points</span>
+                <span className="text-footnote text-label-secondary tabular-nums">6 of 8</span>
             </div>
             <div className="flex gap-1 px-1">
                 {Array.from({ length: 8 }, (_, index) => (
@@ -213,9 +148,7 @@ export function RewardsScene({ className }: SceneProps) {
                         key={index}
                         className={cn(
                             "h-2 flex-1 rounded-full transition-colors duration-700",
-                            index < 6
-                                ? "bg-accent"
-                                : "bg-fill"
+                            index < 6 ? "bg-accent" : "bg-fill"
                         )}
                     />
                 ))}
@@ -256,12 +189,7 @@ export function ShippingToggle({ className }: SceneProps) {
                 className
             )}
         >
-            <Toggle
-                style="checkbox"
-                label="Free shipping"
-                checked={on}
-                onChange={setOn}
-            />
+            <Toggle style="checkbox" label="Free shipping" checked={on} onChange={setOn} />
         </span>
     )
 }

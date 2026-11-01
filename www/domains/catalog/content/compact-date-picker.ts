@@ -1,9 +1,7 @@
-import type { compactDatePickerDocs } from "@passui/react/docs"
+import type { compactDatePickerDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const compactDatePickerContent: ComponentContent<
-    typeof compactDatePickerDocs
-> = {
+export const compactDatePickerContent: ComponentContent<typeof compactDatePickerDocs> = {
     summary:
         "A date shown as a compact button that opens a month calendar, like the compact DatePicker on iPhone.",
     usage: "Use it for dates people pick from a calendar, such as an event, a trip or an invoice's due date. For dates people know by heart, like a birthday, use DatePicker.",
@@ -15,8 +13,7 @@ export const compactDatePickerContent: ComponentContent<
     anatomy: [
         {
             element: "Button",
-            description:
-                "Shows the chosen date in the locale's format, or the placeholder.",
+            description: "Shows the chosen date in the locale's format, or the placeholder.",
             required: true,
         },
         {

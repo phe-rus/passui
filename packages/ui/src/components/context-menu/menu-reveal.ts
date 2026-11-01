@@ -6,10 +6,7 @@ export type MenuRect = {
 }
 
 /** Animate the material's bounds independently so menu text never stretches. */
-export function menuSurfaceReveal(
-    source: MenuRect | undefined,
-    target: MenuRect
-) {
+export function menuSurfaceReveal(source: MenuRect | undefined, target: MenuRect) {
     if (
         !source ||
         source.width <= 0 ||
@@ -32,7 +29,6 @@ export function menuSurfaceReveal(
         width: source.width,
         height: source.height,
         opacity: 1,
-        borderRadius:
-            Math.min(source.width, source.height) / 2,
+        borderRadius: Math.min(source.width, source.height) / 2,
     }
 }

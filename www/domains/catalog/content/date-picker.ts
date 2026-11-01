@@ -1,9 +1,7 @@
-import type { datePickerDocs } from "@passui/react/docs"
+import type { datePickerDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const datePickerContent: ComponentContent<
-    typeof datePickerDocs
-> = {
+export const datePickerContent: ComponentContent<typeof datePickerDocs> = {
     summary:
         "Day, month and year fields for dates people already know, like a birthday, in the order their locale writes them.",
     usage: "Use it for remembered dates such as birthdays, where typing is faster than paging through a calendar.",
@@ -31,8 +29,7 @@ export const datePickerContent: ComponentContent<
         },
         {
             element: "Day, month and year fields",
-            description:
-                "Numeric fields, ordered by the locale.",
+            description: "Numeric fields, ordered by the locale.",
             required: true,
         },
         {

@@ -1,20 +1,16 @@
-import type { dialogDocs } from "@passui/react/docs"
+import type { dialogDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const dialogContent: ComponentContent<
-    typeof dialogDocs
-> = {
+export const dialogContent: ComponentContent<typeof dialogDocs> = {
     summary:
         "A focused question or short form over the page, with a title, an optional description and a footer of actions.",
     usage: "Use it when people must finish or cancel something before going on: renaming, confirming a sign out, adding an email. For a plain yes or no, await confirmDialog instead.",
     propDescriptions: {
         title: "The dialog's heading, which also names it for screen readers.",
-        description:
-            "A line under the title that explains what happens next.",
+        description: "A line under the title that explains what happens next.",
         presentation:
             "Drawer rises from the bottom on phones and floats in the middle on larger screens. Center does the same today. Inline unfolds in place, inside the page.",
-        destructive:
-            "The tone of Dialog.Actions: a red action for something that can't be undone.",
+        destructive: "The tone of Dialog.Actions: a red action for something that can't be undone.",
     },
     examples: {
         form: {
@@ -49,8 +45,7 @@ export const dialogContent: ComponentContent<
         },
         {
             element: "Dialog.Actions",
-            description:
-                "The main action and a Cancel that closes the dialog.",
+            description: "The main action and a Cancel that closes the dialog.",
         },
     ],
     practices: [

@@ -16,15 +16,9 @@ export function useMinimizeOnScroll() {
         }
         const onKey = (event: KeyboardEvent) => {
             if (
-                [
-                    "ArrowDown",
-                    "ArrowUp",
-                    "PageDown",
-                    "PageUp",
-                    "Home",
-                    "End",
-                    " ",
-                ].includes(event.key)
+                ["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(
+                    event.key
+                )
             )
                 onIntent()
         }
@@ -32,31 +26,19 @@ export function useMinimizeOnScroll() {
             if (event.buttons === 1) onIntent()
         }
         const onScroll = (event: Event) => {
-            const pane =
-                event.target instanceof Element
-                    ? event.target
-                    : document.scrollingElement
+            const pane = event.target instanceof Element ? event.target : document.scrollingElement
             if (
                 !pane ||
-                pane.closest(
-                    "[role=dialog], [data-floating-layer]"
-                ) ||
+                pane.closest("[role=dialog], [data-floating-layer]") ||
                 pane.scrollHeight <= pane.clientHeight + 1
             )
                 return
             const top = pane.scrollTop
-            const userDriven =
-                intent !== null &&
-                performance.now() - intent < 2000
+            const userDriven = intent !== null && performance.now() - intent < 2000
             const anchor = anchors.get(pane) ?? 0
-            const next = minimizeDecision(
-                top,
-                anchor,
-                userDriven
-            )
+            const next = minimizeDecision(top, anchor, userDriven)
             if (next !== null) setMinimized(next)
-            if (next !== null || !userDriven)
-                anchors.set(pane, top)
+            if (next !== null || !userDriven) anchors.set(pane, top)
         }
         document.addEventListener("touchmove", onIntent, {
             passive: true,
@@ -76,15 +58,9 @@ export function useMinimizeOnScroll() {
             document.removeEventListener("scroll", onScroll, {
                 capture: true,
             })
-            document.removeEventListener(
-                "touchmove",
-                onIntent
-            )
+            document.removeEventListener("touchmove", onIntent)
             document.removeEventListener("wheel", onIntent)
-            document.removeEventListener(
-                "pointermove",
-                onPointer
-            )
+            document.removeEventListener("pointermove", onPointer)
             document.removeEventListener("keydown", onKey)
         }
     }, [])

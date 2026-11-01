@@ -37,10 +37,7 @@ export type DatePreset = keyof typeof PRESETS
 
 const formatters = new Map<string, Intl.DateTimeFormat>()
 
-function formatter(
-    key: string,
-    options: Intl.DateTimeFormatOptions
-) {
+function formatter(key: string, options: Intl.DateTimeFormatOptions) {
     let cached = formatters.get(key)
     if (!cached) {
         cached = new Intl.DateTimeFormat(LOCALE, options)
@@ -50,10 +47,7 @@ function formatter(
 }
 
 /** A stored UTC timestamp shown as its UTC wall-clock time, whatever the viewer's timezone. */
-export function formatUtc(
-    date: Date | string | number,
-    preset: DatePreset
-) {
+export function formatUtc(date: Date | string | number, preset: DatePreset) {
     return formatter(`utc:${preset}`, {
         ...PRESETS[preset],
         timeZone: "UTC",
@@ -83,14 +77,9 @@ export function fromNow(date: Date | string | number) {
     relative ??= new Intl.RelativeTimeFormat(LOCALE, {
         numeric: "auto",
     })
-    const seconds =
-        (new Date(date).getTime() - Date.now()) / 1000
+    const seconds = (new Date(date).getTime() - Date.now()) / 1000
     for (const [unit, size] of UNITS) {
-        if (Math.abs(seconds) >= size)
-            return relative.format(
-                Math.round(seconds / size),
-                unit
-            )
+        if (Math.abs(seconds) >= size) return relative.format(Math.round(seconds / size), unit)
     }
     return relative.format(0, "second")
 }

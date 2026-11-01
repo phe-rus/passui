@@ -13,10 +13,7 @@ export const shapes = [
 export type Shape = (typeof shapes)[number]
 
 /** Lobe count and wave depth (as a fraction of the radius) for each wavy shape. */
-const waves: Record<
-    Exclude<Shape, "circle">,
-    { lobes: number; depth: number }
-> = {
+const waves: Record<Exclude<Shape, "circle">, { lobes: number; depth: number }> = {
     cookie4: { lobes: 4, depth: 0.08 },
     cookie6: { lobes: 6, depth: 0.07 },
     cookie9: { lobes: 9, depth: 0.055 },
@@ -33,12 +30,7 @@ const STEPS = 144
  * "clover", and "sunny" outlines. The wave is normalised so every shape fills
  * the same `r`, keeping icons optically the same size.
  */
-export function shapePath(
-    shape: Shape,
-    cx: number,
-    cy: number,
-    r: number
-) {
+export function shapePath(shape: Shape, cx: number, cy: number, r: number) {
     if (shape === "circle") {
         return `M ${cx - r} ${cy} a ${r} ${r} 0 1 0 ${r * 2} 0 a ${r} ${r} 0 1 0 ${-r * 2} 0 Z`
     }
@@ -48,16 +40,10 @@ export function shapePath(
     const points: string[] = []
     for (let i = 0; i < STEPS; i++) {
         const theta = (i / STEPS) * Math.PI * 2 - Math.PI / 2
-        const radius =
-            base *
-            (1 +
-                depth *
-                    Math.cos(lobes * (theta + Math.PI / 2)))
+        const radius = base * (1 + depth * Math.cos(lobes * (theta + Math.PI / 2)))
         const x = cx + radius * Math.cos(theta)
         const y = cy + radius * Math.sin(theta)
-        points.push(
-            `${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`
-        )
+        points.push(`${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`)
     }
     return `${points.join(" ")} Z`
 }
@@ -66,5 +52,4 @@ export function shapePath(
  * The app wide `dualTone` rule dims every svg path for two tone icons; a
  * drawn shape or illustration opts out with this so its colors stay true.
  */
-export const plainSvg =
-    "cursor-[inherit] [&_path]:opacity-100 [&_path]:transform-none"
+export const plainSvg = "cursor-[inherit] [&_path]:opacity-100 [&_path]:transform-none"

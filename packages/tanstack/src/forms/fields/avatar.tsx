@@ -47,8 +47,7 @@ type FieldAvatarProps = {
 const DEFAULT_LABELS: FieldAvatarLabels = {
     edit: "Edit",
     remove: "Remove",
-    confirmHint:
-        "Press Enter to use this photo, Esc to cancel",
+    confirmHint: "Press Enter to use this photo, Esc to cancel",
     save: "Use photo",
     cancel: "Cancel",
     photo: "Photo",
@@ -61,9 +60,7 @@ const DEFAULT_LABELS: FieldAvatarLabels = {
 }
 
 const imageFrom = (files: FileList | null | undefined) =>
-    [...(files ?? [])].find((file) =>
-        file.type.startsWith("image/")
-    ) ?? null
+    [...(files ?? [])].find((file) => file.type.startsWith("image/")) ?? null
 
 /**
  * A photo you click to replace: a small menu (choose, take, monogram), then
@@ -84,9 +81,7 @@ export function FieldAvatar({
     const [pending, setPending] = useState<File | null>(null)
     const [sheetOpen, setSheetOpen] = useState(false)
     const [dragOver, setDragOver] = useState(false)
-    const [preview, setPreview] = useState<string | null>(
-        null
-    )
+    const [preview, setPreview] = useState<string | null>(null)
     const isCleared = field.state.value === false
     const shown = pending ?? field.state.value
 
@@ -111,8 +106,7 @@ export function FieldAvatar({
             if (event.key === "Escape") setPending(null)
         }
         window.addEventListener("keydown", onKey)
-        return () =>
-            window.removeEventListener("keydown", onKey)
+        return () => window.removeEventListener("keydown", onKey)
     })
 
     function keep() {
@@ -121,14 +115,8 @@ export function FieldAvatar({
         setPending(null)
     }
 
-    const currentImage = isCleared
-        ? undefined
-        : (preview ?? existingImage ?? undefined)
-    const canClear =
-        clearable &&
-        !pending &&
-        !isCleared &&
-        Boolean(currentImage)
+    const currentImage = isCleared ? undefined : (preview ?? existingImage ?? undefined)
+    const canClear = clearable && !pending && !isCleared && Boolean(currentImage)
 
     function onDrop(event: DragEvent<HTMLButtonElement>) {
         event.preventDefault()
@@ -149,9 +137,7 @@ export function FieldAvatar({
                 onDragLeave={() => setDragOver(false)}
                 onDrop={onDrop}
                 onPaste={(event) => {
-                    const file = imageFrom(
-                        event.clipboardData.files
-                    )
+                    const file = imageFrom(event.clipboardData.files)
                     if (file) setPending(file)
                 }}
                 className={cn(
@@ -164,12 +150,9 @@ export function FieldAvatar({
                     className={cn(
                         "relative ring-1 ring-white/40",
                         compact ? "size-16!" : "size-43!",
-                        caption &&
-                            !compact &&
-                            "shadow-[0_16px_40px_-16px_rgb(0_0_0/0.5)]",
+                        caption && !compact && "shadow-[0_16px_40px_-16px_rgb(0_0_0/0.5)]",
                         "transition-transform duration-300 ease-out group-hover:scale-[1.02] group-active:scale-[0.98]",
-                        (dragOver || pending) &&
-                            "scale-[1.04]"
+                        (dragOver || pending) && "scale-[1.04]"
                     )}
                 >
                     <ProfileImageContent
@@ -177,14 +160,8 @@ export function FieldAvatar({
                         alt={label}
                         className="object-cover transition-[filter] duration-300 group-hover:brightness-90"
                     />
-                    <ProfileImageFallback
-                        className={
-                            compact ? "text-xl" : "text-4xl"
-                        }
-                    >
-                        {(
-                            label.charAt(0) || "?"
-                        ).toUpperCase()}
+                    <ProfileImageFallback className={compact ? "text-xl" : "text-4xl"}>
+                        {(label.charAt(0) || "?").toUpperCase()}
                     </ProfileImageFallback>
                 </ProfileImage>
                 {/* the frosted "Edit" capsule sitting on the photo's lower edge */}
@@ -203,9 +180,7 @@ export function FieldAvatar({
             </button>
             {pending && (
                 <div className="flex flex-col items-center gap-2 animate-in fade-in-0 slide-in-from-top-1 duration-300">
-                    <p className="text-muted-foreground">
-                        {text.confirmHint}
-                    </p>
+                    <p className="text-muted-foreground">{text.confirmHint}</p>
                     <div className="flex items-center gap-1">
                         <Button
                             type="button"
@@ -215,12 +190,7 @@ export function FieldAvatar({
                         >
                             {text.cancel}
                         </Button>
-                        <Button
-                            variant="default"
-                            type="button"
-                            size="sm"
-                            onClick={keep}
-                        >
+                        <Button variant="default" type="button" size="sm" onClick={keep}>
                             {text.save}
                         </Button>
                     </div>

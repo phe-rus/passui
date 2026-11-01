@@ -1,18 +1,14 @@
-import type { labeledContentDocs } from "@passui/react/docs"
+import type { labeledContentDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const labeledContentContent: ComponentContent<
-    typeof labeledContentDocs
-> = {
+export const labeledContentContent: ComponentContent<typeof labeledContentDocs> = {
     summary:
         "A settings row: a label and description, with a control or value at the trailing edge.",
     usage: "Use it inside a Section for each setting. Wide controls move under the label on their own when space runs out.",
     propDescriptions: {
         label: "What the row is about.",
-        description:
-            "An optional second line that explains it.",
-        stacked:
-            "Puts the control under the label, for wide controls like text fields.",
+        description: "An optional second line that explains it.",
+        stacked: "Puts the control under the label, for wide controls like text fields.",
         wide: "For a wide control that should move under the label on phones only.",
     },
     examples: {
@@ -40,13 +36,11 @@ export const labeledContentContent: ComponentContent<
         },
         {
             element: "Description",
-            description:
-                "An optional explanation under the label.",
+            description: "An optional explanation under the label.",
         },
         {
             element: "Trailing content",
-            description:
-                "A control or a value at the end of the row.",
+            description: "A control or a value at the end of the row.",
             required: true,
         },
     ],

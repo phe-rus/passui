@@ -166,10 +166,10 @@ write; show success only then and provide manual copying when access fails.
 Every component has docs for the site in `www`, split so code
 breaks loudly and prose stays out of Passui:
 
-- `src/components/<name>/<slug>.docs.tsx`: `defineDocs<Props>()` with the
+- `www/domains/catalog/definitions/<name>/<slug>.docs.tsx`: `defineDocs<Props>()` with the
   playground's controls, a `render`, an optional `childrenSnippet`, and
-  its examples. Register it in `src/docs/registry.ts`.
-- `src/components/<name>/examples/<slug>-<id>.tsx`: one real example per
+  its examples. Register it in `www/domains/catalog/definitions/registry.ts`.
+- `www/domains/catalog/definitions/<name>/examples/<slug>-<id>.tsx`: one real example per
   file, exporting exactly one function named `<Slug><Id>` (for example
   `table-empty.tsx` exports `TableEmpty`). The site shows the file's own
   source, so it imports from `@passui/react/...` as an app would.
@@ -177,7 +177,7 @@ breaks loudly and prose stays out of Passui:
 - The words (summary, prop descriptions, example titles, practices) live
   in `www/domains/catalog/content/<slug>.ts`, typed against the
   docs, so a new control without a description fails the typecheck.
-- `test/docs/registry.test.ts` enforces unique slugs, real `exports`
+- `www/test/docs/registry.test.ts` enforces unique slugs, real `exports`
   entries, valid defaults and the example file names.
 
 ## Components

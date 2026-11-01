@@ -16,41 +16,20 @@ type StatTileProps = {
 }
 
 /** One number with its label, optionally a toggle. */
-export function StatTile({
-    label,
-    value,
-    caption,
-    tone,
-    onClick,
-    active = false,
-}: StatTileProps) {
+export function StatTile({ label, value, caption, tone, onClick, active = false }: StatTileProps) {
     const body = (
         <>
-            <span className="text-xs text-muted-foreground">
-                {label}
-            </span>
-            <span
-                className={cn(
-                    "text-lg font-semibold tabular-nums tracking-tight",
-                    tone === "critical" &&
-                        value > 0 &&
-                        "text-destructive"
-                )}
-            >
+            <span className="text-label-secondary">{label}</span>
+            <span className={cn("tabular-nums", tone === "critical" && value > 0 && "text-danger")}>
                 {value.toLocaleString("en-US")}
             </span>
-            {caption && (
-                <span className="text-xs text-muted-foreground">
-                    {caption}
-                </span>
-            )}
+            {caption && <span className="text-label-secondary">{caption}</span>}
         </>
     )
     const className =
-        "flex min-w-0 flex-col gap-1 rounded-2xl border border-border/35 bg-card p-4 text-left shadow-xs"
+        "flex min-w-0 flex-col gap-2 rounded-2xl border border-separator/35 bg-elevated p-4 text-left shadow-xs"
 
-    if (!onClick)
-        return <div className={className}>{body}</div>
+    if (!onClick) return <div className={className}>{body}</div>
     return (
         <button
             type="button"
@@ -58,8 +37,8 @@ export function StatTile({
             onClick={onClick}
             className={cn(
                 className,
-                "ring-1 ring-transparent transition-colors hover:bg-muted/60",
-                active && "bg-muted/70 ring-foreground/15"
+                "ring-1 ring-transparent transition-colors hover:bg-fill/60",
+                active && "bg-fill/70 ring-label/15"
             )}
         >
             {body}

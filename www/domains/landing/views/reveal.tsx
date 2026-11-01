@@ -10,11 +10,7 @@ type RevealProps = {
 }
 
 /** Rises into place the first time it scrolls into view. */
-export function Reveal({
-    children,
-    className,
-    delay = 0,
-}: RevealProps) {
+export function Reveal({ children, className, delay = 0 }: RevealProps) {
     return (
         <motion.div
             className={className}

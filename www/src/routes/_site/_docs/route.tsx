@@ -1,9 +1,5 @@
 import { DocsLayout } from "@/domains/catalog"
-import {
-    carriedSettings,
-    docsSettingsDefaults,
-    docsSettingsSchema,
-} from "@/domains/settings"
+import { carriedSettings, docsSettingsDefaults, docsSettingsSchema } from "@/domains/settings"
 import {
     Outlet,
     createFileRoute,

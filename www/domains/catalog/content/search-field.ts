@@ -1,15 +1,11 @@
-import type { searchFieldDocs } from "@passui/react/docs"
+import type { searchFieldDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const searchFieldContent: ComponentContent<
-    typeof searchFieldDocs
-> = {
-    summary:
-        "A compact search input with a magnifying glass, for filtering lists as people type.",
+export const searchFieldContent: ComponentContent<typeof searchFieldDocs> = {
+    summary: "A compact search input with a magnifying glass, for filtering lists as people type.",
     usage: "Use it above a list or in a toolbar. Filter results as people type rather than waiting for Enter.",
     propDescriptions: {
-        placeholder:
-            "What can be searched, like Search people.",
+        placeholder: "What can be searched, like Search people.",
         disabled: "Shows the field but blocks typing.",
     },
     examples: {
@@ -20,20 +16,17 @@ export const searchFieldContent: ComponentContent<
         },
         toolbar: {
             title: "In a toolbar",
-            description:
-                "A narrow field beside other controls at the top of a list.",
+            description: "A narrow field beside other controls at the top of a list.",
         },
     },
     anatomy: [
         {
             element: "Icon",
-            description:
-                "The magnifying glass that marks it as search.",
+            description: "The magnifying glass that marks it as search.",
         },
         {
             element: "Input",
-            description:
-                "A search input that browsers can clear.",
+            description: "A search input that browsers can clear.",
             required: true,
         },
     ],

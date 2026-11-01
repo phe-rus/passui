@@ -2,9 +2,7 @@ import type { RowData } from "@tanstack/react-table"
 import { Toggle } from "@passui/react/toggle"
 import type { DataTableColumnDef } from "./data-table"
 
-export function selectColumn<
-    TData extends RowData,
->(): DataTableColumnDef<TData> {
+export function selectColumn<TData extends RowData>(): DataTableColumnDef<TData> {
     return {
         id: "select",
         enableColumnFilter: false,
@@ -14,13 +12,8 @@ export function selectColumn<
                 style="checkbox"
                 labelHidden
                 checked={table.getIsAllPageRowsSelected()}
-                mixed={
-                    table.getIsSomePageRowsSelected() &&
-                    !table.getIsAllPageRowsSelected()
-                }
-                onChange={(checked) =>
-                    table.toggleAllPageRowsSelected(checked)
-                }
+                mixed={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
+                onChange={(checked) => table.toggleAllPageRowsSelected(checked)}
                 label="Select all"
             />
         ),
@@ -29,9 +22,7 @@ export function selectColumn<
                 style="checkbox"
                 labelHidden
                 checked={row.getIsSelected()}
-                onChange={(checked) =>
-                    row.toggleSelected(checked)
-                }
+                onChange={(checked) => row.toggleSelected(checked)}
                 label="Select row"
             />
         ),

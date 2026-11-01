@@ -1,9 +1,7 @@
-import type { popoverDocs } from "@passui/react/docs"
+import type { popoverDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const popoverContent: ComponentContent<
-    typeof popoverDocs
-> = {
+export const popoverContent: ComponentContent<typeof popoverDocs> = {
     summary:
         "A glass panel that springs from its trigger, flips above when space below is short, and stays within the visible screen.",
     usage: "Use it for a little extra detail or a short menu tied to one control, such as an account card or a More menu. Pair it with useDismiss so Escape and a click outside close it.",
@@ -18,8 +16,7 @@ export const popoverContent: ComponentContent<
         },
         help: {
             title: "Help beside a field",
-            description:
-                "A small info button that explains a setting, without leaving the form.",
+            description: "A small info button that explains a setting, without leaving the form.",
         },
     },
     anatomy: [
@@ -31,8 +28,7 @@ export const popoverContent: ComponentContent<
         },
         {
             element: "Popover",
-            description:
-                "The glass panel, placed with className, such as top-full left-0 mt-2.",
+            description: "The glass panel, placed with className, such as top-full left-0 mt-2.",
             required: true,
         },
     ],

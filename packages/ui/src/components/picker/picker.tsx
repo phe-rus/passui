@@ -1,8 +1,4 @@
-import {
-    AnimatePresence,
-    motion,
-    useReducedMotion,
-} from "motion/react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import {
     type KeyboardEvent,
     useCallback,
@@ -15,16 +11,9 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
-import {
-    CheckIcon,
-    SearchIcon,
-    SelectorIcon,
-} from "../../icons/icons"
+import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
-import {
-    type AnchoredPlacement,
-    placeInViewport,
-} from "../../lib/anchored-placement"
+import { type AnchoredPlacement, placeInViewport } from "../../lib/anchored-placement"
 import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
 import { screenEdges } from "../../lib/screen-edges"
@@ -83,22 +72,15 @@ export function Picker<T extends string>({
     const [open, setOpen] = useState(false)
     const trigger = useRef<HTMLButtonElement>(null)
     const listId = useId()
-    const selected = options.find(
-        (option) => option.value === value
-    )
+    const selected = options.find((option) => option.value === value)
 
     const close = useCallback((refocus: boolean) => {
         setOpen(false)
         if (refocus) trigger.current?.focus()
     }, [])
 
-    const onTriggerKey = (
-        event: KeyboardEvent<HTMLButtonElement>
-    ) => {
-        if (
-            event.key === "ArrowDown" ||
-            event.key === "ArrowUp"
-        ) {
+    const onTriggerKey = (event: KeyboardEvent<HTMLButtonElement>) => {
+        if (event.key === "ArrowDown" || event.key === "ArrowUp") {
             event.preventDefault()
             setOpen(true)
         }
@@ -123,18 +105,11 @@ export function Picker<T extends string>({
             >
                 <span
                     lang={selected?.lang}
-                    className={cn(
-                        "min-w-0 grow truncate",
-                        !selected && "text-label-tertiary"
-                    )}
+                    className={cn("min-w-0 grow truncate", !selected && "text-label-tertiary")}
                 >
                     {selected?.label ?? placeholder ?? ""}
                 </span>
-                <SelectorIcon
-                    size={15}
-                    strokeWidth={2}
-                    className="shrink-0 text-label-tertiary"
-                />
+                <SelectorIcon size={15} strokeWidth={2} className="shrink-0 text-label-tertiary" />
             </button>
             {typeof document !== "undefined" &&
                 createPortal(
@@ -146,14 +121,8 @@ export function Picker<T extends string>({
                                 options={options}
                                 value={value}
                                 label={label}
-                                searchable={
-                                    searchable ??
-                                    options.length >
-                                        SEARCH_FROM
-                                }
-                                searchPlaceholder={
-                                    searchPlaceholder
-                                }
+                                searchable={searchable ?? options.length > SEARCH_FROM}
+                                searchPlaceholder={searchPlaceholder}
                                 emptyLabel={emptyLabel}
                                 onPick={(next) => {
                                     close(true)
@@ -222,9 +191,7 @@ function SelectList<T extends string>({
     const reducedMotion = useReducedMotion()
     const list = useRef<HTMLDivElement>(null)
     const search = useRef<HTMLInputElement>(null)
-    const [placement, setPlacement] = useState(() =>
-        place(anchor)
-    )
+    const [placement, setPlacement] = useState(() => place(anchor))
     const [query, setQuery] = useState("")
     const typed = useRef({ text: "", at: 0 })
 
@@ -241,20 +208,14 @@ function SelectList<T extends string>({
     const [active, setActive] = useState(() =>
         Math.max(
             0,
-            options.findIndex(
-                (option) => option.value === value
-            )
+            options.findIndex((option) => option.value === value)
         )
     )
-    const activeOption =
-        shown[Math.min(active, shown.length - 1)]
+    const activeOption = shown[Math.min(active, shown.length - 1)]
 
     useLayoutEffect(() => {
         if (!root.current) return
-        const unregister = registerFloatingLayer(
-            root.current,
-            anchor
-        )
+        const unregister = registerFloatingLayer(root.current, anchor)
         if (searchable) search.current?.focus()
         else list.current?.focus()
         return unregister
@@ -264,55 +225,30 @@ function SelectList<T extends string>({
     useEffect(() => {
         if (!activeOption) return
         list.current
-            ?.querySelector(
-                `[data-value="${CSS.escape(activeOption.value)}"]`
-            )
+            ?.querySelector(`[data-value="${CSS.escape(activeOption.value)}"]`)
             ?.scrollIntoView({ block: "nearest" })
     }, [activeOption])
 
     useEffect(() => {
         const onPointer = (event: PointerEvent) => {
             const target = event.target as Node
-            if (
-                !root.current?.contains(target) &&
-                !anchor.contains(target)
-            )
-                onClose(false)
+            if (!root.current?.contains(target) && !anchor.contains(target)) onClose(false)
         }
         const onScroll = (event: Event) => {
-            if (!root.current?.contains(event.target as Node))
-                setPlacement(place(anchor))
+            if (!root.current?.contains(event.target as Node)) setPlacement(place(anchor))
         }
         const onResize = () => setPlacement(place(anchor))
         const onBlur = () => onClose(false)
-        document.addEventListener(
-            "pointerdown",
-            onPointer,
-            true
-        )
+        document.addEventListener("pointerdown", onPointer, true)
         window.addEventListener("scroll", onScroll, true)
         window.addEventListener("resize", onResize)
-        window.visualViewport?.addEventListener(
-            "resize",
-            onResize
-        )
+        window.visualViewport?.addEventListener("resize", onResize)
         window.addEventListener("blur", onBlur)
         return () => {
-            document.removeEventListener(
-                "pointerdown",
-                onPointer,
-                true
-            )
-            window.removeEventListener(
-                "scroll",
-                onScroll,
-                true
-            )
+            document.removeEventListener("pointerdown", onPointer, true)
+            window.removeEventListener("scroll", onScroll, true)
             window.removeEventListener("resize", onResize)
-            window.visualViewport?.removeEventListener(
-                "resize",
-                onResize
-            )
+            window.visualViewport?.removeEventListener("resize", onResize)
             window.removeEventListener("blur", onBlur)
         }
     }, [anchor, onClose])
@@ -327,14 +263,10 @@ function SelectList<T extends string>({
         if (event.key === "ArrowDown") step(current + 1)
         else if (event.key === "ArrowUp") step(current - 1)
         else if (event.key === "Home" && !searchable) step(0)
-        else if (event.key === "End" && !searchable)
-            step(last)
+        else if (event.key === "End" && !searchable) step(last)
         else if (event.key === "PageDown") step(current + 8)
         else if (event.key === "PageUp") step(current - 8)
-        else if (
-            event.key === "Enter" ||
-            (event.key === " " && !searchable)
-        ) {
+        else if (event.key === "Enter" || (event.key === " " && !searchable)) {
             event.preventDefault()
             if (activeOption) onPick(activeOption.value)
         } else if (event.key === "Escape") {
@@ -343,23 +275,13 @@ function SelectList<T extends string>({
             onClose(true)
         } else if (event.key === "Tab") {
             onClose(false)
-        } else if (
-            !searchable &&
-            event.key.length === 1 &&
-            !event.metaKey &&
-            !event.ctrlKey
-        ) {
+        } else if (!searchable && event.key.length === 1 && !event.metaKey && !event.ctrlKey) {
             // Type to jump, as in a native pop-up button.
             const now = Date.now()
-            const text =
-                (now - typed.current.at < 700
-                    ? typed.current.text
-                    : "") + event.key
+            const text = (now - typed.current.at < 700 ? typed.current.text : "") + event.key
             typed.current = { text, at: now }
             const match = shown.findIndex((option) =>
-                option.label
-                    .toLocaleLowerCase()
-                    .startsWith(text.toLocaleLowerCase())
+                option.label.toLocaleLowerCase().startsWith(text.toLocaleLowerCase())
             )
             if (match >= 0) setActive(match)
         }
@@ -390,9 +312,7 @@ function SelectList<T extends string>({
             transition={
                 reducedMotion
                     ? { duration: 0 }
-                    : floatingPanelMotion(
-                          placement.above ? "above" : "below"
-                      ).transition
+                    : floatingPanelMotion(placement.above ? "above" : "below").transition
             }
             style={{
                 left: placement.left,
@@ -400,9 +320,7 @@ function SelectList<T extends string>({
                 top: placement.top,
                 bottom: placement.bottom,
                 maxHeight: placement.maxHeight,
-                transformOrigin: placement.above
-                    ? "50% 100%"
-                    : "50% 0%",
+                transformOrigin: placement.above ? "50% 100%" : "50% 0%",
             }}
             className="glass-menu fixed z-[80] flex flex-col overflow-hidden rounded-3xl"
             {...{ [FLOATING_LAYER]: "" }}
@@ -410,10 +328,7 @@ function SelectList<T extends string>({
         >
             {searchable && (
                 <div className="flex shrink-0 items-center gap-2 border-b border-separator/70 px-3 py-2">
-                    <SearchIcon
-                        size={15}
-                        className="shrink-0 text-label-tertiary"
-                    />
+                    <SearchIcon size={15} className="shrink-0 text-label-tertiary" />
                     <input
                         ref={search}
                         value={query}
@@ -421,9 +336,7 @@ function SelectList<T extends string>({
                         aria-label={searchPlaceholder}
                         aria-controls={id}
                         aria-activedescendant={
-                            activeOption
-                                ? `${id}-${activeOption.value}`
-                                : undefined
+                            activeOption ? `${id}-${activeOption.value}` : undefined
                         }
                         onChange={(event) => {
                             setQuery(event.target.value)
@@ -439,11 +352,7 @@ function SelectList<T extends string>({
                 role="listbox"
                 aria-label={label}
                 tabIndex={-1}
-                aria-activedescendant={
-                    activeOption
-                        ? `${id}-${activeOption.value}`
-                        : undefined
-                }
+                aria-activedescendant={activeOption ? `${id}-${activeOption.value}` : undefined}
                 className="no-scrollbar flex min-h-0 flex-col overflow-y-auto overscroll-contain p-1.5 outline-none"
             >
                 {shown.map((option, index) => {
@@ -458,18 +367,12 @@ function SelectList<T extends string>({
                             tabIndex={-1}
                             aria-selected={chosen}
                             lang={option.lang}
-                            onPointerMove={() =>
-                                setActive(index)
-                            }
-                            onClick={() =>
-                                onPick(option.value)
-                            }
+                            onPointerMove={() => setActive(index)}
+                            onClick={() => onPick(option.value)}
                             className={cn(
                                 "flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1.5 text-subheadline [@media(pointer:coarse)]:min-h-11",
                                 focused ? "bg-fill" : "",
-                                chosen
-                                    ? "font-semibold text-label"
-                                    : "text-label"
+                                chosen ? "font-semibold text-label" : "text-label"
                             )}
                         >
                             <span className="flex w-4 shrink-0 justify-center">
@@ -481,9 +384,7 @@ function SelectList<T extends string>({
                                     />
                                 )}
                             </span>
-                            <span className="min-w-0 grow break-words">
-                                {option.label}
-                            </span>
+                            <span className="min-w-0 grow break-words">{option.label}</span>
                             {option.detail && (
                                 <span className="shrink-0 text-caption font-normal text-label-tertiary">
                                     {option.detail}
@@ -493,9 +394,7 @@ function SelectList<T extends string>({
                     )
                 })}
                 {shown.length === 0 && (
-                    <p className="px-3 py-2 text-footnote text-label-tertiary">
-                        {emptyLabel}
-                    </p>
+                    <p className="px-3 py-2 text-footnote text-label-tertiary">{emptyLabel}</p>
                 )}
             </div>
         </motion.div>

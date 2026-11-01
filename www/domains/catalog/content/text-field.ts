@@ -1,16 +1,12 @@
-import type { textFieldDocs } from "@passui/react/docs"
+import type { textFieldDocs } from "@/domains/catalog/definitions"
 import type { ComponentContent } from "../types"
 
-export const textFieldContent: ComponentContent<
-    typeof textFieldDocs
-> = {
-    summary:
-        "A labelled single line input with room for a hint and error messages.",
+export const textFieldContent: ComponentContent<typeof textFieldDocs> = {
+    summary: "A labelled single line input with room for a hint and error messages.",
     usage: "Use it for short text people type: names, emails, links. The label is always visible.",
     propDescriptions: {
         label: "The visible name of the field, linked to the input.",
-        placeholder:
-            "An example of what to type. Never a replacement for the label.",
+        placeholder: "An example of what to type. Never a replacement for the label.",
         disabled: "Shows the field but blocks typing.",
         icon: "A decorative icon before the text, such as an envelope for email. Hidden from screen readers.",
         trailingIcon:
@@ -24,8 +20,7 @@ export const textFieldContent: ComponentContent<
         },
         validation: {
             title: "Validation",
-            description:
-                "A hint under the field, and an error once the value is wrong.",
+            description: "A hint under the field, and an error once the value is wrong.",
         },
     },
     anatomy: [
@@ -41,18 +36,15 @@ export const textFieldContent: ComponentContent<
         },
         {
             element: "Icons",
-            description:
-                "Optional decorative icons before and after the text.",
+            description: "Optional decorative icons before and after the text.",
         },
         {
             element: "Hint",
-            description:
-                "An optional line that helps people get it right.",
+            description: "An optional line that helps people get it right.",
         },
         {
             element: "Errors",
-            description:
-                "Messages shown when the value needs fixing.",
+            description: "Messages shown when the value needs fixing.",
         },
     ],
     practices: [

@@ -44,21 +44,13 @@ export function Toggle({
                     aria-checked={mixed ? "mixed" : checked}
                     checked={checked}
                     disabled={disabled}
-                    onChange={(event) =>
-                        onChange(event.target.checked)
-                    }
+                    onChange={(event) => onChange(event.target.checked)}
                     className={cn(
                         "size-5 accent-accent",
                         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text disabled:opacity-40"
                     )}
                 />
-                <span
-                    className={
-                        labelHidden ? "sr-only" : undefined
-                    }
-                >
-                    {label}
-                </span>
+                <span className={labelHidden ? "sr-only" : undefined}>{label}</span>
             </label>
         )
     }

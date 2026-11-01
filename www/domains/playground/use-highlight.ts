@@ -4,12 +4,7 @@ import type { HighlighterCore } from "shiki/core"
 let highlighter: Promise<HighlighterCore> | undefined
 
 /** The languages the site shows code in. */
-export type CodeLang =
-    | "tsx"
-    | "css"
-    | "json"
-    | "shellscript"
-    | "markdown"
+export type CodeLang = "tsx" | "css" | "json" | "shellscript" | "markdown"
 
 /**
  * One small highlighter for the whole site, loaded on first use: five
@@ -17,28 +12,22 @@ export type CodeLang =
  * download).
  */
 function loadHighlighter() {
-    highlighter ??= Promise.all([
-        import("shiki/core"),
-        import("shiki/engine/javascript"),
-    ]).then(([core, engine]) =>
-        core.createHighlighterCore({
-            langs: [
-                import("shiki/langs/tsx.mjs"),
-                import("shiki/langs/css.mjs"),
-                import("shiki/langs/json.mjs"),
-                import("shiki/langs/shellscript.mjs"),
-                import("shiki/langs/markdown.mjs"),
-            ],
-            themes: [
-                import(
-                    "shiki/themes/github-light-default.mjs"
-                ),
-                import(
-                    "shiki/themes/github-dark-default.mjs"
-                ),
-            ],
-            engine: engine.createJavaScriptRegexEngine(),
-        })
+    highlighter ??= Promise.all([import("shiki/core"), import("shiki/engine/javascript")]).then(
+        ([core, engine]) =>
+            core.createHighlighterCore({
+                langs: [
+                    import("shiki/langs/tsx.mjs"),
+                    import("shiki/langs/css.mjs"),
+                    import("shiki/langs/json.mjs"),
+                    import("shiki/langs/shellscript.mjs"),
+                    import("shiki/langs/markdown.mjs"),
+                ],
+                themes: [
+                    import("shiki/themes/github-light-default.mjs"),
+                    import("shiki/themes/github-dark-default.mjs"),
+                ],
+                engine: engine.createJavaScriptRegexEngine(),
+            })
     )
     return highlighter
 }
@@ -47,10 +36,7 @@ function loadHighlighter() {
  * Highlighted HTML for some code, or null until the highlighter loads;
  * colours are CSS variables that follow the site's light or dark.
  */
-export function useHighlight(
-    code: string,
-    lang: CodeLang = "tsx"
-): string | null {
+export function useHighlight(code: string, lang: CodeLang = "tsx"): string | null {
     const [html, setHtml] = useState<string | null>(null)
 
     useEffect(() => {

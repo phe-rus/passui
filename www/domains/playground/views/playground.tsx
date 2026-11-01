@@ -1,16 +1,9 @@
-import type { RegisteredDocs } from "@passui/react/docs"
+import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { useNavigate } from "@tanstack/react-router"
 import { useMemo } from "react"
-import {
-    getChangedProps,
-    resolveProps,
-} from "@/domains/catalog"
+import { getChangedProps, resolveProps } from "@/domains/catalog"
 import { cn } from "@passui/react/cn"
-import {
-    type DocsSettings,
-    type PreviewViewport,
-    SettingsBar,
-} from "@/domains/settings"
+import { type DocsSettings, type PreviewViewport, SettingsBar } from "@/domains/settings"
 import { getSnippet } from "../get-snippet"
 import { useFormattedCode } from "../use-formatted-code"
 import { CodeView } from "./code-view"
@@ -34,24 +27,12 @@ type PlaygroundProps = {
  * The live preview and its controls. The page URL is the only state:
  * a control writes to it, and the preview follows (contract item 9).
  */
-export function Playground({
-    docs,
-    settings,
-    rawProps,
-}: PlaygroundProps) {
+export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
     const navigate = useNavigate({
         from: "/components/$slug",
     })
-    const values = useMemo(
-        () => resolveProps(docs, rawProps),
-        [docs, rawProps]
-    )
-    const snippet = useFormattedCode(
-        useMemo(
-            () => getSnippet(docs, values),
-            [docs, values]
-        )
-    )
+    const values = useMemo(() => resolveProps(docs, rawProps), [docs, rawProps])
+    const snippet = useFormattedCode(useMemo(() => getSnippet(docs, values), [docs, values]))
     const previewSettings = useMemo(
         () => ({
             theme: settings.theme,
@@ -84,8 +65,7 @@ export function Playground({
                     className={cn(
                         "mx-auto shrink-0 transition-[width] duration-300",
                         frameWidths[settings.viewport],
-                        settings.viewport !== "fill" &&
-                            "border-separator/60 border-x"
+                        settings.viewport !== "fill" && "border-separator/60 border-x"
                     )}
                 >
                     <PreviewFrame

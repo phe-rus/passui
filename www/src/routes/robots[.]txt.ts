@@ -1,7 +1,4 @@
-import {
-    getRobots,
-    discoveryHeaders,
-} from "@/domains/seo/sitemap"
+import { getRobots, discoveryHeaders } from "@/domains/seo/sitemap"
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/robots.txt")({
@@ -11,8 +8,7 @@ export const Route = createFileRoute("/robots.txt")({
                 new Response(getRobots(), {
                     headers: {
                         ...discoveryHeaders,
-                        "Content-Type":
-                            "text/plain; charset=utf-8",
+                        "Content-Type": "text/plain; charset=utf-8",
                     },
                 }),
         },

@@ -26,9 +26,7 @@ const emit = () => {
     for (const listener of listeners) listener()
 }
 
-export function confirmDialog(
-    options: ConfirmOptions
-): Promise<boolean> {
+export function confirmDialog(options: ConfirmOptions): Promise<boolean> {
     return new Promise((resolve) => {
         const dialog = { ...options, id: nextId++, resolve }
         if (current) queue.push(dialog)
