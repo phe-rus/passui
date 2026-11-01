@@ -11,10 +11,11 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
+import { useFloatingDismiss } from "../../hooks/use-floating-dismiss"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
 import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
-import { belongsToFloatingSurface, registerFloatingLayer } from "../../lib/floating-layers"
+import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
 import { floatingPanelMotion } from "../../motion/transitions"
 import { pickerTriggerStyle } from "./picker-trigger"
@@ -79,7 +80,7 @@ export function Picker<T extends string>({
 
     const close = useCallback((refocus: boolean) => {
         setOpen(false)
-        if (refocus) trigger.current?.focus()
+        if (refocus) trigger.current?.focus({ preventScroll: true })
     }, [])
 
     const onTriggerKey = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -210,23 +211,7 @@ function SelectList<T extends string>({
             ?.scrollIntoView({ block: "nearest" })
     }, [activeOption])
 
-    useEffect(() => {
-        const onPointer = (event: PointerEvent) => {
-            const target = event.target as Node
-            if (
-                !anchor.contains(target) &&
-                (!root.current || !belongsToFloatingSurface(root.current, target as Element))
-            )
-                onClose(false)
-        }
-        const onBlur = () => onClose(false)
-        document.addEventListener("pointerdown", onPointer, true)
-        window.addEventListener("blur", onBlur)
-        return () => {
-            document.removeEventListener("pointerdown", onPointer, true)
-            window.removeEventListener("blur", onBlur)
-        }
-    }, [anchor, onClose])
+    useFloatingDismiss(root, anchor, onClose)
 
     const onKeyDown = (event: KeyboardEvent) => {
         const last = shown.length - 1

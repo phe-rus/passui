@@ -25,3 +25,14 @@ export function ownsFloatingLayer(container: Element, target: Element | null): b
 export function belongsToFloatingSurface(surface: Element, target: Element | null): boolean {
     return Boolean(target && (surface.contains(target) || ownsFloatingLayer(surface, target)))
 }
+
+/** Whether a pointer target is outside both an anchored surface and its nested portals. */
+export function isOutsideFloatingSurface(
+    surface: Element | null,
+    anchor: Element,
+    target: EventTarget | null
+): boolean {
+    if (!target || !("closest" in target) || !("contains" in target)) return false
+    const element = target as Element
+    return !anchor.contains(element) && (!surface || !belongsToFloatingSurface(surface, element))
+}

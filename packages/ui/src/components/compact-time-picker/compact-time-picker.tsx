@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { type KeyboardEvent, useEffect, useId, useLayoutEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
+import { useFloatingDismiss } from "../../hooks/use-floating-dismiss"
 import { ClockIcon } from "../../icons/icons"
 import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
 import { cn } from "../../lib/class-names"
@@ -108,9 +109,10 @@ export function CompactTimePicker({
                                     haptic("selection")
                                     onChange(formatTime(next))
                                 }}
-                                onClose={() => {
+                                onClose={(restoreFocus) => {
                                     setOpen(false)
-                                    trigger.current?.focus()
+                                    if (restoreFocus)
+                                        trigger.current?.focus({ preventScroll: true })
                                 }}
                             />
                         )}
@@ -145,7 +147,7 @@ function TimeColumns({
     minuteStep: number
     labels: CompactTimePickerProps["labels"]
     onChange: (time: TimeOfDay) => void
-    onClose: () => void
+    onClose: (restoreFocus: boolean) => void
 }) {
     const root = useRef<HTMLDivElement>(null)
     const reducedMotion = useReducedMotion()
@@ -189,14 +191,7 @@ function TimeColumns({
         return registerFloatingLayer(root.current, anchor)
     }, [anchor])
 
-    useEffect(() => {
-        const onPointer = (event: PointerEvent) => {
-            const target = event.target as Node
-            if (!root.current?.contains(target) && !anchor.contains(target)) onClose()
-        }
-        document.addEventListener("pointerdown", onPointer)
-        return () => document.removeEventListener("pointerdown", onPointer)
-    }, [anchor, onClose])
+    useFloatingDismiss(root, anchor, onClose)
 
     return (
         <motion.div
@@ -243,7 +238,7 @@ function TimeColumns({
                 if (event.key !== "Escape") return
                 event.preventDefault()
                 event.stopPropagation()
-                onClose()
+                onClose(true)
             }}
         >
             <Column

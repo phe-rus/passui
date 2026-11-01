@@ -1,5 +1,9 @@
 import { expect, test } from "vitest"
-import { belongsToFloatingSurface, registerFloatingLayer } from "../../src/lib/floating-layers"
+import {
+    belongsToFloatingSurface,
+    isOutsideFloatingSurface,
+    registerFloatingLayer,
+} from "../../src/lib/floating-layers"
 
 /** The ownership algorithm only requires the Element tree contract. */
 class ElementNode {
@@ -57,4 +61,31 @@ test("nested portals retain ownership without accepting unrelated layers", () =>
 
     unregisterSecond()
     unregisterFirst()
+})
+
+test("outside dismissal ignores the anchor, surface and its nested portals", () => {
+    const anchor = new ElementNode()
+    const surface = new ElementNode(null, true)
+    const inside = new ElementNode(surface)
+    const childAnchor = new ElementNode(surface)
+    const childSurface = new ElementNode(null, true)
+    const childOption = new ElementNode(childSurface)
+    const outside = new ElementNode()
+    const unregisterSurface = registerFloatingLayer(element(surface), element(anchor))
+    const unregisterChild = registerFloatingLayer(element(childSurface), element(childAnchor))
+
+    expect(isOutsideFloatingSurface(element(surface), element(anchor), element(anchor))).toBe(false)
+    expect(isOutsideFloatingSurface(element(surface), element(anchor), element(inside))).toBe(false)
+    expect(isOutsideFloatingSurface(element(surface), element(anchor), element(childOption))).toBe(
+        false
+    )
+    expect(isOutsideFloatingSurface(element(surface), element(anchor), element(outside))).toBe(true)
+    expect(isOutsideFloatingSurface(null, element(anchor), element(outside))).toBe(true)
+    expect(isOutsideFloatingSurface(element(surface), element(anchor), null)).toBe(false)
+
+    unregisterChild()
+    expect(isOutsideFloatingSurface(element(surface), element(anchor), element(childOption))).toBe(
+        true
+    )
+    unregisterSurface()
 })

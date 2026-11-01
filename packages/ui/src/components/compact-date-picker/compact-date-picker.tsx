@@ -10,6 +10,7 @@ import {
 } from "react"
 import { createPortal } from "react-dom"
 import { FLOATING_LAYER } from "../../hooks/use-dismiss"
+import { useFloatingDismiss } from "../../hooks/use-floating-dismiss"
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { registerFloatingLayer } from "../../lib/floating-layers"
@@ -92,9 +93,9 @@ export function CompactDatePicker({
           }).format(toDate(chosen))
         : (placeholder ?? "")
 
-    const close = () => {
+    const close = (restoreFocus: boolean) => {
         setOpen(false)
-        trigger.current?.focus()
+        if (restoreFocus) trigger.current?.focus({ preventScroll: true })
     }
 
     return (
@@ -136,7 +137,7 @@ export function CompactDatePicker({
                                 onChoose={(next) => {
                                     haptic("selection")
                                     onChange(next)
-                                    close()
+                                    close(true)
                                 }}
                                 onClose={close}
                             />
@@ -169,7 +170,7 @@ function MonthCalendar({
     max?: string
     labels: CompactDatePickerProps["labels"]
     onChoose: (value: string) => void
-    onClose: () => void
+    onClose: (restoreFocus: boolean) => void
 }) {
     const root = useRef<HTMLDivElement>(null)
     const reducedMotion = useReducedMotion()
@@ -206,14 +207,7 @@ function MonthCalendar({
             ?.focus()
     }, [focused])
 
-    useEffect(() => {
-        const onPointer = (event: PointerEvent) => {
-            const target = event.target as Node
-            if (!root.current?.contains(target) && !anchor.contains(target)) onClose()
-        }
-        document.addEventListener("pointerdown", onPointer)
-        return () => document.removeEventListener("pointerdown", onPointer)
-    }, [anchor, onClose])
+    useFloatingDismiss(root, anchor, onClose)
 
     const move = (next: CalendarDay) => setFocused(next)
 
@@ -226,7 +220,7 @@ function MonthCalendar({
             ArrowDown: () => move(addDays(focused, 7)),
             PageUp: () => move(addMonths(focused, event.shiftKey ? -12 : -1)),
             PageDown: () => move(addMonths(focused, event.shiftKey ? 12 : 1)),
-            Escape: onClose,
+            Escape: () => onClose(true),
         }
         const action = keys[event.key]
         if (!action) return
