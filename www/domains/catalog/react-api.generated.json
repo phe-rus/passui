@@ -25,7 +25,7 @@
             },
             {
                 "name": "size",
-                "type": "| \"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\" | \"icon-full\"",
+                "type": "ButtonSize",
                 "required": false,
                 "description": "Label sizes: `xs`, `sm`, `default`, `lg`. Icon sizes: `icon-xs`, `icon-sm`, `icon`, `icon-lg`, `icon-full`. Prefer IconButton for an icon with a built-in accessible label.",
                 "defaultValue": "\"default\""
@@ -55,29 +55,15 @@
                 "name": "label",
                 "type": "string",
                 "required": true,
-                "description": "Required: icon-only buttons need an accessible name.",
+                "description": "Icon-only actions must have an accessible name.",
                 "defaultValue": null
             },
             {
-                "name": "variant",
-                "type": "| \"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\" | \"accent\"",
-                "required": false,
-                "description": "`default`, `accent`, `secondary`, `outline`, `ghost`, `link`, or `destructive`.",
-                "defaultValue": "\"default\""
-            },
-            {
                 "name": "size",
-                "type": "| \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\"",
+                "type": "IconButtonSize",
                 "required": false,
-                "description": "Square sizes: `icon-xs`, `icon-sm`, `icon`, or `icon-lg`.",
+                "description": "",
                 "defaultValue": "\"icon\""
-            },
-            {
-                "name": "isPending",
-                "type": "boolean",
-                "required": false,
-                "description": "Replaces the icon with a delayed spinner and prevents repeat presses.",
-                "defaultValue": "false"
             },
             {
                 "name": "ref",
@@ -87,7 +73,7 @@
                 "defaultValue": null
             }
         ],
-        "native": ["ButtonHTMLAttributes<HTMLButtonElement>"],
+        "native": ["Omit<ButtonProps, \"size\">"],
         "parts": []
     },
     "chip": {
@@ -95,7 +81,7 @@
         "props": [
             {
                 "name": "tone",
-                "type": "| \"neutral\" | \"accent\" | \"public\" | \"family\" | \"friends\"",
+                "type": "\"neutral\" | \"accent\" | \"public\" | \"family\" | \"friends\"",
                 "required": false,
                 "description": "`neutral`, `accent`, `public`, `family`, or `friends`.",
                 "defaultValue": "\"neutral\""
@@ -169,6 +155,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "Prevents opening the date panel.",
+                "defaultValue": "false"
             }
         ],
         "native": [],
@@ -232,6 +225,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "Prevents opening the time panel.",
+                "defaultValue": "false"
             }
         ],
         "native": [],
@@ -548,7 +548,7 @@
             },
             {
                 "name": "presentation",
-                "type": "| \"drawer\" | \"center\" | \"inline\"",
+                "type": "\"drawer\" | \"center\" | \"inline\"",
                 "required": false,
                 "description": "`drawer` (responsive sheet), `center` (floating panel), or `inline`.",
                 "defaultValue": "\"drawer\""
@@ -620,6 +620,27 @@
             }
         ]
     },
+    "divider": {
+        "source": "packages/ui/src/components/divider/divider.tsx",
+        "props": [
+            {
+                "name": "orientation",
+                "type": "\"horizontal\" | \"vertical\"",
+                "required": false,
+                "description": "",
+                "defaultValue": "\"horizontal\""
+            },
+            {
+                "name": "decorative",
+                "type": "boolean",
+                "required": false,
+                "description": "Decorative separators are omitted from the accessibility tree.",
+                "defaultValue": "true"
+            }
+        ],
+        "native": ["HTMLAttributes<HTMLHRElement>"],
+        "parts": []
+    },
     "inline-disclosure": {
         "source": "packages/ui/src/components/inline-disclosure/inline-disclosure.tsx",
         "props": [
@@ -687,7 +708,7 @@
                 "defaultValue": "false"
             }
         ],
-        "native": [],
+        "native": ["HTMLAttributes<HTMLDivElement>"],
         "parts": []
     },
     "locale-switcher": {
@@ -797,6 +818,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "Prevents opening or choosing an option.",
+                "defaultValue": "false"
             }
         ],
         "native": [],
@@ -839,6 +867,48 @@
                 "native": ["ComponentProps<\"span\">"]
             }
         ]
+    },
+    "progress-view": {
+        "source": "packages/ui/src/components/progress-view/progress-view.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "value",
+                "type": "number",
+                "required": false,
+                "description": "Omit for an indeterminate operation.",
+                "defaultValue": null
+            },
+            {
+                "name": "max",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "100"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "",
+                "defaultValue": "\"md\""
+            },
+            {
+                "name": "detail",
+                "type": "string",
+                "required": false,
+                "description": "Secondary text, such as bytes uploaded.",
+                "defaultValue": null
+            }
+        ],
+        "native": ["Omit<HTMLAttributes<HTMLDivElement>, \"children\">"],
+        "parts": []
     },
     "search-field": {
         "source": "packages/ui/src/components/search-field/search-field.tsx",
@@ -971,7 +1041,7 @@
                 "defaultValue": null
             }
         ],
-        "native": [],
+        "native": ["HTMLAttributes<HTMLElement>"],
         "parts": []
     },
     "secure-field": {
@@ -1097,6 +1167,13 @@
                 "defaultValue": null
             },
             {
+                "name": "placement",
+                "type": "\"adaptive\" | \"center\"",
+                "required": false,
+                "description": "`adaptive` rises from the bottom on phones; `center` always floats.",
+                "defaultValue": "\"adaptive\""
+            },
+            {
                 "name": "className",
                 "type": "string",
                 "required": false,
@@ -1133,6 +1210,71 @@
             }
         ],
         "native": [],
+        "parts": []
+    },
+    "slider": {
+        "source": "packages/ui/src/components/slider/slider.tsx",
+        "props": [
+            {
+                "name": "value",
+                "type": "number",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "onChange",
+                "type": "(value: number) => void",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "min",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "0"
+            },
+            {
+                "name": "max",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "100"
+            },
+            {
+                "name": "step",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "1"
+            },
+            {
+                "name": "description",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "formatValue",
+                "type": "(value: number) => string",
+                "required": false,
+                "description": "Provides a localized, spoken description of the current value.",
+                "defaultValue": null
+            }
+        ],
+        "native": [
+            "Omit< ComponentProps<\"input\">, \"type\" | \"value\" | \"defaultValue\" | \"onChange\" | \"min\" | \"max\" | \"step\" >"
+        ],
         "parts": []
     },
     "stat-tile": {
@@ -1189,20 +1331,97 @@
         "props": [
             {
                 "name": "state",
-                "type": "keyof typeof dots",
+                "type": "StatusIndicatorState",
                 "required": true,
-                "description": "",
+                "description": "Visual treatment of the status dot.",
                 "defaultValue": null
             },
             {
                 "name": "children",
-                "type": "React.ReactNode",
+                "type": "ReactNode",
                 "required": true,
                 "description": "",
                 "defaultValue": null
             }
         ],
-        "native": ["React.HTMLAttributes<HTMLSpanElement>"],
+        "native": ["HTMLAttributes<HTMLSpanElement>"],
+        "parts": []
+    },
+    "stepper": {
+        "source": "packages/ui/src/components/stepper/stepper.tsx",
+        "props": [
+            {
+                "name": "value",
+                "type": "number",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "onChange",
+                "type": "(value: number) => void",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "labels",
+                "type": "{ decrement: string; increment: string }",
+                "required": true,
+                "description": "Localized accessible names for each action.",
+                "defaultValue": null
+            },
+            {
+                "name": "min",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "0"
+            },
+            {
+                "name": "max",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "100"
+            },
+            {
+                "name": "step",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "1"
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "",
+                "defaultValue": "false"
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "formatValue",
+                "type": "(value: number) => string",
+                "required": false,
+                "description": "Formats the displayed value.",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
         "parts": []
     },
     "swatch-picker": {
@@ -1245,7 +1464,7 @@
         "props": [
             {
                 "name": "minimizeBehavior",
-                "type": "| \"platform\" | \"scroll\" | \"never\"",
+                "type": "\"platform\" | \"scroll\" | \"never\"",
                 "required": false,
                 "description": "`platform` follows the platform, `scroll` always minimizes, `never` stays expanded.",
                 "defaultValue": "\"platform\""
@@ -1266,7 +1485,7 @@
             },
             {
                 "name": "renderLink",
-                "type": "( tab: Tab, props: TabBarLinkProps ) => ReactNode",
+                "type": "(tab: Tab, props: TabBarLinkProps) => ReactNode",
                 "required": true,
                 "description": "Renders your router's link with the supplied appearance and accessibility props.",
                 "defaultValue": null
@@ -1363,7 +1582,43 @@
         "source": "packages/ui/src/components/table/table.tsx",
         "props": [],
         "native": ["React.ComponentProps<\"table\">"],
-        "parts": []
+        "parts": [
+            {
+                "name": "TableBody",
+                "props": [],
+                "native": ["React.ComponentProps<\"tbody\">"]
+            },
+            {
+                "name": "TableCaption",
+                "props": [],
+                "native": ["React.ComponentProps<\"caption\">"]
+            },
+            {
+                "name": "TableCell",
+                "props": [],
+                "native": ["React.ComponentProps<\"td\">"]
+            },
+            {
+                "name": "TableFooter",
+                "props": [],
+                "native": ["React.ComponentProps<\"tfoot\">"]
+            },
+            {
+                "name": "TableHead",
+                "props": [],
+                "native": ["React.ComponentProps<\"th\">"]
+            },
+            {
+                "name": "TableHeader",
+                "props": [],
+                "native": ["React.ComponentProps<\"thead\">"]
+            },
+            {
+                "name": "TableRow",
+                "props": [],
+                "native": ["React.ComponentProps<\"tr\">"]
+            }
+        ]
     },
     "text-editor": {
         "source": "packages/ui/src/components/text-editor/text-editor.tsx",

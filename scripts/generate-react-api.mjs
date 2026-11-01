@@ -1,10 +1,12 @@
 import { parse } from "@babel/parser"
-import { existsSync, globSync, readFileSync, writeFileSync } from "node:fs"
+import { existsSync, globSync, readFileSync, statSync, writeFileSync } from "node:fs"
 import { dirname, relative, resolve } from "node:path"
 
 const root = resolve(import.meta.dirname, "..")
 const output = resolve(root, "www/domains/catalog/react-api.generated.json")
+const reactExports = JSON.parse(readFileSync(resolve(root, "packages/ui/package.json"), "utf8")).exports
 const modules = new Map()
+const fileExists = (path) => existsSync(path) && statSync(path).isFile()
 function load(path) {
     if (modules.has(path)) return modules.get(path)
     const source = readFileSync(path, "utf8")
@@ -20,11 +22,25 @@ function load(path) {
             parts.push([`${owner}.${expression.left.property.name}`, expression.right.name])
             module.parts.set(owner, parts)
         }
-        if (node.type === "ImportDeclaration" && node.source.value.startsWith(".")) {
-            const base = resolve(dirname(path), node.source.value)
-            const target = [base, `${base}.tsx`, `${base}.ts`, `${base}/index.ts`].find(existsSync)
+        if (node.type === "ImportDeclaration") {
+            const specifier = node.source.value
+            const exported = specifier.startsWith("@passui/react") ? reactExports[specifier.replace("@passui/react", ".")] : undefined
+            const base = exported ? resolve(root, "packages/ui", exported.default) : specifier.startsWith(".") ? resolve(dirname(path), specifier) : null
+            if (!base) continue
+            const target = [base, `${base}.tsx`, `${base}.ts`, `${base}/index.ts`].find(fileExists)
             if (target) for (const specifier of node.specifiers) {
                 if (specifier.type === "ImportSpecifier") module.imports.set(specifier.local.name, [target, specifier.imported.name])
+            }
+        }
+        if ((statement.type === "ExportAllDeclaration" || statement.type === "ExportNamedDeclaration") && statement.source?.value.startsWith(".")) {
+            const base = resolve(dirname(path), statement.source.value)
+            const target = [base, `${base}.tsx`, `${base}.ts`, `${base}/index.ts`].find(fileExists)
+            if (target) {
+                if (statement.type === "ExportAllDeclaration") {
+                    for (const exported of load(target).exports) module.imports.set(exported, [target, exported])
+                } else for (const specifier of statement.specifiers) {
+                    module.imports.set(specifier.exported.name, [target, specifier.local.name])
+                }
             }
         }
         if (node.id?.name) module.symbols.set(node.id.name, node)
@@ -32,6 +48,12 @@ function load(path) {
         if (statement.type === "ExportNamedDeclaration") {
             if (node.type === "FunctionDeclaration") module.exports.add(node.id.name)
             if (node.type === "VariableDeclaration") for (const item of node.declarations) module.exports.add(item.id.name)
+            for (const specifier of statement.specifiers ?? []) module.exports.add(specifier.exported.name)
+        }
+        if (statement.type === "ExportAllDeclaration" && statement.source?.value.startsWith(".")) {
+            const base = resolve(dirname(path), statement.source.value)
+            const target = [base, `${base}.tsx`, `${base}.ts`, `${base}/index.ts`].find(fileExists)
+            if (target) for (const exported of load(target).exports) module.exports.add(exported)
         }
     }
     return module
@@ -141,7 +163,7 @@ function component(module, node) {
     return result
 }
 const result = {}
-for (const path of [...globSync("packages/ui/src/components/*/*.docs.tsx", { cwd: root })].sort()) {
+for (const path of [...globSync("www/domains/catalog/definitions/*/*.docs.tsx", { cwd: root })].sort()) {
     const docs = load(resolve(root, path))
     const declaration = [...docs.symbols.values()].find((node) => node.init?.arguments?.[0]?.type === "ObjectExpression")
     if (!declaration) continue
@@ -153,6 +175,10 @@ for (const path of [...globSync("packages/ui/src/components/*/*.docs.tsx", { cwd
     if (!found) for (const file of globSync("*.{ts,tsx}", { cwd: dirname(docs.path) })) {
         if (file.includes(".docs.")) continue
         const candidate = load(resolve(dirname(docs.path), file))
+        if (candidate.symbols.has(name)) { found = { module: candidate, node: candidate.symbols.get(name) }; break }
+    }
+    if (!found) for (const file of globSync("packages/ui/src/components/*/*.{ts,tsx}", { cwd: root })) {
+        const candidate = load(resolve(root, file))
         if (candidate.symbols.has(name)) { found = { module: candidate, node: candidate.symbols.get(name) }; break }
     }
     if (!found) throw new Error(`Cannot locate ${name} for ${slug}`)

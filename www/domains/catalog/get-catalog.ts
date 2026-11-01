@@ -15,6 +15,10 @@ import {
     swatchPickerDocs,
     textFieldDocs,
     toggleDocs,
+    sliderDocs,
+    stepperDocs,
+    progressViewDocs,
+    dividerDocs,
     datePickerDocs,
     compactDatePickerDocs,
     compactTimePickerDocs,
@@ -52,6 +56,10 @@ import { statusIndicatorContent } from "./content/status-indicator"
 import { swatchPickerContent } from "./content/swatch-picker"
 import { textFieldContent } from "./content/text-field"
 import { toggleContent } from "./content/toggle"
+import { sliderContent } from "./content/slider"
+import { stepperContent } from "./content/stepper"
+import { progressViewContent } from "./content/progress-view"
+import { dividerContent } from "./content/divider"
 import { compactDatePickerContent } from "./content/compact-date-picker"
 import { compactTimePickerContent } from "./content/compact-time-picker"
 import { datePickerContent } from "./content/date-picker"
@@ -118,6 +126,30 @@ const entries: CatalogEntry[] = [
         icon: catalogIcons.toggle,
         docs: toggleDocs,
         content: toggleContent,
+    },
+    {
+        group: "Controls",
+        icon: catalogIcons.analytics,
+        docs: sliderDocs,
+        content: sliderContent,
+    },
+    {
+        group: "Controls",
+        icon: catalogIcons.columns,
+        docs: stepperDocs,
+        content: stepperContent,
+    },
+    {
+        group: "Feedback",
+        icon: catalogIcons.status,
+        docs: progressViewDocs,
+        content: progressViewContent,
+    },
+    {
+        group: "Layout and disclosure",
+        icon: catalogIcons.list,
+        docs: dividerDocs,
+        content: dividerContent,
     },
     {
         group: "Controls",

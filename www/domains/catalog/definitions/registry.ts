@@ -13,6 +13,10 @@ import { statusIndicatorDocs } from "./status-indicator/status-indicator.docs"
 import { swatchPickerDocs } from "./swatch-picker/swatch-picker.docs"
 import { textFieldDocs } from "./text-field/text-field.docs"
 import { toggleDocs } from "./toggle/toggle.docs"
+import { sliderDocs } from "./slider/slider.docs"
+import { stepperDocs } from "./stepper/stepper.docs"
+import { progressViewDocs } from "./progress-view/progress-view.docs"
+import { dividerDocs } from "./divider/divider.docs"
 import { compactDatePickerDocs } from "./compact-date-picker/compact-date-picker.docs"
 import { compactTimePickerDocs } from "./compact-time-picker/compact-time-picker.docs"
 import { datePickerDocs } from "./date-picker/date-picker.docs"
@@ -45,6 +49,10 @@ export const registry: readonly RegisteredDocs[] = [
     secureFieldDocs,
     searchFieldDocs,
     toggleDocs,
+    sliderDocs,
+    stepperDocs,
+    progressViewDocs,
+    dividerDocs,
     segmentedControlDocs,
     pickerDocs,
     swatchPickerDocs,
@@ -113,4 +121,8 @@ export {
     swatchPickerDocs,
     textFieldDocs,
     toggleDocs,
+    sliderDocs,
+    stepperDocs,
+    progressViewDocs,
+    dividerDocs,
 }
