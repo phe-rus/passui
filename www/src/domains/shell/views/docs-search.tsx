@@ -77,21 +77,23 @@ export function DocsSearch() {
                             No results found.
                         </SearchListEmpty>
                         <SearchListGroup heading="Guides">
-                            {guides.map((guide) => (
-                                <SearchListItem
-                                    key={guide.slug}
-                                    value={guide.title}
-                                    keywords={[guide.summary]}
-                                    onSelect={() => {
-                                        setOpen(false)
-                                        void navigate({
-                                            to: guide.path,
-                                        })
-                                    }}
-                                >
-                                    {guide.title}
-                                </SearchListItem>
-                            ))}
+                            {guides
+                                .filter((guide) => guide.slug !== "components")
+                                .map((guide) => (
+                                    <SearchListItem
+                                        key={guide.slug}
+                                        value={guide.title}
+                                        keywords={[guide.summary]}
+                                        onSelect={() => {
+                                            setOpen(false)
+                                            void navigate({
+                                                to: guide.path,
+                                            })
+                                        }}
+                                    >
+                                        {guide.title}
+                                    </SearchListItem>
+                                ))}
                         </SearchListGroup>
                         {catalogGroups.map((group) => (
                             <SearchListGroup key={group} heading={group}>

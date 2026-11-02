@@ -32,7 +32,8 @@ test("sidebar distinguishes guide roots from nested component categories", async
     expect(guides.indexOf(">Introduction</span>")).toBeLessThan(
         guides.indexOf(">Installation</span>")
     )
-    expect(html.match(/href="\/components"/g)).toHaveLength(1)
+    expect(html.match(/href="\/components"/g) ?? []).toHaveLength(0)
+    expect(html).not.toContain(">Overview</span>")
     const categories = html.slice(componentsStart)
     for (const group of catalogGroups) expect(categories).toContain(`>${group}</span>`)
     expect(categories.match(/aria-expanded="true"/g) ?? []).toHaveLength(0)

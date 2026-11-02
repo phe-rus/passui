@@ -115,3 +115,26 @@ are the evidence for this push, not a new CI run.
 
 `bun run publish:check` also passed: all four package archives and export targets
 were verified locally. This packs/checks files; it does not publish anything.
+
+## 2026-11-02 follow-up
+
+- Added the native React Accordion with a public package subpath, accessible
+  single-open sections, reduced-motion reveals, two examples and catalog prose.
+- The docs sidebar now uses Accordion for its component categories and removes
+  the redundant Overview row. The `/components` catalog page remains available
+  from the main navigation, and search no longer duplicates it as a guide.
+- Theme, Platform and Viewport use compact Pickers; Accent remains a swatch row.
+  Picker surfaces now use the shared menu geometry reveal and restore their
+  triggers after dismissal.
+- Confirmation dialogs resolve once and wait for the outgoing card to finish
+  exiting before showing the next queued request. Stepper digits animate by
+  place, preserve localized spoken output and honor reduced motion.
+- The example source loader uses a recursive glob so nested component families
+  such as IconButton and Accordion show their source correctly.
+- Repository tests passed: 95 UI tests and 146 website tests. Root typecheck,
+  production build and `bun run check` passed. The existing CLI parameter
+  warnings and CSS sourcemap warning remain.
+- Local routes for `/components` and the Accordion, Stepper and Popover docs
+  returned HTTP 200. ChromeOS Chrome was unavailable, so browser animation,
+  keyboard and touch behavior remain unverified. No package release or website
+  deployment was run.

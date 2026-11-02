@@ -1,4 +1,4 @@
-import { Picker, SegmentedControl, SwatchPicker } from "@passui/react"
+import { Picker, SwatchPicker } from "@passui/react"
 import { accents } from "@passui/react/tokens"
 import { accentNames } from "../content/accent-names"
 import {
@@ -35,11 +35,8 @@ const viewportLabels: Record<PreviewViewport, string> = {
     fill: "Fill",
 }
 
-function options<T extends string>(labels: Record<T, string>) {
-    return (Object.keys(labels) as T[]).map((value) => ({
-        value,
-        label: labels[value],
-    }))
+function optionsFor<T extends string>(labels: Record<T, string>) {
+    return (Object.keys(labels) as T[]).map((value) => ({ value, label: labels[value] }))
 }
 
 /** How the preview looks: theme, accent, platform and frame size (AC-4). */
@@ -54,10 +51,10 @@ export function SettingsBar({ settings, onChange }: SettingsBarProps) {
                     >
                         Theme
                     </span>
-                    <SegmentedControl
+                    <Picker
                         label="Theme"
                         value={settings.theme}
-                        options={options(themeLabels)}
+                        options={optionsFor(themeLabels)}
                         onChange={(theme) => onChange({ theme })}
                     />
                 </div>
@@ -85,10 +82,10 @@ export function SettingsBar({ settings, onChange }: SettingsBarProps) {
                     >
                         Viewport
                     </span>
-                    <SegmentedControl
+                    <Picker
                         label="Viewport"
                         value={settings.viewport}
-                        options={options(viewportLabels)}
+                        options={optionsFor(viewportLabels)}
                         onChange={(viewport) => onChange({ viewport })}
                     />
                 </div>

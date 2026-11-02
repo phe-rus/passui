@@ -95,8 +95,9 @@ verification is not a screenshot or a physical-device motion review.
 
 ## Current React inventory
 
-The registry now documents 42 families, including Menu, DisclosureGroup, Slider,
-Stepper, ProgressView and Divider. The earlier gap assessment is obsolete.
+The registry now documents 43 families, including Accordion, Menu,
+DisclosureGroup, Slider, Stepper, ProgressView and Divider. The earlier gap
+assessment is obsolete.
 Website documentation, usage/showcase files and additional examples live in
 `www/src/domains/catalog/definitions`. Contracts come from the public React
 exports and generated API reference. Publishing remains deferred by the latest

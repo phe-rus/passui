@@ -184,6 +184,7 @@ breaks loudly and prose stays out of Passui:
 
 | Component | Folder | Notes |
 |---|---|---|
+| `Accordion` | `accordion/` | Controlled, single-open disclosure sections. |
 | `Button`, `IconButton` | `button/` | |
 | `Chip` | `chip/` | |
 | `LabeledContent` | `labeled-content/` | A row: label, description, trailing control; wide controls move under the label |

@@ -21,6 +21,10 @@
     ],
     "type": "module",
     "exports": {
+        "./accordion": {
+            "types": "./dist/types/src/components/accordion/accordion.d.ts",
+            "default": "./src/components/accordion/accordion.tsx"
+        },
         "./icons": {
             "types": "./dist/types/src/icons/icons.d.ts",
             "default": "./src/icons/icons.tsx"

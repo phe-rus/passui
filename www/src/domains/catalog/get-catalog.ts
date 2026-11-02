@@ -1,6 +1,7 @@
 import { componentTitle } from "./navigation"
 import { catalogIcons } from "@passui/react/icons"
 import {
+    accordionDocs,
     buttonDocs,
     chipDocs,
     iconButtonDocs,
@@ -45,6 +46,7 @@ import {
     localeSwitcherDocs,
 } from "@/domains/catalog/definitions"
 import { buttonContent } from "./content/button"
+import { accordionContent } from "./content/accordion"
 import { chipContent } from "./content/chip"
 import { iconButtonContent } from "./content/icon-button"
 import { labeledContentContent } from "./content/labeled-content"
@@ -90,6 +92,12 @@ import type { CatalogEntry, CatalogGroup } from "./types"
 
 // One line per documented component, grouped as the sidebar shows them.
 const entries: CatalogEntry[] = [
+    {
+        group: "Layout and disclosure",
+        icon: catalogIcons.unfold,
+        docs: accordionDocs,
+        content: accordionContent,
+    },
     {
         group: "Controls",
         icon: catalogIcons.tap,

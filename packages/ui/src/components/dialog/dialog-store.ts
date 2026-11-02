@@ -20,6 +20,7 @@ export interface PendingDialog extends ConfirmOptions {
 let current: PendingDialog | null = null
 let nextId = 1
 const queue: PendingDialog[] = []
+let exitingId: number | null = null
 const listeners = new Set<() => void>()
 
 const emit = () => {
@@ -29,15 +30,25 @@ const emit = () => {
 export function confirmDialog(options: ConfirmOptions): Promise<boolean> {
     return new Promise((resolve) => {
         const dialog = { ...options, id: nextId++, resolve }
-        if (current) queue.push(dialog)
+        if (current || exitingId !== null) queue.push(dialog)
         else current = dialog
         emit()
     })
 }
 
-export function settleDialog(confirmed: boolean) {
-    if (!current) return
-    current.resolve(confirmed)
+export function settleDialog(confirmed: boolean, id?: number) {
+    if (!current || exitingId !== null || (id !== undefined && current.id !== id)) return
+    const settled = current
+    exitingId = settled.id
+    current = null
+    settled.resolve(confirmed)
+    emit()
+}
+
+/** Advance queued confirmations only after the dismissed card has exited. */
+export function advanceDialogQueue() {
+    if (exitingId === null) return
+    exitingId = null
     current = queue.shift() ?? null
     emit()
 }

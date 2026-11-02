@@ -1,6 +1,9 @@
-import { useId } from "react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { useId, useRef } from "react"
+import { Button } from "../button/button"
 import { cn } from "../../lib/class-names"
 import { clampRange, stepRange } from "../../lib/range-value"
+import { spring } from "../../motion/transitions"
 
 export interface StepperProps {
     value: number
@@ -31,15 +34,21 @@ export function Stepper({
     formatValue,
 }: StepperProps) {
     const id = useId()
+    const reducedMotion = useReducedMotion()
     const upper = Math.max(min, max)
     const current = clampRange(value, min, upper)
+    const previousValue = useRef(current)
+    const direction = current >= previousValue.current ? 1 : -1
+    previousValue.current = current
     const decrement = stepRange(current, -1, min, upper, step > 0 ? step : 1)
     const increment = stepRange(current, 1, min, upper, step > 0 ? step : 1)
-    const buttonStyle = cn(
-        "flex size-11 shrink-0 items-center justify-center rounded-xl text-title2 text-accent-text",
-        "transition-colors hover:bg-fill focus-visible:outline-2 focus-visible:outline-offset-2",
-        "focus-visible:outline-accent-text disabled:cursor-not-allowed disabled:opacity-35"
+    const displayed = formatValue?.(current) ?? String(current)
+    const displayWidth = Math.max(
+        displayed.length,
+        (formatValue?.(min) ?? String(min)).length,
+        (formatValue?.(upper) ?? String(upper)).length
     )
+    const characters = Array.from(displayed.padStart(displayWidth, " "))
 
     return (
         <div className={cn("flex min-w-0 items-center justify-between gap-3", className)}>
@@ -47,33 +56,88 @@ export function Stepper({
                 {label}
             </span>
             <div className="flex shrink-0 items-center gap-1 rounded-2xl border border-separator bg-elevated p-1">
-                <button
+                <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     aria-label={labels.decrement}
                     aria-describedby={id}
                     disabled={disabled || decrement === current}
                     onClick={() => onChange(decrement)}
-                    className={buttonStyle}
+                    className="size-11 rounded-xl text-title2 text-accent-text"
                 >
                     −
-                </button>
+                </Button>
                 <output
                     aria-live="polite"
                     aria-labelledby={id}
-                    className="min-w-10 text-center text-subheadline tabular-nums text-label"
+                    className="relative min-w-10 text-center text-subheadline tabular-nums text-label"
                 >
-                    {formatValue?.(current) ?? current}
+                    <span aria-hidden="true" className="inline-flex min-h-[1.4em] items-center">
+                        {characters.map((character, index) => {
+                            const isDigit = /\p{N}/u.test(character)
+                            return (
+                                <span
+                                    key={`${index}-${isDigit ? "digit" : "text"}`}
+                                    className={cn(
+                                        "inline-block",
+                                        isDigit &&
+                                            "relative inline-grid overflow-hidden align-middle"
+                                    )}
+                                >
+                                    <AnimatePresence initial={false} mode="popLayout">
+                                        <motion.span
+                                            key={character}
+                                            initial={
+                                                reducedMotion
+                                                    ? false
+                                                    : {
+                                                          y: direction > 0 ? "100%" : "-100%",
+                                                          opacity: 0.5,
+                                                      }
+                                            }
+                                            animate={{ y: "0%", opacity: 1 }}
+                                            exit={
+                                                reducedMotion
+                                                    ? { opacity: 0 }
+                                                    : {
+                                                          y: direction > 0 ? "-100%" : "100%",
+                                                          opacity: 0.45,
+                                                      }
+                                            }
+                                            transition={
+                                                reducedMotion
+                                                    ? { duration: 0 }
+                                                    : {
+                                                          ...spring.bouncy,
+                                                          delay:
+                                                              (characters.length - 1 - index) *
+                                                              0.04,
+                                                      }
+                                            }
+                                            className="col-start-1 row-start-1 inline-block"
+                                        >
+                                            {character}
+                                        </motion.span>
+                                    </AnimatePresence>
+                                </span>
+                            )
+                        })}
+                    </span>
+                    <span className="sr-only">{displayed}</span>
                 </output>
-                <button
+                <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     aria-label={labels.increment}
                     aria-describedby={id}
                     disabled={disabled || increment === current}
                     onClick={() => onChange(increment)}
-                    className={buttonStyle}
+                    className="size-11 rounded-xl text-title2 text-accent-text"
                 >
                     +
-                </button>
+                </Button>
             </div>
         </div>
     )

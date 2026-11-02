@@ -17,7 +17,9 @@ import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
-import { floatingPanelMotion } from "../../motion/transitions"
+import { spring } from "../../motion/transitions"
+import { concealMenuSource } from "../context-menu/conceal-menu-source"
+import { menuSurfaceReveal } from "../context-menu/menu-reveal"
 import { pickerTriggerStyle } from "./picker-trigger"
 
 export interface PickerOption<T extends string> {
@@ -175,6 +177,7 @@ function SelectList<T extends string>({
         240
     )
     const [query, setQuery] = useState("")
+    const [reveal, setReveal] = useState<ReturnType<typeof menuSurfaceReveal> | null>(null)
     const typed = useRef({ text: "", at: 0 })
 
     const shown = useMemo(() => {
@@ -198,9 +201,21 @@ function SelectList<T extends string>({
     useLayoutEffect(() => {
         if (!root.current) return
         const unregister = registerFloatingLayer(root.current, anchor)
+        const panel = root.current.getBoundingClientRect()
+        const source = anchor.getBoundingClientRect()
+        setReveal(
+            menuSurfaceReveal(
+                { left: source.left, top: source.top, width: source.width, height: source.height },
+                { left: panel.left, top: panel.top, width: panel.width, height: panel.height }
+            )
+        )
+        const restoreSource = concealMenuSource(anchor, false)
         if (searchable) search.current?.focus()
         else list.current?.focus()
-        return unregister
+        return () => {
+            unregister()
+            restoreSource()
+        }
     }, [searchable, anchor])
 
     // The chosen option starts in view, then follows the keyboard.
@@ -248,32 +263,8 @@ function SelectList<T extends string>({
     }
 
     return (
-        <motion.div
+        <div
             ref={root}
-            initial={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : {
-                          opacity: 0,
-                          scale: 1,
-                          y: placement.above ? 6 : -6,
-                      }
-            }
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : {
-                          opacity: 0,
-                          scale: 1,
-                          y: placement.above ? 4 : -4,
-                      }
-            }
-            transition={
-                reducedMotion
-                    ? { duration: 0 }
-                    : floatingPanelMotion(placement.above ? "above" : "below").transition
-            }
             style={{
                 left: placement.left,
                 width: placement.width,
@@ -282,81 +273,110 @@ function SelectList<T extends string>({
                 maxHeight: Math.min(placement.maxHeight ?? 420, 420),
                 transformOrigin: placement.above ? "50% 100%" : "50% 0%",
             }}
-            className="glass-menu fixed z-[80] flex flex-col overflow-hidden rounded-3xl"
+            className="fixed z-[80] isolate flex flex-col overflow-hidden rounded-3xl"
             {...{ [FLOATING_LAYER]: "" }}
             onKeyDown={onKeyDown}
         >
-            {searchable && (
-                <div className="flex shrink-0 items-center gap-2 border-b border-separator/70 px-3 py-2">
-                    <SearchIcon size={15} className="shrink-0 text-label-tertiary" />
-                    <input
-                        ref={search}
-                        value={query}
-                        placeholder={searchPlaceholder}
-                        aria-label={searchPlaceholder}
-                        aria-controls={id}
-                        aria-activedescendant={
-                            activeOption ? `${id}-${activeOption.value}` : undefined
-                        }
-                        onChange={(event) => {
-                            setQuery(event.target.value)
-                            setActive(0)
-                        }}
-                        className="min-w-0 grow bg-transparent text-subheadline text-label outline-none placeholder:text-label-tertiary"
-                    />
-                </div>
-            )}
-            <div
-                ref={list}
-                id={id}
-                role="listbox"
-                aria-label={label}
-                tabIndex={-1}
-                aria-activedescendant={activeOption ? `${id}-${activeOption.value}` : undefined}
-                className="no-scrollbar flex min-h-0 flex-col overflow-y-auto overscroll-contain p-1.5 outline-none"
+            <motion.div
+                key={reveal ? "surface" : "measure"}
+                aria-hidden="true"
+                className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
+                style={{ width: "100%", height: "100%" }}
+                initial={reducedMotion || !reveal ? false : reveal}
+                animate={
+                    reveal
+                        ? {
+                              x: 0,
+                              y: 0,
+                              width: placement.width,
+                              height: reveal.height,
+                              opacity: 1,
+                              borderRadius: "var(--radius-3xl)",
+                          }
+                        : undefined
+                }
+                exit={reducedMotion ? { opacity: 0 } : (reveal ?? { opacity: 0 })}
+                transition={reducedMotion ? { duration: 0 } : spring.smooth}
+            />
+            <motion.div
+                initial={reducedMotion ? false : { opacity: 0, y: placement.above ? -4 : 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.06 } }}
+                transition={{ duration: reducedMotion ? 0 : 0.16, delay: reducedMotion ? 0 : 0.06 }}
+                className="flex min-h-0 flex-col overflow-hidden"
             >
-                {shown.map((option, index) => {
-                    const chosen = option.value === value
-                    const focused = option === activeOption
-                    return (
-                        <div
-                            key={option.value}
-                            id={`${id}-${option.value}`}
-                            data-value={option.value}
-                            role="option"
-                            tabIndex={-1}
-                            aria-selected={chosen}
-                            lang={option.lang}
-                            onPointerMove={() => setActive(index)}
-                            onClick={() => onPick(option.value)}
-                            className={cn(
-                                "flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1.5 text-subheadline [@media(pointer:coarse)]:min-h-11",
-                                focused ? "bg-fill" : "",
-                                chosen ? "font-semibold text-label" : "text-label"
-                            )}
-                        >
-                            <span className="flex w-4 shrink-0 justify-center">
-                                {chosen && (
-                                    <CheckIcon
-                                        size={15}
-                                        strokeWidth={2.4}
-                                        className="text-accent-text"
-                                    />
-                                )}
-                            </span>
-                            <span className="min-w-0 grow break-words">{option.label}</span>
-                            {option.detail && (
-                                <span className="shrink-0 text-caption font-normal text-label-tertiary">
-                                    {option.detail}
-                                </span>
-                            )}
-                        </div>
-                    )
-                })}
-                {shown.length === 0 && (
-                    <p className="px-3 py-2 text-footnote text-label-tertiary">{emptyLabel}</p>
+                {searchable && (
+                    <div className="flex shrink-0 items-center gap-2 border-b border-separator/70 px-3 py-2">
+                        <SearchIcon size={15} className="shrink-0 text-label-tertiary" />
+                        <input
+                            ref={search}
+                            value={query}
+                            placeholder={searchPlaceholder}
+                            aria-label={searchPlaceholder}
+                            aria-controls={id}
+                            aria-activedescendant={
+                                activeOption ? `${id}-${activeOption.value}` : undefined
+                            }
+                            onChange={(event) => {
+                                setQuery(event.target.value)
+                                setActive(0)
+                            }}
+                            className="min-w-0 grow bg-transparent text-subheadline text-label outline-none placeholder:text-label-tertiary"
+                        />
+                    </div>
                 )}
-            </div>
-        </motion.div>
+                <div
+                    ref={list}
+                    id={id}
+                    role="listbox"
+                    aria-label={label}
+                    tabIndex={-1}
+                    aria-activedescendant={activeOption ? `${id}-${activeOption.value}` : undefined}
+                    className="no-scrollbar flex min-h-0 flex-col overflow-y-auto overscroll-contain p-1.5 outline-none"
+                >
+                    {shown.map((option, index) => {
+                        const chosen = option.value === value
+                        const focused = option === activeOption
+                        return (
+                            <div
+                                key={option.value}
+                                id={`${id}-${option.value}`}
+                                data-value={option.value}
+                                role="option"
+                                tabIndex={-1}
+                                aria-selected={chosen}
+                                lang={option.lang}
+                                onPointerMove={() => setActive(index)}
+                                onClick={() => onPick(option.value)}
+                                className={cn(
+                                    "flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1.5 text-subheadline [@media(pointer:coarse)]:min-h-11",
+                                    focused ? "bg-fill" : "",
+                                    chosen ? "font-semibold text-label" : "text-label"
+                                )}
+                            >
+                                <span className="flex w-4 shrink-0 justify-center">
+                                    {chosen && (
+                                        <CheckIcon
+                                            size={15}
+                                            strokeWidth={2.4}
+                                            className="text-accent-text"
+                                        />
+                                    )}
+                                </span>
+                                <span className="min-w-0 grow break-words">{option.label}</span>
+                                {option.detail && (
+                                    <span className="shrink-0 text-caption font-normal text-label-tertiary">
+                                        {option.detail}
+                                    </span>
+                                )}
+                            </div>
+                        )
+                    })}
+                    {shown.length === 0 && (
+                        <p className="px-3 py-2 text-footnote text-label-tertiary">{emptyLabel}</p>
+                    )}
+                </div>
+            </motion.div>
+        </div>
     )
 }

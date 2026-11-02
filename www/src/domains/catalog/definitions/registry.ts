@@ -1,4 +1,5 @@
 import { buttonDocs } from "./button/button.docs"
+import { accordionDocs } from "./accordion/accordion.docs"
 import { iconButtonDocs } from "./button/icon-button.docs"
 import { chipDocs } from "./chip/chip.docs"
 import { labeledContentDocs } from "./labeled-content/labeled-content.docs"
@@ -44,6 +45,7 @@ import type { RegisteredDocs } from "./types"
 
 /** Every documented component. Add one line per docs file. */
 export const registry: readonly RegisteredDocs[] = [
+    accordionDocs,
     buttonDocs,
     iconButtonDocs,
     chipDocs,
@@ -89,6 +91,7 @@ export const registry: readonly RegisteredDocs[] = [
 ]
 
 export {
+    accordionDocs,
     dialogDocs,
     sheetDocs,
     popoverDocs,

@@ -2,7 +2,13 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useSyncExternalStore } from "react"
 import { Button } from "../button/button"
 import { spring } from "../../motion/transitions"
-import { getDialog, type PendingDialog, settleDialog, subscribeDialogs } from "./dialog-store"
+import {
+    advanceDialogQueue,
+    getDialog,
+    type PendingDialog,
+    settleDialog,
+    subscribeDialogs,
+} from "./dialog-store"
 
 /**
  * Renders confirmation dialogs: a glass card that springs up over blurred
@@ -12,7 +18,7 @@ import { getDialog, type PendingDialog, settleDialog, subscribeDialogs } from ".
 export function DialogHost() {
     const dialog = useSyncExternalStore(subscribeDialogs, getDialog, () => null)
     return (
-        <AnimatePresence>
+        <AnimatePresence mode="wait" onExitComplete={advanceDialogQueue}>
             {dialog && <ConfirmCard key={dialog.id} dialog={dialog} />}
         </AnimatePresence>
     )
@@ -31,7 +37,7 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
         const onKey = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
                 event.preventDefault()
-                settleDialog(false)
+                settleDialog(false, dialog.id)
             }
             // Keep focus inside the dialog.
             if (event.key === "Tab") {
@@ -48,7 +54,7 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
             window.removeEventListener("keydown", onKey)
             previous?.focus?.()
         }
-    }, [dialog.destructive])
+    }, [dialog.destructive, dialog.id])
 
     return (
         <div className="fixed inset-0 z-[70] flex items-center justify-center p-5">
@@ -59,7 +65,7 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={reducedMotion ? { duration: 0 } : spring.smooth}
-                onClick={() => settleDialog(false)}
+                onClick={() => settleDialog(false, dialog.id)}
             />
             <motion.div
                 role="alertdialog"
@@ -90,7 +96,7 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                         ref={cancelRef}
                         type="button"
                         variant="secondary"
-                        onClick={() => settleDialog(false)}
+                        onClick={() => settleDialog(false, dialog.id)}
                         className="min-w-0 grow rounded-2xl"
                     >
                         {dialog.cancelLabel ?? "Cancel"}
@@ -99,7 +105,7 @@ function ConfirmCard({ dialog }: { dialog: PendingDialog }) {
                         ref={confirmRef}
                         type="button"
                         variant={dialog.destructive ? "destructive" : "default"}
-                        onClick={() => settleDialog(true)}
+                        onClick={() => settleDialog(true, dialog.id)}
                         className="min-w-0 grow rounded-2xl"
                     >
                         {dialog.confirmLabel ?? "OK"}

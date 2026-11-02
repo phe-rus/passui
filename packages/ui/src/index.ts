@@ -1,4 +1,5 @@
 export * from "./components/button/button"
+export * from "./components/accordion/accordion"
 export * from "./components/text-field/text-field"
 export * from "./components/secure-field/secure-field"
 export * from "./components/text-editor/text-editor"

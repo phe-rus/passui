@@ -1,5 +1,5 @@
 // The source text of every website-owned example, loaded at build time.
-const sources = import.meta.glob<string>("./definitions/*/examples/*.tsx", {
+const sources = import.meta.glob<string>("./definitions/**/examples/*.tsx", {
     query: "?raw",
     import: "default",
     eager: true,

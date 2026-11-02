@@ -1,4 +1,4 @@
-import { DisclosureGroup } from "@passui/react/disclosure-group"
+import { Accordion } from "@passui/react/accordion"
 import { SidebarItemContent, SidebarSection, sidebarItemClass } from "@passui/react/sidebar"
 import { cn } from "@passui/react/cn"
 import { Link, useLocation } from "@tanstack/react-router"
@@ -37,32 +37,25 @@ export function DocsNav() {
         select: (location) => location.pathname,
     })
     const navigation = useRef<HTMLElement>(null)
-    const [expanded, setExpanded] = useState<Partial<Record<CatalogGroup, boolean>>>({})
+    const [expanded, setExpanded] = useState<CatalogGroup | null | undefined>(undefined)
     const catalog = getCatalog()
     const activeGroup = currentGroup(pathname)
 
     useEffect(() => {
-        const saved: Partial<Record<CatalogGroup, boolean>> = {}
+        let saved: CatalogGroup | null = null
         try {
-            const stored: unknown = JSON.parse(
-                localStorage.getItem("passui-docs-groups-v2") ?? "{}"
-            )
-            if (stored && typeof stored === "object") {
-                for (const group of catalogGroups) {
-                    const value = Reflect.get(stored, group)
-                    if (typeof value === "boolean") saved[group] = value
-                }
-            }
+            const stored = localStorage.getItem("passui-docs-group-v3")
+            if (stored && catalogGroups.includes(stored as CatalogGroup))
+                saved = stored as CatalogGroup
         } catch {
             /* Navigation also works when storage is unavailable. */
         }
         const active = currentGroup(pathname)
-        if (active) saved[active] = true
-        setExpanded(saved)
+        setExpanded(active ?? saved)
     }, [pathname])
 
     useEffect(() => {
-        if (activeGroup && expanded[activeGroup] === false) return
+        if (activeGroup && (expanded ?? activeGroup) !== activeGroup) return
         const frame = requestAnimationFrame(() => {
             const scroller = navigation.current?.closest<HTMLElement>("[data-docs-scroller]")
             if (scroller) revealActive(scroller)
@@ -70,11 +63,11 @@ export function DocsNav() {
         return () => cancelAnimationFrame(frame)
     }, [activeGroup, expanded])
 
-    function toggle(group: CatalogGroup, open: boolean) {
-        const next = { ...expanded, [group]: open }
-        setExpanded(next)
+    function toggle(group: CatalogGroup | null) {
+        setExpanded(group)
         try {
-            localStorage.setItem("passui-docs-groups-v2", JSON.stringify(next))
+            if (group) localStorage.setItem("passui-docs-group-v3", group)
+            else localStorage.removeItem("passui-docs-group-v3")
         } catch {
             /* Keep the current session usable. */
         }
@@ -86,8 +79,6 @@ export function DocsNav() {
             entries: catalog.filter((entry) => entry.group === group),
         }))
         .filter(({ entries }) => entries.length > 0)
-
-    const overview = guides.find((guide) => guide.slug === "components")!
 
     return (
         <nav ref={navigation} aria-label="Docs" className="flex flex-col gap-6">
@@ -117,53 +108,39 @@ export function DocsNav() {
                 </ul>
             </SidebarSection>
             <SidebarSection title="Components">
-                <Link
-                    to="/components"
-                    activeOptions={{ exact: true, includeSearch: false }}
-                    activeProps={{ className: rowClass(true) }}
-                    inactiveProps={{ className: rowClass(false) }}
-                >
-                    {({ isActive }) => (
-                        <SidebarItemContent active={isActive} icon={<overview.icon size={16} />}>
-                            Overview
-                        </SidebarItemContent>
-                    )}
-                </Link>
-                <ul className="m-0 flex list-none flex-col gap-1 p-0">
-                    {groups.map(({ group, entries }) => (
-                        <li key={group}>
-                            <DisclosureGroup
-                                label={group}
-                                open={expanded[group] ?? group === activeGroup}
-                                onOpenChange={(open) => toggle(group, open)}
-                                className="[&>h3>button]:min-h-8 [&>h3>button]:flex-row-reverse [&>h3>button]:rounded-lg [&>h3>button]:px-2.5 [&>h3>button]:py-1 [&>h3>button]:text-footnote [&>h3>button>span]:flex-1 [&>section>div>div]:px-0 [&>section>div>div]:pb-0"
-                            >
-                                <ul className="m-0 ms-4 flex list-none flex-col gap-0.5 border-s border-separator/60 p-0 ps-1">
-                                    {entries.map((entry) => (
-                                        <li key={entry.docs.slug}>
-                                            <Link
-                                                to="/components/react/$slug"
-                                                params={{ slug: entry.docs.slug }}
-                                                activeOptions={{ includeSearch: false }}
-                                                activeProps={{ className: rowClass(true) }}
-                                                inactiveProps={{ className: rowClass(false) }}
-                                            >
-                                                {({ isActive }) => (
-                                                    <SidebarItemContent
-                                                        active={isActive}
-                                                        icon={<entry.icon size={16} />}
-                                                    >
-                                                        {componentTitle(entry)}
-                                                    </SidebarItemContent>
-                                                )}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </DisclosureGroup>
-                        </li>
-                    ))}
-                </ul>
+                <Accordion
+                    value={expanded ?? activeGroup ?? null}
+                    onValueChange={(group) => toggle(group as CatalogGroup | null)}
+                    className="overflow-hidden rounded-xl"
+                    items={groups.map(({ group, entries }) => ({
+                        value: group,
+                        title: group,
+                        content: (
+                            <ul className="m-0 ms-1 flex list-none flex-col gap-0.5 border-s border-separator/60 p-0 ps-1">
+                                {entries.map((entry) => (
+                                    <li key={entry.docs.slug}>
+                                        <Link
+                                            to="/components/react/$slug"
+                                            params={{ slug: entry.docs.slug }}
+                                            activeOptions={{ includeSearch: false }}
+                                            activeProps={{ className: rowClass(true) }}
+                                            inactiveProps={{ className: rowClass(false) }}
+                                        >
+                                            {({ isActive }) => (
+                                                <SidebarItemContent
+                                                    active={isActive}
+                                                    icon={<entry.icon size={16} />}
+                                                >
+                                                    {componentTitle(entry)}
+                                                </SidebarItemContent>
+                                            )}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        ),
+                    }))}
+                />
             </SidebarSection>
         </nav>
     )

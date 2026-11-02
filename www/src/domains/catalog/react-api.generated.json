@@ -1,4 +1,39 @@
 {
+    "accordion": {
+        "source": "packages/ui/src/components/accordion/accordion.tsx",
+        "props": [
+            {
+                "name": "items",
+                "type": "readonly AccordionItem[]",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "value",
+                "type": "string | null",
+                "required": true,
+                "description": "The expanded item, or `null` when all items are closed.",
+                "defaultValue": null
+            },
+            {
+                "name": "onValueChange",
+                "type": "(value: string | null) => void",
+                "required": true,
+                "description": "Selecting the open item reports `null`, so every item can collapse.",
+                "defaultValue": null
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
+        "parts": []
+    },
     "ambient": {
         "source": "packages/ui/src/components/ambient/ambient.tsx",
         "props": [
