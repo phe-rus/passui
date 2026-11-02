@@ -15,8 +15,8 @@ type MutationContext<TOptimisticData> =
       }
     | undefined
 
-import { shouldRestoreOptimisticSnapshot } from "../shared/optimistic"
-export { shouldRestoreOptimisticSnapshot } from "../shared/optimistic"
+import { restoreOptimisticSnapshot } from "../shared/optimistic"
+export { shouldRestoreOptimisticSnapshot, restoreOptimisticSnapshot } from "../shared/optimistic"
 
 type AppMutationOptions<TData, TVariables, TOptimisticData> = Omit<
     UseMutationOptions<TData, Error, TVariables, MutationContext<TOptimisticData>>,
@@ -76,13 +76,15 @@ export function useAppMutation<TData, TVariables = void, TOptimisticData = unkno
         },
         onError: (error, variables, context) => {
             if (optimisticUpdate && context) {
-                const current = q.getQueryData(optimisticUpdate.queryKey)
                 // only roll back if nothing else has written to this key
                 // since our optimistic value landed, otherwise this would
                 // silently discard a concurrent mutation's newer change
-                if (shouldRestoreOptimisticSnapshot(current, context.next)) {
-                    q.setQueryData(optimisticUpdate.queryKey, context.previous)
-                }
+                restoreOptimisticSnapshot(
+                    q,
+                    optimisticUpdate.queryKey,
+                    context.previous,
+                    context.next
+                )
             }
             toast.error(errorMessage ?? "Something went wrong", {
                 description: error.message,

@@ -37,7 +37,7 @@ import {
     useTable,
 } from "@tanstack/react-table"
 import type { ReactNode } from "react"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Button } from "@passui/react/button"
 import { Toggle } from "@passui/react/toggle"
 import { SearchField } from "@passui/react"
@@ -204,6 +204,7 @@ export function DataTable<TData extends RowData>({
     const [columnVisibility, setColumnVisibility] =
         useState<ColumnVisibilityState>(initialColumnVisibility)
     const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+    const lastReportedSelection = useRef(rowSelection)
     const [columnsOpen, setColumnsOpen] = useState(false)
     const [filtersOpen, setFiltersOpen] = useState(false)
     const augmentedColumns = useMemo(
@@ -260,7 +261,15 @@ export function DataTable<TData extends RowData>({
 
     const activeFilterCount = columnFilters.length
     const selectedCount = Object.values(rowSelection).filter(Boolean).length
-    const selectedRows = table.getSelectedRowModel().rows.map((r) => r.original)
+    const selectedRows = useMemo(
+        () => data.filter((row) => rowSelection[getRowId(row)]),
+        [data, getRowId, rowSelection]
+    )
+    useEffect(() => {
+        if (lastReportedSelection.current === rowSelection) return
+        lastReportedSelection.current = rowSelection
+        onSelectedRowsChange?.(selectedRows)
+    }, [rowSelection, selectedRows, onSelectedRowsChange])
     const clearSelection = () => setRowSelection({})
 
     const rows = table.getRowModel().rows
@@ -326,11 +335,7 @@ export function DataTable<TData extends RowData>({
                         {toggleableColumns.map((column) => {
                             const visible = column.getIsVisible()
                             return (
-                                <div
-                                    key={column.id}
-                                    className="flex cursor-pointer items-center gap-2"
-                                    onClick={() => column.toggleVisibility()}
-                                >
+                                <div key={column.id} className="flex items-center gap-2">
                                     <Toggle
                                         style="checkbox"
                                         labelHidden
@@ -416,10 +421,22 @@ export function DataTable<TData extends RowData>({
                             className="border-b border-border/40 hover:bg-transparent"
                         >
                             {headerGroup.headers.map((header) => (
-                                <TableHead key={header.id}>
+                                <TableHead
+                                    key={header.id}
+                                    aria-sort={
+                                        header.column.getCanSort()
+                                            ? header.column.getIsSorted() === "asc"
+                                                ? "ascending"
+                                                : header.column.getIsSorted() === "desc"
+                                                  ? "descending"
+                                                  : "none"
+                                            : undefined
+                                    }
+                                >
                                     {header.isPlaceholder ? null : header.column.getCanSort() ? (
-                                        <div
-                                            className="flex w-fit cursor-pointer items-center gap-1 text-muted-foreground hover:text-foreground"
+                                        <button
+                                            type="button"
+                                            className="flex w-fit items-center gap-1 text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2"
                                             onClick={header.column.getToggleSortingHandler()}
                                         >
                                             {flexRender(
@@ -444,7 +461,7 @@ export function DataTable<TData extends RowData>({
                                                     )}
                                                 />
                                             </div>
-                                        </div>
+                                        </button>
                                     ) : (
                                         flexRender(
                                             header.column.columnDef.header,
@@ -466,13 +483,19 @@ export function DataTable<TData extends RowData>({
                                     onRowClick && "cursor-pointer"
                                 )}
                                 data-state={row.getIsSelected() ? "selected" : undefined}
-                                onClick={() => {
+                                onClick={(event) => {
+                                    if (
+                                        event.target instanceof Element &&
+                                        event.target.closest(
+                                            "a,button,input,select,textarea,[role='button'],[data-stop-row-click]"
+                                        )
+                                    )
+                                        return
                                     if (!onSelectedRowsChange) {
                                         onRowClick?.(row.original)
                                         return
                                     }
                                     row.toggleSelected()
-                                    onSelectedRowsChange(selectedRows)
                                 }}
                             >
                                 {row.getVisibleCells().map((cell) => (
