@@ -8,7 +8,10 @@ import {
     SearchListItem,
     SearchListResults,
 } from "../../src/components/search-list/search-list"
+import { SegmentedControl } from "../../src/components/segmented-control/segmented-control"
+import { TabBar } from "../../src/components/tab-bar/tab-bar"
 import { TabView } from "../../src/components/tab-view/tab-view"
+import { Toggle } from "../../src/components/toggle/toggle"
 
 test("menu trigger is named, keyboard-addressable and backed by the menu host", () => {
     const markup = renderToStaticMarkup(
@@ -101,4 +104,46 @@ test("search list wires its combobox to the results and excludes disabled option
     expect(markup).toContain('role="listbox"')
     expect(markup).toContain('role="option"')
     expect(markup).toContain("disabled")
+})
+
+test("tab bar keeps destinations named for assistive technologies", () => {
+    const markup = renderToStaticMarkup(
+        <TabBar
+            label="Primary navigation"
+            active="home"
+            minimizeBehavior="never"
+            tabs={[
+                { id: "home", label: "Home", icon: <span aria-hidden="true">H</span> },
+                { id: "settings", label: "Settings", icon: <span aria-hidden="true">S</span> },
+            ]}
+            renderLink={(tab, props) => <a href={`/${tab.id}`} {...props} />}
+        />
+    )
+    expect(markup).toContain('aria-label="Primary navigation"')
+    expect(markup).toContain('aria-current="page"')
+    expect(markup).toContain("Home")
+    expect(markup).toContain("Settings")
+})
+
+test("segmented control and toggle retain native accessible controls", () => {
+    const segments = renderToStaticMarkup(
+        <SegmentedControl
+            label="Appearance"
+            value="light"
+            options={[
+                { value: "light", label: "Light" },
+                { value: "dark", label: "Dark" },
+            ]}
+            onChange={() => {}}
+        />
+    )
+    const toggle = renderToStaticMarkup(
+        <Toggle checked label="Notifications" onChange={() => {}} />
+    )
+    expect(segments).toContain("<fieldset")
+    expect(segments).toContain("Appearance")
+    expect(segments).toContain('type="radio"')
+    expect(toggle).toContain('role="switch"')
+    expect(toggle).toContain('aria-checked="true"')
+    expect(toggle).toContain('aria-label="Notifications"')
 })

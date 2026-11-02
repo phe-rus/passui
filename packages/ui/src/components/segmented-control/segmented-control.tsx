@@ -1,4 +1,4 @@
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import { useId, useLayoutEffect, useRef, useState } from "react"
 import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"
@@ -29,6 +29,7 @@ export function SegmentedControl<T extends string>({
     label,
 }: SegmentedControlProps<T>) {
     const id = useId()
+    const reducedMotion = useReducedMotion()
     const frame = useRef<HTMLDivElement>(null)
     const measure = useRef<HTMLDivElement>(null)
     const [fits, setFits] = useState(true)
@@ -89,7 +90,7 @@ export function SegmentedControl<T extends string>({
                                     <motion.span
                                         layoutId={`segment-${id}`}
                                         className="absolute inset-0 -z-10 rounded-md bg-elevated shadow-[0_0_0_0.5px_rgb(0_0_0/0.06),0_1px_2px_rgb(0_0_0/0.08),0_3px_8px_-2px_rgb(0_0_0/0.10)]"
-                                        transition={spring.snappy}
+                                        transition={reducedMotion ? { duration: 0 } : spring.snappy}
                                     />
                                 )}
                                 {option.label}

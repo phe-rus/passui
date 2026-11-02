@@ -1,5 +1,5 @@
-import { motion } from "motion/react"
-import { type ReactNode, useId } from "react"
+import { motion, useReducedMotion } from "motion/react"
+import { Fragment, type ReactNode, useId } from "react"
 import { useMinimizeOnScroll } from "../../hooks/use-minimize-on-scroll"
 import { SearchIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
@@ -56,6 +56,7 @@ export function TabBar<Tab extends TabBarTab>({
     // Scopes the sliding selection to this bar, so two bars on one
     // screen (a docs page, a split view) never trade their highlight.
     const selectionId = `${useId()}-tab-selection`
+    const reducedMotion = useReducedMotion()
     const [scrolledAway, setScrolledAway] = useMinimizeOnScroll()
     // Platform behavior keeps Android expanded; apps can opt into scroll minimization.
     const minimized =
@@ -72,8 +73,8 @@ export function TabBar<Tab extends TabBarTab>({
             )}
         >
             <motion.div
-                layout
-                transition={spring.smooth}
+                layout={!reducedMotion}
+                transition={reducedMotion ? { duration: 0 } : spring.smooth}
                 // A tap on the shrunken capsule brings every tab back.
                 onClickCapture={(event) => {
                     if (!minimized) return
@@ -89,31 +90,41 @@ export function TabBar<Tab extends TabBarTab>({
                 {tabs.map((tab) => {
                     const current = tab.id === active
                     if (minimized && !current) return null
-                    return renderLink(tab, {
-                        "aria-current": current ? "page" : undefined,
-                        // Switching tabs is silent, as on Apple and Android: no haptic.
-                        onClick: () => {},
-                        className: cn(
-                            "relative isolate flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 rounded-full font-semibold text-[10px] tracking-[0.01em] no-underline transition-[color,transform] duration-fast active:scale-[0.94]",
-                            minimized ? "w-11" : "flex-1 px-1",
-                            current ? "text-accent-text" : "text-label-secondary"
-                        ),
-                        children: (
-                            <>
-                                {current && (
-                                    <motion.span
-                                        layoutId={selectionId}
-                                        className="glass-lens absolute inset-0 -z-10 rounded-full"
-                                        transition={spring.snappy}
-                                    />
-                                )}
-                                {tab.icon}
-                                {!minimized && (
-                                    <span className="max-w-full truncate">{tab.label}</span>
-                                )}
-                            </>
-                        ),
-                    })
+                    return (
+                        <Fragment key={tab.id}>
+                            {renderLink(tab, {
+                                "aria-current": current ? "page" : undefined,
+                                // Switching tabs is silent, as on Apple and Android: no haptic.
+                                onClick: () => {},
+                                className: cn(
+                                    "relative isolate flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 rounded-full font-semibold text-[10px] tracking-[0.01em] no-underline transition-[color,transform] duration-fast active:scale-[0.94]",
+                                    minimized ? "w-11" : "flex-1 px-1",
+                                    current ? "text-accent-text" : "text-label-secondary"
+                                ),
+                                children: (
+                                    <>
+                                        {current && (
+                                            <motion.span
+                                                layoutId={selectionId}
+                                                className="glass-lens absolute inset-0 -z-10 rounded-full"
+                                                transition={
+                                                    reducedMotion ? { duration: 0 } : spring.snappy
+                                                }
+                                            />
+                                        )}
+                                        {tab.icon}
+                                        <span
+                                            className={
+                                                minimized ? "sr-only" : "max-w-full truncate"
+                                            }
+                                        >
+                                            {tab.label}
+                                        </span>
+                                    </>
+                                ),
+                            })}
+                        </Fragment>
+                    )
                 })}
             </motion.div>
             {search && (

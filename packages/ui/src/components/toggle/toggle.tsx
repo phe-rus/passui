@@ -1,4 +1,4 @@
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import { useEffect, useRef } from "react"
 import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"
@@ -32,6 +32,7 @@ export function Toggle({
     labelHidden = false,
 }: ToggleProps) {
     const input = useRef<HTMLInputElement>(null)
+    const reducedMotion = useReducedMotion()
     useEffect(() => {
         if (input.current) input.current.indeterminate = mixed
     }, [mixed])
@@ -75,9 +76,13 @@ export function Toggle({
         >
             {/* The thumb stretches while pressed, as on iOS. */}
             <motion.span
-                layout
-                transition={spring.snappy}
-                className="h-[26px] w-[26px] rounded-full bg-white shadow-[0_0_0_0.5px_rgb(0_0_0/0.04),0_2px_4px_rgb(0_0_0/0.16),0_3px_8px_rgb(0_0_0/0.10)] transition-[width] duration-fast group-active/switch:w-[32px]"
+                layout={!reducedMotion}
+                transition={reducedMotion ? { duration: 0 } : spring.snappy}
+                className={cn(
+                    "h-[26px] w-[26px] rounded-full bg-white shadow-[0_0_0_0.5px_rgb(0_0_0/0.04),0_2px_4px_rgb(0_0_0/0.16),0_3px_8px_rgb(0_0_0/0.10)]",
+                    !reducedMotion &&
+                        "transition-[width] duration-fast group-active/switch:w-[32px]"
+                )}
             />
         </button>
     )
