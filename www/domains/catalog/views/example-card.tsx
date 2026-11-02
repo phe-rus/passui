@@ -21,28 +21,28 @@ type ExampleCardProps = {
  */
 export function ExampleCard({ docs, example, content }: ExampleCardProps) {
     const navigate = useNavigate({
-        from: "/components/$slug",
+        from: "/components/react/$slug",
     })
     const Demo = example.component
     const playground = example.playground
 
     function openInPlayground() {
         if (!playground) return
-        navigate({
+        void navigate({
             search: (previous) => ({
                 ...previous,
                 props: getChangedProps(docs, resolveProps(docs, playground)),
             }),
             replace: true,
             resetScroll: false,
-        })
-        // after the update lands, or the re-render cancels the scroll
-        requestAnimationFrame(() =>
+        }).then(() => {
             document.getElementById("playground")?.scrollIntoView({
-                behavior: "smooth",
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                    ? "auto"
+                    : "smooth",
                 block: "start",
             })
-        )
+        })
     }
 
     return (

@@ -1,4 +1,5 @@
 import { useRouter } from "@tanstack/react-router"
+import { Button } from "@passui/react/button"
 import { useEffect, useRef, useState } from "react"
 import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { getChangedProps, type PropValues } from "@/domains/catalog"
@@ -12,6 +13,7 @@ type PreviewFrameProps = {
 }
 
 const minimumHeight = 160
+const previewTimeoutMs = 12000
 
 /** Asks the preview to say it is listening (answered with passui:ready). */
 function ping(frame: HTMLIFrameElement | null) {
@@ -28,6 +30,8 @@ export function PreviewFrame({ docs, settings, props }: PreviewFrameProps) {
     const router = useRouter()
     const frame = useRef<HTMLIFrameElement>(null)
     const [ready, setReady] = useState(false)
+    const [failed, setFailed] = useState(false)
+    const [attempt, setAttempt] = useState(0)
     // overlay components ask for room to open into
     const leastHeight = docs.previewHeight ?? minimumHeight
     const [height, setHeight] = useState(leastHeight)
@@ -43,14 +47,23 @@ export function PreviewFrame({ docs, settings, props }: PreviewFrameProps) {
             }).href
     )
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Retrying replaces the iframe and must restart its timeout.
+    useEffect(() => {
+        if (ready) return
+        const timer = window.setTimeout(() => setFailed(true), previewTimeoutMs)
+        return () => window.clearTimeout(timer)
+    }, [ready, attempt])
+
     useEffect(() => {
         function onMessage(event: MessageEvent) {
             if (event.origin !== window.location.origin) return
             if (event.source !== frame.current?.contentWindow) return
             const parsed = frameMessageSchema.safeParse(event.data)
             if (!parsed.success) return
-            if (parsed.data.type === "passui:ready") setReady(true)
-            else setHeight(Math.max(leastHeight, parsed.data.height))
+            if (parsed.data.type === "passui:ready") {
+                setReady(true)
+                setFailed(false)
+            } else setHeight(Math.max(leastHeight, parsed.data.height))
         }
         window.addEventListener("message", onMessage)
         // the preview may have said hello before we listened: ask again
@@ -69,13 +82,43 @@ export function PreviewFrame({ docs, settings, props }: PreviewFrameProps) {
     }, [ready, settings, props])
 
     return (
-        <iframe
-            ref={frame}
-            src={src}
-            title="Component preview"
-            onLoad={() => ping(frame.current)}
-            style={{ height }}
-            className="block w-full border-0 bg-transparent transition-[height] duration-300"
-        />
+        <div className="relative">
+            <iframe
+                key={attempt}
+                ref={frame}
+                src={src}
+                title={`${docs.name} interactive preview`}
+                onLoad={() => ping(frame.current)}
+                style={{ height }}
+                className="block w-full border-0 bg-transparent transition-[height] duration-300 motion-reduce:transition-none"
+            />
+            {!ready && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/95 p-5 text-center">
+                    {failed ? (
+                        <div role="alert" className="flex max-w-sm flex-col items-center gap-3">
+                            <p className="text-callout text-label-secondary">
+                                The interactive preview did not respond.
+                            </p>
+                            <Button
+                                size="sm"
+                                variant="secondary"
+                                onClick={() => {
+                                    setReady(false)
+                                    setFailed(false)
+                                    setHeight(leastHeight)
+                                    setAttempt((current) => current + 1)
+                                }}
+                            >
+                                Retry preview
+                            </Button>
+                        </div>
+                    ) : (
+                        <p role="status" className="text-footnote text-label-secondary">
+                            Loading interactive preview…
+                        </p>
+                    )}
+                </div>
+            )}
+        </div>
     )
 }

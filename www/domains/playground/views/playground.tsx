@@ -3,7 +3,15 @@ import { useNavigate } from "@tanstack/react-router"
 import { useMemo } from "react"
 import { getChangedProps, resolveProps } from "@/domains/catalog"
 import { cn } from "@passui/react/cn"
-import { type DocsSettings, type PreviewViewport, SettingsBar } from "@/domains/settings"
+import { Button } from "@passui/react/button"
+import { CopyIcon, UndoIcon } from "@passui/react/icons"
+import {
+    type DocsSettings,
+    type PreviewViewport,
+    SettingsBar,
+    docsSettingsDefaults,
+} from "@/domains/settings"
+import { useCopyText } from "@/domains/clipboard/use-copy-text"
 import { getSnippet } from "../get-snippet"
 import { useFormattedCode } from "../use-formatted-code"
 import { CodeView } from "./code-view"
@@ -29,8 +37,9 @@ type PlaygroundProps = {
  */
 export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
     const navigate = useNavigate({
-        from: "/components/$slug",
+        from: "/components/react/$slug",
     })
+    const clipboard = useCopyText()
     const values = useMemo(() => resolveProps(docs, rawProps), [docs, rawProps])
     const snippet = useFormattedCode(useMemo(() => getSnippet(docs, values), [docs, values]))
     const previewSettings = useMemo(
@@ -44,6 +53,43 @@ export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
 
     return (
         <div className="overflow-hidden rounded-5xl ring-1 ring-separator/60">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-separator/60 border-b bg-elevated px-5 py-3 md:px-6">
+                <p className="text-footnote text-label-secondary">
+                    Preview settings and component props are saved in the URL.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                    <Button
+                        type="button"
+                        size="xs"
+                        variant="ghost"
+                        onClick={() => {
+                            void navigate({
+                                search: (previous) => ({
+                                    ...previous,
+                                    ...docsSettingsDefaults,
+                                    props: {},
+                                }),
+                                replace: true,
+                                resetScroll: false,
+                            })
+                        }}
+                    >
+                        <UndoIcon size={14} />
+                        Reset
+                    </Button>
+                    <Button
+                        type="button"
+                        size="xs"
+                        variant="secondary"
+                        onClick={() => {
+                            void clipboard.copy(window.location.href, "Playground link copied")
+                        }}
+                    >
+                        <CopyIcon size={14} />
+                        Share
+                    </Button>
+                </div>
+            </div>
             <div className="border-separator/60 border-b bg-elevated">
                 <SettingsBar
                     settings={settings}
@@ -98,6 +144,7 @@ export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
                     }
                 />
             </div>
+            {clipboard.fallback}
         </div>
     )
 }

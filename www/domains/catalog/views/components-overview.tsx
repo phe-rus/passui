@@ -1,4 +1,4 @@
-import { buttonStyle } from "@passui/react/button"
+import { Button, buttonStyle } from "@passui/react/button"
 import { Link } from "@tanstack/react-router"
 import { catalogGroups, getCatalog } from "../get-catalog"
 import { componentTitle, matchesComponent } from "../navigation"
@@ -34,8 +34,28 @@ export function ComponentsOverview() {
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                 />
-                <span role="status">{matches.length} component families</span>
+                <span role="status" className="text-footnote text-label-secondary">
+                    {matches.length}{" "}
+                    {matches.length === 1 ? "component family" : "component families"}
+                </span>
             </div>
+            {matches.length === 0 && (
+                <div className="flex flex-col items-start gap-3 rounded-3xl border border-separator/60 bg-elevated p-6">
+                    <h2 className="text-title3 font-semibold text-label">No matching components</h2>
+                    <p className="text-callout text-label-secondary">
+                        Try another name or description, or clear your search to browse the entire
+                        catalog.
+                    </p>
+                    <Button
+                        type="button"
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => setQuery("")}
+                    >
+                        Clear search
+                    </Button>
+                </div>
+            )}
             {catalogGroups.map((group) => {
                 const entries = matches.filter((entry) => entry.group === group)
                 if (!entries.length) return null
