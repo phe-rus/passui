@@ -116,7 +116,7 @@ are the evidence for this push, not a new CI run.
 `bun run publish:check` also passed: all four package archives and export targets
 were verified locally. This packs/checks files; it does not publish anything.
 
-## 2026-11-02 follow-up
+## Earlier 2026-11-02 follow-up
 
 - Added the native React Accordion with a public package subpath, accessible
   single-open sections, reduced-motion reveals, two examples and catalog prose.
@@ -138,3 +138,37 @@ were verified locally. This packs/checks files; it does not publish anything.
   returned HTTP 200. ChromeOS Chrome was unavailable, so browser animation,
   keyboard and touch behavior remain unverified. No package release or website
   deployment was run.
+
+## Latest refinement, 2026-11-02
+
+This section supersedes the category Accordion and release hold above. The docs
+rail and command search now expose every component alphabetically, using compact
+native Sidebar rows. The catalog keeps descriptive family groups with smaller
+cards. Breadcrumb, CodeBlock, KeyboardShortcut and ContentUnavailableView replace
+website owned versions. ComboBox, RadioGroup and Skeleton fill additional native
+control gaps. All 50 families have real usage, showcase and two extra examples.
+
+Stepper now uses three recycled cells per numeric column, one spring per place,
+carry staggering, velocity blur and reduced motion support. Its two segments sit
+beside the value. Picker's final material height follows the panel, and neither
+Picker nor anchored Popover clips the material's return to its source. Popover
+content fades independently so it cannot hide the returning shell prematurely.
+
+Icon factory purity and minimal Picker animation features reduce its measured
+consumer bundle from 89,096 to 43,853 gzip bytes, React external with other
+dependencies included. Stepper is 12,226 gzip bytes. `bun run size:check` enforces
+representative budgets. Clean declaration builds and archive guards prevent
+removed docs from remaining in packages.
+
+Navigation metadata is generated independently of executable demos and used by
+the shell and route loaders. Example source loads in separate chunks with retry.
+The component page chunk dropped from 641.42 to 446.70 kB minified in this pass;
+lazy syntax tools retain a large TypeScript grammar chunk warning.
+
+Validation: root checks, build and typechecks pass; 103 UI, 160 website, 13 token,
+7 TanStack and 15 CLI tests pass. Every archive and export target passes package
+checks. ChromeOS Chrome is not exposed to automation; hydration, visual motion,
+touch and actual browser focus behavior still need that environment. These are
+remaining verification boundaries, not passing browser checks. Website deployment
+has not been performed. Package publication is now authorized and tracked through
+workflow outcomes and registry evidence.

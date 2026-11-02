@@ -1,0 +1,33 @@
+@layer components {
+    .passui-code-block pre {
+        margin: 0;
+        padding-block: 1rem;
+        padding-inline-end: 1.5rem;
+        overflow-x: auto;
+        font-family: var(--font-mono);
+        font-size: var(--text-footnote);
+        line-height: 1.75;
+        color: var(--color-label);
+        background: transparent !important;
+        counter-reset: code-line;
+        tab-size: 4;
+    }
+    .passui-code-block .line { display: inline-block; min-width: 100%; }
+    .passui-code-block[data-line-numbers] .line::before {
+        counter-increment: code-line;
+        content: counter(code-line);
+        display: inline-block;
+        width: 3rem;
+        margin-inline-end: 1.25rem;
+        color: var(--color-label-tertiary);
+        text-align: end;
+        user-select: none;
+    }
+    .passui-code-block:not([data-line-numbers]) pre { padding-inline-start: 1rem; }
+    .passui-code-block .shiki, .passui-code-block .shiki span { color: var(--shiki-light); background: transparent !important; }
+    @media (prefers-color-scheme: dark) {
+        .passui-code-block .shiki, .passui-code-block .shiki span { color: var(--shiki-dark); }
+    }
+    [data-theme="light"] .passui-code-block .shiki, [data-theme="light"] .passui-code-block .shiki span { color: var(--shiki-light); }
+    [data-theme="dark"] .passui-code-block .shiki, [data-theme="dark"] .passui-code-block .shiki span { color: var(--shiki-dark); }
+}

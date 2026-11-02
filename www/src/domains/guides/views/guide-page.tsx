@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
 import type { ComponentType } from "react"
-import { OnThisPage, type TocItem } from "@/domains/catalog"
+import { OnThisPage, type TocItem } from "@/domains/catalog/views/on-this-page"
 import { getGuide, getGuideNeighbours } from "../get-guides"
 import type { GuideSlug } from "../types"
 import { InstallationGuide, installationSections } from "./installation-guide"

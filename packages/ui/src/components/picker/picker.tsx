@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from "motion/react"
 import {
     type KeyboardEvent,
     useCallback,
@@ -117,27 +117,29 @@ export function Picker<T extends string>({
             </button>
             {typeof document !== "undefined" &&
                 createPortal(
-                    <AnimatePresence>
-                        {open && !disabled && trigger.current && (
-                            <SelectList
-                                id={listId}
-                                anchor={trigger.current}
-                                options={options}
-                                value={value}
-                                label={label}
-                                searchable={searchable ?? options.length > SEARCH_FROM}
-                                searchPlaceholder={searchPlaceholder}
-                                emptyLabel={emptyLabel}
-                                onPick={(next) => {
-                                    close(true)
-                                    if (next === value) return
-                                    haptic("selection")
-                                    onChange(next)
-                                }}
-                                onClose={close}
-                            />
-                        )}
-                    </AnimatePresence>,
+                    <LazyMotion features={domAnimation}>
+                        <AnimatePresence>
+                            {open && !disabled && trigger.current && (
+                                <SelectList
+                                    id={listId}
+                                    anchor={trigger.current}
+                                    options={options}
+                                    value={value}
+                                    label={label}
+                                    searchable={searchable ?? options.length > SEARCH_FROM}
+                                    searchPlaceholder={searchPlaceholder}
+                                    emptyLabel={emptyLabel}
+                                    onPick={(next) => {
+                                        close(true)
+                                        if (next === value) return
+                                        haptic("selection")
+                                        onChange(next)
+                                    }}
+                                    onClose={close}
+                                />
+                            )}
+                        </AnimatePresence>
+                    </LazyMotion>,
                     document.body
                 )}
         </>
@@ -273,11 +275,11 @@ function SelectList<T extends string>({
                 maxHeight: Math.min(placement.maxHeight ?? 420, 420),
                 transformOrigin: placement.above ? "50% 100%" : "50% 0%",
             }}
-            className="fixed z-[80] isolate flex flex-col overflow-hidden rounded-3xl"
+            className="fixed z-[80] isolate flex flex-col rounded-3xl"
             {...{ [FLOATING_LAYER]: "" }}
             onKeyDown={onKeyDown}
         >
-            <motion.div
+            <m.div
                 key={reveal ? "surface" : "measure"}
                 aria-hidden="true"
                 className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
@@ -289,7 +291,7 @@ function SelectList<T extends string>({
                               x: 0,
                               y: 0,
                               width: placement.width,
-                              height: reveal.height,
+                              height: "100%",
                               opacity: 1,
                               borderRadius: "var(--radius-3xl)",
                           }
@@ -298,7 +300,7 @@ function SelectList<T extends string>({
                 exit={reducedMotion ? { opacity: 0 } : (reveal ?? { opacity: 0 })}
                 transition={reducedMotion ? { duration: 0 } : spring.smooth}
             />
-            <motion.div
+            <m.div
                 initial={reducedMotion ? false : { opacity: 0, y: placement.above ? -4 : 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.06 } }}
@@ -376,7 +378,7 @@ function SelectList<T extends string>({
                         <p className="px-3 py-2 text-footnote text-label-tertiary">{emptyLabel}</p>
                     )}
                 </div>
-            </motion.div>
+            </m.div>
         </div>
     )
 }

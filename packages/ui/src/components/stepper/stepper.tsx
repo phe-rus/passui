@@ -1,9 +1,8 @@
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
-import { useId, useRef } from "react"
+import { useId } from "react"
 import { Button } from "../button/button"
 import { cn } from "../../lib/class-names"
 import { clampRange, stepRange } from "../../lib/range-value"
-import { spring } from "../../motion/transitions"
+import { RollingDigit } from "./rolling-digit"
 
 export interface StepperProps {
     value: number
@@ -34,110 +33,68 @@ export function Stepper({
     formatValue,
 }: StepperProps) {
     const id = useId()
-    const reducedMotion = useReducedMotion()
     const upper = Math.max(min, max)
     const current = clampRange(value, min, upper)
-    const previousValue = useRef(current)
-    const direction = current >= previousValue.current ? 1 : -1
-    previousValue.current = current
     const decrement = stepRange(current, -1, min, upper, step > 0 ? step : 1)
     const increment = stepRange(current, 1, min, upper, step > 0 ? step : 1)
     const displayed = formatValue?.(current) ?? String(current)
-    const displayWidth = Math.max(
-        displayed.length,
-        (formatValue?.(min) ?? String(min)).length,
-        (formatValue?.(upper) ?? String(upper)).length
-    )
-    const characters = Array.from(displayed.padStart(displayWidth, " "))
+    const digits = displayed.replace(/[^0-9]/g, "")
+    let digitIndex = 0
 
     return (
         <div className={cn("flex min-w-0 items-center justify-between gap-3", className)}>
-            <span id={id} className="min-w-0 text-subheadline font-semibold text-label">
+            <span id={id} className="min-w-0 text-subheadline text-label">
                 {label}
             </span>
-            <div className="flex shrink-0 items-center gap-1 rounded-2xl border border-separator bg-elevated p-1">
-                <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    aria-label={labels.decrement}
-                    aria-describedby={id}
-                    disabled={disabled || decrement === current}
-                    onClick={() => onChange(decrement)}
-                    className="size-11 rounded-xl text-title2 text-accent-text"
-                >
-                    −
-                </Button>
+            <div className="flex shrink-0 items-center gap-3">
                 <output
                     aria-live="polite"
                     aria-labelledby={id}
-                    className="relative min-w-10 text-center text-subheadline tabular-nums text-label"
+                    className="text-subheadline tabular-nums text-label"
                 >
-                    <span aria-hidden="true" className="inline-flex min-h-[1.4em] items-center">
-                        {characters.map((character, index) => {
-                            const isDigit = /\p{N}/u.test(character)
+                    <span aria-hidden="true" className="inline-flex items-center">
+                        {Array.from(displayed).map((character, index) => {
+                            if (!/[0-9]/.test(character))
+                                return <span key={`separator-${index}`}>{character}</span>
+                            const prefix = digits.slice(0, ++digitIndex)
+                            const place = digits.length - digitIndex
                             return (
-                                <span
-                                    key={`${index}-${isDigit ? "digit" : "text"}`}
-                                    className={cn(
-                                        "inline-block",
-                                        isDigit &&
-                                            "relative inline-grid overflow-hidden align-middle"
-                                    )}
-                                >
-                                    <AnimatePresence initial={false} mode="popLayout">
-                                        <motion.span
-                                            key={character}
-                                            initial={
-                                                reducedMotion
-                                                    ? false
-                                                    : {
-                                                          y: direction > 0 ? "100%" : "-100%",
-                                                          opacity: 0.5,
-                                                      }
-                                            }
-                                            animate={{ y: "0%", opacity: 1 }}
-                                            exit={
-                                                reducedMotion
-                                                    ? { opacity: 0 }
-                                                    : {
-                                                          y: direction > 0 ? "-100%" : "100%",
-                                                          opacity: 0.45,
-                                                      }
-                                            }
-                                            transition={
-                                                reducedMotion
-                                                    ? { duration: 0 }
-                                                    : {
-                                                          ...spring.bouncy,
-                                                          delay:
-                                                              (characters.length - 1 - index) *
-                                                              0.04,
-                                                      }
-                                            }
-                                            className="col-start-1 row-start-1 inline-block"
-                                        >
-                                            {character}
-                                        </motion.span>
-                                    </AnimatePresence>
-                                </span>
+                                <RollingDigit
+                                    key={`place-${place}`}
+                                    count={Number(prefix)}
+                                    place={place}
+                                />
                             )
                         })}
                     </span>
                     <span className="sr-only">{displayed}</span>
                 </output>
-                <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    aria-label={labels.increment}
-                    aria-describedby={id}
-                    disabled={disabled || increment === current}
-                    onClick={() => onChange(increment)}
-                    className="size-11 rounded-xl text-title2 text-accent-text"
-                >
-                    +
-                </Button>
+                <div className="flex items-center divide-x divide-separator overflow-hidden rounded-lg bg-fill">
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        aria-label={labels.decrement}
+                        aria-describedby={id}
+                        disabled={disabled || decrement === current}
+                        onClick={() => onChange(decrement)}
+                        className="size-8 rounded-none text-title3 text-accent-text [@media(pointer:coarse)]:size-11"
+                    >
+                        −
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        aria-label={labels.increment}
+                        aria-describedby={id}
+                        disabled={disabled || increment === current}
+                        onClick={() => onChange(increment)}
+                        className="size-8 rounded-none text-title3 text-accent-text [@media(pointer:coarse)]:size-11"
+                    >
+                        +
+                    </Button>
+                </div>
             </div>
         </div>
     )

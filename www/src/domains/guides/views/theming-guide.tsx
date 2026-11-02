@@ -5,7 +5,8 @@ import { Toggle } from "@passui/react/toggle"
 import { SwatchPicker } from "@passui/react"
 import { type AccentId, accents, dark, light, radius } from "@passui/react/tokens"
 import { type CSSProperties, useState } from "react"
-import { DocSection, type TocItem } from "@/domains/catalog"
+import { DocSection } from "@/domains/catalog/views/doc-section"
+import type { TocItem } from "@/domains/catalog/views/on-this-page"
 import { Code, CodeBlock, Prose } from "./guide-parts"
 
 export const themingSections: TocItem[] = [

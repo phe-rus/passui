@@ -1,5 +1,7 @@
 import { getPageHead } from "@/domains/seo/get-page-head"
-import { ComponentNotFound, ComponentPage, getEntry } from "@/domains/catalog"
+import { ComponentNotFound } from "@/domains/catalog/views/component-not-found"
+import { ComponentPage } from "@/domains/catalog/views/component-page"
+import { getNavigationEntry } from "@/domains/catalog/get-navigation"
 import { componentSearchSchema } from "@/domains/settings"
 import { createFileRoute, notFound, stripSearchParams } from "@tanstack/react-router"
 
@@ -9,13 +11,13 @@ export const Route = createFileRoute("/_site/_docs/components/react/$slug")({
         middlewares: [stripSearchParams({ props: {} })],
     },
     loader: ({ params }) => {
-        if (!getEntry(params.slug)) throw notFound()
+        if (!getNavigationEntry(params.slug)) throw notFound()
     },
     head: ({ params }) =>
         getPageHead(
             `/components/react/${params.slug}`,
-            `${getEntry(params.slug)?.docs.name ?? "Not found"} · React · Passui`,
-            getEntry(params.slug)?.content.summary ?? ""
+            `${getNavigationEntry(params.slug)?.docs.name ?? "Not found"} · React · Passui`,
+            getNavigationEntry(params.slug)?.content.summary ?? ""
         ),
     notFoundComponent: ComponentNotFound,
     component: RouteComponent,

@@ -66,6 +66,8 @@ try {
             }
         }
         for (const entry of entries) {
+            if (/\.docs\.|\/examples\//.test(entry))
+                throw new Error(`${manifest.name}: website documentation leaked into archive: ${entry}`)
             if (/(?:^|\/)(?:test|tests|node_modules|\.env[^/]*|\.npmrc)(?:\/|$)/.test(entry))
                 throw new Error(`${manifest.name}: unexpected packed file ${entry}`)
         }

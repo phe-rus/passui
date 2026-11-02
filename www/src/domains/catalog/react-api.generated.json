@@ -48,6 +48,41 @@
         "native": ["ComponentPropsWithoutRef<\"section\">"],
         "parts": []
     },
+    "breadcrumb": {
+        "source": "packages/ui/src/components/breadcrumb/breadcrumb.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "items",
+                "type": "readonly BreadcrumbItem[]",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "renderLink",
+                "type": "(item: BreadcrumbItem & { href: string }) => ReactNode",
+                "required": false,
+                "description": "Integrate a client router without nesting interactive elements.",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
+        "parts": []
+    },
     "button": {
         "source": "packages/ui/src/components/button/button.tsx",
         "props": [
@@ -123,6 +158,97 @@
             }
         ],
         "native": ["HTMLAttributes<HTMLSpanElement>"],
+        "parts": []
+    },
+    "code-block": {
+        "source": "packages/ui/src/components/code-block/code-block.tsx",
+        "props": [
+            {
+                "name": "code",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "children",
+                "type": "ReactNode",
+                "required": false,
+                "description": "Supply a highlighter's rendered pre/code element; source remains the fallback.",
+                "defaultValue": null
+            },
+            {
+                "name": "lineNumbers",
+                "type": "boolean",
+                "required": false,
+                "description": "Show a nonselectable line gutter.",
+                "defaultValue": "true"
+            }
+        ],
+        "native": ["Omit<ComponentProps<\"div\">, \"children\">"],
+        "parts": []
+    },
+    "combo-box": {
+        "source": "packages/ui/src/components/combo-box/combo-box.tsx",
+        "props": [
+            {
+                "name": "value",
+                "type": "T",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "onChange",
+                "type": "(value: NoInfer<T>) => void",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "options",
+                "type": "readonly ComboBoxOption<T>[]",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "emptyLabel",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "placeholder",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
         "parts": []
     },
     "compact-date-picker": {
@@ -270,6 +396,41 @@
             }
         ],
         "native": [],
+        "parts": []
+    },
+    "content-unavailable-view": {
+        "source": "packages/ui/src/components/content-unavailable-view/content-unavailable-view.tsx",
+        "props": [
+            {
+                "name": "title",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "description",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "icon",
+                "type": "ReactNode",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "actions",
+                "type": "ReactNode",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            }
+        ],
+        "native": ["Omit<ComponentProps<\"div\">, \"title\">"],
         "parts": []
     },
     "content-view": {
@@ -760,6 +921,12 @@
         "native": [],
         "parts": []
     },
+    "keyboard-shortcut": {
+        "source": "packages/ui/src/components/keyboard-shortcut/keyboard-shortcut.tsx",
+        "props": [],
+        "native": ["ComponentProps<\"kbd\">"],
+        "parts": []
+    },
     "labeled-content": {
         "source": "packages/ui/src/components/labeled-content/labeled-content.tsx",
         "props": [
@@ -1064,6 +1231,62 @@
         "native": ["Omit<HTMLAttributes<HTMLDivElement>, \"children\">"],
         "parts": []
     },
+    "radio-group": {
+        "source": "packages/ui/src/components/radio-group/radio-group.tsx",
+        "props": [
+            {
+                "name": "value",
+                "type": "T",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "onChange",
+                "type": "(value: NoInfer<T>) => void",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "options",
+                "type": "readonly RadioGroupOption<T>[]",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
+        "parts": []
+    },
     "search-field": {
         "source": "packages/ui/src/components/search-field/search-field.tsx",
         "props": [
@@ -1364,6 +1587,20 @@
             }
         ],
         "native": [],
+        "parts": []
+    },
+    "skeleton": {
+        "source": "packages/ui/src/components/skeleton/skeleton.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            }
+        ],
+        "native": ["ComponentProps<\"div\">"],
         "parts": []
     },
     "slider": {

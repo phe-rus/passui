@@ -1,3 +1,4 @@
+import { CodeBlock } from "@passui/react/code-block"
 import { CopyIcon, CheckIcon } from "@passui/react/icons"
 import { cn } from "@passui/react/cn"
 import { IconButton } from "@passui/react/icon-button"
@@ -48,7 +49,7 @@ export function CodeView({ code, label, collapsible = true, lang = "tsx" }: Code
     }
 
     return (
-        <div className="code-view relative bg-elevated">
+        <div className="relative bg-elevated">
             {(label || lang) && (
                 <div className="flex min-h-9 items-center justify-between gap-3 border-separator/60 border-b px-4 py-2">
                     <span className="min-w-0 truncate font-mono text-caption text-label-tertiary">
@@ -70,25 +71,9 @@ export function CodeView({ code, label, collapsible = true, lang = "tsx" }: Code
                 </div>
             )}
             <div className={cn("relative", folded && "max-h-36 overflow-hidden")}>
-                {html ? (
-                    <div
-                        className="[&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:py-4 [&_pre]:pe-14 [&_pre]:font-mono [&_pre]:text-footnote [&_pre]:leading-relaxed"
-                        // Shiki escapes the displayed example source
-                        dangerouslySetInnerHTML={{
-                            __html: html,
-                        }}
-                    />
-                ) : (
-                    <pre className="code-editor m-0 overflow-x-auto py-4 pe-14 font-mono text-footnote leading-relaxed text-label">
-                        <code>
-                            {code.split("\n").map((line, index) => (
-                                <span className="code-line" key={`${index}-${line}`}>
-                                    {line || " "}
-                                </span>
-                            ))}
-                        </code>
-                    </pre>
-                )}
+                <CodeBlock code={code}>
+                    {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : undefined}
+                </CodeBlock>
                 {folded && (
                     <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-elevated to-transparent" />
                 )}

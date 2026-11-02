@@ -1,5 +1,6 @@
 import { getSkillMarkdown } from "@/domains/ai-context"
-import { DocSection, type TocItem } from "@/domains/catalog"
+import { DocSection } from "@/domains/catalog/views/doc-section"
+import type { TocItem } from "@/domains/catalog/views/on-this-page"
 import { useOrigin } from "../use-origin"
 import { Code, CodeBlock, Prose } from "./guide-parts"
 

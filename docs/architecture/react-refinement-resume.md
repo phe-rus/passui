@@ -1,104 +1,49 @@
-# React refinement checkpoint
+# React and website refinement checkpoint
 
-## Current website continuation (2026-11-02)
+Updated 2026-11-02. Work on `main` in this checkout. The latest owner instruction
+authorizes committing, pushing and publishing package releases. It supersedes the
+previous release hold. Website deployment and consumer upgrades remain separate.
 
-The latest owner instruction is to complete website refinement on `main`, update
-knowledge, commit and push. **No package release or website deployment yet.**
-This overrides the earlier release authorization below for this continuation.
-The current website source is `www/src/{domains,routes,styles}`; tests remain
-under `www/test`. See [the website audit](website-refinement.md) for the final
-scope, results and remaining browser evidence. The sections below describe the
-older React package work; use current source and that audit for website work.
+## Current structure
 
-Approved in conversation on 2026-10-31. Work in this checkout, not Pass.
-Initial base: 3ed13e1. Resumed from clean 704741f after intervening icon,
-Popover fit, compact docs, and workspace commits. Owner now authorizes completing
-the refinement, pushing releases, waiting for registry availability, and then
-upgrading Pass. This supersedes the earlier no-release/[skip ci] instruction.
-Package targets: @passui/tokens 0.1.1, then @passui/react 0.1.19. Website and
-Pass deployments remain separate from package publication.
+The supported runtime is React. Native controls live in `packages/ui`; shared
+styles and tokens in `packages/tokens`; optional integrations in
+`packages/tanstack`; setup tooling in `packages/cli`. Website code lives in
+`www/src/{domains,routes,styles}` and tests in `www/test`.
 
-## Read budget
+The docs rail and command search use a flat alphabetical component list. They
+share generated metadata without importing executable examples. Component family
+groups remain useful on the catalog page, not as extra navigation folders.
+`bun run docs:api` refreshes both API contracts and navigation metadata.
 
-Start with git status and this checkpoint. Read only the current slice's source
-and nearest instructions. Reuse this decision record and existing registry.
-Do not repeat the migration audit, dump whole folders, or rerun passing checks
-without a change or unresolved failure. Format changed TSX with Biome.
-Owner feedback: keep tool output and updates very short. No scrollbar chrome
-anywhere in Passui; shared base CSS enforces this while preserving scrolling.
-No sidebar search. Header search now uses native SearchList as a command-style
-combobox dialog with keyboard navigation and Ctrl/Cmd K. Sidebar is 256px on
-medium screens and 288px on large screens, with quieter rows, leading chevrons,
-subtle group rails, and no counts. Category groups retain gap-1.
+Use existing components and public subpath imports. CodeBlock owns code display
+and line gutter styles. The website supplies lazy highlighting and formatting.
+Checkbox appearance is `Toggle style="checkbox"`; do not duplicate it. Picker
+selects from a list; ComboBox is editable and shares SearchList's keyboard engine.
 
-## Agreed direction
+## Interaction and weight
 
-Preserve Passui's native controls, appearance and SwiftUI naming conventions.
-Improve React type discovery and icon imports, then establish one menu motion
-reference before applying its language to other surfaces. Material should grow
-from its source, have weight and settle smoothly, without distorting text.
-Bencho is a behavioral reference, not a source to copy. Haptics remain selective,
-app controlled and separate from sound. Respect Reduce Motion.
+Stepper keeps its value beside two action segments. Decimal places use independent
+rolling springs with carry propagation and Reduce Motion support. Picker and
+anchored Popover animate their material separately from content. Source triggers
+are restored when dismissal finishes. Keep shared placement and dismissal helpers.
 
-## Present in the working tree
+Declaration builds clean `dist/types` before compilation. Archive validation
+rejects website documentation and examples. Icon factory calls are marked pure
+so consumers retain only used glyphs. CSS remains side effectful. Run
+`bun run size:check` for reproducible consumer JavaScript budgets.
 
-* Public React icons entry, named props and hover guidance for common controls.
-  Picker and segmented callbacks preserve their value generic. Broader string
-  state remains supported; explicit literal unions retain bounded choices.
-* Button and menu toolbar examples use public Passui icon imports.
-* Docs categories now separate controls, layout/disclosure, navigation,
-  presentation, feedback, content and compositions. Search finds API and human
-  names. Sidebar groups collapse, persist preferences, and reveal the active page.
-* Installation, anatomy, practices and accessibility fold independently.
-* Menu material animates its own position, bounds and radius with spring.smooth;
-  menu text remains unscaled. Opening/dismissal share the source rectangle.
-  Existing placement, source concealment and keyboard handling remain in place.
-* copyText confirms actual writes. Code/AI copy actions offer manual selection
-  in a Sheet on failure. Previously fake link-copy demos now write real links.
+## Validation and continuation
 
-## Validation boundary and next work
+Run root check, build, typecheck, tests, package archive checks and size checks.
+The catalog completeness tests render all registered usage, showcase and example
+scenes and compile independently generated snippets. Record release availability
+against the public npm registry, not only a successful pack or push.
 
-Record final observed checks below before handing off. Local dev runs on 3004.
-Observed: React typecheck passed; React tests 64/64 and website tests 37/37
-passed. Website production build passed with a CSS sourcemap warning. Biome
-checked the initial 49 changed/new TypeScript and manifest files without diagnostics.
-Final website tsc check passed after the navigation edits; local docs returned
-HTTP 200. After the header search/sidebar correction, website tsc and focused
-Biome checks passed; shared token tests passed 13/13. Dev remains on port 3004.
-ChromeOS Chrome is not available through current computer automation (empty
-browser inventory). HTTP success, tests and builds do not prove hydration,
-editor completions, animation quality, touch behavior or cross-app clipboard.
+Use ChromeOS Chrome via `/usr/bin/garcon-url-handler` for visual checks. It is not
+currently exposed to computer automation in this session. HTTP, SSR and unit
+checks do not establish animation quality, hydration, touch behavior or actual
+focus restoration in ChromeOS. Do not label those visually verified.
 
-Review /components/react/context-menu#examples (toolbar More), the sidebar,
-and code/AI copy into another app. Visual feedback has been requested in chat.
-Do not propagate the menu motion until its visual direction has been reviewed.
-Then refine Popover/pickers/sheets/dialogs through their own placement and focus
-contracts. Shared base CSS now hides scrollbar chrome for both runtimes at the
-owner's explicit request. Other runtime changes in this slice are React only.
-
-Completed in this continuation: all React examples and icon snippets now use
-public Passui icons. All 36 React API families are extracted from source, with
-literal choices, callbacks, refs, native contracts, and compound parts. Host
-setup is documented separately. Root check rejects stale generated API metadata.
-React now packs explicit declaration exports. The external archive consumer at
-/tmp/passui-consumer.ibLSY5 passed TypeScript 5.9.3 checks and SSR; its language
-service verified variant/size completions, prop hover docs, and icon imports.
-Popovers and pickers share damped directional motion; sheets and confirmation
-dialogs keep text unscaled. Confirmation dialogs explicitly honor Reduce Motion.
-
-Release checks observed: all workspace builds/typechecks/checks passed, 252
-tests passed, Solid coverage 36/36, and all five package archives/exports passed.
-API literal-choice coverage was then checked separately. Run checks for any new
-changes before release. Registry publication and the Pass upgrade are pending.
-Preserve the existing visual/editor evidence boundaries above; language-service
-verification is not a screenshot or a physical-device motion review.
-
-## Current React inventory
-
-The registry now documents 43 families, including Accordion, Menu,
-DisclosureGroup, Slider, Stepper, ProgressView and Divider. The earlier gap
-assessment is obsolete.
-Website documentation, usage/showcase files and additional examples live in
-`www/src/domains/catalog/definitions`. Contracts come from the public React
-exports and generated API reference. Publishing remains deferred by the latest
-owner instruction above.
+See [website refinement](website-refinement.md),
+[component coverage](component-coverage.md) and [release procedure](../passui-release.md).

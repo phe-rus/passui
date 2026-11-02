@@ -24,8 +24,8 @@ An app imports one stylesheet, `@passui/react/styles.css` (or
 `@passui/tanstack/styles.css`, which includes it). It brings in Tailwind,
 the theme, utilities, base and typeset, and registers Passui's own files
 with `@source`, so apps add no paths; Tailwind finds the app's files by
-itself. `theme.css`, `utilities.css`, `base.css` and `typeset.css` stay
-exported for `www`, which composes its own website stylesheet from them.
+itself. `theme.css`, `utilities.css`, `base.css` and `typeset.css` remain
+exported for advanced integrations. www imports the full integration stylesheet.
 
 ## Rules
 
@@ -159,7 +159,7 @@ small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 Public examples import React icons from `@passui/react/icons`. Export named
 props types beside controls and document fixed choices and defaults on props.
 React package exports pair declaration types in `dist/types` with source runtime
-entries. Build before typechecking or packing; keep generated declarations out of git.
+entries. Build before typechecking or packing; keep generated declarations out of git. Declaration builds clear dist/types first so moved or deleted source does not survive in archives.
 `copyText` from `@passui/react/clipboard` returns true only after a confirmed
 write; show success only then and provide manual copying when access fails.
 
@@ -244,3 +244,8 @@ rectangle through the opening/closing spring, and restore its opacity on cleanup
 Point menus retain a compact reveal. Material rim roles differ by appearance;
 regenerate ../tokens/theme.css after changing ../tokens/src/color.ts. Geometry tests
 cover a menu flipped above its trigger and an empty/detached anchor.
+
+CodeBlock owns shared code display styles, including its line gutter. Consumers
+supply an optional highlighter, which is not a runtime dependency. Keep icon
+factory calls pure and CSS side effectful; `bun run size:check` measures
+representative consumer entries with React external and other dependencies included.

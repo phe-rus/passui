@@ -1,4 +1,5 @@
-import { DocSection, type TocItem } from "@/domains/catalog"
+import { DocSection } from "@/domains/catalog/views/doc-section"
+import type { TocItem } from "@/domains/catalog/views/on-this-page"
 import { Code, CodeBlock, Prose, Steps } from "./guide-parts"
 
 export const installationSections: TocItem[] = [

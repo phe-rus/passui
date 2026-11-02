@@ -1,4 +1,4 @@
-import { usePreviewDocumentAttributes } from "@/domains/preview"
+import { usePreviewDocumentAttributes } from "@/domains/preview/use-preview-document-attributes"
 import { ComposeViewport } from "@passui/tanstack/document"
 import tailwind from "@/styles/site.css?url"
 import { PlatformProvider, PlatformScript } from "@passui/react/appearance"

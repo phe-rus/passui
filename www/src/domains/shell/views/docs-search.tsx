@@ -1,3 +1,4 @@
+import { KeyboardShortcut } from "@passui/react/keyboard-shortcut"
 import { SearchIcon } from "@passui/react/icons"
 import { Button } from "@passui/react/button"
 import {
@@ -11,7 +12,7 @@ import {
 import { Sheet } from "@passui/react/sheet"
 import { useNavigate } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
-import { catalogGroups, getCatalog } from "@/domains/catalog/get-catalog"
+import { getNavigationCatalog } from "@/domains/catalog/get-navigation"
 import { componentTitle } from "@/domains/catalog/navigation"
 import { guides } from "@/domains/guides/get-guides"
 
@@ -55,14 +56,15 @@ export function DocsSearch() {
             >
                 <SearchIcon size={16} />
                 <span className="hidden lg:inline">Search docs…</span>
-                <kbd className="ms-auto hidden rounded-full border border-separator/70 bg-paper/70 px-2 py-0.5 font-mono text-caption2 leading-none text-label-secondary lg:inline">
+                <KeyboardShortcut className="ms-auto hidden rounded-full lg:inline-flex">
                     {shortcut}
-                </kbd>
+                </KeyboardShortcut>
             </Button>
             <Sheet
                 open={open}
                 onClose={() => setOpen(false)}
                 label="Search documentation"
+                placement="center"
                 className="max-w-xl"
             >
                 <SearchList className="flex min-h-0 flex-col p-3">
@@ -95,35 +97,31 @@ export function DocsSearch() {
                                     </SearchListItem>
                                 ))}
                         </SearchListGroup>
-                        {catalogGroups.map((group) => (
-                            <SearchListGroup key={group} heading={group}>
-                                {getCatalog()
-                                    .filter((entry) => entry.group === group)
-                                    .map((entry) => (
-                                        <SearchListItem
-                                            key={entry.docs.slug}
-                                            value={componentTitle(entry)}
-                                            keywords={[
-                                                entry.group,
-                                                entry.docs.name,
-                                                entry.docs.slug,
-                                                entry.content.summary,
-                                            ]}
-                                            onSelect={() => {
-                                                setOpen(false)
-                                                void navigate({
-                                                    to: "/components/react/$slug",
-                                                    params: {
-                                                        slug: entry.docs.slug,
-                                                    },
-                                                })
-                                            }}
-                                        >
-                                            <span>{componentTitle(entry)}</span>
-                                        </SearchListItem>
-                                    ))}
-                            </SearchListGroup>
-                        ))}
+                        <SearchListGroup heading="Components">
+                            {getNavigationCatalog().map((entry) => (
+                                <SearchListItem
+                                    key={entry.docs.slug}
+                                    value={componentTitle(entry)}
+                                    keywords={[
+                                        entry.group,
+                                        entry.docs.name,
+                                        entry.docs.slug,
+                                        entry.content.summary,
+                                    ]}
+                                    onSelect={() => {
+                                        setOpen(false)
+                                        void navigate({
+                                            to: "/components/react/$slug",
+                                            params: {
+                                                slug: entry.docs.slug,
+                                            },
+                                        })
+                                    }}
+                                >
+                                    <span>{componentTitle(entry)}</span>
+                                </SearchListItem>
+                            ))}
+                        </SearchListGroup>
                     </SearchListResults>
                     <p className="px-3 pt-3 text-caption2 text-label-tertiary">
                         ↑ ↓ to navigate · Enter to open · Esc to close

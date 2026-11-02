@@ -9,7 +9,7 @@
         "www"
     ],
     "scripts": {
-        "docs:api": "bun scripts/generate-react-api.mjs",
+        "docs:api": "bun scripts/generate-docs.mjs",
         "dev": "turbo run dev",
         "build": "turbo run build",
         "typecheck": "turbo run typecheck",
@@ -19,7 +19,8 @@
         "test": "turbo run test",
         "publish:check": "turbo run publish:check && bun scripts/check-packages.mjs",
         "build:website": "turbo run build --filter=passui",
-        "format:check": "biome format ."
+        "format:check": "biome format .",
+        "size:check": "bun scripts/measure-react.mjs --check"
     },
     "devDependencies": {
         "@babel/parser": "7.29.9",

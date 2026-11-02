@@ -2,13 +2,13 @@
 
 ## Unreleased
 
-- Solid consumers: publish separate compiled browser and server JavaScript with TypeScript declarations, so apps no longer need Passui-specific Vite dependency exclusions or resolver settings.
-- Solid starters and docs: use the ordinary Solid Vite plugins, and rely on project-level JSX configuration instead of per-file JSX directives.
-- Solid docs: give native components complete usage pages with installation, examples, anatomy, best practices, accessibility and section navigation.
-- Solid Ambient: demonstrate image-driven glows, multiple portraits and an interactive now-playing surface.
-
-- Solid: introduce frame-rate-independent damped spring motion, velocity-preserving retargeting, rubber-band drag resistance and reduced-motion behavior.
-- Solid: replace the fixed-duration switch-thumb transition with interruptible spring movement and pointer dragging; expand its interactive example and add oscillator tests.
+- Simplify docs navigation and search into one compact alphabetical list, remove redundant category controls, and use the same order for adjacent pages.
+- Add native ComboBox, RadioGroup, Breadcrumb, Skeleton, ContentUnavailableView, CodeBlock and KeyboardShortcut, with public types, usage and examples for all 50 documented families.
+- Place Stepper's value beside two compact action segments; animate numeric places with interruptible carry springs and honor Reduce Motion.
+- Correct Picker material bounds and Popover clipping and dismissal layers. Preserve placement, focus and shared source restoration.
+- Separate navigation metadata and route validation from executable demos. Load copyable example source independently with loading and retry states.
+- Move code gutters and presentation into Passui's imported styles. Mark icon factories pure, preserve CSS side effects, use Picker's minimal animation features and enforce consumer bundle budgets.
+- Clean declaration output before builds and reject docs/example leakage from package archives. Remove stale unsupported runtime instructions and align React setup tooling.
 
 ## React 0.1.19 and tokens 0.1.1
 

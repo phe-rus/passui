@@ -4,7 +4,7 @@ import { Sheet } from "@passui/react/sheet"
 import { useLocation } from "@tanstack/react-router"
 import { type ReactNode, useEffect, useRef, useState } from "react"
 import { guides } from "@/domains/guides/get-guides"
-import { getCatalog } from "../get-catalog"
+import { getNavigationCatalog } from "../get-navigation"
 import { componentTitle } from "../navigation"
 import { DocsNav, revealActive } from "./docs-nav"
 
@@ -17,7 +17,7 @@ function currentTitle(pathname: string) {
     if (guide) return guide.title
     const slug = pathname.split("/components/")[1]
     return (() => {
-        const entry = getCatalog().find((entry) => entry.docs.slug === slug)
+        const entry = getNavigationCatalog().find((entry) => entry.docs.slug === slug)
         return entry ? componentTitle(entry) : "Docs"
     })()
 }
@@ -60,7 +60,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
             <aside
                 ref={aside}
                 data-docs-scroller
-                className="hidden md:sticky md:top-24 md:block md:h-[calc(100svh-7rem)] md:w-64 md:shrink-0 md:overflow-y-auto md:pe-3 lg:w-72"
+                className="hidden md:sticky md:top-24 md:block md:h-[calc(100svh-7rem)] md:w-52 md:shrink-0 md:overflow-y-auto md:pe-4 lg:w-56"
             >
                 <DocsNav />
             </aside>

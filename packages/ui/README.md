@@ -183,3 +183,18 @@ your user npm configuration.
 ## License
 
 [MIT](./LICENSE)
+
+### Documentation and loading primitives
+
+Import `Accordion`, `ComboBox`, `RadioGroup`, `Breadcrumb`, `Skeleton`,
+`ContentUnavailableView`, `CodeBlock` and `KeyboardShortcut` from their kebab case
+subpaths, such as `@passui/react/combo-box`. Each has a named props type and
+interactive documentation. CodeBlock accepts plain source and optionally a
+highlighter element, keeping syntax engines out of the library dependency graph.
+Shared component styles come from the stylesheet import above.
+
+Stepper places the spoken and rolling value beside its two action segments.
+Its digit columns preserve carries and stop animating under Reduce Motion.
+Compact desktop rows retain larger targets for coarse pointers. Import only
+needed controls and icons through public entries; CSS is preserved while unused
+JavaScript exports can be removed by the bundler.

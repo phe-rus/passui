@@ -1,6 +1,20 @@
+import { skeletonContent } from "./content/skeleton"
+import { breadcrumbContent } from "./content/breadcrumb"
+import { radioGroupContent } from "./content/radio-group"
+import { comboBoxContent } from "./content/combo-box"
+import { contentUnavailableViewContent } from "./content/content-unavailable-view"
+import { keyboardShortcutContent } from "./content/keyboard-shortcut"
+import { codeBlockContent } from "./content/code-block"
 import { componentTitle } from "./navigation"
 import { catalogIcons } from "@passui/react/icons"
 import {
+    skeletonDocs,
+    breadcrumbDocs,
+    radioGroupDocs,
+    comboBoxDocs,
+    contentUnavailableViewDocs,
+    keyboardShortcutDocs,
+    codeBlockDocs,
     accordionDocs,
     buttonDocs,
     chipDocs,
@@ -88,10 +102,37 @@ import { toastContent } from "./content/toast"
 import { contextMenuContent } from "./content/context-menu"
 import { tooltipContent } from "./content/tooltip"
 import { localeSwitcherContent } from "./content/locale-switcher"
-import type { CatalogEntry, CatalogGroup } from "./types"
+import type { CatalogEntry } from "./types"
 
-// One line per documented component, grouped as the sidebar shows them.
+// Component families for the overview. Navigation uses alphabetical display names.
 const entries: CatalogEntry[] = [
+    { group: "Feedback", icon: catalogIcons.input, docs: skeletonDocs, content: skeletonContent },
+    {
+        group: "Navigation",
+        icon: catalogIcons.input,
+        docs: breadcrumbDocs,
+        content: breadcrumbContent,
+    },
+    {
+        group: "Controls",
+        icon: catalogIcons.input,
+        docs: radioGroupDocs,
+        content: radioGroupContent,
+    },
+    { group: "Controls", icon: catalogIcons.input, docs: comboBoxDocs, content: comboBoxContent },
+    {
+        group: "Content",
+        icon: catalogIcons.input,
+        docs: contentUnavailableViewDocs,
+        content: contentUnavailableViewContent,
+    },
+    {
+        group: "Content",
+        icon: catalogIcons.input,
+        docs: keyboardShortcutDocs,
+        content: keyboardShortcutContent,
+    },
+    { group: "Content", icon: catalogIcons.input, docs: codeBlockDocs, content: codeBlockContent },
     {
         group: "Layout and disclosure",
         icon: catalogIcons.unfold,
@@ -352,21 +393,11 @@ const entries: CatalogEntry[] = [
     },
 ]
 
-export const catalogGroups: readonly CatalogGroup[] = [
-    "Controls",
-    "Layout and disclosure",
-    "Navigation",
-    "Presentation",
-    "Feedback",
-    "Content",
-    "Compositions",
-]
+export { catalogGroups } from "./catalog-groups"
 
 // Shared by the sidebar, overview, search and previous/next navigation.
-const orderedEntries = catalogGroups.flatMap((group) =>
-    entries
-        .filter((entry) => entry.group === group)
-        .sort((left, right) => componentTitle(left).localeCompare(componentTitle(right), "en"))
+const orderedEntries = [...entries].sort((left, right) =>
+    componentTitle(left).localeCompare(componentTitle(right), "en")
 )
 
 export function getCatalog(): readonly CatalogEntry[] {

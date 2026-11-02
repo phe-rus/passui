@@ -2,8 +2,8 @@ import { Button } from "@passui/react/button"
 import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { useNavigate } from "@tanstack/react-router"
 import type { PreviewSettings } from "@/domains/settings"
-import { CodeView, PreviewFrame } from "@/domains/playground"
-import { getExampleSource } from "../get-example-source"
+import { PreviewFrame } from "@/domains/playground"
+import { ExampleCode } from "./example-code"
 import { getChangedProps, resolveProps } from "../resolve-props"
 import type { ExampleContent } from "../types"
 import { DocSection } from "./doc-section"
@@ -70,12 +70,8 @@ export function ExampleCard({ docs, example, content, settings }: ExampleCardPro
                         <Demo />
                     )}
                 </div>
-                <div className="border-separator/60 border-t *:text-sm!">
-                    <CodeView
-                        code={getExampleSource(docs.slug, example.id)}
-                        label={`${docs.slug}-${example.id}.tsx`}
-                        collapsible
-                    />
+                <div className="border-separator/60 border-t">
+                    <ExampleCode slug={docs.slug} id={example.id} />
                 </div>
             </div>
             {playground && (

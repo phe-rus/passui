@@ -27,7 +27,7 @@ The website, catalog prose, tests and reusable packages share this public reposi
 - Pages that render per slug pass `key={slug}`, so folds and local state start over on each page.
 - A playground snippet must compile when pasted: required props carry `required: true`, demo-only controls go in `omit`, and text goes through `jsxAttribute`/`jsxText`.
 - Phones: the docs sidebar is hidden below `md` and opens in a Sheet from the bar naming the current page.
-- The sidebar separates Getting started guides from a Components root (Overview, then nested categories). Use native Sidebar rows and DisclosureGroup; sort component titles by their displayed name, keep links full-width, and share the order with previous/next navigation. It has no search field. Header search uses `src/domains/shell/views/docs-search.tsx`, a native SearchList combobox in a Sheet, opened by Ctrl/Cmd K.
+- The sidebar separates Getting started guides from one flat alphabetical Components list, without an Overview row or category toggles. Use compact native Sidebar rows and share order with previous/next navigation. Header search uses the same metadata in a native SearchList Sheet with Ctrl/Cmd K. `get-navigation.ts` keeps executable demos out of the shell; `bun run docs:api` regenerates its metadata alongside API contracts.
 - Code and AI copy actions share `src/domains/clipboard/use-copy-text.tsx`; browser refusal opens a manual selection Sheet rather than reporting success.
 - React API tables use source-derived `src/domains/catalog/react-api.generated.json`. Run `bun run docs:api` after changing component contracts; root `bun run check` rejects a stale reference. Playground controls remain a separate demo contract.
 

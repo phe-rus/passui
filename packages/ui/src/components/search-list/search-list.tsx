@@ -37,6 +37,10 @@ export function SearchList({
     open?: boolean
 }) {
     const [query, setQuery] = useState("")
+    const updateQuery = useCallback((next: string) => {
+        setQuery(next)
+        setActive("")
+    }, [])
     const [active, setActive] = useState("")
     const [results, setResults] = useState<Record<string, boolean>>({})
     const listId = useId()
@@ -58,10 +62,7 @@ export function SearchList({
         <SearchContext
             value={{
                 query,
-                setQuery: (next) => {
-                    setQuery(next)
-                    setActive("")
-                },
+                setQuery: updateQuery,
                 active,
                 listId,
                 open,
@@ -125,13 +126,16 @@ export function SearchListField({
     onValueChange?: (value: string) => void
 }) {
     const search = useSearch()
+    useEffect(() => {
+        if (value !== undefined) search.setQuery(value)
+    }, [value, search.setQuery])
     return (
         <input
             {...props}
             role="combobox"
             aria-autocomplete="list"
             aria-expanded={search.open}
-            aria-controls={search.listId}
+            aria-controls={search.open ? search.listId : undefined}
             aria-activedescendant={search.open && search.active ? search.active : undefined}
             aria-label={props["aria-label"] ?? props.placeholder}
             value={value ?? search.query}
@@ -223,7 +227,7 @@ export function SearchListItem({
             aria-selected={search.active === id}
             data-selected={search.active === id ? "true" : undefined}
             className={cn(
-                "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left hover:bg-fill aria-selected:bg-accent-soft",
+                "flex min-h-9 w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-subheadline text-label hover:bg-fill aria-selected:bg-fill [@media(pointer:coarse)]:min-h-11",
                 className
             )}
             onMouseDown={(event) => {

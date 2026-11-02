@@ -1,4 +1,4 @@
-import { DocsLayout } from "@/domains/catalog"
+import { DocsLayout } from "@/domains/catalog/views/docs-layout"
 import { carriedSettings, docsSettingsDefaults, docsSettingsSchema } from "@/domains/settings"
 import {
     Outlet,

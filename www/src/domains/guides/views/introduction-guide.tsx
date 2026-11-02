@@ -1,7 +1,8 @@
 import { Table, TableBody, TableRow, TableCell } from "@passui/react/table"
 import { catalogIcons, LayersIcon, TypesetIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
-import { DocSection, type TocItem } from "@/domains/catalog"
+import { DocSection } from "@/domains/catalog/views/doc-section"
+import type { TocItem } from "@/domains/catalog/views/on-this-page"
 import { Code, Prose } from "./guide-parts"
 
 export const introductionSections: TocItem[] = [

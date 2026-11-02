@@ -1,13 +1,13 @@
-// The source text of every website-owned example, loaded at build time.
+// Load source separately from the executable demo; the registry never carries raw files.
 const sources = import.meta.glob<string>("./definitions/**/examples/*.tsx", {
     query: "?raw",
     import: "default",
-    eager: true,
 })
+const byFile = new Map(
+    Object.entries(sources).map(([path, load]) => [path.split("/examples/")[1], load])
+)
 
-/** The code shown for an example: the exact file that renders it. */
-export function getExampleSource(slug: string, id: string): string {
-    const suffix = `/examples/${slug}-${id}.tsx`
-    const path = Object.keys(sources).find((key) => key.endsWith(suffix))
-    return path ? sources[path].trimEnd() : ""
+/** The copyable code is the exact file that renders the example. */
+export async function getExampleSource(slug: string, id: string): Promise<string> {
+    return (await byFile.get(`${slug}-${id}.tsx`)?.())?.trimEnd() ?? ""
 }

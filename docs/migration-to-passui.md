@@ -39,7 +39,7 @@ Check light and dark themes, platform adaptation, overlays, keyboard focus,
 forms, toasts and SSR hydration in the actual app before deployment.
 Source exports still require a TS/TSX-capable bundler.
 
-Passui currently targets React. SolidJS integration is outside the supported package set.
+Passui targets React 19 and Tailwind CSS 4.
 
 The canonical documentation origin becomes `https://passui.pherus.org`.
 The AI skill endpoint becomes `/skills/passui/SKILL.md`. Keep the old

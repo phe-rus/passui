@@ -40,6 +40,7 @@ bun run build:website
 bun run typecheck
 bun run test
 bun run publish:check
+bun run size:check
 ```
 
 The website build generates its route tree. Website typechecks generate Worker
@@ -79,7 +80,7 @@ owner's existing Cloudflare credentials outside this repository.
 Check the home page, a guide, a component, sitemap, robots and preview
 headers after deployment. See [SEO](docs/seo.md) for the URL contract.
 
-Before releasing this migration, complete [the release checkpoint](docs/passui-release.md).
+Before publishing packages, follow [the release checkpoint](docs/passui-release.md).
 External apps follow [the consumer migration guide](docs/migration-to-passui.md).
 
 The CLI targets React, with an explicit `--framework react` override. TanStack keeps existing React paths and `/react/*` aliases alongside framework-independent `/core` helpers. Framework dependencies are optional peers; the CLI installs those selected by the app. Verify new starters from packed archives as well as testing the workspace.

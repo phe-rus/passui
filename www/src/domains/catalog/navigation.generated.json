@@ -1,0 +1,602 @@
+[
+    {
+        "docs": {
+            "slug": "accordion",
+            "name": "Accordion"
+        },
+        "group": "Layout and disclosure",
+        "icon": "unfold",
+        "exampleIds": ["faq", "settings"],
+        "content": {
+            "summary": "Organize related details into one collapsible group at a time."
+        }
+    },
+    {
+        "docs": {
+            "slug": "ambient",
+            "name": "Ambient"
+        },
+        "group": "Compositions",
+        "icon": "sun",
+        "exampleIds": ["images", "now-playing"],
+        "content": {
+            "summary": "Content with its image's colors glowing softly behind it, the way Apple lets a photo light its surroundings."
+        }
+    },
+    {
+        "docs": {
+            "slug": "breadcrumb",
+            "name": "Breadcrumb"
+        },
+        "group": "Navigation",
+        "icon": "input",
+        "exampleIds": ["short", "current"],
+        "content": {
+            "summary": "Show the current page within a hierarchy of linked ancestors."
+        }
+    },
+    {
+        "docs": {
+            "slug": "button",
+            "name": "Button"
+        },
+        "group": "Controls",
+        "icon": "tap",
+        "exampleIds": ["variants", "sizes", "with-icon", "icon", "pending", "disabled", "link"],
+        "content": {
+            "summary": "A pressable control for the actions people take most. Each variant has a little depth, like a well made physical key."
+        }
+    },
+    {
+        "docs": {
+            "slug": "chip",
+            "name": "Chip"
+        },
+        "group": "Content",
+        "icon": "tag",
+        "exampleIds": ["tones", "in-rows"],
+        "content": {
+            "summary": "A small label for status, sharing or categories, quiet enough to sit beside any text."
+        }
+    },
+    {
+        "docs": {
+            "slug": "code-block",
+            "name": "CodeBlock"
+        },
+        "group": "Content",
+        "icon": "input",
+        "exampleIds": ["plain", "multiline"],
+        "content": {
+            "summary": "Code with selectable source and optional line numbers."
+        }
+    },
+    {
+        "docs": {
+            "slug": "combo-box",
+            "name": "ComboBox"
+        },
+        "group": "Controls",
+        "icon": "input",
+        "exampleIds": ["languages", "disabled"],
+        "content": {
+            "summary": "Choose from an editable, keyboard navigable list."
+        }
+    },
+    {
+        "docs": {
+            "slug": "compact-date-picker",
+            "name": "CompactDatePicker"
+        },
+        "group": "Controls",
+        "icon": "calendar",
+        "exampleIds": ["bounded", "optional"],
+        "content": {
+            "summary": "A date shown as a compact button that opens a month calendar, like the compact DatePicker on iPhone."
+        }
+    },
+    {
+        "docs": {
+            "slug": "compact-time-picker",
+            "name": "CompactTimePicker"
+        },
+        "group": "Controls",
+        "icon": "clock",
+        "exampleIds": ["intervals", "locales"],
+        "content": {
+            "summary": "A time shown as a compact button that opens columns of hours and minutes, on the clock people read where they live."
+        }
+    },
+    {
+        "docs": {
+            "slug": "content-unavailable-view",
+            "name": "ContentUnavailableView"
+        },
+        "group": "Content",
+        "icon": "input",
+        "exampleIds": ["empty", "search"],
+        "content": {
+            "summary": "A clear empty state with context and a useful next action."
+        }
+    },
+    {
+        "docs": {
+            "slug": "content-view",
+            "name": "ContentView"
+        },
+        "group": "Compositions",
+        "icon": "cards",
+        "exampleIds": ["stats", "header-action"],
+        "content": {
+            "summary": "A raised card with parts for its heading, rows, dividers and large figures."
+        }
+    },
+    {
+        "docs": {
+            "slug": "context-menu",
+            "name": "useContextMenu"
+        },
+        "group": "Presentation",
+        "icon": "menu",
+        "exampleIds": ["toolbar", "list", "checked"],
+        "content": {
+            "summary": "Actions for one thing, opened by right-clicking on a computer or pressing and holding on a touch screen."
+        }
+    },
+    {
+        "docs": {
+            "slug": "conversation",
+            "name": "Conversation"
+        },
+        "group": "Compositions",
+        "icon": "message",
+        "exampleIds": ["composer", "days"],
+        "content": {
+            "summary": "A thread of messages like Messages on iPhone, and a reply field with a round Send button."
+        }
+    },
+    {
+        "docs": {
+            "slug": "date-picker",
+            "name": "DatePicker"
+        },
+        "group": "Controls",
+        "icon": "calendar",
+        "exampleIds": ["locales", "past-only"],
+        "content": {
+            "summary": "Day, month and year fields for dates people already know, like a birthday, in the order their locale writes them."
+        }
+    },
+    {
+        "docs": {
+            "slug": "dialog",
+            "name": "Dialog"
+        },
+        "group": "Presentation",
+        "icon": "alert",
+        "exampleIds": ["form", "confirm", "inline"],
+        "content": {
+            "summary": "A focused question or short form over the page, with a title, an optional description and a footer of actions."
+        }
+    },
+    {
+        "docs": {
+            "slug": "disclosure-group",
+            "name": "DisclosureGroup"
+        },
+        "group": "Layout and disclosure",
+        "icon": "unfold",
+        "exampleIds": ["settings", "disabled"],
+        "content": {
+            "summary": "A labelled expandable row with a smooth, in-place reveal for settings and details."
+        }
+    },
+    {
+        "docs": {
+            "slug": "divider",
+            "name": "Divider"
+        },
+        "group": "Layout and disclosure",
+        "icon": "list",
+        "exampleIds": ["sections", "vertical"],
+        "content": {
+            "summary": "A quiet line that separates related rows, groups, or adjacent actions."
+        }
+    },
+    {
+        "docs": {
+            "slug": "icon-button",
+            "name": "IconButton"
+        },
+        "group": "Controls",
+        "icon": "settings",
+        "exampleIds": ["variants", "player"],
+        "content": {
+            "summary": "A round button that shows only an icon, for toolbars, players and tight rows."
+        }
+    },
+    {
+        "docs": {
+            "slug": "inline-disclosure",
+            "name": "InlineDisclosure"
+        },
+        "group": "Layout and disclosure",
+        "icon": "unfold",
+        "exampleIds": ["settings", "details"],
+        "content": {
+            "summary": "A spring-driven inline reveal for account settings and small details."
+        }
+    },
+    {
+        "docs": {
+            "slug": "keyboard-shortcut",
+            "name": "KeyboardShortcut"
+        },
+        "group": "Content",
+        "icon": "input",
+        "exampleIds": ["command", "navigation"],
+        "content": {
+            "summary": "A compact keycap for application keyboard commands."
+        }
+    },
+    {
+        "docs": {
+            "slug": "labeled-content",
+            "name": "LabeledContent"
+        },
+        "group": "Layout and disclosure",
+        "icon": "label",
+        "exampleIds": ["descriptions", "wide", "values"],
+        "content": {
+            "summary": "A settings row: a label and description, with a control or value at the trailing edge."
+        }
+    },
+    {
+        "docs": {
+            "slug": "locale-switcher",
+            "name": "LocaleSwitcher"
+        },
+        "group": "Controls",
+        "icon": "translate",
+        "exampleIds": ["native-names", "translated-page"],
+        "content": {
+            "summary": "A small floating language button that opens into a list of languages, each in its own name, and can be dragged to any corner."
+        }
+    },
+    {
+        "docs": {
+            "slug": "menu",
+            "name": "Menu"
+        },
+        "group": "Controls",
+        "icon": "menu",
+        "exampleIds": ["actions", "choices"],
+        "content": {
+            "summary": "A button that opens an anchored set of commands or choices using PassUI's native menu host."
+        }
+    },
+    {
+        "docs": {
+            "slug": "picker",
+            "name": "Picker"
+        },
+        "group": "Controls",
+        "icon": "unfold",
+        "exampleIds": ["searchable", "details"],
+        "content": {
+            "summary": "A pop-up button that shows the current choice and opens a menu of options, never a native select."
+        }
+    },
+    {
+        "docs": {
+            "slug": "popover",
+            "name": "Popover"
+        },
+        "group": "Presentation",
+        "icon": "bubble",
+        "exampleIds": ["menu", "help"],
+        "content": {
+            "summary": "A glass panel tied to a control, placed within the visible screen, with an optional morph from its trigger."
+        }
+    },
+    {
+        "docs": {
+            "slug": "profile-image",
+            "name": "ProfileImage"
+        },
+        "group": "Content",
+        "icon": "user",
+        "exampleIds": ["fallbacks", "group"],
+        "content": {
+            "summary": "A round photo of a person that falls back to their initials while it loads or if it fails."
+        }
+    },
+    {
+        "docs": {
+            "slug": "progress-view",
+            "name": "ProgressView"
+        },
+        "group": "Feedback",
+        "icon": "status",
+        "exampleIds": ["uploading", "indeterminate"],
+        "content": {
+            "summary": "Show how much of an operation has completed, or that an operation is still in progress."
+        }
+    },
+    {
+        "docs": {
+            "slug": "radio-group",
+            "name": "RadioGroup"
+        },
+        "group": "Controls",
+        "icon": "input",
+        "exampleIds": ["compact", "disabled"],
+        "content": {
+            "summary": "Compare a small set of mutually exclusive choices."
+        }
+    },
+    {
+        "docs": {
+            "slug": "search-field",
+            "name": "SearchField"
+        },
+        "group": "Controls",
+        "icon": "search",
+        "exampleIds": ["filter", "toolbar"],
+        "content": {
+            "summary": "A compact search input with a magnifying glass, for filtering lists as people type."
+        }
+    },
+    {
+        "docs": {
+            "slug": "search-list",
+            "name": "SearchList"
+        },
+        "group": "Content",
+        "icon": "searchList",
+        "exampleIds": ["groups", "dropdown"],
+        "content": {
+            "summary": "A search field with a list of results that filters as you type and can be driven with the arrow keys."
+        }
+    },
+    {
+        "docs": {
+            "slug": "section",
+            "name": "Section"
+        },
+        "group": "Layout and disclosure",
+        "icon": "list",
+        "exampleIds": ["groups", "actions"],
+        "content": {
+            "summary": "A titled, inset group of rows with a footer note, as in iOS Settings."
+        }
+    },
+    {
+        "docs": {
+            "slug": "secure-field",
+            "name": "SecureField"
+        },
+        "group": "Controls",
+        "icon": "password",
+        "exampleIds": ["reveal", "new-password"],
+        "content": {
+            "summary": "A password field with an optional Show and Hide button."
+        }
+    },
+    {
+        "docs": {
+            "slug": "segmented-control",
+            "name": "SegmentedControl"
+        },
+        "group": "Controls",
+        "icon": "columns",
+        "exampleIds": ["views", "overflow"],
+        "content": {
+            "summary": "A row of two to five options where exactly one is chosen, that turns into a Picker when it runs out of room."
+        }
+    },
+    {
+        "docs": {
+            "slug": "sheet",
+            "name": "Sheet"
+        },
+        "group": "Presentation",
+        "icon": "panel",
+        "exampleIds": ["share", "choices"],
+        "content": {
+            "summary": "A modal card that rises from the bottom on phones and floats in the middle on larger screens, holding whatever you put in it."
+        }
+    },
+    {
+        "docs": {
+            "slug": "sidebar",
+            "name": "SidebarSection"
+        },
+        "group": "Navigation",
+        "icon": "sidebar",
+        "exampleIds": ["groups", "unread"],
+        "content": {
+            "summary": "Titled groups of navigation rows for a sidebar, with an icon, a label and an optional count on each row."
+        }
+    },
+    {
+        "docs": {
+            "slug": "skeleton",
+            "name": "Skeleton"
+        },
+        "group": "Feedback",
+        "icon": "input",
+        "exampleIds": ["text", "profile"],
+        "content": {
+            "summary": "Reserve space while content is loading, with optional spoken status."
+        }
+    },
+    {
+        "docs": {
+            "slug": "slider",
+            "name": "Slider"
+        },
+        "group": "Controls",
+        "icon": "analytics",
+        "exampleIds": ["volume", "disabled"],
+        "content": {
+            "summary": "Adjust a number across a continuous range with native keyboard, pointer, and touch interactions."
+        }
+    },
+    {
+        "docs": {
+            "slug": "stat-tile",
+            "name": "StatTile"
+        },
+        "group": "Feedback",
+        "icon": "analytics",
+        "exampleIds": ["grid", "filters"],
+        "content": {
+            "summary": "A number with a label and a quiet caption, for dashboards and summaries."
+        }
+    },
+    {
+        "docs": {
+            "slug": "status-indicator",
+            "name": "StatusIndicator"
+        },
+        "group": "Feedback",
+        "icon": "status",
+        "exampleIds": ["states", "live"],
+        "content": {
+            "summary": "A small dot and text that say whether something is saved, syncing or offline."
+        }
+    },
+    {
+        "docs": {
+            "slug": "stepper",
+            "name": "Stepper"
+        },
+        "group": "Controls",
+        "icon": "columns",
+        "exampleIds": ["quantity", "fractions"],
+        "content": {
+            "summary": "Increase or decrease a controlled numeric value in exact, bounded increments."
+        }
+    },
+    {
+        "docs": {
+            "slug": "swatch-picker",
+            "name": "SwatchPicker"
+        },
+        "group": "Controls",
+        "icon": "colors",
+        "exampleIds": ["accents", "labels"],
+        "content": {
+            "summary": "A row of colour swatches with names, for choosing one colour."
+        }
+    },
+    {
+        "docs": {
+            "slug": "tab-bar",
+            "name": "TabBar"
+        },
+        "group": "Navigation",
+        "icon": "layoutBottom",
+        "exampleIds": ["minimize", "five-tabs"],
+        "content": {
+            "summary": "The app's main places in a floating glass capsule at the bottom of the screen, as iOS 26 draws it, with an optional Search button."
+        }
+    },
+    {
+        "docs": {
+            "slug": "table",
+            "name": "Table"
+        },
+        "group": "Content",
+        "icon": "table",
+        "exampleIds": ["invoices", "selection", "wide", "empty"],
+        "content": {
+            "summary": "Styled parts for a plain HTML table: header, rows, cells, a footer and a caption, scrolling sideways when it's wider than the screen."
+        }
+    },
+    {
+        "docs": {
+            "slug": "tab-view",
+            "name": "TabView"
+        },
+        "group": "Navigation",
+        "icon": "layoutTop",
+        "exampleIds": ["keyboard", "settings"],
+        "content": {
+            "summary": "A row of tabs that switches between panels of content on the same screen."
+        }
+    },
+    {
+        "docs": {
+            "slug": "text-editor",
+            "name": "TextEditor"
+        },
+        "group": "Content",
+        "icon": "text",
+        "exampleIds": ["count", "comment"],
+        "content": {
+            "summary": "A multi-line text area that matches the look of Passui's text fields and grows when dragged."
+        }
+    },
+    {
+        "docs": {
+            "slug": "text-field",
+            "name": "TextField"
+        },
+        "group": "Controls",
+        "icon": "input",
+        "exampleIds": ["icons", "validation"],
+        "content": {
+            "summary": "A labelled single line input with room for a hint and error messages."
+        }
+    },
+    {
+        "docs": {
+            "slug": "toast",
+            "name": "toast"
+        },
+        "group": "Feedback",
+        "icon": "notification",
+        "exampleIds": ["action", "promise"],
+        "content": {
+            "summary": "A short message that drops from the top like an island to confirm, show progress or explain a failure, then leaves on its own."
+        }
+    },
+    {
+        "docs": {
+            "slug": "toggle",
+            "name": "Toggle"
+        },
+        "group": "Controls",
+        "icon": "toggle",
+        "exampleIds": ["settings", "checkboxes"],
+        "content": {
+            "summary": "An on and off control: a switch for settings that apply at once, or a checkbox for choices you confirm later."
+        }
+    },
+    {
+        "docs": {
+            "slug": "tooltip",
+            "name": "TooltipHost"
+        },
+        "group": "Presentation",
+        "icon": "help",
+        "exampleIds": ["icon-buttons", "shortcuts"],
+        "content": {
+            "summary": "A small label that appears on hover for any element with data-tooltip, shown by one host for the whole app."
+        }
+    },
+    {
+        "docs": {
+            "slug": "view-controller",
+            "name": "ViewController"
+        },
+        "group": "Navigation",
+        "icon": "browser",
+        "exampleIds": ["action", "settings"],
+        "content": {
+            "summary": "The frame of one screen: a large title with an optional description and action, then the screen's content."
+        }
+    }
+]

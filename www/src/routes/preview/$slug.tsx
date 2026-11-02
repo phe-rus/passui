@@ -1,5 +1,6 @@
-import { ComponentNotFound, getEntry } from "@/domains/catalog"
-import { PreviewPage } from "@/domains/preview"
+import { ComponentNotFound } from "@/domains/catalog/views/component-not-found"
+import { getNavigationEntry } from "@/domains/catalog/get-navigation"
+import { PreviewPage } from "@/domains/preview/views/preview-page"
 import { previewSearchSchema, settingsDefaults } from "@/domains/settings"
 import { createFileRoute, notFound, stripSearchParams } from "@tanstack/react-router"
 
@@ -17,12 +18,8 @@ export const Route = createFileRoute("/preview/$slug")({
     },
     loaderDeps: ({ search }) => ({ scene: search.scene, example: search.example }),
     loader: ({ params, deps }) => {
-        const entry = getEntry(params.slug)
-        if (
-            !entry ||
-            (deps.scene === "example" &&
-                !entry.docs.examples.some((item) => item.id === deps.example))
-        )
+        const entry = getNavigationEntry(params.slug)
+        if (!entry || (deps.scene === "example" && !entry.exampleIds.includes(deps.example)))
             throw notFound()
     },
     head: () => ({

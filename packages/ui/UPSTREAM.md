@@ -32,8 +32,7 @@ Historical local shared-component deltas included reduced-motion handling in She
 ## Current repository layout
 
 The public `phe-rus/passui` repository owns React controls under
-`packages/ui`, shared tokens under `packages/tokens`, the private Solid
-foundation under `packages/solid`, optional integrations under
+`packages/ui`, shared tokens under `packages/tokens`, optional integrations under
 `packages/tanstack`, setup tooling under `packages/cli`, and the official
 website under `www`. The public packages use the `@passui` scope. The
 older names and paths above record migration history only.

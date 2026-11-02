@@ -179,7 +179,7 @@ function icon(svg: IconSvgElement, displayName: string) {
 
 /** A filled variant for toggled states (hearted, starred). */
 function toggleIcon(svg: IconSvgElement, displayName: string) {
-    const Base = icon(svg, displayName)
+    const Base = /* @__PURE__ */ icon(svg, displayName)
     const Icon = ({ filled = false, className, ...props }: IconProps & { filled?: boolean }) => (
         <Base className={cn(filled && "[&_path]:fill-current", className)} {...props} />
     )
@@ -189,156 +189,156 @@ function toggleIcon(svg: IconSvgElement, displayName: string) {
 
 /** Existing catalog glyphs rendered through PassUI's common icon contract. */
 export const catalogIcons = {
-    tap: icon(CatalogTapGlyph, "CatalogTapIcon"),
-    settings: icon(CatalogSettingsGlyph, "CatalogSettingsIcon"),
-    tag: icon(CatalogTagGlyph, "CatalogTagIcon"),
-    input: icon(CatalogInputTextGlyph, "CatalogInputIcon"),
-    password: icon(CatalogPasswordGlyph, "CatalogPasswordIcon"),
-    search: icon(CatalogSearchGlyph, "CatalogSearchIcon"),
-    toggle: icon(CatalogToggleGlyph, "CatalogToggleIcon"),
-    columns: icon(CatalogColumnsGlyph, "CatalogColumnsIcon"),
-    unfold: icon(CatalogUnfoldGlyph, "CatalogUnfoldIcon"),
-    colors: icon(CatalogColorsGlyph, "CatalogColorsIcon"),
-    calendar: icon(CatalogCalendarGlyph, "CatalogCalendarIcon"),
-    clock: icon(CatalogClockGlyph, "CatalogClockIcon"),
-    text: icon(CatalogTextGlyph, "CatalogTextIcon"),
-    searchList: icon(CatalogSearchListGlyph, "CatalogSearchListIcon"),
-    list: icon(CatalogListGlyph, "CatalogListIcon"),
-    label: icon(CatalogLabelGlyph, "CatalogLabelIcon"),
-    table: icon(CatalogTableGlyph, "CatalogTableIcon"),
-    cards: icon(CatalogCardsGlyph, "CatalogCardsIcon"),
-    message: icon(CatalogMessageGlyph, "CatalogMessageIcon"),
-    sun: icon(CatalogSunGlyph, "CatalogSunIcon"),
-    status: icon(CatalogStatusGlyph, "CatalogStatusIcon"),
-    analytics: icon(CatalogAnalyticsGlyph, "CatalogAnalyticsIcon"),
-    alert: icon(CatalogAlertGlyph, "CatalogAlertIcon"),
-    panel: icon(CatalogPanelGlyph, "CatalogPanelIcon"),
-    bubble: icon(CatalogBubbleGlyph, "CatalogBubbleIcon"),
-    notification: icon(CatalogNotificationGlyph, "CatalogNotificationIcon"),
-    menu: icon(CatalogMenuGlyph, "CatalogMenuIcon"),
-    help: icon(CatalogHelpGlyph, "CatalogHelpIcon"),
-    translate: icon(CatalogTranslateGlyph, "CatalogTranslateIcon"),
-    layoutTop: icon(CatalogLayoutTopGlyph, "CatalogLayoutTopIcon"),
-    layoutBottom: icon(CatalogLayoutBottomGlyph, "CatalogLayoutBottomIcon"),
-    sidebar: icon(CatalogSidebarGlyph, "CatalogSidebarIcon"),
-    browser: icon(CatalogBrowserGlyph, "CatalogBrowserIcon"),
-    user: icon(CatalogUserGlyph, "CatalogUserIcon"),
+    tap: /* @__PURE__ */ icon(CatalogTapGlyph, "CatalogTapIcon"),
+    settings: /* @__PURE__ */ icon(CatalogSettingsGlyph, "CatalogSettingsIcon"),
+    tag: /* @__PURE__ */ icon(CatalogTagGlyph, "CatalogTagIcon"),
+    input: /* @__PURE__ */ icon(CatalogInputTextGlyph, "CatalogInputIcon"),
+    password: /* @__PURE__ */ icon(CatalogPasswordGlyph, "CatalogPasswordIcon"),
+    search: /* @__PURE__ */ icon(CatalogSearchGlyph, "CatalogSearchIcon"),
+    toggle: /* @__PURE__ */ icon(CatalogToggleGlyph, "CatalogToggleIcon"),
+    columns: /* @__PURE__ */ icon(CatalogColumnsGlyph, "CatalogColumnsIcon"),
+    unfold: /* @__PURE__ */ icon(CatalogUnfoldGlyph, "CatalogUnfoldIcon"),
+    colors: /* @__PURE__ */ icon(CatalogColorsGlyph, "CatalogColorsIcon"),
+    calendar: /* @__PURE__ */ icon(CatalogCalendarGlyph, "CatalogCalendarIcon"),
+    clock: /* @__PURE__ */ icon(CatalogClockGlyph, "CatalogClockIcon"),
+    text: /* @__PURE__ */ icon(CatalogTextGlyph, "CatalogTextIcon"),
+    searchList: /* @__PURE__ */ icon(CatalogSearchListGlyph, "CatalogSearchListIcon"),
+    list: /* @__PURE__ */ icon(CatalogListGlyph, "CatalogListIcon"),
+    label: /* @__PURE__ */ icon(CatalogLabelGlyph, "CatalogLabelIcon"),
+    table: /* @__PURE__ */ icon(CatalogTableGlyph, "CatalogTableIcon"),
+    cards: /* @__PURE__ */ icon(CatalogCardsGlyph, "CatalogCardsIcon"),
+    message: /* @__PURE__ */ icon(CatalogMessageGlyph, "CatalogMessageIcon"),
+    sun: /* @__PURE__ */ icon(CatalogSunGlyph, "CatalogSunIcon"),
+    status: /* @__PURE__ */ icon(CatalogStatusGlyph, "CatalogStatusIcon"),
+    analytics: /* @__PURE__ */ icon(CatalogAnalyticsGlyph, "CatalogAnalyticsIcon"),
+    alert: /* @__PURE__ */ icon(CatalogAlertGlyph, "CatalogAlertIcon"),
+    panel: /* @__PURE__ */ icon(CatalogPanelGlyph, "CatalogPanelIcon"),
+    bubble: /* @__PURE__ */ icon(CatalogBubbleGlyph, "CatalogBubbleIcon"),
+    notification: /* @__PURE__ */ icon(CatalogNotificationGlyph, "CatalogNotificationIcon"),
+    menu: /* @__PURE__ */ icon(CatalogMenuGlyph, "CatalogMenuIcon"),
+    help: /* @__PURE__ */ icon(CatalogHelpGlyph, "CatalogHelpIcon"),
+    translate: /* @__PURE__ */ icon(CatalogTranslateGlyph, "CatalogTranslateIcon"),
+    layoutTop: /* @__PURE__ */ icon(CatalogLayoutTopGlyph, "CatalogLayoutTopIcon"),
+    layoutBottom: /* @__PURE__ */ icon(CatalogLayoutBottomGlyph, "CatalogLayoutBottomIcon"),
+    sidebar: /* @__PURE__ */ icon(CatalogSidebarGlyph, "CatalogSidebarIcon"),
+    browser: /* @__PURE__ */ icon(CatalogBrowserGlyph, "CatalogBrowserIcon"),
+    user: /* @__PURE__ */ icon(CatalogUserGlyph, "CatalogUserIcon"),
 } as const
 
-export const NoteIcon = icon(Note01Icon, "NoteIcon")
-export const LanguageIcon = icon(LanguagesIcon, "LanguageIcon")
-export const SignOutIcon = icon(Logout01Icon, "SignOutIcon")
-export const MoreVerticalIcon = icon(MoreVertical, "MoreVerticalIcon")
-export const SendIcon = icon(SentIcon, "SendIcon")
-export const InboxIcon = icon(InboxGlyph, "InboxIcon")
-export const LaptopIcon = icon(LaptopGlyph, "LaptopIcon")
-export const SmartphoneIcon = icon(SmartPhone01Icon, "SmartphoneIcon")
-export const TabletIcon = icon(Tablet01Icon, "TabletIcon")
-export const HomeIcon = icon(Home01Icon, "HomeIcon")
-export const LibraryIcon = icon(LibraryGlyph, "LibraryIcon")
-export const PersonIcon = icon(UserIcon, "PersonIcon")
-export const ChartIcon = icon(Analytics01Icon, "ChartIcon")
-export const SupportIcon = icon(CustomerSupportIcon, "SupportIcon")
-export const KeyIcon = icon(Key01Icon, "KeyIcon")
-export const PasswordIcon = icon(LockPasswordIcon, "PasswordIcon")
-export const JournalIcon = icon(NotebookIcon, "JournalIcon")
-export const PenIcon = icon(PencilEdit02Icon, "PenIcon")
-export const StoryIcon = icon(QuillWrite02Icon, "StoryIcon")
-export const BookIcon = icon(BookOpen01Icon, "BookIcon")
-export const ArticleIcon = icon(Book02Icon, "ArticleIcon")
-export const CanvasIcon = icon(HugeCanvasIcon, "CanvasIcon")
-export const LessonIcon = icon(Mortarboard01Icon, "LessonIcon")
-export const PlanIcon = icon(CheckListIcon, "PlanIcon")
-export const MicIcon = icon(Mic01Icon, "MicIcon")
-export const GlobeIcon = icon(Globe02Icon, "GlobeIcon")
-export const ChecklistIcon = icon(CheckmarkCircle02Icon, "ChecklistIcon")
-export const DrawIcon = icon(PencilIcon, "DrawIcon")
-export const ShareIcon = icon(Share08Icon, "ShareIcon")
-export const SearchIcon = icon(Search01Icon, "SearchIcon")
-export const ChevronLeftIcon = icon(ArrowLeft01Icon, "ChevronLeftIcon")
-export const ChevronRightIcon = icon(ArrowRight01Icon, "ChevronRightIcon")
-export const ChevronUpIcon = icon(ArrowUp01Icon, "ChevronUpIcon")
-export const ChevronDownIcon = icon(ArrowDown01Icon, "ChevronDownIcon")
-export const CloseIcon = icon(Cancel01Icon, "CloseIcon")
-export const MenuIcon = icon(Menu01Icon, "MenuIcon")
-export const ThemingIcon = icon(GuidePaintGlyph, "ThemingIcon")
-export const TypesetIcon = icon(GuideTextGlyph, "TypesetIcon")
-export const LayersIcon = icon(GuideLayersGlyph, "LayersIcon")
-export const UploadIcon = icon(UploadGlyph, "UploadIcon")
-export const AttachIcon = icon(AttachGlyph, "AttachIcon")
-export const PlusIcon = icon(Add01Icon, "PlusIcon")
-export const LinkIcon = icon(Link01Icon, "LinkIcon")
-export const CommentIcon = icon(Comment01Icon, "CommentIcon")
-export const TrashIcon = icon(Delete02Icon, "TrashIcon")
-export const PinIcon = icon(Pin02Icon, "PinIcon")
-export const SidebarIcon = icon(PanelLeftIcon, "SidebarIcon")
-export const SettingsIcon = icon(Settings02Icon, "SettingsIcon")
-export const DragHandleIcon = icon(DragDropVerticalIcon, "DragHandleIcon")
-export const VisibleIcon = icon(ViewIcon, "VisibleIcon")
-export const HiddenIcon = icon(ViewOffSlashIcon, "HiddenIcon")
-export const CheckIcon = icon(Tick02Icon, "CheckIcon")
-export const InvoiceIcon = icon(Invoice03Icon, "InvoiceIcon")
-export const QrCodeGlyph = icon(QrCodeIcon, "QrCodeGlyph")
-export const WalletIcon = icon(Wallet01Icon, "WalletIcon")
-export const ScanCodeIcon = icon(ScanIcon, "ScanCodeIcon")
-export const VerifiedIcon = icon(CheckmarkBadge01Icon, "VerifiedIcon")
-export const WarningIcon = icon(Alert02Icon, "WarningIcon")
-export const PrintIcon = icon(PrinterIcon, "PrintIcon")
-export const ImportIcon = icon(FileImportIcon, "ImportIcon")
-export const DownloadIcon = icon(Download01Icon, "DownloadIcon")
-export const PlayIcon = icon(HugePlayIcon, "PlayIcon")
-export const PauseIcon = icon(HugePauseIcon, "PauseIcon")
-export const SkipBackIcon = icon(GoBackward15SecIcon, "SkipBackIcon")
-export const SkipForwardIcon = icon(GoForward30SecIcon, "SkipForwardIcon")
-export const PreviousTrackIcon = icon(PreviousIcon, "PreviousTrackIcon")
-export const NextTrackIcon = icon(NextIcon, "NextTrackIcon")
-export const HeadphonesIcon = icon(HugeHeadphonesIcon, "HeadphonesIcon")
-export const HighlighterIcon = icon(HugeHighlighterIcon, "HighlighterIcon")
-export const ChaptersIcon = icon(LeftToRightListBulletIcon, "ChaptersIcon")
-export const SleepIcon = icon(Moon02Icon, "SleepIcon")
-export const ExpandIcon = icon(FullScreenIcon, "ExpandIcon")
-export const SparkleIcon = icon(AiMagicIcon, "SparkleIcon")
-export const BellIcon = icon(Notification03Icon, "BellIcon")
-export const BusinessIcon = icon(Store01Icon, "BusinessIcon")
-export const CalendarIcon = icon(Calendar03Icon, "CalendarIcon")
-export const BirthdayIcon = icon(BirthdayCakeIcon, "BirthdayIcon")
-export const AlarmIcon = icon(AlarmClockIcon, "AlarmIcon")
-export const RepeatIcon = icon(HugeRepeatIcon, "RepeatIcon")
-export const UndoIcon = icon(HugeUndoIcon, "UndoIcon")
-export const RedoIcon = icon(HugeRedoIcon, "RedoIcon")
-export const PointerIcon = icon(Cursor01Icon, "PointerIcon")
-export const EraserIcon = icon(Eraser01Icon, "EraserIcon")
-export const TouchIcon = icon(Touch01Icon, "TouchIcon")
-export const BubbleIcon = icon(BubbleChatIcon, "BubbleIcon")
-export const BrushIcon = icon(PaintBrush02Icon, "BrushIcon")
-export const LayoutIcon = icon(LayoutGridIcon, "LayoutIcon")
-export const ZoomIcon = icon(SearchAddIcon, "ZoomIcon")
-export const SelectorIcon = icon(UnfoldMoreIcon, "SelectorIcon")
-export const MoreIcon = icon(MoreHorizontalIcon, "MoreIcon")
-export const PeopleIcon = icon(UserMultipleIcon, "PeopleIcon")
-export const AddPersonIcon = icon(UserAdd01Icon, "AddPersonIcon")
-export const ClockIcon = icon(Clock01Icon, "ClockIcon")
-export const LocationIcon = icon(Location01Icon, "LocationIcon")
-export const TaskIcon = icon(Task01Icon, "TaskIcon")
-export const FolderIcon = icon(Folder01Icon, "FolderIcon")
-export const RecentIcon = icon(Time04Icon, "RecentIcon")
-export const ThumbsUpIcon = toggleIcon(HugeThumbsUpIcon, "ThumbsUpIcon")
-export const HeartIcon = toggleIcon(FavouriteIcon, "HeartIcon")
-export const StarIcon = toggleIcon(HugeStarIcon, "StarIcon")
+export const NoteIcon = /* @__PURE__ */ icon(Note01Icon, "NoteIcon")
+export const LanguageIcon = /* @__PURE__ */ icon(LanguagesIcon, "LanguageIcon")
+export const SignOutIcon = /* @__PURE__ */ icon(Logout01Icon, "SignOutIcon")
+export const MoreVerticalIcon = /* @__PURE__ */ icon(MoreVertical, "MoreVerticalIcon")
+export const SendIcon = /* @__PURE__ */ icon(SentIcon, "SendIcon")
+export const InboxIcon = /* @__PURE__ */ icon(InboxGlyph, "InboxIcon")
+export const LaptopIcon = /* @__PURE__ */ icon(LaptopGlyph, "LaptopIcon")
+export const SmartphoneIcon = /* @__PURE__ */ icon(SmartPhone01Icon, "SmartphoneIcon")
+export const TabletIcon = /* @__PURE__ */ icon(Tablet01Icon, "TabletIcon")
+export const HomeIcon = /* @__PURE__ */ icon(Home01Icon, "HomeIcon")
+export const LibraryIcon = /* @__PURE__ */ icon(LibraryGlyph, "LibraryIcon")
+export const PersonIcon = /* @__PURE__ */ icon(UserIcon, "PersonIcon")
+export const ChartIcon = /* @__PURE__ */ icon(Analytics01Icon, "ChartIcon")
+export const SupportIcon = /* @__PURE__ */ icon(CustomerSupportIcon, "SupportIcon")
+export const KeyIcon = /* @__PURE__ */ icon(Key01Icon, "KeyIcon")
+export const PasswordIcon = /* @__PURE__ */ icon(LockPasswordIcon, "PasswordIcon")
+export const JournalIcon = /* @__PURE__ */ icon(NotebookIcon, "JournalIcon")
+export const PenIcon = /* @__PURE__ */ icon(PencilEdit02Icon, "PenIcon")
+export const StoryIcon = /* @__PURE__ */ icon(QuillWrite02Icon, "StoryIcon")
+export const BookIcon = /* @__PURE__ */ icon(BookOpen01Icon, "BookIcon")
+export const ArticleIcon = /* @__PURE__ */ icon(Book02Icon, "ArticleIcon")
+export const CanvasIcon = /* @__PURE__ */ icon(HugeCanvasIcon, "CanvasIcon")
+export const LessonIcon = /* @__PURE__ */ icon(Mortarboard01Icon, "LessonIcon")
+export const PlanIcon = /* @__PURE__ */ icon(CheckListIcon, "PlanIcon")
+export const MicIcon = /* @__PURE__ */ icon(Mic01Icon, "MicIcon")
+export const GlobeIcon = /* @__PURE__ */ icon(Globe02Icon, "GlobeIcon")
+export const ChecklistIcon = /* @__PURE__ */ icon(CheckmarkCircle02Icon, "ChecklistIcon")
+export const DrawIcon = /* @__PURE__ */ icon(PencilIcon, "DrawIcon")
+export const ShareIcon = /* @__PURE__ */ icon(Share08Icon, "ShareIcon")
+export const SearchIcon = /* @__PURE__ */ icon(Search01Icon, "SearchIcon")
+export const ChevronLeftIcon = /* @__PURE__ */ icon(ArrowLeft01Icon, "ChevronLeftIcon")
+export const ChevronRightIcon = /* @__PURE__ */ icon(ArrowRight01Icon, "ChevronRightIcon")
+export const ChevronUpIcon = /* @__PURE__ */ icon(ArrowUp01Icon, "ChevronUpIcon")
+export const ChevronDownIcon = /* @__PURE__ */ icon(ArrowDown01Icon, "ChevronDownIcon")
+export const CloseIcon = /* @__PURE__ */ icon(Cancel01Icon, "CloseIcon")
+export const MenuIcon = /* @__PURE__ */ icon(Menu01Icon, "MenuIcon")
+export const ThemingIcon = /* @__PURE__ */ icon(GuidePaintGlyph, "ThemingIcon")
+export const TypesetIcon = /* @__PURE__ */ icon(GuideTextGlyph, "TypesetIcon")
+export const LayersIcon = /* @__PURE__ */ icon(GuideLayersGlyph, "LayersIcon")
+export const UploadIcon = /* @__PURE__ */ icon(UploadGlyph, "UploadIcon")
+export const AttachIcon = /* @__PURE__ */ icon(AttachGlyph, "AttachIcon")
+export const PlusIcon = /* @__PURE__ */ icon(Add01Icon, "PlusIcon")
+export const LinkIcon = /* @__PURE__ */ icon(Link01Icon, "LinkIcon")
+export const CommentIcon = /* @__PURE__ */ icon(Comment01Icon, "CommentIcon")
+export const TrashIcon = /* @__PURE__ */ icon(Delete02Icon, "TrashIcon")
+export const PinIcon = /* @__PURE__ */ icon(Pin02Icon, "PinIcon")
+export const SidebarIcon = /* @__PURE__ */ icon(PanelLeftIcon, "SidebarIcon")
+export const SettingsIcon = /* @__PURE__ */ icon(Settings02Icon, "SettingsIcon")
+export const DragHandleIcon = /* @__PURE__ */ icon(DragDropVerticalIcon, "DragHandleIcon")
+export const VisibleIcon = /* @__PURE__ */ icon(ViewIcon, "VisibleIcon")
+export const HiddenIcon = /* @__PURE__ */ icon(ViewOffSlashIcon, "HiddenIcon")
+export const CheckIcon = /* @__PURE__ */ icon(Tick02Icon, "CheckIcon")
+export const InvoiceIcon = /* @__PURE__ */ icon(Invoice03Icon, "InvoiceIcon")
+export const QrCodeGlyph = /* @__PURE__ */ icon(QrCodeIcon, "QrCodeGlyph")
+export const WalletIcon = /* @__PURE__ */ icon(Wallet01Icon, "WalletIcon")
+export const ScanCodeIcon = /* @__PURE__ */ icon(ScanIcon, "ScanCodeIcon")
+export const VerifiedIcon = /* @__PURE__ */ icon(CheckmarkBadge01Icon, "VerifiedIcon")
+export const WarningIcon = /* @__PURE__ */ icon(Alert02Icon, "WarningIcon")
+export const PrintIcon = /* @__PURE__ */ icon(PrinterIcon, "PrintIcon")
+export const ImportIcon = /* @__PURE__ */ icon(FileImportIcon, "ImportIcon")
+export const DownloadIcon = /* @__PURE__ */ icon(Download01Icon, "DownloadIcon")
+export const PlayIcon = /* @__PURE__ */ icon(HugePlayIcon, "PlayIcon")
+export const PauseIcon = /* @__PURE__ */ icon(HugePauseIcon, "PauseIcon")
+export const SkipBackIcon = /* @__PURE__ */ icon(GoBackward15SecIcon, "SkipBackIcon")
+export const SkipForwardIcon = /* @__PURE__ */ icon(GoForward30SecIcon, "SkipForwardIcon")
+export const PreviousTrackIcon = /* @__PURE__ */ icon(PreviousIcon, "PreviousTrackIcon")
+export const NextTrackIcon = /* @__PURE__ */ icon(NextIcon, "NextTrackIcon")
+export const HeadphonesIcon = /* @__PURE__ */ icon(HugeHeadphonesIcon, "HeadphonesIcon")
+export const HighlighterIcon = /* @__PURE__ */ icon(HugeHighlighterIcon, "HighlighterIcon")
+export const ChaptersIcon = /* @__PURE__ */ icon(LeftToRightListBulletIcon, "ChaptersIcon")
+export const SleepIcon = /* @__PURE__ */ icon(Moon02Icon, "SleepIcon")
+export const ExpandIcon = /* @__PURE__ */ icon(FullScreenIcon, "ExpandIcon")
+export const SparkleIcon = /* @__PURE__ */ icon(AiMagicIcon, "SparkleIcon")
+export const BellIcon = /* @__PURE__ */ icon(Notification03Icon, "BellIcon")
+export const BusinessIcon = /* @__PURE__ */ icon(Store01Icon, "BusinessIcon")
+export const CalendarIcon = /* @__PURE__ */ icon(Calendar03Icon, "CalendarIcon")
+export const BirthdayIcon = /* @__PURE__ */ icon(BirthdayCakeIcon, "BirthdayIcon")
+export const AlarmIcon = /* @__PURE__ */ icon(AlarmClockIcon, "AlarmIcon")
+export const RepeatIcon = /* @__PURE__ */ icon(HugeRepeatIcon, "RepeatIcon")
+export const UndoIcon = /* @__PURE__ */ icon(HugeUndoIcon, "UndoIcon")
+export const RedoIcon = /* @__PURE__ */ icon(HugeRedoIcon, "RedoIcon")
+export const PointerIcon = /* @__PURE__ */ icon(Cursor01Icon, "PointerIcon")
+export const EraserIcon = /* @__PURE__ */ icon(Eraser01Icon, "EraserIcon")
+export const TouchIcon = /* @__PURE__ */ icon(Touch01Icon, "TouchIcon")
+export const BubbleIcon = /* @__PURE__ */ icon(BubbleChatIcon, "BubbleIcon")
+export const BrushIcon = /* @__PURE__ */ icon(PaintBrush02Icon, "BrushIcon")
+export const LayoutIcon = /* @__PURE__ */ icon(LayoutGridIcon, "LayoutIcon")
+export const ZoomIcon = /* @__PURE__ */ icon(SearchAddIcon, "ZoomIcon")
+export const SelectorIcon = /* @__PURE__ */ icon(UnfoldMoreIcon, "SelectorIcon")
+export const MoreIcon = /* @__PURE__ */ icon(MoreHorizontalIcon, "MoreIcon")
+export const PeopleIcon = /* @__PURE__ */ icon(UserMultipleIcon, "PeopleIcon")
+export const AddPersonIcon = /* @__PURE__ */ icon(UserAdd01Icon, "AddPersonIcon")
+export const ClockIcon = /* @__PURE__ */ icon(Clock01Icon, "ClockIcon")
+export const LocationIcon = /* @__PURE__ */ icon(Location01Icon, "LocationIcon")
+export const TaskIcon = /* @__PURE__ */ icon(Task01Icon, "TaskIcon")
+export const FolderIcon = /* @__PURE__ */ icon(Folder01Icon, "FolderIcon")
+export const RecentIcon = /* @__PURE__ */ icon(Time04Icon, "RecentIcon")
+export const ThumbsUpIcon = /* @__PURE__ */ toggleIcon(HugeThumbsUpIcon, "ThumbsUpIcon")
+export const HeartIcon = /* @__PURE__ */ toggleIcon(FavouriteIcon, "HeartIcon")
+export const StarIcon = /* @__PURE__ */ toggleIcon(HugeStarIcon, "StarIcon")
 
 // Wallet: adding, copying and protecting cards.
-export const CameraIcon = icon(Camera01Icon, "CameraIcon")
-export const CopyIcon = icon(Copy01Icon, "CopyIcon")
-export const LockIcon = icon(LockIconSvg, "LockIcon")
-export const NfcReadIcon = icon(NfcIcon, "NfcReadIcon")
-export const PhotoIcon = icon(Image01Icon, "PhotoIcon")
-export const BookmarkIcon = icon(Bookmark02Icon, "BookmarkIcon")
-export const MailIcon = icon(Mail01Icon, "MailIcon")
-export const ReplyIcon = icon(MailReply01Icon, "ReplyIcon")
-export const ArchiveIcon = icon(Archive01Icon, "ArchiveIcon")
-export const InfoIcon = icon(InformationCircleIcon, "InfoIcon")
-export const AlignCenterIcon = icon(TextAlignCenterIcon, "AlignCenterIcon")
-export const AlignLeftIcon = icon(TextAlignLeftIcon, "AlignLeftIcon")
-export const BoldIcon = icon(TextBoldIcon, "BoldIcon")
-export const ItalicIcon = icon(TextItalicIcon, "ItalicIcon")
-export const UnderlineIcon = icon(TextUnderlineIcon, "UnderlineIcon")
+export const CameraIcon = /* @__PURE__ */ icon(Camera01Icon, "CameraIcon")
+export const CopyIcon = /* @__PURE__ */ icon(Copy01Icon, "CopyIcon")
+export const LockIcon = /* @__PURE__ */ icon(LockIconSvg, "LockIcon")
+export const NfcReadIcon = /* @__PURE__ */ icon(NfcIcon, "NfcReadIcon")
+export const PhotoIcon = /* @__PURE__ */ icon(Image01Icon, "PhotoIcon")
+export const BookmarkIcon = /* @__PURE__ */ icon(Bookmark02Icon, "BookmarkIcon")
+export const MailIcon = /* @__PURE__ */ icon(Mail01Icon, "MailIcon")
+export const ReplyIcon = /* @__PURE__ */ icon(MailReply01Icon, "ReplyIcon")
+export const ArchiveIcon = /* @__PURE__ */ icon(Archive01Icon, "ArchiveIcon")
+export const InfoIcon = /* @__PURE__ */ icon(InformationCircleIcon, "InfoIcon")
+export const AlignCenterIcon = /* @__PURE__ */ icon(TextAlignCenterIcon, "AlignCenterIcon")
+export const AlignLeftIcon = /* @__PURE__ */ icon(TextAlignLeftIcon, "AlignLeftIcon")
+export const BoldIcon = /* @__PURE__ */ icon(TextBoldIcon, "BoldIcon")
+export const ItalicIcon = /* @__PURE__ */ icon(TextItalicIcon, "ItalicIcon")
+export const UnderlineIcon = /* @__PURE__ */ icon(TextUnderlineIcon, "UnderlineIcon")

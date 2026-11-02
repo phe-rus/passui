@@ -23,7 +23,7 @@
         "typecheck": "tsc --noEmit",
         "test": "vitest run",
         "publish:check": "bun pm pack --dry-run",
-        "build": "tsc -p tsconfig.build.json"
+        "build": "bun ../../scripts/build-types.mjs"
     },
     "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5"
@@ -123,5 +123,8 @@
         "@passui/react": {
             "optional": true
         }
-    }
+    },
+    "sideEffects": [
+        "**/*.css"
+    ]
 }

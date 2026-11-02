@@ -9,10 +9,6 @@ import { fitPopover, type PopoverFit } from "./popover-fit"
 
 export type PopoverOrigin = "top-left" | "top-right"
 
-function panelSize(element: HTMLElement | null, dimension: "width" | "height") {
-    return element?.getBoundingClientRect()[dimension] ?? 0
-}
-
 export interface PopoverProps extends Omit<HTMLMotionProps<"div">, "children"> {
     open: boolean
     children?: ReactNode
@@ -166,19 +162,15 @@ function OpenPopover({
         return () => {
             restoreSource()
         }
-    }, [anchorRef, fit.maxHeight, fit.maxWidth])
+    }, [anchorRef, fit])
 
     return (
         <motion.div
             ref={ref}
             {...(!anchorRef && popoverMotion)}
-            initial={
-                anchorRef ? { opacity: 0 } : reducedMotion ? { opacity: 0 } : popoverMotion.initial
-            }
-            animate={
-                anchorRef ? { opacity: 1 } : reducedMotion ? { opacity: 1 } : popoverMotion.animate
-            }
-            exit={anchorRef ? { opacity: 0 } : reducedMotion ? { opacity: 0 } : popoverMotion.exit}
+            initial={anchorRef ? false : reducedMotion ? { opacity: 0 } : popoverMotion.initial}
+            animate={anchorRef ? {} : reducedMotion ? { opacity: 1 } : popoverMotion.animate}
+            exit={anchorRef ? {} : reducedMotion ? { opacity: 0 } : popoverMotion.exit}
             transition={
                 anchorRef
                     ? reducedMotion
@@ -196,11 +188,11 @@ function OpenPopover({
                 translate: `${fit.shiftX}px ${fit.shiftY}px`,
                 maxWidth: fit.maxWidth || undefined,
                 maxHeight: fit.maxHeight,
-                overflowY: fit.maxHeight !== undefined ? "auto" : undefined,
+                overflowY: !anchorRef && fit.maxHeight !== undefined ? "auto" : undefined,
                 ...style,
             }}
             className={cn(
-                anchorRef ? "isolate overflow-hidden" : "glass-menu",
+                anchorRef ? "isolate" : "glass-menu",
                 "absolute z-40 rounded-5xl",
                 className
             )}
@@ -218,8 +210,8 @@ function OpenPopover({
                             ? {
                                   x: 0,
                                   y: 0,
-                                  width: panelSize(ref.current, "width"),
-                                  height: panelSize(ref.current, "height"),
+                                  width: "100%",
+                                  height: "100%",
                                   opacity: 1,
                                   borderRadius: "var(--radius-5xl)",
                               }
@@ -229,7 +221,25 @@ function OpenPopover({
                     transition={reducedMotion ? { duration: 0 } : spring.smooth}
                 />
             )}
-            {children}
+            {anchorRef ? (
+                <motion.div
+                    initial={reducedMotion ? false : { opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.06 } }}
+                    transition={{
+                        duration: reducedMotion ? 0 : 0.12,
+                        delay: reducedMotion ? 0 : 0.06,
+                    }}
+                    style={{
+                        maxHeight: fit.maxHeight,
+                        overflowY: fit.maxHeight !== undefined ? "auto" : undefined,
+                    }}
+                >
+                    {children}
+                </motion.div>
+            ) : (
+                children
+            )}
         </motion.div>
     )
 }

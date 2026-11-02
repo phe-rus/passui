@@ -14,7 +14,7 @@ function PlaygroundDemo({ docs, values }: { docs: RegisteredDocs; values: PropVa
 }
 
 describe.each(getCatalog())("$docs.slug documentation", ({ docs, content }) => {
-    test("has prose and at least two working examples beyond usage and showcase", () => {
+    test("has prose and at least two working examples beyond usage and showcase", async () => {
         expect(content.summary.trim()).not.toBe("")
         expect(content.usage.trim()).not.toBe("")
         expect(content.anatomy.length).toBeGreaterThan(0)
@@ -26,7 +26,7 @@ describe.each(getCatalog())("$docs.slug documentation", ({ docs, content }) => {
             ["showcase", docs.showcase],
             ...docs.examples.map((example) => [example.id, example.component] as const),
         ] as const) {
-            expect(getExampleSource(docs.slug, id).trim(), id).not.toBe("")
+            expect((await getExampleSource(docs.slug, id)).trim(), id).not.toBe("")
             expect(renderToStaticMarkup(createElement(Component)), id).not.toBe("")
         }
         for (const example of docs.examples) {

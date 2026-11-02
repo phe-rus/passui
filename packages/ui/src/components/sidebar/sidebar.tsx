@@ -8,7 +8,7 @@ export interface SidebarSectionProps {
 }
 
 export interface SidebarItemContentProps {
-    icon: ReactNode
+    icon?: ReactNode
     /** Optional trailing count. */
     count?: number
     /** Matches the router link's active state. */
@@ -32,24 +32,33 @@ export function SidebarSection({ title, children }: SidebarSectionProps) {
 }
 
 /** Classes for a sidebar row; apply to the app's router link. */
-export function sidebarItemClass(active?: boolean): string {
+export type SidebarDensity = "regular" | "compact"
+
+export function sidebarItemClass(active?: boolean, density: SidebarDensity = "regular"): string {
     return cn(
-        "group flex items-center gap-2.5 rounded-2xl px-2.5 py-[7px] text-subheadline text-label no-underline transition-colors duration-fast",
-        active ? "bg-accent-soft font-medium text-label" : "hover:bg-fill/70"
+        "group flex w-full items-center gap-2.5 text-label no-underline transition-colors duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+        density === "compact"
+            ? "min-h-8 rounded-lg px-2 py-1 text-footnote [@media(pointer:coarse)]:min-h-10"
+            : "rounded-2xl px-2.5 py-[7px] text-subheadline",
+        active
+            ? "bg-fill font-medium"
+            : "font-normal text-label-secondary hover:bg-fill/70 hover:text-label"
     )
 }
 
 export function SidebarItemContent({ icon, count, active, children }: SidebarItemContentProps) {
     return (
         <>
-            <span
-                className={cn(
-                    "flex transition-colors",
-                    active ? "text-accent-text" : "text-label-secondary"
-                )}
-            >
-                {icon}
-            </span>
+            {icon && (
+                <span
+                    className={cn(
+                        "flex transition-colors",
+                        active ? "text-accent-text" : "text-label-secondary"
+                    )}
+                >
+                    {icon}
+                </span>
+            )}
             <span className="grow truncate">{children}</span>
             {count !== undefined && (
                 <span

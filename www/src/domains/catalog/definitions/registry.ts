@@ -1,3 +1,10 @@
+import { skeletonDocs } from "./skeleton/skeleton.docs"
+import { breadcrumbDocs } from "./breadcrumb/breadcrumb.docs"
+import { radioGroupDocs } from "./radio-group/radio-group.docs"
+import { comboBoxDocs } from "./combo-box/combo-box.docs"
+import { contentUnavailableViewDocs } from "./content-unavailable-view/content-unavailable-view.docs"
+import { keyboardShortcutDocs } from "./keyboard-shortcut/keyboard-shortcut.docs"
+import { codeBlockDocs } from "./code-block/code-block.docs"
 import { buttonDocs } from "./button/button.docs"
 import { accordionDocs } from "./accordion/accordion.docs"
 import { iconButtonDocs } from "./button/icon-button.docs"
@@ -45,6 +52,13 @@ import type { RegisteredDocs } from "./types"
 
 /** Every documented component. Add one line per docs file. */
 export const registry: readonly RegisteredDocs[] = [
+    skeletonDocs,
+    breadcrumbDocs,
+    radioGroupDocs,
+    comboBoxDocs,
+    contentUnavailableViewDocs,
+    keyboardShortcutDocs,
+    codeBlockDocs,
     accordionDocs,
     buttonDocs,
     iconButtonDocs,
@@ -91,6 +105,13 @@ export const registry: readonly RegisteredDocs[] = [
 ]
 
 export {
+    skeletonDocs,
+    breadcrumbDocs,
+    radioGroupDocs,
+    comboBoxDocs,
+    contentUnavailableViewDocs,
+    keyboardShortcutDocs,
+    codeBlockDocs,
     accordionDocs,
     dialogDocs,
     sheetDocs,

@@ -1,5 +1,5 @@
 import { getPageHead } from "@/domains/seo/get-page-head"
-import { ComponentsOverview } from "@/domains/catalog"
+import { ComponentsOverview } from "@/domains/catalog/views/components-overview"
 import { createFileRoute } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_site/_docs/components/")({

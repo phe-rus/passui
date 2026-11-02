@@ -30,7 +30,7 @@ export function PassuiProvider({ children }: PropsWithChildren) {
 export function setupFiles(
     framework: string,
     integration: boolean,
-    frameworkType: "react" = "react"
+    _frameworkType: "react" = "react"
 ) {
     const pipeline =
         framework === "next"
@@ -48,7 +48,7 @@ export function setupFiles(
 export function starterFiles(
     name: string,
     template: "vite" | "tanstack",
-    frameworkType: "react" = "react"
+    _frameworkType: "react" = "react"
 ) {
     const tanstack = template === "tanstack"
     const files: Record<string, string> = setupFiles(template, tanstack)

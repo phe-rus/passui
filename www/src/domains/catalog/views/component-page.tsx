@@ -1,3 +1,4 @@
+import { Breadcrumb } from "@passui/react/breadcrumb"
 import { ComponentNavigation } from "./component-navigation"
 import { buttonStyle } from "@passui/react/button"
 import { InfoIcon, LinkIcon } from "@passui/react/icons"
@@ -8,7 +9,7 @@ import type { DocsSettings } from "@/domains/settings"
 import { getEntry } from "../get-catalog"
 import { getSetup } from "../get-setup"
 import { componentTitle } from "../navigation"
-import { getExampleSource } from "../get-example-source"
+import { ExampleCode } from "./example-code"
 import { AnatomyTable } from "./anatomy-table"
 import { DocSection } from "./doc-section"
 import { ExampleCard } from "./example-card"
@@ -68,11 +69,25 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
         <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_13rem]">
             <article className="flex min-w-0 flex-col gap-5">
                 <header className="flex flex-col gap-2">
-                    <span className="font-mono">@passui/react · {docs.name}</span>
+                    <Breadcrumb
+                        label="Breadcrumb"
+                        items={[
+                            { label: "Components", href: "/components" },
+                            { label: componentTitle(entry) },
+                        ]}
+                        renderLink={(item) => (
+                            <Link
+                                to="/components"
+                                className="rounded-sm hover:text-label focus-visible:outline-2 focus-visible:outline-accent-text"
+                            >
+                                {item.label}
+                            </Link>
+                        )}
+                    />
                     <h1 className="font-brand text-large-title font-extrabold tracking-tight">
                         {componentTitle(entry)}
                     </h1>
-                    <p className="max-w-2xl">{content.summary}</p>
+                    <p className="max-w-2xl text-callout text-label-secondary">{content.summary}</p>
                     <div className="flex flex-wrap gap-2">
                         <Link
                             to="/preview/$slug"
@@ -117,7 +132,7 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
                 <DocSection
                     id="playground"
                     title="Playground"
-                    description="Change any option and the preview, the code and the address all follow. Share the address to share exactly this state."
+                    description="Adjust the preview and props. Share its URL to restore the same state."
                 >
                     <Playground docs={docs} settings={settings} rawProps={rawProps} />
                 </DocSection>
@@ -151,10 +166,7 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
                             )}
                         </div>
                         <div className="border-separator/60 border-t">
-                            <CodeView
-                                code={getExampleSource(docs.slug, "usage")}
-                                label={`${docs.slug}-usage.tsx`}
-                            />
+                            <ExampleCode slug={docs.slug} id="usage" />
                         </div>
                     </div>
                 </DocSection>

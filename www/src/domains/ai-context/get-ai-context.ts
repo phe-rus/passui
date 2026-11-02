@@ -16,7 +16,7 @@ const describe =
     "Passui (@passui/react) is Pherus's design system: native React controls, design tokens and themes, with names drawn from SwiftUI."
 
 /** One component as Markdown: what it is, its import, props and usage. */
-export function getComponentMarkdown(entry: CatalogEntry, origin: string): string {
+export async function getComponentMarkdown(entry: CatalogEntry, origin: string): Promise<string> {
     const { docs, content } = entry
     const setup = getSetup(docs.slug)
     const reference: ApiReference | undefined = (reactApi as Record<string, ApiReference>)[
@@ -50,7 +50,7 @@ export function getComponentMarkdown(entry: CatalogEntry, origin: string): strin
         "## Usage",
         "",
         "```tsx",
-        getExampleSource(docs.slug, "usage"),
+        await getExampleSource(docs.slug, "usage"),
         "```",
         "",
         "## Options",

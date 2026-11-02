@@ -1,5 +1,5 @@
 import { expect, test } from "vitest"
-import { catalogGroups, getCatalog, getNeighbours } from "../src/domains/catalog/get-catalog"
+import { getCatalog, getNeighbours } from "../src/domains/catalog/get-catalog"
 import { componentTitle, matchesComponent } from "../src/domains/catalog/navigation"
 
 test("search finds concepts by API name or purpose, regardless of case", () => {
@@ -19,16 +19,13 @@ test("every entry belongs to exactly one discoverable family", () => {
     expect(entries.find((entry) => entry.docs.slug === "toast")?.group).toBe("Feedback")
 })
 
-test("catalog navigation follows group order with stable alphabetical rows", () => {
+test("catalog and previous/next navigation share alphabetical order", () => {
     const entries = getCatalog()
     expect(entries).toHaveLength(new Set(entries.map((entry) => entry.docs.slug)).size)
     expect(entries.map((entry) => entry.docs.slug)).toEqual(
-        catalogGroups.flatMap((group) =>
-            entries
-                .filter((entry) => entry.group === group)
-                .sort((a, b) => componentTitle(a).localeCompare(componentTitle(b), "en"))
-                .map((entry) => entry.docs.slug)
-        )
+        [...entries]
+            .sort((a, b) => componentTitle(a).localeCompare(componentTitle(b), "en"))
+            .map((entry) => entry.docs.slug)
     )
     for (const [index, entry] of entries.entries()) {
         expect(getNeighbours(entry.docs.slug)).toEqual({
