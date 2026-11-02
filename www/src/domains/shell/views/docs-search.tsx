@@ -55,7 +55,9 @@ export function DocsSearch() {
             >
                 <SearchIcon size={16} />
                 <span className="hidden lg:inline">Search docs…</span>
-                <kbd className="ms-auto hidden lg:inline">{shortcut}</kbd>
+                <kbd className="ms-auto hidden rounded-full border border-separator/70 bg-paper/70 px-2 py-0.5 font-mono text-caption2 leading-none text-label-secondary lg:inline">
+                    {shortcut}
+                </kbd>
             </Button>
             <Sheet
                 open={open}

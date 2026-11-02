@@ -54,7 +54,7 @@ export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
 
     return (
         <div className="overflow-hidden rounded-5xl ring-1 ring-separator/60">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-separator/60 border-b bg-elevated px-5 py-3 md:px-6">
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 border-separator/60 border-b bg-elevated px-4 py-2">
                 <p className="text-footnote text-label-secondary">
                     Preview settings and component props are saved in the URL.
                 </p>

@@ -45,41 +45,70 @@ function options<T extends string>(labels: Record<T, string>) {
 /** How the preview looks: theme, accent, platform and frame size (AC-4). */
 export function SettingsBar({ settings, onChange }: SettingsBarProps) {
     return (
-        <div className="flex flex-col gap-5 p-5 md:p-6">
-            <div className="grid gap-5 sm:grid-cols-3">
-                <SegmentedControl
-                    label="Theme"
-                    value={settings.theme}
-                    options={options(themeLabels)}
-                    onChange={(theme) => onChange({ theme })}
-                />
-                <Picker
-                    label="Platform"
-                    value={settings.os}
-                    options={platformOptions.map((value) => ({
-                        value,
-                        label: platformLabels[value],
+        <div className="flex flex-col gap-3 p-4">
+            <div className="grid gap-3 sm:grid-cols-3">
+                <div className="flex flex-col gap-1.5">
+                    <span
+                        aria-hidden="true"
+                        className="text-caption2 font-medium text-label-tertiary"
+                    >
+                        Theme
+                    </span>
+                    <SegmentedControl
+                        label="Theme"
+                        value={settings.theme}
+                        options={options(themeLabels)}
+                        onChange={(theme) => onChange({ theme })}
+                    />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                    <span
+                        aria-hidden="true"
+                        className="text-caption2 font-medium text-label-tertiary"
+                    >
+                        Platform
+                    </span>
+                    <Picker
+                        label="Platform"
+                        value={settings.os}
+                        options={platformOptions.map((value) => ({
+                            value,
+                            label: platformLabels[value],
+                        }))}
+                        onChange={(os) => onChange({ os })}
+                    />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                    <span
+                        aria-hidden="true"
+                        className="text-caption2 font-medium text-label-tertiary"
+                    >
+                        Viewport
+                    </span>
+                    <SegmentedControl
+                        label="Viewport"
+                        value={settings.viewport}
+                        options={options(viewportLabels)}
+                        onChange={(viewport) => onChange({ viewport })}
+                    />
+                </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+                <span aria-hidden="true" className="text-caption2 font-medium text-label-tertiary">
+                    Accent
+                </span>
+                <SwatchPicker
+                    label="Accent"
+                    value={settings.accent}
+                    onChange={(accent) => onChange({ accent })}
+                    options={Object.values(accents).map((accent) => ({
+                        value: accent.id,
+                        label: accentNames[accent.id],
+                        color: accent.swatch,
+                        ink: accent.light.accentText,
                     }))}
-                    onChange={(os) => onChange({ os })}
-                />
-                <SegmentedControl
-                    label="Viewport"
-                    value={settings.viewport}
-                    options={options(viewportLabels)}
-                    onChange={(viewport) => onChange({ viewport })}
                 />
             </div>
-            <SwatchPicker
-                label="Accent"
-                value={settings.accent}
-                onChange={(accent) => onChange({ accent })}
-                options={Object.values(accents).map((accent) => ({
-                    value: accent.id,
-                    label: accentNames[accent.id],
-                    color: accent.swatch,
-                    ink: accent.light.accentText,
-                }))}
-            />
         </div>
     )
 }

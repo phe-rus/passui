@@ -10,11 +10,11 @@ import { expect, test } from "vitest"
 import { getCatalog, catalogGroups } from "@/domains/catalog/get-catalog"
 import { DocsNav } from "@/domains/catalog/views/docs-nav"
 
-async function renderNavigation() {
+async function renderNavigation(path = "/") {
     const routeTree = createRootRoute({ component: DocsNav })
     const router = createRouter({
         routeTree,
-        history: createMemoryHistory({ initialEntries: ["/"] }),
+        history: createMemoryHistory({ initialEntries: [path] }),
     })
     await router.load()
     return renderToStaticMarkup(createElement(RouterProvider, { router }))
@@ -35,10 +35,17 @@ test("sidebar distinguishes guide roots from nested component categories", async
     expect(html.match(/href="\/components"/g)).toHaveLength(1)
     const categories = html.slice(componentsStart)
     for (const group of catalogGroups) expect(categories).toContain(`>${group}</span>`)
-    for (const { docs } of getCatalog())
-        expect(
-            categories.match(new RegExp(`href="/components/react/${docs.slug}"`, "g")),
-            docs.slug
-        ).toHaveLength(1)
-    expect(categories.match(/aria-expanded="true"/g)).toHaveLength(catalogGroups.length)
+    expect(categories.match(/aria-expanded="true"/g) ?? []).toHaveLength(0)
+})
+
+test("sidebar opens the current component category without expanding the whole tree", async () => {
+    const html = await renderNavigation("/components/react/button")
+    const categories = html.slice(html.indexOf(">Components</h2>"))
+    expect(categories.match(/aria-expanded="true"/g) ?? []).toHaveLength(1)
+    const active = getCatalog().find((entry) => entry.docs.slug === "button")!
+    for (const { docs, group } of getCatalog()) {
+        const link = `href="/components/react/${docs.slug}"`
+        expect(categories.includes(link), docs.slug).toBe(group === active.group)
+    }
+    expect(categories.match(/aria-expanded="true"/g)).toHaveLength(1)
 })

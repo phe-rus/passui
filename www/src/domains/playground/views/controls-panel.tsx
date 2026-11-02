@@ -64,7 +64,7 @@ function ControlRow({ name, control, value, onChange }: ControlRowProps) {
 /** One control per documented prop, in the order the docs list them. */
 export function ControlsPanel({ docs, values, onChange }: ControlsPanelProps) {
     return (
-        <div className="grid gap-x-6 gap-y-5 p-5 sm:grid-cols-2 md:p-6">
+        <div className="grid gap-x-4 gap-y-3 p-4 sm:grid-cols-2">
             {Object.entries(docs.controls).map(([name, control]) =>
                 control ? (
                     <div

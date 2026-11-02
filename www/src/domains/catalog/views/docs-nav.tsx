@@ -44,7 +44,9 @@ export function DocsNav() {
     useEffect(() => {
         const saved: Partial<Record<CatalogGroup, boolean>> = {}
         try {
-            const stored: unknown = JSON.parse(localStorage.getItem("passui-docs-groups") ?? "{}")
+            const stored: unknown = JSON.parse(
+                localStorage.getItem("passui-docs-groups-v2") ?? "{}"
+            )
             if (stored && typeof stored === "object") {
                 for (const group of catalogGroups) {
                     const value = Reflect.get(stored, group)
@@ -72,7 +74,7 @@ export function DocsNav() {
         const next = { ...expanded, [group]: open }
         setExpanded(next)
         try {
-            localStorage.setItem("passui-docs-groups", JSON.stringify(next))
+            localStorage.setItem("passui-docs-groups-v2", JSON.stringify(next))
         } catch {
             /* Keep the current session usable. */
         }
@@ -132,7 +134,7 @@ export function DocsNav() {
                         <li key={group}>
                             <DisclosureGroup
                                 label={group}
-                                open={expanded[group] ?? true}
+                                open={expanded[group] ?? group === activeGroup}
                                 onOpenChange={(open) => toggle(group, open)}
                                 className="[&>h3>button]:min-h-8 [&>h3>button]:flex-row-reverse [&>h3>button]:rounded-lg [&>h3>button]:px-2.5 [&>h3>button]:py-1 [&>h3>button]:text-footnote [&>h3>button>span]:flex-1 [&>section>div>div]:px-0 [&>section>div>div]:pb-0"
                             >

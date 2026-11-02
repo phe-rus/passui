@@ -15,7 +15,7 @@ export function PopoverShowcase() {
     useDismiss(anchor, open, () => setOpen(false))
 
     return (
-        <div className="flex h-80 w-full max-w-sm justify-end">
+        <div className="flex h-80 w-full max-w-sm items-start justify-end">
             <div ref={anchor} className="relative">
                 <IconButton
                     type="button"

@@ -19,6 +19,14 @@ type CodeViewProps = {
 
 const foldAfterLines = 6
 
+const languageNames: Record<CodeLang, string> = {
+    tsx: "TypeScript JSX",
+    css: "CSS",
+    json: "JSON",
+    shellscript: "Shell",
+    markdown: "Markdown",
+}
+
 /**
  * Code with a copy button. Plain text shows at the same size until the
  * highlighter loads, so nothing shifts when the colours arrive.
@@ -41,23 +49,44 @@ export function CodeView({ code, label, collapsible = true, lang = "tsx" }: Code
 
     return (
         <div className="code-view relative bg-elevated">
-            {label && (
-                <div className="border-separator/60 border-b px-5 py-2.5 font-mono text-caption text-label-tertiary">
-                    {label}
+            {(label || lang) && (
+                <div className="flex min-h-9 items-center justify-between gap-3 border-separator/60 border-b px-4 py-2">
+                    <span className="min-w-0 truncate font-mono text-caption text-label-tertiary">
+                        {label ?? "Example"}
+                    </span>
+                    <div className="flex shrink-0 items-center gap-1.5">
+                        <span className="rounded-full bg-fill/70 px-2 py-1 text-caption2 font-medium text-label-secondary">
+                            {languageNames[lang]}
+                        </span>
+                        <IconButton
+                            label={copied ? "Copied" : "Copy code"}
+                            variant="ghost"
+                            size="icon-xs"
+                            onClick={copy}
+                        >
+                            {copied ? <CheckIcon size={16} /> : <CopyIcon size={16} />}
+                        </IconButton>
+                    </div>
                 </div>
             )}
             <div className={cn("relative", folded && "max-h-36 overflow-hidden")}>
                 {html ? (
                     <div
-                        className="[&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:p-5 [&_pre]:pe-16 [&_pre]:font-mono [&_pre]:text-footnote [&_pre]:leading-relaxed"
+                        className="[&_pre]:m-0 [&_pre]:overflow-x-auto [&_pre]:py-4 [&_pre]:pe-14 [&_pre]:font-mono [&_pre]:text-footnote [&_pre]:leading-relaxed"
                         // Shiki escapes the displayed example source
                         dangerouslySetInnerHTML={{
                             __html: html,
                         }}
                     />
                 ) : (
-                    <pre className="m-0 overflow-x-auto p-5 pe-16 font-mono text-footnote leading-relaxed text-label">
-                        <code>{code}</code>
+                    <pre className="code-editor m-0 overflow-x-auto py-4 pe-14 font-mono text-footnote leading-relaxed text-label">
+                        <code>
+                            {code.split("\n").map((line, index) => (
+                                <span className="code-line" key={`${index}-${line}`}>
+                                    {line || " "}
+                                </span>
+                            ))}
+                        </code>
                     </pre>
                 )}
                 {folded && (
@@ -85,15 +114,6 @@ export function CodeView({ code, label, collapsible = true, lang = "tsx" }: Code
                     </Button>
                 </div>
             )}
-            <IconButton
-                label={copied ? "Copied" : "Copy code"}
-                variant="ghost"
-                size="icon-sm"
-                onClick={copy}
-                className={cn("absolute right-3", label ? "top-1" : "top-3")}
-            >
-                {copied ? <CheckIcon size={18} /> : <CopyIcon size={18} />}
-            </IconButton>
             {clipboard.fallback}
         </div>
     )
