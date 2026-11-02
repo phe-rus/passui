@@ -47,3 +47,26 @@ focus restoration in ChromeOS. Do not label those visually verified.
 
 See [website refinement](website-refinement.md),
 [component coverage](component-coverage.md) and [release procedure](../passui-release.md).
+
+## Publication checkpoint
+
+Source commits `86e3e92` and `9cf11a6` passed GitHub CI. Release versions are
+committed in `1da2a82`: tokens 0.1.1, React 0.1.20, TanStack 0.2.5 and CLI 0.2.2.
+These versions have not been published in this continuation. Do not claim release
+availability from the committed manifests.
+
+The diagnostic tokens run [41432565370](https://github.com/phe-rus/passui/actions/runs/41432565370)
+passed workspace validation and packing. GitHub issued an OIDC token (HTTP 200),
+but npm rejected the package exchange (HTTP 404) with
+`OIDC token exchange error - package not found`. The generic final error is
+ENEEDAUTH. The owner has been asked to verify the package trusted publisher:
+owner `phe-rus`, repository `passui`, workflow `publish.yml`, environment
+`npm-publish`. Resume tokens first once that configuration is verified, then
+publish React, TanStack and CLI in order, checking exact registry versions.
+
+Final local evidence: 299 tests pass (104 UI, 160 website, 13 tokens, 7 TanStack,
+15 CLI); checks, production build, typechecks, archive exports and size budgets
+pass. All 323 dev HTTP checks passed, including every registered preview scene
+and component page. Dev is running on 0.0.0.0:3004. ChromeOS was opened through
+its URL handler, but no controlled ChromeOS browser surface is exposed. Browser
+interaction and motion verification remains open; the website was not deployed.

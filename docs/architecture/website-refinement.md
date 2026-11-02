@@ -172,3 +172,9 @@ touch and actual browser focus behavior still need that environment. These are
 remaining verification boundaries, not passing browser checks. Website deployment
 has not been performed. Package publication is now authorized and tracked through
 workflow outcomes and registry evidence.
+
+Final dev smoke check: all 323 requests passed, covering public pages, all usage,
+showcase and example preview scenes, metadata endpoints and invalid routes. This
+is HTTP and SSR evidence, not an interactive browser result. Package publication
+is blocked at npm OIDC token exchange; see the current React checkpoint for the
+run, exact error and required trust identity.

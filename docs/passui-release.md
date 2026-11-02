@@ -32,3 +32,12 @@ The OIDC job does not set setup-node registry-url, which can insert a placeholde
 auth token. Package publishConfig and the publish command name npm explicitly.
 If OIDC returns E404, verify each package trusted publisher matches repository
 `phe-rus/passui`, workflow `publish.yml` and environment `npm-publish`.
+
+## Current release state, 2026-11-02
+
+Prepared versions: tokens 0.1.1, React 0.1.20, TanStack 0.2.5 and CLI 0.2.2.
+They are unpublished. The [tokens diagnostic run](https://github.com/phe-rus/passui/actions/runs/41432565370)
+passed validation and packing, obtained a GitHub OIDC token, and failed npm token
+exchange with HTTP 404, `OIDC token exchange error - package not found`.
+Verify the tokens package trusted publisher before retrying. Dependent releases
+have not been attempted, preserving package order. No website deployment ran.
