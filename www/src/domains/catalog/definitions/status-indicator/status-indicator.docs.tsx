@@ -23,6 +23,7 @@ export const statusIndicatorDocs = defineDocs<DemoProps>()({
                 offline: true,
             },
             default: "saved",
+            required: true,
         },
         children: {
             kind: "text",

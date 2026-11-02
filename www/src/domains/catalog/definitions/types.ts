@@ -9,11 +9,14 @@ export type SelectControl<T extends string> = {
     kind: "select"
     options: Record<T, true>
     default: T
+    /** Always include required props in copied code, including their default values. */
+    required?: true
 }
 
 export type BooleanControl = {
     kind: "boolean"
     default: boolean
+    required?: true
 }
 
 export type TextControl = {
@@ -88,6 +91,8 @@ export type SnippetChildren = {
      * itself: `Conversation.Messages` for `Conversation`.
      */
     element?: string
+    /** JSX placed around the element, for an overlay trigger or anchored parent. */
+    wrapper?: { before: string; after: string }
 }
 
 export type ComponentDocs<C, E extends readonly Example<C>[]> = {

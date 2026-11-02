@@ -1,3 +1,4 @@
+import { componentTitle } from "./navigation"
 import { catalogIcons } from "@passui/react/icons"
 import {
     buttonDocs,
@@ -357,7 +358,7 @@ export const catalogGroups: readonly CatalogGroup[] = [
 const orderedEntries = catalogGroups.flatMap((group) =>
     entries
         .filter((entry) => entry.group === group)
-        .sort((left, right) => left.docs.name.localeCompare(right.docs.name, "en"))
+        .sort((left, right) => componentTitle(left).localeCompare(componentTitle(right), "en"))
 )
 
 export function getCatalog(): readonly CatalogEntry[] {

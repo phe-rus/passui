@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@passui/react/table"
 import type { AnyControl, RegisteredDocs } from "@/domains/catalog/definitions"
 import reactApi from "../react-api.generated.json"
 import { ApiPropsTable, type ApiReference } from "./api-props-table"
@@ -35,34 +36,36 @@ export function PropsTable({ docs, descriptions }: PropsTableProps) {
     if (reference) return <ApiPropsTable reference={reference} descriptions={descriptions} />
     return (
         <div className="overflow-x-auto rounded-3xl ring-1 ring-separator/60">
-            <table className="w-full min-w-160 border-collapse text-left">
-                <thead className="bg-fill/50 *:text-sm!">
-                    <tr>
-                        <th className="px-3 py-2">Prop</th>
-                        <th className="px-3 py-2">Type</th>
-                        <th className="px-3 py-2">Default</th>
-                        <th className="px-3 py-2">Description</th>
-                    </tr>
-                </thead>
-                <tbody className="*:text-xs!">
+            <Table className="w-full min-w-160 border-collapse text-left">
+                <TableHeader className="bg-fill/50 *:text-sm!">
+                    <TableRow>
+                        <TableHead className="px-3 py-2">Prop</TableHead>
+                        <TableHead className="px-3 py-2">Type</TableHead>
+                        <TableHead className="px-3 py-2">Default</TableHead>
+                        <TableHead className="px-3 py-2">Description</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody className="*:text-xs!">
                     {Object.entries(docs.controls).map(([name, control]) =>
                         control ? (
-                            <tr key={name} className="border-separator/60 border-t align-top">
-                                <td className="px-3 py-2 font-mono font-semibold whitespace-nowrap wrap-normal">
+                            <TableRow key={name} className="border-separator/60 border-t align-top">
+                                <TableCell className="whitespace-normal px-3 py-2 font-mono font-semibold whitespace-nowrap wrap-normal">
                                     {name}
-                                </td>
-                                <td className="max-w-72 px-3 py-2 font-mono wrap-normal">
+                                </TableCell>
+                                <TableCell className="whitespace-normal max-w-72 px-3 py-2 font-mono wrap-normal">
                                     <TypeOf control={control} />
-                                </td>
-                                <td className="px-3 py-2 font-mono whitespace-nowrap wrap-normal">
+                                </TableCell>
+                                <TableCell className="whitespace-normal px-3 py-2 font-mono whitespace-nowrap wrap-normal">
                                     {defaultOf(control)}
-                                </td>
-                                <td className="px-3 py-2">{descriptions[name]}</td>
-                            </tr>
+                                </TableCell>
+                                <TableCell className="whitespace-normal px-3 py-2">
+                                    {descriptions[name]}
+                                </TableCell>
+                            </TableRow>
                         ) : null
                     )}
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
         </div>
     )
 }

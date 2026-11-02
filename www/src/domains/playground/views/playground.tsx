@@ -1,6 +1,6 @@
 import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { useNavigate } from "@tanstack/react-router"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { getChangedProps, resolveProps } from "@/domains/catalog"
 import { cn } from "@passui/react/cn"
 import { Button } from "@passui/react/button"
@@ -40,6 +40,7 @@ export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
         from: "/components/react/$slug",
     })
     const clipboard = useCopyText()
+    const [resetVersion, setResetVersion] = useState(0)
     const values = useMemo(() => resolveProps(docs, rawProps), [docs, rawProps])
     const snippet = useFormattedCode(useMemo(() => getSnippet(docs, values), [docs, values]))
     const previewSettings = useMemo(
@@ -71,7 +72,7 @@ export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
                                 }),
                                 replace: true,
                                 resetScroll: false,
-                            })
+                            }).then(() => setResetVersion((version) => version + 1))
                         }}
                     >
                         <UndoIcon size={14} />
@@ -109,13 +110,13 @@ export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
             <div className="overflow-x-auto bg-fill/40">
                 <div
                     className={cn(
-                        "mx-auto shrink-0 transition-[width] duration-300",
+                        "mx-auto shrink-0 transition-[width] duration-300 motion-reduce:transition-none",
                         frameWidths[settings.viewport],
                         settings.viewport !== "fill" && "border-separator/60 border-x"
                     )}
                 >
                     <PreviewFrame
-                        key={docs.slug}
+                        key={`${docs.slug}-${resetVersion}`}
                         docs={docs}
                         settings={previewSettings}
                         props={values}

@@ -1,3 +1,5 @@
+import { CompactDatePickerOptional } from "./examples/compact-date-picker-optional"
+import { CompactDatePickerBounded } from "./examples/compact-date-picker-bounded"
 import type { ComponentProps } from "react"
 import { useState } from "react"
 import { defineDocs } from "../types"
@@ -72,5 +74,9 @@ export const compactDatePickerDocs = defineDocs<DemoProps>()({
     }),
     usage: CompactDatePickerUsage,
     showcase: CompactDatePickerShowcase,
-    examples: [],
+    examples: [
+        { id: "bounded", component: CompactDatePickerBounded },
+        { id: "optional", component: CompactDatePickerOptional },
+    ],
+    previewHeight: 440,
 })

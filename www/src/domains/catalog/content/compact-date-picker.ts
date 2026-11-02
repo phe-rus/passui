@@ -9,7 +9,16 @@ export const compactDatePickerContent: ComponentContent<typeof compactDatePicker
         label: "Names the button and the calendar for assistive technology.",
         locale: "Sets the date format, the month names and the day each week starts on.",
     },
-    examples: {},
+    examples: {
+        bounded: {
+            title: "Date bounds",
+            description: "Limit appointments to a date range; days outside it cannot be selected.",
+        },
+        optional: {
+            title: "Optional date",
+            description: "Start empty and provide a clear action so reminders can be removed.",
+        },
+    },
     anatomy: [
         {
             element: "Button",

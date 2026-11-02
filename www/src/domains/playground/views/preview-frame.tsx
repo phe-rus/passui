@@ -4,12 +4,16 @@ import { useEffect, useRef, useState } from "react"
 import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { getChangedProps, type PropValues } from "@/domains/catalog"
 import { type ParentMessage, type StateMessage, frameMessageSchema } from "@/domains/preview"
+import type { z } from "zod"
+import type { previewSearchSchema } from "@/domains/settings"
 import type { PreviewSettings } from "@/domains/settings"
 
 type PreviewFrameProps = {
     docs: RegisteredDocs
     settings: PreviewSettings
     props: PropValues
+    scene?: z.output<typeof previewSearchSchema>["scene"]
+    example?: string
 }
 
 const minimumHeight = 160
@@ -26,7 +30,13 @@ function ping(frame: HTMLIFrameElement | null) {
  * slug by the caller), so later changes travel as messages and the frame
  * never reloads (contract item 14).
  */
-export function PreviewFrame({ docs, settings, props }: PreviewFrameProps) {
+export function PreviewFrame({
+    docs,
+    settings,
+    props,
+    scene = "component",
+    example = "",
+}: PreviewFrameProps) {
     const router = useRouter()
     const frame = useRef<HTMLIFrameElement>(null)
     const [ready, setReady] = useState(false)
@@ -42,6 +52,8 @@ export function PreviewFrame({ docs, settings, props }: PreviewFrameProps) {
                 params: { slug: docs.slug },
                 search: {
                     ...settings,
+                    scene,
+                    example,
                     props: getChangedProps(docs, props),
                 },
             }).href
@@ -87,8 +99,12 @@ export function PreviewFrame({ docs, settings, props }: PreviewFrameProps) {
                 key={attempt}
                 ref={frame}
                 src={src}
-                title={`${docs.name} interactive preview`}
-                onLoad={() => ping(frame.current)}
+                title={`${docs.name} ${scene === "component" ? "interactive" : scene === "example" ? example : scene} preview`}
+                onLoad={() => {
+                    setReady(false)
+                    ping(frame.current)
+                }}
+                tabIndex={ready ? 0 : -1}
                 style={{ height }}
                 className="block w-full border-0 bg-transparent transition-[height] duration-300 motion-reduce:transition-none"
             />

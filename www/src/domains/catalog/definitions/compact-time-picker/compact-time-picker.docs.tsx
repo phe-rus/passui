@@ -1,3 +1,5 @@
+import { CompactTimePickerLocales } from "./examples/compact-time-picker-locales"
+import { CompactTimePickerIntervals } from "./examples/compact-time-picker-intervals"
 import type { ComponentProps } from "react"
 import { useState } from "react"
 import { defineDocs } from "../types"
@@ -71,5 +73,9 @@ export const compactTimePickerDocs = defineDocs<DemoProps>()({
     }),
     usage: CompactTimePickerUsage,
     showcase: CompactTimePickerShowcase,
-    examples: [],
+    examples: [
+        { id: "intervals", component: CompactTimePickerIntervals },
+        { id: "locales", component: CompactTimePickerLocales },
+    ],
+    previewHeight: 440,
 })

@@ -1,3 +1,4 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@passui/react/table"
 import { DocSection } from "./doc-section"
 
 export interface ApiProp {
@@ -27,22 +28,22 @@ function SurfaceTable({
         <div className="flex flex-col gap-3">
             {surface.props.length > 0 && (
                 <div className="overflow-x-auto rounded-xl ring-1 ring-separator/60">
-                    <table className="w-full min-w-xl border-collapse text-left">
-                        <thead className="bg-fill/50 *:text-sm!">
-                            <tr>
-                                <th className="px-3 py-2">Prop</th>
-                                <th className="px-3 py-2">Type</th>
-                                <th className="px-3 py-2">Default</th>
-                                <th className="px-3 py-2">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody className="*:text-xs!">
+                    <Table className="w-full min-w-xl border-collapse text-left">
+                        <TableHeader className="bg-fill/50 *:text-sm!">
+                            <TableRow>
+                                <TableHead className="px-3 py-2">Prop</TableHead>
+                                <TableHead className="px-3 py-2">Type</TableHead>
+                                <TableHead className="px-3 py-2">Default</TableHead>
+                                <TableHead className="px-3 py-2">Description</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody className="*:text-xs!">
                             {surface.props.map((prop) => (
-                                <tr
+                                <TableRow
                                     key={prop.name}
                                     className="border-separator/60 border-t align-top"
                                 >
-                                    <td className="px-3 py-2 font-mono font-semibold whitespace-nowrap">
+                                    <TableCell className="whitespace-normal px-3 py-2 font-mono font-semibold whitespace-nowrap">
                                         {prop.name}
                                         {prop.required && (
                                             <span
@@ -52,20 +53,20 @@ function SurfaceTable({
                                                 *
                                             </span>
                                         )}
-                                    </td>
-                                    <td className="max-w-72 px-3 py-2 font-mono wrap-break-word">
+                                    </TableCell>
+                                    <TableCell className="whitespace-normal max-w-72 px-3 py-2 font-mono wrap-break-word">
                                         {prop.type}
-                                    </td>
-                                    <td className="px-3 py-2 font-mono">
+                                    </TableCell>
+                                    <TableCell className="whitespace-normal px-3 py-2 font-mono">
                                         {prop.defaultValue ?? "—"}
-                                    </td>
-                                    <td className="px-3 py-2">
+                                    </TableCell>
+                                    <TableCell className="whitespace-normal px-3 py-2">
                                         {prop.description || descriptions[prop.name] || "—"}
-                                    </td>
-                                </tr>
+                                    </TableCell>
+                                </TableRow>
                             ))}
-                        </tbody>
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
             )}
             {surface.props.some((prop) => prop.required) && (

@@ -34,3 +34,13 @@
         color: var(--shiki-dark);
     }
 }
+
+/* Explicit appearance takes priority over the system for highlighted examples. */
+[data-theme="light"] .code-view .shiki,
+[data-theme="light"] .code-view .shiki span {
+    color: var(--shiki-light);
+}
+[data-theme="dark"] .code-view .shiki,
+[data-theme="dark"] .code-view .shiki span {
+    color: var(--shiki-dark);
+}

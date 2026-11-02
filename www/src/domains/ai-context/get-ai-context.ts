@@ -1,3 +1,6 @@
+import reactApi from "@/domains/catalog/react-api.generated.json"
+import { getSetup } from "@/domains/catalog/get-setup"
+import type { ApiReference, ApiSurface } from "@/domains/catalog/views/api-props-table"
 import { accents, textStyles } from "@passui/react/tokens"
 import { catalogGroups, getCatalog } from "@/domains/catalog/get-catalog"
 import { getExampleSource } from "@/domains/catalog/get-example-source"
@@ -15,6 +18,17 @@ const describe =
 /** One component as Markdown: what it is, its import, props and usage. */
 export function getComponentMarkdown(entry: CatalogEntry, origin: string): string {
     const { docs, content } = entry
+    const setup = getSetup(docs.slug)
+    const reference: ApiReference | undefined = (reactApi as Record<string, ApiReference>)[
+        docs.slug
+    ]
+    const api = (surface: ApiSurface) => [
+        ...surface.props.map(
+            (prop) =>
+                `- \`${prop.name}\`${prop.required ? " (required)" : ""}: \`${prop.type.replaceAll("`", "\\`")}\`${prop.defaultValue === null ? "" : `; default: ${prop.defaultValue}`}${prop.description ? `. ${prop.description}` : ""}`
+        ),
+        ...surface.native.map((type) => `- Also accepts native props through \`${type}\`.`),
+    ]
     const props = Object.entries(content.propDescriptions)
         .map(([name, text]) => `- \`${name}\`: ${text}`)
         .join("\n")
@@ -32,6 +46,7 @@ export function getComponentMarkdown(entry: CatalogEntry, origin: string): strin
         `import { ${docs.name} } from "${docs.importPath}"`,
         "```",
         "",
+        ...(setup ? ["## Setup", "", setup.description, "", "```tsx", setup.code, "```", ""] : []),
         "## Usage",
         "",
         "```tsx",
@@ -42,6 +57,15 @@ export function getComponentMarkdown(entry: CatalogEntry, origin: string): strin
         "",
         props,
         "",
+        ...(reference
+            ? [
+                  "## API reference",
+                  "",
+                  ...api(reference),
+                  ...reference.parts.flatMap((part) => ["", `### ${part.name}`, "", ...api(part)]),
+                  "",
+              ]
+            : []),
         "## Best practices",
         "",
         practices,
@@ -99,7 +123,7 @@ export function getSkillMarkdown(origin: string): string {
             "",
             ...entries.map(
                 ({ docs, content }) =>
-                    `- \`${docs.name}\` from \`${docs.importPath}\`: ${content.summary} ${content.usage}`
+                    `- [\`${docs.name}\`](${origin}/components/react/${docs.slug}) from \`${docs.importPath}\`: ${content.summary} ${content.usage}`
             ),
         ]
     })

@@ -6,7 +6,7 @@ export type PropValues = Record<string, ControlValue>
 function isValid(control: AnyControl, value: unknown) {
     switch (control.kind) {
         case "select":
-            return typeof value === "string" && value in control.options
+            return typeof value === "string" && Object.hasOwn(control.options, value)
         case "boolean":
             return typeof value === "boolean"
         case "text":

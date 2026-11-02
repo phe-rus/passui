@@ -1,3 +1,11 @@
+import { Sheet } from "@passui/react/sheet"
+import {
+    SearchList,
+    SearchListField,
+    SearchListResults,
+    SearchListItem,
+    SearchListEmpty,
+} from "@passui/react/search-list"
 import { HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons"
 import { TabBarFiveTabs } from "./examples/tab-bar-five-tabs"
 
@@ -36,34 +44,61 @@ const tabs = [
 
 function TabBarDemo({ label, active, search }: DemoProps) {
     const [current, setCurrent] = useState<DemoProps["active"]>(active)
+    const [searchOpen, setSearchOpen] = useState(false)
     return (
-        <div className="relative h-40 w-full max-w-sm overflow-hidden rounded-5xl bg-fill/40">
-            <TabBar
-                label={label}
-                tabs={tabs}
-                active={current}
-                search={
-                    search
-                        ? {
-                              label: "Search",
-                              onPress: () => {},
-                          }
-                        : undefined
-                }
-                className="absolute inset-x-3 bottom-3"
-                renderLink={(tab, props) => (
-                    <a
-                        key={tab.id}
-                        href={`#${tab.id}`}
-                        {...props}
-                        onClick={(event) => {
-                            event.preventDefault()
-                            setCurrent(tab.id)
-                        }}
+        <>
+            <Sheet open={searchOpen} onClose={() => setSearchOpen(false)} label="Search tabs">
+                <SearchList className="p-4">
+                    <SearchListField
+                        autoFocus
+                        aria-label="Search tabs"
+                        placeholder="Search tabs…"
                     />
-                )}
-            />
-        </div>
+                    <SearchListResults>
+                        <SearchListEmpty>No matching tabs.</SearchListEmpty>
+                        {tabs.map((tab) => (
+                            <SearchListItem
+                                key={tab.id}
+                                value={tab.label}
+                                onSelect={() => {
+                                    setCurrent(tab.id)
+                                    setSearchOpen(false)
+                                }}
+                            >
+                                {tab.label}
+                            </SearchListItem>
+                        ))}
+                    </SearchListResults>
+                </SearchList>
+            </Sheet>
+            <div className="relative h-40 w-full max-w-sm overflow-hidden rounded-5xl bg-fill/40">
+                <TabBar
+                    label={label}
+                    tabs={tabs}
+                    active={current}
+                    search={
+                        search
+                            ? {
+                                  label: "Search",
+                                  onPress: () => setSearchOpen(true),
+                              }
+                            : undefined
+                    }
+                    className="absolute inset-x-3 bottom-3"
+                    renderLink={(tab, props) => (
+                        <a
+                            key={tab.id}
+                            href={`#${tab.id}`}
+                            {...props}
+                            onClick={(event) => {
+                                event.preventDefault()
+                                setCurrent(tab.id)
+                            }}
+                        />
+                    )}
+                />
+            </div>
+        </>
     )
 }
 
@@ -89,31 +124,44 @@ export const tabBarDocs = defineDocs<DemoProps>()({
         search: { kind: "boolean", default: true },
     },
     render: (values) => <TabBarDemo key={values.active} {...values} />,
-    childrenSnippet: ({ search }) => ({
+    childrenSnippet: ({ search, active }) => ({
         imports: [
+            'import { useState } from "react"',
             'import { HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons"',
-            `import { Link, useLocation${search ? ", useNavigate" : ""} } from "@tanstack/react-router"`,
+            ...(search
+                ? [
+                      'import { Sheet } from "@passui/react/sheet"',
+                      'import { SearchList, SearchListField, SearchListResults, SearchListItem } from "@passui/react/search-list"',
+                  ]
+                : []),
         ],
         setup: [
             "const tabs = [",
-            '    { id: "/", label: "Home", icon: <HomeIcon size={22} /> },',
-            '    { id: "/library", label: "Library", icon: <LibraryIcon size={22} /> },',
-            '    { id: "/profile", label: "Profile", icon: <PersonIcon size={22} /> },',
+            '    { id: "home", label: "Home", icon: <HomeIcon size={22} /> },',
+            '    { id: "library", label: "Library", icon: <LibraryIcon size={22} /> },',
+            '    { id: "profile", label: "Profile", icon: <PersonIcon size={22} /> },',
             "]",
-            "const { pathname } = useLocation()",
-            ...(search ? ["const navigate = useNavigate()"] : []),
+            `const [active, setActive] = useState(${JSON.stringify(active)})`,
+            ...(search ? ["const [searchOpen, setSearchOpen] = useState(false)"] : []),
         ],
         children: "",
         omit: ["active", "search"],
+        ...(search
+            ? {
+                  wrapper: {
+                      before: '<><Sheet open={searchOpen} onClose={() => setSearchOpen(false)} label="Search tabs"><SearchList className="p-4"><SearchListField autoFocus aria-label="Search tabs" /><SearchListResults>{tabs.map((tab) => <SearchListItem key={tab.id} value={tab.label} onSelect={() => { setActive(tab.id); setSearchOpen(false) }}>{tab.label}</SearchListItem>)}</SearchListResults></SearchList></Sheet>',
+                      after: "</>",
+                  },
+              }
+            : {}),
         expressionProps: {
             tabs: "tabs",
-            active: "pathname",
+            active: "active",
             ...(search
-                ? {
-                      search: '{ label: "Search", onPress: () => navigate({ to: "/search" }) }',
-                  }
+                ? { search: '{ label: "Search", onPress: () => setSearchOpen(true) }' }
                 : {}),
-            renderLink: "(tab, props) => <Link key={tab.id} to={tab.id} {...props} />",
+            renderLink:
+                "(tab, props) => <a key={tab.id} href={'#' + tab.id} {...props} onClick={(event) => { event.preventDefault(); setActive(tab.id) }} />",
         },
     }),
     usage: TabBarUsage,

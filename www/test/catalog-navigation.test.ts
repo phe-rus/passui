@@ -26,7 +26,7 @@ test("catalog navigation follows group order with stable alphabetical rows", () 
         catalogGroups.flatMap((group) =>
             entries
                 .filter((entry) => entry.group === group)
-                .sort((a, b) => a.docs.name.localeCompare(b.docs.name, "en"))
+                .sort((a, b) => componentTitle(a).localeCompare(componentTitle(b), "en"))
                 .map((entry) => entry.docs.slug)
         )
     )

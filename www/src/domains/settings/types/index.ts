@@ -37,7 +37,11 @@ export const rawPropsSchema = z.record(z.string(), z.unknown()).default({}).catc
 export const previewSearchSchema = previewSettingsSchema.extend({
     props: rawPropsSchema,
     /** The live component (playground) or its realistic showcase. */
-    scene: z.enum(["component", "showcase"]).default("component").catch("component"),
+    scene: z
+        .enum(["component", "showcase", "usage", "example"])
+        .default("component")
+        .catch("component"),
+    example: z.string().default("").catch(""),
 })
 
 /** What the docs pages read from their URL: the settings plus the frame size. */

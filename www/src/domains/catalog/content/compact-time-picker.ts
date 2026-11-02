@@ -9,7 +9,17 @@ export const compactTimePickerContent: ComponentContent<typeof compactTimePicker
         label: "Names the button and the panel for assistive technology.",
         locale: "Chooses a 12 hour clock with the local words for AM and PM, or a 24 hour clock.",
     },
-    examples: {},
+    examples: {
+        intervals: {
+            title: "Minute intervals",
+            description: "Offer quarter-hour slots while preserving an existing exact time.",
+        },
+        locales: {
+            title: "Local clocks",
+            description:
+                "The same time follows 12-hour, 24-hour and right-to-left locale conventions.",
+        },
+    },
     anatomy: [
         {
             element: "Button",

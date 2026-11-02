@@ -6,6 +6,16 @@ export function getSetup(slug: string) {
             purpose:
                 "Mount one ContextMenuHost near your app root. useContextMenu adds right-click and long-press handlers; openMenu opens the same menu engine from a button element.",
         },
+        menu: {
+            name: "ContextMenuHost",
+            purpose:
+                "Menu uses the shared menu engine. Mount one ContextMenuHost near your app root before rendering menu triggers.",
+        },
+        dialog: {
+            name: "DialogHost",
+            purpose:
+                "Mount one DialogHost near your app root when using confirmDialog. Declarative Dialog instances manage their own presentation and do not need this host.",
+        },
         tooltip: {
             name: "TooltipHost",
             purpose:

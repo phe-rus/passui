@@ -18,13 +18,6 @@ export const guides: readonly Guide[] = [
         icon: BookIcon,
     },
     {
-        slug: "components",
-        title: "Components",
-        summary: "Every control, grouped by what it does, each with a live playground.",
-        path: "/components",
-        icon: LayoutIcon,
-    },
-    {
         slug: "installation",
         title: "Installation",
         summary: "Set up any React app with the Passui CLI, create a starter, or install manually.",
@@ -53,6 +46,13 @@ export const guides: readonly Guide[] = [
             "Give AI agents Passui's rules and components: a skill, llms.txt and Markdown for every page.",
         path: "/docs/skills",
         icon: SparkleIcon,
+    },
+    {
+        slug: "components",
+        title: "Components",
+        summary: "Every control, grouped by what it does, each with a live playground.",
+        path: "/components",
+        icon: LayoutIcon,
     },
 ]
 

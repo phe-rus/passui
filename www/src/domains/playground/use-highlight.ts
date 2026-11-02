@@ -29,7 +29,10 @@ function loadHighlighter() {
                 engine: engine.createJavaScriptRegexEngine(),
             })
     )
-    return highlighter
+    return highlighter.catch((error: unknown) => {
+        highlighter = undefined
+        throw error
+    })
 }
 
 /**
@@ -37,27 +40,35 @@ function loadHighlighter() {
  * colours are CSS variables that follow the site's light or dark.
  */
 export function useHighlight(code: string, lang: CodeLang = "tsx"): string | null {
-    const [html, setHtml] = useState<string | null>(null)
+    const [result, setResult] = useState<{ code: string; lang: CodeLang; html: string } | null>(
+        null
+    )
 
     useEffect(() => {
         let current = true
-        loadHighlighter().then((instance) => {
-            if (!current) return
-            setHtml(
-                instance.codeToHtml(code, {
+        loadHighlighter()
+            .then((instance) => {
+                if (!current) return
+                setResult({
+                    code,
                     lang,
-                    themes: {
-                        light: "github-light-default",
-                        dark: "github-dark-default",
-                    },
-                    defaultColor: false,
+                    html: instance.codeToHtml(code, {
+                        lang,
+                        themes: {
+                            light: "github-light-default",
+                            dark: "github-dark-default",
+                        },
+                        defaultColor: false,
+                    }),
                 })
-            )
-        })
+            })
+            .catch(() => {
+                // Plain current source remains copyable when highlighting is unavailable.
+            })
         return () => {
             current = false
         }
     }, [code, lang])
 
-    return html
+    return result?.code === code && result.lang === lang ? result.html : null
 }

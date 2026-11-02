@@ -48,9 +48,7 @@ function mergeImports(lines: string[]) {
 export function getSnippet(docs: RegisteredDocs, values: PropValues): string {
     const required = Object.fromEntries(
         Object.entries(docs.controls).flatMap(([name, control]) =>
-            control?.kind === "text" && control.required && name in values
-                ? [[name, values[name]]]
-                : []
+            control?.required && name in values ? [[name, values[name]]] : []
         )
     )
     const changed = {
@@ -85,7 +83,7 @@ export function getSnippet(docs: RegisteredDocs, values: PropValues): string {
         `export function ${docs.name.charAt(0).toUpperCase()}${docs.name.slice(1)}Example() {`,
         ...setup,
         ...(setup.length ? [""] : []),
-        `return (${element})`,
+        `return (${custom?.wrapper ? `${custom.wrapper.before}${element}${custom.wrapper.after}` : element})`,
         "}",
     ]
     return `${imports.join("\n")}\n\n${body.join("\n")}\n`

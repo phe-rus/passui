@@ -49,7 +49,7 @@ export const profileImageDocs = defineDocs<DemoProps>()({
     ),
     childrenSnippet: ({ size, photo, initials }) => ({
         imports: [
-            'import { ProfileImageContent, ProfileImageFallback } from "@passui/react/profile-image"',
+            `import { ${photo ? "ProfileImageContent, " : ""}ProfileImageFallback } from "@passui/react/profile-image"`,
         ],
         omit: ["size", "photo", "initials"],
         extraProps: { className: sizes[size] },

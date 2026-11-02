@@ -44,6 +44,7 @@ export function DocsLayout({ children }: DocsLayoutProps) {
                 variant="ghost"
                 size="sm"
                 aria-haspopup="dialog"
+                aria-expanded={open}
                 onClick={() => setOpen(true)}
                 className="glass-bar sticky top-16 z-30 -mx-4 w-[calc(100%+2rem)] rounded-none px-4 md:hidden [&>span]:w-full [&>span]:justify-between"
             >
@@ -52,12 +53,13 @@ export function DocsLayout({ children }: DocsLayoutProps) {
                 <span>Browse</span>
             </Button>
             <Sheet open={open} onClose={() => setOpen(false)} label="Docs">
-                <div className="min-h-0 flex-1 overflow-y-auto p-4">
+                <div data-docs-scroller className="min-h-0 flex-1 overflow-y-auto p-4">
                     <DocsNav />
                 </div>
             </Sheet>
             <aside
                 ref={aside}
+                data-docs-scroller
                 className="hidden md:sticky md:top-24 md:block md:h-[calc(100svh-7rem)] md:w-64 md:shrink-0 md:overflow-y-auto md:pe-3 lg:w-72"
             >
                 <DocsNav />

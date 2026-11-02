@@ -53,7 +53,7 @@ export const pickerDocs = defineDocs<DemoProps>()({
             value: "size",
             onChange: "setSize",
             options:
-                '[{ value: "small", label: "Small" }, { value: "medium", label: "Medium" }, { value: "large", label: "Large" }]',
+                '[{ value: "small", label: "Small" }, { value: "medium", label: "Medium" }, { value: "large", label: "Large" }, { value: "extra-large", label: "Extra large" }]',
         },
     }),
     usage: PickerUsage,

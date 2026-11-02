@@ -13,7 +13,7 @@ export const inlineDisclosureDocs = defineDocs<{
     name: "InlineDisclosure",
     importPath: "@passui/react/inline-disclosure",
     controls: {
-        open: { kind: "boolean", default: true },
+        open: { kind: "boolean", default: true, required: true },
         children: {
             kind: "text",
             default: "Additional details",

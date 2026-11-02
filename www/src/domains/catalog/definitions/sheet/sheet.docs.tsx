@@ -44,8 +44,15 @@ export const sheetDocs = defineDocs<DemoProps>()({
     },
     render: (values) => <SheetDemo {...values} />,
     childrenSnippet: () => ({
-        imports: ['import { useState } from "react"'],
+        imports: [
+            'import { Button } from "@passui/react/button"',
+            'import { useState } from "react"',
+        ],
         setup: ["const [open, setOpen] = useState(false)"],
+        wrapper: {
+            before: "<><Button onClick={() => setOpen(true)}>Open sheet</Button>",
+            after: "</>",
+        },
         expressionProps: {
             open: "open",
             onClose: "() => setOpen(false)",

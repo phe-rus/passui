@@ -1,5 +1,6 @@
 import { copyText } from "@passui/react/clipboard"
 import { Button } from "@passui/react/button"
+import { TextEditor } from "@passui/react/text-editor"
 import { Sheet } from "@passui/react/sheet"
 import { toast } from "@passui/react/toast"
 import { useState } from "react"
@@ -25,7 +26,7 @@ export function useCopyText() {
                     Your browser could not copy automatically. Select the text below, then use your
                     device’s Copy command.
                 </p>
-                <textarea
+                <TextEditor
                     aria-label="Text to copy"
                     readOnly
                     value={manualText ?? ""}

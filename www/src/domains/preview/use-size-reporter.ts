@@ -14,7 +14,9 @@ export function useSizeReporter(target: RefObject<HTMLElement | null>) {
         const element = target.current
         if (!element) return
         const observer = new ResizeObserver(([entry]) => {
-            last.current = Math.ceil(entry.borderBoxSize[0].blockSize)
+            last.current = Math.ceil(
+                entry.borderBoxSize?.[0]?.blockSize ?? element.getBoundingClientRect().height
+            )
             postToParent({
                 type: "passui:size",
                 height: last.current,

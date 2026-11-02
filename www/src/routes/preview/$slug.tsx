@@ -11,11 +11,19 @@ export const Route = createFileRoute("/preview/$slug")({
                 ...settingsDefaults,
                 props: {},
                 scene: "component",
+                example: "",
             }),
         ],
     },
-    loader: ({ params }) => {
-        if (!getEntry(params.slug)) throw notFound()
+    loaderDeps: ({ search }) => ({ scene: search.scene, example: search.example }),
+    loader: ({ params, deps }) => {
+        const entry = getEntry(params.slug)
+        if (
+            !entry ||
+            (deps.scene === "example" &&
+                !entry.docs.examples.some((item) => item.id === deps.example))
+        )
+            throw notFound()
     },
     head: () => ({
         meta: [{ title: "Preview · Passui" }, { name: "robots", content: "noindex, nofollow" }],
@@ -26,6 +34,14 @@ export const Route = createFileRoute("/preview/$slug")({
 
 function RouteComponent() {
     const { slug } = Route.useParams()
-    const { props, scene, ...settings } = Route.useSearch()
-    return <PreviewPage slug={slug} settings={settings} props={props} scene={scene} />
+    const { props, scene, example, ...settings } = Route.useSearch()
+    return (
+        <PreviewPage
+            slug={slug}
+            settings={settings}
+            props={props}
+            scene={scene}
+            example={example}
+        />
+    )
 }

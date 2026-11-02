@@ -1,3 +1,4 @@
+import { Table, TableBody, TableRow, TableCell } from "@passui/react/table"
 import { catalogIcons, LayersIcon, TypesetIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
 import { DocSection, type TocItem } from "@/domains/catalog"
@@ -73,37 +74,37 @@ export function IntroductionGuide() {
 
             <DocSection id="packages" title="Packages">
                 <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
-                    <table className="w-full text-start text-subheadline">
-                        <tbody>
-                            <tr className="border-separator/60 border-b">
-                                <td className="p-4 align-top">
+                    <Table className="w-full text-start text-subheadline">
+                        <TableBody>
+                            <TableRow className="border-separator/60 border-b">
+                                <TableCell className="whitespace-normal p-4 align-top">
                                     <Code>@passui/react</Code>
-                                </td>
-                                <td className="p-4 text-label-secondary">
+                                </TableCell>
+                                <TableCell className="whitespace-normal p-4 text-label-secondary">
                                     Native React controls, appearance and hooks. Independent of
                                     routers and form libraries.
-                                </td>
-                            </tr>
-                            <tr className="border-separator/60 border-b">
-                                <td className="p-4 align-top">
+                                </TableCell>
+                            </TableRow>
+                            <TableRow className="border-separator/60 border-b">
+                                <TableCell className="whitespace-normal p-4 align-top">
                                     <Code>@passui/tokens</Code>
-                                </td>
-                                <td className="p-4 text-label-secondary">
+                                </TableCell>
+                                <TableCell className="whitespace-normal p-4 text-label-secondary">
                                     Framework-independent colors, typography, layout and motion
                                     tokens.
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="p-4 align-top">
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell className="whitespace-normal p-4 align-top">
                                     <Code>@passui/tanstack</Code>
-                                </td>
-                                <td className="p-4 text-label-secondary">
+                                </TableCell>
+                                <TableCell className="whitespace-normal p-4 text-label-secondary">
                                     Optional TanStack forms, tables, route boundaries and document
                                     helpers for React applications.
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
                 </div>
             </DocSection>
 

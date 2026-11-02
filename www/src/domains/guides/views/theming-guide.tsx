@@ -1,3 +1,5 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@passui/react/table"
+import { toast } from "@passui/react/toast"
 import { Button } from "@passui/react/button"
 import { Toggle } from "@passui/react/toggle"
 import { SwatchPicker } from "@passui/react"
@@ -24,7 +26,12 @@ function SampleCard({ title }: { title: string }) {
         <div className="flex flex-col gap-3 rounded-4xl bg-elevated p-5 text-label shadow-sm ring-1 ring-separator/60">
             <span className="text-headline font-semibold">{title}</span>
             <Toggle label="Sync across devices" checked={on} onChange={setOn} />
-            <Button variant="accent" size="sm" className="self-start">
+            <Button
+                variant="accent"
+                size="sm"
+                className="self-start"
+                onClick={() => toast.success("Settings saved (demo)")}
+            >
                 Save
             </Button>
         </div>
@@ -127,25 +134,27 @@ export function ThemingGuide() {
                 description="Use the role, never the hex value. Each is a Tailwind color: bg-elevated, text-label-secondary, border-separator."
             >
                 <div className="overflow-x-auto rounded-4xl ring-1 ring-separator/60">
-                    <table className="w-full text-start text-subheadline">
-                        <thead>
-                            <tr className="border-separator/60 border-b text-footnote text-label-secondary">
-                                <th className="p-3 text-start font-semibold">Role</th>
-                                <th className="p-3 text-start font-semibold">Light</th>
-                                <th className="p-3 text-start font-semibold">Dark</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <Table className="w-full text-start text-subheadline">
+                        <TableHeader>
+                            <TableRow className="border-separator/60 border-b text-footnote text-label-secondary">
+                                <TableHead className="p-3 text-start font-semibold">Role</TableHead>
+                                <TableHead className="p-3 text-start font-semibold">
+                                    Light
+                                </TableHead>
+                                <TableHead className="p-3 text-start font-semibold">Dark</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
                             {roles.map((role) => (
-                                <tr
+                                <TableRow
                                     key={role}
                                     className="border-separator/60 border-b last:border-0"
                                 >
-                                    <td className="p-3">
+                                    <TableCell className="whitespace-normal p-3">
                                         <Code>{kebab(role)}</Code>
-                                    </td>
+                                    </TableCell>
                                     {[light[role], dark[role]].map((value, index) => (
-                                        <td key={index} className="p-3">
+                                        <TableCell key={index} className="p-3">
                                             <span className="flex items-center gap-2 font-mono text-caption text-label-secondary">
                                                 <span
                                                     className="size-5 shrink-0 rounded-md ring-1 ring-separator/60"
@@ -155,12 +164,12 @@ export function ThemingGuide() {
                                                 />
                                                 {value}
                                             </span>
-                                        </td>
+                                        </TableCell>
                                     ))}
-                                </tr>
+                                </TableRow>
                             ))}
-                        </tbody>
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
             </DocSection>
 

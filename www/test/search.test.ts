@@ -65,3 +65,16 @@ describe("search params", () => {
         expect(parsed.scene).toBe("component")
     })
 })
+
+test("isolated usage and example scenes keep their identity separate from playground props", () => {
+    expect(previewSearchSchema.parse({ scene: "usage" }).scene).toBe("usage")
+    expect(previewSearchSchema.parse({ scene: "example", example: "settings" })).toMatchObject({
+        scene: "example",
+        example: "settings",
+        props: {},
+    })
+    expect(previewSearchSchema.parse({ scene: "unknown", example: 42 })).toMatchObject({
+        scene: "component",
+        example: "",
+    })
+})

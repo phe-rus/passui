@@ -1,7 +1,8 @@
 import { Button } from "@passui/react/button"
 import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { useNavigate } from "@tanstack/react-router"
-import { CodeView } from "@/domains/playground"
+import type { PreviewSettings } from "@/domains/settings"
+import { CodeView, PreviewFrame } from "@/domains/playground"
 import { getExampleSource } from "../get-example-source"
 import { getChangedProps, resolveProps } from "../resolve-props"
 import type { ExampleContent } from "../types"
@@ -13,13 +14,14 @@ type ExampleCardProps = {
     docs: RegisteredDocs
     example: Example
     content: ExampleContent
+    settings: PreviewSettings
 }
 
 /**
  * One example: its words, the live component, and its real source. Those
  * with playground values can also open in the playground above.
  */
-export function ExampleCard({ docs, example, content }: ExampleCardProps) {
+export function ExampleCard({ docs, example, content, settings }: ExampleCardProps) {
     const navigate = useNavigate({
         from: "/components/react/$slug",
     })
@@ -54,7 +56,19 @@ export function ExampleCard({ docs, example, content }: ExampleCardProps) {
         >
             <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
                 <div className="flex min-h-40 items-center justify-center bg-background p-5">
-                    <Demo />
+                    {docs.slug === "view-controller" || docs.slug === "locale-switcher" ? (
+                        <div className="w-full">
+                            <PreviewFrame
+                                docs={docs}
+                                settings={settings}
+                                props={{}}
+                                scene="example"
+                                example={example.id}
+                            />
+                        </div>
+                    ) : (
+                        <Demo />
+                    )}
                 </div>
                 <div className="border-separator/60 border-t *:text-sm!">
                     <CodeView

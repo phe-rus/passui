@@ -15,19 +15,33 @@ export function SearchListDropdown() {
 
     return (
         <div className="h-72 w-full max-w-xs">
-            <SearchList open={open} className="w-full">
+            <SearchList
+                open={open}
+                className="w-full"
+                onFocus={() => setOpen(true)}
+                onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false)
+                }}
+                onKeyDown={(event) => {
+                    if (event.key === "Escape") {
+                        event.preventDefault()
+                        setOpen(false)
+                    }
+                }}
+            >
                 <SearchListField
                     placeholder="Search your account"
-                    onFocus={() => setOpen(true)}
-                    // let a click on a result land before closing
-                    onBlur={() => setTimeout(() => setOpen(false), 120)}
+                    aria-label="Search your account"
                 />
                 <SearchListResults className="glass-menu absolute inset-x-0 top-full z-10 mt-2 max-h-56 rounded-4xl">
                     {pages.map((page) => (
                         <SearchListItem
                             key={page}
                             value={page}
-                            onSelect={(value) => toast(`Opened ${value}`)}
+                            onSelect={(value) => {
+                                setOpen(false)
+                                toast(`Opened ${value}`)
+                            }}
                         >
                             {page}
                         </SearchListItem>

@@ -71,8 +71,15 @@ export const dialogDocs = defineDocs<DemoProps>()({
     },
     render: (values) => <DialogDemo {...values} />,
     childrenSnippet: ({ destructive }) => ({
-        imports: ['import { useState } from "react"'],
+        imports: [
+            'import { Button } from "@passui/react/button"',
+            'import { useState } from "react"',
+        ],
         setup: ["const [open, setOpen] = useState(false)"],
+        wrapper: {
+            before: "<><Button onClick={() => setOpen(true)}>Open dialog</Button>",
+            after: "</>",
+        },
         omit: ["destructive"],
         expressionProps: {
             open: "open",

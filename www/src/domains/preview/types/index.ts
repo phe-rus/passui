@@ -24,7 +24,7 @@ export const frameMessageSchema = z.discriminatedUnion("type", [
     z.object({ type: z.literal("passui:ready") }),
     z.object({
         type: z.literal("passui:size"),
-        height: z.number().nonnegative(),
+        height: z.number().finite().min(0).max(10000),
     }),
 ])
 

@@ -111,3 +111,19 @@ describe("getSnippet", () => {
         expect(snippet(docs)).toContain("export function ToastExample() {")
     })
 })
+
+test("select props reject inherited object keys from shared URLs", () => {
+    const docs = docsWith()
+    for (const tone of ["constructor", "toString", "__proto__"])
+        expect(resolveProps(docs, { tone }).tone).toBe("plain")
+})
+
+test("overlay snippets include a usable trigger and anchored parent", async () => {
+    const { registry } = await import("@/domains/catalog/definitions/registry")
+    for (const slug of ["dialog", "sheet", "popover"]) {
+        const docs = registry.find((entry) => entry.slug === slug)!
+        const code = snippet(docs)
+        expect(code, slug).toContain("import { Button }")
+        expect(code, slug).toMatch(/setOpen\((true|!open)\)/)
+    }
+})

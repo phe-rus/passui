@@ -10,16 +10,15 @@ export function ComponentNotFound() {
                 No component by that name
             </h1>
             <p className="max-w-sm text-callout text-label-secondary">
-                It may not be documented yet. Start from Button instead.
+                Check the address or browse the catalog to find a documented component.
             </p>
             <Link
-                to="/components/$slug"
-                params={{ slug: "button" }}
+                to="/components"
                 className={buttonStyle({
                     variant: "secondary",
                 })}
             >
-                Go to Button
+                Browse components
             </Link>
         </div>
     )

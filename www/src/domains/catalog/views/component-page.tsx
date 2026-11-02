@@ -3,7 +3,7 @@ import { buttonStyle } from "@passui/react/button"
 import { InfoIcon, LinkIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
 import { CopyForAi } from "@/domains/ai-context"
-import { CodeView, Playground } from "@/domains/playground"
+import { CodeView, Playground, PreviewFrame } from "@/domains/playground"
 import type { DocsSettings } from "@/domains/settings"
 import { getEntry } from "../get-catalog"
 import { getSetup } from "../get-setup"
@@ -35,6 +35,7 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
     const setup = getSetup(docs.slug)
     const Showcase = docs.showcase
     const Usage = docs.usage
+    const isolated = docs.slug === "view-controller" || docs.slug === "locale-switcher"
     const examples = docs.examples.map((example) => ({
         example,
         words: content.examples[example.id],
@@ -42,8 +43,8 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
     const toc: TocItem[] = [
         { id: "playground", title: "Playground" },
         { id: "installation", title: "Installation" },
-        { id: "usage", title: "Usage" },
         ...(setup ? [{ id: "setup", title: "Setup" }] : []),
+        { id: "usage", title: "Usage" },
         { id: "anatomy", title: "Anatomy" },
         ...(examples.length > 0
             ? [
@@ -99,7 +100,18 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
                     aria-label="Showcase"
                     className="flex min-h-60 items-center justify-center rounded-5xl bg-accent-soft/50 p-5 ring-1 ring-separator/60"
                 >
-                    <Showcase />
+                    {isolated ? (
+                        <div className="w-full">
+                            <PreviewFrame
+                                docs={docs}
+                                settings={settings}
+                                props={{}}
+                                scene="showcase"
+                            />
+                        </div>
+                    ) : (
+                        <Showcase />
+                    )}
                 </section>
 
                 <DocSection
@@ -125,7 +137,18 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
                     </div>
                     <div className="overflow-hidden rounded-4xl ring-1 ring-separator/60">
                         <div className="flex min-h-40 items-center justify-center bg-background p-5">
-                            <Usage />
+                            {isolated ? (
+                                <div className="w-full">
+                                    <PreviewFrame
+                                        docs={docs}
+                                        settings={settings}
+                                        props={{}}
+                                        scene="usage"
+                                    />
+                                </div>
+                            ) : (
+                                <Usage />
+                            )}
                         </div>
                         <div className="border-separator/60 border-t">
                             <CodeView
@@ -153,6 +176,7 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
                                     docs={docs}
                                     example={example}
                                     content={words}
+                                    settings={settings}
                                 />
                             ))}
                         </div>

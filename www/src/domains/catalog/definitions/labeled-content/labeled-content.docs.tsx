@@ -1,6 +1,8 @@
+import { useState } from "react"
 import { LabeledContentValues } from "./examples/labeled-content-values"
 import { LabeledContentWide } from "./examples/labeled-content-wide"
 import { LabeledContentDescriptions } from "./examples/labeled-content-descriptions"
+import { jsxAttribute } from "../snippet"
 import { defineDocs } from "../types"
 import { Toggle } from "@passui/react/toggle"
 import { LabeledContentShowcase } from "./examples/labeled-content-showcase"
@@ -12,6 +14,17 @@ type DemoProps = {
     description?: string
     stacked?: boolean
     wide?: boolean
+}
+
+function LabeledContentDemo(values: DemoProps) {
+    const [on, setOn] = useState(true)
+    return (
+        <div className="w-full max-w-sm rounded-3xl border border-separator/60 bg-elevated">
+            <LabeledContent {...values}>
+                <Toggle label={values.label} labelHidden checked={on} onChange={setOn} />
+            </LabeledContent>
+        </div>
+    )
 }
 
 export const labeledContentDocs = defineDocs<DemoProps>()({
@@ -31,20 +44,14 @@ export const labeledContentDocs = defineDocs<DemoProps>()({
         stacked: { kind: "boolean", default: false },
         wide: { kind: "boolean", default: false },
     },
-    render: (values) => (
-        <div className="w-full max-w-sm rounded-3xl border border-separator/60 bg-elevated">
-            <LabeledContent {...values}>
-                <Toggle label={values.label} labelHidden checked onChange={() => {}} />
-            </LabeledContent>
-        </div>
-    ),
-    childrenSnippet: () => ({
+    render: (values) => <LabeledContentDemo {...values} />,
+    childrenSnippet: ({ label }) => ({
         imports: [
             'import { useState } from "react"',
             'import { Toggle } from "@passui/react/toggle"',
         ],
         setup: ["const [on, setOn] = useState(true)"],
-        children: '<Toggle label="Show previews" labelHidden checked={on} onChange={setOn} />',
+        children: `<Toggle ${jsxAttribute("label", label)} labelHidden checked={on} onChange={setOn} />`,
     }),
     usage: LabeledContentUsage,
     showcase: LabeledContentShowcase,

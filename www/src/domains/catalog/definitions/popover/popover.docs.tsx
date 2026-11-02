@@ -51,6 +51,7 @@ export const popoverDocs = defineDocs<PopoverProps>()({
     render: (values) => <PopoverDemo {...values} />,
     childrenSnippet: ({ origin }) => ({
         imports: [
+            'import { Button } from "@passui/react/button"',
             'import { useRef, useState } from "react"',
             'import { useDismiss } from "@passui/react/use-dismiss"',
         ],
@@ -59,6 +60,10 @@ export const popoverDocs = defineDocs<PopoverProps>()({
             "const anchor = useRef<HTMLDivElement>(null)",
             "useDismiss(anchor, open, () => setOpen(false))",
         ],
+        wrapper: {
+            before: '<div ref={anchor} className="relative"><Button aria-expanded={open} onClick={() => setOpen(!open)}>Open popover</Button>',
+            after: "</div>",
+        },
         expressionProps: { open: "open" },
         extraProps: {
             className:
@@ -66,7 +71,7 @@ export const popoverDocs = defineDocs<PopoverProps>()({
                     ? "top-full right-0 mt-2 w-60 p-4"
                     : "top-full left-0 mt-2 w-60 p-4",
         },
-        children: "\n    {/* inside a relative parent with ref={anchor} */}\n",
+        children: "\n    <p>Escape or a click outside closes this popover.</p>\n",
     }),
     usage: PopoverUsage,
     showcase: PopoverShowcase,

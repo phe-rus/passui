@@ -35,6 +35,8 @@ export const stepperDocs = defineDocs<{ label: string; disabled?: boolean }>()({
         setup: ["const [value, setValue] = useState(2)"],
         children: "",
         expressionProps: {
+            min: "0",
+            max: "10",
             value: "value",
             onChange: "setValue",
             labels: '{ decrement: "Decrease", increment: "Increase" }',

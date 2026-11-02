@@ -39,13 +39,14 @@ export const swatchPickerDocs = defineDocs<DemoProps>()({
     },
     render: (values) => <SwatchPickerDemo {...values} />,
     childrenSnippet: () => ({
-        imports: ['import { useState } from "react"'],
+        imports: ['import { useState } from "react"', 'import { accents } from "@passui/tokens"'],
         setup: ['const [colour, setColour] = useState("blush")'],
         children: "",
         expressionProps: {
             value: "colour",
             onChange: "setColour",
-            options: '[{ value: "blush", label: "Blush", color: "#f2d4d7", ink: "#9e3b4f" }]',
+            options:
+                "Object.values(accents).map((accent) => ({ value: accent.id, label: accent.name, color: accent.swatch, ink: accent.light.accentText }))",
         },
     }),
     usage: SwatchPickerUsage,

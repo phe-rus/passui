@@ -1,3 +1,11 @@
+import { Sheet } from "@passui/react/sheet"
+import {
+    SearchList,
+    SearchListField,
+    SearchListResults,
+    SearchListItem,
+    SearchListEmpty,
+} from "@passui/react/search-list"
 import { HeartIcon, HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons"
 
 import { TabBar } from "@passui/react"
@@ -36,35 +44,62 @@ const titles: Record<string, string> = {
 export function TabBarShowcase() {
     const [active, setActive] = useState("home")
 
+    const [searchOpen, setSearchOpen] = useState(false)
     return (
-        <div className="relative h-112 w-full max-w-xs overflow-hidden rounded-sheet bg-background shadow-sm ring-1 ring-separator/60">
-            <div className="flex flex-col gap-4 p-6 pt-10">
-                <h2 className="text-title2 font-bold text-label">{titles[active]}</h2>
-                {[0, 1, 2].map((row) => (
-                    <div key={row} className="h-20 rounded-3xl bg-fill/60" />
-                ))}
-            </div>
-            <TabBar
-                label="Main"
-                tabs={tabs}
-                active={active}
-                search={{
-                    label: "Search",
-                    onPress: () => {},
-                }}
-                className="absolute inset-x-3 bottom-3"
-                renderLink={(tab, props) => (
-                    <a
-                        key={tab.id}
-                        href={`#${tab.id}`}
-                        {...props}
-                        onClick={(event) => {
-                            event.preventDefault()
-                            setActive(tab.id)
-                        }}
+        <>
+            <Sheet open={searchOpen} onClose={() => setSearchOpen(false)} label="Search tabs">
+                <SearchList className="p-4">
+                    <SearchListField
+                        autoFocus
+                        aria-label="Search tabs"
+                        placeholder="Search tabs…"
                     />
-                )}
-            />
-        </div>
+                    <SearchListResults>
+                        <SearchListEmpty>No matching tabs.</SearchListEmpty>
+                        {tabs.map((tab) => (
+                            <SearchListItem
+                                key={tab.id}
+                                value={tab.label}
+                                onSelect={() => {
+                                    setActive(tab.id)
+                                    setSearchOpen(false)
+                                }}
+                            >
+                                {tab.label}
+                            </SearchListItem>
+                        ))}
+                    </SearchListResults>
+                </SearchList>
+            </Sheet>
+            <div className="relative h-112 w-full max-w-xs overflow-hidden rounded-sheet bg-background shadow-sm ring-1 ring-separator/60">
+                <div className="flex flex-col gap-4 p-6 pt-10">
+                    <h2 className="text-title2 font-bold text-label">{titles[active]}</h2>
+                    {[0, 1, 2].map((row) => (
+                        <div key={row} className="h-20 rounded-3xl bg-fill/60" />
+                    ))}
+                </div>
+                <TabBar
+                    label="Main"
+                    tabs={tabs}
+                    active={active}
+                    search={{
+                        label: "Search",
+                        onPress: () => setSearchOpen(true),
+                    }}
+                    className="absolute inset-x-3 bottom-3"
+                    renderLink={(tab, props) => (
+                        <a
+                            key={tab.id}
+                            href={`#${tab.id}`}
+                            {...props}
+                            onClick={(event) => {
+                                event.preventDefault()
+                                setActive(tab.id)
+                            }}
+                        />
+                    )}
+                />
+            </div>
+        </>
     )
 }
