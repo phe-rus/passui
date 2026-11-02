@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from "motion/react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { spring } from "../../motion/transitions"
-import { useEffect, useState } from "react"
+import { useEffect, useId, useState } from "react"
 
 interface Tip {
     text: string
@@ -22,12 +22,23 @@ const MARGIN = 8
  */
 export function TooltipHost() {
     const [tip, setTip] = useState<Tip | null>(null)
+    const tooltipId = useId()
+    const reducedMotion = useReducedMotion()
 
     useEffect(() => {
-        if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return
+        const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches
         let timer: ReturnType<typeof setTimeout> | undefined
         let current: Element | null = null
         let lastShown = 0
+        let described: Element | null = null
+        let previousDescription: string | null = null
+
+        const restoreDescription = () => {
+            if (!described) return
+            if (previousDescription === null) described.removeAttribute("aria-describedby")
+            else described.setAttribute("aria-describedby", previousDescription)
+            described = null
+        }
 
         const show = (element: Element) => {
             const text = element.getAttribute("data-tooltip")
@@ -46,9 +57,11 @@ export function TooltipHost() {
             clearTimeout(timer)
             if (current) lastShown = Date.now()
             current = null
+            restoreDescription()
             setTip(null)
         }
         const onOver = (event: PointerEvent) => {
+            if (!canHover) return
             const element = (event.target as Element | null)?.closest?.("[data-tooltip]") ?? null
             if (element === current) return
             clearTimeout(timer)
@@ -64,26 +77,48 @@ export function TooltipHost() {
                 timer = setTimeout(() => current === element && show(element), DELAY)
             }
         }
+        const onFocus = (event: FocusEvent) => {
+            const element = (event.target as Element | null)?.closest?.("[data-tooltip]") ?? null
+            if (!element) return
+            hide()
+            current = element
+            described = element
+            previousDescription = element.getAttribute("aria-describedby")
+            element.setAttribute(
+                "aria-describedby",
+                [previousDescription, tooltipId].filter(Boolean).join(" ")
+            )
+            show(element)
+        }
+        const onBlur = (event: FocusEvent) => {
+            if (described && !described.contains(event.relatedTarget as Node | null)) hide()
+        }
 
         window.document.addEventListener("pointerover", onOver)
+        window.document.addEventListener("focusin", onFocus)
+        window.document.addEventListener("focusout", onBlur)
         window.document.addEventListener("pointerdown", hide, true)
         window.document.addEventListener("keydown", hide, true)
         window.addEventListener("scroll", hide, true)
         window.addEventListener("blur", hide)
         return () => {
             clearTimeout(timer)
+            restoreDescription()
             window.document.removeEventListener("pointerover", onOver)
+            window.document.removeEventListener("focusin", onFocus)
+            window.document.removeEventListener("focusout", onBlur)
             window.document.removeEventListener("pointerdown", hide, true)
             window.document.removeEventListener("keydown", hide, true)
             window.removeEventListener("scroll", hide, true)
             window.removeEventListener("blur", hide)
         }
-    }, [])
+    }, [tooltipId])
 
     return (
         <AnimatePresence>
             {tip && (
                 <motion.div
+                    id={tooltipId}
                     key={tip.text + tip.x}
                     role="tooltip"
                     className="pointer-events-none fixed z-[80] max-w-[240px] rounded-md bg-inverse px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-on-inverse shadow-lg"
@@ -93,19 +128,27 @@ export function TooltipHost() {
                         translateX: "-50%",
                         translateY: tip.above ? "-100%" : 0,
                     }}
-                    initial={{
-                        opacity: 0,
-                        scale: 0.92,
-                        y: tip.above ? 4 : -4,
-                    }}
+                    initial={
+                        reducedMotion
+                            ? false
+                            : {
+                                  opacity: 0,
+                                  scale: 0.92,
+                                  y: tip.above ? 4 : -4,
+                              }
+                    }
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{
-                        opacity: 0,
-                        scale: 0.96,
-                        y: tip.above ? 2 : -2,
-                        transition: spring.snappy,
-                    }}
-                    transition={spring.snappy}
+                    exit={
+                        reducedMotion
+                            ? { opacity: 0 }
+                            : {
+                                  opacity: 0,
+                                  scale: 0.96,
+                                  y: tip.above ? 2 : -2,
+                                  transition: spring.snappy,
+                              }
+                    }
+                    transition={reducedMotion ? { duration: 0 } : spring.snappy}
                 >
                     {tip.text}
                 </motion.div>

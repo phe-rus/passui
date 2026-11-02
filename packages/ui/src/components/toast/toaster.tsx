@@ -1,5 +1,5 @@
-import { AnimatePresence, motion } from "motion/react"
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react"
 import { CheckIcon, CloseIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { spring } from "../../motion/transitions"
@@ -13,7 +13,6 @@ import {
 } from "./toast-store"
 
 const PILL = 40
-const GOO_FILTER_ID = "nt-toast-goo"
 const EMPTY: Toast[] = []
 /** A little loose, so the body overshoots and settles like a drop of honey. */
 const BODY_SPRING = {
@@ -29,16 +28,24 @@ const BODY_SPRING = {
  * filter, so where they meet looks liquid while they grow, morph between
  * states and shrink away. Text is drawn above the filter to stay crisp.
  */
-export function Toaster({ className }: { className?: string }) {
+export function Toaster({
+    className,
+    label = "Notifications",
+}: {
+    className?: string
+    label?: string
+}) {
     const toasts = useSyncExternalStore(subscribeToasts, getToasts, () => EMPTY)
+    const filterId = useId()
+    const reducedMotion = useReducedMotion()
     const [hovered, setHovered] = useState(false)
     const visible = toasts.slice(0, toastLimits.visible)
 
     return (
         <>
-            <GooFilter />
+            <GooFilter id={filterId} />
             <section
-                aria-label="Notifications"
+                aria-label={label}
                 aria-live="polite"
                 className={cn(
                     "pointer-events-none fixed inset-x-0 top-[max(10px,env(safe-area-inset-top))] z-[60] flex justify-center px-3",
@@ -58,6 +65,8 @@ export function Toaster({ className }: { className?: string }) {
                                 index={index}
                                 expanded={hovered}
                                 paused={hovered}
+                                filterId={filterId}
+                                reducedMotion={Boolean(reducedMotion)}
                             />
                         ))}
                     </AnimatePresence>
@@ -67,11 +76,11 @@ export function Toaster({ className }: { className?: string }) {
     )
 }
 
-function GooFilter() {
+function GooFilter({ id }: { id: string }) {
     return (
         <svg aria-hidden="true" className="pointer-events-none absolute size-0">
             <defs>
-                <filter id={GOO_FILTER_ID}>
+                <filter id={id}>
                     <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
                     <feColorMatrix
                         in="blur"
@@ -91,11 +100,15 @@ function ToastItem({
     index,
     expanded,
     paused,
+    filterId,
+    reducedMotion,
 }: {
     toast: Toast
     index: number
     expanded: boolean
     paused: boolean
+    filterId: string
+    reducedMotion: boolean
 }) {
     const content = useRef<HTMLDivElement>(null)
     const [size, setSize] = useState({
@@ -106,9 +119,9 @@ function ToastItem({
 
     // The body flows out of the pill a beat after it lands.
     useEffect(() => {
-        const timer = setTimeout(() => setOpen(true), 140)
+        const timer = setTimeout(() => setOpen(true), reducedMotion ? 0 : 140)
         return () => clearTimeout(timer)
-    }, [])
+    }, [reducedMotion])
 
     useLayoutEffect(() => {
         const element = content.current
@@ -137,23 +150,27 @@ function ToastItem({
 
     return (
         <motion.li
-            layout
+            layout={!reducedMotion}
             className="pointer-events-none absolute inset-x-0 top-0 flex justify-center"
             style={{ zIndex: 10 - index }}
-            initial={{ opacity: 0, y: -24, scale: 0.6 }}
+            initial={reducedMotion ? false : { opacity: 0, y: -24, scale: 0.6 }}
             animate={{
                 opacity: stacked ? 1 - index * 0.25 : 1,
                 y: stacked ? index * 9 : index * (PILL + 14) + index * 6,
                 scale: stacked ? 1 - index * 0.05 : 1,
             }}
-            exit={{
-                opacity: 0,
-                y: -18,
-                scale: 0.6,
-                transition: spring.snappy,
-            }}
-            transition={spring.bouncy}
-            drag="y"
+            exit={
+                reducedMotion
+                    ? { opacity: 0 }
+                    : {
+                          opacity: 0,
+                          y: -18,
+                          scale: 0.6,
+                          transition: spring.snappy,
+                      }
+            }
+            transition={reducedMotion ? { duration: 0 } : spring.bouncy}
+            drag={reducedMotion ? false : "y"}
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0.6, bottom: 0.1 }}
             onDragEnd={(_, info) => {
@@ -165,21 +182,21 @@ function ToastItem({
                 className="pointer-events-auto relative"
                 initial={{ width: PILL, height: PILL }}
                 animate={{ width, height }}
-                transition={BODY_SPRING}
+                transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
             >
                 {/* Shapes, under the goo filter; padded so the blur isn't clipped. */}
                 <div
                     aria-hidden="true"
                     className="absolute -inset-3"
                     style={{
-                        filter: `url(#${GOO_FILTER_ID})`,
+                        filter: reducedMotion ? undefined : `url(#${filterId})`,
                     }}
                 >
                     <motion.span
                         className="absolute top-3 left-3 rounded-full bg-inverse shadow-xl"
                         style={{ width: PILL, height: PILL }}
                         animate={{ scale: open ? 1 : 1.06 }}
-                        transition={spring.bouncy}
+                        transition={reducedMotion ? { duration: 0 } : spring.bouncy}
                     />
                     <motion.span
                         className="absolute top-3 left-3 bg-inverse"
@@ -193,7 +210,7 @@ function ToastItem({
                             height,
                             borderRadius: Math.min(PILL / 2, height / 2, 22),
                         }}
-                        transition={BODY_SPRING}
+                        transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
                     />
                 </div>
 
@@ -203,33 +220,45 @@ function ToastItem({
                     className="absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2.5 py-[10px] pr-4 pl-[10px] text-on-inverse"
                     style={{ minHeight: PILL }}
                     animate={{ opacity: open ? 1 : 0 }}
-                    transition={{
-                        duration: open ? 0.22 : 0.1,
-                        delay: open ? 0.08 : 0,
-                    }}
+                    transition={
+                        reducedMotion
+                            ? { duration: 0 }
+                            : {
+                                  duration: open ? 0.22 : 0.1,
+                                  delay: open ? 0.08 : 0,
+                              }
+                    }
                 >
-                    <ToneIcon tone={toast.tone} />
+                    <ToneIcon tone={toast.tone} reducedMotion={reducedMotion} />
                     <div className="flex min-w-0 flex-col py-px">
                         <AnimatePresence mode="popLayout" initial={false}>
                             <motion.span
                                 key={toast.title}
                                 className="text-subheadline leading-5 font-semibold"
-                                initial={{
-                                    opacity: 0,
-                                    y: 6,
-                                    filter: "blur(4px)",
-                                }}
+                                initial={
+                                    reducedMotion
+                                        ? false
+                                        : {
+                                              opacity: 0,
+                                              y: 6,
+                                              filter: "blur(4px)",
+                                          }
+                                }
                                 animate={{
                                     opacity: 1,
                                     y: 0,
                                     filter: "blur(0px)",
                                 }}
-                                exit={{
-                                    opacity: 0,
-                                    y: -6,
-                                    filter: "blur(4px)",
-                                }}
-                                transition={spring.snappy}
+                                exit={
+                                    reducedMotion
+                                        ? { opacity: 0 }
+                                        : {
+                                              opacity: 0,
+                                              y: -6,
+                                              filter: "blur(4px)",
+                                          }
+                                }
+                                transition={reducedMotion ? { duration: 0 } : spring.snappy}
                             >
                                 {toast.title}
                             </motion.span>
@@ -265,7 +294,7 @@ const toneColors: Record<ToastTone, string> = {
     loading: "bg-on-inverse/15 text-on-inverse",
 }
 
-function ToneIcon({ tone }: { tone: ToastTone }) {
+function ToneIcon({ tone, reducedMotion }: { tone: ToastTone; reducedMotion: boolean }) {
     return (
         <AnimatePresence mode="popLayout" initial={false}>
             <motion.span
@@ -274,31 +303,35 @@ function ToneIcon({ tone }: { tone: ToastTone }) {
                     "flex size-5 shrink-0 items-center justify-center rounded-full",
                     toneColors[tone]
                 )}
-                initial={{
-                    scale: 0.3,
-                    opacity: 0,
-                    rotate: -40,
-                }}
+                initial={
+                    reducedMotion
+                        ? false
+                        : {
+                              scale: 0.3,
+                              opacity: 0,
+                              rotate: -40,
+                          }
+                }
                 animate={{ scale: 1, opacity: 1, rotate: 0 }}
                 exit={{ scale: 0.3, opacity: 0 }}
-                transition={spring.bouncy}
+                transition={reducedMotion ? { duration: 0 } : spring.bouncy}
             >
                 {tone === "success" && <CheckIcon size={13} strokeWidth={3} />}
                 {tone === "error" && <CloseIcon size={12} strokeWidth={3} />}
                 {/* The full stop from the Notables mark. */}
                 {tone === "neutral" && <span className="size-2 rounded-full bg-[#EE8A2A]" />}
-                {tone === "loading" && <Spinner />}
+                {tone === "loading" && <Spinner reducedMotion={reducedMotion} />}
             </motion.span>
         </AnimatePresence>
     )
 }
 
-function Spinner() {
+function Spinner({ reducedMotion }: { reducedMotion: boolean }) {
     return (
         <motion.svg
             viewBox="0 0 20 20"
             className="size-4"
-            animate={{ rotate: 360 }}
+            animate={reducedMotion ? undefined : { rotate: 360 }}
             transition={{
                 repeat: Number.POSITIVE_INFINITY,
                 duration: 0.8,

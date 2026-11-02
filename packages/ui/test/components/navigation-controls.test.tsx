@@ -15,6 +15,7 @@ import { Section } from "../../src/components/section/section"
 import { SidebarSection } from "../../src/components/sidebar/sidebar"
 import { TabBar } from "../../src/components/tab-bar/tab-bar"
 import { TabView } from "../../src/components/tab-view/tab-view"
+import { Toaster } from "../../src/components/toast/toaster"
 import { Toggle } from "../../src/components/toggle/toggle"
 
 test("menu trigger is named, keyboard-addressable and backed by the menu host", () => {
@@ -197,4 +198,18 @@ test("search field has a usable accessible name and honors an external label", (
     expect(defaultField).toContain('aria-hidden="true"')
     expect(namedField).toContain('aria-labelledby="search-title"')
     expect(namedField).not.toContain("aria-label=")
+})
+
+test("multiple toaster hosts isolate their SVG filters and accept localized labels", () => {
+    const markup = renderToStaticMarkup(
+        <>
+            <Toaster label="Updates" />
+            <Toaster label="Messages" />
+        </>
+    )
+    const ids = [...markup.matchAll(/<filter id="([^"]+)"/g)].map((match) => match[1])
+    expect(ids).toHaveLength(2)
+    expect(new Set(ids).size).toBe(2)
+    expect(markup).toContain('aria-label="Updates"')
+    expect(markup).toContain('aria-label="Messages"')
 })
