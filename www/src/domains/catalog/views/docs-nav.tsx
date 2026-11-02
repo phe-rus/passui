@@ -1,24 +1,19 @@
 import { Button } from "@passui/react/button"
-import { ChevronDownIcon, SidebarIcon } from "@passui/react/icons"
+import { ChevronDownIcon } from "@passui/react/icons"
 import { SidebarItemContent, SidebarSection, sidebarItemClass } from "@passui/react/sidebar"
 import { cn } from "@passui/react/cn"
-import { Sheet } from "@passui/react/sheet"
 import { Link, useLocation } from "@tanstack/react-router"
-import { type ReactNode, useEffect, useId, useRef, useState } from "react"
+import { useEffect, useId, useRef, useState } from "react"
 import { guides } from "@/domains/guides/get-guides"
 import { catalogGroups, getCatalog } from "../get-catalog"
 import { componentTitle } from "../navigation"
 import type { CatalogGroup } from "../types"
 
-type DocsLayoutProps = {
-    children: ReactNode
-}
-
 /**
  * Brings the current page's row into view inside the sidebar, which
  * scrolls on its own. Only the sidebar moves, never the page.
  */
-function revealActive(scroller: HTMLElement) {
+export function revealActive(scroller: HTMLElement) {
     const row = scroller.querySelector<HTMLElement>('[aria-current="page"]')
     if (!row || scroller.scrollHeight <= scroller.clientHeight) return
     const item = row.getBoundingClientRect()
@@ -38,7 +33,7 @@ function currentGroup(pathname: string) {
     return getCatalog().find((entry) => entry.docs.slug === slug)?.group
 }
 
-function DocsNav() {
+export function DocsNav() {
     const pathname = useLocation({
         select: (location) => location.pathname,
     })
@@ -119,7 +114,7 @@ function DocsNav() {
                 ))}
             </SidebarSection>
             {groups.map(({ group, entries }, index) => {
-                const open = expanded[group] ?? group === activeGroup
+                const open = expanded[group] ?? true
                 const panelId = `${id}-group-${index}`
                 return (
                     <div key={group} className="flex flex-col gap-0.5">
@@ -129,7 +124,7 @@ function DocsNav() {
                             aria-expanded={open}
                             aria-controls={panelId}
                             onClick={() => toggle(group, open)}
-                            className="flex items-center w-fit justify-between rounded-lg"
+                            className="w-full justify-start rounded-lg px-2.5 text-caption font-semibold text-label-secondary [&>span]:w-full"
                         >
                             <span className="grow">{group}</span>
                             <ChevronDownIcon
@@ -137,8 +132,7 @@ function DocsNav() {
                                 className={cn(
                                     "shrink-0 transition-transform duration-fast",
                                     "motion-reduce:transition-none",
-                                    !open && "-rotate-90 animate-collapsible-down",
-                                    open && "animate-accordion-up"
+                                    !open && "-rotate-90"
                                 )}
                             />
                         </Button>
@@ -158,7 +152,7 @@ function DocsNav() {
                                     activeOptions={{
                                         includeSearch: false,
                                     }}
-                                    className="w-fit!"
+                                    className="block min-w-0"
                                 >
                                     {({ isActive }) => (
                                         <span className={rowClass(isActive)}>
@@ -177,62 +171,5 @@ function DocsNav() {
                 )
             })}
         </nav>
-    )
-}
-
-/** The page being read, for the phone bar: a guide or a component. */
-function currentTitle(pathname: string) {
-    pathname = pathname.replace(/^\/components\/react\//, "/components/")
-    const guide = guides.find((item) => item.path === pathname)
-    if (guide) return guide.title
-    const slug = pathname.split("/components/")[1]
-    return (() => {
-        const entry = getCatalog().find((entry) => entry.docs.slug === slug)
-        return entry ? componentTitle(entry) : "Docs"
-    })()
-}
-
-/**
- * Docs pages: the sidebar beside the page on wider screens; on phones, a
- * bar naming the current page that opens the same list in a sheet.
- */
-export function DocsLayout({ children }: DocsLayoutProps) {
-    const pathname = useLocation({
-        select: (location) => location.pathname,
-    })
-    const aside = useRef<HTMLElement>(null)
-    const [open, setOpen] = useState(false)
-    // on arrival and on every move: show the current row, close the sheet
-    useEffect(() => {
-        if (pathname && aside.current) revealActive(aside.current)
-        setOpen(false)
-    }, [pathname])
-
-    return (
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 pt-4 pb-16 md:flex-row md:px-6 md:pt-8">
-            <Button
-                variant="ghost"
-                size="sm"
-                aria-haspopup="dialog"
-                onClick={() => setOpen(true)}
-                className="glass-bar sticky top-16 z-30 -mx-4 w-[calc(100%+2rem)] rounded-none px-4 md:hidden [&>span]:w-full [&>span]:justify-between"
-            >
-                <SidebarIcon size={18} />
-                <span className="min-w-0 flex-1 truncate">{currentTitle(pathname)}</span>
-                <span>Browse</span>
-            </Button>
-            <Sheet open={open} onClose={() => setOpen(false)} label="Docs">
-                <div className="min-h-0 flex-1 overflow-y-auto p-4">
-                    <DocsNav />
-                </div>
-            </Sheet>
-            <aside
-                ref={aside}
-                className="hidden md:sticky md:top-24 md:block md:h-[calc(100svh-7rem)] md:w-64 md:shrink-0 md:overflow-y-auto md:pe-3 lg:w-72"
-            >
-                <DocsNav />
-            </aside>
-            <div className="flex min-w-0 flex-1 flex-col gap-5">{children}</div>
-        </div>
     )
 }

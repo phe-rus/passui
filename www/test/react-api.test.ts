@@ -1,7 +1,7 @@
 import { expect, test } from "vitest"
-import api from "../domains/catalog/react-api.generated.json"
-import { getCatalog } from "../domains/catalog/get-catalog"
-import { getSetup } from "../domains/catalog/get-setup"
+import api from "../src/domains/catalog/react-api.generated.json"
+import { getCatalog } from "../src/domains/catalog/get-catalog"
+import { getSetup } from "../src/domains/catalog/get-setup"
 
 test("every documented React family has a source-derived API", () => {
     expect(Object.keys(api).sort()).toEqual(

@@ -83,7 +83,7 @@
             "includes": [
                 "packages/ui/src/appearance/platform.tsx",
                 "packages/ui/src/appearance/theme.tsx",
-                "www/domains/playground/views/code-view.tsx"
+                "www/src/domains/playground/views/code-view.tsx"
             ],
             "linter": {
                 "rules": {

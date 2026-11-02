@@ -1,7 +1,7 @@
 # Search discovery and metadata
 
 The canonical origin is `https://passui.pherus.org`, defined once in
-`www/domains/seo/site.ts`. `pageUrl` strips query strings, fragments and
+`www/src/domains/seo/site.ts`. `pageUrl` strips query strings, fragments and
 trailing slashes, preserving `/` for the home page. Playground settings
 therefore share the documentation page's canonical URL.
 

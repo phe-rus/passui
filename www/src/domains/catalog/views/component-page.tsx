@@ -1,3 +1,4 @@
+import { ComponentNavigation } from "./component-navigation"
 import { buttonStyle } from "@passui/react/button"
 import { InfoIcon, LinkIcon } from "@passui/react/icons"
 import { Link } from "@tanstack/react-router"
@@ -176,6 +177,7 @@ export function ComponentPage({ slug, settings, rawProps }: ComponentPageProps) 
                 <DocSection id="api-reference" title="API reference">
                     <PropsTable docs={docs} descriptions={content.propDescriptions} />
                 </DocSection>
+                <ComponentNavigation slug={slug} />
             </article>
 
             <aside className="hidden xl:block">

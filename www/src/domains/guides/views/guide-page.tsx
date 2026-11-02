@@ -55,17 +55,7 @@ export function GuidePage({ slug }: { slug: string }) {
                             : guide.summary}
                     </p>
                 </header>
-                {guide.slug === "installation" ? (
-                    <InstallationGuide />
-                ) : guide.slug === "skills" ? (
-                    <SkillsGuide />
-                ) : guide.slug === "theming" ? (
-                    <ThemingGuide />
-                ) : guide.slug === "typeset" ? (
-                    <TypesetGuide />
-                ) : (
-                    <Body />
-                )}
+                <Body />
                 <nav
                     aria-label="More guides"
                     className="flex justify-between gap-4 border-separator/60 border-t pt-6"

@@ -21,7 +21,7 @@ export default defineConfig({
         ],
         tsconfigPaths: true,
         alias: {
-            "@": path.resolve(import.meta.dirname, "."),
+            "@": path.resolve(import.meta.dirname, "src"),
         },
     },
     build: {

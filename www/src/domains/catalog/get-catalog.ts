@@ -353,8 +353,15 @@ export const catalogGroups: readonly CatalogGroup[] = [
     "Compositions",
 ]
 
+// Shared by the sidebar, overview, search and previous/next navigation.
+const orderedEntries = catalogGroups.flatMap((group) =>
+    entries
+        .filter((entry) => entry.group === group)
+        .sort((left, right) => left.docs.name.localeCompare(right.docs.name, "en"))
+)
+
 export function getCatalog(): readonly CatalogEntry[] {
-    return entries
+    return orderedEntries
 }
 
 export function getEntry(slug: string): CatalogEntry | undefined {
@@ -363,9 +370,9 @@ export function getEntry(slug: string): CatalogEntry | undefined {
 
 /** The components before and after this one, in sidebar order. */
 export function getNeighbours(slug: string) {
-    const index = entries.findIndex((entry) => entry.docs.slug === slug)
+    const index = orderedEntries.findIndex((entry) => entry.docs.slug === slug)
     return {
-        previous: index > 0 ? entries[index - 1] : undefined,
-        next: index >= 0 ? entries[index + 1] : undefined,
+        previous: index > 0 ? orderedEntries[index - 1] : undefined,
+        next: index >= 0 ? orderedEntries[index + 1] : undefined,
     }
 }

@@ -3,7 +3,7 @@ import { existsSync, globSync, readFileSync, statSync, writeFileSync } from "nod
 import { dirname, relative, resolve } from "node:path"
 
 const root = resolve(import.meta.dirname, "..")
-const output = resolve(root, "www/domains/catalog/react-api.generated.json")
+const output = resolve(root, "www/src/domains/catalog/react-api.generated.json")
 const reactExports = JSON.parse(readFileSync(resolve(root, "packages/ui/package.json"), "utf8")).exports
 const modules = new Map()
 const fileExists = (path) => existsSync(path) && statSync(path).isFile()
@@ -163,7 +163,7 @@ function component(module, node) {
     return result
 }
 const result = {}
-for (const path of [...globSync("www/domains/catalog/definitions/*/*.docs.tsx", { cwd: root })].sort()) {
+for (const path of [...globSync("www/src/domains/catalog/definitions/*/*.docs.tsx", { cwd: root })].sort()) {
     const docs = load(resolve(root, path))
     const declaration = [...docs.symbols.values()].find((node) => node.init?.arguments?.[0]?.type === "ObjectExpression")
     if (!declaration) continue

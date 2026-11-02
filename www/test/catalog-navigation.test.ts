@@ -1,6 +1,6 @@
 import { expect, test } from "vitest"
-import { getCatalog } from "../domains/catalog/get-catalog"
-import { componentTitle, matchesComponent } from "../domains/catalog/navigation"
+import { catalogGroups, getCatalog, getNeighbours } from "../src/domains/catalog/get-catalog"
+import { componentTitle, matchesComponent } from "../src/domains/catalog/navigation"
 
 test("search finds concepts by API name or purpose, regardless of case", () => {
     const menu = getCatalog().find((entry) => entry.docs.slug === "context-menu")!
@@ -17,4 +17,24 @@ test("every entry belongs to exactly one discoverable family", () => {
     for (const entry of entries) expect(matchesComponent(entry, entry.group)).toBe(true)
     expect(entries.find((entry) => entry.docs.slug === "locale-switcher")?.group).toBe("Controls")
     expect(entries.find((entry) => entry.docs.slug === "toast")?.group).toBe("Feedback")
+})
+
+test("catalog navigation follows group order with stable alphabetical rows", () => {
+    const entries = getCatalog()
+    expect(entries).toHaveLength(new Set(entries.map((entry) => entry.docs.slug)).size)
+    expect(entries.map((entry) => entry.docs.slug)).toEqual(
+        catalogGroups.flatMap((group) =>
+            entries
+                .filter((entry) => entry.group === group)
+                .sort((a, b) => a.docs.name.localeCompare(b.docs.name, "en"))
+                .map((entry) => entry.docs.slug)
+        )
+    )
+    for (const [index, entry] of entries.entries()) {
+        expect(getNeighbours(entry.docs.slug)).toEqual({
+            previous: entries[index - 1],
+            next: entries[index + 1],
+        })
+    }
+    expect(getNeighbours("missing")).toEqual({ previous: undefined, next: undefined })
 })
