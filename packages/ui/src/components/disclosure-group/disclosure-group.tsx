@@ -1,3 +1,4 @@
+import { Button } from "../button/button"
 import { type ReactNode, useId } from "react"
 import { ChevronDownIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
@@ -10,6 +11,8 @@ export interface DisclosureGroupProps {
     children: ReactNode
     disabled?: boolean
     className?: string
+    /** Trigger layout when composed inside a shared surface such as Accordion. */
+    triggerClassName?: string
     /** Supporting text beneath the title. */
     description?: string
 }
@@ -22,14 +25,17 @@ export function DisclosureGroup({
     children,
     disabled = false,
     className,
+    triggerClassName,
     description,
 }: DisclosureGroupProps) {
     const id = useId()
 
     return (
-        <div className={cn("min-w-0", className)}>
+        <div className={cn("w-full min-w-0", className)}>
             <h3 className="m-0">
-                <button
+                <Button
+                    variant="ghost"
+                    contentClassName="w-full min-w-0 justify-between gap-3"
                     type="button"
                     id={`${id}-trigger`}
                     aria-expanded={open}
@@ -37,15 +43,16 @@ export function DisclosureGroup({
                     disabled={disabled}
                     onClick={() => onOpenChange(!open)}
                     className={cn(
-                        "flex min-h-11 w-full items-center justify-between gap-3 rounded-xl px-3 py-2 text-start",
-                        "text-subheadline text-label hover:bg-fill/60 focus-visible:outline-2 focus-visible:outline-offset-2",
-                        "focus-visible:outline-accent-text disabled:cursor-not-allowed disabled:opacity-40"
+                        "h-auto min-h-11 w-full rounded-xl px-4 py-3 text-start active:scale-100",
+                        "text-subheadline font-normal text-label hover:bg-fill/60 focus-visible:ring-inset focus-visible:ring-offset-0",
+                        "focus-visible:outline-accent-text disabled:cursor-not-allowed disabled:opacity-40",
+                        triggerClassName
                     )}
                 >
                     <span className="flex min-w-0 flex-col gap-0.5">
-                        <span className="font-semibold">{label}</span>
+                        <span className="font-medium break-words whitespace-normal">{label}</span>
                         {description && (
-                            <span className="text-footnote font-normal text-label-secondary">
+                            <span className="text-footnote leading-footnote font-normal break-words whitespace-normal text-label-secondary">
                                 {description}
                             </span>
                         )}
@@ -58,11 +65,13 @@ export function DisclosureGroup({
                             open && "rotate-180"
                         )}
                     />
-                </button>
+                </Button>
             </h3>
-            <section id={id} aria-labelledby={`${id}-trigger`}>
+            <section id={id} aria-labelledby={`${id}-trigger`} aria-hidden={!open} inert={!open}>
                 <InlineDisclosure open={open}>
-                    <div className="px-3 pb-3">{children}</div>
+                    <div className="min-w-0 px-4 pb-4 text-subheadline leading-subheadline text-label-secondary [overflow-wrap:anywhere]">
+                        {children}
+                    </div>
                 </InlineDisclosure>
             </section>
         </div>

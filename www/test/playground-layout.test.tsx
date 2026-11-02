@@ -1,0 +1,39 @@
+import { createElement } from "react"
+import { renderToStaticMarkup } from "react-dom/server"
+import {
+    createMemoryHistory,
+    createRootRoute,
+    createRouter,
+    RouterProvider,
+} from "@tanstack/react-router"
+import { expect, test } from "vitest"
+import { getEntry } from "../src/domains/catalog/get-catalog"
+import { docsSettingsDefaults } from "../src/domains/settings/types"
+import { Playground } from "../src/domains/playground/views/playground"
+
+test("playground starts with one toolbar and preview while settings, props and generated code stay closed", async () => {
+    const routeTree = createRootRoute({
+        component: () => (
+            <Playground
+                docs={getEntry("accordion")!.docs}
+                settings={docsSettingsDefaults}
+                rawProps={{}}
+            />
+        ),
+    })
+    const router = createRouter({
+        routeTree,
+        history: createMemoryHistory({ initialEntries: ["/components/react/accordion"] }),
+    })
+    await router.load()
+    const html = renderToStaticMarkup(createElement(RouterProvider, { router }))
+    expect(html).toContain("Playground view")
+    expect(html).toContain('aria-label="Preview options"')
+    expect(html).toContain('aria-label="Reset playground"')
+    expect(html).toContain('aria-label="Share playground"')
+    expect(html).toContain('aria-label="Live component preview"')
+    expect(html).toContain("Accordion interactive preview")
+    expect(html).not.toContain('aria-label="Theme"')
+    expect(html).not.toContain("Component props")
+    expect(html).not.toContain("Generated example code")
+})

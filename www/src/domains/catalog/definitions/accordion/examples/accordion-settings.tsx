@@ -7,6 +7,7 @@ export function AccordionSettings() {
     const [enabled, setEnabled] = useState(true)
     return (
         <Accordion
+            className="max-w-lg"
             value={value}
             onValueChange={setValue}
             items={[

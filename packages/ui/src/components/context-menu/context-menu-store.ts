@@ -81,8 +81,8 @@ export function openFollowUpMenu(items: ContextMenuItem[]) {
 }
 
 /**
- * Opens a menu from a control, the way a SwiftUI `Menu` does: under it (or
- * above it), lined up with its leading or trailing edge. Leading and
+ * Expands a control into a menu, lined up with its leading or trailing
+ * edge and growing down (or up) from the control's bounds. Leading and
  * trailing follow the text direction, so right-to-left languages mirror.
  * The menu's real size decides where it goes; nothing is guessed.
  */
@@ -105,12 +105,11 @@ export function openMenu(
     const rtl = getComputedStyle(anchor).direction === "rtl"
     // Trailing is the right edge in left-to-right text, the left edge in right-to-left.
     const right = (edge === "trailing") !== rtl
-    const gap = 6
     menu = {
         id: nextId++,
         anchor,
         x: right ? (toolbarRect ?? rect).right : (toolbarRect ?? rect).left,
-        y: toolbar ? rect.top : above ? rect.top - gap : rect.bottom + gap,
+        y: toolbar ? rect.top : above ? rect.bottom : rect.top,
         items,
         touch: false,
         alignX: right ? "end" : "start",

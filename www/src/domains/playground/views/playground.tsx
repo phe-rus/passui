@@ -1,10 +1,20 @@
 import type { RegisteredDocs } from "@/domains/catalog/definitions"
 import { useNavigate } from "@tanstack/react-router"
-import { useMemo, useState } from "react"
-import { getChangedProps, resolveProps } from "@/domains/catalog"
+import { useId, useMemo, useState } from "react"
+import { getChangedProps, resolveProps, type PropValues } from "@/domains/catalog"
 import { cn } from "@passui/react/cn"
 import { Button } from "@passui/react/button"
-import { CopyIcon, UndoIcon } from "@passui/react/icons"
+import { IconButton } from "@passui/react/icon-button"
+import { SegmentedControl } from "@passui/react/segmented-control"
+import { Sheet } from "@passui/react/sheet"
+import {
+    CopyIcon,
+    UndoIcon,
+    SettingsIcon,
+    LaptopIcon,
+    SmartphoneIcon,
+    TabletIcon,
+} from "@passui/react/icons"
 import {
     type DocsSettings,
     type PreviewViewport,
@@ -18,12 +28,16 @@ import { CodeView } from "./code-view"
 import { ControlsPanel } from "./controls-panel"
 import { PreviewFrame } from "./preview-frame"
 
-// the frame's width for each viewport preset (AC-4)
 const frameWidths: Record<PreviewViewport, string> = {
     phone: "w-[390px]",
     tablet: "w-[820px]",
     fill: "w-full",
 }
+const viewports = [
+    { value: "fill", label: "Full width preview", icon: LaptopIcon },
+    { value: "tablet", label: "Tablet preview", icon: TabletIcon },
+    { value: "phone", label: "Phone preview", icon: SmartphoneIcon },
+] as const
 
 type PlaygroundProps = {
     docs: RegisteredDocs
@@ -31,119 +45,182 @@ type PlaygroundProps = {
     rawProps: Record<string, unknown>
 }
 
-/**
- * The live preview and its controls. The page URL is the only state:
- * a control writes to it, and the preview follows (contract item 9).
- */
+function PlaygroundCode({ docs, values }: { docs: RegisteredDocs; values: PropValues }) {
+    const snippet = useFormattedCode(useMemo(() => getSnippet(docs, values), [docs, values]))
+    return <CodeView code={snippet} collapsible={false} />
+}
+
+/** One quiet toolbar; settings and props stay available without crowding the preview. */
 export function Playground({ docs, settings, rawProps }: PlaygroundProps) {
-    const navigate = useNavigate({
-        from: "/components/react/$slug",
-    })
+    const navigate = useNavigate({ from: "/components/react/$slug" })
     const clipboard = useCopyText()
+    const optionsId = useId()
+    const [view, setView] = useState<"preview" | "code">("preview")
+    const [optionsOpen, setOptionsOpen] = useState(false)
     const [resetVersion, setResetVersion] = useState(0)
     const values = useMemo(() => resolveProps(docs, rawProps), [docs, rawProps])
-    const snippet = useFormattedCode(useMemo(() => getSnippet(docs, values), [docs, values]))
     const previewSettings = useMemo(
-        () => ({
-            theme: settings.theme,
-            accent: settings.accent,
-            os: settings.os,
-        }),
+        () => ({ theme: settings.theme, accent: settings.accent, os: settings.os }),
         [settings.theme, settings.accent, settings.os]
     )
-
+    function changeSettings(next: Partial<DocsSettings>) {
+        void navigate({
+            search: (previous) => ({ ...previous, ...next }),
+            replace: true,
+            resetScroll: false,
+        })
+    }
+    function reset() {
+        void navigate({
+            search: (previous) => ({ ...previous, ...docsSettingsDefaults, props: {} }),
+            replace: true,
+            resetScroll: false,
+        }).then(() => setResetVersion((version) => version + 1))
+    }
     return (
-        <div className="overflow-hidden rounded-5xl ring-1 ring-separator/60">
-            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 border-separator/60 border-b bg-elevated px-4 py-2">
-                <p className="text-caption font-medium text-label-secondary">Live preview</p>
-                <div className="flex flex-wrap gap-2">
-                    <Button
-                        type="button"
-                        size="xs"
-                        variant="ghost"
-                        onClick={() => {
-                            void navigate({
-                                search: (previous) => ({
-                                    ...previous,
-                                    ...docsSettingsDefaults,
-                                    props: {},
-                                }),
-                                replace: true,
-                                resetScroll: false,
-                            }).then(() => setResetVersion((version) => version + 1))
-                        }}
-                    >
-                        <UndoIcon size={14} />
-                        Reset
-                    </Button>
-                    <Button
-                        type="button"
-                        size="xs"
-                        variant="secondary"
-                        onClick={() => {
-                            void clipboard.copy(window.location.href, "Playground link copied")
-                        }}
-                    >
-                        <CopyIcon size={14} />
-                        Share
-                    </Button>
+        <>
+            <div className="min-w-0 overflow-hidden rounded-2xl ring-1 ring-separator/60">
+                <div className="flex flex-wrap items-center gap-2 border-b border-separator/60 bg-elevated px-2 py-2">
+                    <div className="w-36 shrink-0">
+                        <SegmentedControl
+                            label="Playground view"
+                            value={view}
+                            onChange={setView}
+                            options={[
+                                { value: "preview", label: "Preview" },
+                                { value: "code", label: "Code" },
+                            ]}
+                        />
+                    </div>
+                    <div className="ms-auto flex items-center gap-1">
+                        <fieldset
+                            aria-label="Preview viewport"
+                            className="me-1 hidden items-center rounded-lg bg-fill/50 p-0.5 sm:flex"
+                        >
+                            {viewports.map(({ value, label, icon: Icon }) => (
+                                <IconButton
+                                    key={value}
+                                    label={label}
+                                    size="icon-xs"
+                                    variant="ghost"
+                                    aria-pressed={settings.viewport === value}
+                                    disabled={view === "code"}
+                                    onClick={() => changeSettings({ viewport: value })}
+                                    className={cn(
+                                        "rounded-md",
+                                        settings.viewport === value && "bg-elevated shadow-sm"
+                                    )}
+                                >
+                                    <Icon size={15} />
+                                </IconButton>
+                            ))}
+                        </fieldset>
+                        <IconButton
+                            label="Preview options"
+                            size="icon-xs"
+                            variant="ghost"
+                            aria-haspopup="dialog"
+                            aria-expanded={optionsOpen}
+                            onClick={() => setOptionsOpen(true)}
+                        >
+                            <SettingsIcon size={16} />
+                        </IconButton>
+                        <IconButton
+                            label="Reset playground"
+                            size="icon-xs"
+                            variant="ghost"
+                            onClick={reset}
+                        >
+                            <UndoIcon size={16} />
+                        </IconButton>
+                        <IconButton
+                            label="Share playground"
+                            size="icon-xs"
+                            variant="ghost"
+                            onClick={() => {
+                                void clipboard.copy(window.location.href, "Playground link copied")
+                            }}
+                        >
+                            <CopyIcon size={16} />
+                        </IconButton>
+                    </div>
                 </div>
-            </div>
-            <div className="border-separator/60 border-b bg-elevated">
-                <SettingsBar
-                    settings={settings}
-                    onChange={(next) =>
-                        navigate({
-                            search: (previous) => ({
-                                ...previous,
-                                ...next,
-                            }),
-                            replace: true,
-                            resetScroll: false,
-                        })
-                    }
-                />
-            </div>
-            {/* phone and tablet keep their true width and scroll inside here */}
-            <div className="overflow-x-auto bg-fill/40">
-                <div
-                    className={cn(
-                        "mx-auto shrink-0 transition-[width] duration-300 motion-reduce:transition-none",
-                        frameWidths[settings.viewport],
-                        settings.viewport !== "fill" && "border-separator/60 border-x"
-                    )}
+                <section
+                    aria-label="Live component preview"
+                    hidden={view !== "preview"}
+                    className={cn("overflow-x-auto bg-background", view !== "preview" && "hidden")}
                 >
-                    <PreviewFrame
-                        key={`${docs.slug}-${resetVersion}`}
-                        docs={docs}
-                        settings={previewSettings}
-                        props={values}
-                    />
+                    <div
+                        className={cn(
+                            "mx-auto shrink-0 transition-[width] duration-200 motion-reduce:transition-none",
+                            frameWidths[settings.viewport],
+                            settings.viewport !== "fill" && "border-x border-separator/60"
+                        )}
+                    >
+                        <PreviewFrame
+                            key={`${docs.slug}-${resetVersion}`}
+                            docs={docs}
+                            settings={previewSettings}
+                            props={values}
+                        />
+                    </div>
+                </section>
+                {view === "code" && (
+                    <section
+                        aria-label="Generated example code"
+                        className="max-h-[60svh] overflow-auto"
+                    >
+                        <PlaygroundCode docs={docs} values={values} />
+                    </section>
+                )}
+            </div>
+            <Sheet
+                open={optionsOpen}
+                onClose={() => setOptionsOpen(false)}
+                label="Preview options"
+                labelledBy={optionsId}
+                className="max-w-lg"
+            >
+                <div className="flex items-center justify-between gap-3 border-b border-separator/60 px-4 py-3">
+                    <h3 id={optionsId} className="text-headline font-semibold">
+                        Preview options
+                    </h3>
+                    <Button size="xs" variant="secondary" onClick={() => setOptionsOpen(false)}>
+                        Done
+                    </Button>
                 </div>
-            </div>
-            <div className="border-separator/60 border-t">
-                <CodeView code={snippet} />
-            </div>
-            <div className="border-separator/60 border-t bg-elevated">
-                <ControlsPanel
-                    docs={docs}
-                    values={values}
-                    onChange={(key, value) =>
-                        navigate({
-                            search: (previous) => ({
-                                ...previous,
-                                props: getChangedProps(docs, {
-                                    ...values,
-                                    [key]: value,
-                                }),
-                            }),
-                            replace: true,
-                            resetScroll: false,
-                        })
-                    }
-                />
-            </div>
+                <div className="min-h-0 overflow-y-auto">
+                    <SettingsBar settings={settings} onChange={changeSettings} />
+                    {Object.keys(docs.controls).length > 0 && (
+                        <section
+                            aria-label="Component props"
+                            className="border-t border-separator/60"
+                        >
+                            <h4 className="px-4 pt-4 text-footnote font-medium text-label-secondary">
+                                Component props
+                            </h4>
+                            <ControlsPanel
+                                docs={docs}
+                                values={values}
+                                onChange={(key, value) => {
+                                    void navigate({
+                                        search: (previous) => ({
+                                            ...previous,
+                                            props: getChangedProps(docs, {
+                                                ...values,
+                                                [key]: value,
+                                            }),
+                                        }),
+                                        replace: true,
+                                        resetScroll: false,
+                                    })
+                                }}
+                            />
+                        </section>
+                    )}
+                </div>
+            </Sheet>
             {clipboard.fallback}
-        </div>
+        </>
     )
 }

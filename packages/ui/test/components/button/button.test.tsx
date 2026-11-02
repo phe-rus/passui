@@ -107,3 +107,15 @@ test("a pending icon button keeps its accessible name", () => {
     expect(markup).toContain('aria-busy="true"')
     expect(markup).toContain("disabled")
 })
+
+test("content layout classes apply to the label wrapper without leaking to the native button", () => {
+    const markup = renderToStaticMarkup(
+        createElement(
+            Button,
+            { contentClassName: "w-full justify-between", className: "h-auto" },
+            "Details"
+        )
+    )
+    expect(markup).toMatch(/<span class="[^"]*w-full justify-between/)
+    expect(markup).not.toContain("contentClassName=")
+})

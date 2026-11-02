@@ -39,3 +39,15 @@ test("toolbar material starts at the group's bounds without stretching its text"
     expect(reveal).not.toHaveProperty("scaleX")
     expect(reveal).not.toHaveProperty("scaleY")
 })
+
+test("point-menu exit targets contain numeric geometry so springs can complete", () => {
+    const reveal = menuSurfaceReveal(undefined, {
+        left: 12,
+        top: 24,
+        width: 200,
+        height: 180,
+        radius: 16,
+    })
+    expect(reveal.borderRadius).toBe(16)
+    expect(Object.values(reveal).every((value) => typeof value === "number")).toBe(true)
+})

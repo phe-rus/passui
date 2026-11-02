@@ -178,3 +178,24 @@ showcase and example preview scenes, metadata endpoints and invalid routes. This
 is HTTP and SSR evidence, not an interactive browser result. Package publication
 is blocked at npm OIDC token exchange; see the current React checkpoint for the
 run, exact error and required trust identity.
+
+## Compact playground and browser follow-up
+
+The owner's Codex-browser follow-up replaces the large settings block with one
+Preview/Code toolbar and an options Sheet. Accordion now shares DisclosureGroup's
+native button behavior, fills available width, wraps supporting text, and clips
+square row hover fills inside its outer rounded surface. Example width is capped
+by the documentation, rather than imposed on consumers.
+
+Repeated Menu dismissal exposed a real animation lifecycle defect: numeric
+radius springs targeting CSS variable strings did not complete, leaving panels
+mounted and triggers concealed. Menu and anchored Popover use resolved numeric
+geometry. The menu expands from its trigger bounds and has a neutral glass rim;
+the global accent focus outline no longer wraps the entire panel. Codex-browser
+checks passed Escape, outside click, action selection and reopening, with removed
+panels and restored triggers. Accordion keyboard toggling and phone preview width
+also passed. These checks do not establish physical touch behavior for all controls.
+
+Tokens 0.1.1 is publicly available after Bun publication. Remaining packages are
+held for the current verification batch; the CI OIDC configuration remains a
+separate issue. See the current React checkpoint for continuation details.

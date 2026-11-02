@@ -17,7 +17,7 @@ export interface MenuProps extends Omit<ButtonProps, "onClick" | "children"> {
     children: ReactNode
     /** Logical edge used to align the menu, including RTL. @default "leading" */
     edge?: ContextMenuEdge
-    /** Open above the trigger instead of below it. @default false */
+    /** Expand upward from the trigger instead of downward. @default false */
     above?: boolean
 }
 

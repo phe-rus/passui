@@ -10,6 +10,7 @@ function AccordionDemo({ title }: { title: string }) {
     const [value, setValue] = useState<string | null>("details")
     return (
         <Accordion
+            className="max-w-lg"
             value={value}
             onValueChange={setValue}
             items={[

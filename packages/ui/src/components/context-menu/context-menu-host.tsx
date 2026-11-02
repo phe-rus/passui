@@ -36,6 +36,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
         maxHeight: undefined as number | undefined,
         width: 0,
         height: 0,
+        radius: 0,
         ready: false,
     })
     const [focused, setFocused] = useState(-1)
@@ -102,6 +103,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                         bottom: top + (viewport?.height ?? window.innerHeight) - edges.bottom,
                     }
                 ),
+                radius: Number.parseFloat(getComputedStyle(element).borderTopLeftRadius) || 0,
                 ready: true,
             }
             setPosition((current) =>
@@ -112,6 +114,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                 current.maxHeight === next.maxHeight &&
                 current.width === next.width &&
                 current.height === next.height &&
+                current.radius === next.radius &&
                 current.ready === next.ready
                     ? current
                     : next
@@ -190,8 +193,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
     )
     let actionIndex = -1
     return (
-        <motion.div
-            key={position.ready ? "surface" : "measure"}
+        <div
             ref={ref}
             role="menu"
             tabIndex={-1}
@@ -248,7 +250,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
             }}
             {...{ [FLOATING_LAYER]: "" }}
             className={cn(
-                "fixed z-75 isolate flex min-w-50 max-w-[min(280px,calc(100vw-24px))] flex-col rounded-3xl p-1.5",
+                "fixed z-75 isolate flex min-w-50 max-w-[min(280px,calc(100vw-24px))] flex-col rounded-3xl p-1.5 outline-none",
                 menu.touch && "min-w-60",
                 !present && "pointer-events-none"
             )}
@@ -263,26 +265,28 @@ function Menu({ menu }: { menu: OpenMenu }) {
             }}
             onContextMenu={(event) => event.preventDefault()}
         >
-            <motion.div
-                aria-hidden="true"
-                className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
-                style={{ width: "100%", height: "100%" }}
-                initial={reducedMotion || !position.ready ? false : source}
-                animate={
-                    position.ready
-                        ? {
-                              x: 0,
-                              y: 0,
-                              width: position.width,
-                              height: position.height,
-                              opacity: 1,
-                              borderRadius: "var(--radius-3xl)",
-                          }
-                        : undefined
-                }
-                exit={reducedMotion ? { opacity: 0 } : source}
-                transition={reducedMotion ? { duration: 0 } : spring.smooth}
-            />
+            {position.ready && (
+                <motion.div
+                    aria-hidden="true"
+                    className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
+                    style={{ width: "100%", height: "100%" }}
+                    initial={reducedMotion || !position.ready ? false : source}
+                    animate={
+                        position.ready
+                            ? {
+                                  x: 0,
+                                  y: 0,
+                                  width: position.width,
+                                  height: position.height,
+                                  opacity: 1,
+                                  borderRadius: position.radius,
+                              }
+                            : undefined
+                    }
+                    exit={reducedMotion ? { opacity: 0 } : source}
+                    transition={reducedMotion ? { duration: 0 } : spring.smooth}
+                />
+            )}
             <motion.div
                 ref={content}
                 className="flex flex-col overflow-y-auto overscroll-contain"
@@ -370,6 +374,6 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     )
                 })}
             </motion.div>
-        </motion.div>
+        </div>
     )
 }

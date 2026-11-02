@@ -5,6 +5,7 @@ export function AccordionShowcase() {
     const [value, setValue] = useState<string | null>("appearance")
     return (
         <Accordion
+            className="max-w-lg"
             value={value}
             onValueChange={setValue}
             items={[

@@ -1,8 +1,6 @@
-import { useId, type ReactNode } from "react"
-import { Button } from "../button/button"
-import { ChevronDownIcon } from "../../icons/icons"
+import type { ReactNode } from "react"
+import { DisclosureGroup } from "../disclosure-group/disclosure-group"
 import { cn } from "../../lib/class-names"
-import { InlineDisclosure } from "../inline-disclosure/inline-disclosure"
 
 export interface AccordionItem {
     /** Stable value used to identify the expanded item. */
@@ -24,59 +22,27 @@ export interface AccordionProps {
 
 /** A single-open, collapsible accordion with labelled animated content regions. */
 export function Accordion({ items, value, onValueChange, className }: AccordionProps) {
-    const id = useId()
-
     return (
-        <div className={cn("flex min-w-0 flex-col", className)}>
-            {items.map((item, index) => {
-                const open = value === item.value
-                const triggerId = `${id}-trigger-${index}`
-                const panelId = `${id}-panel-${index}`
-                return (
-                    <section
-                        key={item.value}
-                        className={cn("min-w-0", index > 0 && "border-t border-separator/60")}
-                    >
-                        <Button
-                            id={triggerId}
-                            type="button"
-                            variant="ghost"
-                            aria-expanded={open}
-                            aria-controls={panelId}
-                            disabled={item.disabled}
-                            onClick={() => onValueChange(open ? null : item.value)}
-                            className="min-h-11 w-full justify-between rounded-none px-3 py-2 text-start text-subheadline font-medium text-label hover:bg-fill/60"
-                        >
-                            <span className="flex min-w-0 flex-col items-start gap-0.5 whitespace-normal">
-                                <span>{item.title}</span>
-                                {item.description && (
-                                    <span className="text-footnote font-normal text-label-secondary">
-                                        {item.description}
-                                    </span>
-                                )}
-                            </span>
-                            <ChevronDownIcon
-                                size={17}
-                                aria-hidden="true"
-                                className={cn(
-                                    "shrink-0 text-label-tertiary transition-transform duration-normal motion-reduce:transition-none",
-                                    open && "rotate-180"
-                                )}
-                            />
-                        </Button>
-                        <section
-                            id={panelId}
-                            aria-labelledby={triggerId}
-                            aria-hidden={!open}
-                            inert={!open}
-                        >
-                            <InlineDisclosure open={open}>
-                                <div className="px-3 pb-3">{item.content}</div>
-                            </InlineDisclosure>
-                        </section>
-                    </section>
-                )
-            })}
+        <div
+            className={cn(
+                "flex w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-separator/60 bg-elevated",
+                className
+            )}
+        >
+            {items.map((item, index) => (
+                <DisclosureGroup
+                    key={item.value}
+                    label={item.title}
+                    description={item.description}
+                    open={value === item.value}
+                    disabled={item.disabled}
+                    triggerClassName="rounded-none"
+                    onOpenChange={(open) => onValueChange(open ? item.value : null)}
+                    className={cn(index > 0 && "border-t border-separator/60")}
+                >
+                    {item.content}
+                </DisclosureGroup>
+            ))}
         </div>
     )
 }

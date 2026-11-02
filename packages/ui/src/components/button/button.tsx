@@ -28,6 +28,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
      * @default false
      */
     isPending?: boolean
+    /** Layout classes for the content wrapper, such as a full-width disclosure row. */
+    contentClassName?: string
 }
 
 /** Shares native button appearance with semantic links without nesting a button. */
@@ -53,6 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         variant = "default",
         size = "default",
         isPending = false,
+        contentClassName,
         disabled,
         children,
         className,
@@ -85,7 +88,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             <span
                 className={cn(
                     "inline-flex items-center justify-center gap-2 transition-opacity duration-200",
-                    showPendingIndicator && "opacity-0"
+                    showPendingIndicator && "opacity-0",
+                    contentClassName
                 )}
             >
                 {children}

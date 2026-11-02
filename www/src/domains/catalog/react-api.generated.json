@@ -108,6 +108,13 @@
                 "defaultValue": "false"
             },
             {
+                "name": "contentClassName",
+                "type": "string",
+                "required": false,
+                "description": "Layout classes for the content wrapper, such as a full-width disclosure row.",
+                "defaultValue": null
+            },
+            {
                 "name": "ref",
                 "type": "Ref<HTMLButtonElement>",
                 "required": false,
@@ -862,6 +869,13 @@
                 "defaultValue": null
             },
             {
+                "name": "triggerClassName",
+                "type": "string",
+                "required": false,
+                "description": "Trigger layout when composed inside a shared surface such as Accordion.",
+                "defaultValue": null
+            },
+            {
                 "name": "description",
                 "type": "string",
                 "required": false,
@@ -1046,7 +1060,7 @@
                 "name": "above",
                 "type": "boolean",
                 "required": false,
-                "description": "Open above the trigger instead of below it.",
+                "description": "Expand upward from the trigger instead of downward.",
                 "defaultValue": "false"
             },
             {

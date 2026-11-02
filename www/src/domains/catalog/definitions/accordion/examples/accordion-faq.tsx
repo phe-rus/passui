@@ -5,6 +5,7 @@ export function AccordionFaq() {
     const [value, setValue] = useState<string | null>(null)
     return (
         <Accordion
+            className="max-w-lg"
             value={value}
             onValueChange={setValue}
             items={[

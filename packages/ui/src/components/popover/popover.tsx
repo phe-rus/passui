@@ -46,6 +46,7 @@ function OpenPopover({
     const reducedMotion = useReducedMotion()
     const present = useIsPresent()
     const [settled, setSettled] = useState(false)
+    const [material, setMaterial] = useState({ width: 0, height: 0, radius: 0 })
     const [fit, setFit] = useState<PopoverFit>({
         shiftX: 0,
         shiftY: 0,
@@ -71,6 +72,14 @@ function OpenPopover({
             element.style.maxWidth = "none"
             const rect = element.getBoundingClientRect()
             const neededHeight = Math.max(rect.height, element.scrollHeight)
+            const radius = Number.parseFloat(getComputedStyle(element).borderTopLeftRadius) || 0
+            setMaterial((current) =>
+                current.width === rect.width &&
+                current.height === neededHeight &&
+                current.radius === radius
+                    ? current
+                    : { width: rect.width, height: neededHeight, radius }
+            )
             element.style.transform = transform
             element.style.translate = translate
             element.style.maxHeight = maxHeight
@@ -248,10 +257,12 @@ function OpenPopover({
                             ? {
                                   x: 0,
                                   y: 0,
-                                  width: "100%",
-                                  height: "100%",
+                                  width: material.width,
+                                  height: fit.maxHeight
+                                      ? Math.min(material.height, fit.maxHeight)
+                                      : material.height,
                                   opacity: 1,
-                                  borderRadius: "var(--radius-5xl)",
+                                  borderRadius: material.radius,
                               }
                             : undefined
                     }
