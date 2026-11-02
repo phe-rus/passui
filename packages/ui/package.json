@@ -105,6 +105,14 @@
             "types": "./dist/types/src/components/toggle/toggle.d.ts",
             "default": "./src/components/toggle/toggle.tsx"
         },
+        "./menu": {
+            "types": "./dist/types/src/components/menu/menu.d.ts",
+            "default": "./src/components/menu/menu.tsx"
+        },
+        "./disclosure-group": {
+            "types": "./dist/types/src/components/disclosure-group/disclosure-group.d.ts",
+            "default": "./src/components/disclosure-group/disclosure-group.tsx"
+        },
         "./slider": {
             "types": "./dist/types/src/components/slider/slider.d.ts",
             "default": "./src/components/slider/slider.tsx"

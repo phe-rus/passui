@@ -81,6 +81,34 @@ native pointer and keyboard input. ProgressView omits `value` for indeterminate
 progress and honors reduced motion. Divider is decorative by default; pass
 `decorative={false}` to expose a semantic separator.
 
+### Menus and disclosure groups
+
+`Menu` turns the existing `ContextMenuHost` into a declarative button. Mount
+the host once at the app root, then supply menu items wherever an action
+button belongs. Its placement and keyboard behavior are shared with context
+menus. `DisclosureGroup` provides a controlled, accessible expansion row on
+top of `InlineDisclosure`.
+
+```tsx
+import { useState } from "react"
+import { Menu } from "@passui/react/menu"
+import { DisclosureGroup } from "@passui/react/disclosure-group"
+
+export function Preferences() {
+    const [advanced, setAdvanced] = useState(false)
+    return (
+        <section>
+            <Menu label="More options" items={[{ label: "Refresh", onSelect: () => {} }]}>
+                More
+            </Menu>
+            <DisclosureGroup label="Advanced" open={advanced} onOpenChange={setAdvanced}>
+                <p>Additional preferences</p>
+            </DisclosureGroup>
+        </section>
+    )
+}
+```
+
 ### Icons and prop types
 
 On this development branch, React icons have a dedicated entry point:
