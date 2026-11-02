@@ -1,5 +1,15 @@
 # React refinement checkpoint
 
+## Current website continuation (2026-11-02)
+
+The latest owner instruction is to complete website refinement on `main`, update
+knowledge, commit and push. **No package release or website deployment yet.**
+This overrides the earlier release authorization below for this continuation.
+The current website source is `www/src/{domains,routes,styles}`; tests remain
+under `www/test`. See [the website audit](website-refinement.md) for the final
+scope, results and remaining browser evidence. The sections below describe the
+older React package work; use current source and that audit for website work.
+
 Approved in conversation on 2026-10-31. Work in this checkout, not Pass.
 Initial base: 3ed13e1. Resumed from clean 704741f after intervening icon,
 Popover fit, compact docs, and workspace commits. Owner now authorizes completing
@@ -83,10 +93,11 @@ changes before release. Registry publication and the Pass upgrade are pending.
 Preserve the existing visual/editor evidence boundaries above; language-service
 verification is not a screenshot or a physical-device motion review.
 
-## Component gaps, preliminary assessment
+## Current React inventory
 
-React has no dedicated Slider, Stepper, ProgressView or Divider component in its
-current component tree. These are candidates to specify next, not implemented
-or promised as a complete SwiftUI inventory. A declarative Menu could wrap the
-existing openMenu/ContextMenuHost behavior rather than introduce another engine.
-Assess DisclosureGroup against InlineDisclosure before adding overlapping APIs.
+The registry now documents 42 families, including Menu, DisclosureGroup, Slider,
+Stepper, ProgressView and Divider. The earlier gap assessment is obsolete.
+Website documentation, usage/showcase files and additional examples live in
+`www/src/domains/catalog/definitions`. Contracts come from the public React
+exports and generated API reference. Publishing remains deferred by the latest
+owner instruction above.

@@ -27,13 +27,13 @@ The website, catalog prose, tests and reusable packages share this public reposi
 - Pages that render per slug pass `key={slug}`, so folds and local state start over on each page.
 - A playground snippet must compile when pasted: required props carry `required: true`, demo-only controls go in `omit`, and text goes through `jsxAttribute`/`jsxText`.
 - Phones: the docs sidebar is hidden below `md` and opens in a Sheet from the bar naming the current page.
-- The sidebar is navigation only, with collapsible groups and no search field. Header search uses `src/domains/shell/views/docs-search.tsx`, a native SearchList combobox in a Sheet, opened by Ctrl/Cmd K.
+- The sidebar separates Getting started guides from a Components root (Overview, then nested categories). Use native Sidebar rows and DisclosureGroup; sort component titles by their displayed name, keep links full-width, and share the order with previous/next navigation. It has no search field. Header search uses `src/domains/shell/views/docs-search.tsx`, a native SearchList combobox in a Sheet, opened by Ctrl/Cmd K.
 - Code and AI copy actions share `src/domains/clipboard/use-copy-text.tsx`; browser refusal opens a manual selection Sheet rather than reporting success.
 - React API tables use source-derived `src/domains/catalog/react-api.generated.json`. Run `bun run docs:api` after changing component contracts; root `bun run check` rejects a stale reference. Playground controls remain a separate demo contract.
 
 ## Checks
 
-`bun run test` (snippet generator and search fallbacks), `bun run typecheck`, `bun run build`. `../packages/ui`'s `bun run test` (`vitest run`) covers the registry rules and example file names.
+`bun run test` (all catalog examples and control states, independent snippet TypeScript compilation, sidebar hierarchy, native controls, preview messages, routing and SEO), `bun run typecheck`, `bun run build`. Registry and example-file coverage lives in `test/docs/`. Build React declarations before standalone website tests (`bun run --cwd packages/ui build`); root test tasks already build workspace dependencies.
 
 Page metadata lives in `src/domains/seo/get-page-head.ts`: canonical URLs omit playground search params, with Open Graph and Twitter summary cards using the Passui logo. Preview routes remain noindex. Installation instructions cover the public CLI and manual setup; keep generated AI setup text aligned.
 
@@ -43,3 +43,9 @@ No preview, settings query, AI text or invented last modified dates
 belong in the sitemap. `src/server.ts` marks previews and 404 responses
 noindex; preview embedding is limited to the same origin. Structured
 page, website and breadcrumb data live in `get-page-head.ts`.
+
+For the current audit, validation boundaries and continuation, read
+[website refinement](../docs/architecture/website-refinement.md). Full-screen
+ViewController and floating LocaleSwitcher demonstrations use the shared preview
+iframe for showcase, usage and example scenes, keeping their headings and global
+positioning inside the demo document.
