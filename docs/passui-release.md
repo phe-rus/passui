@@ -27,3 +27,8 @@ Release evidence and exact versions are reported in the completion message.
 See [Contributing](../CONTRIBUTING.md) for website deployment and
 [the current checkpoint](architecture/react-refinement-resume.md) for validation
 boundaries. Historical releases remain in [CHANGELOG.md](../CHANGELOG.md).
+
+The OIDC job does not set setup-node registry-url, which can insert a placeholder
+auth token. Package publishConfig and the publish command name npm explicitly.
+If OIDC returns E404, verify each package trusted publisher matches repository
+`phe-rus/passui`, workflow `publish.yml` and environment `npm-publish`.

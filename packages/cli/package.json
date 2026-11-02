@@ -1,6 +1,6 @@
 {
     "name": "@passui/cli",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Set up Passui in React projects and create Vite or TanStack Start starters.",
     "type": "module",
     "license": "MIT",

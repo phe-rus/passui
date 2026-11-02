@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## React 0.1.20, TanStack 0.2.5 and CLI 0.2.2
 
+- Align the React CLI templates and TanStack peer range with React 0.1.20. Publish the pending shared tokens 0.1.1 before dependent packages.
 - Simplify docs navigation and search into one compact alphabetical list, remove redundant category controls, and use the same order for adjacent pages.
 - Add native ComboBox, RadioGroup, Breadcrumb, Skeleton, ContentUnavailableView, CodeBlock and KeyboardShortcut, with public types, usage and examples for all 50 documented families.
 - Place Stepper's value beside two compact action segments; animate numeric places with interruptible carry springs and honor Reduce Motion.
