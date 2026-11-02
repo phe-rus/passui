@@ -1,3 +1,8 @@
+import { aspectRatioDocs } from "./aspect-ratio/aspect-ratio.docs"
+import { oneTimeCodeDocs } from "./one-time-code/one-time-code.docs"
+import { wakeSliderDocs } from "./wake-slider/wake-slider.docs"
+import { sloshSliderDocs } from "./slosh-slider/slosh-slider.docs"
+import { commandDocs } from "./command/command.docs"
 import { skeletonDocs } from "./skeleton/skeleton.docs"
 import { breadcrumbDocs } from "./breadcrumb/breadcrumb.docs"
 import { radioGroupDocs } from "./radio-group/radio-group.docs"
@@ -52,6 +57,11 @@ import type { RegisteredDocs } from "./types"
 
 /** Every documented component. Add one line per docs file. */
 export const registry: readonly RegisteredDocs[] = [
+    aspectRatioDocs,
+    oneTimeCodeDocs,
+    wakeSliderDocs,
+    sloshSliderDocs,
+    commandDocs,
     skeletonDocs,
     breadcrumbDocs,
     radioGroupDocs,
@@ -105,6 +115,11 @@ export const registry: readonly RegisteredDocs[] = [
 ]
 
 export {
+    aspectRatioDocs,
+    oneTimeCodeDocs,
+    wakeSliderDocs,
+    sloshSliderDocs,
+    commandDocs,
     skeletonDocs,
     breadcrumbDocs,
     radioGroupDocs,

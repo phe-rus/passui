@@ -22,6 +22,8 @@ export type TextFieldProps = ComponentProps<"input"> & {
     /** An interactive control after the text, such as a clear button. Size it to the field: an `xs` or `icon-xs` button, never the default. */
     action?: ReactNode
     revealLabels?: { show: string; hide: string }
+    /** Float the label into the outline on focus or when filled. @default "above" */
+    labelPlacement?: "above" | "floating"
 }
 
 export function TextField({
@@ -32,6 +34,8 @@ export function TextField({
     trailingIcon,
     action,
     revealLabels,
+    labelPlacement = "above",
+    placeholder,
     type = "text",
     id: suppliedId,
     className,
@@ -43,11 +47,38 @@ export function TextField({
     const messages = Array.from(new Set(errors))
     const reveal = type === "password" && revealLabels
     return (
-        <div className="flex flex-col gap-2">
-            <label htmlFor={id} className="text-subheadline font-semibold">
-                {label}
-            </label>
-            <div className="flex items-center gap-2 rounded-xl border border-separator bg-elevated px-3 focus-within:ring-1 focus-within:ring-accent/40 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-text/70">
+        <div className="not-typeset flex flex-col gap-2">
+            {labelPlacement === "above" && (
+                <label htmlFor={id} className="text-subheadline font-semibold">
+                    {label}
+                </label>
+            )}
+            <div
+                className={cn(
+                    "relative flex items-center gap-2 rounded-xl bg-elevated px-3",
+                    labelPlacement === "floating"
+                        ? "passui-floating-field"
+                        : "border border-separator focus-within:ring-1 focus-within:ring-accent/40 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-text/70"
+                )}
+            >
+                {labelPlacement === "floating" && (
+                    <>
+                        <fieldset aria-hidden="true" className="passui-field-outline">
+                            <legend>
+                                <span>{label}</span>
+                            </legend>
+                        </fieldset>
+                        <label
+                            htmlFor={id}
+                            className={cn(
+                                "passui-floating-label",
+                                icon && "passui-floating-label-with-icon"
+                            )}
+                        >
+                            {label}
+                        </label>
+                    </>
+                )}
                 {icon && (
                     <span aria-hidden className={fieldIconClasses}>
                         {icon}
@@ -57,12 +88,19 @@ export function TextField({
                     {...props}
                     id={id}
                     type={reveal && revealed ? "text" : type}
-                    aria-invalid={messages.length > 0}
+                    placeholder={placeholder ?? (labelPlacement === "floating" ? " " : label)}
+                    aria-invalid={messages.length > 0 || props["aria-invalid"]}
                     aria-describedby={
-                        messages.length || description ? `${id}-description` : undefined
+                        [
+                            props["aria-describedby"],
+                            (messages.length || description) && `${id}-description`,
+                        ]
+                            .filter(Boolean)
+                            .join(" ") || undefined
                     }
                     className={cn(
                         "h-11 w-full min-w-0 bg-transparent text-body text-label outline-none",
+                        labelPlacement === "floating" && "h-12",
                         "placeholder:text-label-tertiary disabled:opacity-40",
                         className
                     )}

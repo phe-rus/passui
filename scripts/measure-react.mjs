@@ -4,7 +4,8 @@ import { join, resolve } from "node:path"
 
 const root = resolve(process.argv.slice(2).find((argument) => !argument.startsWith("--")) ?? ".")
 const temporary = mkdtempSync(join(tmpdir(), "passui-size-"))
-const budgets = { Button: 12000, Stepper: 14000, Picker: 48000, CodeBlock: 11000, ComboBox: 13000 }
+// Picker and the searchable/creatable ComboBox share one React-only surface.
+const budgets = { Button: 12000, Stepper: 14000, Picker: 16000, CodeBlock: 11000, ComboBox: 16000 }
 const cases = [
     ["Button", "button/button"],
     ["Stepper", "stepper/stepper"],

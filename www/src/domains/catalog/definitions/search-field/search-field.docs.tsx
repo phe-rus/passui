@@ -1,15 +1,16 @@
+import { SearchFieldExpanding } from "./examples/search-field-expanding"
 import { SearchFieldToolbar } from "./examples/search-field-toolbar"
 import { SearchFieldFilter } from "./examples/search-field-filter"
-import type { InputHTMLAttributes } from "react"
+import type { SearchFieldProps } from "@passui/react/search-field"
 import { useState } from "react"
 import { defineDocs } from "../types"
 import { SearchFieldShowcase } from "./examples/search-field-showcase"
 import { SearchFieldUsage } from "./examples/search-field-usage"
 import { SearchField } from "@passui/react/search-field"
 
-type SearchFieldProps = InputHTMLAttributes<HTMLInputElement>
-
-function SearchFieldDemo(props: Pick<SearchFieldProps, "placeholder" | "disabled">) {
+function SearchFieldDemo(
+    props: Pick<SearchFieldProps, "placeholder" | "disabled" | "collapsible">
+) {
     const [query, setQuery] = useState("")
     return (
         <div className="w-full max-w-xs">
@@ -28,6 +29,7 @@ export const searchFieldDocs = defineDocs<SearchFieldProps>()({
     name: "SearchField",
     importPath: "@passui/react",
     controls: {
+        collapsible: { kind: "boolean", default: false },
         placeholder: { kind: "text", default: "Search" },
         disabled: { kind: "boolean", default: false },
     },
@@ -45,6 +47,7 @@ export const searchFieldDocs = defineDocs<SearchFieldProps>()({
     usage: SearchFieldUsage,
     showcase: SearchFieldShowcase,
     examples: [
+        { id: "expanding", component: SearchFieldExpanding, playground: { collapsible: true } },
         { id: "filter", component: SearchFieldFilter },
         { id: "toolbar", component: SearchFieldToolbar },
     ],

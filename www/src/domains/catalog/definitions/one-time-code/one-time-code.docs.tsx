@@ -1,0 +1,43 @@
+import { OneTimeCode } from "@passui/react/one-time-code"
+import { useState } from "react"
+import type { OneTimeCodeProps } from "@passui/react/one-time-code"
+import { defineDocs } from "../types"
+import { OneTimeCodeUsage } from "./examples/one-time-code-usage"
+import { OneTimeCodeShowcase } from "./examples/one-time-code-showcase"
+import { OneTimeCodeFourDigits } from "./examples/one-time-code-four-digits"
+import { OneTimeCodeDisabled } from "./examples/one-time-code-disabled"
+function Demo(props: Pick<OneTimeCodeProps, "label" | "length" | "status">) {
+    const [value, setValue] = useState("")
+    return (
+        <div className="w-full max-w-xs">
+            <OneTimeCode {...props} value={value} onChange={setValue} />
+        </div>
+    )
+}
+export const oneTimeCodeDocs = defineDocs<Pick<OneTimeCodeProps, "label" | "length" | "status">>()({
+    slug: "one-time-code",
+    name: "OneTimeCode",
+    importPath: "@passui/react/one-time-code",
+    controls: {
+        label: { kind: "text", default: "Verification code", required: true },
+        length: { kind: "number", default: 6, min: 3, max: 8, step: 1 },
+        status: {
+            kind: "select",
+            default: "idle",
+            options: { idle: true, verifying: true, success: true, error: true },
+        },
+    },
+    render: (props) => <Demo {...props} />,
+    childrenSnippet: () => ({
+        imports: ['import { useState } from "react"'],
+        setup: ['const [value, setValue] = useState("")'],
+        expressionProps: { value: "value", onChange: "setValue" },
+        children: "",
+    }),
+    usage: OneTimeCodeUsage,
+    showcase: OneTimeCodeShowcase,
+    examples: [
+        { id: "four-digits", component: OneTimeCodeFourDigits },
+        { id: "disabled", component: OneTimeCodeDisabled },
+    ],
+})

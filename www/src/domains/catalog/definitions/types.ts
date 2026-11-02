@@ -29,7 +29,16 @@ export type TextControl = {
     required?: true
 }
 
-export type AnyControl = SelectControl<string> | BooleanControl | TextControl
+export type NumberControl = {
+    kind: "number"
+    default: number
+    min?: number
+    max?: number
+    step?: number
+    required?: true
+}
+
+export type AnyControl = SelectControl<string> | BooleanControl | TextControl | NumberControl
 
 /** The control that fits a prop's type. */
 export type ControlFor<V> = [NonNullable<V>] extends [boolean]
@@ -38,7 +47,9 @@ export type ControlFor<V> = [NonNullable<V>] extends [boolean]
       ? string extends NonNullable<V>
           ? TextControl
           : SelectControl<NonNullable<V> & string>
-      : never
+      : [NonNullable<V>] extends [number]
+        ? NumberControl
+        : never
 
 /** Controls for any of a component's props, plus its text children. */
 export type Controls<P> = {
@@ -54,7 +65,9 @@ export type ControlValues<C> = {
         ? keyof O & string
         : NonNullable<C[K]> extends BooleanControl
           ? boolean
-          : string
+          : NonNullable<C[K]> extends NumberControl
+            ? number
+            : string
 }
 
 /**
@@ -156,11 +169,11 @@ export type RegisteredDocs = {
     examples: readonly {
         id: string
         component: ComponentType
-        playground?: Record<string, string | boolean>
+        playground?: Record<string, string | boolean | number>
     }[]
     usage: ComponentType
     showcase: ComponentType
     previewHeight?: number
-    render(values: Record<string, string | boolean>): ReactNode
-    childrenSnippet?(values: Record<string, string | boolean>): SnippetChildren
+    render(values: Record<string, string | boolean | number>): ReactNode
+    childrenSnippet?(values: Record<string, string | boolean | number>): SnippetChildren
 }

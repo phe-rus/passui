@@ -16,6 +16,24 @@ test("opens below the anchor when there is room", () => {
     expect(placed.maxHeight).toBeUndefined()
 })
 
+test("a morphing surface shares the trigger's top edge", () => {
+    const placed = placeInViewport(frame, 300, 200, 6, true)
+    expect(placed.top).toBe(frame.anchor.top)
+    expect(placed.above).toBe(false)
+})
+
+test("a morphing surface shares the trigger's bottom edge when flipped upward", () => {
+    const placed = placeInViewport(
+        { ...frame, anchor: { top: 500, bottom: 540, left: 40 } },
+        300,
+        200,
+        6,
+        true
+    )
+    expect(placed.above).toBe(true)
+    expect(placed.bottom).toBe(600 - 540)
+})
+
 test("clamps to the right edge and never crosses it", () => {
     const placed = placeInViewport(
         {

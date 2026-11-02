@@ -17,7 +17,8 @@
         "src",
         "README.md",
         "LICENSE",
-        "dist/types"
+        "dist/types",
+        "THIRD_PARTY_NOTICES.md"
     ],
     "type": "module",
     "exports": {
@@ -241,6 +242,26 @@
         "./skeleton": {
             "types": "./dist/types/src/components/skeleton/skeleton.d.ts",
             "default": "./src/components/skeleton/skeleton.tsx"
+        },
+        "./command": {
+            "types": "./dist/types/src/components/command/command.d.ts",
+            "default": "./src/components/command/command.tsx"
+        },
+        "./slosh-slider": {
+            "types": "./dist/types/src/components/slosh-slider/slosh-slider.d.ts",
+            "default": "./src/components/slosh-slider/slosh-slider.tsx"
+        },
+        "./wake-slider": {
+            "types": "./dist/types/src/components/wake-slider/wake-slider.d.ts",
+            "default": "./src/components/wake-slider/wake-slider.tsx"
+        },
+        "./one-time-code": {
+            "types": "./dist/types/src/components/one-time-code/one-time-code.d.ts",
+            "default": "./src/components/one-time-code/one-time-code.tsx"
+        },
+        "./aspect-ratio": {
+            "types": "./dist/types/src/components/aspect-ratio/aspect-ratio.d.ts",
+            "default": "./src/components/aspect-ratio/aspect-ratio.tsx"
         }
     },
     "scripts": {

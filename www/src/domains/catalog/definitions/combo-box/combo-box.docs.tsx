@@ -1,3 +1,4 @@
+import { ComboBoxCreate } from "./examples/combo-box-create"
 import { useState } from "react"
 import { ComboBox } from "@passui/react/combo-box"
 import { defineDocs } from "../types"
@@ -41,6 +42,7 @@ export const comboBoxDocs = defineDocs<{ label: string }>()({
     usage: ComboBoxUsage,
     showcase: ComboBoxShowcase,
     examples: [
+        { id: "create", component: ComboBoxCreate },
         { id: "languages", component: ComboBoxLanguages },
         { id: "disabled", component: ComboBoxDisabled },
     ],

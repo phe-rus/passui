@@ -18,16 +18,21 @@ export function TextFieldShowcase() {
         >
             <h2 className="text-headline font-semibold text-label">Edit profile</h2>
             <TextField
+                labelPlacement="floating"
+                placeholder="Your name"
                 label="Name"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
             />
             <TextField
+                labelPlacement="floating"
+                placeholder="Your role"
                 label="Role"
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
             />
             <TextField
+                labelPlacement="floating"
                 label="Website"
                 placeholder="example.com"
                 description="Shown on your public profile."

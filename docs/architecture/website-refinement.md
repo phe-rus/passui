@@ -199,3 +199,18 @@ also passed. These checks do not establish physical touch behavior for all contr
 Tokens 0.1.1 is publicly available after Bun publication. Remaining packages are
 held for the current verification batch; the CI OIDC configuration remains a
 separate issue. See the current React checkpoint for continuation details.
+
+## Native control and catalog continuation
+
+The catalog now registers 55 families. Command is a grouped SearchList surface
+and centered native Sheet, and drives documentation search. ComboBox composes
+searchable Picker with optional creation. Shared React-only anchored material
+keeps Picker and compact calendar/time exits mounted until their spring settles.
+Breadcrumb lists remove inherited prose padding. Numeric playground controls
+validate query values and generate numeric JSX.
+
+SloshSlider, WakeSlider, OneTimeCode and AspectRatio have complete source-backed
+examples; TextField adds floating labels and SearchField an optional expanding
+pill. Their reusable styling lives in the native package stylesheet, including
+reduced-motion behavior. Bencho adaptations retain comments and MIT attribution.
+The current React checkpoint records verification and pending publication.

@@ -1,14 +1,10 @@
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
-import { type KeyboardEvent, useEffect, useId, useLayoutEffect, useRef, useState } from "react"
+import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure"
+import { AnchoredSurface } from "../popover/anchored-surface"
+import { type KeyboardEvent, useEffect, useId, useRef } from "react"
 import { createPortal } from "react-dom"
-import { FLOATING_LAYER } from "../../hooks/use-dismiss"
-import { useFloatingDismiss } from "../../hooks/use-floating-dismiss"
 import { ClockIcon } from "../../icons/icons"
-import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
 import { cn } from "../../lib/class-names"
-import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
-import { floatingPanelMotion } from "../../motion/transitions"
 import { pickerTriggerStyle } from "../picker/picker-trigger"
 import {
     formatTime,
@@ -53,7 +49,8 @@ export function CompactTimePicker({
     className,
     disabled = false,
 }: CompactTimePickerProps) {
-    const [open, setOpen] = useState(false)
+    const panel = useAnchoredDisclosure(disabled)
+    const { open } = panel
     const trigger = useRef<HTMLButtonElement>(null)
     const panelId = useId()
     const chosen = parseTime(value)
@@ -75,7 +72,7 @@ export function CompactTimePicker({
                 aria-expanded={open && !disabled}
                 aria-controls={open && !disabled ? panelId : undefined}
                 disabled={disabled}
-                onClick={() => setOpen((current) => !current)}
+                onClick={() => panel.toggle()}
                 className={pickerTriggerStyle(className)}
             >
                 <span
@@ -90,33 +87,32 @@ export function CompactTimePicker({
             </button>
             {typeof document !== "undefined" &&
                 createPortal(
-                    <AnimatePresence>
-                        {open && !disabled && trigger.current && (
-                            <TimeColumns
-                                id={panelId}
-                                anchor={trigger.current}
-                                label={label}
-                                locale={locale}
-                                time={
-                                    chosen ?? {
-                                        hour: 9,
-                                        minute: 0,
-                                    }
+                    panel.mounted && trigger.current ? (
+                        <TimeColumns
+                            open={open}
+                            onExited={panel.onExited}
+                            id={panelId}
+                            anchor={trigger.current}
+                            label={label}
+                            locale={locale}
+                            time={
+                                chosen ?? {
+                                    hour: 9,
+                                    minute: 0,
                                 }
-                                minuteStep={minuteStep}
-                                labels={labels}
-                                onChange={(next) => {
-                                    haptic("selection")
-                                    onChange(formatTime(next))
-                                }}
-                                onClose={(restoreFocus) => {
-                                    setOpen(false)
-                                    if (restoreFocus)
-                                        trigger.current?.focus({ preventScroll: true })
-                                }}
-                            />
-                        )}
-                    </AnimatePresence>,
+                            }
+                            minuteStep={minuteStep}
+                            labels={labels}
+                            onChange={(next) => {
+                                haptic("selection")
+                                onChange(formatTime(next))
+                            }}
+                            onClose={(restoreFocus) => {
+                                panel.close()
+                                if (restoreFocus) trigger.current?.focus({ preventScroll: true })
+                            }}
+                        />
+                    ) : null,
                     document.body
                 )}
         </>
@@ -129,6 +125,8 @@ interface ColumnItem {
 }
 
 function TimeColumns({
+    open,
+    onExited,
     id,
     anchor,
     label,
@@ -139,6 +137,8 @@ function TimeColumns({
     onChange,
     onClose,
 }: {
+    open: boolean
+    onExited: () => void
     id: string
     anchor: HTMLElement
     label: string
@@ -150,9 +150,7 @@ function TimeColumns({
     onClose: (restoreFocus: boolean) => void
 }) {
     const root = useRef<HTMLDivElement>(null)
-    const reducedMotion = useReducedMotion()
     const twelve = usesTwelveHours(locale)
-    const placement = useAnchoredPlacement(anchor, twelve ? 240 : 180, 280)
     const number = new Intl.NumberFormat(locale, {
         minimumIntegerDigits: 2,
     })
@@ -186,54 +184,19 @@ function TimeColumns({
         { key: 1, text: periodName(true) },
     ]
 
-    useLayoutEffect(() => {
-        if (!root.current) return
-        return registerFloatingLayer(root.current, anchor)
-    }, [anchor])
-
-    useFloatingDismiss(root, anchor, onClose)
-
     return (
-        <motion.div
+        <AnchoredSurface
+            open={open}
+            onExited={onExited}
             ref={root}
+            anchor={anchor}
+            width={twelve ? 240 : 180}
+            needed={280}
+            onClose={onClose}
             id={id}
             role="dialog"
             aria-label={label}
-            initial={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : {
-                          opacity: 0,
-                          scale: 1,
-                          y: placement.above ? 6 : -6,
-                      }
-            }
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : {
-                          opacity: 0,
-                          scale: 1,
-                          y: placement.above ? 4 : -4,
-                      }
-            }
-            transition={
-                reducedMotion
-                    ? { duration: 0 }
-                    : floatingPanelMotion(placement.above ? "above" : "below").transition
-            }
-            style={{
-                left: placement.left,
-                width: placement.width,
-                top: placement.top,
-                bottom: placement.bottom,
-                maxHeight: placement.maxHeight,
-                overflowY: placement.maxHeight ? "auto" : undefined,
-                transformOrigin: placement.above ? "50% 100%" : "50% 0%",
-            }}
-            className="glass-menu fixed z-[80] flex gap-1 rounded-3xl p-2"
-            {...{ [FLOATING_LAYER]: "" }}
+            contentClassName="flex-row gap-1 overflow-hidden p-2"
             onKeyDown={(event) => {
                 if (event.key !== "Escape") return
                 event.preventDefault()
@@ -272,7 +235,7 @@ function TimeColumns({
                     }
                 />
             )}
-        </motion.div>
+        </AnchoredSurface>
     )
 }
 

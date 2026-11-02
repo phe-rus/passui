@@ -1,4 +1,5 @@
-import type { HTMLAttributes } from "react"
+import { type HTMLAttributes, useRef } from "react"
+import { useLiquidProgress } from "./use-liquid-progress"
 import { cn } from "../../lib/class-names"
 import { clampRange } from "../../lib/range-value"
 
@@ -33,6 +34,8 @@ export function ProgressView({
     const limit = Number.isFinite(max) && max > 0 ? max : 100
     const current = value === undefined ? undefined : clampRange(value, 0, limit)
     const progress = current === undefined ? undefined : (current / limit) * 100
+    const fill = useRef<HTMLDivElement>(null)
+    useLiquidProgress(fill, progress)
 
     return (
         <div {...props} className={cn("flex min-w-0 flex-col gap-2", className)}>
@@ -52,9 +55,11 @@ export function ProgressView({
                 )}
             >
                 <div
+                    ref={fill}
                     aria-hidden="true"
                     className={cn(
                         "h-full rounded-full bg-accent",
+                        current !== undefined && "passui-progress-fill",
                         current === undefined && "w-1/3 animate-pulse motion-reduce:animate-none"
                     )}
                     style={progress === undefined ? undefined : { width: `${progress}%` }}

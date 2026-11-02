@@ -1,22 +1,10 @@
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
-import {
-    type KeyboardEvent,
-    useEffect,
-    useId,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState,
-} from "react"
+import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure"
+import { AnchoredSurface } from "../popover/anchored-surface"
+import { type KeyboardEvent, useEffect, useId, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { FLOATING_LAYER } from "../../hooks/use-dismiss"
-import { useFloatingDismiss } from "../../hooks/use-floating-dismiss"
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
-import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
-import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
-import { floatingPanelMotion } from "../../motion/transitions"
 import { IconButton } from "../button/icon-button"
 import { pickerTriggerStyle } from "../picker/picker-trigger"
 import {
@@ -82,7 +70,8 @@ export function CompactDatePicker({
     className,
     disabled = false,
 }: CompactDatePickerProps) {
-    const [open, setOpen] = useState(false)
+    const panel = useAnchoredDisclosure(disabled)
+    const { open } = panel
     const trigger = useRef<HTMLButtonElement>(null)
     const calendarId = useId()
     const chosen = parseDay(value)
@@ -94,7 +83,7 @@ export function CompactDatePicker({
         : (placeholder ?? "")
 
     const close = (restoreFocus: boolean) => {
-        setOpen(false)
+        panel.close()
         if (restoreFocus) trigger.current?.focus({ preventScroll: true })
     }
 
@@ -108,7 +97,7 @@ export function CompactDatePicker({
                 aria-expanded={open && !disabled}
                 aria-controls={open && !disabled ? calendarId : undefined}
                 disabled={disabled}
-                onClick={() => setOpen((current) => !current)}
+                onClick={() => panel.toggle()}
                 className={pickerTriggerStyle(className)}
             >
                 <span
@@ -123,26 +112,26 @@ export function CompactDatePicker({
             </button>
             {typeof document !== "undefined" &&
                 createPortal(
-                    <AnimatePresence>
-                        {open && !disabled && trigger.current && (
-                            <MonthCalendar
-                                id={calendarId}
-                                anchor={trigger.current}
-                                label={label}
-                                locale={locale}
-                                value={value}
-                                min={min}
-                                max={max}
-                                labels={labels}
-                                onChoose={(next) => {
-                                    haptic("selection")
-                                    onChange(next)
-                                    close(true)
-                                }}
-                                onClose={close}
-                            />
-                        )}
-                    </AnimatePresence>,
+                    panel.mounted && trigger.current ? (
+                        <MonthCalendar
+                            open={open}
+                            onExited={panel.onExited}
+                            id={calendarId}
+                            anchor={trigger.current}
+                            label={label}
+                            locale={locale}
+                            value={value}
+                            min={min}
+                            max={max}
+                            labels={labels}
+                            onChoose={(next) => {
+                                haptic("selection")
+                                onChange(next)
+                                close(true)
+                            }}
+                            onClose={close}
+                        />
+                    ) : null,
                     document.body
                 )}
         </>
@@ -150,6 +139,8 @@ export function CompactDatePicker({
 }
 
 function MonthCalendar({
+    open,
+    onExited,
     id,
     anchor,
     label,
@@ -161,6 +152,8 @@ function MonthCalendar({
     onChoose,
     onClose,
 }: {
+    open: boolean
+    onExited: () => void
     id: string
     anchor: HTMLElement
     label: string
@@ -173,8 +166,6 @@ function MonthCalendar({
     onClose: (restoreFocus: boolean) => void
 }) {
     const root = useRef<HTMLDivElement>(null)
-    const reducedMotion = useReducedMotion()
-    const placement = useAnchoredPlacement(anchor, WIDTH, 360)
     const today = todayDay()
     const [focused, setFocused] = useState<CalendarDay>(() => parseDay(value) ?? today)
     const firstDay = useMemo(() => firstWeekday(locale), [locale])
@@ -195,19 +186,12 @@ function MonthCalendar({
         timeZone: "UTC",
     })
 
-    useLayoutEffect(() => {
-        if (!root.current) return
-        return registerFloatingLayer(root.current, anchor)
-    }, [anchor])
-
     // The focused day takes keyboard focus as it moves.
     useEffect(() => {
         root.current
             ?.querySelector<HTMLButtonElement>(`[data-day="${formatDay(focused)}"]`)
             ?.focus()
     }, [focused])
-
-    useFloatingDismiss(root, anchor, onClose)
 
     const move = (next: CalendarDay) => setFocused(next)
 
@@ -230,46 +214,18 @@ function MonthCalendar({
     }
 
     return (
-        <motion.div
+        <AnchoredSurface
+            open={open}
+            onExited={onExited}
             ref={root}
+            anchor={anchor}
+            width={WIDTH}
+            needed={360}
+            onClose={onClose}
             id={id}
             role="dialog"
             aria-label={label}
-            initial={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : {
-                          opacity: 0,
-                          scale: 1,
-                          y: placement.above ? 6 : -6,
-                      }
-            }
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : {
-                          opacity: 0,
-                          scale: 1,
-                          y: placement.above ? 4 : -4,
-                      }
-            }
-            transition={
-                reducedMotion
-                    ? { duration: 0 }
-                    : floatingPanelMotion(placement.above ? "above" : "below").transition
-            }
-            style={{
-                left: placement.left,
-                width: placement.width,
-                top: placement.top,
-                bottom: placement.bottom,
-                maxHeight: placement.maxHeight,
-                overflowY: placement.maxHeight ? "auto" : undefined,
-                transformOrigin: placement.above ? "50% 100%" : "50% 0%",
-            }}
-            className="glass-menu fixed z-[80] flex flex-col gap-2 rounded-3xl p-3"
-            {...{ [FLOATING_LAYER]: "" }}
+            contentClassName="gap-2 p-3"
             onKeyDown={onKeyDown}
         >
             <div className="flex items-center justify-between gap-2 ps-2">
@@ -354,6 +310,6 @@ function MonthCalendar({
                     {labels.clear}
                 </button>
             )}
-        </motion.div>
+        </AnchoredSurface>
     )
 }

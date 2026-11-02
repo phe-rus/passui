@@ -1,6 +1,6 @@
 import type { AnyControl, RegisteredDocs } from "@/domains/catalog/definitions"
 
-export type ControlValue = string | boolean
+export type ControlValue = string | boolean | number
 export type PropValues = Record<string, ControlValue>
 
 function isValid(control: AnyControl, value: unknown) {
@@ -9,6 +9,13 @@ function isValid(control: AnyControl, value: unknown) {
             return typeof value === "string" && Object.hasOwn(control.options, value)
         case "boolean":
             return typeof value === "boolean"
+        case "number":
+            return (
+                typeof value === "number" &&
+                Number.isFinite(value) &&
+                (control.min === undefined || value >= control.min) &&
+                (control.max === undefined || value <= control.max)
+            )
         case "text":
             return typeof value === "string"
     }

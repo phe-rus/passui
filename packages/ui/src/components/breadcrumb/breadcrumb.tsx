@@ -15,10 +15,13 @@ export interface BreadcrumbProps {
 /** Ancestors stay links; the final item identifies the current page. */
 export function Breadcrumb({ label, items, className, renderLink }: BreadcrumbProps) {
     return (
-        <nav aria-label={label} className={className}>
-            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-footnote text-label-secondary">
+        <nav aria-label={label} className={cn("not-typeset", className)}>
+            <ol className="m-0 flex list-none flex-wrap items-center gap-x-2 gap-y-1 p-0 text-footnote text-label-secondary">
                 {items.map((item, index) => (
-                    <li key={`${index}-${item.label}`} className="flex min-w-0 items-center gap-2">
+                    <li
+                        key={`${index}-${item.label}`}
+                        className="m-0 flex min-w-0 items-center gap-2 p-0"
+                    >
                         {index > 0 && (
                             <span aria-hidden="true" className="text-label-tertiary">
                                 /

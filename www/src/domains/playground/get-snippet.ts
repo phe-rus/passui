@@ -9,6 +9,7 @@ import {
 function attribute(name: string, value: ControlValue) {
     if (value === true) return name
     if (value === false) return `${name}={false}`
+    if (typeof value === "number") return `${name}={${value}}`
     return jsxAttribute(name, value)
 }
 

@@ -94,14 +94,20 @@ function OpenPopover({
                 offsetParent instanceof HTMLElement && offsetParent !== document.body
                     ? offsetParent.getBoundingClientRect()
                     : undefined
+            const trigger = anchorRef?.current?.getBoundingClientRect()
+            const target = {
+                left: trigger
+                    ? origin === "top-right"
+                        ? trigger.right - rect.width
+                        : trigger.left
+                    : rect.left,
+                top: trigger?.top ?? rect.top,
+                width: rect.width,
+                height: neededHeight,
+            }
             const next = fitPopover(
-                {
-                    left: rect.left,
-                    top: rect.top,
-                    width: rect.width,
-                    height: neededHeight,
-                },
-                anchor,
+                target,
+                trigger ?? anchor,
                 {
                     viewport: {
                         width: offsetLeft + (visualViewport?.width ?? window.innerWidth),
@@ -113,9 +119,11 @@ function OpenPopover({
                         top: offsetTop + edges.top,
                     },
                 },
-                6,
+                trigger ? -trigger.height : 6,
                 origin
             )
+            next.shiftX += target.left - rect.left
+            next.shiftY += target.top - rect.top
             setFit((current) => {
                 if (
                     current.shiftX === next.shiftX &&
@@ -149,7 +157,7 @@ function OpenPopover({
             window.removeEventListener("resize", scheduleRefit)
             window.removeEventListener("scroll", scheduleRefit, true)
         }
-    }, [origin])
+    }, [origin, anchorRef])
 
     useLayoutEffect(() => {
         const source = anchorRef?.current
@@ -236,7 +244,7 @@ function OpenPopover({
                 anchorRef
                     ? "isolate [&>:not([data-popover-surface])]:opacity-[var(--popover-content-opacity)]"
                     : "glass-menu",
-                "absolute z-40 rounded-5xl",
+                "absolute z-40 rounded-5xl outline-none",
                 className
             )}
             {...props}

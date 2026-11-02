@@ -1,4 +1,4 @@
-import { LabeledContent, Picker, SegmentedControl, TextField, Toggle } from "@passui/react"
+import { LabeledContent, Slider, Picker, SegmentedControl, TextField, Toggle } from "@passui/react"
 import type { AnyControl, RegisteredDocs } from "@/domains/catalog/definitions"
 import type { ControlValue, PropValues } from "@/domains/catalog"
 
@@ -25,6 +25,18 @@ function ControlRow({ name, control, value, onChange }: ControlRowProps) {
                 <LabeledContent label={name}>
                     <Toggle label={name} labelHidden checked={value === true} onChange={onChange} />
                 </LabeledContent>
+            )
+        case "number":
+            return (
+                <Slider
+                    label={name}
+                    value={Number(value)}
+                    onChange={onChange}
+                    min={control.min ?? 0}
+                    max={control.max ?? 100}
+                    step={control.step ?? 1}
+                    formatValue={(current) => String(current)}
+                />
             )
         case "text":
             return (

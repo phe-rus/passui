@@ -1,6 +1,6 @@
 # React and website refinement checkpoint
 
-Updated 2026-11-02. Work on `main` in this checkout. The latest owner instruction
+Updated 2026-11-03. Work on `main` in this checkout. The latest owner instruction
 authorizes committing, pushing and publishing package releases. It supersedes the
 previous release hold. Website deployment and consumer upgrades remain separate.
 
@@ -19,7 +19,7 @@ groups remain useful on the catalog page, not as extra navigation folders.
 Use existing components and public subpath imports. CodeBlock owns code display
 and line gutter styles. The website supplies lazy highlighting and formatting.
 Checkbox appearance is `Toggle style="checkbox"`; do not duplicate it. Picker
-selects from a list; ComboBox is editable and shares SearchList's keyboard engine.
+selects from a list; ComboBox composes searchable Picker and optionally creates a value from the query. Command composes SearchList for grouped actions and destinations.
 
 ## Interaction and weight
 
@@ -98,3 +98,37 @@ two website test timeouts under concurrent builds; the website rerun with
 `--maxWorkers=2` passed all 161 tests. Root check, production build, typecheck,
 package archive/export validation and bundle budgets pass. Existing lazy grammar
 chunk and CSS sourcemap build warnings remain. The website is not deployed.
+
+## Shared popouts and motion controls
+
+The catalog now contains 55 families, including Command, OneTimeCode,
+SloshSlider, WakeSlider and AspectRatio. Each has usage, showcase and at least
+two source-backed examples. Numeric playground controls validate URL values and
+generate numeric JSX attributes. Command also powers documentation search.
+
+Picker, ComboBox and compact date/time pickers share AnchoredSurface and
+useAnchoredDisclosure. A React-only spring keeps closing panels mounted until
+the material returns to the concealed trigger. Anchored Popover shares the
+trigger-overlap placement convention. Breadcrumb lists explicitly reset prose
+indentation to zero. Preserve these lifecycle and layout contracts.
+
+SloshSlider and WakeSlider adapt Bencho's MIT motion with package-local tokens
+and attribution in THIRD_PARTY_NOTICES.md. ProgressView remains read-only.
+OneTimeCode uses one native input; decorative cells never replace browser paste,
+autofill or selection. SearchField optionally expands from a circle into a pill.
+TextField supports floating labels and placeholders. Toggle has rounded checkbox
+chrome and a liquid switch follower. Motion loops park when settled and honor
+Reduce Motion. AspectRatio's example changes crop width and height at equal area.
+
+Current automated evidence: 326 tests pass (119 UI, 172 website, 13 tokens,
+7 TanStack, 15 CLI), including independent snippet compilation and all registered
+scenes. Production build, root formatting/API checks, typechecks, archive/export
+validation and consumer size budgets pass. Picker is 15,014 bytes and ComboBox
+15,042 bytes gzip under separate 16 KB budgets; dependencies are included and
+React is external. Existing CSS sourcemap and lazy grammar warnings remain.
+Codex-browser checks passed repeated Picker dismissal/reopening/selection, calendar
+Escape/reopening/date selection, time Escape/focus return, ComboBox creation,
+Popover dismissal/reopening, switch drag and keyboard, and WakeSlider pointer
+seeking/settling. Earlier checks covered Command focus/filter/action, OTP feedback,
+floating labels, expanding search, Slosh and equal-area crops. Publication remains
+separate. Do not infer physical touch or cross-browser verification.

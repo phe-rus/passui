@@ -1,31 +1,47 @@
 import { forwardRef, type InputHTMLAttributes } from "react"
 import { SearchIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
+import { ExpandingSearchField } from "./expanding-search-field"
 
-export const SearchField = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
-    function SearchField({ className, placeholder = "Search", ...props }, ref) {
-        const accessibleName = props["aria-labelledby"]
-            ? undefined
-            : (props["aria-label"] ?? placeholder)
+export interface SearchFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+    /** Expand a single pill from its search icon on focus. @default false */
+    collapsible?: boolean
+}
+
+export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(function SearchField(
+    { className, placeholder = "Search", collapsible = false, ...props },
+    ref
+) {
+    if (collapsible)
         return (
-            <label
-                className={cn(
-                    "control-field flex items-center gap-2 rounded-lg px-2.5 py-2 text-subheadline text-label-tertiary",
-                    className
-                )}
-            >
-                <span aria-hidden="true" className="shrink-0">
-                    <SearchIcon size={15} strokeWidth={2} />
-                </span>
-                <input
-                    ref={ref}
-                    type="search"
-                    placeholder={placeholder}
-                    aria-label={accessibleName}
-                    className="min-w-0 grow bg-transparent text-label outline-none placeholder:text-label-tertiary"
-                    {...props}
-                />
-            </label>
+            <ExpandingSearchField
+                {...props}
+                inputRef={ref}
+                className={className}
+                placeholder={placeholder}
+            />
         )
-    }
-)
+    const accessibleName = props["aria-labelledby"]
+        ? undefined
+        : (props["aria-label"] ?? placeholder)
+    return (
+        <label
+            className={cn(
+                "control-field flex items-center gap-2 rounded-full px-3 py-2 text-subheadline text-label-tertiary",
+                className
+            )}
+        >
+            <span aria-hidden="true" className="shrink-0">
+                <SearchIcon size={15} strokeWidth={2} />
+            </span>
+            <input
+                ref={ref}
+                type="search"
+                placeholder={placeholder}
+                aria-label={accessibleName}
+                className="min-w-0 grow bg-transparent text-label outline-none placeholder:text-label-tertiary"
+                {...props}
+            />
+        </label>
+    )
+})

@@ -10,7 +10,7 @@ import { TextField, type TextFieldProps } from "@passui/react/text-field"
 
 // The icons are nodes, so the playground offers a switch for each and
 // the snippet writes the icon itself.
-type DemoProps = Pick<TextFieldProps, "label" | "placeholder" | "disabled"> & {
+type DemoProps = Pick<TextFieldProps, "label" | "placeholder" | "disabled" | "labelPlacement"> & {
     icon?: boolean
     trailingIcon?: boolean
 }
@@ -43,6 +43,11 @@ export const textFieldDocs = defineDocs<DemoProps>()({
         placeholder: {
             kind: "text",
             default: "you@example.com",
+        },
+        labelPlacement: {
+            kind: "select",
+            default: "floating",
+            options: { above: true, floating: true },
         },
         disabled: { kind: "boolean", default: false },
         icon: { kind: "boolean", default: false },

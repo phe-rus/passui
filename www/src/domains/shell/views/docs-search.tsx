@@ -2,14 +2,13 @@ import { KeyboardShortcut } from "@passui/react/keyboard-shortcut"
 import { SearchIcon } from "@passui/react/icons"
 import { Button } from "@passui/react/button"
 import {
-    SearchList,
-    SearchListField,
-    SearchListResults,
-    SearchListGroup,
-    SearchListItem,
-    SearchListEmpty,
-} from "@passui/react/search-list"
-import { Sheet } from "@passui/react/sheet"
+    CommandDialog,
+    CommandInput,
+    CommandList,
+    CommandGroup,
+    CommandItem,
+    CommandEmpty,
+} from "@passui/react/command"
 import { useNavigate } from "@tanstack/react-router"
 import { useEffect, useState } from "react"
 import { getNavigationCatalog } from "@/domains/catalog/get-navigation"
@@ -60,74 +59,65 @@ export function DocsSearch() {
                     {shortcut}
                 </KeyboardShortcut>
             </Button>
-            <Sheet
-                open={open}
-                onClose={() => setOpen(false)}
-                label="Search documentation"
-                placement="center"
-                className="max-w-xl"
-            >
-                <SearchList className="flex min-h-0 flex-col p-3">
-                    <SearchListField
-                        autoFocus
-                        aria-label="Search documentation"
-                        placeholder="Search components and guides…"
-                        className="rounded-xl border-0 bg-transparent"
-                    />
-                    <SearchListResults className="max-h-[min(60svh,28rem)] border-t border-separator/60">
-                        <SearchListEmpty className="p-6 text-center text-footnote text-label-secondary">
-                            No results found.
-                        </SearchListEmpty>
-                        <SearchListGroup heading="Guides">
-                            {guides
-                                .filter((guide) => guide.slug !== "components")
-                                .map((guide) => (
-                                    <SearchListItem
-                                        key={guide.slug}
-                                        value={guide.title}
-                                        keywords={[guide.summary]}
-                                        onSelect={() => {
-                                            setOpen(false)
-                                            void navigate({
-                                                to: guide.path,
-                                            })
-                                        }}
-                                    >
-                                        {guide.title}
-                                    </SearchListItem>
-                                ))}
-                        </SearchListGroup>
-                        <SearchListGroup heading="Components">
-                            {getNavigationCatalog().map((entry) => (
-                                <SearchListItem
-                                    key={entry.docs.slug}
-                                    value={componentTitle(entry)}
-                                    keywords={[
-                                        entry.group,
-                                        entry.docs.name,
-                                        entry.docs.slug,
-                                        entry.content.summary,
-                                    ]}
+            <CommandDialog open={open} onClose={() => setOpen(false)} label="Search documentation">
+                <CommandInput
+                    autoFocus
+                    aria-label="Search documentation"
+                    placeholder="Search components and guides…"
+                />
+                <CommandList>
+                    <CommandEmpty className="p-6 text-center text-footnote text-label-secondary">
+                        No results found.
+                    </CommandEmpty>
+                    <CommandGroup heading="Guides">
+                        {guides
+                            .filter((guide) => guide.slug !== "components")
+                            .map((guide) => (
+                                <CommandItem
+                                    key={guide.slug}
+                                    value={guide.title}
+                                    keywords={[guide.summary]}
                                     onSelect={() => {
                                         setOpen(false)
                                         void navigate({
-                                            to: "/components/react/$slug",
-                                            params: {
-                                                slug: entry.docs.slug,
-                                            },
+                                            to: guide.path,
                                         })
                                     }}
                                 >
-                                    <span>{componentTitle(entry)}</span>
-                                </SearchListItem>
+                                    {guide.title}
+                                </CommandItem>
                             ))}
-                        </SearchListGroup>
-                    </SearchListResults>
-                    <p className="px-3 pt-3 text-caption2 text-label-tertiary">
-                        ↑ ↓ to navigate · Enter to open · Esc to close
-                    </p>
-                </SearchList>
-            </Sheet>
+                    </CommandGroup>
+                    <CommandGroup heading="Components">
+                        {getNavigationCatalog().map((entry) => (
+                            <CommandItem
+                                key={entry.docs.slug}
+                                value={componentTitle(entry)}
+                                keywords={[
+                                    entry.group,
+                                    entry.docs.name,
+                                    entry.docs.slug,
+                                    entry.content.summary,
+                                ]}
+                                onSelect={() => {
+                                    setOpen(false)
+                                    void navigate({
+                                        to: "/components/react/$slug",
+                                        params: {
+                                            slug: entry.docs.slug,
+                                        },
+                                    })
+                                }}
+                            >
+                                <span>{componentTitle(entry)}</span>
+                            </CommandItem>
+                        ))}
+                    </CommandGroup>
+                </CommandList>
+                <p className="px-3 pt-3 text-caption2 text-label-tertiary">
+                    ↑ ↓ to navigate · Enter to open · Esc to close
+                </p>
+            </CommandDialog>
         </>
     )
 }

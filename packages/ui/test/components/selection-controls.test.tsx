@@ -22,10 +22,10 @@ test("combobox starts closed with the selected label and no dangling active desc
     )
     expect(html).toContain('role="combobox"')
     expect(html).toContain('aria-expanded="false"')
-    expect(html).toContain('value="One"')
+    expect(html).toContain(">One</span>")
     expect(html).not.toContain("aria-activedescendant")
     expect(html).not.toContain("aria-controls")
-    expect(html).toContain('role="listbox" hidden=""')
+    expect(html).not.toContain('role="listbox"')
 })
 
 test("radio choices share a native name and expose selection and unavailable options", () => {
@@ -57,6 +57,9 @@ test("breadcrumb marks the final location and renders only ancestors as links", 
     expect(html).toContain('href="/"')
     expect(html).not.toContain('href="/docs"')
     expect(html).toContain('aria-current="page"')
+    expect(html).toContain('class="not-typeset"')
+    expect(html).toContain("gap-y-1 p-0")
+    expect(html).toContain("gap-2 p-0")
 })
 
 test("skeletons announce a supplied loading label and otherwise remain decorative", () => {

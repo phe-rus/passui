@@ -35,8 +35,10 @@ export function placeInViewport(
     { anchor, viewport, edges }: PlacementFrame,
     width: number,
     needed: number,
-    gap = 6
+    gap = 6,
+    overlap = false
 ): AnchoredPlacement {
+    if (overlap) gap = anchor.top - anchor.bottom
     const fitted = Math.min(width, viewport.width - edges.left - edges.right)
     const left = Math.min(Math.max(edges.left, anchor.left), viewport.width - fitted - edges.right)
     const roomBelow = viewport.height - anchor.bottom - gap - edges.bottom
@@ -58,7 +60,8 @@ export function placeAnchored(
     anchor: HTMLElement,
     width: number,
     needed: number,
-    gap = 6
+    gap = 6,
+    overlap = false
 ): AnchoredPlacement {
     const rect = anchor.getBoundingClientRect()
     const viewport = window.visualViewport
@@ -77,6 +80,7 @@ export function placeAnchored(
         },
         width,
         needed,
-        gap
+        gap,
+        overlap
     )
 }

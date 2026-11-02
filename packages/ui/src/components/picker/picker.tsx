@@ -1,31 +1,18 @@
-import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from "motion/react"
-import {
-    type KeyboardEvent,
-    useCallback,
-    useEffect,
-    useId,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState,
-} from "react"
+import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure"
+import { type KeyboardEvent, useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { useAnchoredPlacement } from "../../hooks/use-anchored-placement"
-import { useFloatingDismiss } from "../../hooks/use-floating-dismiss"
-import { FLOATING_LAYER } from "../../hooks/use-dismiss"
 import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
-import { registerFloatingLayer } from "../../lib/floating-layers"
 import { haptic } from "../../lib/haptics"
-import { spring } from "../../motion/transitions"
-import { concealMenuSource } from "../context-menu/conceal-menu-source"
-import { menuSurfaceReveal } from "../context-menu/menu-reveal"
+import { AnchoredSurface } from "../popover/anchored-surface"
 import { pickerTriggerStyle } from "./picker-trigger"
 
 export interface PickerOption<T extends string> {
     value: T
     label: string
     /** A quieter second line or trailing note, such as "Free" or a region. */
+    disabled?: boolean
+    keywords?: string[]
     detail?: string
     /** The option's own language, so it is spoken and shaped right. */
     lang?: string
@@ -49,6 +36,10 @@ export interface PickerProps<T extends string> {
     searchPlaceholder?: string
     /** Shown when the filter matches nothing. @default "No matches" */
     emptyLabel?: string
+    /** Offers a new value when no option has the same label or value. */
+    onCreate?: (query: string) => void
+    /** Localized creation action; receives the trimmed query. */
+    createLabel?: (query: string) => string
     className?: string
     /** Prevents opening or choosing an option. @default false */
     disabled?: boolean
@@ -73,22 +64,28 @@ export function Picker<T extends string>({
     searchPlaceholder = "Search",
     emptyLabel = "No matches",
     className,
+    onCreate,
+    createLabel,
     disabled = false,
 }: PickerProps<T>) {
-    const [open, setOpen] = useState(false)
+    const panel = useAnchoredDisclosure(disabled)
+    const { open } = panel
     const trigger = useRef<HTMLButtonElement>(null)
     const listId = useId()
     const selected = options.find((option) => option.value === value)
 
-    const close = useCallback((refocus: boolean) => {
-        setOpen(false)
-        if (refocus) trigger.current?.focus({ preventScroll: true })
-    }, [])
+    const close = useCallback(
+        (refocus: boolean) => {
+            panel.close()
+            if (refocus) trigger.current?.focus({ preventScroll: true })
+        },
+        [panel.close]
+    )
 
     const onTriggerKey = (event: KeyboardEvent<HTMLButtonElement>) => {
         if (event.key === "ArrowDown" || event.key === "ArrowUp") {
             event.preventDefault()
-            setOpen(true)
+            panel.show()
         }
     }
 
@@ -103,7 +100,7 @@ export function Picker<T extends string>({
                 aria-expanded={open && !disabled}
                 aria-controls={open && !disabled ? listId : undefined}
                 disabled={disabled}
-                onClick={() => setOpen((current) => !current)}
+                onClick={() => panel.toggle()}
                 onKeyDown={onTriggerKey}
                 className={pickerTriggerStyle(className)}
             >
@@ -117,29 +114,31 @@ export function Picker<T extends string>({
             </button>
             {typeof document !== "undefined" &&
                 createPortal(
-                    <LazyMotion features={domAnimation}>
-                        <AnimatePresence>
-                            {open && !disabled && trigger.current && (
-                                <SelectList
-                                    id={listId}
-                                    anchor={trigger.current}
-                                    options={options}
-                                    value={value}
-                                    label={label}
-                                    searchable={searchable ?? options.length > SEARCH_FROM}
-                                    searchPlaceholder={searchPlaceholder}
-                                    emptyLabel={emptyLabel}
-                                    onPick={(next) => {
-                                        close(true)
-                                        if (next === value) return
-                                        haptic("selection")
-                                        onChange(next)
-                                    }}
-                                    onClose={close}
-                                />
-                            )}
-                        </AnimatePresence>
-                    </LazyMotion>,
+                    panel.mounted && trigger.current ? (
+                        <SelectList
+                            open={open}
+                            onExited={panel.onExited}
+                            id={listId}
+                            anchor={trigger.current}
+                            options={options}
+                            value={value}
+                            label={label}
+                            searchable={
+                                searchable ?? (Boolean(onCreate) || options.length >= SEARCH_FROM)
+                            }
+                            searchPlaceholder={searchPlaceholder}
+                            emptyLabel={emptyLabel}
+                            onCreate={onCreate}
+                            createLabel={createLabel}
+                            onPick={(next) => {
+                                close(true)
+                                if (next === value) return
+                                haptic("selection")
+                                onChange(next)
+                            }}
+                            onClose={close}
+                        />
+                    ) : null,
                     document.body
                 )}
         </>
@@ -147,6 +146,8 @@ export function Picker<T extends string>({
 }
 
 function SelectList<T extends string>({
+    open,
+    onExited,
     id,
     anchor,
     options,
@@ -157,7 +158,11 @@ function SelectList<T extends string>({
     emptyLabel,
     onPick,
     onClose,
+    onCreate,
+    createLabel,
 }: {
+    open: boolean
+    onExited: () => void
     id: string
     anchor: HTMLElement
     options: ReadonlyArray<PickerOption<T>>
@@ -166,59 +171,62 @@ function SelectList<T extends string>({
     searchable: boolean
     searchPlaceholder: string
     emptyLabel: string
+    onCreate?: (query: string) => void
+    createLabel?: (query: string) => string
     onPick: (value: T) => void
     onClose: (refocus: boolean) => void
 }) {
-    const root = useRef<HTMLDivElement>(null)
-    const reducedMotion = useReducedMotion()
     const list = useRef<HTMLDivElement>(null)
     const search = useRef<HTMLInputElement>(null)
-    const placement = useAnchoredPlacement(
-        anchor,
-        Math.min(Math.max(anchor.getBoundingClientRect().width, 220), 360),
-        240
-    )
     const [query, setQuery] = useState("")
-    const [reveal, setReveal] = useState<ReturnType<typeof menuSurfaceReveal> | null>(null)
     const typed = useRef({ text: "", at: 0 })
 
     const shown = useMemo(() => {
         const needle = query.trim().toLocaleLowerCase()
         if (!needle) return options
         return options.filter((option) =>
-            `${option.label} ${option.detail ?? ""} ${option.value}`
+            `${option.label} ${option.detail ?? ""} ${option.value} ${(option.keywords ?? []).join(" ")}`
                 .toLocaleLowerCase()
                 .includes(needle)
         )
     }, [options, query])
 
+    const enabled = shown.filter((option) => !option.disabled)
+    const trimmed = query.trim()
+    const canCreate = Boolean(
+        onCreate &&
+            trimmed &&
+            !options.some(
+                (option) =>
+                    option.label.toLocaleLowerCase() === trimmed.toLocaleLowerCase() ||
+                    option.value.toLocaleLowerCase() === trimmed.toLocaleLowerCase()
+            )
+    )
+    const create = () => {
+        if (!canCreate) return
+        onClose(true)
+        onCreate?.(trimmed)
+    }
     const [active, setActive] = useState(() =>
         Math.max(
             0,
-            options.findIndex((option) => option.value === value)
+            options
+                .filter((option) => !option.disabled)
+                .findIndex((option) => option.value === value)
         )
     )
-    const activeOption = shown[Math.min(active, shown.length - 1)]
+    const last = enabled.length + (canCreate ? 1 : 0) - 1
+    const activeOption = enabled[Math.min(active, last)]
+    const activeId = activeOption
+        ? `${id}-${activeOption.value}`
+        : canCreate
+          ? `${id}-create`
+          : undefined
 
-    useLayoutEffect(() => {
-        if (!root.current) return
-        const unregister = registerFloatingLayer(root.current, anchor)
-        const panel = root.current.getBoundingClientRect()
-        const source = anchor.getBoundingClientRect()
-        setReveal(
-            menuSurfaceReveal(
-                { left: source.left, top: source.top, width: source.width, height: source.height },
-                { left: panel.left, top: panel.top, width: panel.width, height: panel.height }
-            )
-        )
-        const restoreSource = concealMenuSource(anchor, false)
+    useEffect(() => {
         if (searchable) search.current?.focus()
         else list.current?.focus()
-        return () => {
-            unregister()
-            restoreSource()
-        }
-    }, [searchable, anchor])
+    }, [searchable])
 
     // The chosen option starts in view, then follows the keyboard.
     useEffect(() => {
@@ -228,10 +236,7 @@ function SelectList<T extends string>({
             ?.scrollIntoView({ block: "nearest" })
     }, [activeOption])
 
-    useFloatingDismiss(root, anchor, onClose)
-
     const onKeyDown = (event: KeyboardEvent) => {
-        const last = shown.length - 1
         const step = (to: number) => {
             event.preventDefault()
             setActive(Math.max(0, Math.min(last, to)))
@@ -246,6 +251,7 @@ function SelectList<T extends string>({
         else if (event.key === "Enter" || (event.key === " " && !searchable)) {
             event.preventDefault()
             if (activeOption) onPick(activeOption.value)
+            else if (canCreate) create()
         } else if (event.key === "Escape") {
             event.preventDefault()
             event.stopPropagation()
@@ -257,7 +263,7 @@ function SelectList<T extends string>({
             const now = Date.now()
             const text = (now - typed.current.at < 700 ? typed.current.text : "") + event.key
             typed.current = { text, at: now }
-            const match = shown.findIndex((option) =>
+            const match = enabled.findIndex((option) =>
                 option.label.toLocaleLowerCase().startsWith(text.toLocaleLowerCase())
             )
             if (match >= 0) setActive(match)
@@ -265,120 +271,105 @@ function SelectList<T extends string>({
     }
 
     return (
-        <div
-            ref={root}
-            style={{
-                left: placement.left,
-                width: placement.width,
-                top: placement.top,
-                bottom: placement.bottom,
-                maxHeight: Math.min(placement.maxHeight ?? 420, 420),
-                transformOrigin: placement.above ? "50% 100%" : "50% 0%",
-            }}
-            className="fixed z-[80] isolate flex flex-col rounded-3xl"
-            {...{ [FLOATING_LAYER]: "" }}
+        <AnchoredSurface
+            open={open}
+            onExited={onExited}
+            anchor={anchor}
+            width={Math.min(Math.max(anchor.getBoundingClientRect().width, 220), 360)}
+            needed={240}
+            onClose={onClose}
             onKeyDown={onKeyDown}
+            contentClassName="overflow-hidden"
         >
-            <m.div
-                key={reveal ? "surface" : "measure"}
-                aria-hidden="true"
-                className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
-                style={{ width: "100%", height: "100%" }}
-                initial={reducedMotion || !reveal ? false : reveal}
-                animate={
-                    reveal
-                        ? {
-                              x: 0,
-                              y: 0,
-                              width: placement.width,
-                              height: "100%",
-                              opacity: 1,
-                              borderRadius: "var(--radius-3xl)",
-                          }
-                        : undefined
-                }
-                exit={reducedMotion ? { opacity: 0 } : (reveal ?? { opacity: 0 })}
-                transition={reducedMotion ? { duration: 0 } : spring.smooth}
-            />
-            <m.div
-                initial={reducedMotion ? false : { opacity: 0, y: placement.above ? -4 : 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.06 } }}
-                transition={{ duration: reducedMotion ? 0 : 0.16, delay: reducedMotion ? 0 : 0.06 }}
-                className="flex min-h-0 flex-col overflow-hidden"
+            {searchable && (
+                <div className="flex shrink-0 items-center gap-2 border-b border-separator/70 px-3 py-2">
+                    <SearchIcon size={15} className="shrink-0 text-label-tertiary" />
+                    <input
+                        ref={search}
+                        value={query}
+                        placeholder={searchPlaceholder}
+                        aria-label={searchPlaceholder}
+                        aria-controls={id}
+                        aria-activedescendant={activeId}
+                        onChange={(event) => {
+                            setQuery(event.target.value)
+                            setActive(0)
+                        }}
+                        className="min-w-0 grow bg-transparent text-subheadline text-label outline-none placeholder:text-label-tertiary"
+                    />
+                </div>
+            )}
+            <div
+                ref={list}
+                id={id}
+                role="listbox"
+                aria-label={label}
+                tabIndex={-1}
+                aria-activedescendant={activeId}
+                className="no-scrollbar flex min-h-0 flex-col overflow-y-auto overscroll-contain p-1.5 outline-none"
             >
-                {searchable && (
-                    <div className="flex shrink-0 items-center gap-2 border-b border-separator/70 px-3 py-2">
-                        <SearchIcon size={15} className="shrink-0 text-label-tertiary" />
-                        <input
-                            ref={search}
-                            value={query}
-                            placeholder={searchPlaceholder}
-                            aria-label={searchPlaceholder}
-                            aria-controls={id}
-                            aria-activedescendant={
-                                activeOption ? `${id}-${activeOption.value}` : undefined
+                {shown.map((option) => {
+                    const chosen = option.value === value
+                    const focused = option === activeOption
+                    return (
+                        <div
+                            key={option.value}
+                            id={`${id}-${option.value}`}
+                            data-value={option.value}
+                            role="option"
+                            tabIndex={-1}
+                            aria-selected={chosen}
+                            aria-disabled={option.disabled || undefined}
+                            lang={option.lang}
+                            onPointerMove={() =>
+                                !option.disabled && setActive(enabled.indexOf(option))
                             }
-                            onChange={(event) => {
-                                setQuery(event.target.value)
-                                setActive(0)
-                            }}
-                            className="min-w-0 grow bg-transparent text-subheadline text-label outline-none placeholder:text-label-tertiary"
-                        />
+                            onClick={() => !option.disabled && onPick(option.value)}
+                            className={cn(
+                                "flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1.5 text-subheadline [@media(pointer:coarse)]:min-h-11",
+                                focused ? "bg-fill" : "",
+                                option.disabled && "opacity-40",
+                                chosen ? "font-semibold text-label" : "text-label"
+                            )}
+                        >
+                            <span className="flex w-4 shrink-0 justify-center">
+                                {chosen && (
+                                    <CheckIcon
+                                        size={15}
+                                        strokeWidth={2.4}
+                                        className="text-accent-text"
+                                    />
+                                )}
+                            </span>
+                            <span className="min-w-0 grow break-words">{option.label}</span>
+                            {option.detail && (
+                                <span className="shrink-0 text-caption font-normal text-label-tertiary">
+                                    {option.detail}
+                                </span>
+                            )}
+                        </div>
+                    )
+                })}
+                {canCreate && (
+                    <div
+                        id={`${id}-create`}
+                        role="option"
+                        aria-selected={false}
+                        tabIndex={-1}
+                        onPointerMove={() => setActive(enabled.length)}
+                        onClick={create}
+                        className={cn(
+                            "flex min-h-9 cursor-default items-center rounded-lg px-2 py-1.5 text-subheadline text-accent-text",
+                            !activeOption && "bg-fill"
+                        )}
+                    >
+                        {createLabel?.(trimmed) ?? trimmed}
                     </div>
                 )}
-                <div
-                    ref={list}
-                    id={id}
-                    role="listbox"
-                    aria-label={label}
-                    tabIndex={-1}
-                    aria-activedescendant={activeOption ? `${id}-${activeOption.value}` : undefined}
-                    className="no-scrollbar flex min-h-0 flex-col overflow-y-auto overscroll-contain p-1.5 outline-none"
-                >
-                    {shown.map((option, index) => {
-                        const chosen = option.value === value
-                        const focused = option === activeOption
-                        return (
-                            <div
-                                key={option.value}
-                                id={`${id}-${option.value}`}
-                                data-value={option.value}
-                                role="option"
-                                tabIndex={-1}
-                                aria-selected={chosen}
-                                lang={option.lang}
-                                onPointerMove={() => setActive(index)}
-                                onClick={() => onPick(option.value)}
-                                className={cn(
-                                    "flex min-h-8 cursor-default items-center gap-2 rounded-lg px-2 py-1.5 text-subheadline [@media(pointer:coarse)]:min-h-11",
-                                    focused ? "bg-fill" : "",
-                                    chosen ? "font-semibold text-label" : "text-label"
-                                )}
-                            >
-                                <span className="flex w-4 shrink-0 justify-center">
-                                    {chosen && (
-                                        <CheckIcon
-                                            size={15}
-                                            strokeWidth={2.4}
-                                            className="text-accent-text"
-                                        />
-                                    )}
-                                </span>
-                                <span className="min-w-0 grow break-words">{option.label}</span>
-                                {option.detail && (
-                                    <span className="shrink-0 text-caption font-normal text-label-tertiary">
-                                        {option.detail}
-                                    </span>
-                                )}
-                            </div>
-                        )
-                    })}
-                    {shown.length === 0 && (
-                        <p className="px-3 py-2 text-footnote text-label-tertiary">{emptyLabel}</p>
-                    )}
-                </div>
-            </m.div>
-        </div>
+                {shown.length === 0 && !canCreate && (
+                    <p className="px-3 py-2 text-footnote text-label-tertiary">{emptyLabel}</p>
+                )}
+            </div>
+        </AnchoredSurface>
     )
 }

@@ -1,5 +1,5 @@
 // Load source separately from the executable demo; the registry never carries raw files.
-const sources = import.meta.glob<string>("./definitions/**/examples/*.tsx", {
+const sources = import.meta.glob<string>("./definitions/*/examples/*.tsx", {
     query: "?raw",
     import: "default",
 })

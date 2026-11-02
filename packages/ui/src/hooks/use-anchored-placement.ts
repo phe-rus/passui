@@ -9,12 +9,15 @@ import { type AnchoredPlacement, placeAnchored } from "../lib/anchored-placement
 export function useAnchoredPlacement(
     anchor: HTMLElement,
     width: number,
-    needed: number
+    needed: number,
+    overlap = false
 ): AnchoredPlacement {
-    const [placement, setPlacement] = useState(() => placeAnchored(anchor, width, needed))
+    const [placement, setPlacement] = useState(() =>
+        placeAnchored(anchor, width, needed, 6, overlap)
+    )
 
     useLayoutEffect(() => {
-        const replace = () => setPlacement(placeAnchored(anchor, width, needed))
+        const replace = () => setPlacement(placeAnchored(anchor, width, needed, 6, overlap))
         replace()
         const viewport = window.visualViewport
         viewport?.addEventListener("resize", replace)
@@ -27,7 +30,7 @@ export function useAnchoredPlacement(
             window.removeEventListener("resize", replace)
             window.removeEventListener("scroll", replace, true)
         }
-    }, [anchor, width, needed])
+    }, [anchor, width, needed, overlap])
 
     return placement
 }

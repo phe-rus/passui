@@ -5,10 +5,16 @@ export const searchFieldContent: ComponentContent<typeof searchFieldDocs> = {
     summary: "A compact search input with a magnifying glass, for filtering lists as people type.",
     usage: "Use it above a list or in a toolbar. Filter results as people type rather than waiting for Enter.",
     propDescriptions: {
+        collapsible: "Expand one pill around its fixed search icon when the field receives focus.",
         placeholder: "What can be searched, like Search people.",
         disabled: "Shows the field but blocks typing.",
     },
     examples: {
+        expanding: {
+            title: "One expanding search pill",
+            description:
+                "Focus the icon to reveal the field. An empty field returns to its compact shape on blur or Escape.",
+        },
         filter: {
             title: "Filtering a list",
             description:

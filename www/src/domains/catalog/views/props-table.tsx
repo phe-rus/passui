@@ -11,7 +11,16 @@ type PropsTableProps = {
 }
 
 function TypeOf({ control }: { control: AnyControl }) {
-    if (control.kind !== "select") return <>{control.kind === "boolean" ? "boolean" : "string"}</>
+    if (control.kind !== "select")
+        return (
+            <>
+                {control.kind === "boolean"
+                    ? "boolean"
+                    : control.kind === "number"
+                      ? "number"
+                      : "string"}
+            </>
+        )
     return (
         <span className="flex flex-wrap gap-1">
             {Object.keys(control.options).map((option) => (

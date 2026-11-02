@@ -25,6 +25,18 @@
     },
     {
         "docs": {
+            "slug": "aspect-ratio",
+            "name": "AspectRatio"
+        },
+        "group": "Content",
+        "icon": "input",
+        "exampleIds": ["portrait", "square"],
+        "content": {
+            "summary": "A responsive crop frame that preserves the image's proportions."
+        }
+    },
+    {
+        "docs": {
             "slug": "breadcrumb",
             "name": "Breadcrumb"
         },
@@ -78,9 +90,21 @@
         },
         "group": "Controls",
         "icon": "input",
-        "exampleIds": ["languages", "disabled"],
+        "exampleIds": ["create", "languages", "disabled"],
         "content": {
-            "summary": "Choose from an editable, keyboard navigable list."
+            "summary": "A searchable Picker with the same control, glass surface and keyboard behavior. Optionally offer creation from a new query."
+        }
+    },
+    {
+        "docs": {
+            "slug": "command",
+            "name": "Command"
+        },
+        "group": "Navigation",
+        "icon": "searchList",
+        "exampleIds": ["dialog", "keywords"],
+        "content": {
+            "summary": "A compact command palette for finding destinations and performing quick actions."
         }
     },
     {
@@ -277,6 +301,18 @@
     },
     {
         "docs": {
+            "slug": "one-time-code",
+            "name": "OneTimeCode"
+        },
+        "group": "Controls",
+        "icon": "input",
+        "exampleIds": ["four-digits", "disabled"],
+        "content": {
+            "summary": "One native input drawn as code cells, with paste, autofill and verification feedback."
+        }
+    },
+    {
+        "docs": {
             "slug": "picker",
             "name": "Picker"
         },
@@ -342,7 +378,7 @@
         },
         "group": "Controls",
         "icon": "search",
-        "exampleIds": ["filter", "toolbar"],
+        "exampleIds": ["expanding", "filter", "toolbar"],
         "content": {
             "summary": "A compact search input with a magnifying glass, for filtering lists as people type."
         }
@@ -441,6 +477,18 @@
         "exampleIds": ["volume", "disabled"],
         "content": {
             "summary": "Adjust a number across a continuous range with native keyboard, pointer, and touch interactions."
+        }
+    },
+    {
+        "docs": {
+            "slug": "slosh-slider",
+            "name": "SloshSlider"
+        },
+        "group": "Controls",
+        "icon": "input",
+        "exampleIds": ["rigid", "disabled"],
+        "content": {
+            "summary": "A rigid handle with a spring-following liquid fill and a subtle meniscus."
         }
     },
     {
@@ -597,6 +645,18 @@
         "exampleIds": ["action", "settings"],
         "content": {
             "summary": "The frame of one screen: a large title with an optional description and action, then the screen's content."
+        }
+    },
+    {
+        "docs": {
+            "slug": "wake-slider",
+            "name": "WakeSlider"
+        },
+        "group": "Controls",
+        "icon": "input",
+        "exampleIds": ["quiet", "disabled"],
+        "content": {
+            "summary": "A compact seeker whose marks briefly rise along the path of a fast drag."
         }
     }
 ]

@@ -48,6 +48,20 @@
         "native": ["ComponentPropsWithoutRef<\"section\">"],
         "parts": []
     },
+    "aspect-ratio": {
+        "source": "packages/ui/src/components/aspect-ratio/aspect-ratio.tsx",
+        "props": [
+            {
+                "name": "ratio",
+                "type": "number",
+                "required": false,
+                "description": "Width divided by height.",
+                "defaultValue": "4 / 3"
+            }
+        ],
+        "native": ["HTMLAttributes<HTMLDivElement>"],
+        "parts": []
+    },
     "breadcrumb": {
         "source": "packages/ui/src/components/breadcrumb/breadcrumb.tsx",
         "props": [
@@ -199,29 +213,8 @@
         "source": "packages/ui/src/components/combo-box/combo-box.tsx",
         "props": [
             {
-                "name": "value",
-                "type": "T",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: NoInfer<T>) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
                 "name": "options",
                 "type": "readonly ComboBoxOption<T>[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
                 "required": true,
                 "description": "",
                 "defaultValue": null
@@ -232,31 +225,52 @@
                 "required": true,
                 "description": "",
                 "defaultValue": null
-            },
-            {
-                "name": "placeholder",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
             }
         ],
-        "native": [],
+        "native": ["Omit<PickerProps<T>, \"searchable\" | \"options\">"],
         "parts": []
+    },
+    "command": {
+        "source": "packages/ui/src/components/command/command.tsx",
+        "props": [],
+        "native": ["ComponentProps<typeof SearchList>"],
+        "parts": [
+            {
+                "name": "CommandDialog",
+                "props": [],
+                "native": ["Omit<SheetProps, \"placement\">"]
+            },
+            {
+                "name": "CommandInput",
+                "props": [],
+                "native": ["ComponentProps<typeof SearchListField>"]
+            },
+            {
+                "name": "CommandList",
+                "props": [],
+                "native": ["ComponentProps<typeof SearchListResults>"]
+            },
+            {
+                "name": "CommandEmpty",
+                "props": [],
+                "native": ["ComponentProps<typeof SearchListEmpty>"]
+            },
+            {
+                "name": "CommandShortcut",
+                "props": [],
+                "native": ["ComponentProps<typeof KeyboardShortcut>"]
+            },
+            {
+                "name": "CommandGroup",
+                "props": [],
+                "native": ["ComponentProps<typeof SearchListGroup>"]
+            },
+            {
+                "name": "CommandItem",
+                "props": [],
+                "native": ["ComponentProps<typeof SearchListItem>"]
+            }
+        ]
     },
     "compact-date-picker": {
         "source": "packages/ui/src/components/compact-date-picker/compact-date-picker.tsx",
@@ -1074,6 +1088,64 @@
         "native": ["Omit<ButtonProps, \"onClick\" | \"children\">"],
         "parts": []
     },
+    "one-time-code": {
+        "source": "packages/ui/src/components/one-time-code/one-time-code.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "value",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "onChange",
+                "type": "(value: string) => void",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "onComplete",
+                "type": "(value: string) => void",
+                "required": false,
+                "description": "Called when a complete code is entered, including paste and autofill.",
+                "defaultValue": null
+            },
+            {
+                "name": "length",
+                "type": "number",
+                "required": false,
+                "description": "Number of digits, 3–8.",
+                "defaultValue": "6"
+            },
+            {
+                "name": "status",
+                "type": "\"idle\" | \"verifying\" | \"success\" | \"error\"",
+                "required": false,
+                "description": "",
+                "defaultValue": "\"idle\""
+            },
+            {
+                "name": "statusLabel",
+                "type": "string",
+                "required": false,
+                "description": "Localized verification feedback announced without reading decorative cells.",
+                "defaultValue": null
+            }
+        ],
+        "native": [
+            "Omit< InputHTMLAttributes<HTMLInputElement>, \"value\" | \"defaultValue\" | \"onChange\" | \"type\" | \"maxLength\" | \"size\" >"
+        ],
+        "parts": []
+    },
     "picker": {
         "source": "packages/ui/src/components/picker/picker.tsx",
         "props": [
@@ -1132,6 +1204,20 @@
                 "required": false,
                 "description": "Shown when the filter matches nothing.",
                 "defaultValue": "\"No matches\""
+            },
+            {
+                "name": "onCreate",
+                "type": "(query: string) => void",
+                "required": false,
+                "description": "Offers a new value when no option has the same label or value.",
+                "defaultValue": null
+            },
+            {
+                "name": "createLabel",
+                "type": "(query: string) => string",
+                "required": false,
+                "description": "Localized creation action; receives the trimmed query.",
+                "defaultValue": null
             },
             {
                 "name": "className",
@@ -1304,6 +1390,13 @@
     "search-field": {
         "source": "packages/ui/src/components/search-field/search-field.tsx",
         "props": [
+            {
+                "name": "collapsible",
+                "type": "boolean",
+                "required": false,
+                "description": "Expand a single pill from its search icon on focus.",
+                "defaultValue": "false"
+            },
             {
                 "name": "ref",
                 "type": "Ref<HTMLInputElement>",
@@ -1486,6 +1579,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "labelPlacement",
+                "type": "\"above\" | \"floating\"",
+                "required": false,
+                "description": "Float the label into the outline on focus or when filled.",
+                "defaultValue": "\"above\""
             }
         ],
         "native": ["Omit<ComponentProps<\"input\">, \"type\">"],
@@ -1680,6 +1780,90 @@
         "native": [
             "Omit< ComponentProps<\"input\">, \"type\" | \"value\" | \"defaultValue\" | \"onChange\" | \"min\" | \"max\" | \"step\" >"
         ],
+        "parts": []
+    },
+    "slosh-slider": {
+        "source": "packages/ui/src/components/slosh-slider/slosh-slider.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "value",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "defaultValue",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "62"
+            },
+            {
+                "name": "onChange",
+                "type": "(value: number) => void",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "viscosity",
+                "type": "number",
+                "required": false,
+                "description": "0 is rigid; 100 is loose liquid.",
+                "defaultValue": "15"
+            },
+            {
+                "name": "momentum",
+                "type": "number",
+                "required": false,
+                "description": "How far the handle coasts after release, 0–100.",
+                "defaultValue": "55"
+            },
+            {
+                "name": "tilt",
+                "type": "number",
+                "required": false,
+                "description": "Lean of the liquid's leading edge, 0–100.",
+                "defaultValue": "45"
+            },
+            {
+                "name": "corner",
+                "type": "number",
+                "required": false,
+                "description": "Track corner, from square to a pill, 0–20.",
+                "defaultValue": "20"
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "",
+                "defaultValue": "false"
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "formatValue",
+                "type": "(value: number) => string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
         "parts": []
     },
     "stat-tile": {
@@ -2082,6 +2266,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "labelPlacement",
+                "type": "\"above\" | \"floating\"",
+                "required": false,
+                "description": "Float the label into the outline on focus or when filled.",
+                "defaultValue": "\"above\""
             }
         ],
         "native": ["ComponentProps<\"input\">"],
@@ -2260,5 +2451,75 @@
                 "native": []
             }
         ]
+    },
+    "wake-slider": {
+        "source": "packages/ui/src/components/wake-slider/wake-slider.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "value",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "defaultValue",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "50"
+            },
+            {
+                "name": "onChange",
+                "type": "(value: number) => void",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "bars",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "36"
+            },
+            {
+                "name": "wake",
+                "type": "number",
+                "required": false,
+                "description": "",
+                "defaultValue": "60"
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "",
+                "defaultValue": "false"
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "formatValue",
+                "type": "(value: number) => string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
+        "parts": []
     }
 }

@@ -5,6 +5,7 @@ export const textFieldContent: ComponentContent<typeof textFieldDocs> = {
     summary: "A labelled single line input with room for a hint and error messages.",
     usage: "Use it for short text people type: names, emails, links. The label is always visible.",
     propDescriptions: {
+        labelPlacement: "Keep the label above the field or let it lift into a gap in the outline.",
         label: "The visible name of the field, linked to the input.",
         placeholder: "An example of what to type. Never a replacement for the label.",
         disabled: "Shows the field but blocks typing.",

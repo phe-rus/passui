@@ -58,6 +58,11 @@ export function SearchList({
             }),
         []
     )
+    useEffect(() => {
+        if (!open) return
+        const available = Object.keys(results).filter((id) => results[id])
+        if (!available.includes(active)) setActive(available[0] ?? "")
+    }, [open, results, active])
     return (
         <SearchContext
             value={{
@@ -76,7 +81,7 @@ export function SearchList({
                 className={cn("relative", className)}
                 onKeyDown={(event) => {
                     onKeyDown?.(event)
-                    if (event.defaultPrevented || !open) return
+                    if (event.defaultPrevented || !open || event.nativeEvent.isComposing) return
                     const items = Array.from(
                         ref.current?.querySelectorAll<HTMLButtonElement>(
                             "[data-search-result]:not([hidden]):not(:disabled)"

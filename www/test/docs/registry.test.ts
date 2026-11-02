@@ -57,7 +57,12 @@ describe("docs registry", () => {
         for (const docs of registry) {
             for (const [name, control] of Object.entries(docs.controls)) {
                 if (!control) continue
-                const expected = control.kind === "boolean" ? "boolean" : "string"
+                const expected =
+                    control.kind === "boolean"
+                        ? "boolean"
+                        : control.kind === "number"
+                          ? "number"
+                          : "string"
                 expect(typeof control.default, `${docs.slug}.${name}`).toBe(expected)
             }
         }

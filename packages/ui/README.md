@@ -198,3 +198,26 @@ Its digit columns preserve carries and stop animating under Reduce Motion.
 Compact desktop rows retain larger targets for coarse pointers. Import only
 needed controls and icons through public entries; CSS is preserved while unused
 JavaScript exports can be removed by the bundler.
+
+### Search, selection and motion
+
+`ComboBox` is a searchable `Picker` with optional `onCreate` and a localized
+`createLabel`. `Command` composes grouped search actions; `CommandDialog` adds
+modal focus handling. Shortcut hints are display only; your application owns the
+actual keyboard bindings. Picker, compact calendar and time panels share one
+glass surface that expands from its trigger and restores it after dismissal.
+
+`TextField` and `SecureField` accept `labelPlacement="floating"`. SearchField
+supports `collapsible` for a single pill that expands around its search icon.
+`OneTimeCode` draws cells around one native input, preserving paste and code
+autofill. Your application owns verification and supplies status feedback.
+
+`SloshSlider` and `WakeSlider` take `label`, optional `value` or `defaultValue`,
+and `onChange`. Values run from 0 to 100. Their React-only motion stops at rest
+and respects Reduce Motion. Slosh has `viscosity`, `momentum` and `tilt`; Wake
+has `bars` and `wake`. Their source attribution and MIT notice are included in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). ProgressView remains read only
+and shares the liquid fill without acquiring slider behavior.
+
+`AspectRatio` clips images and videos to `ratio` without distorting them. The
+documentation demonstrates equal-area crops in a stable stage.

@@ -1,3 +1,13 @@
+import { aspectRatioContent } from "./content/aspect-ratio"
+import { aspectRatioDocs } from "./definitions/aspect-ratio/aspect-ratio.docs"
+import { oneTimeCodeContent } from "./content/one-time-code"
+import { oneTimeCodeDocs } from "./definitions/one-time-code/one-time-code.docs"
+import { wakeSliderContent } from "./content/wake-slider"
+import { wakeSliderDocs } from "./definitions/wake-slider/wake-slider.docs"
+import { sloshSliderContent } from "./content/slosh-slider"
+import { sloshSliderDocs } from "./definitions/slosh-slider/slosh-slider.docs"
+import { commandContent } from "./content/command"
+import { commandDocs } from "./definitions/command/command.docs"
 import { skeletonContent } from "./content/skeleton"
 import { breadcrumbContent } from "./content/breadcrumb"
 import { radioGroupContent } from "./content/radio-group"
@@ -106,6 +116,36 @@ import type { CatalogEntry } from "./types"
 
 // Component families for the overview. Navigation uses alphabetical display names.
 const entries: CatalogEntry[] = [
+    {
+        group: "Content",
+        icon: catalogIcons.input,
+        docs: aspectRatioDocs,
+        content: aspectRatioContent,
+    },
+    {
+        group: "Controls",
+        icon: catalogIcons.input,
+        docs: oneTimeCodeDocs,
+        content: oneTimeCodeContent,
+    },
+    {
+        group: "Controls",
+        icon: catalogIcons.input,
+        docs: wakeSliderDocs,
+        content: wakeSliderContent,
+    },
+    {
+        group: "Controls",
+        icon: catalogIcons.input,
+        docs: sloshSliderDocs,
+        content: sloshSliderContent,
+    },
+    {
+        group: "Navigation",
+        icon: catalogIcons.searchList,
+        docs: commandDocs,
+        content: commandContent,
+    },
     { group: "Feedback", icon: catalogIcons.input, docs: skeletonDocs, content: skeletonContent },
     {
         group: "Navigation",

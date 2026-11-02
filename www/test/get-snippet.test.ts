@@ -35,6 +35,16 @@ const snippet = (docs: RegisteredDocs, raw: Record<string, unknown> = {}) =>
     getSnippet(docs, resolveProps(docs, raw))
 
 describe("getSnippet", () => {
+    test("numeric controls reject invalid URL values and generate JSX expressions", () => {
+        const docs = docsWith({
+            controls: { amount: { kind: "number", default: 15, min: 0, max: 100 } },
+        })
+        expect(resolveProps(docs, { amount: 120 }).amount).toBe(15)
+        expect(resolveProps(docs, { amount: "30" }).amount).toBe(15)
+        expect(resolveProps(docs, { amount: Number.NaN }).amount).toBe(15)
+        expect(snippet(docs, { amount: 30 })).toContain("amount={30}")
+        expect(snippet(docs, { amount: 30 })).not.toContain('amount="30"')
+    })
     test("wraps the element in an exported component", () => {
         const code = snippet(docsWith())
         expect(code).toContain('import { Widget } from "@passui/react/widget"')
