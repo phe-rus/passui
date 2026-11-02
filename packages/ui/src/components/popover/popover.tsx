@@ -1,4 +1,10 @@
-import { AnimatePresence, type HTMLMotionProps, motion, useReducedMotion } from "motion/react"
+import {
+    AnimatePresence,
+    type HTMLMotionProps,
+    motion,
+    useIsPresent,
+    useReducedMotion,
+} from "motion/react"
 import { type ReactNode, type RefObject, useLayoutEffect, useRef, useState } from "react"
 import { concealMenuSource } from "../context-menu/conceal-menu-source"
 import { menuSurfaceReveal } from "../context-menu/menu-reveal"
@@ -38,6 +44,8 @@ function OpenPopover({
 }: Omit<PopoverProps, "open">) {
     const ref = useRef<HTMLDivElement>(null)
     const reducedMotion = useReducedMotion()
+    const present = useIsPresent()
+    const [settled, setSettled] = useState(false)
     const [fit, setFit] = useState<PopoverFit>({
         shiftX: 0,
         shiftY: 0,
@@ -168,9 +176,30 @@ function OpenPopover({
         <motion.div
             ref={ref}
             {...(!anchorRef && popoverMotion)}
-            initial={anchorRef ? false : reducedMotion ? { opacity: 0 } : popoverMotion.initial}
-            animate={anchorRef ? {} : reducedMotion ? { opacity: 1 } : popoverMotion.animate}
-            exit={anchorRef ? {} : reducedMotion ? { opacity: 0 } : popoverMotion.exit}
+            initial={
+                anchorRef
+                    ? { "--popover-content-opacity": reducedMotion ? 1 : 0 }
+                    : reducedMotion
+                      ? { opacity: 0 }
+                      : popoverMotion.initial
+            }
+            animate={
+                anchorRef
+                    ? { "--popover-content-opacity": 1 }
+                    : reducedMotion
+                      ? { opacity: 1 }
+                      : popoverMotion.animate
+            }
+            exit={
+                anchorRef
+                    ? {
+                          "--popover-content-opacity": 0,
+                          transition: { duration: reducedMotion ? 0 : 0.06 },
+                      }
+                    : reducedMotion
+                      ? { opacity: 0 }
+                      : popoverMotion.exit
+            }
             transition={
                 anchorRef
                     ? reducedMotion
@@ -188,11 +217,16 @@ function OpenPopover({
                 translate: `${fit.shiftX}px ${fit.shiftY}px`,
                 maxWidth: fit.maxWidth || undefined,
                 maxHeight: fit.maxHeight,
-                overflowY: !anchorRef && fit.maxHeight !== undefined ? "auto" : undefined,
+                overflowY:
+                    fit.maxHeight !== undefined && (!anchorRef || (present && settled))
+                        ? "auto"
+                        : undefined,
                 ...style,
             }}
             className={cn(
-                anchorRef ? "isolate" : "glass-menu",
+                anchorRef
+                    ? "isolate [&>:not([data-popover-surface])]:opacity-[var(--popover-content-opacity)]"
+                    : "glass-menu",
                 "absolute z-40 rounded-5xl",
                 className
             )}
@@ -202,6 +236,10 @@ function OpenPopover({
                 <motion.div
                     key={reveal ? "surface" : "measure"}
                     aria-hidden="true"
+                    data-popover-surface=""
+                    onAnimationComplete={() => {
+                        if (reveal) setSettled(true)
+                    }}
                     className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-5xl"
                     style={{ width: "100%", height: "100%" }}
                     initial={reducedMotion || !reveal ? false : reveal}
@@ -221,25 +259,7 @@ function OpenPopover({
                     transition={reducedMotion ? { duration: 0 } : spring.smooth}
                 />
             )}
-            {anchorRef ? (
-                <motion.div
-                    initial={reducedMotion ? false : { opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0, transition: { duration: reducedMotion ? 0 : 0.06 } }}
-                    transition={{
-                        duration: reducedMotion ? 0 : 0.12,
-                        delay: reducedMotion ? 0 : 0.06,
-                    }}
-                    style={{
-                        maxHeight: fit.maxHeight,
-                        overflowY: fit.maxHeight !== undefined ? "auto" : undefined,
-                    }}
-                >
-                    {children}
-                </motion.div>
-            ) : (
-                children
-            )}
+            {children}
         </motion.div>
     )
 }

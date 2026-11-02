@@ -165,7 +165,7 @@ the shell and route loaders. Example source loads in separate chunks with retry.
 The component page chunk dropped from 641.42 to 446.70 kB minified in this pass;
 lazy syntax tools retain a large TypeScript grammar chunk warning.
 
-Validation: root checks, build and typechecks pass; 103 UI, 160 website, 13 token,
+Validation: root checks, build and typechecks pass; 104 UI, 160 website, 13 token,
 7 TanStack and 15 CLI tests pass. Every archive and export target passes package
 checks. ChromeOS Chrome is not exposed to automation; hydration, visual motion,
 touch and actual browser focus behavior still need that environment. These are
