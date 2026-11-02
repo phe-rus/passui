@@ -53,10 +53,10 @@ Update the version of each changed package and record the changes in
 `CHANGELOG.md`. Check its archive with `bun run publish:check`; every
 export target must exist and archives must exclude credentials and tests.
 Commit and push to `main`. Run the existing `Publish Passui packages`
-workflow (`publish.yml`) with package `tokens`, `ui` (React), `solid`, `tanstack` or `cli`.
+workflow (`publish.yml`) with package `tokens`, `ui` (React), `tanstack` or `cli`.
 It packs with Bun and publishes with npm OIDC in the `npm-publish`
 environment. Each package has a trusted publisher for `phe-rus/passui`.
-No npm token belongs in the repository. Publish tokens first, then the changed React or Solid runtime, then the dependent TanStack
+No npm token belongs in the repository. Publish tokens first, then the changed React runtime, then the dependent TanStack
 integration. Verify the public registry version before upgrading consumers.
 Published npm versions cannot be overwritten.
 

@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process"
 import {
+    existsSync,
     mkdtempSync,
     readFileSync,
     readdirSync,
@@ -9,7 +10,11 @@ import { tmpdir } from "node:os"
 import { join, resolve } from "node:path"
 
 const root = resolve(import.meta.dirname, "..")
-const packages = ["tokens", "ui", "solid", "tanstack", "cli"]
+const packages = readdirSync(join(root, "packages"), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && existsSync(join(root, "packages", entry.name, "package.json")))
+    .map((entry) => entry.name)
+    .sort()
+if (packages.length === 0) throw new Error("No publishable packages found")
 const temporary = mkdtempSync(join(tmpdir(), "passui-pack-"))
 
 function run(command, args, cwd) {
