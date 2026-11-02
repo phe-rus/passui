@@ -167,23 +167,25 @@ export function SearchListGroup({
     children,
     className,
     ...props
-}: ComponentProps<"fieldset"> & {
+}: ComponentProps<"div"> & {
     heading?: React.ReactNode
 }) {
     const id = useId()
     return (
-        <fieldset
+        // biome-ignore lint/a11y/useSemanticElements: Listbox option groups are not form fieldsets.
+        <div
             {...props}
+            role="group"
             className={cn("not-has-[[data-search-result]:not([hidden])]:hidden", className)}
             aria-labelledby={heading ? id : undefined}
         >
             {heading && (
-                <legend id={id} className="px-2 py-2 text-caption font-medium text-label-tertiary">
+                <div id={id} className="px-2 py-2 text-caption font-medium text-label-tertiary">
                     {heading}
-                </legend>
+                </div>
             )}
             {children}
-        </fieldset>
+        </div>
     )
 }
 export function SearchListItem({

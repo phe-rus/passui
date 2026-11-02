@@ -4,6 +4,9 @@ import { cn } from "../../lib/class-names"
 
 export const SearchField = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
     function SearchField({ className, placeholder = "Search", ...props }, ref) {
+        const accessibleName = props["aria-labelledby"]
+            ? undefined
+            : (props["aria-label"] ?? placeholder)
         return (
             <label
                 className={cn(
@@ -11,11 +14,14 @@ export const SearchField = forwardRef<HTMLInputElement, InputHTMLAttributes<HTML
                     className
                 )}
             >
-                <SearchIcon size={15} strokeWidth={2} />
+                <span aria-hidden="true" className="shrink-0">
+                    <SearchIcon size={15} strokeWidth={2} />
+                </span>
                 <input
                     ref={ref}
                     type="search"
                     placeholder={placeholder}
+                    aria-label={accessibleName}
                     className="min-w-0 grow bg-transparent text-label outline-none placeholder:text-label-tertiary"
                     {...props}
                 />

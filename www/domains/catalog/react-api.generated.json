@@ -1090,7 +1090,7 @@
                         "defaultValue": null
                     }
                 ],
-                "native": ["ComponentProps<\"fieldset\">"]
+                "native": ["ComponentProps<\"div\">"]
             },
             {
                 "name": "SearchListItem",

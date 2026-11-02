@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import { useId, type ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
 export interface SidebarSectionProps {
@@ -17,13 +17,17 @@ export interface SidebarItemContentProps {
 }
 
 export function SidebarSection({ title, children }: SidebarSectionProps) {
+    const headingId = useId()
     return (
-        <div className="flex flex-col gap-0.5">
-            <span className="px-2.5 pb-1.5 text-caption font-semibold text-label-tertiary">
+        <section aria-labelledby={headingId} className="flex flex-col gap-0.5">
+            <h2
+                id={headingId}
+                className="px-2.5 pb-1.5 text-caption font-semibold text-label-tertiary"
+            >
                 {title}
-            </span>
+            </h2>
             {children}
-        </div>
+        </section>
     )
 }
 

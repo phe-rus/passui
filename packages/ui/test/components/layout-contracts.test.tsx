@@ -31,7 +31,9 @@ test("sections accept standard semantic attributes and block footers", () => {
     )
 
     expect(markup).toContain('id="settings"')
-    expect(markup).toContain('aria-label="Settings"')
+    expect(markup).toMatch(/aria-labelledby="([^"]+)"/)
+    expect(markup).toContain("<h2")
+    expect(markup).toContain("Settings</h2>")
     expect(markup).toContain('<div class="px-4 text-caption')
     expect(markup).toContain('href="/help"')
 })

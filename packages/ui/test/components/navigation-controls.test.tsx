@@ -2,13 +2,17 @@ import { renderToStaticMarkup } from "react-dom/server"
 import { expect, test } from "vitest"
 import { DisclosureGroup } from "../../src/components/disclosure-group/disclosure-group"
 import { Menu } from "../../src/components/menu/menu"
+import { SearchField } from "../../src/components/search-field/search-field"
 import {
     SearchList,
     SearchListField,
+    SearchListGroup,
     SearchListItem,
     SearchListResults,
 } from "../../src/components/search-list/search-list"
 import { SegmentedControl } from "../../src/components/segmented-control/segmented-control"
+import { Section } from "../../src/components/section/section"
+import { SidebarSection } from "../../src/components/sidebar/sidebar"
 import { TabBar } from "../../src/components/tab-bar/tab-bar"
 import { TabView } from "../../src/components/tab-view/tab-view"
 import { Toggle } from "../../src/components/toggle/toggle"
@@ -146,4 +150,51 @@ test("segmented control and toggle retain native accessible controls", () => {
     expect(toggle).toContain('role="switch"')
     expect(toggle).toContain('aria-checked="true"')
     expect(toggle).toContain('aria-label="Notifications"')
+})
+
+test("search result groups expose their headings as listbox groups", () => {
+    const markup = renderToStaticMarkup(
+        <SearchList>
+            <SearchListField aria-label="Find a command" />
+            <SearchListResults>
+                <SearchListGroup heading="File actions">
+                    <SearchListItem value="Rename">Rename</SearchListItem>
+                </SearchListGroup>
+            </SearchListResults>
+        </SearchList>
+    )
+    expect(markup).toContain('role="listbox"')
+    expect(markup).toContain('role="group"')
+    expect(markup).toMatch(/role="group"[^>]*aria-labelledby="([^"]+)"/)
+    expect(markup).toContain("File actions")
+    expect(markup).not.toContain("<fieldset")
+})
+
+test("sections and sidebar groups associate their headings with their regions", () => {
+    const markup = renderToStaticMarkup(
+        <>
+            <Section title="Preferences">
+                <p>Options</p>
+            </Section>
+            <SidebarSection title="Workspace">
+                <a href="/home">Home</a>
+            </SidebarSection>
+        </>
+    )
+    expect(markup).toMatch(/<section aria-labelledby="([^"]+)"/)
+    expect(markup).toContain("Preferences")
+    expect(markup).toContain("Workspace")
+    expect(markup.match(/aria-labelledby=/g)).toHaveLength(2)
+    expect(markup.match(/<h2/g)).toHaveLength(2)
+})
+
+test("search field has a usable accessible name and honors an external label", () => {
+    const defaultField = renderToStaticMarkup(<SearchField placeholder="Find records" />)
+    const namedField = renderToStaticMarkup(
+        <SearchField aria-labelledby="search-title" placeholder="Search" />
+    )
+    expect(defaultField).toContain('aria-label="Find records"')
+    expect(defaultField).toContain('aria-hidden="true"')
+    expect(namedField).toContain('aria-labelledby="search-title"')
+    expect(namedField).not.toContain("aria-label=")
 })

@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from "react"
+import { useId, type HTMLAttributes, type ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
 export interface SectionProps extends HTMLAttributes<HTMLElement> {
@@ -16,10 +16,17 @@ export interface SectionProps extends HTMLAttributes<HTMLElement> {
  * usually `LabeledContent`; dividers between them come for free.
  */
 export function Section({ title, footer, children, className, ...props }: SectionProps) {
+    const headingId = useId()
     return (
-        <section aria-label={title} className={cn("flex flex-col gap-2", className)} {...props}>
+        <section
+            aria-labelledby={title ? headingId : undefined}
+            className={cn("flex flex-col gap-2", className)}
+            {...props}
+        >
             {title && (
-                <h2 className="px-4 text-footnote font-medium text-label-tertiary">{title}</h2>
+                <h2 id={headingId} className="px-4 text-footnote font-medium text-label-tertiary">
+                    {title}
+                </h2>
             )}
             {/* A group can be only a note, e.g. where to find something on this device. */}
             {children ? (
