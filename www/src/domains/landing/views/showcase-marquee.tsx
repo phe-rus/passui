@@ -10,6 +10,7 @@ type MarqueeRowProps = {
     /** Shifts which accent each card wears, so the rows differ. */
     offset: number
     reverse?: boolean
+    paused?: boolean
 }
 
 function themeFor(index: number, offset: number): ShowcaseTheme {
@@ -19,7 +20,7 @@ function themeFor(index: number, offset: number): ShowcaseTheme {
     }
 }
 
-function MarqueeRow({ cards: set, offset, reverse }: MarqueeRowProps) {
+function MarqueeRow({ cards: set, offset, reverse, paused }: MarqueeRowProps) {
     const cards = set.map((Card, index) => <Card key={index} theme={themeFor(index, offset)} />)
     return (
         <div className="group/row flex overflow-hidden py-3 motion-reduce:overflow-x-auto">
@@ -31,7 +32,8 @@ function MarqueeRow({ cards: set, offset, reverse }: MarqueeRowProps) {
                     inert={copy === 1 ? true : undefined}
                     className={cn(
                         "flex shrink-0 gap-5 pe-5",
-                        "animate-[marquee_60s_linear_infinite] group-hover/row:[animation-play-state:paused]",
+                        "animate-[marquee_60s_linear_infinite] group-hover/row:[animation-play-state:paused] group-focus-within/row:[animation-play-state:paused]",
+                        paused && "[animation-play-state:paused]",
                         reverse && "[animation-direction:reverse]",
                         "motion-reduce:animate-none",
                         copy === 1 && "motion-reduce:hidden"
@@ -45,11 +47,11 @@ function MarqueeRow({ cards: set, offset, reverse }: MarqueeRowProps) {
 }
 
 /** Two rows of live components, every card in its own theme. */
-export function ShowcaseMarquee() {
+export function ShowcaseMarquee({ paused = false }: { paused?: boolean }) {
     return (
         <div className="flex flex-col [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
-            <MarqueeRow cards={showcaseRowOne} offset={0} />
-            <MarqueeRow cards={showcaseRowTwo} offset={3} reverse />
+            <MarqueeRow paused={paused} cards={showcaseRowOne} offset={0} />
+            <MarqueeRow paused={paused} cards={showcaseRowTwo} offset={3} reverse />
         </div>
     )
 }

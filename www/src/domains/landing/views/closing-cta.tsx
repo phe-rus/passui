@@ -17,8 +17,8 @@ export function ClosingCta() {
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                     <Link
-                        to="/components/$slug"
-                        params={{ slug: "button" }}
+                        to="/docs/$slug"
+                        params={{ slug: "installation" }}
                         className={buttonStyle({
                             size: "lg",
                         })}
@@ -26,8 +26,7 @@ export function ClosingCta() {
                         Get started
                     </Link>
                     <Link
-                        to="/"
-                        hash="components"
+                        to="/components"
                         className={buttonStyle({
                             size: "lg",
                             variant: "secondary",

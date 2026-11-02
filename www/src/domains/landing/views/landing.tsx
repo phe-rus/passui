@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { Button } from "@passui/react/button"
 import { MotionConfig } from "motion/react"
 import { useAccentCycle } from "../use-accent-cycle"
 import { Bento } from "./bento"
@@ -10,14 +12,25 @@ import { ShowcaseMarquee } from "./showcase-marquee"
 
 /** The marketing home page: Passui demonstrating itself. */
 export function Landing() {
-    const cycle = useAccentCycle()
+    const [paused, setPaused] = useState(false)
+    const cycle = useAccentCycle(3800, paused)
     return (
         <MotionConfig reducedMotion="user">
-            <Hero cycle={cycle} />
+            <Hero cycle={cycle} paused={paused} />
             {/* a white sheet that rises over the hero */}
             <div className="relative -mt-12 flex flex-col gap-24 rounded-t-[2.5rem] bg-background pt-16 pb-24 md:-mt-16 md:gap-32 md:rounded-t-[3rem] md:pt-24">
                 <Reveal>
-                    <ShowcaseMarquee />
+                    <div className="mx-auto mb-3 flex max-w-6xl justify-end px-4 md:px-6">
+                        <Button
+                            size="sm"
+                            variant="secondary"
+                            aria-pressed={paused}
+                            onClick={() => setPaused((value) => !value)}
+                        >
+                            {paused ? "Resume animations" : "Pause animations"}
+                        </Button>
+                    </div>
+                    <ShowcaseMarquee paused={paused} />
                 </Reveal>
                 <Bento cycle={cycle} />
                 <Reveal>

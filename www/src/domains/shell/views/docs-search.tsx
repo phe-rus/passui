@@ -100,6 +100,7 @@ export function DocsSearch() {
                                             key={entry.docs.slug}
                                             value={componentTitle(entry)}
                                             keywords={[
+                                                entry.group,
                                                 entry.docs.name,
                                                 entry.docs.slug,
                                                 entry.content.summary,

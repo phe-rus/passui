@@ -1,5 +1,5 @@
 import { spring } from "@passui/react"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import type { ReactNode } from "react"
 
 type RevealProps = {
@@ -11,13 +11,12 @@ type RevealProps = {
 
 /** Rises into place the first time it scrolls into view. */
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
+    const reducedMotion = useReducedMotion()
     return (
         <motion.div
             className={className}
             initial={{
-                opacity: 0,
-                y: 32,
-                filter: "blur(6px)",
+                y: reducedMotion ? 0 : 32,
             }}
             whileInView={{
                 opacity: 1,

@@ -1,4 +1,4 @@
-import { Button, spring, Chip, SearchField, SwatchPicker, Toggle } from "@passui/react"
+import { Button, spring, Chip, SearchField, SwatchPicker, Toggle, toast } from "@passui/react"
 import { cn } from "@passui/react/cn"
 import { accents } from "@passui/react/tokens"
 import { motion } from "motion/react"
@@ -52,12 +52,18 @@ function ComponentsDemo() {
                 <Toggle checked={on} onChange={setOn} label="Demo toggle" labelHidden />
             </div>
             <div className="flex gap-2">
-                <Button variant="secondary" className="flex-1">
+                <Button
+                    variant="secondary"
+                    className="flex-1"
+                    onClick={() => toast("Secondary action (demo)")}
+                >
                     Secondary
                 </Button>
-                <Button className="flex-1">Primary</Button>
+                <Button className="flex-1" onClick={() => toast.success("Primary action (demo)")}>
+                    Primary
+                </Button>
             </div>
-            <SearchField placeholder="Search" aria-label="Search" />
+            <SearchField placeholder="Try typing here" aria-label="Demo search" />
         </div>
     )
 }
@@ -139,7 +145,7 @@ export function Bento({ cycle }: BentoProps) {
             </div>
             <Tile
                 delay={0.08}
-                title="Thirty native components"
+                title="Native React components"
                 body="Buttons, toggles, pickers, sheets and more, written as readable React with light, dark and Reduce Motion built in."
             >
                 <ComponentsDemo />

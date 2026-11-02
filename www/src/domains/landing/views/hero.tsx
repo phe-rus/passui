@@ -3,7 +3,7 @@ import { Button, buttonStyle } from "@passui/react/button"
 import { cn } from "@passui/react/cn"
 import { accents } from "@passui/react/tokens"
 import { Link } from "@tanstack/react-router"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import type { ReactNode } from "react"
 import { accentNames } from "@/domains/settings"
 import type { AccentCycle } from "../types"
@@ -19,6 +19,7 @@ import {
 
 type HeroProps = {
     cycle: AccentCycle
+    paused?: boolean
 }
 
 type FloatProps = {
@@ -28,6 +29,7 @@ type FloatProps = {
     delay: number
     /** Seconds for one gentle bob up and down. */
     bob: number
+    paused: boolean
     children: ReactNode
 }
 
@@ -35,7 +37,8 @@ type FloatProps = {
 const letters = ["p", "a", "s", "s", "u", "ı"] as const
 
 /** Slides in once, then drifts gently, like it is floating. */
-function Float({ className, from, delay, bob, children }: FloatProps) {
+function Float({ className, from, delay, bob, paused, children }: FloatProps) {
+    const reducedMotion = useReducedMotion()
     return (
         <motion.div
             className={cn("absolute", className)}
@@ -48,7 +51,7 @@ function Float({ className, from, delay, bob, children }: FloatProps) {
             transition={{ ...spring.smooth, delay }}
         >
             <motion.div
-                animate={{ y: [0, -10, 0] }}
+                animate={{ y: paused || reducedMotion ? 0 : [0, -10, 0] }}
                 transition={{
                     duration: bob,
                     repeat: Number.POSITIVE_INFINITY,
@@ -75,13 +78,15 @@ function Sun() {
     )
 }
 
-export function Hero({ cycle }: HeroProps) {
+export function Hero({ cycle, paused = false }: HeroProps) {
     return (
         <section
             aria-labelledby="hero-title"
             className="relative isolate -mt-16 overflow-hidden bg-[color-mix(in_srgb,var(--color-accent)_24%,var(--color-background))] pt-32 pb-48 transition-colors duration-700 md:pt-36 lg:min-h-[48rem]"
             onFocus={() => cycle.hold(true)}
-            onBlur={() => cycle.hold(false)}
+            onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) cycle.hold(false)
+            }}
         >
             <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-4 text-center">
                 <h1
@@ -138,8 +143,8 @@ export function Hero({ cycle }: HeroProps) {
                 >
                     <div className="flex flex-wrap justify-center gap-3">
                         <Link
-                            to="/components/$slug"
-                            params={{ slug: "button" }}
+                            to="/docs/$slug"
+                            params={{ slug: "installation" }}
                             className={buttonStyle({
                                 size: "lg",
                             })}
@@ -147,8 +152,7 @@ export function Hero({ cycle }: HeroProps) {
                             Get started
                         </Link>
                         <Link
-                            to="/"
-                            hash="components"
+                            to="/components"
                             className={buttonStyle({
                                 size: "lg",
                                 variant: "secondary",
@@ -166,6 +170,7 @@ export function Hero({ cycle }: HeroProps) {
             {/* scenes around the edges, desktop only, like Astryx */}
             <div className="hidden lg:block">
                 <Float
+                    paused={paused}
                     from="left"
                     delay={0.7}
                     bob={7}
@@ -175,6 +180,7 @@ export function Hero({ cycle }: HeroProps) {
                     <PlayerScene className="mt-2" />
                 </Float>
                 <Float
+                    paused={paused}
                     from="left"
                     delay={0.85}
                     bob={6}
@@ -183,6 +189,7 @@ export function Hero({ cycle }: HeroProps) {
                     <ComposerScene />
                 </Float>
                 <Float
+                    paused={paused}
                     from="right"
                     delay={0.75}
                     bob={8}
@@ -194,6 +201,7 @@ export function Hero({ cycle }: HeroProps) {
                     <ProductScene />
                 </Float>
                 <Float
+                    paused={paused}
                     from="right"
                     delay={0.9}
                     bob={6.5}

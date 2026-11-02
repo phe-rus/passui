@@ -11,15 +11,27 @@ function applyAccent(accent: AccentId) {
     else root.setAttribute("data-accent", accent)
 }
 
-function prefersReducedMotion() {
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches
-}
-
 /** Walks the page through every accent, like a slow color carousel. */
-export function useAccentCycle(intervalMs = 3800): AccentCycle {
+export function useAccentCycle(intervalMs = 3800, paused = false): AccentCycle {
+    const [reducedMotion, setReducedMotion] = useState(false)
+    const [visible, setVisible] = useState(true)
     const [accent, setAccent] = useState<AccentId>("blush")
     const [pinned, setPinned] = useState(false)
     const [held, setHeld] = useState(false)
+
+    useEffect(() => {
+        const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
+        const syncMotion = () => setReducedMotion(preference.matches)
+        const syncVisibility = () => setVisible(document.visibilityState !== "hidden")
+        syncMotion()
+        syncVisibility()
+        preference.addEventListener("change", syncMotion)
+        document.addEventListener("visibilitychange", syncVisibility)
+        return () => {
+            preference.removeEventListener("change", syncMotion)
+            document.removeEventListener("visibilitychange", syncVisibility)
+        }
+    }, [])
 
     useEffect(() => {
         applyAccent(accent)
@@ -29,12 +41,12 @@ export function useAccentCycle(intervalMs = 3800): AccentCycle {
     useEffect(() => () => applyAccent("blush"), [])
 
     useEffect(() => {
-        if (pinned || held || prefersReducedMotion()) return
+        if (pinned || held || paused || reducedMotion || !visible) return
         const timer = window.setInterval(() => {
             setAccent((current) => order[(order.indexOf(current) + 1) % order.length])
         }, intervalMs)
         return () => window.clearInterval(timer)
-    }, [pinned, held, intervalMs])
+    }, [pinned, held, paused, reducedMotion, visible, intervalMs])
 
     return {
         accent,

@@ -1,3 +1,5 @@
+import { ProgressView } from "@passui/react/progress-view"
+import { ProfileImage, ProfileImageFallback } from "@passui/react/profile-image"
 import {
     AttachIcon,
     NextTrackIcon,
@@ -6,7 +8,7 @@ import {
     PreviousTrackIcon,
     UploadIcon,
 } from "@passui/react/icons"
-import { Button, Chip, Toggle, toast } from "@passui/react"
+import { Button, Chip, Toggle, TextField, toast } from "@passui/react"
 import { cn } from "@passui/react/cn"
 import { IconButton } from "@passui/react/icon-button"
 import { type ReactNode, useState } from "react"
@@ -52,18 +54,30 @@ function Artwork({ className }: SceneProps) {
 
 export function PlayerScene({ className }: SceneProps) {
     const [playing, setPlaying] = useState(true)
+    const [track, setTrack] = useState(0)
+    const tracks = ["Morning light", "Sea glass", "Quiet hours"]
     return (
         <Panel className={cn("flex w-64 flex-col gap-3", className)}>
             <Artwork className="h-40" />
             <div className="flex flex-col px-1">
-                <span className="text-headline font-semibold">Morning light</span>
+                <span className="text-headline font-semibold" aria-live="polite">
+                    {tracks[track]}
+                </span>
                 <span className="text-footnote text-label-secondary">Quiet Rooms</span>
             </div>
-            <div className="mx-1 h-1 overflow-hidden rounded-full bg-fill">
-                <div className="h-full w-2/5 rounded-full bg-accent transition-colors duration-700" />
-            </div>
+            <ProgressView
+                label="Playback"
+                value={40}
+                size="sm"
+                className="mx-1 [&>div:first-child]:sr-only"
+            />
             <div className="flex items-center justify-between px-3">
-                <IconButton label="Previous" variant="ghost" size="icon-sm">
+                <IconButton
+                    label="Previous"
+                    variant="ghost"
+                    size="icon-sm"
+                    onClick={() => setTrack((value) => (value + tracks.length - 1) % tracks.length)}
+                >
                     <PreviousTrackIcon size={18} />
                 </IconButton>
                 <IconButton
@@ -73,7 +87,12 @@ export function PlayerScene({ className }: SceneProps) {
                 >
                     {playing ? <PauseIcon size={20} /> : <PlayIcon size={20} />}
                 </IconButton>
-                <IconButton label="Next" variant="ghost" size="icon-sm">
+                <IconButton
+                    label="Next"
+                    variant="ghost"
+                    size="icon-sm"
+                    onClick={() => setTrack((value) => (value + 1) % tracks.length)}
+                >
                     <NextTrackIcon size={18} />
                 </IconButton>
             </div>
@@ -83,25 +102,35 @@ export function PlayerScene({ className }: SceneProps) {
 
 export function ComposerScene({ className }: SceneProps) {
     const [text, setText] = useState("")
+    const [attached, setAttached] = useState(false)
     return (
         <Panel className={cn("flex w-72 flex-col gap-3", className)}>
-            <input
+            <TextField
                 value={text}
                 onChange={(event) => setText(event.target.value)}
                 placeholder="How can I help?"
-                aria-label="Message"
+                label="Message"
                 className="bg-transparent px-1 text-body outline-none placeholder:text-label-tertiary"
             />
+            {attached && <Chip tone="accent">Design notes.pdf</Chip>}
             <div className="flex items-center justify-between">
-                <IconButton label="Attach" variant="secondary" size="icon-sm">
+                <IconButton
+                    label={attached ? "Remove attachment" : "Attach sample file"}
+                    variant="secondary"
+                    size="icon-sm"
+                    aria-pressed={attached}
+                    onClick={() => setAttached((value) => !value)}
+                >
                     <AttachIcon size={18} />
                 </IconButton>
                 <IconButton
                     label="Send"
+                    disabled={!text.trim() && !attached}
                     variant="default"
                     size="icon-sm"
                     onClick={() => {
                         setText("")
+                        setAttached(false)
                         toast.success("Sent (just a demo)")
                     }}
                 >
@@ -155,12 +184,9 @@ export function RewardsScene({ className }: SceneProps) {
             <div className="flex items-center gap-2 px-1">
                 <div className="flex -space-x-1.5">
                     {["AK", "MS", "JT"].map((initials) => (
-                        <span
-                            key={initials}
-                            className="flex size-8 items-center justify-center rounded-full bg-accent-soft text-caption2 font-bold text-accent-text ring-2 ring-elevated transition-colors duration-700"
-                        >
-                            {initials}
-                        </span>
+                        <ProfileImage key={initials} className="size-8 ring-2 ring-elevated">
+                            <ProfileImageFallback>{initials}</ProfileImageFallback>
+                        </ProfileImage>
                     ))}
                 </div>
                 <span className="text-footnote text-label-secondary">

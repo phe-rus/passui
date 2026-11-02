@@ -1,3 +1,4 @@
+import { ProgressView } from "@passui/react/progress-view"
 import { NextTrackIcon, PauseIcon, PlayIcon, PreviousTrackIcon } from "@passui/react/icons"
 import { Button, Chip, SegmentedControl, StatusIndicator, Toggle, toast } from "@passui/react"
 import { cn } from "@passui/react/cn"
@@ -25,7 +26,16 @@ function Billing({ theme }: ShowcaseCardBodyProps) {
                 </span>
                 <span className="text-footnote text-label-secondary">per month</span>
             </div>
-            <Button variant="accent">Upgrade</Button>
+            <Button
+                variant="accent"
+                onClick={() =>
+                    toast.success(
+                        `Selected ${period === "year" ? "yearly" : "monthly"} plan (demo)`
+                    )
+                }
+            >
+                Upgrade
+            </Button>
         </ShowcaseCard>
     )
 }
@@ -53,6 +63,7 @@ function Checklist({ theme }: ShowcaseCardBodyProps) {
 }
 
 function Tags({ theme }: ShowcaseCardBodyProps) {
+    const [added, setAdded] = useState(false)
     return (
         <ShowcaseCard theme={theme} title="Tags">
             <div className="flex flex-wrap gap-2">
@@ -61,25 +72,39 @@ function Tags({ theme }: ShowcaseCardBodyProps) {
                 <Chip tone="accent">Launch</Chip>
                 <Chip tone="neutral">Q4</Chip>
                 <Chip tone="neutral">Mobile</Chip>
+                {added && <Chip tone="accent">New tag</Chip>}
             </div>
-            <Button variant="outline">Add a tag</Button>
+            <Button variant="outline" onClick={() => setAdded((value) => !value)}>
+                {added ? "Remove new tag" : "Add a tag"}
+            </Button>
         </ShowcaseCard>
     )
 }
 
 function Player({ theme }: ShowcaseCardBodyProps) {
     const [playing, setPlaying] = useState(true)
+    const [track, setTrack] = useState(0)
+    const tracks = ["Morning light", "Sea glass", "Quiet hours"]
     return (
         <ShowcaseCard theme={theme} title="Now playing">
             <div className="flex flex-col">
-                <span className="text-subheadline font-semibold">Morning light</span>
+                <span className="text-subheadline font-semibold" aria-live="polite">
+                    {tracks[track]}
+                </span>
                 <span className="text-footnote text-label-secondary">Quiet Rooms</span>
             </div>
-            <div className="h-1.5 overflow-hidden rounded-full bg-fill">
-                <div className="h-full w-2/5 rounded-full bg-accent" />
-            </div>
+            <ProgressView
+                label="Playback"
+                value={40}
+                size="sm"
+                className="[&>div:first-child]:sr-only"
+            />
             <div className="flex items-center justify-center gap-3">
-                <IconButton label="Previous" variant="ghost">
+                <IconButton
+                    label="Previous"
+                    variant="ghost"
+                    onClick={() => setTrack((value) => (value + tracks.length - 1) % tracks.length)}
+                >
                     <PreviousTrackIcon size={20} />
                 </IconButton>
                 <IconButton
@@ -90,7 +115,11 @@ function Player({ theme }: ShowcaseCardBodyProps) {
                 >
                     {playing ? <PauseIcon size={22} /> : <PlayIcon size={22} />}
                 </IconButton>
-                <IconButton label="Next" variant="ghost">
+                <IconButton
+                    label="Next"
+                    variant="ghost"
+                    onClick={() => setTrack((value) => (value + 1) % tracks.length)}
+                >
                     <NextTrackIcon size={20} />
                 </IconButton>
             </div>

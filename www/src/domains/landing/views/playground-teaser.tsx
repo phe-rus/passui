@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router"
+import { CodeView } from "@/domains/playground/views/code-view"
 import { Button, LabeledContent, SegmentedControl, Toggle } from "@passui/react"
 import type { ButtonVariant } from "@passui/react/button"
 import { useState } from "react"
@@ -10,7 +12,7 @@ export function PlaygroundTeaser() {
     const props = [variant !== "default" && `variant="${variant}"`, pending && "isPending"]
         .filter(Boolean)
         .join(" ")
-    const code = `<Button${props ? ` ${props}` : ""}>Continue</Button>`
+    const code = `import { Button } from "@passui/react/button"\n\n<Button${props ? ` ${props}` : ""}>Continue</Button>`
 
     return (
         <section
@@ -63,7 +65,10 @@ export function PlaygroundTeaser() {
                     </LabeledContent>
                 </div>
                 <p className="text-footnote text-label-tertiary">
-                    Explore every option on the Button page.
+                    <Link to="/components/react/$slug" params={{ slug: "button" }}>
+                        Explore every option in the Button playground
+                    </Link>
+                    .
                 </p>
             </div>
             <div className="overflow-hidden rounded-5xl bg-elevated ring-1 ring-separator/60">
@@ -72,9 +77,7 @@ export function PlaygroundTeaser() {
                         Continue
                     </Button>
                 </div>
-                <pre className="overflow-x-auto border-separator/60 border-t px-5 py-4 font-mono text-footnote text-label">
-                    <code>{code}</code>
-                </pre>
+                <CodeView code={code} collapsible={false} />
             </div>
         </section>
     )

@@ -4,7 +4,7 @@ import { buttonStyle } from "@passui/react/button"
 import { IconButton } from "@passui/react/icon-button"
 import { Sheet } from "@passui/react/sheet"
 import { Toaster } from "@passui/react/toaster"
-import { Link } from "@tanstack/react-router"
+import { Link, useLocation } from "@tanstack/react-router"
 import { PassuiMark } from "./passui-mark"
 import { DocsSearch } from "./docs-search"
 import { cn } from "@passui/react/cn"
@@ -33,11 +33,16 @@ type SiteLayoutProps = {
 
 /** The site's frame: a top bar, the page, and a footer. */
 export function SiteLayout({ children }: SiteLayoutProps) {
+    const location = useLocation({ select: (state) => state.href })
     const top = useRef<HTMLDivElement>(null)
     const [scrolled, setScrolled] = useState(false)
     // the site's links on phones, where the bar has no room for them
     const [menuOpen, setMenuOpen] = useState(false)
     const close = () => setMenuOpen(false)
+
+    useEffect(() => {
+        if (location) setMenuOpen(false)
+    }, [location])
 
     // a marker at the very top: once it leaves view, the bar turns to glass
     useEffect(() => {
@@ -50,10 +55,16 @@ export function SiteLayout({ children }: SiteLayoutProps) {
 
     return (
         <div className="flex min-h-svh shrink-0 flex-col">
+            <a
+                href="#site-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-elevated focus:px-4 focus:py-3 focus:text-label focus:shadow-lg"
+            >
+                Skip to content
+            </a>
             <div ref={top} aria-hidden="true" className="h-px" />
             <header
                 className={cn(
-                    "sticky top-0 z-40 -mt-px transition-[background-color,box-shadow,backdrop-filter] duration-300",
+                    "sticky top-0 z-40 -mt-px transition-[background-color,box-shadow,backdrop-filter] duration-300 motion-reduce:transition-none",
                     scrolled ? "glass-bar shadow-[0_1px_0_rgb(0_0_0/0.06)]" : "bg-transparent"
                 )}
             >
@@ -101,6 +112,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                         variant="ghost"
                         size="icon-sm"
                         aria-haspopup="dialog"
+                        aria-expanded={menuOpen}
                         className="md:hidden"
                         onClick={() => setMenuOpen(true)}
                     >
@@ -144,7 +156,9 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                     ))}
                 </nav>
             </Sheet>
-            <main className="flex flex-1 flex-col">{children}</main>
+            <div id="site-content" tabIndex={-1} className="flex flex-1 flex-col outline-none">
+                {children}
+            </div>
             <footer className="border-separator/60 border-t">
                 <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 md:flex-row md:items-center md:px-6">
                     <Mark />
@@ -166,7 +180,9 @@ export function SiteLayout({ children }: SiteLayoutProps) {
                             </Link>
                         ))}
                     </nav>
-                    <span className="text-footnote text-label-tertiary">© 2026 Pherus</span>
+                    <span className="text-footnote text-label-tertiary">
+                        © {new Date().getUTCFullYear()} Pherus
+                    </span>
                 </div>
             </footer>
             <Toaster />

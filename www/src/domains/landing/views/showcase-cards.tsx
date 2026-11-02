@@ -1,3 +1,5 @@
+import { ProgressView } from "@passui/react/progress-view"
+import { ProfileImage, ProfileImageFallback } from "@passui/react/profile-image"
 import {
     Button,
     Chip,
@@ -102,22 +104,34 @@ function Stats({ theme }: ShowcaseCardBodyProps) {
 }
 
 function Upload({ theme }: ShowcaseCardBodyProps) {
+    const [paused, setPaused] = useState(false)
+    const [canceled, setCanceled] = useState(false)
     return (
         <ShowcaseCard theme={theme} title="Uploading">
-            <div className="flex flex-col gap-2">
-                <div className="flex justify-between text-footnote text-label-secondary">
-                    <span>launch-video.mp4</span>
-                    <span className="tabular-nums">68%</span>
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-fill">
-                    <div className="h-full w-[68%] rounded-full bg-accent" />
-                </div>
-            </div>
+            <ProgressView
+                label={canceled ? "Upload canceled" : paused ? "Upload paused" : "launch-video.mp4"}
+                value={canceled ? 0 : 68}
+                detail={canceled ? "0%" : "68%"}
+            />
             <div className="flex gap-2">
-                <Button variant="secondary" className="flex-1">
-                    Pause
+                <Button
+                    variant="secondary"
+                    className="flex-1"
+                    onClick={() => {
+                        if (canceled) {
+                            setCanceled(false)
+                            setPaused(false)
+                        } else setPaused((value) => !value)
+                    }}
+                >
+                    {canceled ? "Restart" : paused ? "Resume" : "Pause"}
                 </Button>
-                <Button variant="ghost" className="flex-1">
+                <Button
+                    variant="ghost"
+                    className="flex-1"
+                    disabled={canceled}
+                    onClick={() => setCanceled(true)}
+                >
                     Cancel
                 </Button>
             </div>
@@ -130,9 +144,9 @@ function Profile({ theme }: ShowcaseCardBodyProps) {
     return (
         <ShowcaseCard theme={theme} title="Profile">
             <div className="flex items-center gap-3">
-                <span className="flex size-12 items-center justify-center rounded-full bg-accent-soft text-headline font-bold text-accent-text">
-                    AK
-                </span>
+                <ProfileImage className="size-12">
+                    <ProfileImageFallback>AK</ProfileImageFallback>
+                </ProfileImage>
                 <div className="flex min-w-0 flex-col">
                     <span className="truncate text-subheadline font-semibold">Aiko Kamado</span>
                     <span className="truncate text-footnote text-label-secondary">
@@ -151,11 +165,20 @@ function Profile({ theme }: ShowcaseCardBodyProps) {
 }
 
 function Search({ theme }: ShowcaseCardBodyProps) {
+    const [query, setQuery] = useState("")
+    const results = ["Brand guide", "Q4 roadmap"].filter((item) =>
+        item.toLowerCase().includes(query.trim().toLowerCase())
+    )
     return (
         <ShowcaseCard theme={theme} title="Search">
-            <SearchField placeholder="Find a file" aria-label="Find a file" />
+            <SearchField
+                placeholder="Find a file"
+                aria-label="Find a file"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+            />
             <ul className="m-0 flex list-none flex-col gap-1 p-0 text-subheadline">
-                {["Brand guide", "Q4 roadmap"].map((item, index) => (
+                {results.map((item, index) => (
                     <li
                         key={item}
                         className={cn(
@@ -167,21 +190,41 @@ function Search({ theme }: ShowcaseCardBodyProps) {
                     </li>
                 ))}
             </ul>
+            {results.length === 0 && (
+                <p role="status" className="text-footnote text-label-secondary">
+                    No matching files.
+                </p>
+            )}
         </ShowcaseCard>
     )
 }
 
 function Confirm({ theme }: ShowcaseCardBodyProps) {
+    const [deleted, setDeleted] = useState(false)
     return (
-        <ShowcaseCard theme={theme} title="Delete draft?">
+        <ShowcaseCard theme={theme} title={deleted ? "Draft deleted" : "Delete draft?"}>
             <p className="text-callout text-label-secondary">
-                This draft and its comments will be removed for everyone.
+                {deleted
+                    ? "This is a local demo. Restore the draft to try again."
+                    : "This draft and its comments will be removed for everyone."}
             </p>
             <div className="flex gap-2">
-                <Button variant="secondary" className="flex-1">
-                    Keep
+                <Button
+                    variant="secondary"
+                    className="flex-1"
+                    onClick={() => {
+                        setDeleted(false)
+                        toast("Draft kept (demo)")
+                    }}
+                >
+                    {deleted ? "Restore" : "Keep"}
                 </Button>
-                <Button variant="destructive" className="flex-1">
+                <Button
+                    variant="destructive"
+                    className="flex-1"
+                    disabled={deleted}
+                    onClick={() => setDeleted(true)}
+                >
                     Delete
                 </Button>
             </div>
