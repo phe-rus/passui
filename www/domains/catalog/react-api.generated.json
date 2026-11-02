@@ -620,6 +620,62 @@
             }
         ]
     },
+    "disclosure-group": {
+        "source": "packages/ui/src/components/disclosure-group/disclosure-group.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "open",
+                "type": "boolean",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "onOpenChange",
+                "type": "(open: boolean) => void",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "children",
+                "type": "ReactNode",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "disabled",
+                "type": "boolean",
+                "required": false,
+                "description": "",
+                "defaultValue": "false"
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "description",
+                "type": "string",
+                "required": false,
+                "description": "Supporting text beneath the title.",
+                "defaultValue": null
+            }
+        ],
+        "native": [],
+        "parts": []
+    },
     "divider": {
         "source": "packages/ui/src/components/divider/divider.tsx",
         "props": [
@@ -751,6 +807,55 @@
             }
         ],
         "native": [],
+        "parts": []
+    },
+    "menu": {
+        "source": "packages/ui/src/components/menu/menu.tsx",
+        "props": [
+            {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "Accessible name for the menu trigger.",
+                "defaultValue": null
+            },
+            {
+                "name": "items",
+                "type": "readonly ContextMenuItem[]",
+                "required": true,
+                "description": "Items are rendered by the app's existing ContextMenuHost.",
+                "defaultValue": null
+            },
+            {
+                "name": "children",
+                "type": "ReactNode",
+                "required": true,
+                "description": "",
+                "defaultValue": null
+            },
+            {
+                "name": "edge",
+                "type": "\"leading\" | \"trailing\"",
+                "required": false,
+                "description": "Logical edge used to align the menu, including RTL.",
+                "defaultValue": "\"leading\""
+            },
+            {
+                "name": "above",
+                "type": "boolean",
+                "required": false,
+                "description": "Open above the trigger instead of below it.",
+                "defaultValue": "false"
+            },
+            {
+                "name": "ref",
+                "type": "Ref<HTMLButtonElement>",
+                "required": false,
+                "description": "Reference to the native element.",
+                "defaultValue": null
+            }
+        ],
+        "native": ["Omit<ButtonProps, \"onClick\" | \"children\">"],
         "parts": []
     },
     "picker": {

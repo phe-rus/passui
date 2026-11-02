@@ -15,6 +15,8 @@ import {
     swatchPickerDocs,
     textFieldDocs,
     toggleDocs,
+    menuDocs,
+    disclosureGroupDocs,
     sliderDocs,
     stepperDocs,
     progressViewDocs,
@@ -56,6 +58,8 @@ import { statusIndicatorContent } from "./content/status-indicator"
 import { swatchPickerContent } from "./content/swatch-picker"
 import { textFieldContent } from "./content/text-field"
 import { toggleContent } from "./content/toggle"
+import { menuContent } from "./content/menu"
+import { disclosureGroupContent } from "./content/disclosure-group"
 import { sliderContent } from "./content/slider"
 import { stepperContent } from "./content/stepper"
 import { progressViewContent } from "./content/progress-view"
@@ -126,6 +130,18 @@ const entries: CatalogEntry[] = [
         icon: catalogIcons.toggle,
         docs: toggleDocs,
         content: toggleContent,
+    },
+    {
+        group: "Controls",
+        icon: catalogIcons.menu,
+        docs: menuDocs,
+        content: menuContent,
+    },
+    {
+        group: "Layout and disclosure",
+        icon: catalogIcons.unfold,
+        docs: disclosureGroupDocs,
+        content: disclosureGroupContent,
     },
     {
         group: "Controls",

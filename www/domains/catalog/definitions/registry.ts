@@ -13,6 +13,8 @@ import { statusIndicatorDocs } from "./status-indicator/status-indicator.docs"
 import { swatchPickerDocs } from "./swatch-picker/swatch-picker.docs"
 import { textFieldDocs } from "./text-field/text-field.docs"
 import { toggleDocs } from "./toggle/toggle.docs"
+import { menuDocs } from "./menu/menu.docs"
+import { disclosureGroupDocs } from "./disclosure-group/disclosure-group.docs"
 import { sliderDocs } from "./slider/slider.docs"
 import { stepperDocs } from "./stepper/stepper.docs"
 import { progressViewDocs } from "./progress-view/progress-view.docs"
@@ -49,6 +51,8 @@ export const registry: readonly RegisteredDocs[] = [
     secureFieldDocs,
     searchFieldDocs,
     toggleDocs,
+    menuDocs,
+    disclosureGroupDocs,
     sliderDocs,
     stepperDocs,
     progressViewDocs,
@@ -125,4 +129,6 @@ export {
     stepperDocs,
     progressViewDocs,
     dividerDocs,
+    menuDocs,
+    disclosureGroupDocs,
 }
