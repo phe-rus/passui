@@ -1037,7 +1037,7 @@
                 "type": "boolean",
                 "required": false,
                 "description": "",
-                "defaultValue": null
+                "defaultValue": "true"
             },
             {
                 "name": "open",
@@ -1625,7 +1625,7 @@
         "props": [
             {
                 "name": "options",
-                "type": "readonly { value: Value; label: string }[]",
+                "type": "readonly { value: Value; label: string; disabled?: boolean }[]",
                 "required": true,
                 "description": "Available tabs, in keyboard navigation order.",
                 "defaultValue": null

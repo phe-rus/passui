@@ -5,7 +5,7 @@ export type TabViewAlign = "start" | "center"
 
 export interface TabViewProps<Value extends string> {
     /** Available tabs, in keyboard navigation order. */
-    options: readonly { value: Value; label: string }[]
+    options: readonly { value: Value; label: string; disabled?: boolean }[]
     /** Initial selection when value is not controlled. */
     defaultValue: Value
     /** Controlled selection; omit to keep selection inside TabView. */
@@ -39,7 +39,8 @@ export function TabView<Value extends string>({
         if (controlledValue === undefined) setSelected(next)
         onValueChange?.(next)
     }
-    const value = options.some((option) => option.value === current) ? current : options[0]?.value
+    const enabled = options.filter((option) => !option.disabled)
+    const value = enabled.some((option) => option.value === current) ? current : enabled[0]?.value
     if (value === undefined) return null
 
     return (
@@ -60,6 +61,8 @@ export function TabView<Value extends string>({
                         id={`${id}-tab-${index}`}
                         aria-controls={`${id}-panel-${index}`}
                         aria-selected={option.value === value}
+                        aria-disabled={option.disabled || undefined}
+                        disabled={option.disabled}
                         tabIndex={option.value === value ? 0 : -1}
                         ref={(element) => {
                             buttons.current[index] = element
@@ -68,16 +71,29 @@ export function TabView<Value extends string>({
                         onKeyDown={(event) => {
                             const rtl = getComputedStyle(event.currentTarget).direction === "rtl"
                             let next: number
-                            if (event.key === "Home") next = 0
-                            else if (event.key === "End") next = options.length - 1
-                            else if (event.key === "ArrowRight") next = index + (rtl ? -1 : 1)
-                            else if (event.key === "ArrowLeft") next = index + (rtl ? 1 : -1)
-                            else return
+                            let step: number
+                            if (event.key === "Home") {
+                                next = -1
+                                step = 1
+                            } else if (event.key === "End") {
+                                next = options.length
+                                step = -1
+                            } else if (event.key === "ArrowRight") {
+                                step = rtl ? -1 : 1
+                                next = index
+                            } else if (event.key === "ArrowLeft") {
+                                step = rtl ? 1 : -1
+                                next = index
+                            } else return
                             event.preventDefault()
-                            next = (next + options.length) % options.length
-                            const option = options[next]
-                            if (option) select(option.value)
-                            buttons.current[next]?.focus()
+                            for (let offset = 0; offset < options.length; offset++) {
+                                next = (next + step + options.length) % options.length
+                                const option = options[next]
+                                if (!option || option.disabled) continue
+                                select(option.value)
+                                buttons.current[next]?.focus()
+                                break
+                            }
                         }}
                         className={cn(
                             "relative inline-flex h-[calc(100%-1px)] shrink-0 items-center justify-center border border-transparent p-0 text-sm font-medium whitespace-nowrap",

@@ -27,7 +27,7 @@ function useSearch() {
 }
 
 export function SearchList({
-    loop: _loop,
+    loop = true,
     open = true,
     onKeyDown,
     className,
@@ -81,22 +81,29 @@ export function SearchList({
                             "[data-search-result]:not([hidden]):not(:disabled)"
                         ) ?? []
                     )
-                    if (!items.length) return
+                    if (!items.length || event.altKey || event.ctrlKey || event.metaKey) return
                     const index = items.findIndex((item) => item.id === active)
                     if (event.key === "Enter") {
+                        if (
+                            event.target instanceof HTMLElement &&
+                            event.target.closest("button, a")
+                        )
+                            return
                         event.preventDefault()
                         ;(items[index] ?? items[0])?.click()
                         return
                     }
                     if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return
                     event.preventDefault()
+                    const delta = event.key === "ArrowDown" ? 1 : -1
                     const next =
                         index < 0
-                            ? event.key === "ArrowDown"
+                            ? delta === 1
                                 ? 0
                                 : items.length - 1
-                            : (index + (event.key === "ArrowDown" ? 1 : -1) + items.length) %
-                              items.length
+                            : loop
+                              ? (index + delta + items.length) % items.length
+                              : Math.max(0, Math.min(items.length - 1, index + delta))
                     const item = items[next]
                     if (!item) return
                     setActive(item.id)
@@ -199,9 +206,9 @@ export function SearchListItem({
         .split(/\s+/)
         .every((word) => haystack.includes(word))
     useEffect(() => {
-        search.register(id, visible)
+        search.register(id, visible && !props.disabled)
         return () => search.register(id, null)
-    }, [id, visible, search.register])
+    }, [id, visible, props.disabled, search.register])
     return (
         <button
             {...props}
@@ -217,8 +224,14 @@ export function SearchListItem({
                 "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left hover:bg-fill aria-selected:bg-accent-soft",
                 className
             )}
-            onMouseDown={(event) => event.preventDefault()}
-            onClick={() => onSelect?.(value)}
+            onMouseDown={(event) => {
+                props.onMouseDown?.(event)
+                if (!event.defaultPrevented) event.preventDefault()
+            }}
+            onClick={(event) => {
+                props.onClick?.(event)
+                if (!event.defaultPrevented) onSelect?.(value)
+            }}
         />
     )
 }
