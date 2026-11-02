@@ -9,6 +9,7 @@ export function PopoverHelp() {
     const [open, setOpen] = useState(false)
     const [uri, setUri] = useState("https://app.example.com/callback")
     const anchor = useRef<HTMLDivElement>(null)
+    const trigger = useRef<HTMLButtonElement>(null)
     useDismiss(anchor, open, () => setOpen(false))
 
     return (
@@ -20,6 +21,7 @@ export function PopoverHelp() {
                 action={
                     <div ref={anchor} className="relative">
                         <IconButton
+                            ref={trigger}
                             label="What's a redirect URI?"
                             size="icon-xs"
                             variant="ghost"
@@ -31,6 +33,7 @@ export function PopoverHelp() {
                         <Popover
                             open={open}
                             origin="top-right"
+                            anchorRef={trigger}
                             role="dialog"
                             aria-label="Redirect URI"
                             className="top-full right-0 mt-2 w-64 p-4"

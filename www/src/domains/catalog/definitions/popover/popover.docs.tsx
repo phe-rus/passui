@@ -13,15 +13,22 @@ type DemoProps = Pick<PopoverProps, "origin">
 function PopoverDemo({ origin }: DemoProps) {
     const [open, setOpen] = useState(false)
     const anchor = useRef<HTMLDivElement>(null)
+    const trigger = useRef<HTMLButtonElement>(null)
     useDismiss(anchor, open, () => setOpen(false))
     return (
         <div ref={anchor} className="relative">
-            <Button variant="secondary" aria-expanded={open} onClick={() => setOpen(!open)}>
+            <Button
+                ref={trigger}
+                variant="secondary"
+                aria-expanded={open}
+                onClick={() => setOpen(!open)}
+            >
                 Open popover
             </Button>
             <Popover
                 open={open}
                 origin={origin}
+                anchorRef={trigger}
                 className={
                     origin === "top-right"
                         ? "top-full right-0 mt-2 w-60 p-4"
@@ -58,13 +65,14 @@ export const popoverDocs = defineDocs<PopoverProps>()({
         setup: [
             "const [open, setOpen] = useState(false)",
             "const anchor = useRef<HTMLDivElement>(null)",
+            "const trigger = useRef<HTMLButtonElement>(null)",
             "useDismiss(anchor, open, () => setOpen(false))",
         ],
         wrapper: {
-            before: '<div ref={anchor} className="relative"><Button aria-expanded={open} onClick={() => setOpen(!open)}>Open popover</Button>',
+            before: '<div ref={anchor} className="relative"><Button ref={trigger} aria-expanded={open} onClick={() => setOpen(!open)}>Open popover</Button>',
             after: "</div>",
         },
-        expressionProps: { open: "open" },
+        expressionProps: { open: "open", anchorRef: "trigger" },
         extraProps: {
             className:
                 origin === "top-right"

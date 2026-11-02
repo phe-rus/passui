@@ -191,7 +191,7 @@ breaks loudly and prose stays out of Passui:
 | Context menu | `context-menu/` | `useContextMenu`, `openContextMenu` |
 | `confirmDialog` | `dialog/` | Host mounted once by the app |
 | `Picker` | `picker/` | The pop-up button; never a native select |
-| `Popover` | `popover/` | Keeps to `screenEdges()` |
+| `Popover` | `popover/` | Keeps to `screenEdges()`; pass `anchorRef` for trigger morphing. |
 | `SearchField` | `search-field/` | |
 | `Section` | `section/` | A titled, inset group of rows with a footer, as in iOS Settings |
 | `SegmentedControl` | `segmented-control/` | Turns into a `Picker` when its labels don't fit |

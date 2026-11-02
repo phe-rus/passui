@@ -124,8 +124,8 @@ were verified locally. This packs/checks files; it does not publish anything.
   the redundant Overview row. The `/components` catalog page remains available
   from the main navigation, and search no longer duplicates it as a guide.
 - Theme, Platform and Viewport use compact Pickers; Accent remains a swatch row.
-  Picker surfaces now use the shared menu geometry reveal and restore their
-  triggers after dismissal.
+  Picker and Popover surfaces use the shared menu geometry reveal and restore
+  their triggers after dismissal. Popover callers opt in with `anchorRef`.
 - Confirmation dialogs resolve once and wait for the outgoing card to finish
   exiting before showing the next queued request. Stepper digits animate by
   place, preserve localized spoken output and honor reduced motion.

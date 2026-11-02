@@ -981,14 +981,28 @@
                 "defaultValue": null
             },
             {
+                "name": "children",
+                "type": "ReactNode",
+                "required": false,
+                "description": "",
+                "defaultValue": null
+            },
+            {
                 "name": "origin",
                 "type": "\"top-left\" | \"top-right\"",
                 "required": false,
                 "description": "Which corner the popover grows from.",
                 "defaultValue": null
+            },
+            {
+                "name": "anchorRef",
+                "type": "RefObject<HTMLElement | null>",
+                "required": false,
+                "description": "Trigger whose shape the popover uses during its opening and closing motion.",
+                "defaultValue": null
             }
         ],
-        "native": ["HTMLMotionProps<\"div\">"],
+        "native": ["Omit<HTMLMotionProps<\"div\">, \"children\">"],
         "parts": []
     },
     "profile-image": {

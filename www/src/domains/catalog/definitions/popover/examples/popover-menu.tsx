@@ -9,11 +9,13 @@ const actions = ["Duplicate", "Move to folder", "Export as PDF"]
 export function PopoverMenu() {
     const [open, setOpen] = useState(false)
     const anchor = useRef<HTMLDivElement>(null)
+    const trigger = useRef<HTMLButtonElement>(null)
     useDismiss(anchor, open, () => setOpen(false))
 
     return (
         <div ref={anchor} className="relative">
             <Button
+                ref={trigger}
                 variant="secondary"
                 aria-haspopup="menu"
                 aria-expanded={open}
@@ -24,6 +26,7 @@ export function PopoverMenu() {
             <Popover
                 open={open}
                 origin="top-right"
+                anchorRef={trigger}
                 role="menu"
                 className="top-full right-0 mt-2 flex w-56 flex-col p-1.5"
             >

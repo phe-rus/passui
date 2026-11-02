@@ -12,12 +12,14 @@ import { useRef, useState } from "react"
 export function PopoverShowcase() {
     const [open, setOpen] = useState(true)
     const anchor = useRef<HTMLDivElement>(null)
+    const trigger = useRef<HTMLButtonElement>(null)
     useDismiss(anchor, open, () => setOpen(false))
 
     return (
         <div className="flex h-80 w-full max-w-sm items-start justify-end">
             <div ref={anchor} className="relative">
                 <IconButton
+                    ref={trigger}
                     type="button"
                     label="Account"
                     variant="ghost"
@@ -32,6 +34,7 @@ export function PopoverShowcase() {
                 <Popover
                     open={open}
                     origin="top-right"
+                    anchorRef={trigger}
                     role="dialog"
                     aria-label="Account"
                     className="top-full right-0 mt-2 flex w-64 flex-col items-center gap-3 p-5 text-center"

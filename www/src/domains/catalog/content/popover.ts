@@ -3,8 +3,8 @@ import type { ComponentContent } from "../types"
 
 export const popoverContent: ComponentContent<typeof popoverDocs> = {
     summary:
-        "A glass panel that springs from its trigger, flips above when space below is short, and stays within the visible screen.",
-    usage: "Use it for a little extra detail or a short menu tied to one control, such as an account card or a More menu. Pair it with useDismiss so Escape and a click outside close it.",
+        "A glass panel tied to a control, placed within the visible screen, with an optional morph from its trigger.",
+    usage: "Use it for a little extra detail or a short menu tied to one control, such as an account card or a More menu. Pass the trigger ref as anchorRef for a shared opening shape, and pair it with useDismiss so Escape and a click outside close it.",
     propDescriptions: {
         origin: "The corner it grows from. Use top-right for controls near the end of a row.",
     },

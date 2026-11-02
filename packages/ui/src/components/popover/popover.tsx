@@ -1,16 +1,25 @@
 import { AnimatePresence, type HTMLMotionProps, motion, useReducedMotion } from "motion/react"
-import { useLayoutEffect, useRef, useState } from "react"
+import { type ReactNode, type RefObject, useLayoutEffect, useRef, useState } from "react"
+import { concealMenuSource } from "../context-menu/conceal-menu-source"
+import { menuSurfaceReveal } from "../context-menu/menu-reveal"
 import { cn } from "../../lib/class-names"
 import { screenEdges } from "../../lib/screen-edges"
-import { floatingPanelMotion } from "../../motion/transitions"
+import { floatingPanelMotion, spring } from "../../motion/transitions"
 import { fitPopover, type PopoverFit } from "./popover-fit"
 
 export type PopoverOrigin = "top-left" | "top-right"
 
-export interface PopoverProps extends HTMLMotionProps<"div"> {
+function panelSize(element: HTMLElement | null, dimension: "width" | "height") {
+    return element?.getBoundingClientRect()[dimension] ?? 0
+}
+
+export interface PopoverProps extends Omit<HTMLMotionProps<"div">, "children"> {
     open: boolean
+    children?: ReactNode
     /** Which corner the popover grows from. */
     origin?: PopoverOrigin
+    /** Trigger whose shape the popover uses during its opening and closing motion. */
+    anchorRef?: RefObject<HTMLElement | null>
 }
 
 /**
@@ -25,6 +34,7 @@ export function Popover({ open, ...props }: PopoverProps) {
 
 function OpenPopover({
     origin = "top-left",
+    anchorRef,
     className,
     style,
     children,
@@ -38,6 +48,7 @@ function OpenPopover({
         maxWidth: 0,
         above: false,
     })
+    const [reveal, setReveal] = useState<ReturnType<typeof menuSurfaceReveal> | null>(null)
     const popoverMotion = floatingPanelMotion(fit.above ? "above" : "below")
 
     useLayoutEffect(() => {
@@ -127,14 +138,56 @@ function OpenPopover({
         }
     }, [origin])
 
+    useLayoutEffect(() => {
+        const source = anchorRef?.current
+        const panel = ref.current
+        if (!source || !panel) return
+        const sourceRect = source.getBoundingClientRect()
+        const panelRect = panel.getBoundingClientRect()
+        setReveal(
+            menuSurfaceReveal(
+                {
+                    left: sourceRect.left,
+                    top: sourceRect.top,
+                    width: sourceRect.width,
+                    height: sourceRect.height,
+                },
+                {
+                    left: panelRect.left,
+                    top: panelRect.top,
+                    width: fit.maxWidth || panelRect.width,
+                    height: fit.maxHeight
+                        ? Math.min(fit.maxHeight, panelRect.height)
+                        : panelRect.height,
+                }
+            )
+        )
+        const restoreSource = concealMenuSource(source, false)
+        return () => {
+            restoreSource()
+        }
+    }, [anchorRef, fit.maxHeight, fit.maxWidth])
+
     return (
         <motion.div
             ref={ref}
-            {...popoverMotion}
-            initial={reducedMotion ? { opacity: 0 } : popoverMotion.initial}
-            animate={reducedMotion ? { opacity: 1 } : popoverMotion.animate}
-            exit={reducedMotion ? { opacity: 0 } : popoverMotion.exit}
-            transition={reducedMotion ? { duration: 0 } : popoverMotion.transition}
+            {...(!anchorRef && popoverMotion)}
+            initial={
+                anchorRef ? { opacity: 0 } : reducedMotion ? { opacity: 0 } : popoverMotion.initial
+            }
+            animate={
+                anchorRef ? { opacity: 1 } : reducedMotion ? { opacity: 1 } : popoverMotion.animate
+            }
+            exit={anchorRef ? { opacity: 0 } : reducedMotion ? { opacity: 0 } : popoverMotion.exit}
+            transition={
+                anchorRef
+                    ? reducedMotion
+                        ? { duration: 0 }
+                        : { duration: 0.16, delay: 0.06 }
+                    : reducedMotion
+                      ? { duration: 0 }
+                      : popoverMotion.transition
+            }
             style={{
                 transformOrigin:
                     origin === "top-left"
@@ -146,9 +199,36 @@ function OpenPopover({
                 overflowY: fit.maxHeight !== undefined ? "auto" : undefined,
                 ...style,
             }}
-            className={cn("glass-menu absolute z-40 rounded-5xl", className)}
+            className={cn(
+                anchorRef ? "isolate overflow-hidden" : "glass-menu",
+                "absolute z-40 rounded-5xl",
+                className
+            )}
             {...props}
         >
+            {anchorRef && (
+                <motion.div
+                    key={reveal ? "surface" : "measure"}
+                    aria-hidden="true"
+                    className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-5xl"
+                    style={{ width: "100%", height: "100%" }}
+                    initial={reducedMotion || !reveal ? false : reveal}
+                    animate={
+                        reveal
+                            ? {
+                                  x: 0,
+                                  y: 0,
+                                  width: panelSize(ref.current, "width"),
+                                  height: panelSize(ref.current, "height"),
+                                  opacity: 1,
+                                  borderRadius: "var(--radius-5xl)",
+                              }
+                            : undefined
+                    }
+                    exit={reducedMotion ? { opacity: 0 } : (reveal ?? { opacity: 0 })}
+                    transition={reducedMotion ? { duration: 0 } : spring.smooth}
+                />
+            )}
             {children}
         </motion.div>
     )
