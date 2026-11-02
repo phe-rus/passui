@@ -102,4 +102,6 @@ jobs:
 
             - name: Publish with npm OIDC
               if: steps.registry.outputs.published == 'false'
-              run: npm publish "$RUNNER_TEMP"/passui-release/*.tgz --access public --registry https://registry.npmjs.org
+              run: |
+                  npm --version
+                  npm publish "$RUNNER_TEMP"/passui-release/*.tgz --access public --registry https://registry.npmjs.org --loglevel verbose
