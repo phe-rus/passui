@@ -131,3 +131,17 @@ Escape/reopening/date selection, time Escape/focus return, ComboBox creation,
 Popover dismissal/reopening, switch drag and keyboard, and WakeSlider pointer
 seeking/settling. Earlier checks covered Command focus/filter/action, OTP feedback,
 floating labels, expanding search, Slosh and equal-area crops. Publication status is recorded above. Do not infer physical touch or cross-browser verification.
+
+## Production website deployment, 2026-11-03
+
+Deployed source commit `d0d35b7` with `bun run --cwd www deploy` to the existing
+`passui` Worker at https://passui.pherus.org. Cloudflare activated version
+`a302d01b-2abc-4377-87e5-dbeeeb6b5d4f`. The production build passed.
+
+Live HTTP checks covered 63 routes: all 55 registered component pages, home,
+introduction, installation, catalog, sitemap, robots, Command preview and an
+invalid route. Expected statuses, Command canonical/title/API/example markup,
+sitemap inclusion/exclusion, preview embedding policy and preview/404 noindex
+headers passed. Codex-browser command search filtered WakeSlider and navigated
+to its live documentation using Enter. This does not establish physical touch
+or every interaction across browsers. Existing build warnings remain unchanged.
