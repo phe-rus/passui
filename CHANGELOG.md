@@ -2,14 +2,20 @@
 
 ## React 0.1.20, TanStack 0.2.5 and CLI 0.2.2
 
-- Align the React CLI templates and TanStack peer range with React 0.1.20. Publish the pending shared tokens 0.1.1 before dependent packages.
+- Align the React CLI templates and TanStack peer range with React 0.1.20. Shared tokens 0.1.1 precedes the dependent package releases.
 - Simplify docs navigation and search into one compact alphabetical list, remove redundant category controls, and use the same order for adjacent pages.
-- Add native ComboBox, RadioGroup, Breadcrumb, Skeleton, ContentUnavailableView, CodeBlock and KeyboardShortcut, with public types, usage and examples for all 50 documented families.
+- Add native ComboBox, RadioGroup, Breadcrumb, Skeleton, ContentUnavailableView, CodeBlock and KeyboardShortcut, with public types, usage and examples. The catalog now covers 55 families.
 - Place Stepper's value beside two compact action segments; animate numeric places with interruptible carry springs and honor Reduce Motion.
 - Correct Picker material bounds and Popover clipping and dismissal layers. Preserve placement, focus and shared source restoration.
 - Separate navigation metadata and route validation from executable demos. Load copyable example source independently with loading and retry states.
-- Move code gutters and presentation into Passui's imported styles. Mark icon factories pure, preserve CSS side effects, use Picker's minimal animation features and enforce consumer bundle budgets.
+- Move code gutters and presentation into Passui's imported styles. Mark icon factories pure, preserve CSS side effects, use Picker's React-only shared material spring and enforce consumer bundle budgets.
 - Clean declaration output before builds and reject docs/example leakage from package archives. Remove stale unsupported runtime instructions and align React setup tooling.
+
+- Add grouped Command and CommandDialog, including documentation search; compose searchable and creatable ComboBox from Picker.
+- Share anchored surface geometry and exit lifetime across Picker and compact date/time controls, and remove inherited Breadcrumb padding.
+- Add SloshSlider and WakeSlider with Bencho MIT attribution, OneTimeCode with one native input, and responsive AspectRatio crop examples.
+- Refine ProgressView motion, liquid switches, rounded checkboxes, floating TextField labels and optionally expanding SearchField. Honor keyboard interaction and reduced motion.
+- Generate validated numeric playground props and independently compile examples for every registered family.
 
 ## React 0.1.19 and tokens 0.1.1
 

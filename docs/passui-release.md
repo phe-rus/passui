@@ -36,11 +36,11 @@ If OIDC returns E404, verify each package trusted publisher matches repository
 ## Current release state, 2026-11-03
 
 Prepared versions: tokens 0.1.1, React 0.1.20, TanStack 0.2.5 and CLI 0.2.2.
-Tokens 0.1.1 is public, verified against exact registry metadata. React, TanStack
-and CLI remain unpublished. Refinement commit `c5f0f60` is pushed to main and
+Tokens 0.1.1 is public, verified against exact registry metadata. React 0.1.20 and TanStack 0.2.5 are public with exact registry metadata and
+archive shasums verified. CLI 0.2.2 is also public; its registry shasum matches the Bun-packed archive. Refinement commit `c5f0f60` is pushed to main and
 passes 326 tests, root checks, build, typecheck, archive/export and size checks.
-Local Bun publication of React 0.1.20 is waiting for owner authenticator approval;
-dependent packages must wait for its registry verification.
+Owner authenticator approval completed. All package publication commands used
+Bun, preserving dependency order.
 
 The [tokens diagnostic run](https://github.com/phe-rus/passui/actions/runs/41432565370)
 passed validation and packing, obtained a GitHub OIDC token, and failed npm token

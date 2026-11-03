@@ -196,8 +196,8 @@ checks passed Escape, outside click, action selection and reopening, with remove
 panels and restored triggers. Accordion keyboard toggling and phone preview width
 also passed. These checks do not establish physical touch behavior for all controls.
 
-Tokens 0.1.1 is publicly available after Bun publication. Remaining packages are
-held for the current verification batch; the CI OIDC configuration remains a
+Tokens 0.1.1 is publicly available after Bun publication. React 0.1.20, TanStack 0.2.5 and CLI 0.2.2 are now public after Bun
+publication and exact registry verification; the CI OIDC configuration remains a
 separate issue. See the current React checkpoint for continuation details.
 
 ## Native control and catalog continuation

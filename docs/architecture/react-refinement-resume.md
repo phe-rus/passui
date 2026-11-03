@@ -54,7 +54,7 @@ See [website refinement](website-refinement.md),
 Source commits `86e3e92` and `9cf11a6` passed GitHub CI. Release versions are
 committed in `1da2a82`: tokens 0.1.1, React 0.1.20, TanStack 0.2.5 and CLI 0.2.2.
 Tokens 0.1.1 was published with Bun and verified against the public registry.
-React, TanStack and CLI remain unpublished pending the current UI corrections.
+React 0.1.20 and TanStack 0.2.5 are now public after Bun publication and exact registry verification. CLI 0.2.2 is also public; its registry shasum matches the Bun-packed archive.
 The owner requires Bun for package operations, including publication. Bun browser
 sign-in completed; credentials remain outside the repository.
 
@@ -65,8 +65,8 @@ but npm rejected the package exchange (HTTP 404) with
 ENEEDAUTH. The owner has been asked to verify the package trusted publisher:
 owner `phe-rus`, repository `passui`, workflow `publish.yml`, environment
 `npm-publish`. Local Bun publication succeeded independently of that CI blocker.
-Publish React, TanStack and CLI in order after verification, checking exact
-registry versions. The existing CI workflow still uses npm for OIDC publication;
+Publication followed tokens, React, TanStack and CLI order, checking exact
+registry versions before dependent publication. The existing CI workflow still uses npm for OIDC publication;
 it has not yet been migrated to Bun-only publishing.
 
 Final local evidence: 299 tests pass (104 UI, 160 website, 13 tokens, 7 TanStack,
@@ -130,5 +130,4 @@ Codex-browser checks passed repeated Picker dismissal/reopening/selection, calen
 Escape/reopening/date selection, time Escape/focus return, ComboBox creation,
 Popover dismissal/reopening, switch drag and keyboard, and WakeSlider pointer
 seeking/settling. Earlier checks covered Command focus/filter/action, OTP feedback,
-floating labels, expanding search, Slosh and equal-area crops. Publication remains
-separate. Do not infer physical touch or cross-browser verification.
+floating labels, expanding search, Slosh and equal-area crops. Publication status is recorded above. Do not infer physical touch or cross-browser verification.
