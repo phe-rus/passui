@@ -1,5 +1,9 @@
 # Changelog
 
+## React 0.1.23
+
+- Align floating field outlines with their backgrounds by giving the hidden legend and visible label explicit line heights. Prevent a raised background ledge in filled, focused and autofilled fields, including dark mode.
+
 ## React 0.1.22 and TanStack 0.2.6
 
 - Refine LocaleSwitcher with a rounded globe trigger, native language names, selected checkmarks, keyboard navigation and an anchored popup whose text does not stretch during opening or closing. Preserve draggable corner positioning.

@@ -9,7 +9,7 @@
        No painted background patch needs to match the field's surroundings. */
     .passui-field-outline {
         position: absolute;
-        inset: -0.45em 0 0;
+        inset: calc(var(--text-footnote) / -2) 0 0;
         min-width: 0;
         margin: 0;
         padding: 0 0.5rem;
@@ -23,6 +23,8 @@
         overflow: hidden;
         padding: 0;
         font-size: var(--text-footnote);
+        line-height: 1;
+        height: 1em;
         white-space: nowrap;
         visibility: hidden;
         transition: max-width 320ms ease, padding 320ms ease;
@@ -38,6 +40,7 @@
         white-space: nowrap;
         color: var(--color-label-secondary);
         font-size: var(--text-body);
+        line-height: 1;
         transform: translateY(-50%);
         transform-origin: left center;
         transition: top 320ms ease, transform 320ms ease, color 200ms ease;
