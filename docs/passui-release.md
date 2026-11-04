@@ -1,5 +1,29 @@
 # Passui package releases
 
+## Verified release, 2026-11-04
+
+React **0.1.22** and TanStack **0.2.6** are public from source commit
+`21a6c7b`. The trusted publishing workflow succeeded for
+[React](https://github.com/phe-rus/passui/actions/runs/41883176962) and
+[TanStack](https://github.com/phe-rus/passui/actions/runs/41883568548).
+Both publish jobs packed with Bun and published through npm OIDC. The earlier
+local credential and OIDC blockers do not describe these successful runs.
+
+Exact registry metadata and downloaded archives were checked. React's SHA1 is
+`1099b45c594a6ed232e6bd95939165dc1092deff`, matching the local archive.
+TanStack's SHA1 is `eccd65d2a1405acf32d6e6957bb0d69c3fc572bc`; all 82 public
+files match the validated checkout. The local TanStack archive contained 17
+obsolete, unexported Solid build files that were absent from the clean CI archive.
+The published TanStack React peer range is `^0.1.22`.
+
+Build, typecheck, root formatting/API checks, archive exports and bundle budgets
+passed. React passed 121 tests and TanStack passed 8. The website passed all 172
+tests with one worker after two timeouts during concurrent local checks. The
+unchanged token and CLI suites passed. Browser checks covered locale keyboard
+selection, Escape, reopening, Menu, Popover and Picker dismissal, removed panels
+and restored triggers. Native ChromeOS, physical touch and every browser remain
+outside this evidence. The website was not deployed.
+
 The owner authorized the current React refinement release on 2026-11-02. Package
 publication is separate from deploying the website or upgrading consumer apps.
 The supported packages are tokens, React, optional TanStack integrations and CLI.
