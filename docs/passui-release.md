@@ -2,6 +2,18 @@
 
 ## Verified release, 2026-11-04
 
+React **0.1.23** is public from source commit `c0a1fe5`. Its floating field
+outline fix passed [CI](https://github.com/phe-rus/passui/actions/runs/41895945936)
+and [trusted publishing](https://github.com/phe-rus/passui/actions/runs/41896124949).
+The exact registry archive SHA1 `8c3cd91e7a5ef30dc9f9b44511869894136c4660`
+matches the local Bun archive. React's 121 tests, build, typecheck, repository
+checks and bundle budgets passed locally; CI repeated the full workspace gates.
+Pass installed the exact registry version after checking its packed consumer.
+In dark mode the consumer's hidden legend was 22.75px tall and its border sat
+about 4.175px below the background. The new 13px legend and matching inset
+measured zero offset for filled email and focused password fields. No website
+deployment occurred. TanStack remains **0.2.6**, compatible with this React patch.
+
 React **0.1.22** and TanStack **0.2.6** are public from source commit
 `21a6c7b`. The trusted publishing workflow succeeded for
 [React](https://github.com/phe-rus/passui/actions/runs/41883176962) and
