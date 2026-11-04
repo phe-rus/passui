@@ -7,7 +7,7 @@ import {
 } from "motion/react"
 import { type ReactNode, type RefObject, useLayoutEffect, useRef, useState } from "react"
 import { concealMenuSource } from "../context-menu/conceal-menu-source"
-import { menuSurfaceReveal } from "../context-menu/menu-reveal"
+import { menuSurfaceExit, menuSurfaceReveal } from "../context-menu/menu-reveal"
 import { cn } from "../../lib/class-names"
 import { screenEdges } from "../../lib/screen-edges"
 import { floatingPanelMotion, spring } from "../../motion/transitions"
@@ -183,11 +183,16 @@ function OpenPopover({
                 }
             )
         )
+    }, [anchorRef, fit])
+
+    useLayoutEffect(() => {
+        const source = anchorRef?.current
+        if (!source || !present) return
         const restoreSource = concealMenuSource(source, false)
         return () => {
             restoreSource()
         }
-    }, [anchorRef, fit])
+    }, [anchorRef, present])
 
     return (
         <motion.div
@@ -274,8 +279,12 @@ function OpenPopover({
                               }
                             : undefined
                     }
-                    exit={reducedMotion ? { opacity: 0 } : (reveal ?? { opacity: 0 })}
-                    transition={reducedMotion ? { duration: 0 } : spring.smooth}
+                    exit={reducedMotion || !reveal ? { opacity: 0 } : menuSurfaceExit(reveal)}
+                    transition={
+                        reducedMotion
+                            ? { duration: 0 }
+                            : { ...spring.smooth, opacity: { duration: 0.16 } }
+                    }
                 />
             )}
             {children}

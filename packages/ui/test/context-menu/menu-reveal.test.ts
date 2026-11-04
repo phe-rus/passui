@@ -1,5 +1,13 @@
 import { expect, test } from "vitest"
-import { menuSurfaceReveal } from "../../src/components/context-menu/menu-reveal"
+import { menuSurfaceExit, menuSurfaceReveal } from "../../src/components/context-menu/menu-reveal"
+
+test("closing material fades away as its bounds return to the real trigger", () => {
+    const source = menuSurfaceReveal(
+        { left: 80, top: 90, width: 40, height: 40 },
+        { left: 80, top: 90, width: 240, height: 280 }
+    )
+    expect(menuSurfaceExit(source)).toEqual({ ...source, opacity: 0 })
+})
 
 test("a menu flipped above the bottom action starts at that action's rectangle", () => {
     const reveal = menuSurfaceReveal(

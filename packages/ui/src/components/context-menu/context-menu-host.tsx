@@ -9,7 +9,7 @@ import { spring } from "../../motion/transitions"
 import { concealMenuSource } from "./conceal-menu-source"
 import { findMenuTypeaheadIndex, isMenuNavigationKey, nextMenuIndex } from "./menu-navigation"
 import { menuPosition } from "./menu-position"
-import { menuSurfaceReveal } from "./menu-reveal"
+import { menuSurfaceExit, menuSurfaceReveal } from "./menu-reveal"
 import {
     closeContextMenu,
     getContextMenu,
@@ -44,6 +44,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
 
     useLayoutEffect(() => {
         if (
+            !present ||
             (!menu.source && !menu.toolbar) ||
             !position.ready ||
             !(menu.anchor instanceof HTMLElement)
@@ -64,7 +65,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
             )
                 menu.anchor.focus({ preventScroll: true })
         }
-    }, [menu, position.ready])
+    }, [menu, position.ready, present])
 
     useLayoutEffect(() => {
         const surface = ref.current
@@ -283,8 +284,12 @@ function Menu({ menu }: { menu: OpenMenu }) {
                               }
                             : undefined
                     }
-                    exit={reducedMotion ? { opacity: 0 } : source}
-                    transition={reducedMotion ? { duration: 0 } : spring.smooth}
+                    exit={reducedMotion ? { opacity: 0 } : menuSurfaceExit(source)}
+                    transition={
+                        reducedMotion
+                            ? { duration: 0 }
+                            : { ...spring.smooth, opacity: { duration: 0.16 } }
+                    }
                 />
             )}
             <motion.div

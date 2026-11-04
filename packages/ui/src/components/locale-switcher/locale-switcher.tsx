@@ -1,7 +1,10 @@
 import { getNativeLanguageName } from "../../lib/language"
 import { cn } from "../../lib/class-names"
-import { AnimatePresence, motion, useDragControls, useMotionValue } from "motion/react"
+import { motion, useDragControls, useMotionValue } from "motion/react"
 import { useEffect, useRef, useState } from "react"
+import { useDismiss } from "../../hooks/use-dismiss"
+import { CheckIcon, GlobeIcon } from "../../icons/icons"
+import { Popover } from "../popover/popover"
 
 type Side = "left" | "right"
 type Edge = "top" | "bottom"
@@ -66,6 +69,7 @@ export function LocaleSwitcher<L extends string>({
     label,
 }: LocaleSwitcherProps<L>) {
     const containerRef = useRef<HTMLDivElement>(null)
+    const triggerRef = useRef<HTMLButtonElement>(null)
     const dragControls = useDragControls()
     const x = useMotionValue(0)
     const y = useMotionValue(0)
@@ -82,15 +86,12 @@ export function LocaleSwitcher<L extends string>({
         if (stored) setAnchor(stored)
     }, [storageKey])
 
+    useDismiss(containerRef, open, () => setOpen(false))
     useEffect(() => {
-        if (!open) return
-        function handlePointerDown(e: PointerEvent) {
-            if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-                setOpen(false)
-            }
-        }
-        document.addEventListener("pointerdown", handlePointerDown)
-        return () => document.removeEventListener("pointerdown", handlePointerDown)
+        if (open)
+            containerRef.current
+                ?.querySelector<HTMLButtonElement>('[role="menuitemradio"][aria-checked="true"]')
+                ?.focus()
     }, [open])
 
     function commitDraggedPosition() {
@@ -129,74 +130,114 @@ export function LocaleSwitcher<L extends string>({
                 ...(anchor.edge === "top" ? { top: anchor.y } : { bottom: anchor.y }),
             }}
             onDragEnd={commitDraggedPosition}
-            onMouseLeave={() => open && setOpen(false)}
+            onDragStart={() => setOpen(false)}
+            onKeyDown={(event) => {
+                if (!open) return
+                if (event.key === "Escape") {
+                    event.preventDefault()
+                    setOpen(false)
+                    triggerRef.current?.focus()
+                    return
+                }
+                if (event.key === "Tab") {
+                    setOpen(false)
+                    return
+                }
+                if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return
+                const options = Array.from(
+                    containerRef.current?.querySelectorAll<HTMLButtonElement>(
+                        '[role="menuitemradio"]'
+                    ) ?? []
+                )
+                if (!options.length) return
+                event.preventDefault()
+                const current = options.indexOf(document.activeElement as HTMLButtonElement)
+                const next =
+                    event.key === "Home"
+                        ? 0
+                        : event.key === "End"
+                          ? options.length - 1
+                          : (current + (event.key === "ArrowDown" ? 1 : -1) + options.length) %
+                            options.length
+                options[next]?.focus()
+            }}
             className="z-60"
         >
-            <motion.div
-                layout
-                transition={{
-                    type: "spring",
-                    damping: 28,
-                    stiffness: 380,
+            <button
+                ref={triggerRef}
+                type="button"
+                aria-label={label}
+                aria-haspopup="menu"
+                aria-expanded={open}
+                onPointerDown={(e) => dragControls.start(e)}
+                onClick={() => setOpen((prev) => !prev)}
+                onKeyDown={(event) => {
+                    if (!open && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
+                        event.preventDefault()
+                        setOpen(true)
+                    }
                 }}
+                className="glass-menu flex h-12 min-w-20 touch-none cursor-grab items-center justify-center gap-2 rounded-full px-4 text-caption font-semibold text-label active:cursor-grabbing"
+            >
+                <GlobeIcon aria-hidden="true" className="size-5" />
+                {locale.toUpperCase()}
+            </button>
+            <Popover
+                open={open}
+                anchorRef={triggerRef}
+                origin={anchor.side === "right" ? "top-right" : "top-left"}
+                role="menu"
+                aria-label={label}
                 className={cn(
-                    "overflow-hidden rounded-2xl border border-separator/35 bg-elevated/80 shadow-lg",
-                    "backdrop-blur-xl backdrop-saturate-150",
-                    "flex",
-                    growsUp ? "flex-col-reverse" : "flex-col",
-                    open ? "w-40 gap-px p-1" : "size-10"
+                    "top-0 flex w-52 max-w-[calc(100vw-2.5rem)] gap-2 p-2",
+                    anchor.side === "right" ? "right-0" : "left-0",
+                    growsUp ? "flex-col-reverse" : "flex-col"
                 )}
             >
                 <button
                     type="button"
                     aria-label={label}
-                    aria-expanded={open}
-                    onPointerDown={(e) => dragControls.start(e)}
-                    onClick={() => setOpen((prev) => !prev)}
-                    className={cn(
-                        "flex shrink-0 cursor-grab items-center justify-center",
-                        "active:cursor-grabbing text-xs font-semibold",
-                        open ? "h-9 w-full rounded-lg hover:bg-accent" : "size-10 rounded-2xl"
-                    )}
+                    onClick={() => {
+                        setOpen(false)
+                        triggerRef.current?.focus()
+                    }}
+                    className="flex min-h-12 w-full items-center justify-center gap-2 rounded-4xl bg-fill/50 text-caption font-semibold text-label"
                 >
+                    <GlobeIcon aria-hidden="true" className="size-5" />
                     {locale.toUpperCase()}
                 </button>
-
-                <AnimatePresence>
-                    {open && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ delay: 0.05 }}
-                            className="flex flex-col gap-px"
-                        >
-                            {langs.map((item) => {
-                                const active = item.value === locale
-                                return (
-                                    <button
-                                        key={item.value}
-                                        type="button"
-                                        onClick={() => {
-                                            setOpen(false)
-                                            if (!active) {
-                                                onSelect(item.value)
-                                            }
-                                        }}
-                                        className={cn(
-                                            "rounded-sm px-2 py-1.5 text-left text-sm",
-                                            "hover:bg-accent transition-colors",
-                                            active && "text-primary font-medium"
-                                        )}
-                                    >
-                                        {item.label}
-                                    </button>
-                                )
-                            })}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.div>
+                <div className="flex flex-col gap-1">
+                    {langs.map((item) => {
+                        const active = item.value === locale
+                        return (
+                            <button
+                                key={item.value}
+                                type="button"
+                                role="menuitemradio"
+                                aria-checked={active}
+                                tabIndex={-1}
+                                onClick={() => {
+                                    setOpen(false)
+                                    triggerRef.current?.focus()
+                                    if (!active) {
+                                        onSelect(item.value)
+                                    }
+                                }}
+                                className={cn(
+                                    "flex min-h-11 items-center justify-between gap-3 rounded-4xl px-3.5 py-2.5 text-left text-footnote text-label outline-none",
+                                    "hover:bg-fill/65 focus-visible:bg-fill/65 transition-colors",
+                                    active && "bg-accent/12 font-medium"
+                                )}
+                            >
+                                {item.label}
+                                {active && (
+                                    <CheckIcon aria-hidden="true" className="size-4 shrink-0" />
+                                )}
+                            </button>
+                        )
+                    })}
+                </div>
+            </Popover>
         </motion.div>
     )
 }

@@ -40,9 +40,12 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
         const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)")
         const material = useRef<HTMLDivElement>(null)
         const content = useRef<HTMLDivElement>(null)
-        const animated = useRef<{ values: number[]; velocities: number[]; opacity: number } | null>(
-            null
-        )
+        const animated = useRef<{
+            values: number[]
+            velocities: number[]
+            opacity: number
+            materialOpacity: number
+        } | null>(null)
         const placement = useAnchoredPlacement(anchor, width, needed, true)
         const [geometry, setGeometry] = useState<{
             source: ReturnType<typeof menuSurfaceReveal>
@@ -82,12 +85,16 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
         useLayoutEffect(() => {
             if (!root.current) return
             const unregister = registerFloatingLayer(root.current, anchor)
+            return unregister
+        }, [anchor])
+
+        useLayoutEffect(() => {
+            if (!present) return
             const restore = concealMenuSource(anchor, false)
             return () => {
-                unregister()
                 restore()
             }
-        }, [anchor])
+        }, [anchor, present])
 
         useLayoutEffect(() => {
             if (!geometry || !material.current || !content.current) {
@@ -110,6 +117,7 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
                 values: [...source],
                 velocities: source.map(() => 0),
                 opacity: 0,
+                materialOpacity: 1,
             }
             animated.current = state
             let frame = 0,
@@ -120,6 +128,7 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
                 pane.style.width = `${Math.max(0, width)}px`
                 pane.style.height = `${Math.max(0, height)}px`
                 pane.style.borderRadius = `${Math.max(0, radius)}px`
+                pane.style.opacity = String(state.materialOpacity)
                 body.style.opacity = String(state.opacity)
             }
             const tick = (now: number) => {
@@ -151,11 +160,18 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
                 )
                 const opacity = present ? Math.max(0, (progress - 0.25) / 0.75) : 0
                 state.opacity += (opacity - state.opacity) * (1 - Math.exp(-dt / 0.04))
+                state.materialOpacity +=
+                    ((present ? 1 : 0) - state.materialOpacity) * (1 - Math.exp(-dt / 0.04))
                 paint()
-                if (resting && Math.abs(opacity - state.opacity) < 0.01) {
+                if (
+                    resting &&
+                    Math.abs(opacity - state.opacity) < 0.01 &&
+                    Math.abs((present ? 1 : 0) - state.materialOpacity) < 0.01
+                ) {
                     state.values = [...target]
                     state.velocities.fill(0)
                     state.opacity = present ? 1 : 0
+                    state.materialOpacity = present ? 1 : 0
                     paint()
                     if (!present) remove?.()
                     return
@@ -166,6 +182,7 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
                 state.values = [...target]
                 state.velocities.fill(0)
                 state.opacity = present ? 1 : 0
+                state.materialOpacity = present ? 1 : 0
                 paint()
                 if (!present) remove?.()
             } else {

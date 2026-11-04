@@ -5,6 +5,11 @@ export type MenuRect = {
     height: number
 }
 
+/** Return toward the source while handing its material back to the real trigger. */
+export function menuSurfaceExit(source: ReturnType<typeof menuSurfaceReveal>) {
+    return { ...source, opacity: 0 }
+}
+
 /** Animate the material's bounds independently so menu text never stretches. */
 export function menuSurfaceReveal(
     source: MenuRect | undefined,

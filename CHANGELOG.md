@@ -1,5 +1,11 @@
 # Changelog
 
+## React 0.1.22 and TanStack 0.2.6
+
+- Refine LocaleSwitcher with a rounded globe trigger, native language names, selected checkmarks, keyboard navigation and an anchored popup whose text does not stretch during opening or closing. Preserve draggable corner positioning.
+- Fade closing menu, popover and picker materials into their restored triggers instead of leaving an empty glass shape while the geometry spring settles. Preserve focus, dismissal and reduced motion behavior.
+- Export LoadingIcon and update DefaultLoader with a centered spinning icon, reduced motion support and an optional translated accessible label without visible copy.
+
 ## React 0.1.21
 
 - Add opt-in alphanumeric OneTimeCode entry for device authorization, with uppercase ASCII normalization, formatted paste, localized digit normalization and a native input ref. Numeric OTP behavior remains the default.

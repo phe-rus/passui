@@ -1,5 +1,6 @@
 import {
     LanguagesIcon,
+    Loading03Icon,
     Logout01Icon,
     MoreVertical,
     SentIcon,
@@ -227,6 +228,7 @@ export const catalogIcons = {
 
 export const NoteIcon = /* @__PURE__ */ icon(Note01Icon, "NoteIcon")
 export const LanguageIcon = /* @__PURE__ */ icon(LanguagesIcon, "LanguageIcon")
+export const LoadingIcon = /* @__PURE__ */ icon(Loading03Icon, "LoadingIcon")
 export const SignOutIcon = /* @__PURE__ */ icon(Logout01Icon, "SignOutIcon")
 export const MoreVerticalIcon = /* @__PURE__ */ icon(MoreVertical, "MoreVerticalIcon")
 export const SendIcon = /* @__PURE__ */ icon(SentIcon, "SendIcon")
