@@ -1,5 +1,22 @@
 # React and website refinement checkpoint
 
+## Device authorization input, 2026-11-04
+
+React 0.1.21 adds `OneTimeCode format="alphanumeric"` for uppercase ASCII
+device codes, retaining numeric defaults and localized digit normalization.
+The single native input supports refs, formatted paste, exact-length native
+validation and caller accessibility descriptions alongside status feedback.
+Sheet adds `dismissOnOutsidePress={false}` while retaining Escape and focus
+management, so consumers need no document-level keyboard workaround.
+
+Validation: 327 tests pass (120 UI, 172 website, 13 tokens, 7 TanStack,
+15 CLI). Root checks, production build, typecheck, package archive/export
+validation and bundle budgets pass. Codex browser checks verified normalized
+letters, formatted paste with localized digits and Backspace in the device-code
+example. Physical keyboards, touch and autofill on actual devices remain open.
+Publication and the separate Pass consumer upgrade must be verified against
+the public registry before claiming availability.
+
 Updated 2026-11-03. Work on `main` in this checkout. The latest owner instruction
 authorizes committing, pushing and publishing package releases. It supersedes the
 previous release hold. Website deployment and consumer upgrades remain separate.

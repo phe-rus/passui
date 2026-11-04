@@ -6,7 +6,8 @@ import { OneTimeCodeUsage } from "./examples/one-time-code-usage"
 import { OneTimeCodeShowcase } from "./examples/one-time-code-showcase"
 import { OneTimeCodeFourDigits } from "./examples/one-time-code-four-digits"
 import { OneTimeCodeDisabled } from "./examples/one-time-code-disabled"
-function Demo(props: Pick<OneTimeCodeProps, "label" | "length" | "status">) {
+import { OneTimeCodeDeviceCode } from "./examples/one-time-code-device-code"
+function Demo(props: Pick<OneTimeCodeProps, "label" | "length" | "status" | "format">) {
     const [value, setValue] = useState("")
     return (
         <div className="w-full max-w-xs">
@@ -14,13 +15,20 @@ function Demo(props: Pick<OneTimeCodeProps, "label" | "length" | "status">) {
         </div>
     )
 }
-export const oneTimeCodeDocs = defineDocs<Pick<OneTimeCodeProps, "label" | "length" | "status">>()({
+export const oneTimeCodeDocs = defineDocs<
+    Pick<OneTimeCodeProps, "label" | "length" | "status" | "format">
+>()({
     slug: "one-time-code",
     name: "OneTimeCode",
     importPath: "@passui/react/one-time-code",
     controls: {
         label: { kind: "text", default: "Verification code", required: true },
         length: { kind: "number", default: 6, min: 3, max: 8, step: 1 },
+        format: {
+            kind: "select",
+            default: "numeric",
+            options: { numeric: true, alphanumeric: true },
+        },
         status: {
             kind: "select",
             default: "idle",
@@ -37,6 +45,7 @@ export const oneTimeCodeDocs = defineDocs<Pick<OneTimeCodeProps, "label" | "leng
     usage: OneTimeCodeUsage,
     showcase: OneTimeCodeShowcase,
     examples: [
+        { id: "device-code", component: OneTimeCodeDeviceCode },
         { id: "four-digits", component: OneTimeCodeFourDigits },
         { id: "disabled", component: OneTimeCodeDisabled },
     ],

@@ -13,6 +13,8 @@ export interface SheetProps {
     open: boolean
     /** Called on Escape or an outside press. */
     onClose: () => void
+    /** Allow tapping the backdrop to close. Escape still calls onClose. @default true */
+    dismissOnOutsidePress?: boolean
     /** Read out by screen readers as the sheet's name. */
     label: string
     /** ID of a visible heading to use instead of label for the accessible name. */
@@ -41,6 +43,7 @@ export function Sheet({ open, ...props }: SheetProps) {
 
 function OpenSheet({
     onClose,
+    dismissOnOutsidePress = true,
     label,
     labelledBy,
     placement = "adaptive",
@@ -77,7 +80,7 @@ function OpenSheet({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                onClick={onClose}
+                onClick={dismissOnOutsidePress ? onClose : undefined}
             />
             <motion.div
                 ref={panel}

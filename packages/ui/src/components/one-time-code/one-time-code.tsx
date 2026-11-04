@@ -1,8 +1,16 @@
-import { type CSSProperties, type InputHTMLAttributes, useEffect, useId, useRef } from "react"
+import {
+    type CSSProperties,
+    type InputHTMLAttributes,
+    type Ref,
+    useEffect,
+    useId,
+    useRef,
+} from "react"
 import { CheckIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 
 export type OneTimeCodeStatus = "idle" | "verifying" | "success" | "error"
+export type OneTimeCodeFormat = "numeric" | "alphanumeric"
 export interface OneTimeCodeProps
     extends Omit<
         InputHTMLAttributes<HTMLInputElement>,
@@ -13,21 +21,29 @@ export interface OneTimeCodeProps
     onChange: (value: string) => void
     /** Called when a complete code is entered, including paste and autofill. */
     onComplete?: (value: string) => void
-    /** Number of digits, 3–8. @default 6 */
+    /** Number of characters, 3–8. @default 6 */
     length?: number
+    /** Accepted characters. Alphanumeric codes use uppercase ASCII letters and digits. @default "numeric" */
+    format?: OneTimeCodeFormat
+    /** Ref to the single native input, for focus and selection. */
+    ref?: Ref<HTMLInputElement>
     status?: OneTimeCodeStatus
     /** Localized verification feedback announced without reading decorative cells. */
     statusLabel?: string
 }
 
-/** Normalize common numeric keyboards without splitting the browser's input into cells. */
-export function normalizeCode(value: string, length: number) {
+/** Normalize common numeric keyboards and optional ASCII letters in one native field. */
+export function normalizeCode(
+    value: string,
+    length: number,
+    format: OneTimeCodeFormat = "numeric"
+) {
     return Array.from(value, (digit) => {
         const point = digit.codePointAt(0) ?? 0
         for (const base of [0x30, 0x660, 0x6f0, 0xff10]) {
             if (point >= base && point < base + 10) return String(point - base)
         }
-        return ""
+        return format === "alphanumeric" && /^[a-z]$/i.test(digit) ? digit.toUpperCase() : ""
     })
         .join("")
         .slice(0, length)
@@ -40,6 +56,8 @@ export function OneTimeCode({
     onChange,
     onComplete,
     length = 6,
+    format = "numeric",
+    ref,
     status = "idle",
     statusLabel,
     className,
@@ -52,13 +70,14 @@ export function OneTimeCode({
     const filter = `otp-goo-${generated.replace(/:/g, "")}`
     const input = useRef<HTMLInputElement>(null)
     const count = Number.isFinite(length) ? Math.max(3, Math.min(8, Math.round(length))) : 6
-    const code = normalizeCode(value, count)
+    const code = normalizeCode(value, count, format)
     const locked = disabled || props.readOnly || status === "verifying" || status === "success"
     useEffect(() => {
         if (status === "error") input.current?.select()
     }, [status])
     const update = (next: string) => {
-        const normalized = normalizeCode(next, count)
+        if (locked) return
+        const normalized = normalizeCode(next, count, format)
         onChange(normalized)
         if (normalized.length === count && normalized !== code) onComplete?.(normalized)
     }
@@ -123,26 +142,37 @@ export function OneTimeCode({
                 <CheckIcon aria-hidden="true" className="passui-otp-check" size={24} />
                 <input
                     {...props}
-                    ref={input}
+                    ref={(node) => {
+                        input.current = node
+                        if (typeof ref === "function") return ref(node)
+                        if (ref) ref.current = node
+                    }}
                     id={id}
                     type="text"
-                    inputMode="numeric"
-                    autoComplete="one-time-code"
-                    pattern="[0-9]*"
+                    inputMode={format === "numeric" ? "numeric" : "text"}
+                    autoComplete={props.autoComplete ?? "one-time-code"}
+                    autoCapitalize={format === "alphanumeric" ? "characters" : "off"}
+                    spellCheck={false}
+                    pattern={format === "numeric" ? "[0-9]*" : "[A-Za-z0-9]*"}
                     maxLength={count}
+                    minLength={count}
                     aria-label={label}
                     value={code}
                     disabled={disabled}
                     readOnly={locked}
                     aria-busy={status === "verifying" || undefined}
                     aria-invalid={status === "error" || props["aria-invalid"]}
-                    aria-describedby={statusLabel ? `${id}-status` : props["aria-describedby"]}
+                    aria-describedby={
+                        [props["aria-describedby"], statusLabel && `${id}-status`]
+                            .filter(Boolean)
+                            .join(" ") || undefined
+                    }
                     onChange={(event) => update(event.target.value)}
                     onPaste={(event) => {
                         props.onPaste?.(event)
                         if (event.defaultPrevented || locked) return
                         const pasted = event.clipboardData.getData("text")
-                        const normalized = normalizeCode(pasted, count)
+                        const normalized = normalizeCode(pasted, count, format)
                         if (normalized && normalized !== pasted) {
                             event.preventDefault()
                             update(normalized)

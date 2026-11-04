@@ -306,7 +306,7 @@
         },
         "group": "Controls",
         "icon": "input",
-        "exampleIds": ["four-digits", "disabled"],
+        "exampleIds": ["device-code", "four-digits", "disabled"],
         "content": {
             "summary": "One native input drawn as code cells, with paste, autofill and verification feedback."
         }

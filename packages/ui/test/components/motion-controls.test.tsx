@@ -47,6 +47,35 @@ test("codes normalize common numeric keyboards and retain one autofill input", (
     expect(html).toContain('autoComplete="one-time-code"')
     expect(html).toContain('value="1234"')
     expect(html).toContain('maxLength="4"')
+    expect(html).toContain('minLength="4"')
+})
+
+test("device codes accept only ASCII letters and normalized digits, without changing numeric defaults", () => {
+    expect(normalizeCode("ab-cd １２٣٤!", 8, "alphanumeric")).toBe("ABCD1234")
+    expect(normalizeCode("ab-cd １２٣٤!", 8)).toBe("1234")
+    expect(normalizeCode("ßéА中 a0z9", 8, "alphanumeric")).toBe("A0Z9")
+    expect(normalizeCode("abcde12345", 8, "alphanumeric")).toBe("ABCDE123")
+    const html = renderToStaticMarkup(
+        <OneTimeCode
+            label="Device code"
+            format="alphanumeric"
+            length={8}
+            value="abcd-efgh"
+            onChange={() => {}}
+            autoComplete="off"
+            aria-describedby="help"
+            id="device"
+            status="error"
+            statusLabel="Try again"
+        />
+    )
+    expect(html.match(/<input\b/g)).toHaveLength(1)
+    expect(html).toContain('value="ABCDEFGH"')
+    expect(html).toContain('inputMode="text"')
+    expect(html).toContain('autoCapitalize="characters"')
+    expect(html).toContain('autoComplete="off"')
+    expect(html).toContain('aria-describedby="help device-status"')
+    expect(html).not.toContain('format="alphanumeric"')
 })
 
 test("crop frames reject invalid ratios without changing media semantics", () => {

@@ -7,9 +7,15 @@ export const oneTimeCodeContent: ComponentContent<typeof oneTimeCodeDocs> = {
     propDescriptions: {
         label: "Localized accessible name.",
         length: "Adjusts the length of the native control.",
+        format: "Numeric by default; alphanumeric accepts uppercase letters and digits for device authorization. Pasted spaces and separators are removed.",
         status: "Adjusts the status of the native control.",
     },
     examples: {
+        "device-code": {
+            title: "Device authorization",
+            description:
+                "Eight letters and digits in one native field. Paste a formatted device code; review the requesting application before approving access.",
+        },
         "four-digits": {
             title: "Four digits",
             description: "Use the same native control with a different interaction setting.",

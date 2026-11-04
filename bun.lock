@@ -14,7 +14,7 @@
     },
     "packages/cli": {
       "name": "@passui/cli",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "bin": {
         "passui": "dist/hino.js",
       },
@@ -28,7 +28,7 @@
     },
     "packages/tanstack": {
       "name": "@passui/tanstack",
-      "version": "0.2.4",
+      "version": "0.2.5",
       "dependencies": {
         "@hugeicons/core-free-icons": "^4.3.5",
       },
@@ -102,7 +102,7 @@
     },
     "packages/ui": {
       "name": "@passui/react",
-      "version": "0.1.19",
+      "version": "0.1.21",
       "dependencies": {
         "@hugeicons/core-free-icons": "4.3.5",
         "@hugeicons/react": "1.1.10",

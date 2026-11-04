@@ -1,5 +1,11 @@
 # Changelog
 
+## React 0.1.21
+
+- Add opt-in alphanumeric OneTimeCode entry for device authorization, with uppercase ASCII normalization, formatted paste, localized digit normalization and a native input ref. Numeric OTP behavior remains the default.
+- Preserve caller autocomplete and accessibility descriptions alongside verification feedback. Document device-code usage with a source-backed example.
+- Add Sheet `dismissOnOutsidePress` so authorization dialogs can ignore backdrop taps while retaining native Escape and focus management.
+
 ## React 0.1.20, TanStack 0.2.5 and CLI 0.2.2
 
 - Align the React CLI templates and TanStack peer range with React 0.1.20. Shared tokens 0.1.1 precedes the dependent package releases.

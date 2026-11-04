@@ -4,7 +4,7 @@ import type { ComponentContent } from "../types"
 export const sheetContent: ComponentContent<typeof sheetDocs> = {
     summary:
         "A modal card that rises from the bottom on phones and floats in the middle on larger screens, holding whatever you put in it.",
-    usage: "Use it for a self-contained task over the page, such as sharing or choosing a color. Dialog is a Sheet with a title, description and actions already laid out.",
+    usage: "Use it for a self-contained task over the page, such as sharing or choosing a color. Dialog is a Sheet with a title, description and actions already laid out. For authorization tasks, set dismissOnOutsidePress={false} and provide Cancel; Escape remains available through onClose.",
     propDescriptions: {
         label: "Names the sheet for screen readers. Use labelledBy instead to point at a visible heading.",
     },

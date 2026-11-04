@@ -1123,8 +1123,22 @@
                 "name": "length",
                 "type": "number",
                 "required": false,
-                "description": "Number of digits, 3–8.",
+                "description": "Number of characters, 3–8.",
                 "defaultValue": "6"
+            },
+            {
+                "name": "format",
+                "type": "\"numeric\" | \"alphanumeric\"",
+                "required": false,
+                "description": "Accepted characters. Alphanumeric codes use uppercase ASCII letters and digits.",
+                "defaultValue": "\"numeric\""
+            },
+            {
+                "name": "ref",
+                "type": "Ref<HTMLInputElement>",
+                "required": false,
+                "description": "Ref to the single native input, for focus and selection.",
+                "defaultValue": null
             },
             {
                 "name": "status",
@@ -1642,6 +1656,13 @@
                 "required": true,
                 "description": "Called on Escape or an outside press.",
                 "defaultValue": null
+            },
+            {
+                "name": "dismissOnOutsidePress",
+                "type": "boolean",
+                "required": false,
+                "description": "Allow tapping the backdrop to close. Escape still calls onClose.",
+                "defaultValue": "true"
             },
             {
                 "name": "label",
