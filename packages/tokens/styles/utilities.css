@@ -25,7 +25,7 @@
  * by every glass surface.
  */
 :root {
-  --grain-sea-salt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  --grain-sea-salt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
 }
 
 /** Centered page container with comfortable gutters. */
@@ -106,10 +106,15 @@
 }
 
 /**
- * Liquid Glass, clear: the most transparent of Apple's glass, for controls
- * floating over content (the tab bar, its search button, toolbars). Content
- * shows through vividly; a light blur and lift keep labels legible, and a
- * specular rim, an inner glow and a sheen give the edge its glassiness.
+ * Sea Glass: passui's signature surface — smooth, frosted, translucent,
+ * like gummy sweets tumbled by the sea. Not liquid glass (which is highly
+ * transparent with vivid color pop), but satin privacy level 5 glass:
+ * a soft, diffused quality with muted color depth. The grain-sea-salt
+ * texture gives the surface its frosted/satin quality.
+ *
+ * Tuned away from liquid glass: reduced brightness (no liquid sheen),
+ * reduced saturation (muted colors, not vivid pop), slightly more blur
+ * (more diffusion), and softer specular (less sharp edge light).
  * With Reduce Transparency it becomes solid, as on Apple platforms.
  */
 @utility glass {
@@ -123,12 +128,12 @@
       color-mix(in srgb, var(--color-glass-sheen) 50%, transparent)
     ),
     var(--grain-sea-salt);
-  backdrop-filter: blur(12px) saturate(190%) brightness(1.05);
+  backdrop-filter: blur(14px) saturate(150%) brightness(1.0);
   box-shadow:
-    inset 1px 1.5px 0 -0.5px var(--color-glass-specular),
-    inset -1px -1px 0 -0.5px color-mix(in srgb, var(--color-glass-specular) 45%, transparent),
+    inset 1px 1.5px 0 -0.5px color-mix(in srgb, var(--color-glass-specular) 75%, transparent),
+    inset -1px -1px 0 -0.5px color-mix(in srgb, var(--color-glass-specular) 35%, transparent),
     inset 0 0 0 0.5px var(--color-glass-rim),
-    inset 0 0 16px 0 color-mix(in srgb, var(--color-glass-sheen) 60%, transparent),
+    inset 0 0 16px 0 color-mix(in srgb, var(--color-glass-sheen) 50%, transparent),
     0 10px 30px -10px var(--color-shadow-floating);
 
   @media (prefers-reduced-transparency: reduce) {
