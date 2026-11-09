@@ -1,5 +1,12 @@
 # Changelog
 
+## React 0.1.24, TanStack 0.2.7 and Tokens 0.1.2
+
+- Fix heading to paragraph spacing in ViewController: zero gap between a heading and the paragraph that follows it (was 8px), and reduced vertical air from 80px to 48px. Section separation now comes from the layout around the cluster, not the heading's own margin — Apple's pattern.
+- Replace arbitrary Tailwind type sizes (text-sm, text-xs, text-base, text-3xl, text-4xl, text-xl, text-[10px], text-[11px], text-[13px]) with the matching passui Dynamic Type tokens across 10 files in packages/ui and packages/tanstack. The components no longer re-implement a type scale that passui's tokens already define.
+- Wire the SF Pro Display optical-size family for the four large text utilities (text-large-title 34pt, text-title 28pt, text-title2 22pt, text-title3 20pt). The family was declared in typography.ts but never used because --font-heading aliased to --font-sans.
+- Add a global base.css rule that kills browser default heading margins (h1..h6 { margin-block: 0 }) and adjacent sibling paragraph margins, making the zero-gap heading pattern the default across every app that imports @passui/react/styles.css.
+
 ## React 0.1.23
 
 - Align floating field outlines with their backgrounds by giving the hidden legend and visible label explicit line heights. Prevent a raised background ledge in filled, focused and autofilled fields, including dark mode.
