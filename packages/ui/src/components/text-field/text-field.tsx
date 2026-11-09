@@ -2,6 +2,7 @@ import { type ComponentProps, type ReactNode, useId, useState } from "react"
 import { Button } from "../button/button"
 import { cn } from "../../lib/class-names"
 
+/** Shared text control classes for components that reuse TextField's surface. */
 export const textControlClasses = cn(
     "w-full min-w-0 rounded-xl border border-separator bg-elevated",
     "px-3 py-2 text-body text-label placeholder:text-label-tertiary",
@@ -11,7 +12,55 @@ export const textControlClasses = cn(
 
 const fieldIconClasses = "flex shrink-0 items-center text-label-secondary"
 
-export type TextFieldProps = ComponentProps<"input"> & {
+/** Size scale shared across TextField, SecureField, and form fields. */
+export type TextFieldSize = "xs" | "sm" | "md" | "lg"
+
+interface FieldSize {
+    height: string
+    floatingHeight: string
+    padding: string
+    text: string
+    radius: string
+}
+
+function fieldSize(size: TextFieldSize): FieldSize {
+    switch (size) {
+        case "xs":
+            return {
+                height: "h-8",
+                floatingHeight: "h-9",
+                padding: "px-2.5",
+                text: "text-caption",
+                radius: "rounded-lg",
+            }
+        case "sm":
+            return {
+                height: "h-9",
+                floatingHeight: "h-10",
+                padding: "px-3",
+                text: "text-subheadline",
+                radius: "rounded-xl",
+            }
+        case "lg":
+            return {
+                height: "h-12",
+                floatingHeight: "h-14",
+                padding: "px-4",
+                text: "text-body",
+                radius: "rounded-xl",
+            }
+        default:
+            return {
+                height: "h-11",
+                floatingHeight: "h-12",
+                padding: "px-3",
+                text: "text-body",
+                radius: "rounded-xl",
+            }
+    }
+}
+
+export type TextFieldProps = Omit<ComponentProps<"input">, "size"> & {
     label: string
     description?: ReactNode
     errors?: string[]
@@ -24,6 +73,8 @@ export type TextFieldProps = ComponentProps<"input"> & {
     revealLabels?: { show: string; hide: string }
     /** Float the label into the outline on focus or when filled. @default "above" */
     labelPlacement?: "above" | "floating"
+    /** Field height and text scale. @default "md" */
+    size?: TextFieldSize
 }
 
 export function TextField({
@@ -35,6 +86,7 @@ export function TextField({
     action,
     revealLabels,
     labelPlacement = "above",
+    size = "md",
     placeholder,
     type = "text",
     id: suppliedId,
@@ -46,6 +98,7 @@ export function TextField({
     const [revealed, setRevealed] = useState(false)
     const messages = Array.from(new Set(errors))
     const reveal = type === "password" && revealLabels
+    const dims = fieldSize(size)
     return (
         <div className="not-typeset flex flex-col gap-2">
             {labelPlacement === "above" && (
@@ -55,7 +108,7 @@ export function TextField({
             )}
             <div
                 className={cn(
-                    "relative flex items-center gap-2 rounded-xl bg-elevated px-3",
+                    `relative flex items-center gap-2 ${dims.padding} ${dims.radius} bg-elevated`,
                     labelPlacement === "floating"
                         ? "passui-floating-field"
                         : "border border-separator focus-within:ring-1 focus-within:ring-accent/40 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-text/70"
@@ -99,8 +152,9 @@ export function TextField({
                             .join(" ") || undefined
                     }
                     className={cn(
-                        "h-11 w-full min-w-0 bg-transparent text-body text-label outline-none",
-                        labelPlacement === "floating" && "h-12",
+                        labelPlacement === "floating" ? dims.floatingHeight : dims.height,
+                        "w-full min-w-0 bg-transparent text-label outline-none",
+                        dims.text,
                         "placeholder:text-label-tertiary disabled:opacity-40",
                         className
                     )}

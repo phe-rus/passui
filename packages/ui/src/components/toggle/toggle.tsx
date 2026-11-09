@@ -28,6 +28,8 @@ export interface ToggleProps {
     mixed?: boolean
     /** Keeps the accessible name while hiding the visible label. @default false */
     labelHidden?: boolean
+    /** Custom classes for the toggle container. */
+    className?: string
 }
 
 export function Toggle({
@@ -38,6 +40,7 @@ export function Toggle({
     style = "switch",
     mixed = false,
     labelHidden = false,
+    className,
 }: ToggleProps) {
     const input = useRef<HTMLInputElement>(null)
     useEffect(() => {
@@ -48,7 +51,8 @@ export function Toggle({
             <label
                 className={cn(
                     "flex cursor-pointer items-center gap-3 text-subheadline",
-                    disabled && "cursor-not-allowed opacity-40"
+                    disabled && "cursor-not-allowed opacity-40",
+                    className
                 )}
             >
                 <span className="relative inline-flex size-5 shrink-0">
@@ -82,7 +86,15 @@ export function Toggle({
             </label>
         )
     }
-    return <SwitchToggle checked={checked} onChange={onChange} label={label} disabled={disabled} />
+    return (
+        <SwitchToggle
+            checked={checked}
+            onChange={onChange}
+            label={label}
+            disabled={disabled}
+            className={className}
+        />
+    )
 }
 
 function SwitchToggle({
@@ -90,7 +102,8 @@ function SwitchToggle({
     onChange,
     label,
     disabled,
-}: Pick<ToggleProps, "checked" | "onChange" | "label" | "disabled">) {
+    className,
+}: Pick<ToggleProps, "checked" | "onChange" | "label" | "disabled" | "className">) {
     const reducedMotion = useReducedMotion()
     const id = `toggle-goo-${useId().replace(/:/g, "")}`
     const x = useMotionValue(checked ? 22 : 2)
@@ -163,7 +176,8 @@ function SwitchToggle({
             className={cn(
                 "relative h-[30px] w-[50px] shrink-0 touch-pan-y rounded-full transition-colors duration-normal motion-reduce:transition-none",
                 "shadow-[inset_0_1px_2px_rgb(0_0_0/0.10)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:opacity-45",
-                checked ? "bg-accent" : "bg-separator/80"
+                checked ? "bg-accent" : "bg-separator/80",
+                className
             )}
         >
             <svg aria-hidden="true" width="0" height="0" className="absolute">
