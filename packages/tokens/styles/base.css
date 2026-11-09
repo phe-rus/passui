@@ -82,6 +82,18 @@
   h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
     margin-block-start: 0;
   }
+
+  /* Apple's rule: use SF Pro Display optical variants at 20pt and above,
+     SF Pro Text below. The --font-display family is declared in
+     typography.ts but was previously unused because --font-heading
+     aliased to --font-sans. This rule wires Display to the four large
+     text utilities. On Apple hardware -apple-system auto-selects
+     optical sizes, so this is invisible there; on systems with SF Pro
+     installed outside -apple-system, it ensures the correct cut.
+     Audit §4.4. */
+  .text-large-title, .text-title, .text-title2, .text-title3 {
+    font-family: var(--font-display);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
