@@ -13,6 +13,21 @@ The guiding question: what would Apple do in 2026? Then add our own touch.
 From shadcn we take one idea: components are our own readable code, not a
 black box.
 
+Design direction: "sea glass" — smooth, frosted, translucent, like gummy
+sweets tumbled by the sea. Not liquid glass, not frosted glass — satin
+privacy level 5 glass. The surface has a soft, diffused quality with
+muted color depth. Animations follow Apple's liquid glass philosophy:
+fluid, spring-based, with a sense of physical mass and surface tension.
+Inspired by bencho.dev's micro-interactions (card stack, slosh slider,
+glass bubble, liquid toggle) and SwiftUI's component patterns.
+
+Typography: passui defines Apple's Dynamic Type scale (caption2 11pt →
+large-title 34pt) as tokens. Always use `text-*` utilities from these
+tokens — never raw Tailwind sizes (`text-sm`, `text-xs`, `text-base`,
+`text-3xl`). SF Pro Display optical family is wired for ≥20pt utilities
+via a base.css rule. Headings hug their paragraphs (zero gap by default
+via a global `h1+p { margin-block-start: 0 }` rule).
+
 ## Packages
 
 | Package | Folder | Holds |
