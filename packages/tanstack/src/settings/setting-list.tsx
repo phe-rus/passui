@@ -73,9 +73,9 @@ export function SettingList({
                     <div className="flex items-center gap-3 border-b border-separator/60 px-4 py-4 sm:px-5 [&>span:first-child]:size-9 [&>span:first-child_.glyph]:size-4">
                         {icon}
                         <div className="flex min-w-0 flex-1 flex-col">
-                            <Heading className="text-base">{title}</Heading>
+                            <Heading className="text-callout">{title}</Heading>
                             {description && (
-                                <p className="text-[13px] text-muted-foreground">{description}</p>
+                                <p className="text-footnote text-muted-foreground">{description}</p>
                             )}
                         </div>
                         {action}
@@ -113,7 +113,7 @@ export function SettingList({
                         {icon}
                         <div className="min-w-0 wrap-anywhere">
                             <Heading>{title}</Heading>
-                            {description && <p className="text-sm">{description}</p>}
+                            {description && <p className="text-subheadline">{description}</p>}
                         </div>
                     </div>
                     {action}
@@ -155,11 +155,13 @@ function Row({
         <>
             {icon}
             <span className="flex min-w-0 flex-1 flex-col">
-                <h3 className="truncate text-sm">{title}</h3>
-                {description && <p className="text-xs">{description}</p>}
+                <h3 className="truncate text-subheadline">{title}</h3>
+                {description && <p className="text-caption">{description}</p>}
             </span>
             {value && (
-                <span className="max-w-[45%] truncate text-sm text-muted-foreground">{value}</span>
+                <span className="max-w-[45%] truncate text-subheadline text-muted-foreground">
+                    {value}
+                </span>
             )}
             {trailing}
             {(chevron ?? interactive) && (

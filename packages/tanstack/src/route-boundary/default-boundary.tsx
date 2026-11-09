@@ -12,7 +12,7 @@ export function DefaultBoundary({ error }: ErrorComponentProps) {
     return (
         <div className="flex min-h-100 w-full flex-col items-center justify-center gap-6 p-6 text-center">
             <div className="w-full max-w-md overflow-hidden rounded-md border border-destructive/20 bg-destructive/5 p-4 text-left">
-                <p className="mb-2 text-xs font-semibold tracking-wider text-destructive uppercase">
+                <p className="mb-2 text-caption font-semibold tracking-wider text-destructive uppercase">
                     Application Error
                 </p>
                 <ErrorComponent error={error} />

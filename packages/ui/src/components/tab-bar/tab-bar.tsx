@@ -97,7 +97,7 @@ export function TabBar<Tab extends TabBarTab>({
                                 // Switching tabs is silent, as on Apple and Android: no haptic.
                                 onClick: () => {},
                                 className: cn(
-                                    "relative isolate flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 rounded-full font-semibold text-[10px] tracking-[0.01em] no-underline transition-[color,transform] duration-fast active:scale-[0.94]",
+                                    "relative isolate flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 rounded-full font-semibold text-caption2 tracking-[0.01em] no-underline transition-[color,transform] duration-fast active:scale-[0.94]",
                                     minimized ? "w-11" : "flex-1 px-1",
                                     current ? "text-accent-text" : "text-label-secondary"
                                 ),

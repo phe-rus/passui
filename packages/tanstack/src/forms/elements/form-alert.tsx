@@ -9,7 +9,7 @@ export function FormAlert({ children, className }: { children: ReactNode; classN
         <div
             role="alert"
             className={cn(
-                "flex items-start gap-2.5 rounded-2xl bg-destructive/12 px-4 py-3 text-sm font-medium text-destructive ring-1 ring-destructive/25 ring-inset",
+                "flex items-start gap-2.5 rounded-2xl bg-destructive/12 px-4 py-3 text-subheadline font-medium text-destructive ring-1 ring-destructive/25 ring-inset",
                 "motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-300",
                 className
             )}

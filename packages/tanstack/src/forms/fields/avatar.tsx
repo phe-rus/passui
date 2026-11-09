@@ -160,7 +160,7 @@ export function FieldAvatar({
                         alt={label}
                         className="object-cover transition-[filter] duration-300 group-hover:brightness-90"
                     />
-                    <ProfileImageFallback className={compact ? "text-xl" : "text-4xl"}>
+                    <ProfileImageFallback className={compact ? "text-title3" : "text-large-title"}>
                         {(label.charAt(0) || "?").toUpperCase()}
                     </ProfileImageFallback>
                 </ProfileImage>
@@ -169,7 +169,7 @@ export function FieldAvatar({
                     <span
                         className={cn(
                             "absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1",
-                            "bg-black/35 text-xs font-medium text-white backdrop-blur-md",
+                            "bg-black/35 text-caption font-medium text-white backdrop-blur-md",
                             "opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100",
                             dragOver && "opacity-100"
                         )}

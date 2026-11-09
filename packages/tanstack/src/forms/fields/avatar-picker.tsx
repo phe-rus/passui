@@ -100,7 +100,7 @@ function Option({ icon, tone = "default", onClick, children }: OptionProps) {
             type="button"
             onClick={onClick}
             className={cn(
-                "flex w-full items-center gap-3 px-4 py-3 text-left text-sm transition-colors",
+                "flex w-full items-center gap-3 px-4 py-3 text-left text-subheadline transition-colors",
                 "hover:bg-foreground/[0.04] focus-visible:bg-foreground/[0.06] focus-visible:outline-none",
                 tone === "destructive" && "text-destructive"
             )}
@@ -155,7 +155,7 @@ function CameraView({ labels, onCapture, onCancel }: CameraViewProps) {
         <div className="flex flex-col items-center gap-5 bg-neutral-950 px-5 pt-8 pb-6">
             <div className="relative size-64 overflow-hidden rounded-full ring-1 ring-white/20">
                 {failed ? (
-                    <div className="flex size-full items-center justify-center p-8 text-center text-xs text-white/70">
+                    <div className="flex size-full items-center justify-center p-8 text-center text-caption text-white/70">
                         {labels.takePhoto}
                     </div>
                 ) : (
@@ -249,7 +249,7 @@ export function AvatarPicker({
                     >
                         <ProfileImage className="size-28 shadow-[0_12px_32px_-12px_rgb(0_0_0/0.45)] ring-1 ring-white/50">
                             <ProfileImageContent src={image} alt={label} />
-                            <ProfileImageFallback className="text-3xl">
+                            <ProfileImageFallback className="text-title">
                                 {initials}
                             </ProfileImageFallback>
                         </ProfileImage>
@@ -284,7 +284,7 @@ export function AvatarPicker({
                                         onClick={() =>
                                             void renderMonogram(initials, gradient).then(onChoose)
                                         }
-                                        className="flex size-10 items-center justify-center rounded-full text-sm font-semibold text-white shadow-xs ring-1 ring-black/5 transition-transform hover:scale-105 active:scale-95"
+                                        className="flex size-10 items-center justify-center rounded-full text-subheadline font-semibold text-white shadow-xs ring-1 ring-black/5 transition-transform hover:scale-105 active:scale-95"
                                         style={{
                                             backgroundImage: `linear-gradient(${gradient[0]}, ${gradient[1]})`,
                                         }}

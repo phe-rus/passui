@@ -69,7 +69,7 @@ export function FilterRow<TData extends RowData>({
         const [from, to] = (column.getFilterValue() as [string?, string?] | undefined) ?? []
         return (
             <div className="flex items-center gap-3">
-                <span className="w-20 shrink-0 text-[11px] font-medium text-muted-foreground">
+                <span className="w-20 shrink-0 text-caption2 font-medium text-muted-foreground">
                     {label}
                 </span>
                 <div className="flex items-center gap-2">
@@ -77,14 +77,14 @@ export function FilterRow<TData extends RowData>({
                         type="date"
                         value={from ?? ""}
                         onChange={(e) => column.setFilterValue([e.target.value || undefined, to])}
-                        className="h-7 rounded-none border border-dashed border-input/40 bg-background px-2 text-xs outline-none"
+                        className="h-7 rounded-none border border-dashed border-input/40 bg-background px-2 text-caption outline-none"
                     />
-                    <span className="text-[11px] text-muted-foreground">to</span>
+                    <span className="text-caption2 text-muted-foreground">to</span>
                     <input
                         type="date"
                         value={to ?? ""}
                         onChange={(e) => column.setFilterValue([from, e.target.value || undefined])}
-                        className="h-7 rounded-none border border-dashed border-input/40 bg-background px-2 text-xs outline-none"
+                        className="h-7 rounded-none border border-dashed border-input/40 bg-background px-2 text-caption outline-none"
                     />
                     {(from || to) && (
                         <IconButton
@@ -116,7 +116,7 @@ export function FilterRow<TData extends RowData>({
     if (uniqueValues.length > 0) {
         return (
             <div className="flex flex-col gap-1">
-                <span className="text-xs">{label}</span>
+                <span className="text-caption">{label}</span>
                 <div className="flex flex-wrap items-center gap-3">
                     {uniqueValues.map((value) => {
                         const active = activeValue === value
@@ -137,7 +137,7 @@ export function FilterRow<TData extends RowData>({
                                     checked={active}
                                     onChange={setActive}
                                 />
-                                <span className="text-xs">{value}</span>
+                                <span className="text-caption">{value}</span>
                             </div>
                         )
                     })}
@@ -160,7 +160,7 @@ export function FilterRow<TData extends RowData>({
 
     return (
         <div className="flex items-center gap-3">
-            <span className="w-20 shrink-0 text-[11px] font-medium text-muted-foreground capitalize">
+            <span className="w-20 shrink-0 text-caption2 font-medium text-muted-foreground capitalize">
                 {label}
             </span>
             <div className="relative max-w-xs flex-1">
@@ -177,7 +177,7 @@ export function FilterRow<TData extends RowData>({
                                 : undefined
                         )
                     }
-                    className="h-7 w-full rounded-none border border-dashed border-input/40 bg-background px-2.5 text-xs outline-none placeholder:text-muted-foreground/40"
+                    className="h-7 w-full rounded-none border border-dashed border-input/40 bg-background px-2.5 text-caption outline-none placeholder:text-muted-foreground/40"
                 />
                 {activeValue && (
                     <IconButton

@@ -151,7 +151,7 @@ function ToolbarToggle({
             aria-expanded={open}
             onClick={onClick}
             className={cn(
-                "flex h-8 cursor-pointer items-center gap-1.5 rounded-full border border-border/40 px-3 text-xs transition-colors",
+                "flex h-8 cursor-pointer items-center gap-1.5 rounded-full border border-border/40 px-3 text-caption transition-colors",
                 engaged
                     ? "bg-foreground/[0.07] text-foreground"
                     : "text-muted-foreground hover:bg-foreground/[0.04] hover:text-foreground"
@@ -318,7 +318,7 @@ export function DataTable<TData extends RowData>({
             {columnsOpen && (
                 <div className="flex flex-col gap-2 rounded-2xl border border-border/40 bg-foreground/[0.025] p-4">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-xs">Columns</h3>
+                        <h3 className="text-caption">Columns</h3>
                         {hiddenCount > 0 && (
                             <Button
                                 type="button"
@@ -343,7 +343,7 @@ export function DataTable<TData extends RowData>({
                                         checked={visible}
                                         onChange={() => column.toggleVisibility()}
                                     />
-                                    <span className="text-xs">{getColumnLabel(column)}</span>
+                                    <span className="text-caption">{getColumnLabel(column)}</span>
                                 </div>
                             )
                         })}
@@ -354,7 +354,7 @@ export function DataTable<TData extends RowData>({
             {filtersOpen && (
                 <div className="flex flex-col gap-2 rounded-2xl border border-border/40 bg-foreground/[0.025] p-4">
                     <div className="flex items-center justify-between">
-                        <h3 className="text-xs">Filters</h3>
+                        <h3 className="text-caption">Filters</h3>
                         {activeFilterCount > 0 && (
                             <Button
                                 type="button"
@@ -369,7 +369,9 @@ export function DataTable<TData extends RowData>({
                         )}
                     </div>
                     {filterableColumns.length === 0 ? (
-                        <p className="text-xs text-muted-foreground/60">No filterable columns.</p>
+                        <p className="text-caption text-muted-foreground/60">
+                            No filterable columns.
+                        </p>
                     ) : (
                         <div className="flex flex-col gap-3">
                             {filterableColumns.map((column) => (
@@ -395,7 +397,7 @@ export function DataTable<TData extends RowData>({
 
             {bulkActions && selectedCount > 0 && (
                 <div className="flex items-center gap-3 rounded-full border border-border/40 bg-foreground/[0.035] py-1.5 pr-1.5 pl-4">
-                    <span className="text-xs font-medium">{selectedCount} selected</span>
+                    <span className="text-caption font-medium">{selectedCount} selected</span>
                     <div className="h-4 w-px bg-input/40" />
                     {bulkActions(selectedRows, clearSelection)}
                     <Button

@@ -13,13 +13,13 @@ export function NotFound({ children }: NotFoundProps) {
             <section className="mx-auto flex w-full max-w-sm flex-col items-center justify-center gap-4">
                 {children ?? (
                     <div className="flex flex-col items-center gap-2">
-                        <span className="font-mono text-xs font-semibold tracking-widest text-destructive uppercase">
+                        <span className="font-mono text-caption font-semibold tracking-widest text-destructive uppercase">
                             Error 404
                         </span>
                         <h2 className="text-2xl font-bold tracking-tight text-foreground">
                             Page Not Found
                         </h2>
-                        <p className="max-w-70 text-sm text-muted-foreground">
+                        <p className="max-w-70 text-subheadline text-muted-foreground">
                             The page you are looking for might have been moved, renamed, or deleted.
                         </p>
                     </div>

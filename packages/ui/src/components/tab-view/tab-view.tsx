@@ -96,7 +96,7 @@ export function TabView<Value extends string>({
                             }
                         }}
                         className={cn(
-                            "relative inline-flex h-[calc(100%-1px)] shrink-0 items-center justify-center border border-transparent p-0 text-sm font-medium whitespace-nowrap",
+                            "relative inline-flex h-[calc(100%-1px)] shrink-0 items-center justify-center border border-transparent p-0 text-subheadline font-medium whitespace-nowrap",
                             "focus-visible:outline-2 focus-visible:outline-offset-2",
                             "after:absolute after:inset-x-0 after:bottom-[-5px] after:h-0.5 after:bg-current",
                             option.value === value
