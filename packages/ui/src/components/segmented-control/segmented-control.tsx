@@ -14,6 +14,8 @@ export interface SegmentedControlProps<T extends string> {
     onChange: (value: NoInfer<T>) => void
     /** Accessible name for the group and its compact picker. */
     label: string
+    /** Custom classes for the control container. */
+    className?: string
 }
 
 /**
@@ -27,6 +29,7 @@ export function SegmentedControl<T extends string>({
     options,
     onChange,
     label,
+    className,
 }: SegmentedControlProps<T>) {
     const id = useId()
     const reducedMotion = useReducedMotion()

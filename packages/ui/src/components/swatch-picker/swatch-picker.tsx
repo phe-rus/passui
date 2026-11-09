@@ -20,6 +20,8 @@ export interface SwatchPickerProps<T extends string> {
     onChange: (value: T) => void
     /** Accessible name for the group. */
     label: string
+    /** Custom classes for the swatch container. */
+    className?: string
 }
 
 /** Colour swatches with a check on the chosen one. */
@@ -28,6 +30,7 @@ export function SwatchPicker<T extends string>({
     options,
     onChange,
     label,
+    className,
 }: SwatchPickerProps<T>) {
     const name = useId()
     return (

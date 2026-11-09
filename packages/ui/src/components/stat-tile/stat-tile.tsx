@@ -13,10 +13,20 @@ export interface StatTileProps {
     /** Makes the tile a toggle, e.g. a filter. */
     onClick?: () => void
     active?: boolean
+    /** Custom classes for the tile container. */
+    className?: string
 }
 
 /** One number with its label, optionally a toggle. */
-export function StatTile({ label, value, caption, tone, onClick, active = false }: StatTileProps) {
+export function StatTile({
+    label,
+    value,
+    caption,
+    tone,
+    onClick,
+    active = false,
+    className,
+}: StatTileProps) {
     const body = (
         <>
             <span className="text-label-secondary">{label}</span>
@@ -26,17 +36,19 @@ export function StatTile({ label, value, caption, tone, onClick, active = false 
             {caption && <span className="text-label-secondary">{caption}</span>}
         </>
     )
-    const className =
-        "flex min-w-0 flex-col gap-2 rounded-2xl border border-separator/35 bg-elevated p-4 text-left shadow-xs"
+    const tileClass = cn(
+        "flex min-w-0 flex-col gap-2 rounded-2xl border border-separator/35 bg-elevated p-4 text-left shadow-xs",
+        className
+    )
 
-    if (!onClick) return <div className={className}>{body}</div>
+    if (!onClick) return <div className={tileClass}>{body}</div>
     return (
         <button
             type="button"
             aria-pressed={active}
             onClick={onClick}
             className={cn(
-                className,
+                tileClass,
                 "ring-1 ring-transparent transition-colors hover:bg-fill/60",
                 active && "bg-fill/70 ring-label/15"
             )}
