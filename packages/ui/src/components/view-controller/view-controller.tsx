@@ -14,9 +14,9 @@ type HeadingProps = {
 }
 
 const titleSizes = {
-    default: "text-3xl md:text-4xl",
+    default: "text-large-title leading-large-title",
     // sign in style screens: centered, tighter, like a system sheet
-    compact: "text-[1.75rem] font-semibold tracking-tight",
+    compact: "text-title leading-title font-semibold tracking-tight",
 } as const
 
 export function ViewController({ heading, className, children }: ViewControllerProps) {
@@ -24,12 +24,12 @@ export function ViewController({ heading, className, children }: ViewControllerP
         <article
             className={cn(
                 "container mx-auto flex flex-col",
-                "w-full gap-5 py-20 md:max-w-3xl",
+                "w-full gap-0 py-12 md:max-w-3xl",
                 className
             )}
         >
-            <section>{heading}</section>
-            {children}
+            {heading}
+            <div className="mt-8 flex flex-col gap-6">{children}</div>
         </article>
     )
 }
@@ -50,8 +50,8 @@ function Heading({ title, description, action, size = "default" }: HeadingProps)
             {description && (
                 <p
                     className={cn(
-                        "mt-2 max-w-prose text-subheadline leading-relaxed text-label-secondary",
-                        centered && "mt-1 text-center text-[15px]"
+                        "mt-0 max-w-prose text-subheadline leading-relaxed text-label-secondary",
+                        centered && "text-center"
                     )}
                 >
                     {description}
