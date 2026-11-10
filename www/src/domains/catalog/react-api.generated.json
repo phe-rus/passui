@@ -1768,6 +1768,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Minimum height and rounding.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["ComponentProps<\"div\">"],
@@ -1973,6 +1980,13 @@
                 "required": false,
                 "description": "Custom classes for the tile container.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Tile padding and number scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],

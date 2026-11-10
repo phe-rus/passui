@@ -2,6 +2,13 @@ import type { ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
 export type StatTileTone = "critical"
+export type StatTileSize = "sm" | "md" | "lg"
+
+const tileSizes: Record<StatTileSize, { padding: string; valueText: string; labelText: string }> = {
+    sm: { padding: "p-3", valueText: "text-title3", labelText: "text-caption" },
+    md: { padding: "p-4", valueText: "text-title1", labelText: "text-footnote" },
+    lg: { padding: "p-5", valueText: "text-title", labelText: "text-subheadline" },
+}
 
 export interface StatTileProps {
     label: string
@@ -15,6 +22,8 @@ export interface StatTileProps {
     active?: boolean
     /** Custom classes for the tile container. */
     className?: string
+    /** Tile padding and number scale. @default "md" */
+    size?: StatTileSize
 }
 
 /** One number with its label, optionally a toggle. */
@@ -26,18 +35,29 @@ export function StatTile({
     onClick,
     active = false,
     className,
+    size = "md",
 }: StatTileProps) {
+    const dims = tileSizes[size]
     const body = (
         <>
-            <span className="text-label-secondary">{label}</span>
-            <span className={cn("tabular-nums", tone === "critical" && value > 0 && "text-danger")}>
+            <span className={cn(dims.labelText, "text-label-secondary")}>{label}</span>
+            <span
+                className={cn(
+                    "tabular-nums font-semibold",
+                    dims.valueText,
+                    tone === "critical" && value > 0 && "text-danger"
+                )}
+            >
                 {value.toLocaleString("en-US")}
             </span>
-            {caption && <span className="text-label-secondary">{caption}</span>}
+            {caption && (
+                <span className={cn(dims.labelText, "text-label-tertiary")}>{caption}</span>
+            )}
         </>
     )
     const tileClass = cn(
-        "flex min-w-0 flex-col gap-2 rounded-2xl border border-separator/35 bg-elevated p-4 text-left shadow-xs",
+        "flex min-w-0 flex-col gap-2 rounded-2xl border border-separator/35 bg-elevated text-left shadow-xs",
+        dims.padding,
         className
     )
 
