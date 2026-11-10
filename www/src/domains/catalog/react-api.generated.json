@@ -463,6 +463,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Title, description and vertical rhythm.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["Omit<ComponentProps<\"div\">, \"title\">"],
@@ -1324,7 +1331,15 @@
     },
     "profile-image": {
         "source": "packages/ui/src/components/profile-image/profile-image.tsx",
-        "props": [],
+        "props": [
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Avatar diameter; fallback initials scale with it.",
+                "defaultValue": "\"md\""
+            }
+        ],
         "native": ["ComponentProps<\"span\">"],
         "parts": [
             {

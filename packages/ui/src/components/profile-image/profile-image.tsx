@@ -1,18 +1,40 @@
 import { createContext, useContext, useEffect, useState, type ComponentProps } from "react"
 import { cn } from "../../lib/class-names"
 
+export type ProfileImageSize = "sm" | "md" | "lg"
+
+const diameters: Record<ProfileImageSize, string> = {
+    sm: "size-7",
+    md: "size-9",
+    lg: "size-12",
+}
+
+const fallbackTextSizes: Record<ProfileImageSize, string> = {
+    sm: "text-caption",
+    md: "text-footnote",
+    lg: "text-subheadline",
+}
+
 const ImageContext = createContext<{
     loaded: boolean
     setLoaded: (loaded: boolean) => void
-}>({ loaded: false, setLoaded: () => {} })
-export function ProfileImage({ className, ...props }: ComponentProps<"span">) {
+    size: ProfileImageSize
+}>({ loaded: false, setLoaded: () => {}, size: "md" })
+
+export interface ProfileImageProps extends ComponentProps<"span"> {
+    /** Avatar diameter; fallback initials scale with it. @default "md" */
+    size?: ProfileImageSize
+}
+
+export function ProfileImage({ size = "md", className, ...props }: ProfileImageProps) {
     const [loaded, setLoaded] = useState(false)
     return (
-        <ImageContext value={{ loaded, setLoaded }}>
+        <ImageContext value={{ loaded, setLoaded, size }}>
             <span
                 {...props}
                 className={cn(
-                    "relative inline-flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-fill text-label-secondary",
+                    "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full bg-fill text-label-secondary",
+                    diameters[size],
                     className
                 )}
             />
@@ -51,8 +73,8 @@ export function ProfileImageContent({
     )
 }
 export function ProfileImageFallback({ className, ...props }: ComponentProps<"span">) {
-    const { loaded } = useContext(ImageContext)
+    const { loaded, size } = useContext(ImageContext)
     return loaded ? null : (
-        <span {...props} className={cn("text-footnote font-medium", className)} />
+        <span {...props} className={cn(fallbackTextSizes[size], "font-medium", className)} />
     )
 }
