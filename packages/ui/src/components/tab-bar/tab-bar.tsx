@@ -20,6 +20,33 @@ export interface TabBarLinkProps {
 }
 
 export type TabBarMinimizeBehavior = "platform" | "scroll" | "never"
+export type TabBarSize = "sm" | "md" | "lg"
+
+const tabHeights: Record<TabBarSize, string> = {
+    sm: "h-9",
+    md: "h-11",
+    lg: "h-13",
+}
+const tabMinimizedWidths: Record<TabBarSize, string> = {
+    sm: "w-9",
+    md: "w-11",
+    lg: "w-13",
+}
+const tabText: Record<TabBarSize, string> = {
+    sm: "text-caption",
+    md: "text-caption2",
+    lg: "text-subheadline",
+}
+const searchButtonSizes: Record<TabBarSize, string> = {
+    sm: "size-10",
+    md: "size-12",
+    lg: "size-14",
+}
+const searchIconSizes: Record<TabBarSize, number> = {
+    sm: 17,
+    md: 19,
+    lg: 21,
+}
 
 export interface TabBarProps<Tab extends TabBarTab> {
     /** `platform` follows the platform, `scroll` always minimizes, `never` stays expanded. @default "platform" */
@@ -32,6 +59,8 @@ export interface TabBarProps<Tab extends TabBarTab> {
     search?: { label: string; onPress: () => void }
     /** Accessible name for the navigation. */
     label: string
+    /** Tab height, label text, minimized width and search button diameter. @default "md" */
+    size?: TabBarSize
     className?: string
 }
 
@@ -51,6 +80,7 @@ export function TabBar<Tab extends TabBarTab>({
     search,
     label,
     className,
+    size = "md",
     minimizeBehavior = "platform",
 }: TabBarProps<Tab>) {
     // Scopes the sliding selection to this bar, so two bars on one
@@ -97,8 +127,10 @@ export function TabBar<Tab extends TabBarTab>({
                                 // Switching tabs is silent, as on Apple and Android: no haptic.
                                 onClick: () => {},
                                 className: cn(
-                                    "relative isolate flex h-11 min-w-0 flex-col items-center justify-center gap-0.5 rounded-full font-semibold text-caption2 tracking-[0.01em] no-underline transition-[color,transform] duration-fast active:scale-[0.94]",
-                                    minimized ? "w-11" : "flex-1 px-1",
+                                    "relative isolate flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-full font-semibold tracking-[0.01em] no-underline transition-[color,transform] duration-fast active:scale-[0.94]",
+                                    tabHeights[size],
+                                    tabText[size],
+                                    minimized ? tabMinimizedWidths[size] : "flex-1 px-1",
                                     current ? "text-accent-text" : "text-label-secondary"
                                 ),
                                 children: (
@@ -133,10 +165,11 @@ export function TabBar<Tab extends TabBarTab>({
                     aria-label={search.label}
                     onClick={search.onPress}
                     className={cn(
-                        "glass ms-auto flex size-12 shrink-0 items-center justify-center rounded-full text-label transition-transform duration-fast active:scale-[0.92]"
+                        "glass ms-auto flex shrink-0 items-center justify-center rounded-full text-label transition-transform duration-fast active:scale-[0.92]",
+                        searchButtonSizes[size]
                     )}
                 >
-                    <SearchIcon size={19} strokeWidth={2} />
+                    <SearchIcon size={searchIconSizes[size]} strokeWidth={2} />
                 </button>
             )}
         </nav>

@@ -1,15 +1,46 @@
+import { createContext, useContext } from "react"
 import type * as React from "react"
 
 import { cn } from "../../lib/class-names"
 
-function Table({ className, ...props }: React.ComponentProps<"table">) {
+export type TableSize = "sm" | "md" | "lg"
+
+const tableText: Record<TableSize, string> = {
+    sm: "text-footnote text-label",
+    md: "text-subheadline text-label",
+    lg: "text-body text-label",
+}
+const headCell: Record<TableSize, string> = {
+    sm: "h-8 px-2 text-start align-middle text-caption2 font-semibold whitespace-nowrap",
+    md: "h-10 px-3 text-start align-middle text-footnote font-semibold whitespace-nowrap",
+    lg: "h-12 px-4 text-start align-middle text-subheadline font-semibold whitespace-nowrap",
+}
+const bodyCell: Record<TableSize, string> = {
+    sm: "px-2 py-1.5 align-middle whitespace-nowrap",
+    md: "px-3 py-2.5 align-middle whitespace-nowrap",
+    lg: "px-4 py-3.5 align-middle whitespace-nowrap",
+}
+const captionText: Record<TableSize, string> = {
+    sm: "mt-3 text-caption2 text-label-secondary",
+    md: "mt-4 text-footnote text-label-secondary",
+    lg: "mt-5 text-subheadline text-label-secondary",
+}
+
+const TableSizeContext = createContext<TableSize>("md")
+const useTableSize = () => useContext(TableSizeContext)
+
+function Table({
+    className,
+    size = "md",
+    ...props
+}: React.ComponentProps<"table"> & {
+    /** Row height, cell padding and text scale. @default "md" */ size?: TableSize
+}) {
     return (
         <div data-slot="table-container" className="relative w-full overflow-x-auto">
-            <table
-                data-slot="table"
-                className={cn("w-full caption-bottom text-subheadline text-label", className)}
-                {...props}
-            />
+            <TableSizeContext value={size}>
+                <table data-slot="table" className={cn(tableText[size], className)} {...props} />
+            </TableSizeContext>
         </div>
     )
 }
@@ -62,11 +93,12 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
 }
 
 function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+    const size = useTableSize()
     return (
         <th
             data-slot="table-head"
             className={cn(
-                "h-10 px-3 text-start align-middle text-footnote font-semibold whitespace-nowrap",
+                headCell[size],
                 "text-label-secondary has-[[role=checkbox]]:pe-0",
                 className
             )}
@@ -76,23 +108,22 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
 }
 
 function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+    const size = useTableSize()
     return (
         <td
             data-slot="table-cell"
-            className={cn(
-                "px-3 py-2.5 align-middle whitespace-nowrap has-[[role=checkbox]]:pe-0",
-                className
-            )}
+            className={cn(bodyCell[size], "has-[[role=checkbox]]:pe-0", className)}
             {...props}
         />
     )
 }
 
 function TableCaption({ className, ...props }: React.ComponentProps<"caption">) {
+    const size = useTableSize()
     return (
         <caption
             data-slot="table-caption"
-            className={cn("mt-4 text-footnote text-label-secondary", className)}
+            className={cn(captionText[size], className)}
             {...props}
         />
     )

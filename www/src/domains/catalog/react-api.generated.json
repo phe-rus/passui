@@ -2313,6 +2313,13 @@
                 "defaultValue": null
             },
             {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Tab height, label text, minimized width and search button diameter.",
+                "defaultValue": "\"md\""
+            },
+            {
                 "name": "className",
                 "type": "string",
                 "required": false,
@@ -2395,7 +2402,15 @@
     },
     "table": {
         "source": "packages/ui/src/components/table/table.tsx",
-        "props": [],
+        "props": [
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Row height, cell padding and text scale.",
+                "defaultValue": "\"md\""
+            }
+        ],
         "native": ["React.ComponentProps<\"table\">"],
         "parts": [
             {
