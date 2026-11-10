@@ -13,6 +13,7 @@ import { screenEdges } from "../../lib/screen-edges"
 import {
     contentCrossfade,
     floatingPanelMotion,
+    fluidCollapse,
     fluidOvershoot,
     spring,
 } from "../../motion/transitions"
@@ -302,7 +303,11 @@ function OpenPopover({
                               }
                             : undefined
                     }
-                    exit={reducedMotion || !reveal ? { opacity: 0 } : menuSurfaceExit(reveal)}
+                    exit={
+                        reducedMotion || !reveal
+                            ? { opacity: 0 }
+                            : { ...menuSurfaceExit(reveal), transition: fluidCollapse }
+                    }
                     transition={
                         reducedMotion
                             ? { duration: 0 }
@@ -313,6 +318,13 @@ function OpenPopover({
             <motion.div
                 initial={reducedMotion ? false : anchorRef ? { opacity: 0 } : undefined}
                 animate={reducedMotion ? undefined : anchorRef ? { opacity: 1 } : undefined}
+                exit={
+                    reducedMotion
+                        ? undefined
+                        : anchorRef
+                          ? { opacity: 0, transition: { duration: 0.12 } }
+                          : undefined
+                }
                 transition={reducedMotion ? { duration: 0 } : { duration: 0.16, delay: 0.06 }}
             >
                 {children}

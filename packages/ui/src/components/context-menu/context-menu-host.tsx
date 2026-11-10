@@ -5,7 +5,7 @@ import { CheckIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { belongsToFloatingSurface, registerFloatingLayer } from "../../lib/floating-layers"
 import { screenEdges } from "../../lib/screen-edges"
-import { spring, fluidOvershoot } from "../../motion/transitions"
+import { spring, fluidCollapse, fluidOvershoot } from "../../motion/transitions"
 import { concealMenuSource } from "./conceal-menu-source"
 import { findMenuTypeaheadIndex, isMenuNavigationKey, nextMenuIndex } from "./menu-navigation"
 import { menuPosition } from "./menu-position"
@@ -321,7 +321,11 @@ function Menu({ menu }: { menu: OpenMenu }) {
                               }
                             : undefined
                     }
-                    exit={reducedMotion ? { opacity: 0 } : menuSurfaceExit(source)}
+                    exit={
+                        reducedMotion
+                            ? { opacity: 0 }
+                            : { ...menuSurfaceExit(source), transition: fluidCollapse }
+                    }
                     transition={
                         reducedMotion
                             ? { duration: 0 }
