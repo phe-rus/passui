@@ -1,5 +1,16 @@
 # Changelog
 
+## React 0.1.27, TanStack 0.2.7 and Tokens 0.1.3
+
+- Add `size` prop to TextField: xs | sm | md (default) | lg. Each size controls height, padding, text token, and border radius. Uses `Omit<ComponentProps<"input">, "size">` to override the native HTML size attribute. SecureField inherits automatically.
+- Add `className` passthrough to Toggle (both switch and checkbox styles), StatTile, SwatchPicker, and SegmentedControl — these components previously had no styling escape hatch.
+- Add Button text truncation: `overflow-hidden` on button base + `min-w-0 truncate` on content span. Text can't break by default; truncates with ellipsis when width-constrained.
+- Refine glass toward "sea glass" aesthetic: reduced brightness (1.05→1.0), reduced saturation (190%→150%), slightly more blur (12px→14px), softer specular, stronger grain texture (0.05→0.07 opacity). Less liquid, more frosted/satin.
+- Fix anatomy table padding in www docs: px-3→px-4 (was eating text on sides), raw Tailwind sizes replaced with passui tokens.
+- Add proper Content-Security-Policy to www server.ts (script-src, connect-src, style-src, img-src, font-src, frame-ancestors, base-uri, object-src).
+- Clean up www vite config: removed redundant alias, added section comments.
+- Add tokens package to CI auto-publish matrix (was only publishing ui and tanstack).
+
 ## React 0.1.24, TanStack 0.2.7 and Tokens 0.1.2
 
 - Fix heading to paragraph spacing in ViewController: zero gap between a heading and the paragraph that follows it (was 8px), and reduced vertical air from 80px to 48px. Section separation now comes from the layout around the cluster, not the heading's own margin — Apple's pattern.
