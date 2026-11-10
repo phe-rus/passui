@@ -5,7 +5,7 @@ import { CheckIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { belongsToFloatingSurface, registerFloatingLayer } from "../../lib/floating-layers"
 import { screenEdges } from "../../lib/screen-edges"
-import { spring } from "../../motion/transitions"
+import { spring, fluidOvershoot } from "../../motion/transitions"
 import { concealMenuSource } from "./conceal-menu-source"
 import { findMenuTypeaheadIndex, isMenuNavigationKey, nextMenuIndex } from "./menu-navigation"
 import { menuPosition } from "./menu-position"
@@ -288,7 +288,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                     transition={
                         reducedMotion
                             ? { duration: 0 }
-                            : { ...spring.smooth, opacity: { duration: 0.16 } }
+                            : { ...fluidOvershoot, opacity: { duration: 0.16 } }
                     }
                 />
             )}
@@ -305,18 +305,23 @@ function Menu({ menu }: { menu: OpenMenu }) {
                         ? false
                         : {
                               opacity: 0,
+                              scale: 0.96,
                               y: menu.source && menu.source.top > position.top ? 4 : -4,
                           }
                 }
-                animate={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{
                     opacity: 0,
+                    scale: 0.98,
                     transition: {
                         duration: reducedMotion ? 0 : 0.06,
                     },
                 }}
                 transition={{
-                    duration: reducedMotion ? 0 : 0.16,
+                    duration: reducedMotion ? 0 : 0.2,
+                    ease: reducedMotion
+                        ? undefined
+                        : ([0.4, 0, 0.2, 1] as [number, number, number, number]),
                     delay: reducedMotion || !menu.source ? 0 : 0.06,
                 }}
             >
