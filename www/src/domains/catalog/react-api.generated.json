@@ -792,6 +792,13 @@
                 "defaultValue": "\"drawer\""
             },
             {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Title, description, body and footer density.",
+                "defaultValue": "\"md\""
+            },
+            {
                 "name": "className",
                 "type": "string",
                 "required": false,
@@ -916,6 +923,13 @@
                 "required": false,
                 "description": "Supporting text beneath the title.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Trigger, description and content density.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -1447,6 +1461,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Legend, row, radio glyph and description density.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -1756,6 +1777,13 @@
                 "required": false,
                 "description": "`adaptive` rises from the bottom on phones; `center` always floats.",
                 "defaultValue": "\"adaptive\""
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Outer padding and panel max-width.",
+                "defaultValue": "\"md\""
             },
             {
                 "name": "className",
@@ -2171,6 +2199,13 @@
                 "required": false,
                 "description": "Custom classes for the swatch container.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Swatch diameter, check icon and caption scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],

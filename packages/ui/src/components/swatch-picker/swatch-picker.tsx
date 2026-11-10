@@ -14,6 +14,34 @@ export interface SwatchPickerOption<T extends string> {
     ink: string
 }
 
+export type SwatchPickerSize = "sm" | "md" | "lg"
+
+const swatchSizes: Record<SwatchPickerSize, string> = {
+    sm: "size-6",
+    md: "size-8",
+    lg: "size-10",
+}
+const checkSizes: Record<SwatchPickerSize, number> = {
+    sm: 13,
+    md: 16,
+    lg: 19,
+}
+const captionText: Record<SwatchPickerSize, string> = {
+    sm: "text-caption2",
+    md: "text-caption2",
+    lg: "text-caption",
+}
+const fieldsetGaps: Record<SwatchPickerSize, string> = {
+    sm: "gap-2",
+    md: "gap-3",
+    lg: "gap-4",
+}
+const labelGaps: Record<SwatchPickerSize, string> = {
+    sm: "gap-1",
+    md: "gap-1.5",
+    lg: "gap-2",
+}
+
 export interface SwatchPickerProps<T extends string> {
     value: T
     options: ReadonlyArray<SwatchPickerOption<T>>
@@ -22,6 +50,8 @@ export interface SwatchPickerProps<T extends string> {
     label: string
     /** Custom classes for the swatch container. */
     className?: string
+    /** Swatch diameter, check icon and caption scale. @default "md" */
+    size?: SwatchPickerSize
 }
 
 /** Colour swatches with a check on the chosen one. */
@@ -31,17 +61,21 @@ export function SwatchPicker<T extends string>({
     onChange,
     label,
     className,
+    size = "md",
 }: SwatchPickerProps<T>) {
     const name = useId()
     return (
-        <fieldset className={cn("flex flex-wrap gap-3", className)}>
+        <fieldset className={cn("flex flex-wrap", fieldsetGaps[size], className)}>
             <legend className="sr-only">{label}</legend>
             {options.map((option) => {
                 const selected = option.value === value
                 return (
                     <label
                         key={option.value}
-                        className="group flex cursor-pointer flex-col items-center gap-1.5"
+                        className={cn(
+                            "group flex cursor-pointer flex-col items-center",
+                            labelGaps[size]
+                        )}
                     >
                         <input
                             type="radio"
@@ -56,7 +90,8 @@ export function SwatchPicker<T extends string>({
                         />
                         <span
                             className={cn(
-                                "flex size-8 items-center justify-center rounded-full ring-offset-1 ring-offset-elevated transition-[box-shadow,transform] duration-fast group-active:scale-95 peer-focus-visible:ring-2 peer-focus-visible:ring-accent",
+                                "flex items-center justify-center rounded-full ring-offset-1 ring-offset-elevated transition-[box-shadow,transform] duration-fast group-active:scale-95 peer-focus-visible:ring-2 peer-focus-visible:ring-accent",
+                                swatchSizes[size],
                                 selected
                                     ? "ring-[1.5px] ring-label/70"
                                     : "ring-0 group-hover:ring-[1.5px] group-hover:ring-separator"
@@ -78,7 +113,7 @@ export function SwatchPicker<T extends string>({
                                     transition={spring.bouncy}
                                 >
                                     <CheckIcon
-                                        size={16}
+                                        size={checkSizes[size]}
                                         strokeWidth={2.6}
                                         style={{
                                             color: option.ink,
@@ -89,7 +124,7 @@ export function SwatchPicker<T extends string>({
                         </span>
                         <span
                             className={cn(
-                                "text-caption2",
+                                captionText[size],
                                 selected ? "font-semibold text-label" : "text-label-tertiary"
                             )}
                         >

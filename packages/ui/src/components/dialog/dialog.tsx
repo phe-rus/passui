@@ -8,6 +8,28 @@ import { createContext, useContext, useId, type FormEvent, type ReactNode } from
 const CloseContext = createContext<() => void>(() => {})
 export type DialogPresentation = "drawer" | "center" | "inline"
 export type DialogTone = "default" | "destructive"
+export type DialogSize = "sm" | "md" | "lg"
+
+const titleText: Record<DialogSize, string> = {
+    sm: "text-subheadline",
+    md: "text-title3",
+    lg: "text-title2",
+}
+const descriptionText: Record<DialogSize, string> = {
+    sm: "text-caption",
+    md: "text-footnote",
+    lg: "text-subheadline",
+}
+const bodySpacing: Record<DialogSize, string> = {
+    sm: "gap-3 p-4",
+    md: "gap-4 p-5",
+    lg: "gap-5 p-6",
+}
+const footerSpacing: Record<DialogSize, string> = {
+    sm: "pt-2",
+    md: "pt-3",
+    lg: "pt-4",
+}
 
 export type DialogProps = {
     open: boolean
@@ -18,6 +40,8 @@ export type DialogProps = {
     footer?: ReactNode
     /** `drawer` (responsive sheet), `center` (floating panel), or `inline`. @default "drawer" */
     presentation?: DialogPresentation
+    /** Title, description, body and footer density. @default "md" */
+    size?: DialogSize
     className?: string
     onSubmit?: (event: FormEvent<HTMLFormElement>) => void
 }
@@ -38,6 +62,7 @@ export function Dialog({
     children,
     footer,
     presentation = "drawer",
+    size = "md",
     className,
     onSubmit,
 }: DialogProps) {
@@ -47,13 +72,21 @@ export function Dialog({
     const content = (
         <>
             {presentation !== "inline" && (
-                <h2 id={titleId} className="text-title3 font-semibold">
+                <h2 id={titleId} className={cn(titleText[size], "font-semibold")}>
                     {title}
                 </h2>
             )}
-            {description && <div className="text-footnote text-label-secondary">{description}</div>}
+            {description && (
+                <div className={cn(descriptionText[size], "text-label-secondary")}>
+                    {description}
+                </div>
+            )}
             {children && <div className="flex flex-col gap-4">{children}</div>}
-            {footer && <div className="flex flex-wrap justify-end gap-2 pt-3">{footer}</div>}
+            {footer && (
+                <div className={cn("flex flex-wrap justify-end gap-2", footerSpacing[size])}>
+                    {footer}
+                </div>
+            )}
         </>
     )
     const body = (
@@ -61,12 +94,22 @@ export function Dialog({
             {onSubmit ? (
                 <form
                     onSubmit={onSubmit}
-                    className={cn("flex min-h-0 flex-col gap-4 overflow-y-auto p-5", className)}
+                    className={cn(
+                        "flex min-h-0 flex-col overflow-y-auto",
+                        bodySpacing[size],
+                        className
+                    )}
                 >
                     {content}
                 </form>
             ) : (
-                <div className={cn("flex min-h-0 flex-col gap-4 overflow-y-auto p-5", className)}>
+                <div
+                    className={cn(
+                        "flex min-h-0 flex-col overflow-y-auto",
+                        bodySpacing[size],
+                        className
+                    )}
+                >
                     {content}
                 </div>
             )}

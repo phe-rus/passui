@@ -7,6 +7,18 @@ import { SheetPortal } from "./sheet-portal"
 import { useSheetFocus } from "./use-sheet-focus"
 
 export type SheetPlacement = "adaptive" | "center"
+export type SheetSize = "sm" | "md" | "lg"
+
+const outerPaddings: Record<SheetSize, string> = {
+    sm: "p-4",
+    md: "p-6",
+    lg: "p-8",
+}
+const panelMaxWidths: Record<SheetSize, string> = {
+    sm: "max-w-sm",
+    md: "max-w-[560px]",
+    lg: "max-w-2xl",
+}
 
 export interface SheetProps {
     /** Controls whether the sheet is presented. */
@@ -21,6 +33,8 @@ export interface SheetProps {
     labelledBy?: string
     /** `adaptive` rises from the bottom on phones; `center` always floats. @default "adaptive" */
     placement?: SheetPlacement
+    /** Outer padding and panel max-width. @default "md" */
+    size?: SheetSize
     className?: string
     children: ReactNode
 }
@@ -47,6 +61,7 @@ function OpenSheet({
     label,
     labelledBy,
     placement = "adaptive",
+    size = "md",
     className,
     children,
 }: Omit<SheetProps, "open">) {
@@ -59,7 +74,9 @@ function OpenSheet({
         <div
             className={cn(
                 "fixed inset-0 z-[65] flex justify-center",
-                placement === "center" ? "items-center p-6" : "items-end sm:items-center sm:p-6"
+                placement === "center"
+                    ? cn("items-center", outerPaddings[size])
+                    : cn("items-end sm:items-center", "sm:" + outerPaddings[size])
             )}
             style={
                 viewport
@@ -91,7 +108,8 @@ function OpenSheet({
                 tabIndex={-1}
                 className={cn(
                     "glass-menu relative flex w-full flex-col overflow-hidden",
-                    "max-h-[92%] max-w-[560px]",
+                    "max-h-[92%]",
+                    panelMaxWidths[size],
                     placement === "center" ? "rounded-sheet" : "rounded-t-sheet sm:rounded-sheet",
                     className
                 )}

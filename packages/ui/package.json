@@ -1,6 +1,6 @@
 {
     "name": "@passui/react",
-    "version": "0.1.35",
+    "version": "0.1.36",
     "description": "Passui: native React controls, design tokens, presentation and appearance.",
     "license": "MIT",
     "repository": {
@@ -61,6 +61,10 @@
         "./popover": {
             "types": "./dist/types/src/components/popover/popover.d.ts",
             "default": "./src/components/popover/popover.tsx"
+        },
+        "./morph": {
+            "types": "./dist/types/src/components/morph/index.d.ts",
+            "default": "./src/components/morph/index.ts"
         },
         "./sheet": {
             "types": "./dist/types/src/components/sheet/sheet.d.ts",

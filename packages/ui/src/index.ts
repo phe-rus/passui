@@ -102,3 +102,5 @@ export * from "./components/wake-slider/wake-slider"
 export * from "./components/one-time-code/one-time-code"
 
 export * from "./components/aspect-ratio/aspect-ratio"
+
+export * from "./components/morph"
