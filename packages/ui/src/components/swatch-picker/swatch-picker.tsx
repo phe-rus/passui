@@ -34,7 +34,7 @@ export function SwatchPicker<T extends string>({
 }: SwatchPickerProps<T>) {
     const name = useId()
     return (
-        <fieldset className="flex flex-wrap gap-3">
+        <fieldset className={cn("flex flex-wrap gap-3", className)}>
             <legend className="sr-only">{label}</legend>
             {options.map((option) => {
                 const selected = option.value === value

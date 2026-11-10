@@ -1600,9 +1600,16 @@
                 "required": false,
                 "description": "Float the label into the outline on focus or when filled.",
                 "defaultValue": "\"above\""
+            },
+            {
+                "name": "size",
+                "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Field height and text scale.",
+                "defaultValue": "\"md\""
             }
         ],
-        "native": ["Omit<ComponentProps<\"input\">, \"type\">"],
+        "native": ["Omit<Omit<ComponentProps<\"input\">, \"size\">, \"type\">"],
         "parts": []
     },
     "segmented-control": {
@@ -1634,6 +1641,13 @@
                 "type": "string",
                 "required": true,
                 "description": "Accessible name for the group and its compact picker.",
+                "defaultValue": null
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "Custom classes for the control container.",
                 "defaultValue": null
             }
         ],
@@ -1931,6 +1945,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": "false"
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "Custom classes for the tile container.",
+                "defaultValue": null
             }
         ],
         "native": [],
@@ -2063,6 +2084,13 @@
                 "type": "string",
                 "required": true,
                 "description": "Accessible name for the group.",
+                "defaultValue": null
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "Custom classes for the swatch container.",
                 "defaultValue": null
             }
         ],
@@ -2294,9 +2322,16 @@
                 "required": false,
                 "description": "Float the label into the outline on focus or when filled.",
                 "defaultValue": "\"above\""
+            },
+            {
+                "name": "size",
+                "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Field height and text scale.",
+                "defaultValue": "\"md\""
             }
         ],
-        "native": ["ComponentProps<\"input\">"],
+        "native": ["Omit<ComponentProps<\"input\">, \"size\">"],
         "parts": []
     },
     "toast": {
@@ -2399,6 +2434,13 @@
                 "required": false,
                 "description": "Keeps the accessible name while hiding the visible label.",
                 "defaultValue": "false"
+            },
+            {
+                "name": "className",
+                "type": "string",
+                "required": false,
+                "description": "Custom classes for the toggle container.",
+                "defaultValue": null
             }
         ],
         "native": [],

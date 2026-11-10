@@ -50,7 +50,7 @@ export function SegmentedControl<T extends string>({
     }, [])
 
     return (
-        <div ref={frame} className="relative w-full min-w-0">
+        <div ref={frame} className={cn("relative w-full min-w-0", className)}>
             {/* The control at its natural size, to know whether it fits. */}
             <div
                 ref={measure}
