@@ -512,6 +512,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": "\"elevated\""
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Container radius, section gap and text scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["ComponentPropsWithoutRef<\"section\">"],
@@ -657,6 +664,13 @@
                         "required": false,
                         "description": "For day names and times; the reader's own by default.",
                         "defaultValue": null
+                    },
+                    {
+                        "name": "size",
+                        "type": "\"sm\" | \"md\" | \"lg\"",
+                        "required": false,
+                        "description": "Bubble, avatar, author and time scale.",
+                        "defaultValue": "\"md\""
                     }
                 ],
                 "native": []
@@ -712,6 +726,13 @@
                         "required": false,
                         "description": "Words for the characters left, shown near the limit, such as (count) => `${count} left`. Without it, just the number shows.",
                         "defaultValue": null
+                    },
+                    {
+                        "name": "size",
+                        "type": "\"sm\" | \"md\" | \"lg\"",
+                        "required": false,
+                        "description": "Surface, textarea, send button and counter scale.",
+                        "defaultValue": "\"md\""
                     }
                 ],
                 "native": []
@@ -2619,6 +2640,13 @@
                         "required": false,
                         "description": "",
                         "defaultValue": null
+                    },
+                    {
+                        "name": "size",
+                        "type": "\"sm\" | \"md\" | \"lg\"",
+                        "required": false,
+                        "description": "Pill size, content padding and title/description text scale.",
+                        "defaultValue": "\"md\""
                     }
                 ],
                 "native": []

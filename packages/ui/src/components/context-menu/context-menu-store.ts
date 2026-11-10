@@ -4,6 +4,7 @@ import type { MenuRect } from "./menu-reveal"
 export type ContextMenuAlignX = "start" | "end"
 export type ContextMenuAlignY = "top" | "bottom"
 export type ContextMenuEdge = "leading" | "trailing"
+export type ContextMenuSize = "sm" | "md" | "lg"
 
 /** One row of a context menu, or a divider between groups of rows. */
 export type ContextMenuItem =
@@ -27,6 +28,8 @@ export interface OpenMenu {
     items: ContextMenuItem[]
     /** Opened by long-press: bigger rows for fingers. */
     touch: boolean
+    /** Surface, item and heading density. @default "md" */
+    size: ContextMenuSize
     /** Which edge of the menu sits at `x`: its left (`start`) or its right (`end`). */
     alignX: ContextMenuAlignX
     /** Which edge of the menu sits at `y`: its top (`top`) or its bottom (`bottom`). */
@@ -52,7 +55,8 @@ export function openContextMenu(
     y: number,
     items: ContextMenuItem[],
     touch = false,
-    anchor: Element | null = typeof document === "undefined" ? null : document.activeElement
+    anchor: Element | null = typeof document === "undefined" ? null : document.activeElement,
+    size: ContextMenuSize = "md"
 ) {
     menu = {
         id: nextId++,
@@ -61,6 +65,7 @@ export function openContextMenu(
         y,
         items,
         touch,
+        size,
         alignX: "start",
         alignY: "top",
     }
@@ -93,11 +98,14 @@ export function openMenu(
         edge = "leading",
         above = false,
         toolbar,
+        size = "md",
     }: {
         edge?: ContextMenuEdge
         above?: boolean
         /** Replace this action group with a horizontally expanding menu surface. */
         toolbar?: HTMLElement
+        /** Surface, item and heading density. @default "md" */
+        size?: ContextMenuSize
     } = {}
 ) {
     const rect = anchor.getBoundingClientRect()
@@ -112,6 +120,7 @@ export function openMenu(
         y: toolbar ? rect.top : above ? rect.bottom : rect.top,
         items,
         touch: false,
+        size,
         alignX: right ? "end" : "start",
         alignY: above ? "bottom" : "top",
         toolbar,

@@ -3,6 +3,7 @@
  * a failure. Call `toast` from anywhere; render one `<Toaster />`.
  */
 export type ToastTone = "neutral" | "success" | "error" | "loading"
+export type ToastSize = "sm" | "md" | "lg"
 
 export interface ToastAction {
     label: string
@@ -18,12 +19,16 @@ export interface Toast {
     /** Milliseconds before it leaves on its own; `null` stays until dismissed. */
     duration: number | null
     createdAt: number
+    /** Pill size, content padding and title/description text scale. @default "md" */
+    size: ToastSize
 }
 
 export interface ToastOptions {
     description?: string
     action?: ToastAction
     duration?: number | null
+    /** Pill size, content padding and title/description text scale. @default "md" */
+    size?: ToastSize
 }
 
 const DEFAULT_DURATION = 4200
@@ -54,6 +59,7 @@ function show(tone: ToastTone, title: string, options: ToastOptions = {}): numbe
             action: options.action,
             duration,
             createdAt: Date.now(),
+            size: options.size ?? "md",
         },
         ...toasts,
     ].slice(0, MAX_VISIBLE + 2)
@@ -79,6 +85,7 @@ function update(id: number, tone: ToastTone, title: string, options: ToastOption
                             ? null
                             : DEFAULT_DURATION,
                   createdAt: Date.now(),
+                  size: options.size ?? t.size,
               }
             : t
     )

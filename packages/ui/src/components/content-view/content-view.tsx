@@ -1,11 +1,49 @@
-import type { ComponentPropsWithoutRef, PropsWithChildren, ReactNode } from "react"
+import {
+    createContext,
+    useContext,
+    type ComponentPropsWithoutRef,
+    type PropsWithChildren,
+    type ReactNode,
+} from "react"
 import { cn } from "../../lib/class-names"
 
 export type ContentViewVariant = keyof typeof variants
 export type ContentViewHeadingLevel = "h1" | "h2" | "h3"
+export type ContentViewSize = "sm" | "md" | "lg"
+
+const containerRadius: Record<ContentViewSize, string> = {
+    sm: "rounded-xl",
+    md: "rounded-2xl",
+    lg: "rounded-3xl",
+}
+const sectionGaps: Record<ContentViewSize, string> = {
+    sm: "gap-2",
+    md: "gap-3",
+    lg: "gap-4",
+}
+const spanText: Record<ContentViewSize, string> = {
+    sm: "text-footnote tracking-tighter font-light",
+    md: "text-callout tracking-tighter font-light",
+    lg: "text-subheadline tracking-tighter font-light",
+}
+const subText: Record<ContentViewSize, string> = {
+    sm: "text-footnote text-label",
+    md: "text-subheadline text-label",
+    lg: "text-body text-label",
+}
+const headerActionGaps: Record<ContentViewSize, string> = {
+    sm: "gap-2",
+    md: "gap-3",
+    lg: "gap-4",
+}
+
+const ContentViewSizeContext = createContext<ContentViewSize>("md")
+const useContentViewSize = () => useContext(ContentViewSizeContext)
 
 type ContentViewProps = ComponentPropsWithoutRef<"section"> & {
     variant?: ContentViewVariant
+    /** Container radius, section gap and text scale. @default "md" */
+    size?: ContentViewSize
 }
 
 type RowProps = ComponentPropsWithoutRef<"div">
@@ -38,14 +76,24 @@ const variants = {
 
 export function ContentView({
     variant = "elevated",
+    size = "md",
     className,
     children,
     ...props
 }: ContentViewProps) {
     return (
-        <section className={cn(variants[variant], className)} {...props}>
-            {children}
-        </section>
+        <ContentViewSizeContext value={size}>
+            <section
+                className={cn(
+                    variants[variant],
+                    variant === "elevated" && containerRadius[size],
+                    className
+                )}
+                {...props}
+            >
+                {children}
+            </section>
+        </ContentViewSizeContext>
     )
 }
 
@@ -58,8 +106,9 @@ function Row({ className, children, ...props }: RowProps) {
 }
 
 function Section({ className, children, ...props }: SectionProps) {
+    const size = useContentViewSize()
     return (
-        <section className={cn("flex flex-col gap-3", className)} {...props}>
+        <section className={cn("flex flex-col", sectionGaps[size], className)} {...props}>
             {children}
         </section>
     )
@@ -83,10 +132,11 @@ function Header({
         </Tag>
     )
 
+    const size = useContentViewSize()
     return (
         <div className={className}>
             {action ? (
-                <div className={cn("flex items-center gap-3", actionClassName)}>
+                <div className={cn("flex items-center", headerActionGaps[size], actionClassName)}>
                     {title}
                     {action}
                 </div>
@@ -128,16 +178,18 @@ function P({ className, children, ...props }: PProps) {
 }
 
 function Span({ className, children, ...props }: SpanProps) {
+    const size = useContentViewSize()
     return (
-        <span className={cn("text-callout tracking-tighter font-light", className)} {...props}>
+        <span className={cn(spanText[size], className)} {...props}>
             {children}
         </span>
     )
 }
 
 function Sub({ className, children, ...props }: SubProps) {
+    const size = useContentViewSize()
     return (
-        <sub className={cn("text-subheadline text-label", className)} {...props}>
+        <sub className={cn(subText[size], className)} {...props}>
             {children}
         </sub>
     )

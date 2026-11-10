@@ -13,9 +13,45 @@ import { menuSurfaceExit, menuSurfaceReveal } from "./menu-reveal"
 import {
     closeContextMenu,
     getContextMenu,
-    type OpenMenu,
+    type ContextMenuItem,
+    type ContextMenuSize,
+    openContextMenu,
+    openFollowUpMenu,
+    openMenu,
     subscribeContextMenu,
 } from "./context-menu-store"
+import type { OpenMenu } from "./context-menu-store"
+
+const surfaceSizes: Record<ContextMenuSize, string> = {
+    sm: "min-w-44 max-w-[min(240px,calc(100vw-24px))] rounded-2xl p-1",
+    md: "min-w-50 max-w-[min(280px,calc(100vw-24px))] rounded-3xl p-1.5",
+    lg: "min-w-56 max-w-[min(320px,calc(100vw-24px))] rounded-3xl p-2",
+}
+const itemSizes: Record<ContextMenuSize, string> = {
+    sm: "flex items-center gap-2 rounded-md px-2 py-1 text-start text-caption transition-colors disabled:opacity-40",
+    md: "flex items-center gap-2.5 rounded-lg px-2.5 text-start text-subheadline transition-colors disabled:opacity-40",
+    lg: "flex items-center gap-3 rounded-lg px-3 py-2 text-start text-body transition-colors disabled:opacity-40",
+}
+const headingSizes: Record<ContextMenuSize, string> = {
+    sm: "px-2 pt-1 pb-0.5 text-caption2 font-semibold text-label-tertiary",
+    md: "px-2.5 pt-1.5 pb-0.5 text-caption2 font-semibold text-label-tertiary",
+    lg: "px-3 pt-2 pb-1 text-caption font-semibold text-label-tertiary",
+}
+const dividerSizes: Record<ContextMenuSize, string> = {
+    sm: "mx-1.5 my-0.5 h-px bg-separator/80",
+    md: "mx-2 my-1 h-px bg-separator/80",
+    lg: "mx-2.5 my-1.5 h-px bg-separator/80",
+}
+const iconSlotSizes: Record<ContextMenuSize, string> = {
+    sm: "flex w-3.5 shrink-0 justify-center text-label-secondary",
+    md: "flex w-4 shrink-0 justify-center text-label-secondary",
+    lg: "flex w-5 shrink-0 justify-center text-label-secondary",
+}
+const checkIconSizes: Record<ContextMenuSize, number> = {
+    sm: 13,
+    md: 15,
+    lg: 17,
+}
 
 /** Renders the open context menu. Mount once, near the app root. */
 export function ContextMenuHost() {
@@ -251,7 +287,8 @@ function Menu({ menu }: { menu: OpenMenu }) {
             }}
             {...{ [FLOATING_LAYER]: "" }}
             className={cn(
-                "fixed z-75 isolate flex min-w-50 max-w-[min(280px,calc(100vw-24px))] flex-col rounded-3xl p-1.5 outline-none",
+                "fixed z-75 isolate flex flex-col outline-none",
+                surfaceSizes[menu.size],
                 menu.touch && "min-w-60",
                 !present && "pointer-events-none"
             )}
@@ -327,19 +364,11 @@ function Menu({ menu }: { menu: OpenMenu }) {
             >
                 {menu.items.map((item, index) => {
                     if (item === "divider") {
-                        return (
-                            <div
-                                key={`divider-${index}`}
-                                className="mx-2 my-1 h-px bg-separator/80"
-                            />
-                        )
+                        return <div key={`divider-${index}`} className={dividerSizes[menu.size]} />
                     }
                     if ("heading" in item) {
                         return (
-                            <span
-                                key={`heading-${index}`}
-                                className="px-2.5 pt-1.5 pb-0.5 text-caption2 font-semibold text-label-tertiary"
-                            >
+                            <span key={`heading-${index}`} className={headingSizes[menu.size]}>
                                 {item.heading}
                             </span>
                         )
@@ -360,7 +389,7 @@ function Menu({ menu }: { menu: OpenMenu }) {
                                 item.onSelect()
                             }}
                             className={cn(
-                                "flex items-center gap-2.5 rounded-lg px-2.5 text-start text-subheadline transition-colors disabled:opacity-40",
+                                itemSizes[menu.size],
                                 menu.touch ? "py-2.5" : "py-1.5",
                                 item.destructive ? "text-danger" : "text-label",
                                 focused === current &&
@@ -368,10 +397,10 @@ function Menu({ menu }: { menu: OpenMenu }) {
                                     (item.destructive ? "bg-danger/10" : "bg-fill")
                             )}
                         >
-                            <span className="flex w-4 shrink-0 justify-center text-label-secondary">
+                            <span className={iconSlotSizes[menu.size]}>
                                 {item.checked ? (
                                     <CheckIcon
-                                        size={15}
+                                        size={checkIconSizes[menu.size]}
                                         strokeWidth={2.4}
                                         className="text-accent-text"
                                     />

@@ -16,12 +16,73 @@ export type ConversationMessage = {
     createdAt: string
 }
 
+export type ConversationSize = "sm" | "md" | "lg"
+
+const avatarSizes: Record<ConversationSize, string> = {
+    sm: "size-6",
+    md: "size-7",
+    lg: "size-8",
+}
+const bubbleClasses: Record<ConversationSize, string> = {
+    sm: "rounded-3xl px-3 py-1.5 text-footnote leading-snug",
+    md: "rounded-4xl px-3.5 py-2 text-subheadline leading-snug",
+    lg: "rounded-5xl px-4 py-2.5 text-body leading-snug",
+}
+const bubbleTails: Record<ConversationSize, string> = {
+    sm: "rounded-br-sm",
+    md: "rounded-br-md",
+    lg: "rounded-br-lg",
+}
+const bubbleTailsOther: Record<ConversationSize, string> = {
+    sm: "rounded-bl-sm",
+    md: "rounded-bl-md",
+    lg: "rounded-bl-lg",
+}
+const authorText: Record<ConversationSize, string> = {
+    sm: "px-3 text-caption2 text-label-secondary",
+    md: "px-3 text-caption2 text-label-secondary",
+    lg: "px-3.5 text-caption text-label-secondary",
+}
+const timeText: Record<ConversationSize, string> = {
+    sm: "px-3 text-caption2 text-label-secondary tabular-nums",
+    md: "px-3 text-caption2 text-label-secondary tabular-nums",
+    lg: "px-3.5 text-caption text-label-secondary tabular-nums",
+}
+const dayMargins: Record<ConversationSize, string> = {
+    sm: "my-3",
+    md: "my-4",
+    lg: "my-5",
+}
+
+// Composer size records
+const composerSurfaces: Record<ConversationSize, string> = {
+    sm: "flex items-end gap-2 rounded-4xl border border-separator bg-elevated py-1 pr-1 pl-3 transition-colors focus-within:border-accent-text/60",
+    md: "flex items-end gap-2 rounded-5xl border border-separator bg-elevated py-1.5 pr-1.5 pl-4 transition-colors focus-within:border-accent-text/60",
+    lg: "flex items-end gap-2 rounded-5xl border border-separator bg-elevated py-2 pr-2 pl-5 transition-colors focus-within:border-accent-text/60",
+}
+const textareaClasses: Record<ConversationSize, string> = {
+    sm: "field-sizing-content max-h-48 min-h-8 flex-1 resize-none bg-transparent py-1 text-footnote text-label outline-none placeholder:text-label-secondary",
+    md: "field-sizing-content max-h-48 min-h-9 flex-1 resize-none bg-transparent py-1.5 text-subheadline text-label outline-none placeholder:text-label-secondary",
+    lg: "field-sizing-content max-h-48 min-h-10 flex-1 resize-none bg-transparent py-2 text-body text-label outline-none placeholder:text-label-secondary",
+}
+const sendButtonClasses: Record<ConversationSize, string> = {
+    sm: "size-7 shrink-0 rounded-full",
+    md: "size-8 shrink-0 rounded-full",
+    lg: "size-9 shrink-0 rounded-full",
+}
+const sendIconSizes: Record<ConversationSize, number> = {
+    sm: 16,
+    md: 18,
+    lg: 20,
+}
+const counterText: Record<ConversationSize, string> = {
+    sm: "text-caption2 text-label-secondary tabular-nums",
+    md: "text-caption2 text-label-secondary tabular-nums",
+    lg: "text-caption text-label-secondary tabular-nums",
+}
+
 const GROUP_GAP_MS = 5 * 60 * 1000
 
-/**
- * The day line: today and yesterday in the reader's own words, from
- * Intl rather than built-in English, else the full date.
- */
 function dayLabel(iso: string, locale?: string) {
     const date = new Date(iso)
     const today = new Date()
@@ -59,10 +120,13 @@ const clock = (iso: string, locale?: string) =>
 function Messages({
     messages,
     locale,
+    size = "md",
 }: {
     messages: ConversationMessage[]
     /** For day names and times; the reader's own by default. */
     locale?: string
+    /** Bubble, avatar, author and time scale. @default "md" */
+    size?: ConversationSize
 }) {
     return (
         <ol data-not-typeset className="flex flex-col">
@@ -87,10 +151,12 @@ function Messages({
                 return (
                     <li key={message.id} className="flex flex-col">
                         {newDay && (
-                            // the reader's own day and clock, which a server can't know
                             <span
                                 suppressHydrationWarning
-                                className="my-4 text-center text-caption2 font-medium text-label-secondary"
+                                className={cn(
+                                    dayMargins[size],
+                                    "text-center text-caption2 font-medium text-label-secondary"
+                                )}
                             >
                                 {dayLabel(message.createdAt, locale)}
                             </span>
@@ -103,7 +169,12 @@ function Messages({
                             )}
                         >
                             {!message.mine && (
-                                <span className="flex size-7 shrink-0 items-center justify-center">
+                                <span
+                                    className={cn(
+                                        "flex shrink-0 items-center justify-center",
+                                        avatarSizes[size]
+                                    )}
+                                >
                                     {endsGroup && message.avatar}
                                 </span>
                             )}
@@ -114,21 +185,21 @@ function Messages({
                                 )}
                             >
                                 {startsGroup && message.author && (
-                                    <span className="px-3 text-caption2 text-label-secondary">
-                                        {message.author}
-                                    </span>
+                                    <span className={authorText[size]}>{message.author}</span>
                                 )}
-                                {/* text only: a message can never become markup */}
                                 <p
                                     suppressHydrationWarning
                                     title={formatTime(message.createdAt)}
                                     className={cn(
-                                        "rounded-4xl px-3.5 py-2 text-subheadline leading-snug whitespace-pre-wrap wrap-break-word",
+                                        bubbleClasses[size],
+                                        "whitespace-pre-wrap wrap-break-word",
                                         message.mine
                                             ? "bg-inverse text-on-inverse"
                                             : "bg-fill text-label",
                                         endsGroup &&
-                                            (message.mine ? "rounded-br-md" : "rounded-bl-md")
+                                            (message.mine
+                                                ? bubbleTails[size]
+                                                : bubbleTailsOther[size])
                                     )}
                                 >
                                     {message.body}
@@ -137,7 +208,7 @@ function Messages({
                                     <time
                                         suppressHydrationWarning
                                         dateTime={message.createdAt}
-                                        className="px-3 text-caption2 text-label-secondary tabular-nums"
+                                        className={timeText[size]}
                                     >
                                         {clock(message.createdAt, locale)}
                                     </time>
@@ -165,6 +236,8 @@ type ComposerProps = {
      * (count) => `${count} left`. Without it, just the number shows.
      */
     remaining?: (count: number) => string
+    /** Surface, textarea, send button and counter scale. @default "md" */
+    size?: ConversationSize
 }
 
 /** A reply field with a round send button; Ctrl/Cmd+Enter sends, and it clears only once the send worked. */
@@ -176,6 +249,7 @@ function Composer({
     actions,
     sendLabel,
     remaining,
+    size = "md",
 }: ComposerProps) {
     const [body, setBody] = useState("")
     const ready = body.trim().length > 0 && !pending
@@ -194,7 +268,7 @@ function Composer({
                 void send()
             }}
         >
-            <div className="flex items-end gap-2 rounded-5xl border border-separator bg-elevated py-1.5 pr-1.5 pl-4 transition-colors focus-within:border-accent-text/60">
+            <div className={composerSurfaces[size]}>
                 <textarea
                     value={body}
                     onChange={(event) => setBody(event.target.value)}
@@ -207,21 +281,21 @@ function Composer({
                     maxLength={maxLength}
                     placeholder={placeholder}
                     rows={1}
-                    className="field-sizing-content max-h-48 min-h-9 flex-1 resize-none bg-transparent py-1.5 text-subheadline text-label outline-none placeholder:text-label-secondary"
+                    className={textareaClasses[size]}
                 />
                 <IconButton
                     type="submit"
                     size="icon-xs"
                     disabled={!ready}
                     label={sendLabel}
-                    className="size-8 shrink-0 rounded-full"
+                    className={sendButtonClasses[size]}
                 >
-                    <SendIcon size={18} strokeWidth={2.5} />
+                    <SendIcon size={sendIconSizes[size]} strokeWidth={2.5} />
                 </IconButton>
             </div>
             <div className="flex min-h-6 items-center gap-2 px-1">
                 {actions}
-                <span className="ml-auto text-caption2 text-label-secondary tabular-nums">
+                <span className={cn("ml-auto", counterText[size])}>
                     {body.length > maxLength * 0.8 &&
                         (remaining?.(maxLength - body.length) ?? maxLength - body.length)}
                 </span>

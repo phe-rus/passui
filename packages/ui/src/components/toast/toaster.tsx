@@ -7,12 +7,39 @@ import {
     getToasts,
     subscribeToasts,
     type Toast,
+    type ToastSize,
     type ToastTone,
     toast as toastApi,
     toastLimits,
 } from "./toast-store"
 
-const PILL = 40
+const PILL: Record<ToastSize, number> = { sm: 32, md: 40, lg: 48 }
+
+const contentClasses: Record<ToastSize, string> = {
+    sm: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2 py-2 pr-3 pl-2 text-on-inverse",
+    md: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2.5 py-[10px] pr-4 pl-[10px] text-on-inverse",
+    lg: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-3 py-3 pr-5 pl-3 text-on-inverse",
+}
+const titleClasses: Record<ToastSize, string> = {
+    sm: "text-footnote leading-4 font-semibold",
+    md: "text-subheadline leading-5 font-semibold",
+    lg: "text-body leading-6 font-semibold",
+}
+const descriptionClasses: Record<ToastSize, string> = {
+    sm: "text-caption2 leading-snug text-on-inverse/70",
+    md: "text-footnote leading-snug text-on-inverse/70",
+    lg: "text-subheadline leading-snug text-on-inverse/70",
+}
+const actionClasses: Record<ToastSize, string> = {
+    sm: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-2.5 py-0.5 text-caption2 font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
+    md: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-3 py-1 text-footnote font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
+    lg: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-3.5 py-1.5 text-subheadline font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
+}
+const toneIconClasses: Record<ToastSize, string> = {
+    sm: "flex size-4 shrink-0 items-center justify-center rounded-full",
+    md: "flex size-5 shrink-0 items-center justify-center rounded-full",
+    lg: "flex size-6 shrink-0 items-center justify-center rounded-full",
+}
 const EMPTY: Toast[] = []
 /** A little loose, so the body overshoots and settles like a drop of honey. */
 const BODY_SPRING = {
@@ -110,10 +137,11 @@ function ToastItem({
     filterId: string
     reducedMotion: boolean
 }) {
+    const pill = PILL[toast.size]
     const content = useRef<HTMLDivElement>(null)
     const [size, setSize] = useState({
-        width: PILL,
-        height: PILL,
+        width: pill,
+        height: pill,
     })
     const [open, setOpen] = useState(false)
 
@@ -143,8 +171,8 @@ function ToastItem({
         return () => clearTimeout(timer)
     }, [toast.id, toast.duration, paused])
 
-    const width = open ? size.width : PILL
-    const height = open ? size.height : PILL
+    const width = open ? size.width : pill
+    const height = open ? size.height : pill
     // Older toasts tuck in behind the newest, and fan out on hover.
     const stacked = !expanded && index > 0
 
@@ -156,7 +184,7 @@ function ToastItem({
             initial={reducedMotion ? false : { opacity: 0, y: -24, scale: 0.6 }}
             animate={{
                 opacity: stacked ? 1 - index * 0.25 : 1,
-                y: stacked ? index * 9 : index * (PILL + 14) + index * 6,
+                y: stacked ? index * 9 : index * (pill + 14) + index * 6,
                 scale: stacked ? 1 - index * 0.05 : 1,
             }}
             exit={
@@ -180,7 +208,7 @@ function ToastItem({
             <motion.div
                 role="status"
                 className="pointer-events-auto relative"
-                initial={{ width: PILL, height: PILL }}
+                initial={{ width: pill, height: pill }}
                 animate={{ width, height }}
                 transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
             >
@@ -194,21 +222,21 @@ function ToastItem({
                 >
                     <motion.span
                         className="absolute top-3 left-3 rounded-full bg-inverse shadow-xl"
-                        style={{ width: PILL, height: PILL }}
+                        style={{ width: pill, height: pill }}
                         animate={{ scale: open ? 1 : 1.06 }}
                         transition={reducedMotion ? { duration: 0 } : spring.bouncy}
                     />
                     <motion.span
                         className="absolute top-3 left-3 bg-inverse"
                         initial={{
-                            width: PILL,
-                            height: PILL,
-                            borderRadius: PILL / 2,
+                            width: pill,
+                            height: pill,
+                            borderRadius: pill / 2,
                         }}
                         animate={{
                             width,
                             height,
-                            borderRadius: Math.min(PILL / 2, height / 2, 22),
+                            borderRadius: Math.min(pill / 2, height / 2, 22),
                         }}
                         transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
                     />
@@ -217,8 +245,8 @@ function ToastItem({
                 {/* Content, crisp above the shapes. */}
                 <motion.div
                     ref={content}
-                    className="absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2.5 py-[10px] pr-4 pl-[10px] text-on-inverse"
-                    style={{ minHeight: PILL }}
+                    className={contentClasses[toast.size]}
+                    style={{ minHeight: pill }}
                     animate={{ opacity: open ? 1 : 0 }}
                     transition={
                         reducedMotion
@@ -229,12 +257,12 @@ function ToastItem({
                               }
                     }
                 >
-                    <ToneIcon tone={toast.tone} reducedMotion={reducedMotion} />
+                    <ToneIcon tone={toast.tone} size={toast.size} reducedMotion={reducedMotion} />
                     <div className="flex min-w-0 flex-col py-px">
                         <AnimatePresence mode="popLayout" initial={false}>
                             <motion.span
                                 key={toast.title}
-                                className="text-subheadline leading-5 font-semibold"
+                                className={titleClasses[toast.size]}
                                 initial={
                                     reducedMotion
                                         ? false
@@ -264,7 +292,7 @@ function ToastItem({
                             </motion.span>
                         </AnimatePresence>
                         {toast.description && (
-                            <span className="text-footnote leading-snug text-on-inverse/70">
+                            <span className={descriptionClasses[toast.size]}>
                                 {toast.description}
                             </span>
                         )}
@@ -276,7 +304,7 @@ function ToastItem({
                                 toast.action?.onClick()
                                 toastApi.dismiss(toast.id)
                             }}
-                            className="ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-3 py-1 text-footnote font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20"
+                            className={actionClasses[toast.size]}
                         >
                             {toast.action.label}
                         </button>
@@ -294,15 +322,20 @@ const toneColors: Record<ToastTone, string> = {
     loading: "bg-on-inverse/15 text-on-inverse",
 }
 
-function ToneIcon({ tone, reducedMotion }: { tone: ToastTone; reducedMotion: boolean }) {
+function ToneIcon({
+    tone,
+    size,
+    reducedMotion,
+}: {
+    tone: ToastTone
+    size: ToastSize
+    reducedMotion: boolean
+}) {
     return (
         <AnimatePresence mode="popLayout" initial={false}>
             <motion.span
                 key={tone}
-                className={cn(
-                    "flex size-5 shrink-0 items-center justify-center rounded-full",
-                    toneColors[tone]
-                )}
+                className={cn(toneIconClasses[size], toneColors[tone])}
                 initial={
                     reducedMotion
                         ? false

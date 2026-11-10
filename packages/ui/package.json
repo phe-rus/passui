@@ -1,6 +1,6 @@
 {
     "name": "@passui/react",
-    "version": "0.1.40",
+    "version": "0.1.41",
     "description": "Passui: native React controls, design tokens, presentation and appearance.",
     "license": "MIT",
     "repository": {
