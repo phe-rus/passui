@@ -24,7 +24,9 @@ import { cn } from "../../lib/class-names"
    changes, which is what the reading and the colours need, and
    the loop runs only while some bar still has energy. */
 
-const H = 20 // a bar at rest, px
+const H: Record<WakeSliderSize, number> = { sm: 16, md: 20, lg: 26 } // a bar at rest, px
+
+export type WakeSliderSize = "sm" | "md" | "lg"
 
 export interface WakeSliderProps {
     label: string
@@ -36,6 +38,8 @@ export interface WakeSliderProps {
     disabled?: boolean
     className?: string
     formatValue?: (value: number) => string
+    /** Bar height at rest and value text scale. @default "md" */
+    size?: WakeSliderSize
 }
 
 export function WakeSlider({
@@ -46,6 +50,7 @@ export function WakeSlider({
     disabled = false,
     className,
     formatValue,
+    size = "md",
     /* how many bars make the track */
     bars = 36,
     /* how high the wake rises, 0..100 */
@@ -144,7 +149,10 @@ export function WakeSlider({
     const lit = Math.round((value / 100) * (n - 1))
 
     return (
-        <div className={cn("passui-wake-slider not-typeset", disabled && "opacity-40", className)}>
+        <div
+            className={cn("passui-wake-slider not-typeset", disabled && "opacity-40", className)}
+            data-size={size}
+        >
             <div
                 ref={track}
                 className="passui-wake-track"
@@ -156,7 +164,7 @@ export function WakeSlider({
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-valuenow={value}
-                style={{ height: H * 2.6, "--wake-bars": n } as CSSProperties}
+                style={{ height: H[size] * 2.6, "--wake-bars": n } as CSSProperties}
                 onPointerDown={(e) => {
                     if (disabled || e.button !== 0) return
                     e.currentTarget.focus()
@@ -225,7 +233,7 @@ export function WakeSlider({
                         aria-hidden="true"
                         className="passui-wake-bar"
                         data-on={(value > 0 && i <= lit) || undefined}
-                        style={{ height: H }}
+                        style={{ height: H[size] }}
                     />
                 ))}
             </div>

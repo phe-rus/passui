@@ -1140,6 +1140,13 @@
                 "required": true,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Trigger, header, list item and icon scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -2857,6 +2864,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Bar height at rest and value text scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],

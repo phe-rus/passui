@@ -189,6 +189,10 @@
         font-variant-numeric: tabular-nums;
         color: var(--color-label-secondary);
     }
+    .passui-wake-slider[data-size="sm"] { gap: 0.75rem; }
+    .passui-wake-slider[data-size="sm"] .passui-wake-value { font-size: var(--text-caption); }
+    .passui-wake-slider[data-size="lg"] { gap: 1.25rem; }
+    .passui-wake-slider[data-size="lg"] .passui-wake-value { font-size: var(--text-subheadline); }
     @media (prefers-reduced-motion: reduce) {
         .passui-wake-bar, .passui-search-pill { transition: none; }
         .passui-search-pill:active { scale: 1; }

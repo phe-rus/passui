@@ -7,6 +7,19 @@ import { SheetPortal } from "../sheet/sheet-portal"
 import { cn } from "../../lib/class-names"
 import { contentCrossfade, fluidCollapse, fluidOvershoot } from "../../motion/transitions"
 
+export type MorphSize = "sm" | "md" | "lg"
+
+const outerPaddings: Record<MorphSize, string> = {
+    sm: "p-4",
+    md: "p-6",
+    lg: "p-8",
+}
+const panelMaxWidths: Record<MorphSize, string> = {
+    sm: "max-w-sm",
+    md: "max-w-[720px]",
+    lg: "max-w-3xl",
+}
+
 export interface MorphProps extends Omit<HTMLMotionProps<"div">, "children"> {
     /** Controls whether the overlay is presented. */
     open: boolean
@@ -20,6 +33,8 @@ export interface MorphProps extends Omit<HTMLMotionProps<"div">, "children"> {
     labelledBy?: string
     /** Allow tapping the backdrop to close. Escape still calls onClose. @default true */
     dismissOnOutsidePress?: boolean
+    /** Outer padding and panel max-width. @default "md" */
+    size?: MorphSize
     className?: string
     children?: ReactNode
 }
@@ -44,6 +59,7 @@ function OpenMorph({
     label,
     labelledBy,
     dismissOnOutsidePress = true,
+    size = "md",
     className,
     children,
     ...props
@@ -131,7 +147,12 @@ function OpenMorph({
 
     return (
         <SheetPortal>
-            <div className="fixed inset-0 z-[75] flex items-center justify-center p-6">
+            <div
+                className={cn(
+                    "fixed inset-0 z-[75] flex items-center justify-center",
+                    outerPaddings[size]
+                )}
+            >
                 <motion.div
                     aria-hidden="true"
                     className="absolute inset-0 bg-black/30 backdrop-blur-md"
@@ -150,7 +171,8 @@ function OpenMorph({
                     tabIndex={-1}
                     className={cn(
                         "relative isolate flex w-full flex-col rounded-5xl outline-none",
-                        "max-h-[92%] max-w-[720px]",
+                        "max-h-[92%]",
+                        panelMaxWidths[size],
                         settled && "overflow-hidden",
                         className
                     )}
