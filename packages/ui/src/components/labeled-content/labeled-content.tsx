@@ -1,6 +1,14 @@
 import type { HTMLAttributes, ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
+export type LabeledContentSize = "sm" | "md" | "lg"
+
+const padding: Record<LabeledContentSize, string> = {
+    sm: "px-3 py-2",
+    md: "px-4 py-3",
+    lg: "px-5 py-4",
+}
+
 export interface LabeledContentProps extends HTMLAttributes<HTMLDivElement> {
     /** The visible name of the row. */
     label: string
@@ -12,6 +20,8 @@ export interface LabeledContentProps extends HTMLAttributes<HTMLDivElement> {
     stacked?: boolean
     /** Places a wide control below its label on phones. @default false */
     wide?: boolean
+    /** Row padding density. @default "md" */
+    size?: LabeledContentSize
 }
 
 /**
@@ -25,13 +35,15 @@ export function LabeledContent({
     children,
     stacked,
     wide,
+    size = "md",
     className,
     ...props
 }: LabeledContentProps) {
     return (
         <div
             className={cn(
-                "flex flex-wrap gap-x-4 gap-y-2 px-4 py-3",
+                "flex flex-wrap gap-x-4 gap-y-2",
+                padding[size],
                 stacked
                     ? "flex-col items-stretch"
                     : cn(

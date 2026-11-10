@@ -176,6 +176,13 @@
                 "required": false,
                 "description": "`neutral`, `accent`, `public`, `family`, or `friends`.",
                 "defaultValue": "\"neutral\""
+            },
+            {
+                "name": "size",
+                "type": "\"xs\" | \"sm\" | \"md\"",
+                "required": false,
+                "description": "`xs`, `sm`, or `md`.",
+                "defaultValue": "\"sm\""
             }
         ],
         "native": ["HTMLAttributes<HTMLSpanElement>"],
@@ -992,6 +999,13 @@
                 "required": false,
                 "description": "Places a wide control below its label on phones.",
                 "defaultValue": "false"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Row padding density.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["HTMLAttributes<HTMLDivElement>"],
