@@ -5,7 +5,7 @@ import { createPortal } from "react-dom"
 import { ClockIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"
-import { pickerTriggerStyle } from "../picker/picker-trigger"
+import { pickerTriggerStyle, type PickerSize } from "../picker/picker-trigger"
 import {
     formatTime,
     fromTwelveHours,
@@ -31,6 +31,8 @@ export interface CompactTimePickerProps {
     className?: string
     /** Prevents opening the time panel. @default false */
     disabled?: boolean
+    /** Trigger button density; matches Picker's sm | md | lg. @default "md" */
+    size?: PickerSize
 }
 
 /**
@@ -48,6 +50,7 @@ export function CompactTimePicker({
     labels,
     className,
     disabled = false,
+    size = "md",
 }: CompactTimePickerProps) {
     const panel = useAnchoredDisclosure(disabled)
     const { open } = panel
@@ -73,7 +76,7 @@ export function CompactTimePicker({
                 aria-controls={open && !disabled ? panelId : undefined}
                 disabled={disabled}
                 onClick={() => panel.toggle()}
-                className={pickerTriggerStyle(className)}
+                className={pickerTriggerStyle(className, size)}
             >
                 <span
                     className={cn(

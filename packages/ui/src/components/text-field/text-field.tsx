@@ -15,7 +15,7 @@ const fieldIconClasses = "flex shrink-0 items-center text-label-secondary"
 /** Size scale shared across TextField, SecureField, and form fields. */
 export type TextFieldSize = "xs" | "sm" | "md" | "lg"
 
-interface FieldSize {
+export interface FieldSize {
     height: string
     floatingHeight: string
     padding: string
@@ -23,7 +23,7 @@ interface FieldSize {
     radius: string
 }
 
-function fieldSize(size: TextFieldSize): FieldSize {
+export function fieldSize(size: TextFieldSize): FieldSize {
     switch (size) {
         case "xs":
             return {

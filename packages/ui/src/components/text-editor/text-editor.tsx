@@ -1,9 +1,37 @@
 import type { ComponentProps } from "react"
 import { cn } from "../../lib/class-names"
-import { textControlClasses } from "../text-field/text-field"
+import { fieldSize, type TextFieldSize } from "../text-field/text-field"
 
-export function TextEditor({ className, ...props }: ComponentProps<"textarea">) {
+const minHeights: Record<TextFieldSize, string> = {
+    xs: "min-h-24",
+    sm: "min-h-24",
+    md: "min-h-28",
+    lg: "min-h-32",
+}
+
+export type TextEditorSize = TextFieldSize
+
+export interface TextEditorProps extends Omit<ComponentProps<"textarea">, "size"> {
+    /** Field surface scale; matches TextField's xs | sm | md | lg. @default "md" */
+    size?: TextEditorSize
+}
+
+/** A multi-line text field that reuses TextField's shared surface treatment. */
+export function TextEditor({ className, size = "md", ...props }: TextEditorProps) {
+    const surface = fieldSize(size)
     return (
-        <textarea {...props} className={cn(textControlClasses, "min-h-28 resize-y", className)} />
+        <textarea
+            {...props}
+            className={cn(
+                "w-full min-w-0 resize-y border border-separator bg-elevated text-label placeholder:text-label-tertiary",
+                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
+                "disabled:cursor-not-allowed disabled:opacity-40 aria-invalid:border-danger",
+                surface.radius,
+                surface.padding,
+                surface.text,
+                minHeights[size],
+                className
+            )}
+        />
     )
 }

@@ -365,6 +365,13 @@
                 "required": false,
                 "description": "Prevents opening the date panel.",
                 "defaultValue": "false"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Trigger button density; matches Picker's sm | md | lg.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -435,6 +442,13 @@
                 "required": false,
                 "description": "Prevents opening the time panel.",
                 "defaultValue": "false"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Trigger button density; matches Picker's sm | md | lg.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -1498,6 +1512,13 @@
                 "defaultValue": "false"
             },
             {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Pill height, icon size and text scale (non-collapsible variant).",
+                "defaultValue": "\"md\""
+            },
+            {
                 "name": "ref",
                 "type": "Ref<HTMLInputElement>",
                 "required": false,
@@ -1505,7 +1526,7 @@
                 "defaultValue": null
             }
         ],
-        "native": ["InputHTMLAttributes<HTMLInputElement>"],
+        "native": ["Omit<InputHTMLAttributes<HTMLInputElement>, \"size\">"],
         "parts": []
     },
     "search-list": {
@@ -2416,8 +2437,16 @@
     },
     "text-editor": {
         "source": "packages/ui/src/components/text-editor/text-editor.tsx",
-        "props": [],
-        "native": ["ComponentProps<\"textarea\">"],
+        "props": [
+            {
+                "name": "size",
+                "type": "TextEditorSize",
+                "required": false,
+                "description": "Field surface scale; matches TextField's xs | sm | md | lg.",
+                "defaultValue": "\"md\""
+            }
+        ],
+        "native": ["Omit<ComponentProps<\"textarea\">, \"size\">"],
         "parts": []
     },
     "text-field": {

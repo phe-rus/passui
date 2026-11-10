@@ -6,7 +6,7 @@ import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "../../icons/ico
 import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"
 import { IconButton } from "../button/icon-button"
-import { pickerTriggerStyle } from "../picker/picker-trigger"
+import { pickerTriggerStyle, type PickerSize } from "../picker/picker-trigger"
 import {
     addDays,
     addMonths,
@@ -38,6 +38,8 @@ export interface CompactDatePickerProps {
     className?: string
     /** Prevents opening the date panel. @default false */
     disabled?: boolean
+    /** Trigger button density; matches Picker's sm | md | lg. @default "md" */
+    size?: PickerSize
 }
 
 const WIDTH = 308
@@ -69,6 +71,7 @@ export function CompactDatePicker({
     labels,
     className,
     disabled = false,
+    size = "md",
 }: CompactDatePickerProps) {
     const panel = useAnchoredDisclosure(disabled)
     const { open } = panel
@@ -98,7 +101,7 @@ export function CompactDatePicker({
                 aria-controls={open && !disabled ? calendarId : undefined}
                 disabled={disabled}
                 onClick={() => panel.toggle()}
-                className={pickerTriggerStyle(className)}
+                className={pickerTriggerStyle(className, size)}
             >
                 <span
                     className={cn(
