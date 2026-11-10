@@ -62,6 +62,7 @@ export * from "./lib/haptics"
 export * from "./lib/clipboard"
 export * from "./lib/screen-edges"
 export * from "./motion/transitions"
+export { AnimatePresence, motion } from "motion/react"
 export * from "./appearance"
 
 export * from "./components/date-picker/date-picker"
