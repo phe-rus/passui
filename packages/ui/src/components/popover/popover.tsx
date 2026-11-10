@@ -287,7 +287,7 @@ function OpenPopover({
                         surfaceRadius[size]
                     )}
                     style={{ width: "100%", height: "100%" }}
-                    initial={reducedMotion || !reveal ? false : reveal}
+                    initial={reducedMotion || !reveal ? { opacity: 0 } : reveal}
                     animate={
                         reveal
                             ? {

@@ -192,7 +192,7 @@ function OpenMorph({
                         }}
                         className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-5xl"
                         style={{ width: "100%", height: "100%" }}
-                        initial={reducedMotion || !reveal ? false : reveal}
+                        initial={reducedMotion || !reveal ? { opacity: 0 } : reveal}
                         animate={
                             target
                                 ? {
