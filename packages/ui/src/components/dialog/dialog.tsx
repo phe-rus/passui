@@ -2,7 +2,7 @@ import { Sheet } from "../sheet/sheet"
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { Button } from "../button/button"
 import { cn } from "../../lib/class-names"
-import { spring } from "../../motion/transitions"
+import { contentCrossfade, spring, zoomReveal } from "../../motion/transitions"
 import { createContext, useContext, useId, type FormEvent, type ReactNode } from "react"
 
 const CloseContext = createContext<() => void>(() => {})
@@ -81,19 +81,31 @@ export function Dialog({
                         initial={{
                             height: reducedMotion ? "auto" : 0,
                             opacity: 0,
+                            scale: reducedMotion ? 1 : 0.97,
                         }}
                         animate={{
                             height: "auto",
                             opacity: 1,
+                            scale: 1,
                         }}
                         exit={{
                             height: reducedMotion ? "auto" : 0,
                             opacity: 0,
+                            scale: reducedMotion ? 1 : 0.98,
                         }}
-                        transition={reducedMotion ? { duration: 0 } : spring.smooth}
+                        transition={reducedMotion ? { duration: 0 } : spring.bouncy}
                         className="overflow-hidden"
+                        style={{ transformOrigin: "top center" }}
                     >
-                        {body}
+                        <motion.div
+                            initial={reducedMotion ? false : contentCrossfade.initial}
+                            animate={reducedMotion ? undefined : contentCrossfade.animate}
+                            transition={
+                                reducedMotion ? { duration: 0 } : contentCrossfade.transition
+                            }
+                        >
+                            {body}
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

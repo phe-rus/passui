@@ -2,7 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { type ReactNode, useRef } from "react"
 import { useVisualViewport } from "../../hooks/use-visual-viewport"
 import { cn } from "../../lib/class-names"
-import { spring } from "../../motion/transitions"
+import { contentCrossfade, spring, zoomReveal } from "../../motion/transitions"
 import { SheetPortal } from "./sheet-portal"
 import { useSheetFocus } from "./use-sheet-focus"
 
@@ -95,12 +95,47 @@ function OpenSheet({
                     placement === "center" ? "rounded-sheet" : "rounded-t-sheet sm:rounded-sheet",
                     className
                 )}
-                initial={reducedMotion ? { opacity: 0 } : { y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={reducedMotion ? { opacity: 0 } : { y: 30, opacity: 0 }}
-                transition={reducedMotion ? { duration: 0 } : spring.smooth}
+                style={{
+                    transformOrigin: placement === "center" ? "center center" : "bottom center",
+                }}
+                initial={
+                    reducedMotion
+                        ? { opacity: 0 }
+                        : placement === "center"
+                          ? zoomReveal.initial
+                          : { y: 40, opacity: 0, scale: 0.96 }
+                }
+                animate={
+                    reducedMotion
+                        ? { opacity: 1 }
+                        : placement === "center"
+                          ? zoomReveal.animate
+                          : { y: 0, opacity: 1, scale: 1 }
+                }
+                exit={
+                    reducedMotion
+                        ? { opacity: 0 }
+                        : placement === "center"
+                          ? zoomReveal.exit
+                          : { y: 30, opacity: 0, scale: 0.98 }
+                }
+                transition={
+                    reducedMotion
+                        ? { duration: 0 }
+                        : placement === "center"
+                          ? zoomReveal.transition
+                          : { ...spring.bouncy, opacity: { duration: 0.18 } }
+                }
             >
-                {children}
+                <motion.div
+                    className="flex min-h-0 flex-1 flex-col overflow-y-auto"
+                    initial={reducedMotion ? false : contentCrossfade.initial}
+                    animate={reducedMotion ? undefined : contentCrossfade.animate}
+                    exit={reducedMotion ? undefined : contentCrossfade.exit}
+                    transition={reducedMotion ? { duration: 0 } : contentCrossfade.transition}
+                >
+                    {children}
+                </motion.div>
             </motion.div>
         </div>
     )

@@ -10,7 +10,12 @@ import { concealMenuSource } from "../context-menu/conceal-menu-source"
 import { menuSurfaceExit, menuSurfaceReveal } from "../context-menu/menu-reveal"
 import { cn } from "../../lib/class-names"
 import { screenEdges } from "../../lib/screen-edges"
-import { floatingPanelMotion, spring } from "../../motion/transitions"
+import {
+    contentCrossfade,
+    floatingPanelMotion,
+    fluidOvershoot,
+    spring,
+} from "../../motion/transitions"
 import { fitPopover, type PopoverFit } from "./popover-fit"
 
 export type PopoverOrigin = "top-left" | "top-right"
@@ -55,6 +60,11 @@ function OpenPopover({
     })
     const [reveal, setReveal] = useState<ReturnType<typeof menuSurfaceReveal> | null>(null)
     const popoverMotion = floatingPanelMotion(fit.above ? "above" : "below")
+
+    // For anchored popovers, the surface morphs from the trigger via
+    // menuSurfaceReveal. For non-anchored popovers, we use scale + the
+    // fluid overshoot spring so the panel grows from the origin corner
+    // with a physical bounce — Apple's matched-geometry feel.
 
     useLayoutEffect(() => {
         const refit = () => {
@@ -283,11 +293,17 @@ function OpenPopover({
                     transition={
                         reducedMotion
                             ? { duration: 0 }
-                            : { ...spring.smooth, opacity: { duration: 0.16 } }
+                            : { ...fluidOvershoot, opacity: { duration: 0.16 } }
                     }
                 />
             )}
-            {children}
+            <motion.div
+                initial={reducedMotion ? false : anchorRef ? { opacity: 0 } : undefined}
+                animate={reducedMotion ? undefined : anchorRef ? { opacity: 1 } : undefined}
+                transition={reducedMotion ? { duration: 0 } : { duration: 0.16, delay: 0.06 }}
+            >
+                {children}
+            </motion.div>
         </motion.div>
     )
 }

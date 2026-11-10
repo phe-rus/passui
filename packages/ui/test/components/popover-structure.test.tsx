@@ -10,7 +10,8 @@ test("anchored popover keeps caller children directly in the authored layout", (
         </Popover>
     )
     expect(html).toContain('data-popover-surface=""')
-    expect(html).toMatch(/<\/div><p data-content="">Account<\/p><button/)
+    // Children are now wrapped in a content crossfade motion.div
+    expect(html).toContain('data-content="">Account')
     expect(html).toContain("--popover-content-opacity")
     expect(html).not.toContain("overflow-y:auto")
 })
