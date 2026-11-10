@@ -1260,6 +1260,13 @@
                 "required": false,
                 "description": "Prevents opening or choosing an option.",
                 "defaultValue": "false"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Trigger height and text scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],

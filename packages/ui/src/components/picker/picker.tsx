@@ -5,7 +5,7 @@ import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons"
 import { cn } from "../../lib/class-names"
 import { haptic } from "../../lib/haptics"
 import { AnchoredSurface } from "../popover/anchored-surface"
-import { pickerTriggerStyle } from "./picker-trigger"
+import { pickerTriggerStyle, type PickerSize } from "./picker-trigger"
 
 export interface PickerOption<T extends string> {
     value: T
@@ -43,6 +43,8 @@ export interface PickerProps<T extends string> {
     className?: string
     /** Prevents opening or choosing an option. @default false */
     disabled?: boolean
+    /** Trigger height and text scale. @default "md" */
+    size?: PickerSize
 }
 
 /** Long lists get a filter field, as in the system pickers. */
@@ -67,6 +69,7 @@ export function Picker<T extends string>({
     onCreate,
     createLabel,
     disabled = false,
+    size = "md",
 }: PickerProps<T>) {
     const panel = useAnchoredDisclosure(disabled)
     const { open } = panel
@@ -102,7 +105,7 @@ export function Picker<T extends string>({
                 disabled={disabled}
                 onClick={() => panel.toggle()}
                 onKeyDown={onTriggerKey}
-                className={pickerTriggerStyle(className)}
+                className={pickerTriggerStyle(className, size)}
             >
                 <span
                     lang={selected?.lang}
