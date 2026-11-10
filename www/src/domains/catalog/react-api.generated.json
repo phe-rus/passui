@@ -965,7 +965,15 @@
     },
     "keyboard-shortcut": {
         "source": "packages/ui/src/components/keyboard-shortcut/keyboard-shortcut.tsx",
-        "props": [],
+        "props": [
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\"",
+                "required": false,
+                "description": "Keycap padding density. Text stays at caption2 in both sizes.",
+                "defaultValue": "\"md\""
+            }
+        ],
         "native": ["ComponentProps<\"kbd\">"],
         "parts": []
     },
@@ -2022,6 +2030,13 @@
                 "required": true,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\"",
+                "required": false,
+                "description": "Dot diameter and text scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["HTMLAttributes<HTMLSpanElement>"],
