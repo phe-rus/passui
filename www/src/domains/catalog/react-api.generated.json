@@ -24,6 +24,13 @@
                 "defaultValue": null
             },
             {
+                "name": "size",
+                "type": "AccordionSize",
+                "required": false,
+                "description": "Density passed through to each DisclosureGroup.",
+                "defaultValue": "\"md\""
+            },
+            {
                 "name": "className",
                 "type": "string",
                 "required": false,
@@ -734,6 +741,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Field scale passed to each TextField; matches TextField's xs|sm|md|lg.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -1728,6 +1742,13 @@
                 "required": false,
                 "description": "Custom classes for the control container.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Segment padding, label text scale and min-width.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -1903,10 +1924,17 @@
                 "required": false,
                 "description": "Provides a localized, spoken description of the current value.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Track height, thumb size and label/description text scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [
-            "Omit< ComponentProps<\"input\">, \"type\" | \"value\" | \"defaultValue\" | \"onChange\" | \"min\" | \"max\" | \"step\" >"
+            "Omit< ComponentProps<\"input\">, \"type\" | \"value\" | \"defaultValue\" | \"onChange\" | \"min\" | \"max\" | \"step\" | \"size\" >"
         ],
         "parts": []
     },
@@ -2157,6 +2185,13 @@
                 "required": false,
                 "description": "Formats the displayed value.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Label, output and +/- button scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -2318,6 +2353,13 @@
                 "required": true,
                 "description": "Renders the selected tab's panel.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Tablist height, tab text scale and underline offset.",
+                "defaultValue": "\"md\""
             },
             {
                 "name": "className",
@@ -2548,6 +2590,13 @@
                 "required": false,
                 "description": "Keeps the accessible name while hiding the visible label.",
                 "defaultValue": "false"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Switch track size, thumb travel, checkbox box and label text scale.",
+                "defaultValue": "\"md\""
             },
             {
                 "name": "className",

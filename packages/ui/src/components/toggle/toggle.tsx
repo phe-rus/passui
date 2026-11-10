@@ -13,6 +13,74 @@ import { haptic } from "../../lib/haptics"
 import { spring } from "../../motion/transitions"
 
 export type ToggleStyle = "switch" | "checkbox"
+export type ToggleSize = "sm" | "md" | "lg"
+
+const labelText: Record<ToggleSize, string> = {
+    sm: "text-footnote",
+    md: "text-subheadline",
+    lg: "text-body",
+}
+const labelGap: Record<ToggleSize, string> = {
+    sm: "gap-2",
+    md: "gap-3",
+    lg: "gap-3.5",
+}
+const checkboxBox: Record<ToggleSize, string> = {
+    sm: "size-4 rounded-sm",
+    md: "size-5 rounded-sm",
+    lg: "size-6 rounded-md",
+}
+const checkIconSize: Record<ToggleSize, number> = {
+    sm: 12,
+    md: 14,
+    lg: 16,
+}
+const mixedBar: Record<ToggleSize, string> = {
+    sm: "h-0.5 w-2",
+    md: "h-0.5 w-2.5",
+    lg: "h-0.5 w-3",
+}
+
+// Switch physics: travel = track_width - thumb_width - 2*inset.
+// md: 50 - 26 - 2 = 22 ✓  sm: 44 - 22 - 2 = 20 ✓  lg: 56 - 30 - 2 = 24 ✓
+type SwitchGeo = {
+    travel: number
+    inset: number
+    dropOffset: number
+    track: string
+    thumb: string
+    drop: string
+    dropTop: string
+}
+const switchGeo: Record<ToggleSize, SwitchGeo> = {
+    sm: {
+        travel: 20,
+        inset: 2,
+        dropOffset: 4,
+        track: "h-[26px] w-[44px]",
+        thumb: "size-[22px]",
+        drop: "size-3.5",
+        dropTop: "top-[6px]",
+    },
+    md: {
+        travel: 22,
+        inset: 2,
+        dropOffset: 5,
+        track: "h-[30px] w-[50px]",
+        thumb: "size-[26px]",
+        drop: "size-4",
+        dropTop: "top-[7px]",
+    },
+    lg: {
+        travel: 24,
+        inset: 2,
+        dropOffset: 6,
+        track: "h-[34px] w-[56px]",
+        thumb: "size-[30px]",
+        drop: "size-5",
+        dropTop: "top-[8px]",
+    },
+}
 
 export interface ToggleProps {
     /** Current on or off state. */
@@ -28,6 +96,8 @@ export interface ToggleProps {
     mixed?: boolean
     /** Keeps the accessible name while hiding the visible label. @default false */
     labelHidden?: boolean
+    /** Switch track size, thumb travel, checkbox box and label text scale. @default "md" */
+    size?: ToggleSize
     /** Custom classes for the toggle container. */
     className?: string
 }
@@ -40,6 +110,7 @@ export function Toggle({
     style = "switch",
     mixed = false,
     labelHidden = false,
+    size = "md",
     className,
 }: ToggleProps) {
     const input = useRef<HTMLInputElement>(null)
@@ -50,12 +121,14 @@ export function Toggle({
         return (
             <label
                 className={cn(
-                    "flex cursor-pointer items-center gap-3 text-subheadline",
+                    "flex cursor-pointer items-center",
+                    labelGap[size],
+                    labelText[size],
                     disabled && "cursor-not-allowed opacity-40",
                     className
                 )}
             >
-                <span className="relative inline-flex size-5 shrink-0">
+                <span className={cn("relative inline-flex shrink-0", checkboxBox[size])}>
                     <input
                         ref={input}
                         type="checkbox"
@@ -64,19 +137,23 @@ export function Toggle({
                         disabled={disabled}
                         onChange={(event) => onChange(event.target.checked)}
                         className={cn(
-                            "peer size-5 cursor-inherit appearance-none rounded-sm border border-separator/80 bg-elevated transition-colors checked:border-transparent checked:bg-accent indeterminate:border-transparent indeterminate:bg-accent motion-reduce:transition-none",
+                            "peer cursor-inherit appearance-none border border-separator/80 bg-elevated transition-colors checked:border-transparent checked:bg-accent indeterminate:border-transparent indeterminate:bg-accent motion-reduce:transition-none",
+                            checkboxBox[size],
                             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text"
                         )}
                     />
                     {mixed ? (
                         <span
                             aria-hidden="true"
-                            className="pointer-events-none absolute inset-0 m-auto h-0.5 w-2.5 rounded-full bg-on-accent"
+                            className={cn(
+                                "pointer-events-none absolute inset-0 m-auto rounded-full bg-on-accent",
+                                mixedBar[size]
+                            )}
                         />
                     ) : (
                         <CheckIcon
                             aria-hidden="true"
-                            size={14}
+                            size={checkIconSize[size]}
                             strokeWidth={2.5}
                             className="pointer-events-none absolute inset-0 m-auto text-on-accent opacity-0 peer-checked:opacity-100"
                         />
@@ -92,6 +169,7 @@ export function Toggle({
             onChange={onChange}
             label={label}
             disabled={disabled}
+            size={size}
             className={className}
         />
     )
@@ -102,30 +180,32 @@ function SwitchToggle({
     onChange,
     label,
     disabled,
+    size = "md",
     className,
-}: Pick<ToggleProps, "checked" | "onChange" | "label" | "disabled" | "className">) {
+}: Pick<ToggleProps, "checked" | "onChange" | "label" | "disabled" | "size" | "className">) {
     const reducedMotion = useReducedMotion()
     const id = `toggle-goo-${useId().replace(/:/g, "")}`
-    const x = useMotionValue(checked ? 22 : 2)
-    // One position owns the thumb. The drop follows that position, not a delayed target.
+    const geo = switchGeo[size]
+    const on = geo.travel
+    const off = geo.inset
+    const x = useMotionValue(checked ? on : off)
     const chase = useSpring(x, spring.snappy)
-    const dropX = useTransform(chase, (value) => value + 5)
+    const dropX = useTransform(chase, (value) => value + geo.dropOffset)
     const gesture = useRef({ start: 0, x: 0, moved: false, skipClick: false, held: false })
     useEffect(() => {
         if (reducedMotion) {
-            x.set(checked ? 22 : 2)
+            x.set(checked ? on : off)
             return
         }
-        const animation = animate(x, checked ? 22 : 2, spring.snappy)
+        const animation = animate(x, checked ? on : off, spring.snappy)
         return () => animation.stop()
-    }, [checked, reducedMotion, x])
+    }, [checked, reducedMotion, x, on, off])
     const choose = (next: boolean) => {
         if (disabled) return
         haptic("selection")
         if (next !== checked) onChange(next)
-        // Releasing on the current side still needs a settling spring.
-        if (reducedMotion) x.set(next ? 22 : 2)
-        else animate(x, next ? 22 : 2, spring.snappy)
+        if (reducedMotion) x.set(next ? on : off)
+        else animate(x, next ? on : off, spring.snappy)
     }
     return (
         <button
@@ -158,7 +238,7 @@ function SwitchToggle({
                 const direction = getComputedStyle(event.currentTarget).direction === "rtl" ? -1 : 1
                 const delta = (event.clientX - drag.start) * direction
                 if (Math.abs(delta) > 3) drag.moved = true
-                if (drag.moved) x.set(Math.max(2, Math.min(22, drag.x + delta)))
+                if (drag.moved) x.set(Math.max(off, Math.min(on, drag.x + delta)))
             }}
             onPointerUp={() => {
                 const drag = gesture.current
@@ -166,7 +246,7 @@ function SwitchToggle({
                 drag.held = false
                 if (!drag.moved) return
                 drag.skipClick = true
-                choose(x.get() >= 12)
+                choose(x.get() >= (on + off) / 2)
             }}
             onPointerCancel={() => {
                 gesture.current.held = false
@@ -174,7 +254,8 @@ function SwitchToggle({
                 choose(checked)
             }}
             className={cn(
-                "relative h-[30px] w-[50px] shrink-0 touch-pan-y rounded-full transition-colors duration-normal motion-reduce:transition-none",
+                "relative shrink-0 touch-pan-y rounded-full transition-colors duration-normal motion-reduce:transition-none",
+                geo.track,
                 "shadow-[inset_0_1px_2px_rgb(0_0_0/0.10)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:opacity-45",
                 checked ? "bg-accent" : "bg-separator/80",
                 className
@@ -206,12 +287,16 @@ function SwitchToggle({
             >
                 {!reducedMotion && (
                     <motion.span
-                        className="absolute top-[7px] left-0 size-4 rounded-full bg-white"
+                        className={cn(
+                            "absolute left-0 rounded-full bg-white",
+                            geo.dropTop,
+                            geo.drop
+                        )}
                         style={{ x: dropX }}
                     />
                 )}
                 <motion.span
-                    className="absolute top-0.5 left-0 size-[26px] rounded-full bg-white"
+                    className={cn("absolute top-0.5 left-0 rounded-full bg-white", geo.thumb)}
                     style={{ x }}
                 />
             </span>

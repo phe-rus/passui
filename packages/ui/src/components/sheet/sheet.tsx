@@ -76,7 +76,7 @@ function OpenSheet({
                 "fixed inset-0 z-[65] flex justify-center",
                 placement === "center"
                     ? cn("items-center", outerPaddings[size])
-                    : cn("items-end sm:items-center", "sm:" + outerPaddings[size])
+                    : cn("items-end sm:items-center", `sm:${outerPaddings[size]}`)
             )}
             style={
                 viewport

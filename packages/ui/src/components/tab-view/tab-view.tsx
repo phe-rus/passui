@@ -2,6 +2,28 @@ import { useId, useRef, useState, type ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
 export type TabViewAlign = "start" | "center"
+export type TabViewSize = "sm" | "md" | "lg"
+
+const containerGaps: Record<TabViewSize, string> = {
+    sm: "gap-4",
+    md: "gap-5",
+    lg: "gap-6",
+}
+const tablistClasses: Record<TabViewSize, string> = {
+    sm: "inline-flex h-7 w-fit max-w-full items-center gap-4 p-[2px]",
+    md: "inline-flex h-8 w-fit max-w-full items-center gap-5 p-[3px]",
+    lg: "inline-flex h-10 w-fit max-w-full items-center gap-6 p-[4px]",
+}
+const tabText: Record<TabViewSize, string> = {
+    sm: "text-footnote",
+    md: "text-subheadline",
+    lg: "text-body",
+}
+const underlineOffset: Record<TabViewSize, string> = {
+    sm: "after:bottom-[-4px] after:h-0.5",
+    md: "after:bottom-[-5px] after:h-0.5",
+    lg: "after:bottom-[-6px] after:h-1",
+}
 
 export interface TabViewProps<Value extends string> {
     /** Available tabs, in keyboard navigation order. */
@@ -17,6 +39,8 @@ export interface TabViewProps<Value extends string> {
     label: string
     /** Renders the selected tab's panel. */
     children: (value: Value) => ReactNode
+    /** Tablist height, tab text scale and underline offset. @default "md" */
+    size?: TabViewSize
     className?: string
 }
 
@@ -29,6 +53,7 @@ export function TabView<Value extends string>({
     align = "center",
     label,
     children,
+    size = "md",
     className,
 }: TabViewProps<Value>) {
     const id = useId()
@@ -44,12 +69,12 @@ export function TabView<Value extends string>({
     if (value === undefined) return null
 
     return (
-        <div className={cn("flex w-full flex-col gap-5", className)}>
+        <div className={cn("flex w-full flex-col", containerGaps[size], className)}>
             <div
                 role="tablist"
                 aria-label={label}
                 className={cn(
-                    "inline-flex h-8 w-fit max-w-full items-center gap-5 p-[3px]",
+                    tablistClasses[size],
                     align === "start" ? "self-start" : "mx-auto justify-center"
                 )}
             >
@@ -96,9 +121,11 @@ export function TabView<Value extends string>({
                             }
                         }}
                         className={cn(
-                            "relative inline-flex h-[calc(100%-1px)] shrink-0 items-center justify-center border border-transparent p-0 text-subheadline font-medium whitespace-nowrap",
+                            "relative inline-flex h-[calc(100%-1px)] shrink-0 items-center justify-center border border-transparent p-0 font-medium whitespace-nowrap",
+                            tabText[size],
                             "focus-visible:outline-2 focus-visible:outline-offset-2",
-                            "after:absolute after:inset-x-0 after:bottom-[-5px] after:h-0.5 after:bg-current",
+                            "after:absolute after:inset-x-0 after:bg-current",
+                            underlineOffset[size],
                             option.value === value
                                 ? "after:opacity-100"
                                 : "opacity-60 hover:opacity-100 after:opacity-0"

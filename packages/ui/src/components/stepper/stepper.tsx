@@ -1,8 +1,35 @@
 import { useId } from "react"
-import { Button } from "../button/button"
+import { Button, type ButtonSize } from "../button/button"
 import { cn } from "../../lib/class-names"
 import { clampRange, stepRange } from "../../lib/range-value"
 import { RollingDigit } from "./rolling-digit"
+
+export type StepperSize = "sm" | "md" | "lg"
+
+const labelText: Record<StepperSize, string> = {
+    sm: "min-w-0 text-footnote text-label",
+    md: "min-w-0 text-subheadline text-label",
+    lg: "min-w-0 text-body text-label",
+}
+const outputText: Record<StepperSize, string> = {
+    sm: "text-footnote tabular-nums text-label",
+    md: "text-subheadline tabular-nums text-label",
+    lg: "text-body tabular-nums text-label",
+}
+const buttonSizes: Record<StepperSize, { size: ButtonSize; cls: string }> = {
+    sm: {
+        size: "icon-sm",
+        cls: "size-7 rounded-none text-subheadline text-accent-text [@media(pointer:coarse)]:size-10",
+    },
+    md: {
+        size: "icon",
+        cls: "size-8 rounded-none text-title3 text-accent-text [@media(pointer:coarse)]:size-11",
+    },
+    lg: {
+        size: "icon-lg",
+        cls: "size-9 rounded-none text-title2 text-accent-text [@media(pointer:coarse)]:size-12",
+    },
+}
 
 export interface StepperProps {
     value: number
@@ -17,6 +44,8 @@ export interface StepperProps {
     className?: string
     /** Formats the displayed value. */
     formatValue?: (value: number) => string
+    /** Label, output and +/- button scale. @default "md" */
+    size?: StepperSize
 }
 
 /** Discrete increments with disabled boundary actions and a spoken value. */
@@ -31,6 +60,7 @@ export function Stepper({
     disabled = false,
     className,
     formatValue,
+    size = "md",
 }: StepperProps) {
     const id = useId()
     const upper = Math.max(min, max)
@@ -43,15 +73,11 @@ export function Stepper({
 
     return (
         <div className={cn("flex min-w-0 items-center justify-between gap-3", className)}>
-            <span id={id} className="min-w-0 text-subheadline text-label">
+            <span id={id} className={labelText[size]}>
                 {label}
             </span>
             <div className="flex shrink-0 items-center gap-3">
-                <output
-                    aria-live="polite"
-                    aria-labelledby={id}
-                    className="text-subheadline tabular-nums text-label"
-                >
+                <output aria-live="polite" aria-labelledby={id} className={outputText[size]}>
                     <span aria-hidden="true" className="inline-flex items-center">
                         {Array.from(displayed).map((character, index) => {
                             if (!/[0-9]/.test(character))
@@ -73,24 +99,24 @@ export function Stepper({
                     <Button
                         type="button"
                         variant="ghost"
-                        size="icon"
+                        size={buttonSizes[size].size}
                         aria-label={labels.decrement}
                         aria-describedby={id}
                         disabled={disabled || decrement === current}
                         onClick={() => onChange(decrement)}
-                        className="size-8 rounded-none text-title3 text-accent-text [@media(pointer:coarse)]:size-11"
+                        className={buttonSizes[size].cls}
                     >
                         −
                     </Button>
                     <Button
                         type="button"
                         variant="ghost"
-                        size="icon"
+                        size={buttonSizes[size].size}
                         aria-label={labels.increment}
                         aria-describedby={id}
                         disabled={disabled || increment === current}
                         onClick={() => onChange(increment)}
-                        className="size-8 rounded-none text-title3 text-accent-text [@media(pointer:coarse)]:size-11"
+                        className={buttonSizes[size].cls}
                     >
                         +
                     </Button>
