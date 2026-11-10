@@ -225,9 +225,16 @@
                 "required": false,
                 "description": "Show a nonselectable line gutter.",
                 "defaultValue": "true"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Code font size, padding and line gutter scale.",
+                "defaultValue": "\"md\""
             }
         ],
-        "native": ["Omit<ComponentProps<\"div\">, \"children\">"],
+        "native": ["Omit<ComponentProps<\"div\">, \"children\" | \"size\">"],
         "parts": []
     },
     "combo-box": {
@@ -1231,6 +1238,13 @@
                 "required": false,
                 "description": "Localized verification feedback announced without reading decorative cells.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Cell height, digit text scale and check icon size.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [
@@ -1366,6 +1380,13 @@
                 "required": false,
                 "description": "Trigger whose shape the popover uses during its opening and closing motion.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\"",
+                "required": false,
+                "description": "Surface corner radius.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["Omit<HTMLMotionProps<\"div\">, \"children\">"],
@@ -1545,6 +1566,13 @@
                 "required": false,
                 "description": "",
                 "defaultValue": "true"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Field, item and heading density.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["ComponentProps<\"div\">"],
@@ -1861,6 +1889,13 @@
                 "required": true,
                 "description": "",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -2017,6 +2052,13 @@
                 "required": false,
                 "description": "Track corner, from square to a pill, 0–20.",
                 "defaultValue": "20"
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Track height and knob scale.",
+                "defaultValue": "\"md\""
             },
             {
                 "name": "disabled",

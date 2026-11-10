@@ -5,6 +5,8 @@ import { cn } from "../../lib/class-names"
 import { clampRange as clamp } from "../../lib/range-value"
 import { stepLiquid } from "./liquid-step"
 
+export type SloshSliderSize = "sm" | "md" | "lg"
+
 export interface SloshSliderProps {
     label: string
     value?: number
@@ -18,6 +20,8 @@ export interface SloshSliderProps {
     tilt?: number
     /** Track corner, from square to a pill, 0–20. @default 20 */
     corner?: number
+    /** Track height and knob scale. @default "md" */
+    size?: SloshSliderSize
     disabled?: boolean
     className?: string
     formatValue?: (value: number) => string
@@ -44,6 +48,7 @@ export function SloshSlider({
     momentum = 55,
     tilt = 45,
     corner = 20,
+    size = "md",
     disabled = false,
     className,
     formatValue,
@@ -169,6 +174,7 @@ export function SloshSlider({
         <div
             className={cn("passui-slosh-slider not-typeset", disabled && "opacity-40", className)}
             style={{ "--slosh-radius": `${clamp(corner, 0, 20)}px` } as CSSProperties}
+            data-size={size}
         >
             {/* Nothing but the track: the liquid is the value's motion, not a
             second numeric readout that lags and overshoots beside it. */}

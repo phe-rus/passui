@@ -19,6 +19,12 @@ import {
 import { fitPopover, type PopoverFit } from "./popover-fit"
 
 export type PopoverOrigin = "top-left" | "top-right"
+export type PopoverSize = "sm" | "md"
+
+const surfaceRadius: Record<PopoverSize, string> = {
+    sm: "rounded-3xl",
+    md: "rounded-5xl",
+}
 
 export interface PopoverProps extends Omit<HTMLMotionProps<"div">, "children"> {
     open: boolean
@@ -27,6 +33,8 @@ export interface PopoverProps extends Omit<HTMLMotionProps<"div">, "children"> {
     origin?: PopoverOrigin
     /** Trigger whose shape the popover uses during its opening and closing motion. */
     anchorRef?: RefObject<HTMLElement | null>
+    /** Surface corner radius. @default "md" */
+    size?: PopoverSize
 }
 
 /**
@@ -42,6 +50,7 @@ export function Popover({ open, ...props }: PopoverProps) {
 function OpenPopover({
     origin = "top-left",
     anchorRef,
+    size = "md",
     className,
     style,
     children,
@@ -259,7 +268,8 @@ function OpenPopover({
                 anchorRef
                     ? "isolate [&>:not([data-popover-surface])]:opacity-[var(--popover-content-opacity)]"
                     : "glass-menu",
-                "absolute z-40 rounded-5xl outline-none",
+                "absolute z-40 outline-none",
+                surfaceRadius[size],
                 className
             )}
             {...props}
@@ -272,7 +282,10 @@ function OpenPopover({
                     onAnimationComplete={() => {
                         if (reveal) setSettled(true)
                     }}
-                    className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-5xl"
+                    className={cn(
+                        "glass-menu pointer-events-none absolute top-0 left-0 -z-10",
+                        surfaceRadius[size]
+                    )}
                     style={{ width: "100%", height: "100%" }}
                     initial={reducedMotion || !reveal ? false : reveal}
                     animate={

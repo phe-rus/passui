@@ -16,14 +16,15 @@ export interface SidebarItemContentProps {
     children: ReactNode
 }
 
-export function SidebarSection({ title, children }: SidebarSectionProps) {
+export function SidebarSection({
+    title,
+    children,
+    size = "md",
+}: SidebarSectionProps & { size?: SidebarSize }) {
     const headingId = useId()
     return (
         <section aria-labelledby={headingId} className="flex flex-col gap-0.5">
-            <h2
-                id={headingId}
-                className="px-2.5 pb-1.5 text-caption font-semibold text-label-tertiary"
-            >
+            <h2 id={headingId} className={sidebarHeadingSizes[size]}>
                 {title}
             </h2>
             {children}
@@ -33,20 +34,46 @@ export function SidebarSection({ title, children }: SidebarSectionProps) {
 
 /** Classes for a sidebar row; apply to the app's router link. */
 export type SidebarDensity = "regular" | "compact"
+export type SidebarSize = "sm" | "md" | "lg"
 
-export function sidebarItemClass(active?: boolean, density: SidebarDensity = "regular"): string {
+const sidebarItemSizes: Record<SidebarSize, string> = {
+    sm: "min-h-8 rounded-lg px-2 py-1 text-footnote [@media(pointer:coarse)]:min-h-10",
+    md: "rounded-2xl px-2.5 py-[7px] text-subheadline",
+    lg: "rounded-2xl px-3 py-2.5 text-body [@media(pointer:coarse)]:min-h-13",
+}
+const sidebarHeadingSizes: Record<SidebarSize, string> = {
+    sm: "px-2 pb-1 text-caption2 font-semibold text-label-tertiary",
+    md: "px-2.5 pb-1.5 text-caption font-semibold text-label-tertiary",
+    lg: "px-3 pb-2 text-subheadline font-semibold text-label-tertiary",
+}
+const sidebarCountSizes: Record<SidebarSize, string> = {
+    sm: "text-caption2 tabular-nums",
+    md: "text-footnote tabular-nums",
+    lg: "text-subheadline tabular-nums",
+}
+
+export function sidebarItemClass(
+    active?: boolean,
+    density: SidebarDensity = "regular",
+    size?: SidebarSize
+): string {
+    const resolved = size ?? (density === "compact" ? "sm" : "md")
     return cn(
         "group flex w-full items-center gap-2.5 text-label no-underline transition-colors duration-fast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
-        density === "compact"
-            ? "min-h-8 rounded-lg px-2 py-1 text-footnote [@media(pointer:coarse)]:min-h-10"
-            : "rounded-2xl px-2.5 py-[7px] text-subheadline",
+        sidebarItemSizes[resolved],
         active
             ? "bg-fill font-medium"
             : "font-normal text-label-secondary hover:bg-fill/70 hover:text-label"
     )
 }
 
-export function SidebarItemContent({ icon, count, active, children }: SidebarItemContentProps) {
+export function SidebarItemContent({
+    icon,
+    count,
+    active,
+    size = "md",
+    children,
+}: SidebarItemContentProps & { size?: SidebarSize }) {
     return (
         <>
             {icon && (
@@ -63,7 +90,7 @@ export function SidebarItemContent({ icon, count, active, children }: SidebarIte
             {count !== undefined && (
                 <span
                     className={cn(
-                        "text-footnote tabular-nums",
+                        sidebarCountSizes[size],
                         active ? "text-accent-text" : "text-label-tertiary"
                     )}
                 >

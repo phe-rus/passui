@@ -80,6 +80,10 @@
     .passui-one-time-code:is([data-status="verifying"], [data-status="success"]) .passui-otp-capsule { opacity: 1; transform: translateX(-50%) scaleX(1); }
     .passui-one-time-code:is([data-status="verifying"], [data-status="success"]) .passui-otp-digits { opacity: 0; }
     .passui-otp-check { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--color-on-accent); opacity: 0; pointer-events: none; }
+    .passui-one-time-code[data-size="sm"] .passui-otp-row { height: 2.5rem; }
+    .passui-one-time-code[data-size="sm"] .passui-otp-digit { font-size: var(--text-title); }
+    .passui-one-time-code[data-size="lg"] .passui-otp-row { height: 3.5rem; }
+    .passui-one-time-code[data-size="lg"] .passui-otp-digit { font-size: var(--text-title2); }
     .passui-one-time-code[data-status="success"] .passui-otp-check { opacity: 1; transition: opacity 160ms 240ms; }
     /* A wrong code shivers, then drains right to left. Selecting the single
        input afterward lets the next keystroke replace it without a trap. */
@@ -129,6 +133,10 @@
             calc(100% - var(--slosh-lean, 0px)) 100%, 0 100%);
     }
     .passui-slosh-track:dir(rtl) .passui-slosh-fill { transform: scaleX(-1); }
+    .passui-slosh-slider[data-size="sm"] .passui-slosh-track { height: 2rem; }
+    .passui-slosh-slider[data-size="sm"] .passui-slosh-knob { top: 4px; bottom: 4px; }
+    .passui-slosh-slider[data-size="lg"] .passui-slosh-track { height: 3rem; }
+    .passui-slosh-slider[data-size="lg"] .passui-slosh-knob { top: 8px; bottom: 8px; width: 4px; margin-inline-start: -2px; }
     .passui-slosh-knob {
         position: absolute;
         top: 6px;

@@ -11,6 +11,18 @@ import { cn } from "../../lib/class-names"
 
 export type OneTimeCodeStatus = "idle" | "verifying" | "success" | "error"
 export type OneTimeCodeFormat = "numeric" | "alphanumeric"
+export type OneTimeCodeSize = "sm" | "md" | "lg"
+
+const checkSizes: Record<OneTimeCodeSize, number> = {
+    sm: 20,
+    md: 24,
+    lg: 28,
+}
+const statusText: Record<OneTimeCodeSize, string> = {
+    sm: "mt-1.5 text-caption2",
+    md: "mt-2 text-footnote",
+    lg: "mt-2.5 text-subheadline",
+}
 export interface OneTimeCodeProps
     extends Omit<
         InputHTMLAttributes<HTMLInputElement>,
@@ -30,6 +42,8 @@ export interface OneTimeCodeProps
     status?: OneTimeCodeStatus
     /** Localized verification feedback announced without reading decorative cells. */
     statusLabel?: string
+    /** Cell height, digit text scale and check icon size. @default "md" */
+    size?: OneTimeCodeSize
 }
 
 /** Normalize common numeric keyboards and optional ASCII letters in one native field. */
@@ -60,6 +74,7 @@ export function OneTimeCode({
     ref,
     status = "idle",
     statusLabel,
+    size = "md",
     className,
     disabled,
     id: suppliedId,
@@ -85,6 +100,7 @@ export function OneTimeCode({
         <div
             className={cn("passui-one-time-code not-typeset", className)}
             data-status={status}
+            data-size={size}
             style={{ "--otp-length": count, "--otp-middle": (count - 1) / 2 } as CSSProperties}
         >
             <svg aria-hidden="true" width="0" height="0" className="absolute">
@@ -139,7 +155,11 @@ export function OneTimeCode({
                         </span>
                     ))}
                 </div>
-                <CheckIcon aria-hidden="true" className="passui-otp-check" size={24} />
+                <CheckIcon
+                    aria-hidden="true"
+                    className="passui-otp-check"
+                    size={checkSizes[size]}
+                />
                 <input
                     {...props}
                     ref={(node) => {
@@ -186,7 +206,7 @@ export function OneTimeCode({
                     id={`${id}-status`}
                     role="status"
                     className={cn(
-                        "mt-2 text-footnote",
+                        statusText[size],
                         status === "error" ? "text-danger" : "text-label-secondary"
                     )}
                 >

@@ -10,6 +10,24 @@ import {
 } from "react"
 import { cn } from "../../lib/class-names"
 
+export type SearchListSize = "sm" | "md" | "lg"
+
+const fieldSizes: Record<SearchListSize, string> = {
+    sm: "min-h-8 w-full rounded-full border border-separator bg-fill/60 px-3 text-caption text-label outline-none focus-visible:ring-2 focus-visible:ring-accent-text/50",
+    md: "min-h-11 w-full rounded-full border border-separator bg-fill/60 px-4 text-subheadline text-label outline-none focus-visible:ring-2 focus-visible:ring-accent-text/50",
+    lg: "min-h-13 w-full rounded-full border border-separator bg-fill/60 px-5 text-body text-label outline-none focus-visible:ring-2 focus-visible:ring-accent-text/50",
+}
+const headingSizes: Record<SearchListSize, string> = {
+    sm: "px-1.5 py-1.5 text-caption2 font-medium text-label-tertiary",
+    md: "px-2 py-2 text-caption font-medium text-label-tertiary",
+    lg: "px-2.5 py-2.5 text-subheadline font-medium text-label-tertiary",
+}
+const itemSizes: Record<SearchListSize, string> = {
+    sm: "flex min-h-8 w-full items-center gap-1.5 rounded-md px-2 py-1 text-left text-footnote text-label hover:bg-fill aria-selected:bg-fill [@media(pointer:coarse)]:min-h-10",
+    md: "flex min-h-9 w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-subheadline text-label hover:bg-fill aria-selected:bg-fill [@media(pointer:coarse)]:min-h-11",
+    lg: "flex min-h-11 w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-body text-label hover:bg-fill aria-selected:bg-fill [@media(pointer:coarse)]:min-h-13",
+}
+
 type SearchState = {
     query: string
     setQuery: (query: string) => void
@@ -18,6 +36,7 @@ type SearchState = {
     open: boolean
     visible: number
     register: (id: string, visible: boolean | null) => void
+    size: SearchListSize
 }
 const SearchContext = createContext<SearchState | null>(null)
 function useSearch() {
@@ -29,12 +48,15 @@ function useSearch() {
 export function SearchList({
     loop = true,
     open = true,
+    size = "md",
     onKeyDown,
     className,
     ...props
 }: ComponentProps<"div"> & {
     loop?: boolean
     open?: boolean
+    /** Field, item and heading density. @default "md" */
+    size?: SearchListSize
 }) {
     const [query, setQuery] = useState("")
     const updateQuery = useCallback((next: string) => {
@@ -73,6 +95,7 @@ export function SearchList({
                 open,
                 visible: Object.values(results).filter(Boolean).length,
                 register,
+                size,
             }}
         >
             <div
@@ -148,10 +171,7 @@ export function SearchListField({
                 search.setQuery(event.target.value)
                 onValueChange?.(event.target.value)
             }}
-            className={cn(
-                "min-h-11 w-full rounded-full border border-separator bg-fill/60 px-4 text-subheadline text-label outline-none focus-visible:ring-2 focus-visible:ring-accent-text/50",
-                className
-            )}
+            className={cn(fieldSizes[search.size], className)}
         />
     )
 }
@@ -179,6 +199,7 @@ export function SearchListGroup({
 }: ComponentProps<"div"> & {
     heading?: React.ReactNode
 }) {
+    const search = useSearch()
     const id = useId()
     return (
         // biome-ignore lint/a11y/useSemanticElements: Listbox option groups are not form fieldsets.
@@ -189,7 +210,7 @@ export function SearchListGroup({
             aria-labelledby={heading ? id : undefined}
         >
             {heading && (
-                <div id={id} className="px-2 py-2 text-caption font-medium text-label-tertiary">
+                <div id={id} className={headingSizes[search.size]}>
                     {heading}
                 </div>
             )}
@@ -231,10 +252,7 @@ export function SearchListItem({
             data-search-result=""
             aria-selected={search.active === id}
             data-selected={search.active === id ? "true" : undefined}
-            className={cn(
-                "flex min-h-9 w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-subheadline text-label hover:bg-fill aria-selected:bg-fill [@media(pointer:coarse)]:min-h-11",
-                className
-            )}
+            className={cn(itemSizes[search.size], className)}
             onMouseDown={(event) => {
                 props.onMouseDown?.(event)
                 if (!event.defaultPrevented) event.preventDefault()

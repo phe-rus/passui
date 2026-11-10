@@ -24,6 +24,18 @@
         user-select: none;
     }
     .passui-code-block:not([data-line-numbers]) pre { padding-inline-start: 1rem; }
+    .passui-code-block[data-size="sm"] pre {
+        padding-block: 0.75rem;
+        font-size: var(--text-caption);
+        line-height: 1.6;
+    }
+    .passui-code-block[data-size="sm"][data-line-numbers] .line::before { width: 2.5rem; margin-inline-end: 1rem; }
+    .passui-code-block[data-size="lg"] pre {
+        padding-block: 1.25rem;
+        font-size: var(--text-subheadline);
+        line-height: 1.8;
+    }
+    .passui-code-block[data-size="lg"][data-line-numbers] .line::before { width: 3.5rem; margin-inline-end: 1.5rem; }
     .passui-code-block .shiki, .passui-code-block .shiki span { color: var(--shiki-light); background: transparent !important; }
     @media (prefers-color-scheme: dark) {
         .passui-code-block .shiki, .passui-code-block .shiki span { color: var(--shiki-dark); }

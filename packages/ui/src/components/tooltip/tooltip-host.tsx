@@ -1,6 +1,15 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { spring } from "../../motion/transitions"
 import { useEffect, useId, useState } from "react"
+import { cn } from "../../lib/class-names"
+
+export type TooltipSize = "sm" | "md" | "lg"
+
+const tooltipClasses: Record<TooltipSize, string> = {
+    sm: "pointer-events-none fixed z-[80] max-w-[200px] rounded-md bg-inverse px-2 py-1 text-center text-caption2 leading-tight font-medium text-on-inverse shadow-lg",
+    md: "pointer-events-none fixed z-[80] max-w-[240px] rounded-md bg-inverse px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-on-inverse shadow-lg",
+    lg: "pointer-events-none fixed z-[80] max-w-[280px] rounded-md bg-inverse px-3 py-2 text-center text-footnote leading-tight font-medium text-on-inverse shadow-lg",
+}
 
 interface Tip {
     text: string
@@ -8,6 +17,7 @@ interface Tip {
     y: number
     /** Shown above the element when there's no room below. */
     above: boolean
+    size: TooltipSize
 }
 
 const DELAY = 450
@@ -45,11 +55,14 @@ export function TooltipHost() {
             if (!text) return
             const rect = element.getBoundingClientRect()
             const above = rect.bottom + 40 > window.innerHeight
+            const sizeAttr = element.getAttribute("data-tooltip-size")
+            const size: TooltipSize = sizeAttr === "sm" || sizeAttr === "lg" ? sizeAttr : "md"
             setTip({
                 text,
                 x: rect.left + rect.width / 2,
                 y: above ? rect.top - MARGIN : rect.bottom + MARGIN,
                 above,
+                size,
             })
             lastShown = Date.now()
         }
@@ -121,7 +134,7 @@ export function TooltipHost() {
                     id={tooltipId}
                     key={tip.text + tip.x}
                     role="tooltip"
-                    className="pointer-events-none fixed z-[80] max-w-[240px] rounded-md bg-inverse px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-on-inverse shadow-lg"
+                    className={cn(tooltipClasses[tip.size])}
                     style={{
                         left: Math.min(Math.max(tip.x, 128), window.innerWidth - 128),
                         top: tip.y,
