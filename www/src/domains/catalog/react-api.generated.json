@@ -92,6 +92,13 @@
                 "required": false,
                 "description": "Integrate a client router without nesting interactive elements.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\"",
+                "required": false,
+                "description": "Text scale.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": [],
@@ -1558,6 +1565,13 @@
                 "required": false,
                 "description": "Rows, typically LabeledContent.",
                 "defaultValue": null
+            },
+            {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\"",
+                "required": false,
+                "description": "Title and footer text scale + padding.",
+                "defaultValue": "\"md\""
             }
         ],
         "native": ["HTMLAttributes<HTMLElement>"],

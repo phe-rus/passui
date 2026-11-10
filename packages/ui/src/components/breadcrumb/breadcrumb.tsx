@@ -1,6 +1,13 @@
 import type { ReactNode } from "react"
 import { cn } from "../../lib/class-names"
 
+export type BreadcrumbSize = "sm" | "md"
+
+const sizes: Record<BreadcrumbSize, string> = {
+    sm: "text-caption",
+    md: "text-footnote",
+}
+
 export interface BreadcrumbItem {
     label: string
     href?: string
@@ -11,12 +18,19 @@ export interface BreadcrumbProps {
     className?: string
     /** Integrate a client router without nesting interactive elements. */
     renderLink?: (item: BreadcrumbItem & { href: string }) => ReactNode
+    /** Text scale. @default "md" */
+    size?: BreadcrumbSize
 }
 /** Ancestors stay links; the final item identifies the current page. */
-export function Breadcrumb({ label, items, className, renderLink }: BreadcrumbProps) {
+export function Breadcrumb({ label, items, className, renderLink, size = "md" }: BreadcrumbProps) {
     return (
         <nav aria-label={label} className={cn("not-typeset", className)}>
-            <ol className="m-0 flex list-none flex-wrap items-center gap-x-2 gap-y-1 p-0 text-footnote text-label-secondary">
+            <ol
+                className={cn(
+                    "m-0 flex list-none flex-wrap items-center gap-x-2 gap-y-1 p-0 text-label-secondary",
+                    sizes[size]
+                )}
+            >
                 {items.map((item, index) => (
                     <li
                         key={`${index}-${item.label}`}
