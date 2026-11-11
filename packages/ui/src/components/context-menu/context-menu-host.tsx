@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "motion/react"
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react"
-import { FLOATING_LAYER } from "../../hooks/use-dismiss"
-import { CheckIcon } from "../../icons/icons"
-import { cn } from "../../lib/class-names"
-import { belongsToFloatingSurface, registerFloatingLayer } from "../../lib/floating-layers"
-import { screenEdges } from "../../lib/screen-edges"
-import { spring, fluidCollapse, fluidOvershoot } from "../../motion/transitions"
-import { concealMenuSource } from "./conceal-menu-source"
-import { findMenuTypeaheadIndex, isMenuNavigationKey, nextMenuIndex } from "./menu-navigation"
-import { menuPosition } from "./menu-position"
-import { menuSurfaceExit, menuSurfaceReveal } from "./menu-reveal"
-=======
->>>>>>> 271bc0e (refactor(tests): improve test readability and consistency)
 import {
 	AnimatePresence,
 	motion,
@@ -34,7 +19,7 @@ import {
 	registerFloatingLayer,
 } from "../../lib/floating-layers";
 import { screenEdges } from "../../lib/screen-edges";
-import { spring, fluidOvershoot } from "../../motion/transitions";
+import { fluidOvershoot } from "../../motion/transitions";
 import { concealMenuSource } from "./conceal-menu-source";
 import {
 	findMenuTypeaheadIndex,
@@ -46,11 +31,7 @@ import { menuSurfaceExit, menuSurfaceReveal } from "./menu-reveal";
 import {
 	closeContextMenu,
 	getContextMenu,
-	type ContextMenuItem,
 	type ContextMenuSize,
-	openContextMenu,
-	openFollowUpMenu,
-	openMenu,
 	subscribeContextMenu,
 } from "./context-menu-store";
 import type { OpenMenu } from "./context-menu-store";
@@ -272,208 +253,13 @@ function Menu({ menu }: { menu: OpenMenu }) {
 		};
 	}, [present]);
 
-<<<<<<< HEAD
-    const source = menuSurfaceReveal(
-        position.ready ? (menu.toolbarRect ?? menu.source) : undefined,
-        position
-    )
-    let actionIndex = -1
-    return (
-        <div
-            ref={ref}
-            role="menu"
-            tabIndex={-1}
-            onKeyDown={(event) => {
-                if (!present) return
-                if (event.key === "Escape") {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    closeContextMenu()
-                    return
-                }
-                if (event.key === "Tab") {
-                    closeContextMenu()
-                    return
-                }
-                const controls = Array.from(
-                    ref.current?.querySelectorAll<HTMLButtonElement>(
-                        "[role=menuitem]:not(:disabled)"
-                    ) ?? []
-                )
-                if (!isMenuNavigationKey(event.key)) {
-                    if (
-                        event.key.length !== 1 ||
-                        !event.key.trim() ||
-                        event.altKey ||
-                        event.ctrlKey ||
-                        event.metaKey ||
-                        event.nativeEvent.isComposing
-                    )
-                        return
-                    const now = performance.now()
-                    const query =
-                        (now - typeahead.current.at < 700 ? typeahead.current.query : "") +
-                        event.key
-                    typeahead.current = { query, at: now }
-                    const labels = controls.map((control) => control.textContent ?? "")
-                    const current = controls.indexOf(document.activeElement as HTMLButtonElement)
-                    let next = findMenuTypeaheadIndex(labels, query, current)
-                    if (next < 0) {
-                        typeahead.current.query = event.key
-                        next = findMenuTypeaheadIndex(labels, event.key, current)
-                    }
-                    if (next >= 0) {
-                        event.preventDefault()
-                        controls[next]?.focus()
-                    }
-                    return
-                }
-                event.preventDefault()
-                if (!controls.length) return
-                const current = controls.indexOf(document.activeElement as HTMLButtonElement)
-                const next = nextMenuIndex(event.key, current, controls.length)
-                controls[next]?.focus()
-            }}
-            {...{ [FLOATING_LAYER]: "" }}
-            className={cn(
-                "fixed z-75 isolate flex flex-col outline-none",
-                surfaceSizes[menu.size],
-                menu.touch && "min-w-60",
-                !present && "pointer-events-none"
-            )}
-            style={{
-                left: position.left,
-                top: position.top,
-                maxHeight: position.maxHeight,
-                minWidth: menu.toolbarRect
-                    ? Math.min(Math.max(200, menu.toolbarRect.width), window.innerWidth - 24)
-                    : undefined,
-                visibility: position.ready ? undefined : "hidden",
-            }}
-            onContextMenu={(event) => event.preventDefault()}
-        >
-            {position.ready && (
-                <motion.div
-                    aria-hidden="true"
-                    className="glass-menu pointer-events-none absolute top-0 left-0 -z-10 rounded-3xl"
-                    style={{ width: "100%", height: "100%" }}
-                    initial={reducedMotion || !position.ready ? false : source}
-                    animate={
-                        position.ready
-                            ? {
-                                  x: 0,
-                                  y: 0,
-                                  width: position.width,
-                                  height: position.height,
-                                  opacity: 1,
-                                  borderRadius: position.radius,
-                              }
-                            : undefined
-                    }
-                    exit={
-                        reducedMotion
-                            ? { opacity: 0 }
-                            : { ...menuSurfaceExit(source), transition: fluidCollapse }
-                    }
-                    transition={
-                        reducedMotion
-                            ? { duration: 0 }
-                            : { ...fluidOvershoot, opacity: { duration: 0.16 } }
-                    }
-                />
-            )}
-            <motion.div
-                ref={content}
-                className="flex flex-col overflow-y-auto overscroll-contain"
-                style={{
-                    maxHeight: position.maxHeight
-                        ? Math.max(0, position.maxHeight - 12)
-                        : undefined,
-                }}
-                initial={
-                    reducedMotion
-                        ? false
-                        : {
-                              opacity: 0,
-                              scale: 0.96,
-                              y: menu.source && menu.source.top > position.top ? 4 : -4,
-                          }
-                }
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{
-                    opacity: 0,
-                    scale: 0.98,
-                    transition: {
-                        duration: reducedMotion ? 0 : 0.06,
-                    },
-                }}
-                transition={{
-                    duration: reducedMotion ? 0 : 0.2,
-                    ease: reducedMotion
-                        ? undefined
-                        : ([0.4, 0, 0.2, 1] as [number, number, number, number]),
-                    delay: reducedMotion || !menu.source ? 0 : 0.06,
-                }}
-            >
-                {menu.items.map((item, index) => {
-                    if (item === "divider") {
-                        return <div key={`divider-${index}`} className={dividerSizes[menu.size]} />
-                    }
-                    if ("heading" in item) {
-                        return (
-                            <span key={`heading-${index}`} className={headingSizes[menu.size]}>
-                                {item.heading}
-                            </span>
-                        )
-                    }
-                    if (!item.disabled) actionIndex += 1
-                    const current = actionIndex
-                    return (
-                        <button
-                            key={`item-${index}`}
-                            type="button"
-                            role="menuitem"
-                            tabIndex={-1}
-                            disabled={item.disabled}
-                            onFocus={() => setFocused(current)}
-                            onPointerEnter={() => !item.disabled && setFocused(current)}
-                            onClick={() => {
-                                closeContextMenu()
-                                item.onSelect()
-                            }}
-                            className={cn(
-                                itemSizes[menu.size],
-                                menu.touch ? "py-2.5" : "py-1.5",
-                                item.destructive ? "text-danger" : "text-label",
-                                focused === current &&
-                                    !item.disabled &&
-                                    (item.destructive ? "bg-danger/10" : "bg-fill")
-                            )}
-                        >
-                            <span className={iconSlotSizes[menu.size]}>
-                                {item.checked ? (
-                                    <CheckIcon
-                                        size={checkIconSizes[menu.size]}
-                                        strokeWidth={2.4}
-                                        className="text-accent-text"
-                                    />
-                                ) : (
-                                    item.icon
-                                )}
-                            </span>
-                            <span className="grow truncate">{item.label}</span>
-                        </button>
-                    )
-                })}
-            </motion.div>
-        </div>
-    )
-=======
 	const source = menuSurfaceReveal(
 		position.ready ? (menu.toolbarRect ?? menu.source) : undefined,
 		position,
 	);
 	let actionIndex = -1;
+	let dividerIndex = 0;
+	let headingIndex = 0;
 	return (
 		<div
 			ref={ref}
@@ -614,30 +400,25 @@ function Menu({ menu }: { menu: OpenMenu }) {
 					delay: reducedMotion || !menu.source ? 0 : 0.06,
 				}}
 			>
-				{menu.items.map((item, index) => {
+				{menu.items.map((item) => {
 					if (item === "divider") {
-						return (
-							<div
-								key={`divider-${index}`}
-								className={dividerSizes[menu.size]}
-							/>
-						);
+						const key = `divider-${dividerIndex++}`;
+						return <div key={key} className={dividerSizes[menu.size]} />;
 					}
 					if ("heading" in item) {
+						const key = `heading-${headingIndex++}`;
 						return (
-							<span
-								key={`heading-${index}`}
-								className={headingSizes[menu.size]}
-							>
+							<span key={key} className={headingSizes[menu.size]}>
 								{item.heading}
 							</span>
 						);
 					}
 					if (!item.disabled) actionIndex += 1;
 					const current = actionIndex;
+					const key = `item-${current}`;
 					return (
 						<button
-							key={`item-${index}`}
+							key={key}
 							type="button"
 							role="menuitem"
 							tabIndex={-1}
@@ -675,5 +456,4 @@ function Menu({ menu }: { menu: OpenMenu }) {
 			</motion.div>
 		</div>
 	);
->>>>>>> 271bc0e (refactor(tests): improve test readability and consistency)
 }
