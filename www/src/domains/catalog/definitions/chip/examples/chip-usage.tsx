@@ -1,5 +1,5 @@
-import { Chip } from "@passui/react"
+import { Chip } from "@passui/react";
 
 export function ChipUsage() {
-    return <Chip tone="accent">New</Chip>
+	return <Chip tone="accent">New</Chip>;
 }

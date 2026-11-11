@@ -7,12 +7,12 @@ remain outside this repo.
 
 ## Packages
 
-* `packages/tokens`, `@passui/tokens`: shared framework independent tokens and styles.
-* `packages/ui`, `@passui/react`: native React controls,
+- `packages/tokens`, `@passui/tokens`: shared framework independent tokens and styles.
+- `packages/ui`, `@passui/react`: native React controls,
   appearance and public component APIs. See `packages/ui/AGENTS.md`.
-* `packages/tanstack`, `@passui/tanstack`: optional form, table,
+- `packages/tanstack`, `@passui/tanstack`: optional form, table,
   router and query integrations. See `packages/tanstack/AGENTS.md`.
-* `packages/cli`, `@passui/cli`: project setup tooling. See
+- `packages/cli`, `@passui/cli`: project setup tooling. See
   `packages/cli/AGENTS.md` for file safety and starter conventions.
 
 Dependency direction is CLI setup tooling and optional integrations

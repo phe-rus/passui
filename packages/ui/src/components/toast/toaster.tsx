@@ -1,53 +1,60 @@
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
-import { useEffect, useId, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react"
-import { CheckIcon, CloseIcon } from "../../icons/icons"
-import { cn } from "../../lib/class-names"
-import { spring } from "../../motion/transitions"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
-    getToasts,
-    subscribeToasts,
-    type Toast,
-    type ToastSize,
-    type ToastTone,
-    toast as toastApi,
-    toastLimits,
-} from "./toast-store"
+	useEffect,
+	useId,
+	useLayoutEffect,
+	useRef,
+	useState,
+	useSyncExternalStore,
+} from "react";
+import { CheckIcon, CloseIcon } from "../../icons/icons";
+import { cn } from "../../lib/class-names";
+import { spring } from "../../motion/transitions";
+import {
+	getToasts,
+	subscribeToasts,
+	type Toast,
+	type ToastSize,
+	type ToastTone,
+	toast as toastApi,
+	toastLimits,
+} from "./toast-store";
 
-const PILL: Record<ToastSize, number> = { sm: 32, md: 40, lg: 48 }
+const PILL: Record<ToastSize, number> = { sm: 32, md: 40, lg: 48 };
 
 const contentClasses: Record<ToastSize, string> = {
-    sm: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2 py-2 pr-3 pl-2 text-on-inverse",
-    md: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2.5 py-[10px] pr-4 pl-[10px] text-on-inverse",
-    lg: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-3 py-3 pr-5 pl-3 text-on-inverse",
-}
+	sm: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2 py-2 pr-3 pl-2 text-on-inverse",
+	md: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-2.5 py-[10px] pr-4 pl-[10px] text-on-inverse",
+	lg: "absolute top-0 left-0 flex w-max max-w-[min(420px,calc(100vw-24px))] items-start gap-3 py-3 pr-5 pl-3 text-on-inverse",
+};
 const titleClasses: Record<ToastSize, string> = {
-    sm: "text-footnote leading-4 font-semibold",
-    md: "text-subheadline leading-5 font-semibold",
-    lg: "text-body leading-6 font-semibold",
-}
+	sm: "text-footnote leading-4 font-semibold",
+	md: "text-subheadline leading-5 font-semibold",
+	lg: "text-body leading-6 font-semibold",
+};
 const descriptionClasses: Record<ToastSize, string> = {
-    sm: "text-caption2 leading-snug text-on-inverse/70",
-    md: "text-footnote leading-snug text-on-inverse/70",
-    lg: "text-subheadline leading-snug text-on-inverse/70",
-}
+	sm: "text-caption2 leading-snug text-on-inverse/70",
+	md: "text-footnote leading-snug text-on-inverse/70",
+	lg: "text-subheadline leading-snug text-on-inverse/70",
+};
 const actionClasses: Record<ToastSize, string> = {
-    sm: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-2.5 py-0.5 text-caption2 font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
-    md: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-3 py-1 text-footnote font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
-    lg: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-3.5 py-1.5 text-subheadline font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
-}
+	sm: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-2.5 py-0.5 text-caption2 font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
+	md: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-3 py-1 text-footnote font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
+	lg: "ml-1 shrink-0 self-center rounded-full bg-on-inverse/12 px-3.5 py-1.5 text-subheadline font-semibold text-on-inverse transition-colors hover:bg-on-inverse/20",
+};
 const toneIconClasses: Record<ToastSize, string> = {
-    sm: "flex size-4 shrink-0 items-center justify-center rounded-full",
-    md: "flex size-5 shrink-0 items-center justify-center rounded-full",
-    lg: "flex size-6 shrink-0 items-center justify-center rounded-full",
-}
-const EMPTY: Toast[] = []
+	sm: "flex size-4 shrink-0 items-center justify-center rounded-full",
+	md: "flex size-5 shrink-0 items-center justify-center rounded-full",
+	lg: "flex size-6 shrink-0 items-center justify-center rounded-full",
+};
+const EMPTY: Toast[] = [];
 /** A little loose, so the body overshoots and settles like a drop of honey. */
 const BODY_SPRING = {
-    type: "spring",
-    stiffness: 260,
-    damping: 19,
-    mass: 0.9,
-} as const
+	type: "spring",
+	stiffness: 260,
+	damping: 19,
+	mass: 0.9,
+} as const;
 
 /**
  * Toasts drop from the top centre like an island: a small pill carrying the
@@ -56,338 +63,345 @@ const BODY_SPRING = {
  * states and shrink away. Text is drawn above the filter to stay crisp.
  */
 export function Toaster({
-    className,
-    label = "Notifications",
+	className,
+	label = "Notifications",
 }: {
-    className?: string
-    label?: string
+	className?: string;
+	label?: string;
 }) {
-    const toasts = useSyncExternalStore(subscribeToasts, getToasts, () => EMPTY)
-    const filterId = useId()
-    const reducedMotion = useReducedMotion()
-    const [hovered, setHovered] = useState(false)
-    const visible = toasts.slice(0, toastLimits.visible)
+	const toasts = useSyncExternalStore(subscribeToasts, getToasts, () => EMPTY);
+	const filterId = useId();
+	const reducedMotion = useReducedMotion();
+	const [hovered, setHovered] = useState(false);
+	const visible = toasts.slice(0, toastLimits.visible);
 
-    return (
-        <>
-            <GooFilter id={filterId} />
-            <section
-                aria-label={label}
-                aria-live="polite"
-                className={cn(
-                    "pointer-events-none fixed inset-x-0 top-[max(10px,env(safe-area-inset-top))] z-[60] flex justify-center px-3",
-                    className
-                )}
-            >
-                <ol
-                    className="relative flex w-full max-w-[420px] flex-col items-center"
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                >
-                    <AnimatePresence initial={false}>
-                        {visible.map((item, index) => (
-                            <ToastItem
-                                key={item.id}
-                                toast={item}
-                                index={index}
-                                expanded={hovered}
-                                paused={hovered}
-                                filterId={filterId}
-                                reducedMotion={Boolean(reducedMotion)}
-                            />
-                        ))}
-                    </AnimatePresence>
-                </ol>
-            </section>
-        </>
-    )
+	return (
+		<>
+			<GooFilter id={filterId} />
+			<section
+				aria-label={label}
+				aria-live="polite"
+				className={cn(
+					"pointer-events-none fixed inset-x-0 top-[max(10px,env(safe-area-inset-top))] z-[60] flex justify-center px-3",
+					className,
+				)}
+			>
+				<ol
+					className="relative flex w-full max-w-[420px] flex-col items-center"
+					onMouseEnter={() => setHovered(true)}
+					onMouseLeave={() => setHovered(false)}
+				>
+					<AnimatePresence initial={false}>
+						{visible.map((item, index) => (
+							<ToastItem
+								key={item.id}
+								toast={item}
+								index={index}
+								expanded={hovered}
+								paused={hovered}
+								filterId={filterId}
+								reducedMotion={Boolean(reducedMotion)}
+							/>
+						))}
+					</AnimatePresence>
+				</ol>
+			</section>
+		</>
+	);
 }
 
 function GooFilter({ id }: { id: string }) {
-    return (
-        <svg aria-hidden="true" className="pointer-events-none absolute size-0">
-            <defs>
-                <filter id={id}>
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
-                    <feColorMatrix
-                        in="blur"
-                        mode="matrix"
-                        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"
-                        result="goo"
-                    />
-                    <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-                </filter>
-            </defs>
-        </svg>
-    )
+	return (
+		<svg aria-hidden="true" className="pointer-events-none absolute size-0">
+			<defs>
+				<filter id={id}>
+					<feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+					<feColorMatrix
+						in="blur"
+						mode="matrix"
+						values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"
+						result="goo"
+					/>
+					<feComposite in="SourceGraphic" in2="goo" operator="atop" />
+				</filter>
+			</defs>
+		</svg>
+	);
 }
 
 function ToastItem({
-    toast,
-    index,
-    expanded,
-    paused,
-    filterId,
-    reducedMotion,
+	toast,
+	index,
+	expanded,
+	paused,
+	filterId,
+	reducedMotion,
 }: {
-    toast: Toast
-    index: number
-    expanded: boolean
-    paused: boolean
-    filterId: string
-    reducedMotion: boolean
+	toast: Toast;
+	index: number;
+	expanded: boolean;
+	paused: boolean;
+	filterId: string;
+	reducedMotion: boolean;
 }) {
-    const pill = PILL[toast.size]
-    const content = useRef<HTMLDivElement>(null)
-    const [size, setSize] = useState({
-        width: pill,
-        height: pill,
-    })
-    const [open, setOpen] = useState(false)
+	const pill = PILL[toast.size];
+	const content = useRef<HTMLDivElement>(null);
+	const [size, setSize] = useState({
+		width: pill,
+		height: pill,
+	});
+	const [open, setOpen] = useState(false);
 
-    // The body flows out of the pill a beat after it lands.
-    useEffect(() => {
-        const timer = setTimeout(() => setOpen(true), reducedMotion ? 0 : 140)
-        return () => clearTimeout(timer)
-    }, [reducedMotion])
+	// The body flows out of the pill a beat after it lands.
+	useEffect(() => {
+		const timer = setTimeout(() => setOpen(true), reducedMotion ? 0 : 140);
+		return () => clearTimeout(timer);
+	}, [reducedMotion]);
 
-    useLayoutEffect(() => {
-        const element = content.current
-        if (!element) return
-        const measure = () =>
-            setSize({
-                width: Math.ceil(element.offsetWidth),
-                height: Math.ceil(element.offsetHeight),
-            })
-        measure()
-        const observer = new ResizeObserver(measure)
-        observer.observe(element)
-        return () => observer.disconnect()
-    }, [])
+	useLayoutEffect(() => {
+		const element = content.current;
+		if (!element) return;
+		const measure = () =>
+			setSize({
+				width: Math.ceil(element.offsetWidth),
+				height: Math.ceil(element.offsetHeight),
+			});
+		measure();
+		const observer = new ResizeObserver(measure);
+		observer.observe(element);
+		return () => observer.disconnect();
+	}, []);
 
-    useEffect(() => {
-        if (toast.duration === null || paused) return
-        const timer = setTimeout(() => toastApi.dismiss(toast.id), toast.duration)
-        return () => clearTimeout(timer)
-    }, [toast.id, toast.duration, paused])
+	useEffect(() => {
+		if (toast.duration === null || paused) return;
+		const timer = setTimeout(() => toastApi.dismiss(toast.id), toast.duration);
+		return () => clearTimeout(timer);
+	}, [toast.id, toast.duration, paused]);
 
-    const width = open ? size.width : pill
-    const height = open ? size.height : pill
-    // Older toasts tuck in behind the newest, and fan out on hover.
-    const stacked = !expanded && index > 0
+	const width = open ? size.width : pill;
+	const height = open ? size.height : pill;
+	// Older toasts tuck in behind the newest, and fan out on hover.
+	const stacked = !expanded && index > 0;
 
-    return (
-        <motion.li
-            layout={!reducedMotion}
-            className="pointer-events-none absolute inset-x-0 top-0 flex justify-center"
-            style={{ zIndex: 10 - index }}
-            initial={reducedMotion ? false : { opacity: 0, y: -24, scale: 0.6 }}
-            animate={{
-                opacity: stacked ? 1 - index * 0.25 : 1,
-                y: stacked ? index * 9 : index * (pill + 14) + index * 6,
-                scale: stacked ? 1 - index * 0.05 : 1,
-            }}
-            exit={
-                reducedMotion
-                    ? { opacity: 0 }
-                    : {
-                          opacity: 0,
-                          y: -18,
-                          scale: 0.6,
-                          transition: spring.snappy,
-                      }
-            }
-            transition={reducedMotion ? { duration: 0 } : spring.bouncy}
-            drag={reducedMotion ? false : "y"}
-            dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={{ top: 0.6, bottom: 0.1 }}
-            onDragEnd={(_, info) => {
-                if (info.offset.y < -30 || info.velocity.y < -300) toastApi.dismiss(toast.id)
-            }}
-        >
-            <motion.div
-                role="status"
-                className="pointer-events-auto relative"
-                initial={{ width: pill, height: pill }}
-                animate={{ width, height }}
-                transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
-            >
-                {/* Shapes, under the goo filter; padded so the blur isn't clipped. */}
-                <div
-                    aria-hidden="true"
-                    className="absolute -inset-3"
-                    style={{
-                        filter: reducedMotion ? undefined : `url(#${filterId})`,
-                    }}
-                >
-                    <motion.span
-                        className="absolute top-3 left-3 rounded-full bg-inverse shadow-xl"
-                        style={{ width: pill, height: pill }}
-                        animate={{ scale: open ? 1 : 1.06 }}
-                        transition={reducedMotion ? { duration: 0 } : spring.bouncy}
-                    />
-                    <motion.span
-                        className="absolute top-3 left-3 bg-inverse"
-                        initial={{
-                            width: pill,
-                            height: pill,
-                            borderRadius: pill / 2,
-                        }}
-                        animate={{
-                            width,
-                            height,
-                            borderRadius: Math.min(pill / 2, height / 2, 22),
-                        }}
-                        transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
-                    />
-                </div>
+	return (
+		<motion.li
+			layout={!reducedMotion}
+			className="pointer-events-none absolute inset-x-0 top-0 flex justify-center"
+			style={{ zIndex: 10 - index }}
+			initial={reducedMotion ? false : { opacity: 0, y: -24, scale: 0.6 }}
+			animate={{
+				opacity: stacked ? 1 - index * 0.25 : 1,
+				y: stacked ? index * 9 : index * (pill + 14) + index * 6,
+				scale: stacked ? 1 - index * 0.05 : 1,
+			}}
+			exit={
+				reducedMotion
+					? { opacity: 0 }
+					: {
+							opacity: 0,
+							y: -18,
+							scale: 0.6,
+							transition: spring.snappy,
+						}
+			}
+			transition={reducedMotion ? { duration: 0 } : spring.bouncy}
+			drag={reducedMotion ? false : "y"}
+			dragConstraints={{ top: 0, bottom: 0 }}
+			dragElastic={{ top: 0.6, bottom: 0.1 }}
+			onDragEnd={(_, info) => {
+				if (info.offset.y < -30 || info.velocity.y < -300)
+					toastApi.dismiss(toast.id);
+			}}
+		>
+			<motion.div
+				role="status"
+				className="pointer-events-auto relative"
+				initial={{ width: pill, height: pill }}
+				animate={{ width, height }}
+				transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
+			>
+				{/* Shapes, under the goo filter; padded so the blur isn't clipped. */}
+				<div
+					aria-hidden="true"
+					className="absolute -inset-3"
+					style={{
+						filter: reducedMotion ? undefined : `url(#${filterId})`,
+					}}
+				>
+					<motion.span
+						className="bg-inverse absolute top-3 left-3 rounded-full shadow-xl"
+						style={{ width: pill, height: pill }}
+						animate={{ scale: open ? 1 : 1.06 }}
+						transition={reducedMotion ? { duration: 0 } : spring.bouncy}
+					/>
+					<motion.span
+						className="bg-inverse absolute top-3 left-3"
+						initial={{
+							width: pill,
+							height: pill,
+							borderRadius: pill / 2,
+						}}
+						animate={{
+							width,
+							height,
+							borderRadius: Math.min(pill / 2, height / 2, 22),
+						}}
+						transition={reducedMotion ? { duration: 0 } : BODY_SPRING}
+					/>
+				</div>
 
-                {/* Content, crisp above the shapes. */}
-                <motion.div
-                    ref={content}
-                    className={contentClasses[toast.size]}
-                    style={{ minHeight: pill }}
-                    animate={{ opacity: open ? 1 : 0 }}
-                    transition={
-                        reducedMotion
-                            ? { duration: 0 }
-                            : {
-                                  duration: open ? 0.22 : 0.1,
-                                  delay: open ? 0.08 : 0,
-                              }
-                    }
-                >
-                    <ToneIcon tone={toast.tone} size={toast.size} reducedMotion={reducedMotion} />
-                    <div className="flex min-w-0 flex-col py-px">
-                        <AnimatePresence mode="popLayout" initial={false}>
-                            <motion.span
-                                key={toast.title}
-                                className={titleClasses[toast.size]}
-                                initial={
-                                    reducedMotion
-                                        ? false
-                                        : {
-                                              opacity: 0,
-                                              y: 6,
-                                              filter: "blur(4px)",
-                                          }
-                                }
-                                animate={{
-                                    opacity: 1,
-                                    y: 0,
-                                    filter: "blur(0px)",
-                                }}
-                                exit={
-                                    reducedMotion
-                                        ? { opacity: 0 }
-                                        : {
-                                              opacity: 0,
-                                              y: -6,
-                                              filter: "blur(4px)",
-                                          }
-                                }
-                                transition={reducedMotion ? { duration: 0 } : spring.snappy}
-                            >
-                                {toast.title}
-                            </motion.span>
-                        </AnimatePresence>
-                        {toast.description && (
-                            <span className={descriptionClasses[toast.size]}>
-                                {toast.description}
-                            </span>
-                        )}
-                    </div>
-                    {toast.action && (
-                        <button
-                            type="button"
-                            onClick={() => {
-                                toast.action?.onClick()
-                                toastApi.dismiss(toast.id)
-                            }}
-                            className={actionClasses[toast.size]}
-                        >
-                            {toast.action.label}
-                        </button>
-                    )}
-                </motion.div>
-            </motion.div>
-        </motion.li>
-    )
+				{/* Content, crisp above the shapes. */}
+				<motion.div
+					ref={content}
+					className={contentClasses[toast.size]}
+					style={{ minHeight: pill }}
+					animate={{ opacity: open ? 1 : 0 }}
+					transition={
+						reducedMotion
+							? { duration: 0 }
+							: {
+									duration: open ? 0.22 : 0.1,
+									delay: open ? 0.08 : 0,
+								}
+					}
+				>
+					<ToneIcon
+						tone={toast.tone}
+						size={toast.size}
+						reducedMotion={reducedMotion}
+					/>
+					<div className="flex min-w-0 flex-col py-px">
+						<AnimatePresence mode="popLayout" initial={false}>
+							<motion.span
+								key={toast.title}
+								className={titleClasses[toast.size]}
+								initial={
+									reducedMotion
+										? false
+										: {
+												opacity: 0,
+												y: 6,
+												filter: "blur(4px)",
+											}
+								}
+								animate={{
+									opacity: 1,
+									y: 0,
+									filter: "blur(0px)",
+								}}
+								exit={
+									reducedMotion
+										? { opacity: 0 }
+										: {
+												opacity: 0,
+												y: -6,
+												filter: "blur(4px)",
+											}
+								}
+								transition={reducedMotion ? { duration: 0 } : spring.snappy}
+							>
+								{toast.title}
+							</motion.span>
+						</AnimatePresence>
+						{toast.description && (
+							<span className={descriptionClasses[toast.size]}>
+								{toast.description}
+							</span>
+						)}
+					</div>
+					{toast.action && (
+						<button
+							type="button"
+							onClick={() => {
+								toast.action?.onClick();
+								toastApi.dismiss(toast.id);
+							}}
+							className={actionClasses[toast.size]}
+						>
+							{toast.action.label}
+						</button>
+					)}
+				</motion.div>
+			</motion.div>
+		</motion.li>
+	);
 }
 
 const toneColors: Record<ToastTone, string> = {
-    neutral: "bg-transparent",
-    success: "bg-success text-white",
-    error: "bg-danger text-white",
-    loading: "bg-on-inverse/15 text-on-inverse",
-}
+	neutral: "bg-transparent",
+	success: "bg-success text-white",
+	error: "bg-danger text-white",
+	loading: "bg-on-inverse/15 text-on-inverse",
+};
 
 function ToneIcon({
-    tone,
-    size,
-    reducedMotion,
+	tone,
+	size,
+	reducedMotion,
 }: {
-    tone: ToastTone
-    size: ToastSize
-    reducedMotion: boolean
+	tone: ToastTone;
+	size: ToastSize;
+	reducedMotion: boolean;
 }) {
-    return (
-        <AnimatePresence mode="popLayout" initial={false}>
-            <motion.span
-                key={tone}
-                className={cn(toneIconClasses[size], toneColors[tone])}
-                initial={
-                    reducedMotion
-                        ? false
-                        : {
-                              scale: 0.3,
-                              opacity: 0,
-                              rotate: -40,
-                          }
-                }
-                animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                exit={{ scale: 0.3, opacity: 0 }}
-                transition={reducedMotion ? { duration: 0 } : spring.bouncy}
-            >
-                {tone === "success" && <CheckIcon size={13} strokeWidth={3} />}
-                {tone === "error" && <CloseIcon size={12} strokeWidth={3} />}
-                {/* The full stop from the Notables mark. */}
-                {tone === "neutral" && <span className="size-2 rounded-full bg-[#EE8A2A]" />}
-                {tone === "loading" && <Spinner reducedMotion={reducedMotion} />}
-            </motion.span>
-        </AnimatePresence>
-    )
+	return (
+		<AnimatePresence mode="popLayout" initial={false}>
+			<motion.span
+				key={tone}
+				className={cn(toneIconClasses[size], toneColors[tone])}
+				initial={
+					reducedMotion
+						? false
+						: {
+								scale: 0.3,
+								opacity: 0,
+								rotate: -40,
+							}
+				}
+				animate={{ scale: 1, opacity: 1, rotate: 0 }}
+				exit={{ scale: 0.3, opacity: 0 }}
+				transition={reducedMotion ? { duration: 0 } : spring.bouncy}
+			>
+				{tone === "success" && <CheckIcon size={13} strokeWidth={3} />}
+				{tone === "error" && <CloseIcon size={12} strokeWidth={3} />}
+				{/* The full stop from the Notables mark. */}
+				{tone === "neutral" && (
+					<span className="size-2 rounded-full bg-[#EE8A2A]" />
+				)}
+				{tone === "loading" && <Spinner reducedMotion={reducedMotion} />}
+			</motion.span>
+		</AnimatePresence>
+	);
 }
 
 function Spinner({ reducedMotion }: { reducedMotion: boolean }) {
-    return (
-        <motion.svg
-            viewBox="0 0 20 20"
-            className="size-4"
-            animate={reducedMotion ? undefined : { rotate: 360 }}
-            transition={{
-                repeat: Number.POSITIVE_INFINITY,
-                duration: 0.8,
-                ease: "linear",
-            }}
-            aria-hidden="true"
-        >
-            <circle
-                cx="10"
-                cy="10"
-                r="7"
-                fill="none"
-                stroke="currentColor"
-                strokeOpacity="0.25"
-                strokeWidth="2.4"
-            />
-            <path
-                d="M10 3a7 7 0 0 1 7 7"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-            />
-        </motion.svg>
-    )
+	return (
+		<motion.svg
+			viewBox="0 0 20 20"
+			className="size-4"
+			animate={reducedMotion ? undefined : { rotate: 360 }}
+			transition={{
+				repeat: Number.POSITIVE_INFINITY,
+				duration: 0.8,
+				ease: "linear",
+			}}
+			aria-hidden="true"
+		>
+			<circle
+				cx="10"
+				cy="10"
+				r="7"
+				fill="none"
+				stroke="currentColor"
+				strokeOpacity="0.25"
+				strokeWidth="2.4"
+			/>
+			<path
+				d="M10 3a7 7 0 0 1 7 7"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="2.4"
+				strokeLinecap="round"
+			/>
+		</motion.svg>
+	);
 }

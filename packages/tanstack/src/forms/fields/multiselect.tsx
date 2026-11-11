@@ -1,1 +1,1 @@
-export { FieldMultiselect } from "../../form-fields/selection"
+export { FieldMultiselect } from "../../form-fields/selection";

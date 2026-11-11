@@ -3,202 +3,402 @@
    background; pane-edge to separator; font-ui to font-sans. Color mixes
    replace rgba RGB triples, so no Bencho variables or new globals leak. */
 @layer components {
-    .passui-search-pill { transition: scale 90ms ease; }
-    .passui-search-pill:active { scale: 0.98; }
-    /* The outline stays whole; its legend opens a real gap under the label.
+	.passui-search-pill {
+		transition: scale 90ms ease;
+	}
+	.passui-search-pill:active {
+		scale: 0.98;
+	}
+	/* The outline stays whole; its legend opens a real gap under the label.
        No painted background patch needs to match the field's surroundings. */
-    .passui-field-outline {
-        position: absolute;
-        inset: calc(var(--text-footnote) / -2) 0 0;
-        min-width: 0;
-        margin: 0;
-        padding: 0 0.5rem;
-        border: 1px solid var(--color-separator);
-        border-radius: inherit;
-        pointer-events: none;
-        transition: border-color 200ms ease;
-    }
-    .passui-field-outline legend {
-        max-width: 0;
-        overflow: hidden;
-        padding: 0;
-        font-size: var(--text-footnote);
-        line-height: 1;
-        height: 1em;
-        white-space: nowrap;
-        visibility: hidden;
-        transition: max-width 320ms ease, padding 320ms ease;
-    }
-    .passui-floating-label {
-        position: absolute;
-        inset-inline-start: 0.75rem;
-        top: 50%;
-        z-index: 1;
-        max-width: calc(100% - 1.5rem);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: var(--color-label-secondary);
-        font-size: var(--text-body);
-        line-height: 1;
-        transform: translateY(-50%);
-        transform-origin: left center;
-        transition: top 320ms ease, transform 320ms ease, color 200ms ease;
-        pointer-events: none;
-    }
-    .passui-floating-label:dir(rtl) { transform-origin: right center; }
-    .passui-floating-label-with-icon { inset-inline-start: 2.5rem; }
-    .passui-floating-field input::placeholder { opacity: 0; }
-    .passui-floating-field:focus-within input::placeholder { opacity: 1; }
-    .passui-floating-field:focus-within .passui-field-outline { border-color: var(--color-label); }
-    .passui-floating-field:has(input[aria-invalid="true"]) .passui-field-outline { border-color: var(--color-danger); }
-    .passui-floating-field:is(:focus-within, :has(input:not(:placeholder-shown))) .passui-floating-label {
-        top: 0;
-        inset-inline-start: 0.75rem;
-        transform: translateY(-50%) scale(0.78);
-        color: var(--color-label);
-    }
-    .passui-floating-field:is(:focus-within, :has(input:not(:placeholder-shown))) legend {
-        max-width: 100%;
-        padding-inline: 0.25rem;
-    }
-    .passui-one-time-code { width: 100%; max-width: calc(var(--otp-length) * 2.5rem + (var(--otp-length) - 1) * 0.5rem); }
-    .passui-otp-row { position: relative; height: 3rem; }
-    .passui-otp-materials, .passui-otp-digits { display: flex; position: absolute; inset: 0; gap: 0.5rem; pointer-events: none; }
-    .passui-otp-cell, .passui-otp-digit { flex: 1; min-width: 0; border-radius: var(--radius-xl); }
-    .passui-otp-cell {
-        background: var(--color-fill);
-        transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms;
-    }
-    .passui-otp-digit { display: grid; place-items: center; font-size: var(--text-title3); color: var(--color-label); font-variant-numeric: tabular-nums; }
-    .passui-otp-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: text; }
-    .passui-one-time-code:focus-within .passui-otp-digit[data-active] { box-shadow: inset 0 0 0 2px var(--color-accent-text); }
-    .passui-otp-glyph { animation: passui-otp-in 200ms ease-out both; }
-    @keyframes passui-otp-in { from { transform: translateY(45%) scale(0.86); opacity: 0; filter: blur(3px); } }
-    .passui-otp-capsule { position: absolute; inset-block: 0; left: 50%; width: 60%; border-radius: var(--radius-full); background: var(--color-accent); transform: translateX(-50%) scaleX(0); opacity: 0; transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms; }
-    .passui-one-time-code:is([data-status="verifying"], [data-status="success"]) .passui-otp-cell { transform: translateX(calc((var(--otp-middle) - var(--otp-index)) * (100% + 0.5rem))); background: var(--color-accent); }
-    .passui-one-time-code:is([data-status="verifying"], [data-status="success"]) .passui-otp-capsule { opacity: 1; transform: translateX(-50%) scaleX(1); }
-    .passui-one-time-code:is([data-status="verifying"], [data-status="success"]) .passui-otp-digits { opacity: 0; }
-    .passui-otp-check { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--color-on-accent); opacity: 0; pointer-events: none; }
-    .passui-one-time-code[data-size="sm"] .passui-otp-row { height: 2.5rem; }
-    .passui-one-time-code[data-size="sm"] .passui-otp-digit { font-size: var(--text-title); }
-    .passui-one-time-code[data-size="lg"] .passui-otp-row { height: 3.5rem; }
-    .passui-one-time-code[data-size="lg"] .passui-otp-digit { font-size: var(--text-title2); }
-    .passui-one-time-code[data-status="success"] .passui-otp-check { opacity: 1; transition: opacity 160ms 240ms; }
-    /* A wrong code shivers, then drains right to left. Selecting the single
+	.passui-field-outline {
+		position: absolute;
+		inset: calc(var(--text-footnote) / -2) 0 0;
+		min-width: 0;
+		margin: 0;
+		padding: 0 0.5rem;
+		border: 1px solid var(--color-separator);
+		border-radius: inherit;
+		pointer-events: none;
+		transition: border-color 200ms ease;
+	}
+	.passui-field-outline legend {
+		max-width: 0;
+		overflow: hidden;
+		padding: 0;
+		font-size: var(--text-footnote);
+		line-height: 1;
+		height: 1em;
+		white-space: nowrap;
+		visibility: hidden;
+		transition:
+			max-width 320ms ease,
+			padding 320ms ease;
+	}
+	.passui-floating-label {
+		position: absolute;
+		inset-inline-start: 0.75rem;
+		top: 50%;
+		z-index: 1;
+		max-width: calc(100% - 1.5rem);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: var(--color-label-secondary);
+		font-size: var(--text-body);
+		line-height: 1;
+		transform: translateY(-50%);
+		transform-origin: left center;
+		transition:
+			top 320ms ease,
+			transform 320ms ease,
+			color 200ms ease;
+		pointer-events: none;
+	}
+	.passui-floating-label:dir(rtl) {
+		transform-origin: right center;
+	}
+	.passui-floating-label-with-icon {
+		inset-inline-start: 2.5rem;
+	}
+	.passui-floating-field input::placeholder {
+		opacity: 0;
+	}
+	.passui-floating-field:focus-within input::placeholder {
+		opacity: 1;
+	}
+	.passui-floating-field:focus-within .passui-field-outline {
+		border-color: var(--color-label);
+	}
+	.passui-floating-field:has(input[aria-invalid="true"]) .passui-field-outline {
+		border-color: var(--color-danger);
+	}
+	.passui-floating-field:is(:focus-within, :has(input:not(:placeholder-shown)))
+		.passui-floating-label {
+		top: 0;
+		inset-inline-start: 0.75rem;
+		transform: translateY(-50%) scale(0.78);
+		color: var(--color-label);
+	}
+	.passui-floating-field:is(:focus-within, :has(input:not(:placeholder-shown)))
+		legend {
+		max-width: 100%;
+		padding-inline: 0.25rem;
+	}
+	.passui-one-time-code {
+		width: 100%;
+		max-width: calc(
+			var(--otp-length) *
+			2.5rem +
+			(var(--otp-length) - 1) *
+			0.5rem
+		);
+	}
+	.passui-otp-row {
+		position: relative;
+		height: 3rem;
+	}
+	.passui-otp-materials,
+	.passui-otp-digits {
+		display: flex;
+		position: absolute;
+		inset: 0;
+		gap: 0.5rem;
+		pointer-events: none;
+	}
+	.passui-otp-cell,
+	.passui-otp-digit {
+		flex: 1;
+		min-width: 0;
+		border-radius: var(--radius-xl);
+	}
+	.passui-otp-cell {
+		background: var(--color-fill);
+		transition:
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			background-color 200ms;
+	}
+	.passui-otp-digit {
+		display: grid;
+		place-items: center;
+		font-size: var(--text-title3);
+		color: var(--color-label);
+		font-variant-numeric: tabular-nums;
+	}
+	.passui-otp-input {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: text;
+	}
+	.passui-one-time-code:focus-within .passui-otp-digit[data-active] {
+		box-shadow: inset 0 0 0 2px var(--color-accent-text);
+	}
+	.passui-otp-glyph {
+		animation: passui-otp-in 200ms ease-out both;
+	}
+	@keyframes passui-otp-in {
+		from {
+			transform: translateY(45%) scale(0.86);
+			opacity: 0;
+			filter: blur(3px);
+		}
+	}
+	.passui-otp-capsule {
+		position: absolute;
+		inset-block: 0;
+		left: 50%;
+		width: 60%;
+		border-radius: var(--radius-full);
+		background: var(--color-accent);
+		transform: translateX(-50%) scaleX(0);
+		opacity: 0;
+		transition:
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			opacity 160ms;
+	}
+	.passui-one-time-code:is([data-status="verifying"], [data-status="success"])
+		.passui-otp-cell {
+		transform: translateX(
+			calc((var(--otp-middle) - var(--otp-index)) * (100% + 0.5rem))
+		);
+		background: var(--color-accent);
+	}
+	.passui-one-time-code:is([data-status="verifying"], [data-status="success"])
+		.passui-otp-capsule {
+		opacity: 1;
+		transform: translateX(-50%) scaleX(1);
+	}
+	.passui-one-time-code:is([data-status="verifying"], [data-status="success"])
+		.passui-otp-digits {
+		opacity: 0;
+	}
+	.passui-otp-check {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		color: var(--color-on-accent);
+		opacity: 0;
+		pointer-events: none;
+	}
+	.passui-one-time-code[data-size="sm"] .passui-otp-row {
+		height: 2.5rem;
+	}
+	.passui-one-time-code[data-size="sm"] .passui-otp-digit {
+		font-size: var(--text-title);
+	}
+	.passui-one-time-code[data-size="lg"] .passui-otp-row {
+		height: 3.5rem;
+	}
+	.passui-one-time-code[data-size="lg"] .passui-otp-digit {
+		font-size: var(--text-title2);
+	}
+	.passui-one-time-code[data-status="success"] .passui-otp-check {
+		opacity: 1;
+		transition: opacity 160ms 240ms;
+	}
+	/* A wrong code shivers, then drains right to left. Selecting the single
        input afterward lets the next keystroke replace it without a trap. */
-    .passui-one-time-code[data-status="error"] .passui-otp-digit { animation: passui-otp-shiver 380ms ease-out; }
-    .passui-one-time-code[data-status="error"] .passui-otp-glyph { animation: passui-otp-drain 220ms calc(380ms + (var(--otp-length) - var(--otp-index)) * 35ms) both; }
-    @keyframes passui-otp-shiver { 20% { transform: translateX(4px); } 40% { transform: translateX(-3px); } 60% { transform: translateX(2px); } 80% { transform: translateX(-1px); } }
-    @keyframes passui-otp-drain { to { transform: translateY(65%); opacity: 0; filter: blur(3px); } }
-    .passui-progress-fill {
-        clip-path: polygon(0 0, calc(100% + var(--progress-lean, 0px)) 0,
-            calc(100% - var(--progress-lean, 0px)) 100%, 0 100%);
-    }
-    .passui-slosh-slider {
-        width: 100%;
-        min-width: 0;
-        font-family: var(--font-sans);
-        color: var(--color-label);
-    }
+	.passui-one-time-code[data-status="error"] .passui-otp-digit {
+		animation: passui-otp-shiver 380ms ease-out;
+	}
+	.passui-one-time-code[data-status="error"] .passui-otp-glyph {
+		animation: passui-otp-drain 220ms
+			calc(380ms + (var(--otp-length) - var(--otp-index)) * 35ms) both;
+	}
+	@keyframes passui-otp-shiver {
+		20% {
+			transform: translateX(4px);
+		}
+		40% {
+			transform: translateX(-3px);
+		}
+		60% {
+			transform: translateX(2px);
+		}
+		80% {
+			transform: translateX(-1px);
+		}
+	}
+	@keyframes passui-otp-drain {
+		to {
+			transform: translateY(65%);
+			opacity: 0;
+			filter: blur(3px);
+		}
+	}
+	.passui-progress-fill {
+		clip-path: polygon(
+			0 0,
+			calc(100% + var(--progress-lean, 0px)) 0,
+			calc(100% - var(--progress-lean, 0px)) 100%,
+			0 100%
+		);
+	}
+	.passui-slosh-slider {
+		width: 100%;
+		min-width: 0;
+		font-family: var(--font-sans);
+		color: var(--color-label);
+	}
 
-    /* No transitions: every geometry value is written by the loop, and
+	/* No transitions: every geometry value is written by the loop, and
        a transition on top of a spring is two opinions about one number. */
-    .passui-slosh-track {
-        position: relative;
-        height: 2.5rem;
-        border-radius: var(--slosh-radius, var(--radius-full));
-        /* Opaque, mixed from the surface's own pair. A translucent wash
+	.passui-slosh-track {
+		position: relative;
+		height: 2.5rem;
+		border-radius: var(--slosh-radius, var(--radius-full));
+		/* Opaque, mixed from the surface's own pair. A translucent wash
            changes with the stage behind it and can disappear in dark mode. */
-        background: color-mix(in srgb, var(--color-label) 11%, var(--color-elevated));
-        overflow: hidden;
-        cursor: ew-resize;
-        touch-action: pan-y;
-    }
-    .passui-slosh-track[aria-disabled="true"],
-    .passui-wake-track[aria-disabled="true"] { cursor: not-allowed; }
-    .passui-slosh-track:focus-visible,
-    .passui-wake-track:focus-visible {
-        outline: 2px solid var(--color-accent-text);
-        outline-offset: 4px;
-    }
-    .passui-slosh-fill {
-        position: absolute;
-        inset-block: 0;
-        inset-inline-start: 0;
-        background: light-dark(var(--color-elevated), color-mix(in srgb, var(--color-label) 15%, var(--color-elevated)));
-        /* Clipped, never skewed: a skew lifts the whole body off the floor;
+		background: color-mix(
+			in srgb,
+			var(--color-label) 11%,
+			var(--color-elevated)
+		);
+		overflow: hidden;
+		cursor: ew-resize;
+		touch-action: pan-y;
+	}
+	.passui-slosh-track[aria-disabled="true"],
+	.passui-wake-track[aria-disabled="true"] {
+		cursor: not-allowed;
+	}
+	.passui-slosh-track:focus-visible,
+	.passui-wake-track:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 4px;
+	}
+	.passui-slosh-fill {
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 0;
+		background: light-dark(
+			var(--color-elevated),
+			color-mix(in srgb, var(--color-label) 15%, var(--color-elevated))
+		);
+		/* Clipped, never skewed: a skew lifts the whole body off the floor;
            a meniscus leans only the moving edge. The track clips end stops. */
-        clip-path: polygon(0 0, calc(100% + var(--slosh-lean, 0px)) 0,
-            calc(100% - var(--slosh-lean, 0px)) 100%, 0 100%);
-    }
-    .passui-slosh-track:dir(rtl) .passui-slosh-fill { transform: scaleX(-1); }
-    .passui-slosh-slider[data-size="sm"] .passui-slosh-track { height: 2rem; }
-    .passui-slosh-slider[data-size="sm"] .passui-slosh-knob { top: 4px; bottom: 4px; }
-    .passui-slosh-slider[data-size="lg"] .passui-slosh-track { height: 3rem; }
-    .passui-slosh-slider[data-size="lg"] .passui-slosh-knob { top: 8px; bottom: 8px; width: 4px; margin-inline-start: -2px; }
-    .passui-slosh-knob {
-        position: absolute;
-        top: 6px;
-        bottom: 6px;
-        width: 3px;
-        margin-inline-start: -1.5px;
-        border-radius: var(--radius-full);
-        background: var(--color-label);
-        pointer-events: none;
-    }
-    /* Each bar holds energy. Its height is written directly, while React
+		clip-path: polygon(
+			0 0,
+			calc(100% + var(--slosh-lean, 0px)) 0,
+			calc(100% - var(--slosh-lean, 0px)) 100%,
+			0 100%
+		);
+	}
+	.passui-slosh-track:dir(rtl) .passui-slosh-fill {
+		transform: scaleX(-1);
+	}
+	.passui-slosh-slider[data-size="sm"] .passui-slosh-track {
+		height: 2rem;
+	}
+	.passui-slosh-slider[data-size="sm"] .passui-slosh-knob {
+		top: 4px;
+		bottom: 4px;
+	}
+	.passui-slosh-slider[data-size="lg"] .passui-slosh-track {
+		height: 3rem;
+	}
+	.passui-slosh-slider[data-size="lg"] .passui-slosh-knob {
+		top: 8px;
+		bottom: 8px;
+		width: 4px;
+		margin-inline-start: -2px;
+	}
+	.passui-slosh-knob {
+		position: absolute;
+		top: 6px;
+		bottom: 6px;
+		width: 3px;
+		margin-inline-start: -1.5px;
+		border-radius: var(--radius-full);
+		background: var(--color-label);
+		pointer-events: none;
+	}
+	/* Each bar holds energy. Its height is written directly, while React
        owns the value and lit marks. No standing animation runs at rest. */
-    .passui-wake-slider {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        width: 100%;
-        min-width: 0;
-        color: var(--color-label);
-    }
-    .passui-wake-track {
-        display: flex;
-        flex: 1;
-        min-width: 0;
-        align-items: center;
-        justify-content: space-between;
-        gap: min(4px, calc(25% / var(--wake-bars, 36)));
-        cursor: ew-resize;
-        touch-action: pan-y;
-        user-select: none;
-        -webkit-user-select: none;
-        -webkit-tap-highlight-color: transparent;
-        border-radius: var(--radius-sm);
-    }
-    .passui-wake-bar {
-        flex: 1 1 3px;
-        max-width: 3px;
-        min-width: 0;
-        border-radius: var(--radius-full);
-        background: color-mix(in srgb, var(--color-label) 24%, var(--color-elevated));
-        transform-origin: 50% 50%;
-        transition: background-color 160ms ease;
-    }
-    .passui-wake-bar[data-on] { background: var(--color-label); }
-    .passui-wake-value {
-        min-width: 3ch;
-        font-family: var(--font-sans);
-        font-size: var(--text-footnote);
-        font-weight: 500;
-        font-variant-numeric: tabular-nums;
-        color: var(--color-label-secondary);
-    }
-    .passui-wake-slider[data-size="sm"] { gap: 0.75rem; }
-    .passui-wake-slider[data-size="sm"] .passui-wake-value { font-size: var(--text-caption); }
-    .passui-wake-slider[data-size="lg"] { gap: 1.25rem; }
-    .passui-wake-slider[data-size="lg"] .passui-wake-value { font-size: var(--text-subheadline); }
-    @media (prefers-reduced-motion: reduce) {
-        .passui-wake-bar, .passui-search-pill { transition: none; }
-        .passui-search-pill:active { scale: 1; }
-        .passui-floating-label, .passui-field-outline, .passui-field-outline legend,
-        .passui-otp-cell, .passui-otp-capsule, .passui-otp-check { transition: none; }
-        .passui-otp-glyph, .passui-otp-digit { animation: none !important; }
-        .passui-otp-materials { filter: none !important; }
-    }
+	.passui-wake-slider {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+		min-width: 0;
+		color: var(--color-label);
+	}
+	.passui-wake-track {
+		display: flex;
+		flex: 1;
+		min-width: 0;
+		align-items: center;
+		justify-content: space-between;
+		gap: min(4px, calc(25% / var(--wake-bars, 36)));
+		cursor: ew-resize;
+		touch-action: pan-y;
+		user-select: none;
+		-webkit-user-select: none;
+		-webkit-tap-highlight-color: transparent;
+		border-radius: var(--radius-sm);
+	}
+	.passui-wake-bar {
+		flex: 1 1 3px;
+		max-width: 3px;
+		min-width: 0;
+		border-radius: var(--radius-full);
+		background: color-mix(
+			in srgb,
+			var(--color-label) 24%,
+			var(--color-elevated)
+		);
+		transform-origin: 50% 50%;
+		transition: background-color 160ms ease;
+	}
+	.passui-wake-bar[data-on] {
+		background: var(--color-label);
+	}
+	.passui-wake-value {
+		min-width: 3ch;
+		font-family: var(--font-sans);
+		font-size: var(--text-footnote);
+		font-weight: 500;
+		font-variant-numeric: tabular-nums;
+		color: var(--color-label-secondary);
+	}
+	.passui-wake-slider[data-size="sm"] {
+		gap: 0.75rem;
+	}
+	.passui-wake-slider[data-size="sm"] .passui-wake-value {
+		font-size: var(--text-caption);
+	}
+	.passui-wake-slider[data-size="lg"] {
+		gap: 1.25rem;
+	}
+	.passui-wake-slider[data-size="lg"] .passui-wake-value {
+		font-size: var(--text-subheadline);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.passui-wake-bar,
+		.passui-search-pill {
+			transition: none;
+		}
+		.passui-search-pill:active {
+			scale: 1;
+		}
+		.passui-floating-label,
+		.passui-field-outline,
+		.passui-field-outline legend,
+		.passui-otp-cell,
+		.passui-otp-capsule,
+		.passui-otp-check {
+			transition: none;
+		}
+		.passui-otp-glyph,
+		.passui-otp-digit {
+			animation: none !important;
+		}
+		.passui-otp-materials {
+			filter: none !important;
+		}
+	}
 }

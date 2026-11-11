@@ -1,26 +1,26 @@
-import { createFormHook, useSelector, useStore } from "@tanstack/react-form"
-import { fieldContext, formContext } from "./contexts"
-import { Submit } from "./elements/submit"
-import { fields } from "./fields/index"
+import { createFormHook, useSelector, useStore } from "@tanstack/react-form";
+import { fieldContext, formContext } from "./contexts";
+import { Submit } from "./elements/submit";
+import { fields } from "./fields/index";
 
 export const { useAppForm, withForm } = createFormHook({
-    fieldComponents: {
-        ...fields,
-    },
-    formComponents: {
-        submit: Submit,
-    },
-    fieldContext,
-    formContext,
-})
+	fieldComponents: {
+		...fields,
+	},
+	formComponents: {
+		submit: Submit,
+	},
+	fieldContext,
+	formContext,
+});
 
 // for reading another field's live value from within a form — e.g. a
 // radioCard whose options depend on what's currently selected elsewhere in
 // the same form — without subscribing the whole component to every field
-export { useSelector, useStore }
+export { useSelector, useStore };
 
 // field prop/value types (e.g. FieldAvatarValue), for a caller that needs to
 // type a value it hands to a field before the form itself is submitted
-export * from "./fields/index"
+export * from "./fields/index";
 
-export { FormAlert } from "./elements/form-alert"
+export { FormAlert } from "./elements/form-alert";

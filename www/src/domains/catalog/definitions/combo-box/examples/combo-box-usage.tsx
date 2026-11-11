@@ -1,19 +1,19 @@
-import { useState } from "react"
-import { ComboBox } from "@passui/react/combo-box"
+import { useState } from "react";
+import { ComboBox } from "@passui/react/combo-box";
 export function ComboBoxUsage() {
-    const options = [
-        { value: "react", label: "React" },
-        { value: "vue", label: "Vue" },
-        { value: "svelte", label: "Svelte" },
-    ]
-    const [value, setValue] = useState("react")
-    return (
-        <ComboBox
-            label="Framework"
-            value={value}
-            onChange={setValue}
-            options={options}
-            emptyLabel="No frameworks found"
-        />
-    )
+	const options = [
+		{ value: "react", label: "React" },
+		{ value: "vue", label: "Vue" },
+		{ value: "svelte", label: "Svelte" },
+	];
+	const [value, setValue] = useState("react");
+	return (
+		<ComboBox
+			label="Framework"
+			value={value}
+			onChange={setValue}
+			options={options}
+			emptyLabel="No frameworks found"
+		/>
+	);
 }

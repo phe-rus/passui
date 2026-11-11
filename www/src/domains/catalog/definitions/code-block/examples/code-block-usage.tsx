@@ -1,5 +1,5 @@
-import { CodeBlock } from "@passui/react/code-block"
+import { CodeBlock } from "@passui/react/code-block";
 
 export function CodeBlockUsage() {
-    return <CodeBlock code="const ready = true" />
+	return <CodeBlock code="const ready = true" />;
 }

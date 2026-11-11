@@ -25,15 +25,15 @@ Add `--integration tanstack` when you want the optional form, table, routing and
 
 ## Options
 
-| Option | Effect |
-|---|---|
-| `--template vite` | Vite starter for the selected framework, the default for create |
-| `--framework react` | Explicitly select React |
-| `--template tanstack` | TanStack Start starter with the optional integration |
-| `--pm bun\|npm\|pnpm\|yarn` | Override package manager detection |
-| `--no-install` | Write files without running install |
-| `--dry-run` | Show the plan without changing files or installing |
-| `--help` | Show usage |
+| Option                      | Effect                                                          |
+| --------------------------- | --------------------------------------------------------------- |
+| `--template vite`           | Vite starter for the selected framework, the default for create |
+| `--framework react`         | Explicitly select React                                         |
+| `--template tanstack`       | TanStack Start starter with the optional integration            |
+| `--pm bun\|npm\|pnpm\|yarn` | Override package manager detection                              |
+| `--no-install`              | Write files without running install                             |
+| `--dry-run`                 | Show the plan without changing files or installing              |
+| `--help`                    | Show usage                                                      |
 
 Package manager detection uses packageManager, then lockfiles, then Bun. Create accepts only an empty directory. Init can be repeated and refuses conflicting setup files or symlinks. If installation fails, generated files remain ready for a manual retry.
 

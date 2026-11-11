@@ -1,1 +1,1 @@
-export * from "./ambient"
+export * from "./ambient";

@@ -1,1 +1,1 @@
-export { FieldCheckbox } from "../../form-fields/fields"
+export { FieldCheckbox } from "../../form-fields/fields";

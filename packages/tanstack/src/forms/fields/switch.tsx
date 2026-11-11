@@ -1,1 +1,1 @@
-export { FieldSwitch } from "../../form-fields/fields"
+export { FieldSwitch } from "../../form-fields/fields";

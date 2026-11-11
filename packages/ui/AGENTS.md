@@ -30,10 +30,10 @@ via a global `h1+p { margin-block-start: 0 }` rule).
 
 ## Packages
 
-| Package | Folder | Holds |
-|---|---|---|
-| `@passui/react` | `packages/ui/` | Native controls, presentation, appearance, hooks, styles and design tokens. |
-| `@passui/tanstack` | `packages/tanstack/` | Form, table and router integrations; imports native controls. |
+| Package            | Folder               | Holds                                                                       |
+| ------------------ | -------------------- | --------------------------------------------------------------------------- |
+| `@passui/react`    | `packages/ui/`       | Native controls, presentation, appearance, hooks, styles and design tokens. |
+| `@passui/tanstack` | `packages/tanstack/` | Form, table and router integrations; imports native controls.               |
 
 An app imports one stylesheet, `@passui/react/styles.css` (or
 `@passui/tanstack/styles.css`, which includes it). It brings in Tailwind,
@@ -100,16 +100,16 @@ Apple's Dynamic Type, named as SwiftUI names them. `text-<style>` sets the
 size, `leading-<style>` the matching line height. All of them scale with
 `--type-scale` (the app's text size setting), never below 11 px.
 
-| Utility | Size | Use |
-|---|---|---|
-| `text-large-title` | 34 | Screen titles at the top of a scroll |
-| `text-title`, `text-title2`, `text-title3` | 28, 22, 20 | Section and card titles |
-| `text-headline` | 17 | Emphasized row text (pair with `font-semibold`) |
-| `text-body` | 17 | Reading text in the interface |
-| `text-callout` | 16 | Explanations beside controls |
-| `text-subheadline` | 15 | Row text, buttons |
-| `text-footnote` | 13 | Secondary details, section headers |
-| `text-caption`, `text-caption2` | 12, 11 | Labels, timestamps, badges |
+| Utility                                    | Size       | Use                                             |
+| ------------------------------------------ | ---------- | ----------------------------------------------- |
+| `text-large-title`                         | 34         | Screen titles at the top of a scroll            |
+| `text-title`, `text-title2`, `text-title3` | 28, 22, 20 | Section and card titles                         |
+| `text-headline`                            | 17         | Emphasized row text (pair with `font-semibold`) |
+| `text-body`                                | 17         | Reading text in the interface                   |
+| `text-callout`                             | 16         | Explanations beside controls                    |
+| `text-subheadline`                         | 15         | Row text, buttons                               |
+| `text-footnote`                            | 13         | Secondary details, section headers              |
+| `text-caption`, `text-caption2`            | 12, 11     | Labels, timestamps, badges                      |
 
 There is no 14 px style: interface text that once used it is `subheadline`.
 A one-off size is only for content (artwork, printed paper) or a
@@ -197,27 +197,27 @@ breaks loudly and prose stays out of Passui:
 
 ## Components
 
-| Component | Folder | Notes |
-|---|---|---|
-| `Accordion` | `accordion/` | Controlled, single-open disclosure sections. |
-| `Button`, `IconButton` | `button/` | |
-| `Chip` | `chip/` | |
-| `LabeledContent` | `labeled-content/` | A row: label, description, trailing control; wide controls move under the label |
-| Context menu | `context-menu/` | `useContextMenu`, `openContextMenu` |
-| `confirmDialog` | `dialog/` | Host mounted once by the app |
-| `Picker` | `picker/` | The pop-up button; never a native select |
-| `Popover` | `popover/` | Keeps to `screenEdges()`; pass `anchorRef` for trigger morphing. |
-| `SearchField` | `search-field/` | |
-| `Section` | `section/` | A titled, inset group of rows with a footer, as in iOS Settings |
-| `SegmentedControl` | `segmented-control/` | Turns into a `Picker` when its labels don't fit |
-| `Sheet` | `sheet/` | Focus, floating ownership and background isolation are included in the upstream checkpoint. See UPSTREAM.md and the owning Notables review for remaining boundaries. |
-| `Sidebar` | `sidebar/` | |
-| `StatusIndicator` | `status-indicator/` | |
-| `SwatchPicker` | `swatch-picker/` | |
-| `TabBar` | `tab-bar/` | iOS 26 floating capsule, minimizes on scroll; flush on Android |
-| `toast` | `toast/` | Host mounted once by the app |
-| `Toggle` | `toggle/` | |
-| Tooltip | `tooltip/` | `data-tooltip` on any element |
+| Component              | Folder               | Notes                                                                                                                                                                |
+| ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Accordion`            | `accordion/`         | Controlled, single-open disclosure sections.                                                                                                                         |
+| `Button`, `IconButton` | `button/`            |                                                                                                                                                                      |
+| `Chip`                 | `chip/`              |                                                                                                                                                                      |
+| `LabeledContent`       | `labeled-content/`   | A row: label, description, trailing control; wide controls move under the label                                                                                      |
+| Context menu           | `context-menu/`      | `useContextMenu`, `openContextMenu`                                                                                                                                  |
+| `confirmDialog`        | `dialog/`            | Host mounted once by the app                                                                                                                                         |
+| `Picker`               | `picker/`            | The pop-up button; never a native select                                                                                                                             |
+| `Popover`              | `popover/`           | Keeps to `screenEdges()`; pass `anchorRef` for trigger morphing.                                                                                                     |
+| `SearchField`          | `search-field/`      |                                                                                                                                                                      |
+| `Section`              | `section/`           | A titled, inset group of rows with a footer, as in iOS Settings                                                                                                      |
+| `SegmentedControl`     | `segmented-control/` | Turns into a `Picker` when its labels don't fit                                                                                                                      |
+| `Sheet`                | `sheet/`             | Focus, floating ownership and background isolation are included in the upstream checkpoint. See UPSTREAM.md and the owning Notables review for remaining boundaries. |
+| `Sidebar`              | `sidebar/`           |                                                                                                                                                                      |
+| `StatusIndicator`      | `status-indicator/`  |                                                                                                                                                                      |
+| `SwatchPicker`         | `swatch-picker/`     |                                                                                                                                                                      |
+| `TabBar`               | `tab-bar/`           | iOS 26 floating capsule, minimizes on scroll; flush on Android                                                                                                       |
+| `toast`                | `toast/`             | Host mounted once by the app                                                                                                                                         |
+| `Toggle`               | `toggle/`            |                                                                                                                                                                      |
+| Tooltip                | `tooltip/`           | `data-tooltip` on any element                                                                                                                                        |
 
 ## Repository and public package
 

@@ -1,25 +1,26 @@
 import {
-    ContentUnavailableView,
-    type ContentUnavailableViewProps,
-} from "@passui/react/content-unavailable-view"
-import { defineDocs } from "../types"
-import { ContentUnavailableViewUsage } from "./examples/content-unavailable-view-usage"
-import { ContentUnavailableViewShowcase } from "./examples/content-unavailable-view-showcase"
-import { ContentUnavailableViewEmpty } from "./examples/content-unavailable-view-empty"
-import { ContentUnavailableViewSearch } from "./examples/content-unavailable-view-search"
-export const contentUnavailableViewDocs = defineDocs<ContentUnavailableViewProps>()({
-    slug: "content-unavailable-view",
-    name: "ContentUnavailableView",
-    importPath: "@passui/react/content-unavailable-view",
-    controls: {
-        title: { kind: "text", default: "No results", required: true },
-        description: { kind: "text", default: "Try another search." },
-    },
-    render: (props) => <ContentUnavailableView {...props} />,
-    usage: ContentUnavailableViewUsage,
-    showcase: ContentUnavailableViewShowcase,
-    examples: [
-        { id: "empty", component: ContentUnavailableViewEmpty },
-        { id: "search", component: ContentUnavailableViewSearch },
-    ],
-})
+	ContentUnavailableView,
+	type ContentUnavailableViewProps,
+} from "@passui/react/content-unavailable-view";
+import { defineDocs } from "../types";
+import { ContentUnavailableViewUsage } from "./examples/content-unavailable-view-usage";
+import { ContentUnavailableViewShowcase } from "./examples/content-unavailable-view-showcase";
+import { ContentUnavailableViewEmpty } from "./examples/content-unavailable-view-empty";
+import { ContentUnavailableViewSearch } from "./examples/content-unavailable-view-search";
+export const contentUnavailableViewDocs =
+	defineDocs<ContentUnavailableViewProps>()({
+		slug: "content-unavailable-view",
+		name: "ContentUnavailableView",
+		importPath: "@passui/react/content-unavailable-view",
+		controls: {
+			title: { kind: "text", default: "No results", required: true },
+			description: { kind: "text", default: "Try another search." },
+		},
+		render: (props) => <ContentUnavailableView {...props} />,
+		usage: ContentUnavailableViewUsage,
+		showcase: ContentUnavailableViewShowcase,
+		examples: [
+			{ id: "empty", component: ContentUnavailableViewEmpty },
+			{ id: "search", component: ContentUnavailableViewSearch },
+		],
+	});

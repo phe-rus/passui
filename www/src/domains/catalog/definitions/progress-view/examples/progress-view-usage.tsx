@@ -1,5 +1,5 @@
-import { ProgressView } from "@passui/react/progress-view"
+import { ProgressView } from "@passui/react/progress-view";
 
 export function ProgressViewUsage() {
-    return <ProgressView label="Uploading" value={32} max={100} detail="32%" />
+	return <ProgressView label="Uploading" value={32} max={100} detail="32%" />;
 }

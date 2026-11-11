@@ -33,10 +33,10 @@ Import the styles once and each control from its own entry point:
 ```
 
 ```tsx
-import { Button } from "@passui/react/button"
+import { Button } from "@passui/react/button";
 
 export function SaveButton() {
-    return <Button variant="accent">Save</Button>
+	return <Button variant="accent">Save</Button>;
 }
 ```
 
@@ -47,31 +47,31 @@ for settings, quantity adjustments, task progress, and layout separation.
 They have individual subpath exports and named TypeScript props.
 
 ```tsx
-import { useState } from "react"
-import { Slider } from "@passui/react/slider"
-import { Stepper } from "@passui/react/stepper"
-import { ProgressView } from "@passui/react/progress-view"
-import { Divider } from "@passui/react/divider"
+import { useState } from "react";
+import { Slider } from "@passui/react/slider";
+import { Stepper } from "@passui/react/stepper";
+import { ProgressView } from "@passui/react/progress-view";
+import { Divider } from "@passui/react/divider";
 
 export function DownloadSettings() {
-    const [volume, setVolume] = useState(50)
-    const [copies, setCopies] = useState(1)
+	const [volume, setVolume] = useState(50);
+	const [copies, setCopies] = useState(1);
 
-    return (
-        <section className="flex flex-col gap-4">
-            <Slider label="Volume" value={volume} onChange={setVolume} />
-            <Stepper
-                label="Copies"
-                labels={{ decrement: "Fewer copies", increment: "More copies" }}
-                value={copies}
-                onChange={setCopies}
-                min={1}
-                max={10}
-            />
-            <Divider />
-            <ProgressView label="Downloading" value={42} max={100} />
-        </section>
-    )
+	return (
+		<section className="flex flex-col gap-4">
+			<Slider label="Volume" value={volume} onChange={setVolume} />
+			<Stepper
+				label="Copies"
+				labels={{ decrement: "Fewer copies", increment: "More copies" }}
+				value={copies}
+				onChange={setCopies}
+				min={1}
+				max={10}
+			/>
+			<Divider />
+			<ProgressView label="Downloading" value={42} max={100} />
+		</section>
+	);
 }
 ```
 
@@ -90,22 +90,29 @@ menus. `DisclosureGroup` provides a controlled, accessible expansion row on
 top of `InlineDisclosure`.
 
 ```tsx
-import { useState } from "react"
-import { Menu } from "@passui/react/menu"
-import { DisclosureGroup } from "@passui/react/disclosure-group"
+import { useState } from "react";
+import { Menu } from "@passui/react/menu";
+import { DisclosureGroup } from "@passui/react/disclosure-group";
 
 export function Preferences() {
-    const [advanced, setAdvanced] = useState(false)
-    return (
-        <section>
-            <Menu label="More options" items={[{ label: "Refresh", onSelect: () => {} }]}>
-                More
-            </Menu>
-            <DisclosureGroup label="Advanced" open={advanced} onOpenChange={setAdvanced}>
-                <p>Additional preferences</p>
-            </DisclosureGroup>
-        </section>
-    )
+	const [advanced, setAdvanced] = useState(false);
+	return (
+		<section>
+			<Menu
+				label="More options"
+				items={[{ label: "Refresh", onSelect: () => {} }]}
+			>
+				More
+			</Menu>
+			<DisclosureGroup
+				label="Advanced"
+				open={advanced}
+				onOpenChange={setAdvanced}
+			>
+				<p>Additional preferences</p>
+			</DisclosureGroup>
+		</section>
+	);
 }
 ```
 
@@ -114,17 +121,21 @@ export function Preferences() {
 On this development branch, React icons have a dedicated entry point:
 
 ```tsx
-import { IconButton, type IconButtonProps } from "@passui/react/icon-button"
-import { SettingsIcon } from "@passui/react/icons"
+import { IconButton, type IconButtonProps } from "@passui/react/icon-button";
+import { SettingsIcon } from "@passui/react/icons";
 
 const settingsAction: IconButtonProps = {
-    label: "Settings",
-    variant: "ghost",
-    size: "icon-sm",
-}
+	label: "Settings",
+	variant: "ghost",
+	size: "icon-sm",
+};
 
 export function SettingsButton() {
-    return <IconButton {...settingsAction}><SettingsIcon /></IconButton>
+	return (
+		<IconButton {...settingsAction}>
+			<SettingsIcon />
+		</IconButton>
+	);
 }
 ```
 

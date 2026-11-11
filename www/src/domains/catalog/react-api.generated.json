@@ -1,2879 +1,2879 @@
 {
-    "accordion": {
-        "source": "packages/ui/src/components/accordion/accordion.tsx",
-        "props": [
-            {
-                "name": "items",
-                "type": "readonly AccordionItem[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "value",
-                "type": "string | null",
-                "required": true,
-                "description": "The expanded item, or `null` when all items are closed.",
-                "defaultValue": null
-            },
-            {
-                "name": "onValueChange",
-                "type": "(value: string | null) => void",
-                "required": true,
-                "description": "Selecting the open item reports `null`, so every item can collapse.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "AccordionSize",
-                "required": false,
-                "description": "Density passed through to each DisclosureGroup.",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "ambient": {
-        "source": "packages/ui/src/components/ambient/ambient.tsx",
-        "props": [
-            {
-                "name": "src",
-                "type": "string | null",
-                "required": false,
-                "description": "The image whose colors glow behind the content.",
-                "defaultValue": null
-            }
-        ],
-        "native": ["ComponentPropsWithoutRef<\"section\">"],
-        "parts": []
-    },
-    "aspect-ratio": {
-        "source": "packages/ui/src/components/aspect-ratio/aspect-ratio.tsx",
-        "props": [
-            {
-                "name": "ratio",
-                "type": "number",
-                "required": false,
-                "description": "Width divided by height.",
-                "defaultValue": "4 / 3"
-            }
-        ],
-        "native": ["HTMLAttributes<HTMLDivElement>"],
-        "parts": []
-    },
-    "breadcrumb": {
-        "source": "packages/ui/src/components/breadcrumb/breadcrumb.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "items",
-                "type": "readonly BreadcrumbItem[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "renderLink",
-                "type": "(item: BreadcrumbItem & { href: string }) => ReactNode",
-                "required": false,
-                "description": "Integrate a client router without nesting interactive elements.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\"",
-                "required": false,
-                "description": "Text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "button": {
-        "source": "packages/ui/src/components/button/button.tsx",
-        "props": [
-            {
-                "name": "variant",
-                "type": "| \"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\" | \"accent\"",
-                "required": false,
-                "description": "Visual emphasis: `default` (solid), `accent` (main action), `secondary` (quiet fill), `outline`, `ghost`, `link`, or `destructive`.",
-                "defaultValue": "\"default\""
-            },
-            {
-                "name": "size",
-                "type": "ButtonSize",
-                "required": false,
-                "description": "Label sizes: `xs`, `sm`, `default`, `lg`. Icon sizes: `icon-xs`, `icon-sm`, `icon`, `icon-lg`, `icon-full`. Prefer IconButton for an icon with a built-in accessible label.",
-                "defaultValue": "\"default\""
-            },
-            {
-                "name": "isPending",
-                "type": "boolean",
-                "required": false,
-                "description": "Shows a delayed spinner, keeps the button's width, and prevents repeat presses.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "contentClassName",
-                "type": "string",
-                "required": false,
-                "description": "Layout classes for the content wrapper, such as a full-width disclosure row.",
-                "defaultValue": null
-            },
-            {
-                "name": "ref",
-                "type": "Ref<HTMLButtonElement>",
-                "required": false,
-                "description": "Reference to the native element.",
-                "defaultValue": null
-            }
-        ],
-        "native": ["ButtonHTMLAttributes<HTMLButtonElement>"],
-        "parts": []
-    },
-    "icon-button": {
-        "source": "packages/ui/src/components/button/icon-button.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Icon-only actions must have an accessible name.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "IconButtonSize",
-                "required": false,
-                "description": "",
-                "defaultValue": "\"icon\""
-            },
-            {
-                "name": "ref",
-                "type": "Ref<HTMLButtonElement>",
-                "required": false,
-                "description": "Reference to the native element.",
-                "defaultValue": null
-            }
-        ],
-        "native": ["Omit<ButtonProps, \"size\">"],
-        "parts": []
-    },
-    "chip": {
-        "source": "packages/ui/src/components/chip/chip.tsx",
-        "props": [
-            {
-                "name": "tone",
-                "type": "\"neutral\" | \"accent\" | \"public\" | \"family\" | \"friends\"",
-                "required": false,
-                "description": "`neutral`, `accent`, `public`, `family`, or `friends`.",
-                "defaultValue": "\"neutral\""
-            },
-            {
-                "name": "size",
-                "type": "\"xs\" | \"sm\" | \"md\"",
-                "required": false,
-                "description": "`xs`, `sm`, or `md`.",
-                "defaultValue": "\"sm\""
-            }
-        ],
-        "native": ["HTMLAttributes<HTMLSpanElement>"],
-        "parts": []
-    },
-    "code-block": {
-        "source": "packages/ui/src/components/code-block/code-block.tsx",
-        "props": [
-            {
-                "name": "code",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": false,
-                "description": "Supply a highlighter's rendered pre/code element; source remains the fallback.",
-                "defaultValue": null
-            },
-            {
-                "name": "lineNumbers",
-                "type": "boolean",
-                "required": false,
-                "description": "Show a nonselectable line gutter.",
-                "defaultValue": "true"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Code font size, padding and line gutter scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["Omit<ComponentProps<\"div\">, \"children\" | \"size\">"],
-        "parts": []
-    },
-    "combo-box": {
-        "source": "packages/ui/src/components/combo-box/combo-box.tsx",
-        "props": [
-            {
-                "name": "options",
-                "type": "readonly ComboBoxOption<T>[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "emptyLabel",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": ["Omit<PickerProps<T>, \"searchable\" | \"options\">"],
-        "parts": []
-    },
-    "command": {
-        "source": "packages/ui/src/components/command/command.tsx",
-        "props": [],
-        "native": ["ComponentProps<typeof SearchList>"],
-        "parts": [
-            {
-                "name": "CommandDialog",
-                "props": [],
-                "native": ["Omit<SheetProps, \"placement\">"]
-            },
-            {
-                "name": "CommandInput",
-                "props": [],
-                "native": ["ComponentProps<typeof SearchListField>"]
-            },
-            {
-                "name": "CommandList",
-                "props": [],
-                "native": ["ComponentProps<typeof SearchListResults>"]
-            },
-            {
-                "name": "CommandEmpty",
-                "props": [],
-                "native": ["ComponentProps<typeof SearchListEmpty>"]
-            },
-            {
-                "name": "CommandShortcut",
-                "props": [],
-                "native": ["ComponentProps<typeof KeyboardShortcut>"]
-            },
-            {
-                "name": "CommandGroup",
-                "props": [],
-                "native": ["ComponentProps<typeof SearchListGroup>"]
-            },
-            {
-                "name": "CommandItem",
-                "props": [],
-                "native": ["ComponentProps<typeof SearchListItem>"]
-            }
-        ]
-    },
-    "compact-date-picker": {
-        "source": "packages/ui/src/components/compact-date-picker/compact-date-picker.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "string",
-                "required": true,
-                "description": "`YYYY-MM-DD`, or \"\" when no date is chosen.",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: string) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Names the button and the calendar for assistive technology.",
-                "defaultValue": null
-            },
-            {
-                "name": "locale",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "min",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "max",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "placeholder",
-                "type": "string",
-                "required": false,
-                "description": "Shown when no date is chosen.",
-                "defaultValue": null
-            },
-            {
-                "name": "labels",
-                "type": "{ previousMonth: string nextMonth: string /** Offers to remove the date, for optional dates. */ clear?: string }",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "Prevents opening the date panel.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Trigger button density; matches Picker's sm | md | lg.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "compact-time-picker": {
-        "source": "packages/ui/src/components/compact-time-picker/compact-time-picker.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "string",
-                "required": true,
-                "description": "`HH:MM` on a 24 hour clock, or \"\" when no time is chosen.",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: string) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Names the button and the panel for assistive technology.",
-                "defaultValue": null
-            },
-            {
-                "name": "locale",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "minuteStep",
-                "type": "number",
-                "required": false,
-                "description": "Minutes offered, in steps; an exact time already chosen is kept.",
-                "defaultValue": "5"
-            },
-            {
-                "name": "placeholder",
-                "type": "string",
-                "required": false,
-                "description": "Shown when no time is chosen.",
-                "defaultValue": null
-            },
-            {
-                "name": "labels",
-                "type": "{ hour: string; minute: string; period: string }",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "Prevents opening the time panel.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Trigger button density; matches Picker's sm | md | lg.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "content-unavailable-view": {
-        "source": "packages/ui/src/components/content-unavailable-view/content-unavailable-view.tsx",
-        "props": [
-            {
-                "name": "title",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "description",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "icon",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "actions",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Title, description and vertical rhythm.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["Omit<ComponentProps<\"div\">, \"title\">"],
-        "parts": []
-    },
-    "content-view": {
-        "source": "packages/ui/src/components/content-view/content-view.tsx",
-        "props": [
-            {
-                "name": "variant",
-                "type": "ContentViewVariant",
-                "required": false,
-                "description": "",
-                "defaultValue": "\"elevated\""
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Container radius, section gap and text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["ComponentPropsWithoutRef<\"section\">"],
-        "parts": [
-            {
-                "name": "ContentView.Row",
-                "props": [],
-                "native": ["ComponentPropsWithoutRef<\"div\">"]
-            },
-            {
-                "name": "ContentView.Section",
-                "props": [],
-                "native": ["ComponentPropsWithoutRef<\"section\">"]
-            },
-            {
-                "name": "ContentView.Header",
-                "props": [
-                    {
-                        "name": "heading",
-                        "type": "string",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "p",
-                        "type": "string",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "pClassName",
-                        "type": "string",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "icon",
-                        "type": "ReactNode",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "action",
-                        "type": "ReactNode",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "actionClassName",
-                        "type": "string",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "as",
-                        "type": "\"h1\" | \"h2\" | \"h3\"",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": "\"h3\""
-                    },
-                    {
-                        "name": "className",
-                        "type": "string",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "children",
-                        "type": "ReactNode",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    }
-                ],
-                "native": []
-            },
-            {
-                "name": "ContentView.H1",
-                "props": [],
-                "native": ["ComponentPropsWithoutRef<\"h1\">"]
-            },
-            {
-                "name": "ContentView.H2",
-                "props": [],
-                "native": ["ComponentPropsWithoutRef<\"h2\">"]
-            },
-            {
-                "name": "ContentView.P",
-                "props": [],
-                "native": ["ComponentPropsWithoutRef<\"p\">"]
-            },
-            {
-                "name": "ContentView.Span",
-                "props": [],
-                "native": ["ComponentPropsWithoutRef<\"span\">"]
-            },
-            {
-                "name": "ContentView.Sub",
-                "props": [],
-                "native": ["ComponentPropsWithoutRef<\"sub\">"]
-            }
-        ]
-    },
-    "context-menu": {
-        "source": "packages/ui/src/components/context-menu/use-context-menu.ts",
-        "props": [
-            {
-                "name": "items",
-                "type": "() => ContextMenuItem[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "conversation": {
-        "source": "packages/ui/src/components/conversation/conversation.tsx",
-        "props": [],
-        "native": [],
-        "parts": [
-            {
-                "name": "Conversation.Messages",
-                "props": [
-                    {
-                        "name": "messages",
-                        "type": "ConversationMessage[]",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "locale",
-                        "type": "string",
-                        "required": false,
-                        "description": "For day names and times; the reader's own by default.",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "size",
-                        "type": "\"sm\" | \"md\" | \"lg\"",
-                        "required": false,
-                        "description": "Bubble, avatar, author and time scale.",
-                        "defaultValue": "\"md\""
-                    }
-                ],
-                "native": []
-            },
-            {
-                "name": "Conversation.Composer",
-                "props": [
-                    {
-                        "name": "onSend",
-                        "type": "(body: string) => Promise<unknown>",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "pending",
-                        "type": "boolean",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": "false"
-                    },
-                    {
-                        "name": "maxLength",
-                        "type": "number",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "placeholder",
-                        "type": "string",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "actions",
-                        "type": "ReactNode",
-                        "required": false,
-                        "description": "Extra controls under the field, like a status picker.",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "sendLabel",
-                        "type": "string",
-                        "required": true,
-                        "description": "Names the round Send button for screen readers.",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "remaining",
-                        "type": "(count: number) => string",
-                        "required": false,
-                        "description": "Words for the characters left, shown near the limit, such as (count) => `${count} left`. Without it, just the number shows.",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "size",
-                        "type": "\"sm\" | \"md\" | \"lg\"",
-                        "required": false,
-                        "description": "Surface, textarea, send button and counter scale.",
-                        "defaultValue": "\"md\""
-                    }
-                ],
-                "native": []
-            }
-        ]
-    },
-    "date-picker": {
-        "source": "packages/ui/src/components/date-picker/date-picker.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: string) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "labels",
-                "type": "{ day: string month: string year: string invalid: string }",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "locale",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "max",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Field scale passed to each TextField; matches TextField's xs|sm|md|lg.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "dialog": {
-        "source": "packages/ui/src/components/dialog/dialog.tsx",
-        "props": [
-            {
-                "name": "open",
-                "type": "boolean",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onOpenChange",
-                "type": "(open: boolean) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "title",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "description",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "footer",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "presentation",
-                "type": "\"drawer\" | \"center\" | \"inline\"",
-                "required": false,
-                "description": "`drawer` (responsive sheet), `center` (floating panel), or `inline`.",
-                "defaultValue": "\"drawer\""
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Title, description, body and footer density.",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onSubmit",
-                "type": "(event: FormEvent<HTMLFormElement>) => void",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": [
-            {
-                "name": "Dialog.Actions",
-                "props": [
-                    {
-                        "name": "submitLabel",
-                        "type": "ReactNode",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "cancelLabel",
-                        "type": "ReactNode",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "pending",
-                        "type": "boolean",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": "false"
-                    },
-                    {
-                        "name": "disabled",
-                        "type": "boolean",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": "false"
-                    },
-                    {
-                        "name": "tone",
-                        "type": "\"default\" | \"destructive\"",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": "\"default\""
-                    },
-                    {
-                        "name": "onConfirm",
-                        "type": "() => void",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    }
-                ],
-                "native": []
-            }
-        ]
-    },
-    "disclosure-group": {
-        "source": "packages/ui/src/components/disclosure-group/disclosure-group.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "open",
-                "type": "boolean",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onOpenChange",
-                "type": "(open: boolean) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": "false"
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "triggerClassName",
-                "type": "string",
-                "required": false,
-                "description": "Trigger layout when composed inside a shared surface such as Accordion.",
-                "defaultValue": null
-            },
-            {
-                "name": "description",
-                "type": "string",
-                "required": false,
-                "description": "Supporting text beneath the title.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Trigger, description and content density.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "divider": {
-        "source": "packages/ui/src/components/divider/divider.tsx",
-        "props": [
-            {
-                "name": "orientation",
-                "type": "\"horizontal\" | \"vertical\"",
-                "required": false,
-                "description": "",
-                "defaultValue": "\"horizontal\""
-            },
-            {
-                "name": "decorative",
-                "type": "boolean",
-                "required": false,
-                "description": "Decorative separators are omitted from the accessibility tree.",
-                "defaultValue": "true"
-            }
-        ],
-        "native": ["HTMLAttributes<HTMLHRElement>"],
-        "parts": []
-    },
-    "inline-disclosure": {
-        "source": "packages/ui/src/components/inline-disclosure/inline-disclosure.tsx",
-        "props": [
-            {
-                "name": "open",
-                "type": "boolean",
-                "required": true,
-                "description": "Whether the content is expanded.",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "keyboard-shortcut": {
-        "source": "packages/ui/src/components/keyboard-shortcut/keyboard-shortcut.tsx",
-        "props": [
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\"",
-                "required": false,
-                "description": "Keycap padding density. Text stays at caption2 in both sizes.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["ComponentProps<\"kbd\">"],
-        "parts": []
-    },
-    "labeled-content": {
-        "source": "packages/ui/src/components/labeled-content/labeled-content.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "The visible name of the row.",
-                "defaultValue": null
-            },
-            {
-                "name": "description",
-                "type": "string",
-                "required": false,
-                "description": "Supporting text below the label.",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": true,
-                "description": "The row's control or value.",
-                "defaultValue": null
-            },
-            {
-                "name": "stacked",
-                "type": "boolean",
-                "required": false,
-                "description": "Places the control below the label at every width.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "wide",
-                "type": "boolean",
-                "required": false,
-                "description": "Places a wide control below its label on phones.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Row padding density.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["HTMLAttributes<HTMLDivElement>"],
-        "parts": []
-    },
-    "locale-switcher": {
-        "source": "packages/ui/src/components/locale-switcher/locale-switcher.tsx",
-        "props": [
-            {
-                "name": "locales",
-                "type": "readonly L[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "locale",
-                "type": "L",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onSelect",
-                "type": "(locale: L) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "storageKey",
-                "type": "string",
-                "required": true,
-                "description": "localStorage key for where the person dragged it.",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Trigger, header, list item and icon scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "menu": {
-        "source": "packages/ui/src/components/menu/menu.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Accessible name for the menu trigger.",
-                "defaultValue": null
-            },
-            {
-                "name": "items",
-                "type": "readonly ContextMenuItem[]",
-                "required": true,
-                "description": "Items are rendered by the app's existing ContextMenuHost.",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "edge",
-                "type": "\"leading\" | \"trailing\"",
-                "required": false,
-                "description": "Logical edge used to align the menu, including RTL.",
-                "defaultValue": "\"leading\""
-            },
-            {
-                "name": "above",
-                "type": "boolean",
-                "required": false,
-                "description": "Expand upward from the trigger instead of downward.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "ref",
-                "type": "Ref<HTMLButtonElement>",
-                "required": false,
-                "description": "Reference to the native element.",
-                "defaultValue": null
-            }
-        ],
-        "native": ["Omit<ButtonProps, \"onClick\" | \"children\">"],
-        "parts": []
-    },
-    "one-time-code": {
-        "source": "packages/ui/src/components/one-time-code/one-time-code.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "value",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: string) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onComplete",
-                "type": "(value: string) => void",
-                "required": false,
-                "description": "Called when a complete code is entered, including paste and autofill.",
-                "defaultValue": null
-            },
-            {
-                "name": "length",
-                "type": "number",
-                "required": false,
-                "description": "Number of characters, 3–8.",
-                "defaultValue": "6"
-            },
-            {
-                "name": "format",
-                "type": "\"numeric\" | \"alphanumeric\"",
-                "required": false,
-                "description": "Accepted characters. Alphanumeric codes use uppercase ASCII letters and digits.",
-                "defaultValue": "\"numeric\""
-            },
-            {
-                "name": "ref",
-                "type": "Ref<HTMLInputElement>",
-                "required": false,
-                "description": "Ref to the single native input, for focus and selection.",
-                "defaultValue": null
-            },
-            {
-                "name": "status",
-                "type": "\"idle\" | \"verifying\" | \"success\" | \"error\"",
-                "required": false,
-                "description": "",
-                "defaultValue": "\"idle\""
-            },
-            {
-                "name": "statusLabel",
-                "type": "string",
-                "required": false,
-                "description": "Localized verification feedback announced without reading decorative cells.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Cell height, digit text scale and check icon size.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [
-            "Omit< InputHTMLAttributes<HTMLInputElement>, \"value\" | \"defaultValue\" | \"onChange\" | \"type\" | \"maxLength\" | \"size\" >"
-        ],
-        "parts": []
-    },
-    "picker": {
-        "source": "packages/ui/src/components/picker/picker.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "T",
-                "required": true,
-                "description": "The selected option's value.",
-                "defaultValue": null
-            },
-            {
-                "name": "options",
-                "type": "ReadonlyArray<PickerOption<T>>",
-                "required": true,
-                "description": "Available choices. Use a literal union for a fixed set of values.",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: NoInfer<T>) => void",
-                "required": true,
-                "description": "Called with the selected option value.",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Accessible name for the trigger.",
-                "defaultValue": null
-            },
-            {
-                "name": "placeholder",
-                "type": "string",
-                "required": false,
-                "description": "Shown when the selected value has no matching option.",
-                "defaultValue": null
-            },
-            {
-                "name": "searchable",
-                "type": "boolean",
-                "required": false,
-                "description": "Defaults to on for lists of ten or more options.",
-                "defaultValue": null
-            },
-            {
-                "name": "searchPlaceholder",
-                "type": "string",
-                "required": false,
-                "description": "Label for the filter field.",
-                "defaultValue": "\"Search\""
-            },
-            {
-                "name": "emptyLabel",
-                "type": "string",
-                "required": false,
-                "description": "Shown when the filter matches nothing.",
-                "defaultValue": "\"No matches\""
-            },
-            {
-                "name": "onCreate",
-                "type": "(query: string) => void",
-                "required": false,
-                "description": "Offers a new value when no option has the same label or value.",
-                "defaultValue": null
-            },
-            {
-                "name": "createLabel",
-                "type": "(query: string) => string",
-                "required": false,
-                "description": "Localized creation action; receives the trimmed query.",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "Prevents opening or choosing an option.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Trigger height and text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "popover": {
-        "source": "packages/ui/src/components/popover/popover.tsx",
-        "props": [
-            {
-                "name": "open",
-                "type": "boolean",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "origin",
-                "type": "\"top-left\" | \"top-right\"",
-                "required": false,
-                "description": "Which corner the popover grows from.",
-                "defaultValue": null
-            },
-            {
-                "name": "anchorRef",
-                "type": "RefObject<HTMLElement | null>",
-                "required": false,
-                "description": "Trigger whose shape the popover uses during its opening and closing motion.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\"",
-                "required": false,
-                "description": "Surface corner radius.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["Omit<HTMLMotionProps<\"div\">, \"children\">"],
-        "parts": []
-    },
-    "profile-image": {
-        "source": "packages/ui/src/components/profile-image/profile-image.tsx",
-        "props": [
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Avatar diameter; fallback initials scale with it.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["ComponentProps<\"span\">"],
-        "parts": [
-            {
-                "name": "ProfileImageContent",
-                "props": [],
-                "native": ["ComponentProps<\"img\">"]
-            },
-            {
-                "name": "ProfileImageFallback",
-                "props": [],
-                "native": ["ComponentProps<\"span\">"]
-            }
-        ]
-    },
-    "progress-view": {
-        "source": "packages/ui/src/components/progress-view/progress-view.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "value",
-                "type": "number",
-                "required": false,
-                "description": "Omit for an indeterminate operation.",
-                "defaultValue": null
-            },
-            {
-                "name": "max",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "100"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "detail",
-                "type": "string",
-                "required": false,
-                "description": "Secondary text, such as bytes uploaded.",
-                "defaultValue": null
-            }
-        ],
-        "native": ["Omit<HTMLAttributes<HTMLDivElement>, \"children\">"],
-        "parts": []
-    },
-    "radio-group": {
-        "source": "packages/ui/src/components/radio-group/radio-group.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "T",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: NoInfer<T>) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "options",
-                "type": "readonly RadioGroupOption<T>[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "name",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Legend, row, radio glyph and description density.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "search-field": {
-        "source": "packages/ui/src/components/search-field/search-field.tsx",
-        "props": [
-            {
-                "name": "collapsible",
-                "type": "boolean",
-                "required": false,
-                "description": "Expand a single pill from its search icon on focus.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Pill height, icon size and text scale (non-collapsible variant).",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "ref",
-                "type": "Ref<HTMLInputElement>",
-                "required": false,
-                "description": "Reference to the native element.",
-                "defaultValue": null
-            }
-        ],
-        "native": ["Omit<InputHTMLAttributes<HTMLInputElement>, \"size\">"],
-        "parts": []
-    },
-    "search-list": {
-        "source": "packages/ui/src/components/search-list/search-list.tsx",
-        "props": [
-            {
-                "name": "loop",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": "true"
-            },
-            {
-                "name": "open",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": "true"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Field, item and heading density.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["ComponentProps<\"div\">"],
-        "parts": [
-            {
-                "name": "SearchListField",
-                "props": [
-                    {
-                        "name": "value",
-                        "type": "string",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "onValueChange",
-                        "type": "(value: string) => void",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    }
-                ],
-                "native": ["Omit<ComponentProps<\"input\">, \"value\" | \"onChange\">"]
-            },
-            {
-                "name": "SearchListResults",
-                "props": [],
-                "native": ["ComponentProps<\"div\">"]
-            },
-            {
-                "name": "SearchListEmpty",
-                "props": [],
-                "native": ["ComponentProps<\"div\">"]
-            },
-            {
-                "name": "SearchListGroup",
-                "props": [
-                    {
-                        "name": "heading",
-                        "type": "React.ReactNode",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    }
-                ],
-                "native": ["ComponentProps<\"div\">"]
-            },
-            {
-                "name": "SearchListItem",
-                "props": [
-                    {
-                        "name": "value",
-                        "type": "string",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "keywords",
-                        "type": "string[]",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": "[]"
-                    },
-                    {
-                        "name": "onSelect",
-                        "type": "(value: string) => void",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    }
-                ],
-                "native": ["Omit<ComponentProps<\"button\">, \"value\" | \"onSelect\">"]
-            }
-        ]
-    },
-    "section": {
-        "source": "packages/ui/src/components/section/section.tsx",
-        "props": [
-            {
-                "name": "title",
-                "type": "string",
-                "required": false,
-                "description": "Optional group heading and accessible name.",
-                "defaultValue": null
-            },
-            {
-                "name": "footer",
-                "type": "ReactNode",
-                "required": false,
-                "description": "Supporting text below the grouped rows.",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": false,
-                "description": "Rows, typically LabeledContent.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Title and footer text scale + padding.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["HTMLAttributes<HTMLElement>"],
-        "parts": []
-    },
-    "secure-field": {
-        "source": "packages/ui/src/components/secure-field/secure-field.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "description",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "errors",
-                "type": "string[]",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "icon",
-                "type": "ReactNode",
-                "required": false,
-                "description": "A decorative icon before the text, such as a mail glyph.",
-                "defaultValue": null
-            },
-            {
-                "name": "trailingIcon",
-                "type": "ReactNode",
-                "required": false,
-                "description": "A decorative icon after the text, such as a unit or a check.",
-                "defaultValue": null
-            },
-            {
-                "name": "action",
-                "type": "ReactNode",
-                "required": false,
-                "description": "An interactive control after the text, such as a clear button. Size it to the field: an `xs` or `icon-xs` button, never the default.",
-                "defaultValue": null
-            },
-            {
-                "name": "revealLabels",
-                "type": "{ show: string; hide: string }",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "labelPlacement",
-                "type": "\"above\" | \"floating\"",
-                "required": false,
-                "description": "Float the label into the outline on focus or when filled.",
-                "defaultValue": "\"above\""
-            },
-            {
-                "name": "size",
-                "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Field height and text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["Omit<Omit<ComponentProps<\"input\">, \"size\">, \"type\">"],
-        "parts": []
-    },
-    "segmented-control": {
-        "source": "packages/ui/src/components/segmented-control/segmented-control.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "T",
-                "required": true,
-                "description": "Value of the selected segment.",
-                "defaultValue": null
-            },
-            {
-                "name": "options",
-                "type": "ReadonlyArray<{ value: T; label: string }>",
-                "required": true,
-                "description": "The choices, in display order.",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: NoInfer<T>) => void",
-                "required": true,
-                "description": "Called with the selected segment's value.",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Accessible name for the group and its compact picker.",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "Custom classes for the control container.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Segment padding, label text scale and min-width.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "sheet": {
-        "source": "packages/ui/src/components/sheet/sheet.tsx",
-        "props": [
-            {
-                "name": "open",
-                "type": "boolean",
-                "required": true,
-                "description": "Controls whether the sheet is presented.",
-                "defaultValue": null
-            },
-            {
-                "name": "onClose",
-                "type": "() => void",
-                "required": true,
-                "description": "Called on Escape or an outside press.",
-                "defaultValue": null
-            },
-            {
-                "name": "dismissOnOutsidePress",
-                "type": "boolean",
-                "required": false,
-                "description": "Allow tapping the backdrop to close. Escape still calls onClose.",
-                "defaultValue": "true"
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Read out by screen readers as the sheet's name.",
-                "defaultValue": null
-            },
-            {
-                "name": "labelledBy",
-                "type": "string",
-                "required": false,
-                "description": "ID of a visible heading to use instead of label for the accessible name.",
-                "defaultValue": null
-            },
-            {
-                "name": "placement",
-                "type": "\"adaptive\" | \"center\"",
-                "required": false,
-                "description": "`adaptive` rises from the bottom on phones; `center` always floats.",
-                "defaultValue": "\"adaptive\""
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Outer padding and panel max-width.",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "sidebar": {
-        "source": "packages/ui/src/components/sidebar/sidebar.tsx",
-        "props": [
-            {
-                "name": "title",
-                "type": "string",
-                "required": true,
-                "description": "Visible heading for this group of navigation rows.",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "skeleton": {
-        "source": "packages/ui/src/components/skeleton/skeleton.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Minimum height and rounding.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["ComponentProps<\"div\">"],
-        "parts": []
-    },
-    "slider": {
-        "source": "packages/ui/src/components/slider/slider.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "number",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: number) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "min",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "0"
-            },
-            {
-                "name": "max",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "100"
-            },
-            {
-                "name": "step",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "1"
-            },
-            {
-                "name": "description",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "formatValue",
-                "type": "(value: number) => string",
-                "required": false,
-                "description": "Provides a localized, spoken description of the current value.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Track height, thumb size and label/description text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [
-            "Omit< ComponentProps<\"input\">, \"type\" | \"value\" | \"defaultValue\" | \"onChange\" | \"min\" | \"max\" | \"step\" | \"size\" >"
-        ],
-        "parts": []
-    },
-    "slosh-slider": {
-        "source": "packages/ui/src/components/slosh-slider/slosh-slider.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "value",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "defaultValue",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "62"
-            },
-            {
-                "name": "onChange",
-                "type": "(value: number) => void",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "viscosity",
-                "type": "number",
-                "required": false,
-                "description": "0 is rigid; 100 is loose liquid.",
-                "defaultValue": "15"
-            },
-            {
-                "name": "momentum",
-                "type": "number",
-                "required": false,
-                "description": "How far the handle coasts after release, 0–100.",
-                "defaultValue": "55"
-            },
-            {
-                "name": "tilt",
-                "type": "number",
-                "required": false,
-                "description": "Lean of the liquid's leading edge, 0–100.",
-                "defaultValue": "45"
-            },
-            {
-                "name": "corner",
-                "type": "number",
-                "required": false,
-                "description": "Track corner, from square to a pill, 0–20.",
-                "defaultValue": "20"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Track height and knob scale.",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": "false"
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "formatValue",
-                "type": "(value: number) => string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "stat-tile": {
-        "source": "packages/ui/src/components/stat-tile/stat-tile.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "value",
-                "type": "number",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "caption",
-                "type": "ReactNode",
-                "required": false,
-                "description": "A quiet line under the number, like \"3 signed in now\".",
-                "defaultValue": null
-            },
-            {
-                "name": "tone",
-                "type": "StatTileTone",
-                "required": false,
-                "description": "Turns the number red once it's above zero.",
-                "defaultValue": null
-            },
-            {
-                "name": "onClick",
-                "type": "() => void",
-                "required": false,
-                "description": "Makes the tile a toggle, e.g. a filter.",
-                "defaultValue": null
-            },
-            {
-                "name": "active",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": "false"
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "Custom classes for the tile container.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Tile padding and number scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "status-indicator": {
-        "source": "packages/ui/src/components/status-indicator/status-indicator.tsx",
-        "props": [
-            {
-                "name": "state",
-                "type": "StatusIndicatorState",
-                "required": true,
-                "description": "Visual treatment of the status dot.",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\"",
-                "required": false,
-                "description": "Dot diameter and text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["HTMLAttributes<HTMLSpanElement>"],
-        "parts": []
-    },
-    "stepper": {
-        "source": "packages/ui/src/components/stepper/stepper.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "number",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: number) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "labels",
-                "type": "{ decrement: string; increment: string }",
-                "required": true,
-                "description": "Localized accessible names for each action.",
-                "defaultValue": null
-            },
-            {
-                "name": "min",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "0"
-            },
-            {
-                "name": "max",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "100"
-            },
-            {
-                "name": "step",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "1"
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": "false"
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "formatValue",
-                "type": "(value: number) => string",
-                "required": false,
-                "description": "Formats the displayed value.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Label, output and +/- button scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "swatch-picker": {
-        "source": "packages/ui/src/components/swatch-picker/swatch-picker.tsx",
-        "props": [
-            {
-                "name": "value",
-                "type": "T",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "options",
-                "type": "ReadonlyArray<SwatchPickerOption<T>>",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(value: T) => void",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Accessible name for the group.",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "Custom classes for the swatch container.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Swatch diameter, check icon and caption scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "tab-bar": {
-        "source": "packages/ui/src/components/tab-bar/tab-bar.tsx",
-        "props": [
-            {
-                "name": "minimizeBehavior",
-                "type": "\"platform\" | \"scroll\" | \"never\"",
-                "required": false,
-                "description": "`platform` follows the platform, `scroll` always minimizes, `never` stays expanded.",
-                "defaultValue": "\"platform\""
-            },
-            {
-                "name": "tabs",
-                "type": "readonly Tab[]",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "active",
-                "type": "Tab[\"id\"] | null",
-                "required": true,
-                "description": "Active tab ID, or null for a destination outside the bar.",
-                "defaultValue": null
-            },
-            {
-                "name": "renderLink",
-                "type": "(tab: Tab, props: TabBarLinkProps) => ReactNode",
-                "required": true,
-                "description": "Renders your router's link with the supplied appearance and accessibility props.",
-                "defaultValue": null
-            },
-            {
-                "name": "search",
-                "type": "{ label: string; onPress: () => void }",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Accessible name for the navigation.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Tab height, label text, minimized width and search button diameter.",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "tab-view": {
-        "source": "packages/ui/src/components/tab-view/tab-view.tsx",
-        "props": [
-            {
-                "name": "options",
-                "type": "readonly { value: Value; label: string; disabled?: boolean }[]",
-                "required": true,
-                "description": "Available tabs, in keyboard navigation order.",
-                "defaultValue": null
-            },
-            {
-                "name": "defaultValue",
-                "type": "Value",
-                "required": true,
-                "description": "Initial selection when value is not controlled.",
-                "defaultValue": null
-            },
-            {
-                "name": "value",
-                "type": "Value",
-                "required": false,
-                "description": "Controlled selection; omit to keep selection inside TabView.",
-                "defaultValue": null
-            },
-            {
-                "name": "onValueChange",
-                "type": "(value: Value) => void",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "align",
-                "type": "\"start\" | \"center\"",
-                "required": false,
-                "description": "Tab alignment: `start` or `center`.",
-                "defaultValue": "\"center\""
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Accessible name for the tab list.",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "(value: Value) => ReactNode",
-                "required": true,
-                "description": "Renders the selected tab's panel.",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Tablist height, tab text scale and underline offset.",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "table": {
-        "source": "packages/ui/src/components/table/table.tsx",
-        "props": [
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Row height, cell padding and text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["React.ComponentProps<\"table\">"],
-        "parts": [
-            {
-                "name": "TableBody",
-                "props": [],
-                "native": ["React.ComponentProps<\"tbody\">"]
-            },
-            {
-                "name": "TableCaption",
-                "props": [],
-                "native": ["React.ComponentProps<\"caption\">"]
-            },
-            {
-                "name": "TableCell",
-                "props": [],
-                "native": ["React.ComponentProps<\"td\">"]
-            },
-            {
-                "name": "TableFooter",
-                "props": [],
-                "native": ["React.ComponentProps<\"tfoot\">"]
-            },
-            {
-                "name": "TableHead",
-                "props": [],
-                "native": ["React.ComponentProps<\"th\">"]
-            },
-            {
-                "name": "TableHeader",
-                "props": [],
-                "native": ["React.ComponentProps<\"thead\">"]
-            },
-            {
-                "name": "TableRow",
-                "props": [],
-                "native": ["React.ComponentProps<\"tr\">"]
-            }
-        ]
-    },
-    "text-editor": {
-        "source": "packages/ui/src/components/text-editor/text-editor.tsx",
-        "props": [
-            {
-                "name": "size",
-                "type": "TextEditorSize",
-                "required": false,
-                "description": "Field surface scale; matches TextField's xs | sm | md | lg.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["Omit<ComponentProps<\"textarea\">, \"size\">"],
-        "parts": []
-    },
-    "text-field": {
-        "source": "packages/ui/src/components/text-field/text-field.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "description",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "errors",
-                "type": "string[]",
-                "required": false,
-                "description": "",
-                "defaultValue": "[]"
-            },
-            {
-                "name": "icon",
-                "type": "ReactNode",
-                "required": false,
-                "description": "A decorative icon before the text, such as a mail glyph.",
-                "defaultValue": null
-            },
-            {
-                "name": "trailingIcon",
-                "type": "ReactNode",
-                "required": false,
-                "description": "A decorative icon after the text, such as a unit or a check.",
-                "defaultValue": null
-            },
-            {
-                "name": "action",
-                "type": "ReactNode",
-                "required": false,
-                "description": "An interactive control after the text, such as a clear button. Size it to the field: an `xs` or `icon-xs` button, never the default.",
-                "defaultValue": null
-            },
-            {
-                "name": "revealLabels",
-                "type": "{ show: string; hide: string }",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "labelPlacement",
-                "type": "\"above\" | \"floating\"",
-                "required": false,
-                "description": "Float the label into the outline on focus or when filled.",
-                "defaultValue": "\"above\""
-            },
-            {
-                "name": "size",
-                "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Field height and text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": ["Omit<ComponentProps<\"input\">, \"size\">"],
-        "parts": []
-    },
-    "toast": {
-        "source": "packages/ui/src/components/toast/toast-store.ts",
-        "props": [
-            {
-                "name": "title",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "options",
-                "type": "ToastOptions",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": [
-            {
-                "name": "ToastOptions",
-                "props": [
-                    {
-                        "name": "description",
-                        "type": "string",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "action",
-                        "type": "ToastAction",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "duration",
-                        "type": "number | null",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "size",
-                        "type": "\"sm\" | \"md\" | \"lg\"",
-                        "required": false,
-                        "description": "Pill size, content padding and title/description text scale.",
-                        "defaultValue": "\"md\""
-                    }
-                ],
-                "native": []
-            }
-        ]
-    },
-    "toggle": {
-        "source": "packages/ui/src/components/toggle/toggle.tsx",
-        "props": [
-            {
-                "name": "checked",
-                "type": "boolean",
-                "required": true,
-                "description": "Current on or off state.",
-                "defaultValue": null
-            },
-            {
-                "name": "onChange",
-                "type": "(checked: boolean) => void",
-                "required": true,
-                "description": "Called with the next checked state.",
-                "defaultValue": null
-            },
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "Accessible name, including when the visible label is hidden.",
-                "defaultValue": null
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "style",
-                "type": "\"switch\" | \"checkbox\"",
-                "required": false,
-                "description": "`switch` for a setting, `checkbox` for a selection.",
-                "defaultValue": "\"switch\""
-            },
-            {
-                "name": "mixed",
-                "type": "boolean",
-                "required": false,
-                "description": "Reports a mixed selection to assistive technology.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "labelHidden",
-                "type": "boolean",
-                "required": false,
-                "description": "Keeps the accessible name while hiding the visible label.",
-                "defaultValue": "false"
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Switch track size, thumb travel, checkbox box and label text scale.",
-                "defaultValue": "\"md\""
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "Custom classes for the toggle container.",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": []
-    },
-    "tooltip": {
-        "source": "packages/ui/src/components/tooltip/tooltip-host.tsx",
-        "props": [],
-        "native": [],
-        "parts": []
-    },
-    "view-controller": {
-        "source": "packages/ui/src/components/view-controller/view-controller.tsx",
-        "props": [
-            {
-                "name": "heading",
-                "type": "ReactNode",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "children",
-                "type": "ReactNode",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            }
-        ],
-        "native": [],
-        "parts": [
-            {
-                "name": "ViewController.Heading",
-                "props": [
-                    {
-                        "name": "title",
-                        "type": "ReactNode",
-                        "required": true,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "description",
-                        "type": "ReactNode",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "action",
-                        "type": "ReactNode",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": null
-                    },
-                    {
-                        "name": "size",
-                        "type": "keyof typeof titleSizes",
-                        "required": false,
-                        "description": "",
-                        "defaultValue": "\"default\""
-                    }
-                ],
-                "native": []
-            }
-        ]
-    },
-    "wake-slider": {
-        "source": "packages/ui/src/components/wake-slider/wake-slider.tsx",
-        "props": [
-            {
-                "name": "label",
-                "type": "string",
-                "required": true,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "value",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "defaultValue",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "50"
-            },
-            {
-                "name": "onChange",
-                "type": "(value: number) => void",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "bars",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "36"
-            },
-            {
-                "name": "wake",
-                "type": "number",
-                "required": false,
-                "description": "",
-                "defaultValue": "60"
-            },
-            {
-                "name": "disabled",
-                "type": "boolean",
-                "required": false,
-                "description": "",
-                "defaultValue": "false"
-            },
-            {
-                "name": "className",
-                "type": "string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "formatValue",
-                "type": "(value: number) => string",
-                "required": false,
-                "description": "",
-                "defaultValue": null
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\"",
-                "required": false,
-                "description": "Bar height at rest and value text scale.",
-                "defaultValue": "\"md\""
-            }
-        ],
-        "native": [],
-        "parts": []
-    }
+	"accordion": {
+		"source": "packages/ui/src/components/accordion/accordion.tsx",
+		"props": [
+			{
+				"name": "items",
+				"type": "readonly AccordionItem[]",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "value",
+				"type": "string | null",
+				"required": true,
+				"description": "The expanded item, or `null` when all items are closed.",
+				"defaultValue": null
+			},
+			{
+				"name": "onValueChange",
+				"type": "(value: string | null) => void",
+				"required": true,
+				"description": "Selecting the open item reports `null`, so every item can collapse.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "AccordionSize",
+				"required": false,
+				"description": "Density passed through to each DisclosureGroup.",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"ambient": {
+		"source": "packages/ui/src/components/ambient/ambient.tsx",
+		"props": [
+			{
+				"name": "src",
+				"type": "string | null",
+				"required": false,
+				"description": "The image whose colors glow behind the content.",
+				"defaultValue": null
+			}
+		],
+		"native": ["ComponentPropsWithoutRef<\"section\">"],
+		"parts": []
+	},
+	"aspect-ratio": {
+		"source": "packages/ui/src/components/aspect-ratio/aspect-ratio.tsx",
+		"props": [
+			{
+				"name": "ratio",
+				"type": "number",
+				"required": false,
+				"description": "Width divided by height.",
+				"defaultValue": "4 / 3"
+			}
+		],
+		"native": ["HTMLAttributes<HTMLDivElement>"],
+		"parts": []
+	},
+	"breadcrumb": {
+		"source": "packages/ui/src/components/breadcrumb/breadcrumb.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "items",
+				"type": "readonly BreadcrumbItem[]",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "renderLink",
+				"type": "(item: BreadcrumbItem & { href: string }) => ReactNode",
+				"required": false,
+				"description": "Integrate a client router without nesting interactive elements.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\"",
+				"required": false,
+				"description": "Text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"button": {
+		"source": "packages/ui/src/components/button/button.tsx",
+		"props": [
+			{
+				"name": "variant",
+				"type": "| \"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\" | \"accent\"",
+				"required": false,
+				"description": "Visual emphasis: `default` (solid), `accent` (main action), `secondary` (quiet fill), `outline`, `ghost`, `link`, or `destructive`.",
+				"defaultValue": "\"default\""
+			},
+			{
+				"name": "size",
+				"type": "ButtonSize",
+				"required": false,
+				"description": "Label sizes: `xs`, `sm`, `default`, `lg`. Icon sizes: `icon-xs`, `icon-sm`, `icon`, `icon-lg`, `icon-full`. Prefer IconButton for an icon with a built-in accessible label.",
+				"defaultValue": "\"default\""
+			},
+			{
+				"name": "isPending",
+				"type": "boolean",
+				"required": false,
+				"description": "Shows a delayed spinner, keeps the button's width, and prevents repeat presses.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "contentClassName",
+				"type": "string",
+				"required": false,
+				"description": "Layout classes for the content wrapper, such as a full-width disclosure row.",
+				"defaultValue": null
+			},
+			{
+				"name": "ref",
+				"type": "Ref<HTMLButtonElement>",
+				"required": false,
+				"description": "Reference to the native element.",
+				"defaultValue": null
+			}
+		],
+		"native": ["ButtonHTMLAttributes<HTMLButtonElement>"],
+		"parts": []
+	},
+	"icon-button": {
+		"source": "packages/ui/src/components/button/icon-button.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Icon-only actions must have an accessible name.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "IconButtonSize",
+				"required": false,
+				"description": "",
+				"defaultValue": "\"icon\""
+			},
+			{
+				"name": "ref",
+				"type": "Ref<HTMLButtonElement>",
+				"required": false,
+				"description": "Reference to the native element.",
+				"defaultValue": null
+			}
+		],
+		"native": ["Omit<ButtonProps, \"size\">"],
+		"parts": []
+	},
+	"chip": {
+		"source": "packages/ui/src/components/chip/chip.tsx",
+		"props": [
+			{
+				"name": "tone",
+				"type": "\"neutral\" | \"accent\" | \"public\" | \"family\" | \"friends\"",
+				"required": false,
+				"description": "`neutral`, `accent`, `public`, `family`, or `friends`.",
+				"defaultValue": "\"neutral\""
+			},
+			{
+				"name": "size",
+				"type": "\"xs\" | \"sm\" | \"md\"",
+				"required": false,
+				"description": "`xs`, `sm`, or `md`.",
+				"defaultValue": "\"sm\""
+			}
+		],
+		"native": ["HTMLAttributes<HTMLSpanElement>"],
+		"parts": []
+	},
+	"code-block": {
+		"source": "packages/ui/src/components/code-block/code-block.tsx",
+		"props": [
+			{
+				"name": "code",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": false,
+				"description": "Supply a highlighter's rendered pre/code element; source remains the fallback.",
+				"defaultValue": null
+			},
+			{
+				"name": "lineNumbers",
+				"type": "boolean",
+				"required": false,
+				"description": "Show a nonselectable line gutter.",
+				"defaultValue": "true"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Code font size, padding and line gutter scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["Omit<ComponentProps<\"div\">, \"children\" | \"size\">"],
+		"parts": []
+	},
+	"combo-box": {
+		"source": "packages/ui/src/components/combo-box/combo-box.tsx",
+		"props": [
+			{
+				"name": "options",
+				"type": "readonly ComboBoxOption<T>[]",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "emptyLabel",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": ["Omit<PickerProps<T>, \"searchable\" | \"options\">"],
+		"parts": []
+	},
+	"command": {
+		"source": "packages/ui/src/components/command/command.tsx",
+		"props": [],
+		"native": ["ComponentProps<typeof SearchList>"],
+		"parts": [
+			{
+				"name": "CommandDialog",
+				"props": [],
+				"native": ["Omit<SheetProps, \"placement\">"]
+			},
+			{
+				"name": "CommandInput",
+				"props": [],
+				"native": ["ComponentProps<typeof SearchListField>"]
+			},
+			{
+				"name": "CommandList",
+				"props": [],
+				"native": ["ComponentProps<typeof SearchListResults>"]
+			},
+			{
+				"name": "CommandEmpty",
+				"props": [],
+				"native": ["ComponentProps<typeof SearchListEmpty>"]
+			},
+			{
+				"name": "CommandShortcut",
+				"props": [],
+				"native": ["ComponentProps<typeof KeyboardShortcut>"]
+			},
+			{
+				"name": "CommandGroup",
+				"props": [],
+				"native": ["ComponentProps<typeof SearchListGroup>"]
+			},
+			{
+				"name": "CommandItem",
+				"props": [],
+				"native": ["ComponentProps<typeof SearchListItem>"]
+			}
+		]
+	},
+	"compact-date-picker": {
+		"source": "packages/ui/src/components/compact-date-picker/compact-date-picker.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "string",
+				"required": true,
+				"description": "`YYYY-MM-DD`, or \"\" when no date is chosen.",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: string) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Names the button and the calendar for assistive technology.",
+				"defaultValue": null
+			},
+			{
+				"name": "locale",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "min",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "max",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "placeholder",
+				"type": "string",
+				"required": false,
+				"description": "Shown when no date is chosen.",
+				"defaultValue": null
+			},
+			{
+				"name": "labels",
+				"type": "{ previousMonth: string nextMonth: string /** Offers to remove the date, for optional dates. */ clear?: string }",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "Prevents opening the date panel.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Trigger button density; matches Picker's sm | md | lg.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"compact-time-picker": {
+		"source": "packages/ui/src/components/compact-time-picker/compact-time-picker.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "string",
+				"required": true,
+				"description": "`HH:MM` on a 24 hour clock, or \"\" when no time is chosen.",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: string) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Names the button and the panel for assistive technology.",
+				"defaultValue": null
+			},
+			{
+				"name": "locale",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "minuteStep",
+				"type": "number",
+				"required": false,
+				"description": "Minutes offered, in steps; an exact time already chosen is kept.",
+				"defaultValue": "5"
+			},
+			{
+				"name": "placeholder",
+				"type": "string",
+				"required": false,
+				"description": "Shown when no time is chosen.",
+				"defaultValue": null
+			},
+			{
+				"name": "labels",
+				"type": "{ hour: string; minute: string; period: string }",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "Prevents opening the time panel.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Trigger button density; matches Picker's sm | md | lg.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"content-unavailable-view": {
+		"source": "packages/ui/src/components/content-unavailable-view/content-unavailable-view.tsx",
+		"props": [
+			{
+				"name": "title",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "description",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "icon",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "actions",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Title, description and vertical rhythm.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["Omit<ComponentProps<\"div\">, \"title\">"],
+		"parts": []
+	},
+	"content-view": {
+		"source": "packages/ui/src/components/content-view/content-view.tsx",
+		"props": [
+			{
+				"name": "variant",
+				"type": "ContentViewVariant",
+				"required": false,
+				"description": "",
+				"defaultValue": "\"elevated\""
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Container radius, section gap and text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["ComponentPropsWithoutRef<\"section\">"],
+		"parts": [
+			{
+				"name": "ContentView.Row",
+				"props": [],
+				"native": ["ComponentPropsWithoutRef<\"div\">"]
+			},
+			{
+				"name": "ContentView.Section",
+				"props": [],
+				"native": ["ComponentPropsWithoutRef<\"section\">"]
+			},
+			{
+				"name": "ContentView.Header",
+				"props": [
+					{
+						"name": "heading",
+						"type": "string",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "p",
+						"type": "string",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "pClassName",
+						"type": "string",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "icon",
+						"type": "ReactNode",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "action",
+						"type": "ReactNode",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "actionClassName",
+						"type": "string",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "as",
+						"type": "\"h1\" | \"h2\" | \"h3\"",
+						"required": false,
+						"description": "",
+						"defaultValue": "\"h3\""
+					},
+					{
+						"name": "className",
+						"type": "string",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "children",
+						"type": "ReactNode",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					}
+				],
+				"native": []
+			},
+			{
+				"name": "ContentView.H1",
+				"props": [],
+				"native": ["ComponentPropsWithoutRef<\"h1\">"]
+			},
+			{
+				"name": "ContentView.H2",
+				"props": [],
+				"native": ["ComponentPropsWithoutRef<\"h2\">"]
+			},
+			{
+				"name": "ContentView.P",
+				"props": [],
+				"native": ["ComponentPropsWithoutRef<\"p\">"]
+			},
+			{
+				"name": "ContentView.Span",
+				"props": [],
+				"native": ["ComponentPropsWithoutRef<\"span\">"]
+			},
+			{
+				"name": "ContentView.Sub",
+				"props": [],
+				"native": ["ComponentPropsWithoutRef<\"sub\">"]
+			}
+		]
+	},
+	"context-menu": {
+		"source": "packages/ui/src/components/context-menu/use-context-menu.ts",
+		"props": [
+			{
+				"name": "items",
+				"type": "() => ContextMenuItem[]",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"conversation": {
+		"source": "packages/ui/src/components/conversation/conversation.tsx",
+		"props": [],
+		"native": [],
+		"parts": [
+			{
+				"name": "Conversation.Messages",
+				"props": [
+					{
+						"name": "messages",
+						"type": "ConversationMessage[]",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "locale",
+						"type": "string",
+						"required": false,
+						"description": "For day names and times; the reader's own by default.",
+						"defaultValue": null
+					},
+					{
+						"name": "size",
+						"type": "\"sm\" | \"md\" | \"lg\"",
+						"required": false,
+						"description": "Bubble, avatar, author and time scale.",
+						"defaultValue": "\"md\""
+					}
+				],
+				"native": []
+			},
+			{
+				"name": "Conversation.Composer",
+				"props": [
+					{
+						"name": "onSend",
+						"type": "(body: string) => Promise<unknown>",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "pending",
+						"type": "boolean",
+						"required": false,
+						"description": "",
+						"defaultValue": "false"
+					},
+					{
+						"name": "maxLength",
+						"type": "number",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "placeholder",
+						"type": "string",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "actions",
+						"type": "ReactNode",
+						"required": false,
+						"description": "Extra controls under the field, like a status picker.",
+						"defaultValue": null
+					},
+					{
+						"name": "sendLabel",
+						"type": "string",
+						"required": true,
+						"description": "Names the round Send button for screen readers.",
+						"defaultValue": null
+					},
+					{
+						"name": "remaining",
+						"type": "(count: number) => string",
+						"required": false,
+						"description": "Words for the characters left, shown near the limit, such as (count) => `${count} left`. Without it, just the number shows.",
+						"defaultValue": null
+					},
+					{
+						"name": "size",
+						"type": "\"sm\" | \"md\" | \"lg\"",
+						"required": false,
+						"description": "Surface, textarea, send button and counter scale.",
+						"defaultValue": "\"md\""
+					}
+				],
+				"native": []
+			}
+		]
+	},
+	"date-picker": {
+		"source": "packages/ui/src/components/date-picker/date-picker.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: string) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "labels",
+				"type": "{ day: string month: string year: string invalid: string }",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "locale",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "max",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Field scale passed to each TextField; matches TextField's xs|sm|md|lg.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"dialog": {
+		"source": "packages/ui/src/components/dialog/dialog.tsx",
+		"props": [
+			{
+				"name": "open",
+				"type": "boolean",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onOpenChange",
+				"type": "(open: boolean) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "title",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "description",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "footer",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "presentation",
+				"type": "\"drawer\" | \"center\" | \"inline\"",
+				"required": false,
+				"description": "`drawer` (responsive sheet), `center` (floating panel), or `inline`.",
+				"defaultValue": "\"drawer\""
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Title, description, body and footer density.",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onSubmit",
+				"type": "(event: FormEvent<HTMLFormElement>) => void",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": [
+			{
+				"name": "Dialog.Actions",
+				"props": [
+					{
+						"name": "submitLabel",
+						"type": "ReactNode",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "cancelLabel",
+						"type": "ReactNode",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "pending",
+						"type": "boolean",
+						"required": false,
+						"description": "",
+						"defaultValue": "false"
+					},
+					{
+						"name": "disabled",
+						"type": "boolean",
+						"required": false,
+						"description": "",
+						"defaultValue": "false"
+					},
+					{
+						"name": "tone",
+						"type": "\"default\" | \"destructive\"",
+						"required": false,
+						"description": "",
+						"defaultValue": "\"default\""
+					},
+					{
+						"name": "onConfirm",
+						"type": "() => void",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					}
+				],
+				"native": []
+			}
+		]
+	},
+	"disclosure-group": {
+		"source": "packages/ui/src/components/disclosure-group/disclosure-group.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "open",
+				"type": "boolean",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onOpenChange",
+				"type": "(open: boolean) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": "false"
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "triggerClassName",
+				"type": "string",
+				"required": false,
+				"description": "Trigger layout when composed inside a shared surface such as Accordion.",
+				"defaultValue": null
+			},
+			{
+				"name": "description",
+				"type": "string",
+				"required": false,
+				"description": "Supporting text beneath the title.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Trigger, description and content density.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"divider": {
+		"source": "packages/ui/src/components/divider/divider.tsx",
+		"props": [
+			{
+				"name": "orientation",
+				"type": "\"horizontal\" | \"vertical\"",
+				"required": false,
+				"description": "",
+				"defaultValue": "\"horizontal\""
+			},
+			{
+				"name": "decorative",
+				"type": "boolean",
+				"required": false,
+				"description": "Decorative separators are omitted from the accessibility tree.",
+				"defaultValue": "true"
+			}
+		],
+		"native": ["HTMLAttributes<HTMLHRElement>"],
+		"parts": []
+	},
+	"inline-disclosure": {
+		"source": "packages/ui/src/components/inline-disclosure/inline-disclosure.tsx",
+		"props": [
+			{
+				"name": "open",
+				"type": "boolean",
+				"required": true,
+				"description": "Whether the content is expanded.",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"keyboard-shortcut": {
+		"source": "packages/ui/src/components/keyboard-shortcut/keyboard-shortcut.tsx",
+		"props": [
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\"",
+				"required": false,
+				"description": "Keycap padding density. Text stays at caption2 in both sizes.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["ComponentProps<\"kbd\">"],
+		"parts": []
+	},
+	"labeled-content": {
+		"source": "packages/ui/src/components/labeled-content/labeled-content.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "The visible name of the row.",
+				"defaultValue": null
+			},
+			{
+				"name": "description",
+				"type": "string",
+				"required": false,
+				"description": "Supporting text below the label.",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": true,
+				"description": "The row's control or value.",
+				"defaultValue": null
+			},
+			{
+				"name": "stacked",
+				"type": "boolean",
+				"required": false,
+				"description": "Places the control below the label at every width.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "wide",
+				"type": "boolean",
+				"required": false,
+				"description": "Places a wide control below its label on phones.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Row padding density.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["HTMLAttributes<HTMLDivElement>"],
+		"parts": []
+	},
+	"locale-switcher": {
+		"source": "packages/ui/src/components/locale-switcher/locale-switcher.tsx",
+		"props": [
+			{
+				"name": "locales",
+				"type": "readonly L[]",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "locale",
+				"type": "L",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onSelect",
+				"type": "(locale: L) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "storageKey",
+				"type": "string",
+				"required": true,
+				"description": "localStorage key for where the person dragged it.",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Trigger, header, list item and icon scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"menu": {
+		"source": "packages/ui/src/components/menu/menu.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Accessible name for the menu trigger.",
+				"defaultValue": null
+			},
+			{
+				"name": "items",
+				"type": "readonly ContextMenuItem[]",
+				"required": true,
+				"description": "Items are rendered by the app's existing ContextMenuHost.",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "edge",
+				"type": "\"leading\" | \"trailing\"",
+				"required": false,
+				"description": "Logical edge used to align the menu, including RTL.",
+				"defaultValue": "\"leading\""
+			},
+			{
+				"name": "above",
+				"type": "boolean",
+				"required": false,
+				"description": "Expand upward from the trigger instead of downward.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "ref",
+				"type": "Ref<HTMLButtonElement>",
+				"required": false,
+				"description": "Reference to the native element.",
+				"defaultValue": null
+			}
+		],
+		"native": ["Omit<ButtonProps, \"onClick\" | \"children\">"],
+		"parts": []
+	},
+	"one-time-code": {
+		"source": "packages/ui/src/components/one-time-code/one-time-code.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "value",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: string) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onComplete",
+				"type": "(value: string) => void",
+				"required": false,
+				"description": "Called when a complete code is entered, including paste and autofill.",
+				"defaultValue": null
+			},
+			{
+				"name": "length",
+				"type": "number",
+				"required": false,
+				"description": "Number of characters, 3–8.",
+				"defaultValue": "6"
+			},
+			{
+				"name": "format",
+				"type": "\"numeric\" | \"alphanumeric\"",
+				"required": false,
+				"description": "Accepted characters. Alphanumeric codes use uppercase ASCII letters and digits.",
+				"defaultValue": "\"numeric\""
+			},
+			{
+				"name": "ref",
+				"type": "Ref<HTMLInputElement>",
+				"required": false,
+				"description": "Ref to the single native input, for focus and selection.",
+				"defaultValue": null
+			},
+			{
+				"name": "status",
+				"type": "\"idle\" | \"verifying\" | \"success\" | \"error\"",
+				"required": false,
+				"description": "",
+				"defaultValue": "\"idle\""
+			},
+			{
+				"name": "statusLabel",
+				"type": "string",
+				"required": false,
+				"description": "Localized verification feedback announced without reading decorative cells.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Cell height, digit text scale and check icon size.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [
+			"Omit< InputHTMLAttributes<HTMLInputElement>, \"value\" | \"defaultValue\" | \"onChange\" | \"type\" | \"maxLength\" | \"size\" >"
+		],
+		"parts": []
+	},
+	"picker": {
+		"source": "packages/ui/src/components/picker/picker.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "T",
+				"required": true,
+				"description": "The selected option's value.",
+				"defaultValue": null
+			},
+			{
+				"name": "options",
+				"type": "ReadonlyArray<PickerOption<T>>",
+				"required": true,
+				"description": "Available choices. Use a literal union for a fixed set of values.",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: NoInfer<T>) => void",
+				"required": true,
+				"description": "Called with the selected option value.",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Accessible name for the trigger.",
+				"defaultValue": null
+			},
+			{
+				"name": "placeholder",
+				"type": "string",
+				"required": false,
+				"description": "Shown when the selected value has no matching option.",
+				"defaultValue": null
+			},
+			{
+				"name": "searchable",
+				"type": "boolean",
+				"required": false,
+				"description": "Defaults to on for lists of ten or more options.",
+				"defaultValue": null
+			},
+			{
+				"name": "searchPlaceholder",
+				"type": "string",
+				"required": false,
+				"description": "Label for the filter field.",
+				"defaultValue": "\"Search\""
+			},
+			{
+				"name": "emptyLabel",
+				"type": "string",
+				"required": false,
+				"description": "Shown when the filter matches nothing.",
+				"defaultValue": "\"No matches\""
+			},
+			{
+				"name": "onCreate",
+				"type": "(query: string) => void",
+				"required": false,
+				"description": "Offers a new value when no option has the same label or value.",
+				"defaultValue": null
+			},
+			{
+				"name": "createLabel",
+				"type": "(query: string) => string",
+				"required": false,
+				"description": "Localized creation action; receives the trimmed query.",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "Prevents opening or choosing an option.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Trigger height and text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"popover": {
+		"source": "packages/ui/src/components/popover/popover.tsx",
+		"props": [
+			{
+				"name": "open",
+				"type": "boolean",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "origin",
+				"type": "\"top-left\" | \"top-right\"",
+				"required": false,
+				"description": "Which corner the popover grows from.",
+				"defaultValue": null
+			},
+			{
+				"name": "anchorRef",
+				"type": "RefObject<HTMLElement | null>",
+				"required": false,
+				"description": "Trigger whose shape the popover uses during its opening and closing motion.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\"",
+				"required": false,
+				"description": "Surface corner radius.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["Omit<HTMLMotionProps<\"div\">, \"children\">"],
+		"parts": []
+	},
+	"profile-image": {
+		"source": "packages/ui/src/components/profile-image/profile-image.tsx",
+		"props": [
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Avatar diameter; fallback initials scale with it.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["ComponentProps<\"span\">"],
+		"parts": [
+			{
+				"name": "ProfileImageContent",
+				"props": [],
+				"native": ["ComponentProps<\"img\">"]
+			},
+			{
+				"name": "ProfileImageFallback",
+				"props": [],
+				"native": ["ComponentProps<\"span\">"]
+			}
+		]
+	},
+	"progress-view": {
+		"source": "packages/ui/src/components/progress-view/progress-view.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "value",
+				"type": "number",
+				"required": false,
+				"description": "Omit for an indeterminate operation.",
+				"defaultValue": null
+			},
+			{
+				"name": "max",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "100"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "detail",
+				"type": "string",
+				"required": false,
+				"description": "Secondary text, such as bytes uploaded.",
+				"defaultValue": null
+			}
+		],
+		"native": ["Omit<HTMLAttributes<HTMLDivElement>, \"children\">"],
+		"parts": []
+	},
+	"radio-group": {
+		"source": "packages/ui/src/components/radio-group/radio-group.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "T",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: NoInfer<T>) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "options",
+				"type": "readonly RadioGroupOption<T>[]",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "name",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Legend, row, radio glyph and description density.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"search-field": {
+		"source": "packages/ui/src/components/search-field/search-field.tsx",
+		"props": [
+			{
+				"name": "collapsible",
+				"type": "boolean",
+				"required": false,
+				"description": "Expand a single pill from its search icon on focus.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Pill height, icon size and text scale (non-collapsible variant).",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "ref",
+				"type": "Ref<HTMLInputElement>",
+				"required": false,
+				"description": "Reference to the native element.",
+				"defaultValue": null
+			}
+		],
+		"native": ["Omit<InputHTMLAttributes<HTMLInputElement>, \"size\">"],
+		"parts": []
+	},
+	"search-list": {
+		"source": "packages/ui/src/components/search-list/search-list.tsx",
+		"props": [
+			{
+				"name": "loop",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": "true"
+			},
+			{
+				"name": "open",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": "true"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Field, item and heading density.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["ComponentProps<\"div\">"],
+		"parts": [
+			{
+				"name": "SearchListField",
+				"props": [
+					{
+						"name": "value",
+						"type": "string",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "onValueChange",
+						"type": "(value: string) => void",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					}
+				],
+				"native": ["Omit<ComponentProps<\"input\">, \"value\" | \"onChange\">"]
+			},
+			{
+				"name": "SearchListResults",
+				"props": [],
+				"native": ["ComponentProps<\"div\">"]
+			},
+			{
+				"name": "SearchListEmpty",
+				"props": [],
+				"native": ["ComponentProps<\"div\">"]
+			},
+			{
+				"name": "SearchListGroup",
+				"props": [
+					{
+						"name": "heading",
+						"type": "React.ReactNode",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					}
+				],
+				"native": ["ComponentProps<\"div\">"]
+			},
+			{
+				"name": "SearchListItem",
+				"props": [
+					{
+						"name": "value",
+						"type": "string",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "keywords",
+						"type": "string[]",
+						"required": false,
+						"description": "",
+						"defaultValue": "[]"
+					},
+					{
+						"name": "onSelect",
+						"type": "(value: string) => void",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					}
+				],
+				"native": ["Omit<ComponentProps<\"button\">, \"value\" | \"onSelect\">"]
+			}
+		]
+	},
+	"section": {
+		"source": "packages/ui/src/components/section/section.tsx",
+		"props": [
+			{
+				"name": "title",
+				"type": "string",
+				"required": false,
+				"description": "Optional group heading and accessible name.",
+				"defaultValue": null
+			},
+			{
+				"name": "footer",
+				"type": "ReactNode",
+				"required": false,
+				"description": "Supporting text below the grouped rows.",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": false,
+				"description": "Rows, typically LabeledContent.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Title and footer text scale + padding.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["HTMLAttributes<HTMLElement>"],
+		"parts": []
+	},
+	"secure-field": {
+		"source": "packages/ui/src/components/secure-field/secure-field.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "description",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "errors",
+				"type": "string[]",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "icon",
+				"type": "ReactNode",
+				"required": false,
+				"description": "A decorative icon before the text, such as a mail glyph.",
+				"defaultValue": null
+			},
+			{
+				"name": "trailingIcon",
+				"type": "ReactNode",
+				"required": false,
+				"description": "A decorative icon after the text, such as a unit or a check.",
+				"defaultValue": null
+			},
+			{
+				"name": "action",
+				"type": "ReactNode",
+				"required": false,
+				"description": "An interactive control after the text, such as a clear button. Size it to the field: an `xs` or `icon-xs` button, never the default.",
+				"defaultValue": null
+			},
+			{
+				"name": "revealLabels",
+				"type": "{ show: string; hide: string }",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "labelPlacement",
+				"type": "\"above\" | \"floating\"",
+				"required": false,
+				"description": "Float the label into the outline on focus or when filled.",
+				"defaultValue": "\"above\""
+			},
+			{
+				"name": "size",
+				"type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Field height and text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["Omit<Omit<ComponentProps<\"input\">, \"size\">, \"type\">"],
+		"parts": []
+	},
+	"segmented-control": {
+		"source": "packages/ui/src/components/segmented-control/segmented-control.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "T",
+				"required": true,
+				"description": "Value of the selected segment.",
+				"defaultValue": null
+			},
+			{
+				"name": "options",
+				"type": "ReadonlyArray<{ value: T; label: string }>",
+				"required": true,
+				"description": "The choices, in display order.",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: NoInfer<T>) => void",
+				"required": true,
+				"description": "Called with the selected segment's value.",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Accessible name for the group and its compact picker.",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "Custom classes for the control container.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Segment padding, label text scale and min-width.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"sheet": {
+		"source": "packages/ui/src/components/sheet/sheet.tsx",
+		"props": [
+			{
+				"name": "open",
+				"type": "boolean",
+				"required": true,
+				"description": "Controls whether the sheet is presented.",
+				"defaultValue": null
+			},
+			{
+				"name": "onClose",
+				"type": "() => void",
+				"required": true,
+				"description": "Called on Escape or an outside press.",
+				"defaultValue": null
+			},
+			{
+				"name": "dismissOnOutsidePress",
+				"type": "boolean",
+				"required": false,
+				"description": "Allow tapping the backdrop to close. Escape still calls onClose.",
+				"defaultValue": "true"
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Read out by screen readers as the sheet's name.",
+				"defaultValue": null
+			},
+			{
+				"name": "labelledBy",
+				"type": "string",
+				"required": false,
+				"description": "ID of a visible heading to use instead of label for the accessible name.",
+				"defaultValue": null
+			},
+			{
+				"name": "placement",
+				"type": "\"adaptive\" | \"center\"",
+				"required": false,
+				"description": "`adaptive` rises from the bottom on phones; `center` always floats.",
+				"defaultValue": "\"adaptive\""
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Outer padding and panel max-width.",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"sidebar": {
+		"source": "packages/ui/src/components/sidebar/sidebar.tsx",
+		"props": [
+			{
+				"name": "title",
+				"type": "string",
+				"required": true,
+				"description": "Visible heading for this group of navigation rows.",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"skeleton": {
+		"source": "packages/ui/src/components/skeleton/skeleton.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Minimum height and rounding.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["ComponentProps<\"div\">"],
+		"parts": []
+	},
+	"slider": {
+		"source": "packages/ui/src/components/slider/slider.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "number",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: number) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "min",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "0"
+			},
+			{
+				"name": "max",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "100"
+			},
+			{
+				"name": "step",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "1"
+			},
+			{
+				"name": "description",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "formatValue",
+				"type": "(value: number) => string",
+				"required": false,
+				"description": "Provides a localized, spoken description of the current value.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Track height, thumb size and label/description text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [
+			"Omit< ComponentProps<\"input\">, \"type\" | \"value\" | \"defaultValue\" | \"onChange\" | \"min\" | \"max\" | \"step\" | \"size\" >"
+		],
+		"parts": []
+	},
+	"slosh-slider": {
+		"source": "packages/ui/src/components/slosh-slider/slosh-slider.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "value",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "defaultValue",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "62"
+			},
+			{
+				"name": "onChange",
+				"type": "(value: number) => void",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "viscosity",
+				"type": "number",
+				"required": false,
+				"description": "0 is rigid; 100 is loose liquid.",
+				"defaultValue": "15"
+			},
+			{
+				"name": "momentum",
+				"type": "number",
+				"required": false,
+				"description": "How far the handle coasts after release, 0–100.",
+				"defaultValue": "55"
+			},
+			{
+				"name": "tilt",
+				"type": "number",
+				"required": false,
+				"description": "Lean of the liquid's leading edge, 0–100.",
+				"defaultValue": "45"
+			},
+			{
+				"name": "corner",
+				"type": "number",
+				"required": false,
+				"description": "Track corner, from square to a pill, 0–20.",
+				"defaultValue": "20"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Track height and knob scale.",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": "false"
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "formatValue",
+				"type": "(value: number) => string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"stat-tile": {
+		"source": "packages/ui/src/components/stat-tile/stat-tile.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "value",
+				"type": "number",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "caption",
+				"type": "ReactNode",
+				"required": false,
+				"description": "A quiet line under the number, like \"3 signed in now\".",
+				"defaultValue": null
+			},
+			{
+				"name": "tone",
+				"type": "StatTileTone",
+				"required": false,
+				"description": "Turns the number red once it's above zero.",
+				"defaultValue": null
+			},
+			{
+				"name": "onClick",
+				"type": "() => void",
+				"required": false,
+				"description": "Makes the tile a toggle, e.g. a filter.",
+				"defaultValue": null
+			},
+			{
+				"name": "active",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": "false"
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "Custom classes for the tile container.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Tile padding and number scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"status-indicator": {
+		"source": "packages/ui/src/components/status-indicator/status-indicator.tsx",
+		"props": [
+			{
+				"name": "state",
+				"type": "StatusIndicatorState",
+				"required": true,
+				"description": "Visual treatment of the status dot.",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\"",
+				"required": false,
+				"description": "Dot diameter and text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["HTMLAttributes<HTMLSpanElement>"],
+		"parts": []
+	},
+	"stepper": {
+		"source": "packages/ui/src/components/stepper/stepper.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "number",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: number) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "labels",
+				"type": "{ decrement: string; increment: string }",
+				"required": true,
+				"description": "Localized accessible names for each action.",
+				"defaultValue": null
+			},
+			{
+				"name": "min",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "0"
+			},
+			{
+				"name": "max",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "100"
+			},
+			{
+				"name": "step",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "1"
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": "false"
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "formatValue",
+				"type": "(value: number) => string",
+				"required": false,
+				"description": "Formats the displayed value.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Label, output and +/- button scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"swatch-picker": {
+		"source": "packages/ui/src/components/swatch-picker/swatch-picker.tsx",
+		"props": [
+			{
+				"name": "value",
+				"type": "T",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "options",
+				"type": "ReadonlyArray<SwatchPickerOption<T>>",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(value: T) => void",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Accessible name for the group.",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "Custom classes for the swatch container.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Swatch diameter, check icon and caption scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"tab-bar": {
+		"source": "packages/ui/src/components/tab-bar/tab-bar.tsx",
+		"props": [
+			{
+				"name": "minimizeBehavior",
+				"type": "\"platform\" | \"scroll\" | \"never\"",
+				"required": false,
+				"description": "`platform` follows the platform, `scroll` always minimizes, `never` stays expanded.",
+				"defaultValue": "\"platform\""
+			},
+			{
+				"name": "tabs",
+				"type": "readonly Tab[]",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "active",
+				"type": "Tab[\"id\"] | null",
+				"required": true,
+				"description": "Active tab ID, or null for a destination outside the bar.",
+				"defaultValue": null
+			},
+			{
+				"name": "renderLink",
+				"type": "(tab: Tab, props: TabBarLinkProps) => ReactNode",
+				"required": true,
+				"description": "Renders your router's link with the supplied appearance and accessibility props.",
+				"defaultValue": null
+			},
+			{
+				"name": "search",
+				"type": "{ label: string; onPress: () => void }",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Accessible name for the navigation.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Tab height, label text, minimized width and search button diameter.",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"tab-view": {
+		"source": "packages/ui/src/components/tab-view/tab-view.tsx",
+		"props": [
+			{
+				"name": "options",
+				"type": "readonly { value: Value; label: string; disabled?: boolean }[]",
+				"required": true,
+				"description": "Available tabs, in keyboard navigation order.",
+				"defaultValue": null
+			},
+			{
+				"name": "defaultValue",
+				"type": "Value",
+				"required": true,
+				"description": "Initial selection when value is not controlled.",
+				"defaultValue": null
+			},
+			{
+				"name": "value",
+				"type": "Value",
+				"required": false,
+				"description": "Controlled selection; omit to keep selection inside TabView.",
+				"defaultValue": null
+			},
+			{
+				"name": "onValueChange",
+				"type": "(value: Value) => void",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "align",
+				"type": "\"start\" | \"center\"",
+				"required": false,
+				"description": "Tab alignment: `start` or `center`.",
+				"defaultValue": "\"center\""
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Accessible name for the tab list.",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "(value: Value) => ReactNode",
+				"required": true,
+				"description": "Renders the selected tab's panel.",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Tablist height, tab text scale and underline offset.",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"table": {
+		"source": "packages/ui/src/components/table/table.tsx",
+		"props": [
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Row height, cell padding and text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["React.ComponentProps<\"table\">"],
+		"parts": [
+			{
+				"name": "TableBody",
+				"props": [],
+				"native": ["React.ComponentProps<\"tbody\">"]
+			},
+			{
+				"name": "TableCaption",
+				"props": [],
+				"native": ["React.ComponentProps<\"caption\">"]
+			},
+			{
+				"name": "TableCell",
+				"props": [],
+				"native": ["React.ComponentProps<\"td\">"]
+			},
+			{
+				"name": "TableFooter",
+				"props": [],
+				"native": ["React.ComponentProps<\"tfoot\">"]
+			},
+			{
+				"name": "TableHead",
+				"props": [],
+				"native": ["React.ComponentProps<\"th\">"]
+			},
+			{
+				"name": "TableHeader",
+				"props": [],
+				"native": ["React.ComponentProps<\"thead\">"]
+			},
+			{
+				"name": "TableRow",
+				"props": [],
+				"native": ["React.ComponentProps<\"tr\">"]
+			}
+		]
+	},
+	"text-editor": {
+		"source": "packages/ui/src/components/text-editor/text-editor.tsx",
+		"props": [
+			{
+				"name": "size",
+				"type": "TextEditorSize",
+				"required": false,
+				"description": "Field surface scale; matches TextField's xs | sm | md | lg.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["Omit<ComponentProps<\"textarea\">, \"size\">"],
+		"parts": []
+	},
+	"text-field": {
+		"source": "packages/ui/src/components/text-field/text-field.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "description",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "errors",
+				"type": "string[]",
+				"required": false,
+				"description": "",
+				"defaultValue": "[]"
+			},
+			{
+				"name": "icon",
+				"type": "ReactNode",
+				"required": false,
+				"description": "A decorative icon before the text, such as a mail glyph.",
+				"defaultValue": null
+			},
+			{
+				"name": "trailingIcon",
+				"type": "ReactNode",
+				"required": false,
+				"description": "A decorative icon after the text, such as a unit or a check.",
+				"defaultValue": null
+			},
+			{
+				"name": "action",
+				"type": "ReactNode",
+				"required": false,
+				"description": "An interactive control after the text, such as a clear button. Size it to the field: an `xs` or `icon-xs` button, never the default.",
+				"defaultValue": null
+			},
+			{
+				"name": "revealLabels",
+				"type": "{ show: string; hide: string }",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "labelPlacement",
+				"type": "\"above\" | \"floating\"",
+				"required": false,
+				"description": "Float the label into the outline on focus or when filled.",
+				"defaultValue": "\"above\""
+			},
+			{
+				"name": "size",
+				"type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Field height and text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": ["Omit<ComponentProps<\"input\">, \"size\">"],
+		"parts": []
+	},
+	"toast": {
+		"source": "packages/ui/src/components/toast/toast-store.ts",
+		"props": [
+			{
+				"name": "title",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "options",
+				"type": "ToastOptions",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": [
+			{
+				"name": "ToastOptions",
+				"props": [
+					{
+						"name": "description",
+						"type": "string",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "action",
+						"type": "ToastAction",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "duration",
+						"type": "number | null",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "size",
+						"type": "\"sm\" | \"md\" | \"lg\"",
+						"required": false,
+						"description": "Pill size, content padding and title/description text scale.",
+						"defaultValue": "\"md\""
+					}
+				],
+				"native": []
+			}
+		]
+	},
+	"toggle": {
+		"source": "packages/ui/src/components/toggle/toggle.tsx",
+		"props": [
+			{
+				"name": "checked",
+				"type": "boolean",
+				"required": true,
+				"description": "Current on or off state.",
+				"defaultValue": null
+			},
+			{
+				"name": "onChange",
+				"type": "(checked: boolean) => void",
+				"required": true,
+				"description": "Called with the next checked state.",
+				"defaultValue": null
+			},
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "Accessible name, including when the visible label is hidden.",
+				"defaultValue": null
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "style",
+				"type": "\"switch\" | \"checkbox\"",
+				"required": false,
+				"description": "`switch` for a setting, `checkbox` for a selection.",
+				"defaultValue": "\"switch\""
+			},
+			{
+				"name": "mixed",
+				"type": "boolean",
+				"required": false,
+				"description": "Reports a mixed selection to assistive technology.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "labelHidden",
+				"type": "boolean",
+				"required": false,
+				"description": "Keeps the accessible name while hiding the visible label.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Switch track size, thumb travel, checkbox box and label text scale.",
+				"defaultValue": "\"md\""
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "Custom classes for the toggle container.",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": []
+	},
+	"tooltip": {
+		"source": "packages/ui/src/components/tooltip/tooltip-host.tsx",
+		"props": [],
+		"native": [],
+		"parts": []
+	},
+	"view-controller": {
+		"source": "packages/ui/src/components/view-controller/view-controller.tsx",
+		"props": [
+			{
+				"name": "heading",
+				"type": "ReactNode",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "children",
+				"type": "ReactNode",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			}
+		],
+		"native": [],
+		"parts": [
+			{
+				"name": "ViewController.Heading",
+				"props": [
+					{
+						"name": "title",
+						"type": "ReactNode",
+						"required": true,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "description",
+						"type": "ReactNode",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "action",
+						"type": "ReactNode",
+						"required": false,
+						"description": "",
+						"defaultValue": null
+					},
+					{
+						"name": "size",
+						"type": "keyof typeof titleSizes",
+						"required": false,
+						"description": "",
+						"defaultValue": "\"default\""
+					}
+				],
+				"native": []
+			}
+		]
+	},
+	"wake-slider": {
+		"source": "packages/ui/src/components/wake-slider/wake-slider.tsx",
+		"props": [
+			{
+				"name": "label",
+				"type": "string",
+				"required": true,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "value",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "defaultValue",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "50"
+			},
+			{
+				"name": "onChange",
+				"type": "(value: number) => void",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "bars",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "36"
+			},
+			{
+				"name": "wake",
+				"type": "number",
+				"required": false,
+				"description": "",
+				"defaultValue": "60"
+			},
+			{
+				"name": "disabled",
+				"type": "boolean",
+				"required": false,
+				"description": "",
+				"defaultValue": "false"
+			},
+			{
+				"name": "className",
+				"type": "string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "formatValue",
+				"type": "(value: number) => string",
+				"required": false,
+				"description": "",
+				"defaultValue": null
+			},
+			{
+				"name": "size",
+				"type": "\"sm\" | \"md\" | \"lg\"",
+				"required": false,
+				"description": "Bar height at rest and value text scale.",
+				"defaultValue": "\"md\""
+			}
+		],
+		"native": [],
+		"parts": []
+	}
 }

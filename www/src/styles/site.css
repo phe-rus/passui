@@ -3,20 +3,20 @@
 
 /* the brand face, for the wordmark and big headings only */
 @theme {
-    --font-brand: "Bricolage Grotesque", var(--font-display);
+	--font-brand: "Bricolage Grotesque", var(--font-display);
 }
 
 /* the mark's sun rising into place */
 @keyframes sunrise {
-    from {
-        transform: translateY(18px);
-        opacity: 0;
-    }
+	from {
+		transform: translateY(18px);
+		opacity: 0;
+	}
 }
 
 /* the component showcase sliding by */
 @keyframes marquee {
-    to {
-        transform: translateX(-100%);
-    }
+	to {
+		transform: translateX(-100%);
+	}
 }

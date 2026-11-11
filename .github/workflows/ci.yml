@@ -1,36 +1,36 @@
 name: Passui CI
 
 on:
-    push:
-        branches: [main]
-    pull_request:
+  push:
+    branches: [main]
+  pull_request:
 
 permissions:
-    contents: read
+  contents: read
 
 concurrency:
-    group: ci-${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-    cancel-in-progress: true
+  group: ci-${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
-    check:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
-            - uses: oven-sh/setup-bun@v2
-              with:
-                  bun-version: 1.4.2
-            - uses: actions/setup-node@v6
-              with:
-                  node-version: "24"
-                  package-manager-cache: false
-            - run: bun install --frozen-lockfile
-            - run: bun run check
-            - run: bun run --cwd packages/cli build
-            - run: node packages/cli/dist/passui.js --help
-            - run: bun run --cwd www type-gen
-            - run: bun run build
-            - run: bun run typecheck
-            - run: bun run test
-            - run: bun run publish:check
-            - run: bun run size:check
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          package-manager-cache: false
+      - run: bun install --frozen-lockfile
+      - run: bun run check
+      - run: bun run --cwd packages/cli build
+      - run: node packages/cli/dist/passui.js --help
+      - run: bun run --cwd www type-gen
+      - run: bun run build
+      - run: bun run typecheck
+      - run: bun run test
+      - run: bun run publish:check
+      - run: bun run size:check

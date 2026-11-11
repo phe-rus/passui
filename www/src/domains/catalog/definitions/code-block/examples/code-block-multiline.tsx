@@ -1,11 +1,11 @@
-import { CodeBlock } from "@passui/react/code-block"
+import { CodeBlock } from "@passui/react/code-block";
 
 export function CodeBlockMultiline() {
-    return (
-        <CodeBlock
-            code={
-                'import { Button } from "@passui/react/button"\n\nexport const Action = () => <Button>Continue</Button>'
-            }
-        />
-    )
+	return (
+		<CodeBlock
+			code={
+				'import { Button } from "@passui/react/button"\n\nexport const Action = () => <Button>Continue</Button>'
+			}
+		/>
+	);
 }

@@ -1,28 +1,28 @@
-import type { CodeLang } from "@/domains/playground"
-import type { IconProps } from "@passui/react/icons"
-import type { ComponentType } from "react"
-import type { RegisteredDocs } from "@/domains/catalog/definitions"
+import type { CodeLang } from "@/domains/playground";
+import type { IconProps } from "@passui/react/icons";
+import type { ComponentType } from "react";
+import type { RegisteredDocs } from "@/domains/catalog/definitions";
 
 type DocsShape = {
-    controls: object
-    examples: readonly { id: string }[]
-}
+	controls: object;
+	examples: readonly { id: string }[];
+};
 
 export type ExampleContent = {
-    title: string
-    description: string
-}
+	title: string;
+	description: string;
+};
 
 export type AnatomyPart = {
-    element: string
-    description: string
-    required?: boolean
-}
+	element: string;
+	description: string;
+	required?: boolean;
+};
 
 export type Practice = {
-    kind: "do" | "dont"
-    text: string
-}
+	kind: "do" | "dont";
+	text: string;
+};
 
 /**
  * The site's words for one component, typed against its docs: a new
@@ -30,38 +30,38 @@ export type Practice = {
  * typecheck.
  */
 export type ComponentContent<D extends DocsShape> = {
-    summary: string
-    /** One sentence on when to reach for it, above the import. */
-    usage: string
-    propDescriptions: Record<keyof D["controls"] & string, string>
-    examples: Record<D["examples"][number]["id"], ExampleContent>
-    anatomy: AnatomyPart[]
-    practices: Practice[]
-    accessibility: string[]
-}
+	summary: string;
+	/** One sentence on when to reach for it, above the import. */
+	usage: string;
+	propDescriptions: Record<keyof D["controls"] & string, string>;
+	examples: Record<D["examples"][number]["id"], ExampleContent>;
+	anatomy: AnatomyPart[];
+	practices: Practice[];
+	accessibility: string[];
+};
 
 /** Where a component sits in the sidebar. */
 export type CatalogGroup =
-    | "Controls"
-    | "Layout and disclosure"
-    | "Navigation"
-    | "Presentation"
-    | "Feedback"
-    | "Content"
-    | "Compositions"
+	| "Controls"
+	| "Layout and disclosure"
+	| "Navigation"
+	| "Presentation"
+	| "Feedback"
+	| "Content"
+	| "Compositions";
 
 /** A component's docs and the site's words for it, together. */
 export type CatalogEntry = {
-    group: CatalogGroup
-    /** The sidebar icon, picked to picture this component. */
-    icon: ComponentType<IconProps>
-    docs: RegisteredDocs
-    content: ComponentContent<DocsShape>
-}
+	group: CatalogGroup;
+	/** The sidebar icon, picked to picture this component. */
+	icon: ComponentType<IconProps>;
+	docs: RegisteredDocs;
+	content: ComponentContent<DocsShape>;
+};
 
 export type InstallStep = {
-    title: string
-    code: string
-    /** The code's language; TSX when left out. */
-    lang?: CodeLang
-}
+	title: string;
+	code: string;
+	/** The code's language; TSX when left out. */
+	lang?: CodeLang;
+};

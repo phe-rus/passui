@@ -5,12 +5,12 @@ React framework.
 
 Docs and live playgrounds: [passui.pherus.org](https://passui.pherus.org).
 
-| Package | Directory | Purpose |
-|---|---|---|
-| `@passui/react` | `packages/ui` | Native React controls and appearance |
-| `@passui/tanstack` | `packages/tanstack` | Optional TanStack integrations |
-| `@passui/tokens` | `packages/tokens` | Shared tokens and styles |
-| `@passui/cli` | `packages/cli` | Project setup tooling |
+| Package            | Directory           | Purpose                              |
+| ------------------ | ------------------- | ------------------------------------ |
+| `@passui/react`    | `packages/ui`       | Native React controls and appearance |
+| `@passui/tanstack` | `packages/tanstack` | Optional TanStack integrations       |
+| `@passui/tokens`   | `packages/tokens`   | Shared tokens and styles             |
+| `@passui/cli`      | `packages/cli`      | Project setup tooling                |
 
 Passui's controls work without the optional TanStack integration or CLI. The official website lives
 in `www/` and consumes these packages. Run `bun run --cwd www dev`
@@ -28,10 +28,10 @@ Use one stylesheet import and public component entry points:
 ```
 
 ```tsx
-import { Button } from "@passui/react/button"
+import { Button } from "@passui/react/button";
 
 export function Continue() {
-    return <Button>Continue</Button>
+	return <Button>Continue</Button>;
 }
 ```
 

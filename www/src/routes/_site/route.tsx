@@ -1,14 +1,14 @@
-import { SiteLayout } from "@/domains/shell"
-import { Outlet, createFileRoute } from "@tanstack/react-router"
+import { SiteLayout } from "@/domains/shell";
+import { Outlet, createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_site")({
-    component: RouteComponent,
-})
+	component: RouteComponent,
+});
 
 function RouteComponent() {
-    return (
-        <SiteLayout>
-            <Outlet />
-        </SiteLayout>
-    )
+	return (
+		<SiteLayout>
+			<Outlet />
+		</SiteLayout>
+	);
 }

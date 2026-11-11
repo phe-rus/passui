@@ -1,1 +1,1 @@
-export { Submit } from "../../form-fields/submit"
+export { Submit } from "../../form-fields/submit";

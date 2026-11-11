@@ -1,52 +1,52 @@
-import { Button } from "@passui/react/button"
-import { Popover } from "@passui/react/popover"
-import { useDismiss } from "@passui/react/use-dismiss"
-import { toast } from "@passui/react"
-import { useRef, useState } from "react"
+import { Button } from "@passui/react/button";
+import { Popover } from "@passui/react/popover";
+import { useDismiss } from "@passui/react/use-dismiss";
+import { toast } from "@passui/react";
+import { useRef, useState } from "react";
 
-const actions = ["Duplicate", "Move to folder", "Export as PDF"]
+const actions = ["Duplicate", "Move to folder", "Export as PDF"];
 
 export function PopoverMenu() {
-    const [open, setOpen] = useState(false)
-    const anchor = useRef<HTMLDivElement>(null)
-    const trigger = useRef<HTMLButtonElement>(null)
-    useDismiss(anchor, open, () => setOpen(false))
+	const [open, setOpen] = useState(false);
+	const anchor = useRef<HTMLDivElement>(null);
+	const trigger = useRef<HTMLButtonElement>(null);
+	useDismiss(anchor, open, () => setOpen(false));
 
-    return (
-        <div ref={anchor} className="relative">
-            <Button
-                ref={trigger}
-                variant="secondary"
-                aria-haspopup="menu"
-                aria-expanded={open}
-                onClick={() => setOpen(!open)}
-            >
-                More
-            </Button>
-            <Popover
-                open={open}
-                origin="top-right"
-                anchorRef={trigger}
-                role="menu"
-                className="top-full right-0 mt-2 flex w-56 flex-col p-1.5"
-            >
-                {actions.map((action) => (
-                    <Button
-                        key={action}
-                        type="button"
-                        role="menuitem"
-                        variant="ghost"
-                        size="sm"
-                        className="w-full justify-start"
-                        onClick={() => {
-                            setOpen(false)
-                            toast(action)
-                        }}
-                    >
-                        {action}
-                    </Button>
-                ))}
-            </Popover>
-        </div>
-    )
+	return (
+		<div ref={anchor} className="relative">
+			<Button
+				ref={trigger}
+				variant="secondary"
+				aria-haspopup="menu"
+				aria-expanded={open}
+				onClick={() => setOpen(!open)}
+			>
+				More
+			</Button>
+			<Popover
+				open={open}
+				origin="top-right"
+				anchorRef={trigger}
+				role="menu"
+				className="top-full right-0 mt-2 flex w-56 flex-col p-1.5"
+			>
+				{actions.map((action) => (
+					<Button
+						key={action}
+						type="button"
+						role="menuitem"
+						variant="ghost"
+						size="sm"
+						className="w-full justify-start"
+						onClick={() => {
+							setOpen(false);
+							toast(action);
+						}}
+					>
+						{action}
+					</Button>
+				))}
+			</Popover>
+		</div>
+	);
 }

@@ -1,1 +1,1 @@
-export { FieldOtp } from "../../form-fields/fields"
+export { FieldOtp } from "../../form-fields/fields";

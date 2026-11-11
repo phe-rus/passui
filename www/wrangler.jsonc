@@ -13,7 +13,6 @@
     "vars": {
         "NODE_ENV": "production"
     },
-    // no bindings: the docs site holds no data
     "routes": [
         {
             "custom_domain": true,

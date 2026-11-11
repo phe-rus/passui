@@ -1,1 +1,1 @@
-export * from "./stat-tile"
+export * from "./stat-tile";

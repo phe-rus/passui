@@ -4,86 +4,96 @@
  */
 
 @layer base {
-  * {
-    @apply border-separator outline-accent/50;
-    /* Passui keeps scrolling behavior, but never displays scrollbar chrome. */
-    scrollbar-width: none;
-  }
+	* {
+		@apply border-separator outline-accent/50;
+		/* Passui keeps scrolling behavior, but never displays scrollbar chrome. */
+		scrollbar-width: none;
+	}
 
-  *::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-  }
+	*::-webkit-scrollbar {
+		display: none;
+		width: 0;
+		height: 0;
+	}
 
-  html {
-    @apply font-sans;
-    height: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    -webkit-tap-highlight-color: transparent;
-  }
+	html {
+		@apply font-sans;
+		height: 100%;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
+		-webkit-tap-highlight-color: transparent;
+	}
 
-  body {
-    @apply bg-background text-label [&_svg:not([data-brand])]:dualTone;
-    height: 100%;
-    overscroll-behavior: none;
-    transition:
-      background-color var(--duration-normal) var(--ease-standard),
-      color var(--duration-normal) var(--ease-standard);
-  }
+	body {
+		@apply bg-background text-label [&_svg:not([data-brand])]:dualTone;
+		height: 100%;
+		overscroll-behavior: none;
+		transition:
+			background-color var(--duration-normal) var(--ease-standard),
+			color var(--duration-normal) var(--ease-standard);
+	}
 
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  textarea:-webkit-autofill,
-  textarea:-webkit-autofill:hover,
-  textarea:-webkit-autofill:focus {
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: var(--color-label);
-    caret-color: var(--color-label);
-    transition: background-color 999999s ease-in-out 0s;
-  }
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover,
+	textarea:-webkit-autofill:focus {
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: var(--color-label);
+		caret-color: var(--color-label);
+		transition: background-color 999999s ease-in-out 0s;
+	}
 
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
 
-  :focus-visible {
-    outline: 2px solid var(--color-accent-text);
-    outline-offset: 2px;
-  }
+	:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 2px;
+	}
 
-  ::selection {
-    background: color-mix(in srgb, var(--color-accent) 40%, transparent);
-  }
+	::selection {
+		background: color-mix(in srgb, var(--color-accent) 40%, transparent);
+	}
 
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+	input[type="number"]::-webkit-outer-spin-button,
+	input[type="number"]::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
 
-  input[type="number"] {
-    -moz-appearance: textfield;
-    appearance: textfield;
-  }
+	input[type="number"] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+	}
 
-  /* Apple's pattern: a heading hugs the paragraph that follows it.
+	/* Apple's pattern: a heading hugs the paragraph that follows it.
      Section separation comes from the layout around the cluster,
      not from the heading's own bottom margin. Apps that want extra
      air can still add mt-* explicitly. Audit §4.3.3. */
-  h1, h2, h3, h4, h5, h6 {
-    margin-block: 0;
-  }
-  h1 + p, h2 + p, h3 + p, h4 + p, h5 + p, h6 + p {
-    margin-block-start: 0;
-  }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-block: 0;
+	}
+	h1 + p,
+	h2 + p,
+	h3 + p,
+	h4 + p,
+	h5 + p,
+	h6 + p {
+		margin-block-start: 0;
+	}
 
-  /* Apple's rule: use SF Pro Display optical variants at 20pt and above,
+	/* Apple's rule: use SF Pro Display optical variants at 20pt and above,
      SF Pro Text below. The --font-display family is declared in
      typography.ts but was previously unused because --font-heading
      aliased to --font-sans. This rule wires Display to the four large
@@ -91,18 +101,21 @@
      optical sizes, so this is invisible there; on systems with SF Pro
      installed outside -apple-system, it ensures the correct cut.
      Audit §4.4. */
-  .text-large-title, .text-title, .text-title2, .text-title3 {
-    font-family: var(--font-display);
-  }
+	.text-large-title,
+	.text-title,
+	.text-title2,
+	.text-title3 {
+		font-family: var(--font-display);
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
 }

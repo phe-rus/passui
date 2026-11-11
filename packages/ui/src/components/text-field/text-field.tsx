@@ -1,198 +1,200 @@
-import { type ComponentProps, type ReactNode, useId, useState } from "react"
-import { Button } from "../button/button"
-import { cn } from "../../lib/class-names"
+import { type ComponentProps, type ReactNode, useId, useState } from "react";
+import { Button } from "../button/button";
+import { cn } from "../../lib/class-names";
 
 /** Shared text control classes for components that reuse TextField's surface. */
 export const textControlClasses = cn(
-    "w-full min-w-0 rounded-xl border border-separator bg-elevated",
-    "px-3 py-2 text-body text-label placeholder:text-label-tertiary",
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-text",
-    "disabled:cursor-not-allowed disabled:opacity-40 aria-invalid:border-danger"
-)
+	"border-separator bg-elevated w-full min-w-0 rounded-xl border",
+	"text-body text-label placeholder:text-label-tertiary px-3 py-2",
+	"focus-visible:outline-accent-text focus-visible:outline-2 focus-visible:outline-offset-2",
+	"aria-invalid:border-danger disabled:cursor-not-allowed disabled:opacity-40",
+);
 
-const fieldIconClasses = "flex shrink-0 items-center text-label-secondary"
+const fieldIconClasses = "flex shrink-0 items-center text-label-secondary";
 
 /** Size scale shared across TextField, SecureField, and form fields. */
-export type TextFieldSize = "xs" | "sm" | "md" | "lg"
+export type TextFieldSize = "xs" | "sm" | "md" | "lg";
 
 export interface FieldSize {
-    height: string
-    floatingHeight: string
-    padding: string
-    text: string
-    radius: string
+	height: string;
+	floatingHeight: string;
+	padding: string;
+	text: string;
+	radius: string;
 }
 
 export function fieldSize(size: TextFieldSize): FieldSize {
-    switch (size) {
-        case "xs":
-            return {
-                height: "h-8",
-                floatingHeight: "h-9",
-                padding: "px-2.5",
-                text: "text-caption",
-                radius: "rounded-lg",
-            }
-        case "sm":
-            return {
-                height: "h-9",
-                floatingHeight: "h-10",
-                padding: "px-3",
-                text: "text-subheadline",
-                radius: "rounded-xl",
-            }
-        case "lg":
-            return {
-                height: "h-12",
-                floatingHeight: "h-14",
-                padding: "px-4",
-                text: "text-body",
-                radius: "rounded-xl",
-            }
-        default:
-            return {
-                height: "h-11",
-                floatingHeight: "h-12",
-                padding: "px-3",
-                text: "text-body",
-                radius: "rounded-xl",
-            }
-    }
+	switch (size) {
+		case "xs":
+			return {
+				height: "h-8",
+				floatingHeight: "h-9",
+				padding: "px-2.5",
+				text: "text-caption",
+				radius: "rounded-lg",
+			};
+		case "sm":
+			return {
+				height: "h-9",
+				floatingHeight: "h-10",
+				padding: "px-3",
+				text: "text-subheadline",
+				radius: "rounded-xl",
+			};
+		case "lg":
+			return {
+				height: "h-12",
+				floatingHeight: "h-14",
+				padding: "px-4",
+				text: "text-body",
+				radius: "rounded-xl",
+			};
+		default:
+			return {
+				height: "h-11",
+				floatingHeight: "h-12",
+				padding: "px-3",
+				text: "text-body",
+				radius: "rounded-xl",
+			};
+	}
 }
 
 export type TextFieldProps = Omit<ComponentProps<"input">, "size"> & {
-    label: string
-    description?: ReactNode
-    errors?: string[]
-    /** A decorative icon before the text, such as a mail glyph. */
-    icon?: ReactNode
-    /** A decorative icon after the text, such as a unit or a check. */
-    trailingIcon?: ReactNode
-    /** An interactive control after the text, such as a clear button. Size it to the field: an `xs` or `icon-xs` button, never the default. */
-    action?: ReactNode
-    revealLabels?: { show: string; hide: string }
-    /** Float the label into the outline on focus or when filled. @default "above" */
-    labelPlacement?: "above" | "floating"
-    /** Field height and text scale. @default "md" */
-    size?: TextFieldSize
-}
+	label: string;
+	description?: ReactNode;
+	errors?: string[];
+	/** A decorative icon before the text, such as a mail glyph. */
+	icon?: ReactNode;
+	/** A decorative icon after the text, such as a unit or a check. */
+	trailingIcon?: ReactNode;
+	/** An interactive control after the text, such as a clear button. Size it to the field: an `xs` or `icon-xs` button, never the default. */
+	action?: ReactNode;
+	revealLabels?: { show: string; hide: string };
+	/** Float the label into the outline on focus or when filled. @default "above" */
+	labelPlacement?: "above" | "floating";
+	/** Field height and text scale. @default "md" */
+	size?: TextFieldSize;
+};
 
 export function TextField({
-    label,
-    description,
-    errors = [],
-    icon,
-    trailingIcon,
-    action,
-    revealLabels,
-    labelPlacement = "above",
-    size = "md",
-    placeholder,
-    type = "text",
-    id: suppliedId,
-    className,
-    ...props
+	label,
+	description,
+	errors = [],
+	icon,
+	trailingIcon,
+	action,
+	revealLabels,
+	labelPlacement = "above",
+	size = "md",
+	placeholder,
+	type = "text",
+	id: suppliedId,
+	className,
+	...props
 }: TextFieldProps) {
-    const generatedId = useId()
-    const id = suppliedId ?? generatedId
-    const [revealed, setRevealed] = useState(false)
-    const messages = Array.from(new Set(errors))
-    const reveal = type === "password" && revealLabels
-    const dims = fieldSize(size)
-    return (
-        <div className="not-typeset flex flex-col gap-2">
-            {labelPlacement === "above" && (
-                <label htmlFor={id} className="text-subheadline font-semibold">
-                    {label}
-                </label>
-            )}
-            <div
-                className={cn(
-                    `relative flex items-center gap-2 ${dims.padding} ${dims.radius} bg-elevated`,
-                    labelPlacement === "floating"
-                        ? "passui-floating-field"
-                        : "border border-separator focus-within:ring-1 focus-within:ring-accent/40 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-text/70"
-                )}
-            >
-                {labelPlacement === "floating" && (
-                    <>
-                        <fieldset aria-hidden="true" className="passui-field-outline">
-                            <legend>
-                                <span>{label}</span>
-                            </legend>
-                        </fieldset>
-                        <label
-                            htmlFor={id}
-                            className={cn(
-                                "passui-floating-label",
-                                icon && "passui-floating-label-with-icon"
-                            )}
-                        >
-                            {label}
-                        </label>
-                    </>
-                )}
-                {icon && (
-                    <span aria-hidden className={fieldIconClasses}>
-                        {icon}
-                    </span>
-                )}
-                <input
-                    {...props}
-                    id={id}
-                    type={reveal && revealed ? "text" : type}
-                    placeholder={placeholder ?? (labelPlacement === "floating" ? " " : label)}
-                    aria-invalid={messages.length > 0 || props["aria-invalid"]}
-                    aria-describedby={
-                        [
-                            props["aria-describedby"],
-                            (messages.length || description) && `${id}-description`,
-                        ]
-                            .filter(Boolean)
-                            .join(" ") || undefined
-                    }
-                    className={cn(
-                        labelPlacement === "floating" ? dims.floatingHeight : dims.height,
-                        "w-full min-w-0 bg-transparent text-label outline-none",
-                        dims.text,
-                        "placeholder:text-label-tertiary disabled:opacity-40",
-                        className
-                    )}
-                />
-                {trailingIcon && (
-                    <span aria-hidden className={fieldIconClasses}>
-                        {trailingIcon}
-                    </span>
-                )}
-                {reveal && (
-                    <Button
-                        variant="ghost"
-                        size="xs"
-                        // sized to sit inside the 44px field; on touch a
-                        // wider invisible area keeps a 44px target
-                        className="-mr-1.5 shrink-0 whitespace-nowrap [@media(pointer:coarse)]:before:absolute [@media(pointer:coarse)]:before:-inset-1.5 [@media(pointer:coarse)]:before:content-['']"
-                        aria-controls={id}
-                        aria-label={revealed ? revealLabels.hide : revealLabels.show}
-                        aria-pressed={revealed}
-                        onClick={() => setRevealed(!revealed)}
-                    >
-                        {revealed ? revealLabels.hide : revealLabels.show}
-                    </Button>
-                )}
-                {action}
-            </div>
-            {(messages.length > 0 || description) && (
-                <div
-                    id={`${id}-description`}
-                    role={messages.length ? "alert" : undefined}
-                    className={cn(
-                        "text-footnote",
-                        messages.length ? "text-danger" : "text-label-secondary"
-                    )}
-                >
-                    {messages.length ? messages.join(". ") : description}
-                </div>
-            )}
-        </div>
-    )
+	const generatedId = useId();
+	const id = suppliedId ?? generatedId;
+	const [revealed, setRevealed] = useState(false);
+	const messages = Array.from(new Set(errors));
+	const reveal = type === "password" && revealLabels;
+	const dims = fieldSize(size);
+	return (
+		<div className="not-typeset flex flex-col gap-2">
+			{labelPlacement === "above" && (
+				<label htmlFor={id} className="text-subheadline font-semibold">
+					{label}
+				</label>
+			)}
+			<div
+				className={cn(
+					`relative flex items-center gap-2 ${dims.padding} ${dims.radius} bg-elevated`,
+					labelPlacement === "floating"
+						? "passui-floating-field"
+						: "border-separator focus-within:ring-accent/40 has-[:focus-visible]:ring-accent-text/70 border focus-within:ring-1 has-[:focus-visible]:ring-2",
+				)}
+			>
+				{labelPlacement === "floating" && (
+					<>
+						<fieldset aria-hidden="true" className="passui-field-outline">
+							<legend>
+								<span>{label}</span>
+							</legend>
+						</fieldset>
+						<label
+							htmlFor={id}
+							className={cn(
+								"passui-floating-label",
+								icon && "passui-floating-label-with-icon",
+							)}
+						>
+							{label}
+						</label>
+					</>
+				)}
+				{icon && (
+					<span aria-hidden className={fieldIconClasses}>
+						{icon}
+					</span>
+				)}
+				<input
+					{...props}
+					id={id}
+					type={reveal && revealed ? "text" : type}
+					placeholder={
+						placeholder ?? (labelPlacement === "floating" ? " " : label)
+					}
+					aria-invalid={messages.length > 0 || props["aria-invalid"]}
+					aria-describedby={
+						[
+							props["aria-describedby"],
+							(messages.length || description) && `${id}-description`,
+						]
+							.filter(Boolean)
+							.join(" ") || undefined
+					}
+					className={cn(
+						labelPlacement === "floating" ? dims.floatingHeight : dims.height,
+						"text-label w-full min-w-0 bg-transparent outline-none",
+						dims.text,
+						"placeholder:text-label-tertiary disabled:opacity-40",
+						className,
+					)}
+				/>
+				{trailingIcon && (
+					<span aria-hidden className={fieldIconClasses}>
+						{trailingIcon}
+					</span>
+				)}
+				{reveal && (
+					<Button
+						variant="ghost"
+						size="xs"
+						// sized to sit inside the 44px field; on touch a
+						// wider invisible area keeps a 44px target
+						className="-mr-1.5 shrink-0 whitespace-nowrap [@media(pointer:coarse)]:before:absolute [@media(pointer:coarse)]:before:-inset-1.5 [@media(pointer:coarse)]:before:content-['']"
+						aria-controls={id}
+						aria-label={revealed ? revealLabels.hide : revealLabels.show}
+						aria-pressed={revealed}
+						onClick={() => setRevealed(!revealed)}
+					>
+						{revealed ? revealLabels.hide : revealLabels.show}
+					</Button>
+				)}
+				{action}
+			</div>
+			{(messages.length > 0 || description) && (
+				<div
+					id={`${id}-description`}
+					role={messages.length ? "alert" : undefined}
+					className={cn(
+						"text-footnote",
+						messages.length ? "text-danger" : "text-label-secondary",
+					)}
+				>
+					{messages.length ? messages.join(". ") : description}
+				</div>
+			)}
+		</div>
+	);
 }

@@ -1,40 +1,42 @@
-import { StatusIndicatorLive } from "./examples/status-indicator-live"
-import { StatusIndicatorStates } from "./examples/status-indicator-states"
-import { defineDocs } from "../types"
-import { StatusIndicatorShowcase } from "./examples/status-indicator-showcase"
-import { StatusIndicatorUsage } from "./examples/status-indicator-usage"
-import { StatusIndicator } from "@passui/react"
+import { StatusIndicatorLive } from "./examples/status-indicator-live";
+import { StatusIndicatorStates } from "./examples/status-indicator-states";
+import { defineDocs } from "../types";
+import { StatusIndicatorShowcase } from "./examples/status-indicator-showcase";
+import { StatusIndicatorUsage } from "./examples/status-indicator-usage";
+import { StatusIndicator } from "@passui/react";
 
 type DemoProps = {
-    state: "saved" | "syncing" | "offline"
-    children?: string
-}
+	state: "saved" | "syncing" | "offline";
+	children?: string;
+};
 
 export const statusIndicatorDocs = defineDocs<DemoProps>()({
-    slug: "status-indicator",
-    name: "StatusIndicator",
-    importPath: "@passui/react",
-    controls: {
-        state: {
-            kind: "select",
-            options: {
-                saved: true,
-                syncing: true,
-                offline: true,
-            },
-            default: "saved",
-            required: true,
-        },
-        children: {
-            kind: "text",
-            default: "All changes saved",
-        },
-    },
-    render: ({ children, ...values }) => <StatusIndicator {...values}>{children}</StatusIndicator>,
-    usage: StatusIndicatorUsage,
-    showcase: StatusIndicatorShowcase,
-    examples: [
-        { id: "states", component: StatusIndicatorStates },
-        { id: "live", component: StatusIndicatorLive },
-    ],
-})
+	slug: "status-indicator",
+	name: "StatusIndicator",
+	importPath: "@passui/react",
+	controls: {
+		state: {
+			kind: "select",
+			options: {
+				saved: true,
+				syncing: true,
+				offline: true,
+			},
+			default: "saved",
+			required: true,
+		},
+		children: {
+			kind: "text",
+			default: "All changes saved",
+		},
+	},
+	render: ({ children, ...values }) => (
+		<StatusIndicator {...values}>{children}</StatusIndicator>
+	),
+	usage: StatusIndicatorUsage,
+	showcase: StatusIndicatorShowcase,
+	examples: [
+		{ id: "states", component: StatusIndicatorStates },
+		{ id: "live", component: StatusIndicatorLive },
+	],
+});

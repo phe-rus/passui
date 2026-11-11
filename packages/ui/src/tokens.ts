@@ -1,1 +1,1 @@
-export * from "@passui/tokens"
+export * from "@passui/tokens";

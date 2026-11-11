@@ -1,57 +1,61 @@
-import { Button } from "@passui/react/button"
-import { IconButton } from "@passui/react/icon-button"
-import { Popover } from "@passui/react/popover"
+import { Button } from "@passui/react/button";
+import { IconButton } from "@passui/react/icon-button";
+import { Popover } from "@passui/react/popover";
 import {
-    ProfileImage,
-    ProfileImageContent,
-    ProfileImageFallback,
-} from "@passui/react/profile-image"
-import { useDismiss } from "@passui/react/use-dismiss"
-import { useRef, useState } from "react"
+	ProfileImage,
+	ProfileImageContent,
+	ProfileImageFallback,
+} from "@passui/react/profile-image";
+import { useDismiss } from "@passui/react/use-dismiss";
+import { useRef, useState } from "react";
 
 export function PopoverShowcase() {
-    const [open, setOpen] = useState(true)
-    const anchor = useRef<HTMLDivElement>(null)
-    const trigger = useRef<HTMLButtonElement>(null)
-    useDismiss(anchor, open, () => setOpen(false))
+	const [open, setOpen] = useState(true);
+	const anchor = useRef<HTMLDivElement>(null);
+	const trigger = useRef<HTMLButtonElement>(null);
+	useDismiss(anchor, open, () => setOpen(false));
 
-    return (
-        <div className="flex h-80 w-full max-w-sm items-start justify-end">
-            <div ref={anchor} className="relative">
-                <IconButton
-                    ref={trigger}
-                    type="button"
-                    label="Account"
-                    variant="ghost"
-                    aria-expanded={open}
-                    onClick={() => setOpen(!open)}
-                >
-                    <ProfileImage className="size-11">
-                        <ProfileImageContent src="/avatars/aiko.svg" />
-                        <ProfileImageFallback>AK</ProfileImageFallback>
-                    </ProfileImage>
-                </IconButton>
-                <Popover
-                    open={open}
-                    origin="top-right"
-                    anchorRef={trigger}
-                    role="dialog"
-                    aria-label="Account"
-                    className="top-full right-0 mt-2 flex w-64 flex-col items-center gap-3 p-5 text-center"
-                >
-                    <ProfileImage className="size-16 text-title3">
-                        <ProfileImageContent src="/avatars/aiko.svg" />
-                        <ProfileImageFallback>AK</ProfileImageFallback>
-                    </ProfileImage>
-                    <div className="flex flex-col">
-                        <span className="text-headline font-semibold text-label">Aiko Kamado</span>
-                        <span className="text-footnote text-label-secondary">aiko@example.com</span>
-                    </div>
-                    <Button variant="secondary" size="sm">
-                        Manage your account
-                    </Button>
-                </Popover>
-            </div>
-        </div>
-    )
+	return (
+		<div className="flex h-80 w-full max-w-sm items-start justify-end">
+			<div ref={anchor} className="relative">
+				<IconButton
+					ref={trigger}
+					type="button"
+					label="Account"
+					variant="ghost"
+					aria-expanded={open}
+					onClick={() => setOpen(!open)}
+				>
+					<ProfileImage className="size-11">
+						<ProfileImageContent src="/avatars/aiko.svg" />
+						<ProfileImageFallback>AK</ProfileImageFallback>
+					</ProfileImage>
+				</IconButton>
+				<Popover
+					open={open}
+					origin="top-right"
+					anchorRef={trigger}
+					role="dialog"
+					aria-label="Account"
+					className="top-full right-0 mt-2 flex w-64 flex-col items-center gap-3 p-5 text-center"
+				>
+					<ProfileImage className="text-title3 size-16">
+						<ProfileImageContent src="/avatars/aiko.svg" />
+						<ProfileImageFallback>AK</ProfileImageFallback>
+					</ProfileImage>
+					<div className="flex flex-col">
+						<span className="text-headline text-label font-semibold">
+							Aiko Kamado
+						</span>
+						<span className="text-footnote text-label-secondary">
+							aiko@example.com
+						</span>
+					</div>
+					<Button variant="secondary" size="sm">
+						Manage your account
+					</Button>
+				</Popover>
+			</div>
+		</div>
+	);
 }

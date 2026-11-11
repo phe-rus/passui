@@ -4,10 +4,12 @@
  * a brace, a backslash or a line break.
  */
 export function jsxAttribute(name: string, value: string) {
-    return /["\\{}\n]/.test(value) ? `${name}={${JSON.stringify(value)}}` : `${name}="${value}"`
+	return /["\\{}\n]/.test(value)
+		? `${name}={${JSON.stringify(value)}}`
+		: `${name}="${value}"`;
 }
 
 /** Text as JSX children, wrapped in braces when JSX would misread it. */
 export function jsxText(text: string) {
-    return /[{}<>]/.test(text) ? `{${JSON.stringify(text)}}` : text
+	return /[{}<>]/.test(text) ? `{${JSON.stringify(text)}}` : text;
 }

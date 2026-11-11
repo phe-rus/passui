@@ -1,12 +1,12 @@
-import { springs } from "@passui/tokens/motion"
-import type { Transition } from "motion/react"
+import { springs } from "@passui/tokens/motion";
+import type { Transition } from "motion/react";
 
 /** Design-token springs as motion/react transitions. */
 export const spring = {
-    smooth: { type: "spring", ...springs.smooth },
-    snappy: { type: "spring", ...springs.snappy },
-    bouncy: { type: "spring", ...springs.bouncy },
-} as const satisfies Record<keyof typeof springs, Transition>
+	smooth: { type: "spring", ...springs.smooth },
+	snappy: { type: "spring", ...springs.snappy },
+	bouncy: { type: "spring", ...springs.bouncy },
+} as const satisfies Record<keyof typeof springs, Transition>;
 
 /**
  * Apple's fluid overshoot: cubic-bezier(0.34, 1.56, 0.1, 1).
@@ -16,9 +16,9 @@ export const spring = {
  * from the trigger and snaps into place with a physical bounce.
  */
 export const fluidOvershoot = {
-    duration: 0.4,
-    ease: [0.34, 1.56, 0.1, 1] as [number, number, number, number],
-} as const
+	duration: 0.4,
+	ease: [0.34, 1.56, 0.1, 1] as [number, number, number, number],
+} as const;
 
 /**
  * Exit motion: content collapses back toward its source.
@@ -26,11 +26,11 @@ export const fluidOvershoot = {
  * like a water drop absorbing back into its origin.
  */
 export const fluidCollapse = {
-    duration: 0.28,
-    ease: [0.4, 0, 0.6, 1] as [number, number, number, number],
-} as const
+	duration: 0.28,
+	ease: [0.4, 0, 0.6, 1] as [number, number, number, number],
+} as const;
 
-export type FloatingPanelSide = "above" | "below"
+export type FloatingPanelSide = "above" | "below";
 
 /**
  * Anchored panels settle toward their source without shrinking their text.
@@ -39,20 +39,23 @@ export type FloatingPanelSide = "above" | "below"
  * crossfade, rather than a plain slide.
  */
 export function floatingPanelMotion(side: FloatingPanelSide = "below") {
-    const direction = side === "above" ? 1 : -1
-    return {
-        initial: { opacity: 0, scale: 0.92, y: direction * 6 },
-        animate: { opacity: 1, scale: 1, y: 0 },
-        exit: { opacity: 0, scale: 0.95, y: direction * 4 },
-        transition: {
-            ...fluidOvershoot,
-            opacity: { duration: 0.16, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] },
-        },
-    } as const
+	const direction = side === "above" ? 1 : -1;
+	return {
+		initial: { opacity: 0, scale: 0.92, y: direction * 6 },
+		animate: { opacity: 1, scale: 1, y: 0 },
+		exit: { opacity: 0, scale: 0.95, y: direction * 4 },
+		transition: {
+			...fluidOvershoot,
+			opacity: {
+				duration: 0.16,
+				ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
+			},
+		},
+	} as const;
 }
 
 /** Default below-anchor presentation, retained for existing consumers. */
-export const popoverMotion = floatingPanelMotion()
+export const popoverMotion = floatingPanelMotion();
 
 /**
  * Zoom/matched-geometry transition for dialogs and center-placed sheets.
@@ -62,11 +65,11 @@ export const popoverMotion = floatingPanelMotion()
  * asynchronously — not a harsh switch.
  */
 export const zoomReveal = {
-    initial: { opacity: 0, scale: 0.88 },
-    animate: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.92 },
-    transition: fluidOvershoot,
-} as const
+	initial: { opacity: 0, scale: 0.88 },
+	animate: { opacity: 1, scale: 1 },
+	exit: { opacity: 0, scale: 0.92 },
+	transition: fluidOvershoot,
+} as const;
 
 /**
  * Content crossfade for elements inside an overlay.
@@ -75,20 +78,20 @@ export const zoomReveal = {
  * and popovers — the container arrives first, then content fades in.
  */
 export const contentCrossfade = {
-    initial: { opacity: 0, scale: 0.96 },
-    animate: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.98 },
-    transition: {
-        duration: 0.24,
-        ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
-        delay: 0.04,
-    },
-} as const
+	initial: { opacity: 0, scale: 0.96 },
+	animate: { opacity: 1, scale: 1 },
+	exit: { opacity: 0, scale: 0.98 },
+	transition: {
+		duration: 0.24,
+		ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
+		delay: 0.04,
+	},
+} as const;
 
 /** Floating bars that rise from the bottom edge. */
 export const riseMotion = {
-    initial: { opacity: 0, y: 32 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: 24 },
-    transition: spring.smooth,
-} as const
+	initial: { opacity: 0, y: 32 },
+	animate: { opacity: 1, y: 0 },
+	exit: { opacity: 0, y: 24 },
+	transition: spring.smooth,
+} as const;

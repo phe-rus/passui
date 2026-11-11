@@ -5,14 +5,14 @@ UI guidance. Their repositories have not been inspected or modified in this
 migration. Validate each affected application separately after approved
 Passui versions are published.
 
-| Existing import | Replacement |
-| --- | --- |
-| `@phe-rus/hino` | `@passui/react` |
-| `@phe-rus/hino/button` | `@passui/react/button` |
-| `@phe-rus/hino/styles.css` | `@passui/react/styles.css` |
-| `@phe-rus/hino/tokens` | `@passui/tokens` or `@passui/react/tokens` |
-| `@phe-rus/hino-tanstack` subpaths | `@passui/tanstack` with the same subpath |
-| `bunx @phe-rus/hino-cli` | `bunx @passui/cli` |
+| Existing import                   | Replacement                                |
+| --------------------------------- | ------------------------------------------ |
+| `@phe-rus/hino`                   | `@passui/react`                            |
+| `@phe-rus/hino/button`            | `@passui/react/button`                     |
+| `@phe-rus/hino/styles.css`        | `@passui/react/styles.css`                 |
+| `@phe-rus/hino/tokens`            | `@passui/tokens` or `@passui/react/tokens` |
+| `@phe-rus/hino-tanstack` subpaths | `@passui/tanstack` with the same subpath   |
+| `bunx @phe-rus/hino-cli`          | `bunx @passui/cli`                         |
 
 Install explicit approved versions of the replacement packages using the
 application's package manager. Update all imports, stylesheet imports,

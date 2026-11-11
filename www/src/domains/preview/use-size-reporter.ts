@@ -1,5 +1,5 @@
-import { type RefObject, useCallback, useEffect, useRef } from "react"
-import { postToParent } from "./use-preview-channel"
+import { type RefObject, useCallback, useEffect, useRef } from "react";
+import { postToParent } from "./use-preview-channel";
 
 /**
  * Reports the content's height so the parent can size the frame. It
@@ -9,28 +9,29 @@ import { postToParent } from "./use-preview-channel"
  * height never changes again would otherwise leave the frame too short.
  */
 export function useSizeReporter(target: RefObject<HTMLElement | null>) {
-    const last = useRef<number | null>(null)
-    useEffect(() => {
-        const element = target.current
-        if (!element) return
-        const observer = new ResizeObserver(([entry]) => {
-            last.current = Math.ceil(
-                entry.borderBoxSize?.[0]?.blockSize ?? element.getBoundingClientRect().height
-            )
-            postToParent({
-                type: "passui:size",
-                height: last.current,
-            })
-        })
-        observer.observe(element)
-        return () => observer.disconnect()
-    }, [target])
+	const last = useRef<number | null>(null);
+	useEffect(() => {
+		const element = target.current;
+		if (!element) return;
+		const observer = new ResizeObserver(([entry]) => {
+			last.current = Math.ceil(
+				entry.borderBoxSize?.[0]?.blockSize ??
+					element.getBoundingClientRect().height,
+			);
+			postToParent({
+				type: "passui:size",
+				height: last.current,
+			});
+		});
+		observer.observe(element);
+		return () => observer.disconnect();
+	}, [target]);
 
-    return useCallback(() => {
-        if (last.current === null) return
-        postToParent({
-            type: "passui:size",
-            height: last.current,
-        })
-    }, [])
+	return useCallback(() => {
+		if (last.current === null) return;
+		postToParent({
+			type: "passui:size",
+			height: last.current,
+		});
+	}, []);
 }

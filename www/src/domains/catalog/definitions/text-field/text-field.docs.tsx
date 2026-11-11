@@ -1,94 +1,97 @@
-import { CheckIcon, MailIcon } from "@passui/react/icons"
+import { CheckIcon, MailIcon } from "@passui/react/icons";
 
-import { useState } from "react"
-import { defineDocs } from "../types"
-import { TextFieldIcons } from "./examples/text-field-icons"
-import { TextFieldShowcase } from "./examples/text-field-showcase"
-import { TextFieldUsage } from "./examples/text-field-usage"
-import { TextFieldValidation } from "./examples/text-field-validation"
-import { TextField, type TextFieldProps } from "@passui/react/text-field"
+import { useState } from "react";
+import { defineDocs } from "../types";
+import { TextFieldIcons } from "./examples/text-field-icons";
+import { TextFieldShowcase } from "./examples/text-field-showcase";
+import { TextFieldUsage } from "./examples/text-field-usage";
+import { TextFieldValidation } from "./examples/text-field-validation";
+import { TextField, type TextFieldProps } from "@passui/react/text-field";
 
 // The icons are nodes, so the playground offers a switch for each and
 // the snippet writes the icon itself.
-type DemoProps = Pick<TextFieldProps, "label" | "placeholder" | "disabled" | "labelPlacement"> & {
-    icon?: boolean
-    trailingIcon?: boolean
-}
+type DemoProps = Pick<
+	TextFieldProps,
+	"label" | "placeholder" | "disabled" | "labelPlacement"
+> & {
+	icon?: boolean;
+	trailingIcon?: boolean;
+};
 
 function TextFieldDemo({ icon, trailingIcon, ...props }: DemoProps) {
-    const [value, setValue] = useState("")
-    return (
-        <div className="w-full max-w-xs">
-            <TextField
-                {...props}
-                icon={icon && <MailIcon size={18} />}
-                trailingIcon={trailingIcon && <CheckIcon size={18} />}
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-            />
-        </div>
-    )
+	const [value, setValue] = useState("");
+	return (
+		<div className="w-full max-w-xs">
+			<TextField
+				{...props}
+				icon={icon && <MailIcon size={18} />}
+				trailingIcon={trailingIcon && <CheckIcon size={18} />}
+				value={value}
+				onChange={(event) => setValue(event.target.value)}
+			/>
+		</div>
+	);
 }
 
 export const textFieldDocs = defineDocs<DemoProps>()({
-    slug: "text-field",
-    name: "TextField",
-    importPath: "@passui/react/text-field",
-    controls: {
-        label: {
-            kind: "text",
-            default: "Email",
-            required: true,
-        },
-        placeholder: {
-            kind: "text",
-            default: "you@example.com",
-        },
-        labelPlacement: {
-            kind: "select",
-            default: "floating",
-            options: { above: true, floating: true },
-        },
-        disabled: { kind: "boolean", default: false },
-        icon: { kind: "boolean", default: false },
-        trailingIcon: { kind: "boolean", default: false },
-    },
-    render: (values) => <TextFieldDemo {...values} />,
-    childrenSnippet: ({ icon, trailingIcon }) => ({
-        imports: [
-            'import { useState } from "react"',
-            ...(icon || trailingIcon
-                ? [
-                      `import { ${[icon && "MailIcon", trailingIcon && "CheckIcon"].filter(Boolean).join(", ")} } from "@passui/react/icons"`,
-                  ]
-                : []),
-        ],
-        setup: ['const [value, setValue] = useState("")'],
-        children: "",
-        omit: ["icon", "trailingIcon"],
-        expressionProps: {
-            ...(icon
-                ? {
-                      icon: "<MailIcon size={18} />",
-                  }
-                : {}),
-            ...(trailingIcon
-                ? {
-                      trailingIcon: "<CheckIcon size={18} />",
-                  }
-                : {}),
-            value: "value",
-            onChange: "(event) => setValue(event.target.value)",
-        },
-    }),
-    usage: TextFieldUsage,
-    showcase: TextFieldShowcase,
-    examples: [
-        {
-            id: "icons",
-            component: TextFieldIcons,
-            playground: { icon: true, trailingIcon: true },
-        },
-        { id: "validation", component: TextFieldValidation },
-    ],
-})
+	slug: "text-field",
+	name: "TextField",
+	importPath: "@passui/react/text-field",
+	controls: {
+		label: {
+			kind: "text",
+			default: "Email",
+			required: true,
+		},
+		placeholder: {
+			kind: "text",
+			default: "you@example.com",
+		},
+		labelPlacement: {
+			kind: "select",
+			default: "floating",
+			options: { above: true, floating: true },
+		},
+		disabled: { kind: "boolean", default: false },
+		icon: { kind: "boolean", default: false },
+		trailingIcon: { kind: "boolean", default: false },
+	},
+	render: (values) => <TextFieldDemo {...values} />,
+	childrenSnippet: ({ icon, trailingIcon }) => ({
+		imports: [
+			'import { useState } from "react"',
+			...(icon || trailingIcon
+				? [
+						`import { ${[icon && "MailIcon", trailingIcon && "CheckIcon"].filter(Boolean).join(", ")} } from "@passui/react/icons"`,
+					]
+				: []),
+		],
+		setup: ['const [value, setValue] = useState("")'],
+		children: "",
+		omit: ["icon", "trailingIcon"],
+		expressionProps: {
+			...(icon
+				? {
+						icon: "<MailIcon size={18} />",
+					}
+				: {}),
+			...(trailingIcon
+				? {
+						trailingIcon: "<CheckIcon size={18} />",
+					}
+				: {}),
+			value: "value",
+			onChange: "(event) => setValue(event.target.value)",
+		},
+	}),
+	usage: TextFieldUsage,
+	showcase: TextFieldShowcase,
+	examples: [
+		{
+			id: "icons",
+			component: TextFieldIcons,
+			playground: { icon: true, trailingIcon: true },
+		},
+		{ id: "validation", component: TextFieldValidation },
+	],
+});

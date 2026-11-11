@@ -1,1 +1,1 @@
-export * from "./setting-list"
+export * from "./setting-list";

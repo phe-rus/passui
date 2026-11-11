@@ -1,80 +1,89 @@
-import { cn } from "@passui/react/cn"
-import { TanStackDevtools } from "@tanstack/react-devtools"
-import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools"
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-import type { ComponentPropsWithoutRef, PropsWithChildren, ReactNode } from "react"
+import { cn } from "@passui/react/cn";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import type {
+	ComponentPropsWithoutRef,
+	PropsWithChildren,
+	ReactNode,
+} from "react";
 
 /** Extra props (such as `data-theme`) land on `<html>` itself. */
-type ComposeViewportProps = PropsWithChildren<ComponentPropsWithoutRef<"html">>
+type ComposeViewportProps = PropsWithChildren<ComponentPropsWithoutRef<"html">>;
 
 type WindowProps = ComponentPropsWithoutRef<"body"> & {
-    /**
-     * Rendered as direct `<body>` children, after `<main>`, not inside it.
-     * `<Scripts />` (and devtools) belong here — TanStack Router's own docs
-     * say `<Scripts />` "should be placed near the end of the document
-     * body", not nested inside the app's content wrapper.
-     */
-    after?: ReactNode
-}
+	/**
+	 * Rendered as direct `<body>` children, after `<main>`, not inside it.
+	 * `<Scripts />` (and devtools) belong here — TanStack Router's own docs
+	 * say `<Scripts />` "should be placed near the end of the document
+	 * body", not nested inside the app's content wrapper.
+	 */
+	after?: ReactNode;
+};
 
 export function ComposeViewport({
-    children,
-    lang = "en",
-    className,
-    ...props
+	children,
+	lang = "en",
+	className,
+	...props
 }: ComposeViewportProps) {
-    return (
-        <html
-            lang={lang}
-            className={cn("antialiased blur-none", className)}
-            suppressHydrationWarning
-            {...props}
-        >
-            {children}
-        </html>
-    )
+	return (
+		<html
+			lang={lang}
+			className={cn("antialiased blur-none", className)}
+			suppressHydrationWarning
+			{...props}
+		>
+			{children}
+		</html>
+	);
 }
 
 function Window({ className, children, after, ...props }: WindowProps) {
-    return (
-        <body
-            className={cn(
-                "fixed h-svh w-full min-w-full bg-background",
-                "overflow-x-hidden selection:bg-olive-500/15",
-                "typeset wrap-anywhere duration-200",
-                "flex flex-col",
-                className
-            )}
-            {...props}
-        >
-            <main className={cn("flex flex-col flex-1 min-h-svh overflow-auto", "no-scrollbar")}>
-                {children}
-            </main>
-            {after}
-        </body>
-    )
+	return (
+		<body
+			className={cn(
+				"bg-background fixed h-svh w-full min-w-full",
+				"overflow-x-hidden selection:bg-olive-500/15",
+				"typeset wrap-anywhere duration-200",
+				"flex flex-col",
+				className,
+			)}
+			{...props}
+		>
+			<main
+				className={cn(
+					"flex min-h-svh flex-1 flex-col overflow-auto",
+					"no-scrollbar",
+				)}
+			>
+				{children}
+			</main>
+			{after}
+		</body>
+	);
 }
 
 function Devtools() {
-    return (
-        <TanStackDevtools
-            config={{
-                triggerMode: "floating",
-                position: "top-right",
-            }}
-            plugins={[
-                {
-                    name: "TanStack Query",
-                    render: <ReactQueryDevtoolsPanel />,
-                },
-                {
-                    name: "Tanstack Router",
-                    render: <TanStackRouterDevtoolsPanel />,
-                },
-            ]}
-        />
-    )
+	return (
+		<TanStackDevtools
+			config={{
+				triggerMode: "floating",
+				position: "top-right",
+			}}
+			plugins={[
+				{
+					name: "TanStack Query",
+					render: <ReactQueryDevtoolsPanel />,
+				},
+				{
+					name: "Tanstack Router",
+					render: <TanStackRouterDevtoolsPanel />,
+				},
+			]}
+		/>
+	);
 }
 
-ComposeViewport.Window = Window
-ComposeViewport.Devtools = Devtools
+ComposeViewport.Window = Window;
+ComposeViewport.Devtools = Devtools;

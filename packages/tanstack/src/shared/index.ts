@@ -1,2 +1,2 @@
-export * from "./optimistic"
-export * from "./table"
+export * from "./optimistic";
+export * from "./table";

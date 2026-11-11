@@ -1,32 +1,32 @@
 {
-    "name": "passui-repository",
-    "private": true,
-    "type": "module",
-    "license": "MIT",
-    "packageManager": "bun@1.4.2",
-    "workspaces": [
-        "packages/*",
-        "www"
-    ],
-    "scripts": {
-        "docs:api": "bun scripts/generate-docs.mjs",
-        "dev": "turbo run dev",
-        "build": "turbo run build",
-        "typecheck": "turbo run typecheck",
-        "lint": "biome lint .",
-        "format": "biome format --write .",
-        "check": "bun run docs:api --check && biome check .",
-        "test": "turbo run test",
-        "publish:check": "turbo run publish:check && bun scripts/check-packages.mjs",
-        "build:website": "turbo run build --filter=passui",
-        "format:check": "biome format .",
-        "size:check": "bun scripts/measure-react.mjs --check"
-    },
-    "devDependencies": {
-        "@babel/parser": "7.29.9",
-        "@biomejs/biome": "2.6.3",
-        "turbo": "2.11.10",
-        "vite": "8.3.5",
-        "vitest": "5.0.5"
-    }
+	"name": "passui-repository",
+	"private": true,
+	"type": "module",
+	"license": "MIT",
+	"packageManager": "bun@1.4.2",
+	"workspaces": [
+		"packages/*",
+		"www"
+	],
+	"scripts": {
+		"docs:api": "bun scripts/generate-docs.mjs",
+		"dev": "turbo run dev",
+		"build": "turbo run build",
+		"typecheck": "turbo run typecheck",
+		"lint": "biome lint .",
+		"format": "biome format --write .",
+		"check": "bun run docs:api --check && biome check .",
+		"test": "turbo run test",
+		"publish:check": "turbo run publish:check && bun scripts/check-packages.mjs",
+		"build:website": "turbo run build --filter=passui",
+		"format:check": "biome format .",
+		"size:check": "bun scripts/measure-react.mjs --check"
+	},
+	"devDependencies": {
+		"@babel/parser": "7.29.9",
+		"@biomejs/biome": "2.6.3",
+		"turbo": "2.11.10",
+		"vite": "8.3.5",
+		"vitest": "5.0.5"
+	}
 }
