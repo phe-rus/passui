@@ -4,11 +4,16 @@
 
 - Add `Dialog` and `AlertDialog` at `@passui/react/dialog` and `@passui/react/alert-dialog`, built on Zag machines with CSS enter and exit transitions that reverse mid flight. Parts use shadcn names and triggers accept a `render` prop.
 - Add `pageScale` (`topOffset` 26, `radius` 8, read from Vaul) to `@passui/tokens`.
+- Add `Drawer` and `Sheet` at `@passui/react/drawer` and `@passui/react/sheet`, built on `@zag-js/drawer` with the Vaul curve over 500 ms, swipe to dismiss, snap points and nested drawers. `Sheet` takes a `side`. `Drawer` is a bottom sheet with a `DrawerHandle`.
+- Page scaling behind a `Drawer` is opt in: put `data-passui-page` on your app root. Under reduced motion it is off.
+- `Dialog`, `Sheet` and `Drawer` size themselves from `--visual-viewport-height`, so a focused input stays above the soft keyboard.
+- The old `Sheet` moves to `@passui/react/legacy/sheet` and is `@deprecated` until 0.3.0. The root export `Sheet` is now the new one, and the old props type is `LegacySheetProps`.
 - The old store based `Dialog` moves to `@passui/react/legacy/dialog` and is `@deprecated` until 0.3.0. `DialogHost` and `confirmDialog` keep working from `@passui/react`.
 
-| Old | New |
-| --- | --- |
-| `<Dialog title=... open onOpenChange>` | `<Dialog open onOpenChange><DialogContent><DialogHeader><DialogTitle>` |
+| Old                                     | New                                                                                                                                                           |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<Dialog title=... open onOpenChange>`  | `<Dialog open onOpenChange><DialogContent><DialogHeader><DialogTitle>`                                                                                        |
+| `<Sheet open onOpenChange title>`       | `<Sheet open onOpenChange side="bottom"><SheetContent><SheetHeader><SheetTitle>`. Use `Drawer` for a bottom sheet with a handle.                              |
 | `confirmDialog({ title, destructive })` | `<AlertDialog>` with `AlertDialogAction` and `AlertDialogCancel`. Hold the open state in your own component, since the new dialogs ship no imperative helper. |
 
 ## React 0.1.27, TanStack 0.2.7 and Tokens 0.1.3

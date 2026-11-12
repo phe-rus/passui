@@ -59,7 +59,11 @@ export * from "./components/search-list/search-list";
 export * from "./components/section/section";
 export * from "./components/secure-field/secure-field";
 export * from "./components/segmented-control/segmented-control";
-export * from "./components/sheet/sheet";
+export type {
+	SheetPlacement,
+	SheetProps as LegacySheetProps,
+	SheetSize,
+} from "./components/sheet/sheet";
 export * from "./components/sidebar/sidebar";
 export * from "./components/skeleton/skeleton";
 export * from "./components/slider/slider";
@@ -105,3 +109,5 @@ export {
 	buttonVariants,
 } from "./ui/button";
 export * from "./ui/dialog";
+export * from "./ui/drawer";
+export * from "./ui/sheet";

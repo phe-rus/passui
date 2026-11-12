@@ -1,0 +1,27 @@
+/*
+ * Opt in page scaling behind a Drawer. Put `data-passui-page` on the app root.
+ * The Drawer writes --passui-page-scale, --passui-page-radius and --passui-page-y,
+ * computed from `pageScale` in @passui/tokens/motion.
+ */
+[data-passui-page][data-passui-page-active] {
+	transform-origin: top center;
+	transform: translate3d(0, var(--passui-page-y, 0px), 0)
+		scale(var(--passui-page-scale, 1));
+	border-radius: var(--passui-page-radius, 0px);
+	overflow: hidden;
+	transition:
+		transform var(--duration-sheet) var(--ease-sheet),
+		border-radius var(--duration-sheet) var(--ease-sheet);
+}
+
+[data-passui-page][data-passui-page-dragging] {
+	transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[data-passui-page][data-passui-page-active] {
+		transform: none;
+		border-radius: 0;
+		transition: none;
+	}
+}

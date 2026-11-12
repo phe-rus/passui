@@ -3,7 +3,7 @@ import { cn } from "@passui/react/cn";
 import { IconButton } from "@passui/react/icon-button";
 import { CloseIcon, MenuIcon } from "@passui/react/icons";
 import { buttonStyle } from "@passui/react/legacy/button";
-import { Sheet } from "@passui/react/sheet";
+import { Sheet } from "@passui/react/legacy/sheet";
 import { Toaster } from "@passui/react/toaster";
 import { Link, useLocation } from "@tanstack/react-router";
 import { type ReactNode, useEffect, useRef, useState } from "react";

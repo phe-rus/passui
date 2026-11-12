@@ -1,5 +1,6 @@
 import { TabBar } from "@passui/react";
 import { HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons";
+import { Sheet } from "@passui/react/legacy/sheet";
 import {
 	SearchList,
 	SearchListEmpty,
@@ -7,7 +8,6 @@ import {
 	SearchListItem,
 	SearchListResults,
 } from "@passui/react/search-list";
-import { Sheet } from "@passui/react/sheet";
 
 import { useState } from "react";
 import { defineDocs } from "../types";
@@ -134,7 +134,7 @@ export const tabBarDocs = defineDocs<DemoProps>()({
 			'import { HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons"',
 			...(search
 				? [
-						'import { Sheet } from "@passui/react/sheet"',
+						'import { Sheet } from "@passui/react/legacy/sheet"',
 						'import { SearchList, SearchListField, SearchListResults, SearchListItem } from "@passui/react/search-list"',
 					]
 				: []),

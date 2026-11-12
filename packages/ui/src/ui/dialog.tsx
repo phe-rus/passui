@@ -8,11 +8,13 @@ import {
 	type ReactNode,
 	useContext,
 	useId,
+	useRef,
 } from "react";
 import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
+import { useVisualViewportVars } from "../lib/visual-viewport";
 
 const Context = createContext<dialog.Api | null>(null);
 
@@ -70,6 +72,9 @@ export function DialogContent({
 }: PartProps<"div">) {
 	const api = useDialog();
 	const { ref, mounted, attrs } = usePresence(api.open);
+	const positioner = useRef<HTMLDivElement>(null);
+	// Keeps the panel above the soft keyboard (spec 0003 AC-8).
+	useVisualViewportVars(positioner, mounted);
 	if (!mounted) return null;
 	const state = { ...attrs, "data-open": api.open ? "" : undefined };
 	return (
@@ -83,7 +88,8 @@ export function DialogContent({
 			/>
 			<div
 				{...api.getPositionerProps()}
-				className="fixed inset-0 z-50 flex items-center justify-center p-4"
+				ref={positioner}
+				className="fixed inset-x-0 top-(--visual-viewport-top,0px) z-50 flex h-(--visual-viewport-height,100dvh) items-center justify-center p-4"
 			>
 				{renderPart(
 					"div",
@@ -95,7 +101,7 @@ export function DialogContent({
 							hidden: false,
 							"data-slot": "dialog-content",
 							className: cx(
-								"relative grid w-full max-w-lg gap-4 rounded-3xl bg-elevated p-6 text-label shadow-floating outline-none ring-1 ring-separator transition duration-(--duration-normal) ease-standard data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"relative grid max-h-full w-full max-w-lg gap-4 overflow-y-auto rounded-3xl bg-elevated p-6 text-label shadow-floating outline-none ring-1 ring-separator transition duration-(--duration-normal) ease-standard data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},

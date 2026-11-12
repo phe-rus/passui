@@ -9,6 +9,8 @@
 		"code-block": 11000,
 		"combo-box": 16000,
 		"dialog": 21100,
-		"alert-dialog": 21200
+		"alert-dialog": 21200,
+		"drawer": 32400,
+		"sheet": 31900
 	}
 }

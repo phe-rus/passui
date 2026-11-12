@@ -1,5 +1,5 @@
 import { Button } from "@passui/react/legacy/button";
-import { Sheet } from "@passui/react/sheet";
+import { Sheet } from "@passui/react/legacy/sheet";
 import { useRef, useState } from "react";
 
 export function SheetUsage() {

@@ -5,6 +5,7 @@ import {
 	LibraryIcon,
 	PersonIcon,
 } from "@passui/react/icons";
+import { Sheet } from "@passui/react/legacy/sheet";
 import {
 	SearchList,
 	SearchListEmpty,
@@ -12,7 +13,6 @@ import {
 	SearchListItem,
 	SearchListResults,
 } from "@passui/react/search-list";
-import { Sheet } from "@passui/react/sheet";
 import { useState } from "react";
 
 const tabs = [

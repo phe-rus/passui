@@ -2,6 +2,7 @@
 
 @import "./code-block.css";
 @import "./motion-controls.css";
+@import "./page-scale.css";
 
 @source "../";
 @source "../../dist";

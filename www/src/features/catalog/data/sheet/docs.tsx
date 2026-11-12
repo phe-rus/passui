@@ -1,5 +1,5 @@
 import { Button } from "@passui/react/legacy/button";
-import { Sheet } from "@passui/react/sheet";
+import { Sheet } from "@passui/react/legacy/sheet";
 import { useState } from "react";
 import { defineDocs } from "../types";
 import { SheetChoices } from "./examples/sheet-choices";
@@ -34,7 +34,7 @@ function SheetDemo({ label }: DemoProps) {
 export const sheetDocs = defineDocs<DemoProps>()({
 	slug: "sheet",
 	name: "Sheet",
-	importPath: "@passui/react/sheet",
+	importPath: "@passui/react/legacy/sheet",
 	controls: {
 		label: {
 			kind: "text",

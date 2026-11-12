@@ -8,12 +8,12 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Ambient } from "@passui/react/ambient";
 import { cn } from "@passui/react/cn";
 import { Button } from "@passui/react/legacy/button";
+import { Sheet } from "@passui/react/legacy/sheet";
 import {
 	ProfileImage,
 	ProfileImageContent,
 	ProfileImageFallback,
 } from "@passui/react/profile-image";
-import { Sheet } from "@passui/react/sheet";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";

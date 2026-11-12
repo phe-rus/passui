@@ -10,6 +10,7 @@
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
+			"src/lib/visual-viewport.ts",
 			"src/ui/dialog.tsx"
 		]
 	},
@@ -21,6 +22,36 @@
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
 			"src/ui/alert-dialog.tsx"
+		]
+	},
+	"src/ui/drawer.tsx": {
+		"packages": [
+			"@zag-js/drawer",
+			"@zag-js/react",
+			"@passui/tokens",
+			"react",
+			"react-dom"
+		],
+		"local": [
+			"src/lib/cx.ts",
+			"src/lib/drawer.math.ts",
+			"src/lib/page-scale.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/lib/visual-viewport.ts",
+			"src/ui/drawer.tsx"
+		]
+	},
+	"src/ui/sheet.tsx": {
+		"packages": ["@zag-js/drawer", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/lib/visual-viewport.ts",
+			"src/ui/sheet.tsx"
 		]
 	}
 }

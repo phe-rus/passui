@@ -1,6 +1,6 @@
 import { copyText } from "@passui/react/clipboard";
 import { Button } from "@passui/react/legacy/button";
-import { Sheet } from "@passui/react/sheet";
+import { Sheet } from "@passui/react/legacy/sheet";
 import { TextEditor } from "@passui/react/text-editor";
 import { toast } from "@passui/react/toast";
 import { useState } from "react";
