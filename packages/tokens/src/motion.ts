@@ -34,6 +34,13 @@ export const easing = {
 	sheet: "cubic-bezier(0.32, 0.72, 0, 1)",
 } as const;
 
+/**
+ * How far the page behind a Drawer scales back, read from Vaul 1.1.2 (MIT):
+ * the scaled page ends `topOffset` px below the top of the screen, with
+ * corners rounded to `radius` px. Scale is (width - topOffset) / width.
+ */
+export const pageScale = { topOffset: 26, radius: 8 } as const;
+
 /** Where a spring counts as settled: within this distance of its target. */
 const SETTLE_TOLERANCE = 0.001;
 /** Samples per second when sampling a spring into a CSS easing. */

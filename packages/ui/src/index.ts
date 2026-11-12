@@ -32,10 +32,8 @@ export {
 } from "./components/context-menu/context-menu-store";
 export * from "./components/context-menu/use-context-menu";
 export * from "./components/date-picker/date-picker";
-export { Dialog } from "./components/dialog";
 export type {
 	DialogPresentation,
-	DialogProps,
 	DialogTone,
 } from "./components/dialog/dialog";
 export * from "./components/dialog/dialog-host";
@@ -97,6 +95,7 @@ export { registerFloatingLayer } from "./lib/floating-layers";
 export * from "./lib/haptics";
 export * from "./lib/screen-edges";
 export * from "./motion/transitions";
+export * from "./ui/alert-dialog";
 export {
 	Button,
 	type ButtonProps,
@@ -105,3 +104,4 @@ export {
 	type ButtonVariant,
 	buttonVariants,
 } from "./ui/button";
+export * from "./ui/dialog";

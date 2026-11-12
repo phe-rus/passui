@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased (0.2.0 lean rebuild)
+
+- Add `Dialog` and `AlertDialog` at `@passui/react/dialog` and `@passui/react/alert-dialog`, built on Zag machines with CSS enter and exit transitions that reverse mid flight. Parts use shadcn names and triggers accept a `render` prop.
+- Add `pageScale` (`topOffset` 26, `radius` 8, read from Vaul) to `@passui/tokens`.
+- The old store based `Dialog` moves to `@passui/react/legacy/dialog` and is `@deprecated` until 0.3.0. `DialogHost` and `confirmDialog` keep working from `@passui/react`.
+
+| Old | New |
+| --- | --- |
+| `<Dialog title=... open onOpenChange>` | `<Dialog open onOpenChange><DialogContent><DialogHeader><DialogTitle>` |
+| `confirmDialog({ title, destructive })` | `<AlertDialog>` with `AlertDialogAction` and `AlertDialogCancel`. Hold the open state in your own component, since the new dialogs ship no imperative helper. |
+
 ## React 0.1.27, TanStack 0.2.7 and Tokens 0.1.3
 
 - Add `size` prop to TextField: xs | sm | md (default) | lg. Each size controls height, padding, text token, and border radius. Uses `Omit<ComponentProps<"input">, "size">` to override the native HTML size attribute. SecureField inherits automatically.

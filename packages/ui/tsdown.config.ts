@@ -55,7 +55,9 @@ export default defineConfig({
 		shapes: "src/lib/shapes.ts",
 		appearance: "src/appearance/index.ts",
 		"use-media-query": "src/hooks/use-media-query.ts",
-		dialog: "src/components/dialog/index.ts",
+		dialog: "src/ui/dialog.tsx",
+		"alert-dialog": "src/ui/alert-dialog.tsx",
+		"legacy/dialog": "src/components/dialog/index.ts",
 		"inline-disclosure":
 			"src/components/inline-disclosure/inline-disclosure.tsx",
 		"code-block": "src/components/code-block/code-block.tsx",

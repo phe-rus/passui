@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
 	duration,
 	easing,
+	pageScale,
 	renderThemeCss,
 	type Spring,
 	springPosition,
@@ -14,6 +15,10 @@ describe("motion data", () => {
 	it("keeps the sheet curve and travel time from Vaul", () => {
 		expect(easing.sheet).toBe("cubic-bezier(0.32, 0.72, 0, 1)");
 		expect(duration.sheet).toBe(500);
+	});
+
+	it("keeps the page scale values read from Vaul", () => {
+		expect(pageScale).toEqual({ topOffset: 26, radius: 8 });
 	});
 
 	it("starts every spring at rest and ends on target", () => {

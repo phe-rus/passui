@@ -1,6 +1,6 @@
 import { LabeledContent, Section, toast } from "@passui/react";
-import { Dialog } from "@passui/react/dialog";
 import { Button } from "@passui/react/legacy/button";
+import { Dialog } from "@passui/react/legacy/dialog";
 import { useRef, useState } from "react";
 
 export function DialogShowcase() {

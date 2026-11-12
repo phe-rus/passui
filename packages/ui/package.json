@@ -28,6 +28,7 @@
 	"exports": {
 		".": "./dist/index.js",
 		"./accordion": "./dist/accordion.js",
+		"./alert-dialog": "./dist/alert-dialog.js",
 		"./ambient": "./dist/ambient.js",
 		"./appearance": "./dist/appearance.js",
 		"./aspect-ratio": "./dist/aspect-ratio.js",
@@ -54,6 +55,7 @@
 		"./keyboard-shortcut": "./dist/keyboard-shortcut.js",
 		"./language": "./dist/language.js",
 		"./legacy/button": "./dist/legacy/button.js",
+		"./legacy/dialog": "./dist/legacy/dialog.js",
 		"./locale-switcher": "./dist/locale-switcher.js",
 		"./menu": "./dist/menu.js",
 		"./morph": "./dist/morph.js",
@@ -125,6 +127,8 @@
 		"vitest-axe": "^0.1.0"
 	},
 	"dependencies": {
+		"@zag-js/dialog": "catalog:",
+		"@zag-js/react": "catalog:",
 		"@hugeicons/core-free-icons": "catalog:",
 		"@hugeicons/react": "catalog:",
 		"motion": "catalog:",

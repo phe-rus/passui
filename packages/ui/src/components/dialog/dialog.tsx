@@ -38,6 +38,7 @@ const footerSpacing: Record<DialogSize, string> = {
 	lg: "pt-4",
 };
 
+/** @deprecated Use the parts from `@passui/react/dialog`. Stays at `@passui/react/legacy/dialog` until 0.3.0. */
 export type DialogProps = {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
@@ -68,6 +69,10 @@ type ActionsProps = {
 	onConfirm?: () => void;
 };
 
+/**
+ * @deprecated Compose `Dialog`, `DialogContent` and friends from
+ * `@passui/react/dialog`. This version stays at `@passui/react/legacy/dialog` until 0.3.0.
+ */
 export function Dialog({
 	open,
 	onOpenChange,

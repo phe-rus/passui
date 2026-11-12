@@ -1,5 +1,5 @@
-import { Dialog } from "@passui/react/dialog";
 import { Button } from "@passui/react/legacy/button";
+import { Dialog } from "@passui/react/legacy/dialog";
 import { TextField } from "@passui/react/text-field";
 import { useState } from "react";
 

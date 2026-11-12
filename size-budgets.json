@@ -7,6 +7,8 @@
 		"stepper": 14000,
 		"picker": 16000,
 		"code-block": 11000,
-		"combo-box": 16000
+		"combo-box": 16000,
+		"dialog": 21100,
+		"alert-dialog": 21200
 	}
 }

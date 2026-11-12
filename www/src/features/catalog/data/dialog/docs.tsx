@@ -1,5 +1,5 @@
-import { Dialog, type DialogPresentation } from "@passui/react/dialog";
 import { Button } from "@passui/react/legacy/button";
+import { Dialog, type DialogPresentation } from "@passui/react/legacy/dialog";
 import { useState } from "react";
 import { jsxAttribute } from "../snippet";
 import { defineDocs } from "../types";
@@ -52,7 +52,7 @@ function DialogDemo({
 export const dialogDocs = defineDocs<DemoProps>()({
 	slug: "dialog",
 	name: "Dialog",
-	importPath: "@passui/react/dialog",
+	importPath: "@passui/react/legacy/dialog",
 	controls: {
 		title: {
 			kind: "text",

@@ -2,5 +2,25 @@
 	"src/ui/button.tsx": {
 		"packages": ["react"],
 		"local": ["src/lib/cx.ts", "src/ui/button.tsx"]
+	},
+	"src/ui/dialog.tsx": {
+		"packages": ["@zag-js/dialog", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/ui/dialog.tsx"
+		]
+	},
+	"src/ui/alert-dialog.tsx": {
+		"packages": ["@zag-js/dialog", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/ui/alert-dialog.tsx"
+		]
 	}
 }
