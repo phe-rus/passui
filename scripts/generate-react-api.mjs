@@ -336,7 +336,7 @@ function component(module, node) {
 }
 const result = {};
 for (const path of [
-	...globSync("www/src/features/catalog/data/*/*/docs.tsx", {
+	...globSync("www/src/features/catalog/data/*/docs.tsx", {
 		cwd: root,
 	}),
 ].sort()) {

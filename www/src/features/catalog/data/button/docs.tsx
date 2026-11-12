@@ -1,15 +1,33 @@
-import { SettingsIcon } from "@passui/react/icons";
+import { ChevronRightIcon } from "@passui/react/icons";
+import { jsxText } from "../snippet";
 import { defineDocs } from "../types";
-import { IconButtonPlayer } from "./examples/icon-button-player";
-import { IconButtonShowcase } from "./examples/icon-button-showcase";
-import { IconButtonUsage } from "./examples/icon-button-usage";
-import { IconButtonVariants } from "./examples/icon-button-variants";
-import { IconButton, type IconButtonProps } from "@passui/react/icon-button";
+import { Button, type ButtonProps } from "@passui/react/button";
+import type { ButtonSize } from "@passui/react/button";
+import { ButtonDisabled } from "./examples/button-disabled";
+import { ButtonIcon } from "./examples/button-icon";
+import { ButtonLink } from "./examples/button-link";
+import { ButtonPending } from "./examples/button-pending";
+import { ButtonShowcase } from "./examples/button-showcase";
+import { ButtonSizes } from "./examples/button-sizes";
+import { ButtonUsage } from "./examples/button-usage";
+import { ButtonVariants } from "./examples/button-variants";
+import { ButtonWithIcon } from "./examples/button-with-icon";
 
-export const iconButtonDocs = defineDocs<IconButtonProps>()({
-	slug: "icon-button",
-	name: "IconButton",
-	importPath: "@passui/react/icon-button",
+// Sample values only: the site writes all of the docs' prose.
+const sampleLabel = "Continue";
+
+const iconSizes = new Set<ButtonSize>([
+	"icon",
+	"icon-xs",
+	"icon-sm",
+	"icon-lg",
+	"icon-full",
+]);
+
+export const buttonDocs = defineDocs<ButtonProps>()({
+	slug: "button",
+	name: "Button",
+	importPath: "@passui/react/button",
 	controls: {
 		variant: {
 			kind: "select",
@@ -22,39 +40,65 @@ export const iconButtonDocs = defineDocs<IconButtonProps>()({
 				accent: true,
 				destructive: true,
 			},
-			default: "ghost",
+			default: "default",
 		},
 		size: {
 			kind: "select",
 			options: {
+				default: true,
+				xs: true,
+				sm: true,
+				lg: true,
 				icon: true,
 				"icon-xs": true,
 				"icon-sm": true,
 				"icon-lg": true,
+				"icon-full": true,
 			},
-			default: "icon",
+			default: "default",
 		},
 		isPending: { kind: "boolean", default: false },
 		disabled: { kind: "boolean", default: false },
-		label: {
-			kind: "text",
-			default: "Settings",
-			required: true,
-		},
+		children: { kind: "text", default: sampleLabel },
 	},
-	render: (values) => (
-		<IconButton {...values}>
-			<SettingsIcon />
-		</IconButton>
-	),
-	childrenSnippet: () => ({
-		imports: ['import { SettingsIcon } from "@passui/react/icons"'],
-		children: "<SettingsIcon />",
-	}),
-	usage: IconButtonUsage,
-	showcase: IconButtonShowcase,
+	render: ({ children, size, ...props }) =>
+		iconSizes.has(size) ? (
+			<Button {...props} size={size} aria-label={children}>
+				<ChevronRightIcon />
+			</Button>
+		) : (
+			<Button {...props} size={size}>
+				{children}
+			</Button>
+		),
+	childrenSnippet: ({ children, size }) =>
+		iconSizes.has(size)
+			? {
+					imports: ['import { ChevronRightIcon } from "@passui/react/icons"'],
+					children: "<ChevronRightIcon />",
+					extraProps: { "aria-label": children },
+				}
+			: { imports: [], children: jsxText(children) },
+	usage: ButtonUsage,
+	showcase: ButtonShowcase,
 	examples: [
-		{ id: "variants", component: IconButtonVariants },
-		{ id: "player", component: IconButtonPlayer },
+		{ id: "variants", component: ButtonVariants },
+		{ id: "sizes", component: ButtonSizes },
+		{ id: "with-icon", component: ButtonWithIcon },
+		{ id: "icon", component: ButtonIcon },
+		{
+			id: "pending",
+			component: ButtonPending,
+			playground: {
+				variant: "accent",
+				isPending: true,
+			},
+		},
+		{
+			id: "disabled",
+			component: ButtonDisabled,
+			playground: { disabled: true },
+		},
+		{ id: "link", component: ButtonLink },
 	],
 });

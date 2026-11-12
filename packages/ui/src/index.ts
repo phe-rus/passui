@@ -28,7 +28,7 @@ export {
 } from "./components/dialog/dialog-store";
 export * from "./components/labeled-content/labeled-content";
 export * from "./components/picker/picker";
-export * from "./components/popover/popover";
+export * from "./components/popover";
 export * from "./components/search-field/search-field";
 export * from "./components/section/section";
 export * from "./components/inline-disclosure/inline-disclosure";
