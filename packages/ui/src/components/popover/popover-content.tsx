@@ -11,13 +11,13 @@ import { SheetPortal } from "../sheet/sheet-portal";
 import { cn } from "../../lib/class-names";
 import { screenEdges } from "../../lib/screen-edges";
 import { fluidCollapse, fluidOvershoot } from "../../motion/transitions";
-import { fitPopover, type PopoverFit } from "./popover-fit";
 import { usePopover } from "./popover-root";
 
 export type PopoverOrigin = "top-left" | "top-right";
 
 export interface PopoverContentProps {
 	children: ReactNode;
+	/** Extra classes for the panel (sizing, padding, max-height). */
 	className?: string;
 	/** Accessible name (used when there is no labelledBy). */
 	label?: string;
@@ -39,11 +39,77 @@ export interface PopoverContentProps {
 	 */
 	origin?: PopoverOrigin;
 	/**
+	 * Gap between the trigger and the panel, in pixels.
+	 * @default 8
+	 */
+	gap?: number;
+	/**
 	 * ARIA role for the panel. Use "menu" for action menus, "dialog"
 	 * (the default) for free-form content, "tooltip" for tips.
 	 * @default "dialog"
 	 */
 	role?: "dialog" | "menu" | "tooltip";
+}
+
+interface Placement {
+	/** Fixed left in viewport px. */
+	left: number;
+	/** Fixed top in viewport px. */
+	top: number;
+	/** Width cap so the panel never crosses the right safe edge. */
+	maxWidth: number;
+	/** Height cap; when set, the panel scrolls inside it. */
+	maxHeight?: number;
+	/** True when the panel opens above the trigger. */
+	above: boolean;
+}
+
+const NO_PLACEMENT: Placement = {
+	left: 0,
+	top: 0,
+	maxWidth: 0,
+	above: false,
+};
+
+/**
+ * Place the panel below (or above) the trigger, aligned to the chosen
+ * corner, kept inside the screen's safe edges. Pure: no DOM, just math.
+ */
+function placePanel(
+	trigger: DOMRect,
+	panel: { width: number; height: number },
+	origin: PopoverOrigin,
+	gap: number,
+): Placement {
+	const edges = screenEdges();
+	const vv = window.visualViewport;
+	const vw = (vv?.width ?? window.innerWidth) + (vv?.offsetLeft ?? 0);
+	const vh = (vv?.height ?? window.innerHeight) + (vv?.offsetTop ?? 0);
+	const safeLeft = edges.left + (vv?.offsetLeft ?? 0);
+	const safeRight = vw - edges.right;
+	const safeTop = edges.top + (vv?.offsetTop ?? 0);
+	const safeBottom = vh - edges.bottom;
+
+	// Horizontal: align the chosen edge to the trigger, then clamp into view.
+	const maxWidth = Math.max(0, safeRight - safeLeft);
+	const width = Math.min(panel.width, maxWidth);
+	const left =
+		origin === "top-right"
+			? Math.max(safeLeft, Math.min(trigger.right - width, safeRight - width))
+			: Math.max(safeLeft, Math.min(trigger.left, safeRight - width));
+
+	// Vertical: prefer below; flip above when there isn't room below but
+	// there is above (matching the legacy popover's behaviour).
+	const roomBelow = safeBottom - trigger.bottom - gap;
+	const roomAbove = trigger.top - gap - safeTop;
+	const above = roomBelow < panel.height && roomAbove > roomBelow;
+	const room = above ? roomAbove : roomBelow;
+	const top = above
+		? trigger.top - gap - Math.min(panel.height, room)
+		: trigger.bottom + gap;
+	const maxHeight = panel.height > room ? room : undefined;
+
+	return { left, top, maxWidth, maxHeight, above };
 }
 
 export function PopoverContent({
@@ -54,6 +120,7 @@ export function PopoverContent({
 	dismissOnOutsidePress = true,
 	placement = "anchor",
 	origin = "top-left",
+	gap = 8,
 	role = "dialog",
 }: PopoverContentProps) {
 	const { state, send, triggerRef, contentId } = usePopover();
@@ -61,96 +128,69 @@ export function PopoverContent({
 	const reducedMotion = useReducedMotion();
 	const [settled, setSettled] = useState(false);
 	const [material, setMaterial] = useState({ width: 0, height: 0, radius: 0 });
-	const [fit, setFit] = useState<PopoverFit>({
-		shiftX: 0,
-		shiftY: 0,
-		maxWidth: 0,
-		above: false,
-	});
+	const [placementState, setPlacement] = useState<Placement>(NO_PLACEMENT);
 	const [reveal, setReveal] = useState<ReturnType<
 		typeof menuSurfaceReveal
 	> | null>(null);
 
 	useSheetFocus(panel, () => send("CLOSE"));
 
-	// Measure panel + trigger rects, compute the reveal (initial morph state)
-	// and the viewport fit (so the panel stays on screen as it resizes).
+	// Re-measure on every layout pass: trigger position, panel size, scroll,
+	// viewport resize. Recompute the fixed placement + the morph source rect.
 	useLayoutEffect(() => {
 		const surface = panel.current;
 		const source = triggerRef.current;
 		if (!surface) return;
 
 		const refit = () => {
-			const panelRect = surface.getBoundingClientRect();
+			const trigger = source?.getBoundingClientRect();
+			// Measure the authored size (padding/width from className) so the
+			// morph target is the natural panel the author styled.
+			const natural = surface.getBoundingClientRect();
 			const radius =
 				Number.parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0;
 			setMaterial((prev) =>
-				prev.width === panelRect.width &&
-				prev.height === panelRect.height &&
+				prev.width === natural.width &&
+				prev.height === natural.height &&
 				prev.radius === radius
 					? prev
-					: { width: panelRect.width, height: panelRect.height, radius },
+					: { width: natural.width, height: natural.height, radius },
 			);
 
-			const visualViewport = window.visualViewport;
-			const offsetLeft = visualViewport?.offsetLeft ?? 0;
-			const offsetTop = visualViewport?.offsetTop ?? 0;
-			const edges = screenEdges();
-			const trigger = source?.getBoundingClientRect();
-			const next = fitPopover(
-				{
-					left: panelRect.left,
-					top: panelRect.top,
-					width: panelRect.width,
-					height: panelRect.height,
-				},
-				trigger ? { top: trigger.top, bottom: trigger.bottom } : undefined,
-				{
-					viewport: {
-						width: offsetLeft + (visualViewport?.width ?? window.innerWidth),
-						height: offsetTop + (visualViewport?.height ?? window.innerHeight),
-					},
-					edges: {
-						...edges,
-						left: offsetLeft + edges.left,
-						top: offsetTop + edges.top,
-					},
-				},
-				trigger ? -trigger.height : 6,
-				origin,
-			);
-			setFit((current) => {
-				if (
-					current.shiftX === next.shiftX &&
-					current.shiftY === next.shiftY &&
+			if (trigger && trigger.width > 0 && trigger.height > 0) {
+				const next = placePanel(
+					trigger,
+					{ width: natural.width, height: natural.height },
+					origin,
+					gap,
+				);
+				setPlacement((current) =>
+					current.left === next.left &&
+					current.top === next.top &&
 					current.maxWidth === next.maxWidth &&
 					current.maxHeight === next.maxHeight &&
 					current.above === next.above
-				)
-					return current;
-				return next;
-			});
-
-			const sourceArg: MenuRect | undefined =
-				trigger && trigger.width > 0 && trigger.height > 0
-					? {
-							left: trigger.left,
-							top: trigger.top,
-							width: trigger.width,
-							height: trigger.height,
-						}
-					: undefined;
-			setReveal(
-				menuSurfaceReveal(sourceArg, {
-					left: panelRect.left,
-					top: panelRect.top,
-					width: next.maxWidth || panelRect.width,
-					height: next.maxHeight
-						? Math.min(next.maxHeight, panelRect.height)
-						: panelRect.height,
-					radius,
-				}),
-			);
+						? current
+						: next,
+				);
+				const sourceArg: MenuRect = {
+					left: trigger.left,
+					top: trigger.top,
+					width: trigger.width,
+					height: trigger.height,
+				};
+				setReveal(
+					menuSurfaceReveal(sourceArg, {
+						left: next.left,
+						top: next.top,
+						width: Math.min(natural.width, next.maxWidth),
+						height: next.maxHeight
+							? Math.min(natural.height, next.maxHeight)
+							: natural.height,
+						radius,
+					}),
+				);
+			}
 		};
 
 		refit();
@@ -175,9 +215,9 @@ export function PopoverContent({
 			window.removeEventListener("resize", schedule);
 			window.removeEventListener("scroll", schedule, true);
 		};
-	}, [triggerRef, origin]);
+	}, [triggerRef, origin, gap]);
 
-	// Conceal the trigger while the surface is morphing.
+	// Conceal the trigger while the surface is morphing out of it.
 	useLayoutEffect(() => {
 		const source = triggerRef.current;
 		if (!source) return;
@@ -188,6 +228,7 @@ export function PopoverContent({
 	}, [triggerRef]);
 
 	const anchored = placement === "anchor";
+	const scrollable = settled && placementState.maxHeight !== undefined;
 
 	return (
 		<AnimatePresence>
@@ -213,31 +254,30 @@ export function PopoverContent({
 						aria-labelledby={labelledBy}
 						tabIndex={-1}
 						data-state={state}
+						data-placement={
+							anchored ? (placementState.above ? "top" : "bottom") : "center"
+						}
 						className={cn(
-							"relative isolate flex flex-col outline-none",
+							"isolate flex flex-col outline-none",
 							anchored
-								? cn(
-										"rounded-5xl absolute z-40",
-										"[&>:not([data-popover-surface])]:opacity-[var(--popover-content-opacity)]",
-									)
+								? "rounded-5xl absolute z-40 [&>:not([data-popover-surface])]:opacity-[var(--popover-content-opacity)]"
 								: "rounded-5xl fixed z-[76] max-h-[92%] w-full max-w-[560px] p-6",
-							settled && anchored ? "overflow-hidden" : undefined,
+							scrollable ? "overflow-hidden" : undefined,
 							className,
 						)}
 						style={
 							anchored
 								? {
+										position: "fixed",
+										left: placementState.left,
+										top: placementState.top,
+										maxWidth: placementState.maxWidth || undefined,
+										maxHeight: placementState.maxHeight,
+										overflowY: scrollable ? "auto" : undefined,
 										transformOrigin:
 											origin === "top-left"
-												? `0% ${fit.above ? "100%" : "0%"}`
-												: `100% ${fit.above ? "100%" : "0%"}`,
-										translate: `${fit.shiftX}px ${fit.shiftY}px`,
-										maxWidth: fit.maxWidth || undefined,
-										maxHeight: fit.maxHeight,
-										overflowY:
-											fit.maxHeight !== undefined && settled
-												? "auto"
-												: undefined,
+												? `0% ${placementState.above ? "100%" : "0%"}`
+												: `100% ${placementState.above ? "100%" : "0%"}`,
 									}
 								: undefined
 						}
@@ -287,8 +327,8 @@ export function PopoverContent({
 											x: 0,
 											y: 0,
 											width: material.width,
-											height: fit.maxHeight
-												? Math.min(material.height, fit.maxHeight)
+											height: placementState.maxHeight
+												? Math.min(material.height, placementState.maxHeight)
 												: material.height,
 											opacity: 1,
 											borderRadius: material.radius,

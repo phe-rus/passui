@@ -18,14 +18,7 @@ function PopoverDemo({ origin }: DemoProps) {
 			<Popover.Trigger>
 				<Button variant="secondary">Open popover</Button>
 			</Popover.Trigger>
-			<Popover.Content
-				origin={origin}
-				className={
-					origin === "top-right"
-						? "top-full right-0 mt-2 w-60 p-4"
-						: "top-full left-0 mt-2 w-60 p-4"
-				}
-			>
+			<Popover.Content origin={origin} className="w-60 p-4">
 				<p className="text-callout text-label">
 					Grows from its {origin} corner. Escape or a click outside closes it.
 				</p>
@@ -59,10 +52,7 @@ export const popoverDocs = defineDocs<PopoverContentProps>()({
 		omit: ["origin"],
 		extraProps: {
 			origin,
-			className:
-				origin === "top-right"
-					? "top-full right-0 mt-2 w-60 p-4"
-					: "top-full left-0 mt-2 w-60 p-4",
+			className: "w-60 p-4",
 		},
 		children: "\n    <p>Escape or a click outside closes this popover.</p>\n",
 	}),

@@ -29,7 +29,7 @@ export function PopoverShowcase() {
 				<Popover.Content
 					origin="top-right"
 					label="Account"
-					className="top-full right-0 mt-2 flex w-64 flex-col items-center gap-3 p-5 text-center"
+					className="flex w-64 flex-col items-center gap-3 p-5 text-center"
 				>
 					<ProfileImage className="text-title3 size-16">
 						<ProfileImageContent src="/avatars/aiko.svg" />

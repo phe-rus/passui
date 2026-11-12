@@ -30,7 +30,7 @@ export function PopoverHelp() {
 						<Popover.Content
 							origin="top-right"
 							label="Redirect URI"
-							className="top-full right-0 mt-2 w-64 p-4"
+							className="w-64 p-4"
 						>
 							<p className="text-footnote text-label">
 								Where Pass sends people back after they sign in. It must match

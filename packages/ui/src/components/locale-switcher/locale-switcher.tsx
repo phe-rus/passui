@@ -252,9 +252,8 @@ export function LocaleSwitcher<L extends string>({
 					role="menu"
 					label={label}
 					className={cn(
-						"top-0 flex max-w-[calc(100vw-2.5rem)] gap-2 p-2",
+						"flex max-w-[calc(100vw-2.5rem)] gap-2 p-2",
 						popoverWidths[size],
-						anchor.side === "right" ? "right-0" : "left-0",
 						growsUp ? "flex-col-reverse" : "flex-col",
 					)}
 				>

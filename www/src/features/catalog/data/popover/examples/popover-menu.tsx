@@ -14,7 +14,7 @@ export function PopoverMenu() {
 				origin="top-right"
 				role="menu"
 				label="More actions"
-				className="top-full right-0 mt-2 flex w-56 flex-col p-1.5"
+				className="flex w-56 flex-col p-1.5"
 			>
 				{actions.map((action) => (
 					<Button
