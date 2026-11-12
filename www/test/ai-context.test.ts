@@ -19,7 +19,7 @@ test("both AI indexes link to every canonical component page", async () => {
 
 test("copied component context includes actual API callbacks and required host setup", async () => {
 	const picker = await getComponentMarkdown(
-		getEntry("picker")!,
+		getEntry("picker") ?? (undefined as never),
 		"https://passui.pherus.org",
 	);
 	expect(picker).toContain("## API reference");
@@ -27,6 +27,9 @@ test("copied component context includes actual API callbacks and required host s
 	expect(picker).toContain("`options` (required)");
 	for (const slug of ["context-menu", "menu", "dialog", "toast", "tooltip"])
 		expect(
-			await getComponentMarkdown(getEntry(slug)!, "https://passui.pherus.org"),
+			await getComponentMarkdown(
+				getEntry(slug) ?? (undefined as never),
+				"https://passui.pherus.org",
+			),
 		).toContain("## Setup");
 });

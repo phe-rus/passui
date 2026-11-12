@@ -124,8 +124,8 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
 				if (!present) remove?.();
 				return;
 			}
-			const pane = material.current,
-				body = content.current;
+			const pane = material.current;
+			const body = content.current;
 			const source = [
 				geometry.source.x,
 				geometry.source.y,
@@ -143,8 +143,8 @@ export const AnchoredSurface = forwardRef<HTMLDivElement, AnchoredSurfaceProps>(
 				materialOpacity: 1,
 			};
 			animated.current = state;
-			let frame = 0,
-				previous = 0;
+			let frame = 0;
+			let previous = 0;
 			const paint = () => {
 				const [x, y, width, height, radius] = state.values;
 				pane.style.transform = `translate(${x}px, ${y}px)`;

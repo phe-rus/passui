@@ -209,7 +209,6 @@ export function SearchListGroup({
 	const search = useSearch();
 	const id = useId();
 	return (
-		// biome-ignore lint/a11y/useSemanticElements: Listbox option groups are not form fieldsets.
 		<div
 			{...props}
 			role="group"

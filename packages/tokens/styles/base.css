@@ -113,9 +113,13 @@
 	*,
 	*::before,
 	*::after {
+		/* biome-ignore lint/complexity/noImportantStyles: design token override */
 		scroll-behavior: auto !important;
+		/* biome-ignore lint/complexity/noImportantStyles: design token override */
 		transition-duration: 0.01ms !important;
+		/* biome-ignore lint/complexity/noImportantStyles: design token override */
 		animation-duration: 0.01ms !important;
+		/* biome-ignore lint/complexity/noImportantStyles: design token override */
 		animation-iteration-count: 1 !important;
 	}
 }

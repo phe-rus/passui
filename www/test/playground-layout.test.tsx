@@ -15,7 +15,7 @@ test("playground starts with one toolbar and preview while settings, props and g
 	const routeTree = createRootRoute({
 		component: () => (
 			<Playground
-				docs={getEntry("accordion")!.docs}
+				docs={(getEntry("accordion") ?? { docs: {} as never }).docs}
 				settings={docsSettingsDefaults}
 				rawProps={{}}
 			/>

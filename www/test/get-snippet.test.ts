@@ -137,7 +137,8 @@ test("select props reject inherited object keys from shared URLs", () => {
 test("overlay snippets include a usable trigger and anchored parent", async () => {
 	const { registry } = await import("@/features/catalog/data/registry");
 	for (const slug of ["dialog", "sheet", "popover"]) {
-		const docs = registry.find((entry) => entry.slug === slug)!;
+		const docs = registry.find((entry) => entry.slug === slug);
+		if (!docs) throw new Error(`${slug} not found`);
 		const code = snippet(docs);
 		expect(code, slug).toContain("import { Button }");
 		expect(code, slug).toMatch(/setOpen\((true|!open)\)/);

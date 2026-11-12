@@ -395,9 +395,11 @@
 		}
 		.passui-otp-glyph,
 		.passui-otp-digit {
+			/* biome-ignore lint/complexity/noImportantStyles: CSS utility override */
 			animation: none !important;
 		}
 		.passui-otp-materials {
+			/* biome-ignore lint/complexity/noImportantStyles: CSS utility override */
 			filter: none !important;
 		}
 	}

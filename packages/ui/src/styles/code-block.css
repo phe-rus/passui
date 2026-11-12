@@ -8,6 +8,7 @@
 		font-size: var(--text-footnote);
 		line-height: 1.75;
 		color: var(--color-label);
+		/* biome-ignore lint/complexity/noImportantStyles: CSS utility override */
 		background: transparent !important;
 		counter-reset: code-line;
 		tab-size: 4;
@@ -50,6 +51,7 @@
 	.passui-code-block .shiki,
 	.passui-code-block .shiki span {
 		color: var(--shiki-light);
+		/* biome-ignore lint/complexity/noImportantStyles: CSS utility override */
 		background: transparent !important;
 	}
 	@media (prefers-color-scheme: dark) {

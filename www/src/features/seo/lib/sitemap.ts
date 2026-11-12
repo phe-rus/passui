@@ -12,7 +12,7 @@ function escapeXml(value: string) {
 				">": "&gt;",
 				'"': "&quot;",
 				"'": "&apos;",
-			})[character]!,
+			})[character] ?? character,
 	);
 }
 

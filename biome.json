@@ -54,7 +54,8 @@
 			"!**/bunfig.json",
 			"!**/bunfig.*.json",
 			"!**/bunfig.*.jsonc",
-			"!**/bunfig.jsonc"
+			"!**/bunfig.jsonc",
+			"!packages/tokens/theme.css"
 		]
 	},
 	"formatter": {

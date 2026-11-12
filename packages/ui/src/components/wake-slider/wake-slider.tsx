@@ -144,9 +144,9 @@ export function WakeSlider({
 	};
 
 	const frac = (clientX: number) => {
-		const r = track.current!.getBoundingClientRect();
+		const r = (track.current ?? document.body).getBoundingClientRect();
 		const fraction = r.width ? (clientX - r.left) / r.width : 0;
-		return getComputedStyle(track.current!).direction === "rtl"
+		return getComputedStyle(track.current ?? document.body).direction === "rtl"
 			? 1 - fraction
 			: fraction;
 	};

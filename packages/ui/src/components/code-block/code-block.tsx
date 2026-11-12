@@ -35,7 +35,7 @@ export function CodeBlock({
 				<pre>
 					<code>
 						{lines.map((line, index) => (
-							<Fragment key={`${index}-${line}`}>
+							<Fragment key={line || index}>
 								<span className="line">{line || " "}</span>
 								{index < lines.length - 1 ? "\n" : null}
 							</Fragment>

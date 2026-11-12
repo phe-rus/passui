@@ -42,9 +42,9 @@ export function ExpandingSearchField({
 	const current = useRef({ expanded, reduced });
 	const wake = useRef<() => void>(() => {});
 	useLayoutEffect(() => {
-		const box = frame.current,
-			label = pill.current,
-			field = input.current;
+		const box = frame.current;
+		const label = pill.current;
+		const field = input.current;
 		if (!box || !label || !field) return;
 		const s = geometry.current;
 		let previous = 0;
@@ -129,10 +129,10 @@ export function ExpandingSearchField({
 				// Measure the frame, which stays still; measuring the object being
 				// moved creates a feedback loop and a visible shiver.
 				const rect = event.currentTarget.getBoundingClientRect();
-				const dx = event.clientX - rect.left - rect.width / 2,
-					dy = event.clientY - rect.top - rect.height / 2;
-				const distance = Math.hypot(dx, dy),
-					pull = Math.max(0, 1 - distance / 72) ** 1.4 * 7;
+				const dx = event.clientX - rect.left - rect.width / 2;
+				const dy = event.clientY - rect.top - rect.height / 2;
+				const distance = Math.hypot(dx, dy);
+				const pull = Math.max(0, 1 - distance / 72) ** 1.4 * 7;
 				geometry.current.pullX = distance ? (dx / distance) * pull : 0;
 				geometry.current.pullY = distance ? (dy / distance) * pull : 0;
 				wake.current();

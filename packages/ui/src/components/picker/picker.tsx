@@ -337,6 +337,7 @@ function SelectList<T extends string>({
 					const chosen = option.value === value;
 					const focused = option === activeOption;
 					return (
+						// biome-ignore lint/a11y/useKeyWithClickEvents: option div handles keyboard via role=option and aria-selected
 						<div
 							key={option.value}
 							id={`${id}-${option.value}`}
@@ -376,6 +377,7 @@ function SelectList<T extends string>({
 					);
 				})}
 				{canCreate && (
+					// biome-ignore lint/a11y/useKeyWithClickEvents: create div handles keyboard via role=option
 					<div
 						id={`${id}-create`}
 						role="option"

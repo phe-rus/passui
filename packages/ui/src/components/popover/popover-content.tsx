@@ -1,16 +1,5 @@
-import {
-	AnimatePresence,
-	motion,
-	useIsPresent,
-	useReducedMotion,
-} from "motion/react";
-import {
-	type ReactNode,
-	useId,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { type ReactNode, useLayoutEffect, useRef, useState } from "react";
 import { concealMenuSource } from "../context-menu/conceal-menu-source";
 import {
 	menuSurfaceExit,
@@ -20,11 +9,7 @@ import {
 import { useSheetFocus } from "../sheet/use-sheet-focus";
 import { SheetPortal } from "../sheet/sheet-portal";
 import { cn } from "../../lib/class-names";
-import {
-	contentCrossfade,
-	fluidCollapse,
-	fluidOvershoot,
-} from "../../motion/transitions";
+import { fluidCollapse, fluidOvershoot } from "../../motion/transitions";
 import { usePopover } from "./popover-root";
 
 export function PopoverContent({
@@ -53,7 +38,6 @@ export function PopoverContent({
 	const { state, send, triggerRef, contentId } = usePopover();
 	const panel = useRef<HTMLDivElement>(null);
 	const reducedMotion = useReducedMotion();
-	const present = useIsPresent();
 	const [settled, setSettled] = useState(false);
 	const [material, setMaterial] = useState({ width: 0, height: 0, radius: 0 });
 	const [reveal, setReveal] = useState<ReturnType<
@@ -162,7 +146,7 @@ export function PopoverContent({
 						className={cn(
 							"relative isolate flex flex-col outline-none",
 							placement === "center"
-								? "fixed z-[76] max-h-[92%] max-w-[560px] w-full p-6"
+								? "fixed z-[76] max-h-[92%] w-full max-w-[560px] p-6"
 								: "absolute z-40",
 							settled && "overflow-hidden",
 							className,

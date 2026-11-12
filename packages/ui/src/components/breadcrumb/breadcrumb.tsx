@@ -39,7 +39,7 @@ export function Breadcrumb({
 			>
 				{items.map((item, index) => (
 					<li
-						key={`${index}-${item.label}`}
+						key={item.label}
 						className="m-0 flex min-w-0 items-center gap-2 p-0"
 					>
 						{index > 0 && (

@@ -37,7 +37,9 @@ export function RollingDigit({
 			if (!node) return;
 			const base = Math.floor(position);
 			for (let index = 0; index < node.children.length; index++) {
-				node.children[index]!.textContent = String(digitAt(base + index - 1));
+				(node.children[index] as HTMLElement).textContent = String(
+					digitAt(base + index - 1),
+				);
 			}
 			node.style.transform = `translateY(${(-(position - base + 1) * 100) / 3}%)`;
 			node.style.filter = `blur(${Math.min(2, Math.abs(velocity) * 1.4)}px)`;

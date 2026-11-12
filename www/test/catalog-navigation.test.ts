@@ -9,9 +9,8 @@ import {
 } from "../src/features/catalog/lib/navigation";
 
 test("search finds concepts by API name or purpose, regardless of case", () => {
-	const menu = getCatalog().find(
-		(entry) => entry.docs.slug === "context-menu",
-	)!;
+	const menu = getCatalog().find((entry) => entry.docs.slug === "context-menu");
+	if (!menu) throw new Error("context-menu not found");
 	expect(componentTitle(menu)).toBe("Context menu");
 	expect(matchesComponent(menu, "useContextMenu")).toBe(true);
 	expect(matchesComponent(menu, "CONTEXT menu")).toBe(true);

@@ -279,7 +279,7 @@ function MonthCalendar({
 				<div role="row" className="contents">
 					{weekdays.map((weekday, index) => (
 						<span
-							key={index}
+							key={days[index].toString()}
 							role="columnheader"
 							className="text-caption2 text-label-tertiary pb-1 text-center font-semibold"
 						>

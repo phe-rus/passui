@@ -138,7 +138,8 @@ export function FilterRow<TData extends RowData>({
 								active ? undefined : isArrayColumn ? [value] : value,
 							);
 						return (
-							<div
+							<button
+								type="button"
 								key={value}
 								className="flex cursor-pointer items-center gap-2"
 								onClick={setActive}
@@ -151,7 +152,7 @@ export function FilterRow<TData extends RowData>({
 									onChange={setActive}
 								/>
 								<span className="text-caption">{value}</span>
-							</div>
+							</button>
 						);
 					})}
 					{activeValue && (

@@ -78,7 +78,7 @@ async function main() {
 		framework: values.framework as "react" | undefined,
 		command,
 		directory: resolve(
-			command === "create" ? destination! : (values.dir ?? "."),
+			command === "create" ? (destination ?? ".") : (values.dir ?? "."),
 		),
 		template,
 		integration: values.integration === "tanstack",
