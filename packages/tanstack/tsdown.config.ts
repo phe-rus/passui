@@ -24,7 +24,7 @@ export default defineConfig({
 	platform: "browser",
 	unbundle: true,
 	dts: true,
-	clean: true,
+	clean: false,
 	exports: {
 		customExports: (exports) => ({
 			...exports,
@@ -32,6 +32,7 @@ export default defineConfig({
 				integrations.map((name) => [`./react/${name}`, exports[`./${name}`]]),
 			),
 			"./styles.css": "./src/styles.css",
+			"./globals.css": "./src/globals.css",
 			"./react/styles.css": "./src/styles.css",
 		}),
 	},

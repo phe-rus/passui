@@ -14,7 +14,7 @@ export default defineConfig({
 	format: "esm",
 	platform: "neutral",
 	dts: true,
-	clean: true,
+	clean: false,
 	exports: {
 		customExports: (exports) => ({
 			...exports,

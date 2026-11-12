@@ -24,6 +24,9 @@ export default defineConfig({
 		collapsible: "src/components/collapsible.tsx",
 		combobox: "src/components/combobox.tsx",
 		command: "src/components/command.tsx",
+		calendar: "src/components/calendar.tsx",
+		chart: "src/components/chart.tsx",
+		"date-time-picker": "src/components/date-time-picker.tsx",
 		"compact-date-picker":
 			"src/legacy/compact-date-picker/compact-date-picker.tsx",
 		"compact-time-picker":
@@ -43,6 +46,9 @@ export default defineConfig({
 		"input-group": "src/components/input-group.tsx",
 		"input-otp": "src/components/input-otp.tsx",
 		kbd: "src/components/kbd.tsx",
+		marker: "src/components/marker.tsx",
+		"tab-bar": "src/components/tab-bar.tsx",
+		trace: "src/components/trace.tsx",
 		label: "src/components/label.tsx",
 		"labeled-content": "src/legacy/labeled-content/labeled-content.tsx",
 		language: "src/lib/language.ts",
@@ -51,6 +57,7 @@ export default defineConfig({
 		pagination: "src/components/pagination.tsx",
 		popover: "src/components/popover.tsx",
 		progress: "src/components/progress.tsx",
+		questionnaire: "src/components/questionnaire.tsx",
 		"radio-group": "src/components/radio-group.tsx",
 		"search-field": "src/legacy/search-field/search-field.tsx",
 		"segmented-control": "src/components/segmented-control.tsx",
@@ -85,7 +92,7 @@ export default defineConfig({
 	platform: "browser",
 	unbundle: true,
 	dts: true,
-	clean: true,
+	clean: false,
 	deps: { neverBundle: [/^@passui\//] },
 	exports: {
 		customExports: (exports) => ({
@@ -95,6 +102,7 @@ export default defineConfig({
 			"./theme.css": "./src/styles/theme.css",
 			"./typeset.css": "./src/styles/typeset.css",
 			"./styles.css": "./src/styles/styles.css",
+			"./globals.css": "./src/styles/globals.css",
 		}),
 	},
 });

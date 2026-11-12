@@ -83,6 +83,7 @@
 		"./react/mutation": "./dist/mutation.js",
 		"./react/route-boundary": "./dist/route-boundary.js",
 		"./styles.css": "./src/styles.css",
+		"./globals.css": "./src/globals.css",
 		"./react/styles.css": "./src/styles.css"
 	},
 	"description": "TanStack form, table and router integrations for Passui.",

@@ -15,7 +15,7 @@ export default defineConfig({
 	platform: "browser",
 	unbundle: true,
 	dts: true,
-	clean: true,
+	clean: false,
 	exports: {
 		customExports: (exports) => ({
 			...exports,
