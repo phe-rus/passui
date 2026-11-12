@@ -101,6 +101,8 @@
 	"scripts": {
 		"generate": "bun run --cwd ../tokens generate",
 		"test": "vitest run",
+		"test:e2e": "playwright test",
+		"typecheck:e2e": "tsc -p e2e/tsconfig.json",
 		"typecheck": "tsc -p tsconfig.json",
 		"publish:check": "bun pm pack --dry-run",
 		"build": "bun run generate && tsdown",
@@ -113,8 +115,10 @@
 		"tailwindcss": "^4.3.3"
 	},
 	"devDependencies": {
+		"@playwright/test": "catalog:",
 		"@tailwindcss/node": "4.3.5",
 		"@tailwindcss/oxide": "4.3.5",
+		"@tailwindcss/vite": "4.3.5",
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",

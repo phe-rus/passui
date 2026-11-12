@@ -34,6 +34,7 @@
 	"catalog": {
 		"@biomejs/biome": "2.6.3",
 		"@types/node": "^26.6.6",
+		"@playwright/test": "1.65.0",
 		"@zag-js/dialog": "1.47.0",
 		"@zag-js/drawer": "1.47.0",
 		"@zag-js/react": "1.47.0",

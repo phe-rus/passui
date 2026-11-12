@@ -34,3 +34,19 @@ jobs:
       - run: bun run test
       - run: bun run publish:check
       - run: bun run size:check
+
+  touch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.2
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          package-manager-cache: false
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install --with-deps chromium webkit
+        working-directory: packages/ui
+      - run: bun run --cwd packages/ui test:e2e
