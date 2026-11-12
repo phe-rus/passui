@@ -377,7 +377,7 @@ for (const path of [
 	const partSymbols =
 		found.node.init?.type === "ObjectExpression"
 			? found.node.init.properties.map((property) => [
-					name + "." + property.key.name,
+					`${name}.${property.key.name}`,
 					property.value.name,
 				])
 			: [...found.module.exports]
@@ -414,7 +414,7 @@ if (process.argv.includes("--check")) {
 			JSON.stringify(result)
 	)
 		throw new Error("React API reference is stale. Run bun run docs:api");
-} else writeFileSync(output, JSON.stringify(result, null, 4) + "\n");
+} else writeFileSync(output, `${JSON.stringify(result, null, 4)}\n`);
 console.log(
 	`React API: ${Object.keys(result).length} families extracted from source`,
 );

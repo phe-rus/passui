@@ -126,13 +126,13 @@ export function WakeSlider({
 		f = clamp(f, 0, 1);
 		const from = s.at;
 		s.at = f;
-		const a = Math.round(from * (n - 1)),
-			b = Math.round(f * (n - 1));
+		const a = Math.round(from * (n - 1));
+		const b = Math.round(f * (n - 1));
 		/* how hard: the drag's speed in bars per second, through a
        curve that saturates, scaled by the knob */
 		const push = (1 - Math.exp(-speed / 900)) * (knob.current / 60);
-		const lo = Math.min(a, b),
-			hi = Math.max(a, b);
+		const lo = Math.min(a, b);
+		const hi = Math.max(a, b);
 		for (let i = lo; i <= hi; i++) s.energy[i] = Math.max(s.energy[i], push);
 		if (b !== s.lastBar) {
 			s.lastBar = b;

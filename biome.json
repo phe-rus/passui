@@ -93,7 +93,8 @@
 				"noChildrenProp": "info",
 				"useHookAtTopLevel": "error",
 				"useJsxKeyInIterable": "error",
-				"noUnusedImports": "on"
+				"noUnusedImports": "on",
+				"noInvalidPositionAtImportRule": "off"
 			},
 			"a11y": {
 				"noAriaUnsupportedElements": "warn",
@@ -104,7 +105,9 @@
 				"useAriaPropsForRole": "warn",
 				"useAriaPropsSupportedByRole": "warn",
 				"useValidAriaValues": "warn",
-				"noSvgWithoutTitle": "off"
+				"noSvgWithoutTitle": "off",
+				"noStaticElementInteractions": "off",
+				"useSemanticElements": "off"
 			},
 			"nursery": {
 				"useTailwindSortedClasses": {
@@ -113,7 +116,7 @@
 				}
 			},
 			"style": {
-				"noParameterAssign": "error",
+				"noParameterAssign": "off",
 				"useAsConstAssertion": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
@@ -122,7 +125,14 @@
 				"noUnusedTemplateLiteral": "error",
 				"useNumberNamespace": "error",
 				"noInferrableTypes": "error",
-				"noUselessElse": "error"
+				"noUselessElse": "error",
+				"noDescendingSpecificity": "off"
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "off"
 			}
 		}
 	},

@@ -146,7 +146,6 @@ export function OneTimeCode({
 				>
 					{Array.from({ length: count }, (_, index) => (
 						<span
-							// biome-ignore lint/suspicious/noArrayIndexKey: OTP cells are positional
 							key={index}
 							className="passui-otp-cell"
 							style={{ "--otp-index": index } as CSSProperties}
@@ -157,7 +156,6 @@ export function OneTimeCode({
 				<div aria-hidden="true" className="passui-otp-digits">
 					{Array.from({ length: count }, (_, index) => (
 						<span
-							// biome-ignore lint/suspicious/noArrayIndexKey: OTP cells are positional
 							key={index}
 							className="passui-otp-digit"
 							data-active={

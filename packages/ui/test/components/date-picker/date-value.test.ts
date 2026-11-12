@@ -17,7 +17,7 @@ test("rejects impossible, incomplete and future birthdays", () => {
 		["20", "1", "1"],
 		["2020", "1", "0"],
 	]) {
-		expect(dateValue(parts[0]!, parts[1]!, parts[2]!)).toBe("");
+		expect(dateValue(parts[0] ?? "", parts[1] ?? "", parts[2] ?? "")).toBe("");
 	}
 	expect(dateValue("2027", "1", "1", "2026-10-10")).toBe("");
 	expect(dateValue("2026", "10", "10", "2026-10-10")).toBe("2026-10-10");

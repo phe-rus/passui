@@ -13,9 +13,7 @@ export function stepLiquid(
 	dt: number,
 ): LiquidState {
 	const soft = clampRange(viscosity, 0, 100) / 100;
-	// biome-ignore lint/style/noParameterAssign: liquid physics mutates input state
 	target = clampRange(target, 0, 100);
-	// biome-ignore lint/style/noParameterAssign: liquid physics mutates input state
 	dt = clampRange(dt, 0, 2.5);
 	if (soft === 0) {
 		/* 0 is an ordinary slider and has to be exactly that,

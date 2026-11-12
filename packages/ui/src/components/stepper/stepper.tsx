@@ -88,9 +88,9 @@ export function Stepper({
 					className={outputText[size]}
 				>
 					<span aria-hidden="true" className="inline-flex items-center">
-						{Array.from(displayed).map((character, index) => {
+						{Array.from(displayed).map((character) => {
 							if (!/[0-9]/.test(character))
-								return <span key={`separator-${index}`}>{character}</span>;
+								return <span key={`sep-${character}`}>{character}</span>;
 							const prefix = digits.slice(0, ++digitIndex);
 							const place = digits.length - digitIndex;
 							return (

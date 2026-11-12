@@ -101,6 +101,7 @@ export function SearchList({
 			<div
 				{...props}
 				ref={ref}
+				role="presentation"
 				className={cn("relative", className)}
 				onKeyDown={(event) => {
 					onKeyDown?.(event);

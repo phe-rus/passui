@@ -239,8 +239,8 @@ export function SloshSlider({
 				onPointerMove={(event) => {
 					const s = state.current;
 					if (!s.held || disabled) return;
-					const next = readAt(event.clientX),
-						now = performance.now();
+					const next = readAt(event.clientX);
+					const now = performance.now();
 					/* Per frame, not per ms: the loop's release velocity must
                    use the same unit as the spring. */
 					s.handleVelocity =
@@ -254,8 +254,8 @@ export function SloshSlider({
 				onLostPointerCapture={() => release(true)}
 				onKeyDown={(event) => {
 					if (disabled) return;
-					const s = state.current,
-						step = event.shiftKey ? 10 : 2;
+					const s = state.current;
+					const step = event.shiftKey ? 10 : 2;
 					const rtl = getComputedStyle(event.currentTarget).direction === "rtl";
 					const next =
 						event.key === "ArrowUp" ||
