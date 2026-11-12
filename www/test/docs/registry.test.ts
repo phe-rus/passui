@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { registry } from "../../src/features/catalog/data/registry";
 
 const root = join(import.meta.dirname, "../..");
-const components = join(root, "src/features/catalog/definitions");
+const components = join(root, "src/features/catalog/data");
 const library = join(root, "../packages/ui");
 const exportsMap: Record<string, string | { types: string; default: string }> =
 	JSON.parse(readFileSync(join(library, "package.json"), "utf8")).exports;
