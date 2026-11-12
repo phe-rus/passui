@@ -37,7 +37,7 @@ function MarqueeRow({ cards: set, offset, reverse, paused }: MarqueeRowProps) {
 					inert={copy === 1 ? true : undefined}
 					className={cn(
 						"flex shrink-0 gap-5 pe-5",
-						"animate-[marquee_60s_linear_infinite] group-focus-within/row:[animation-play-state:paused] group-hover/row:[animation-play-state:paused]",
+						"animate-marquee group-focus-within/row:[animation-play-state:paused] group-hover/row:[animation-play-state:paused]",
 						paused && "[animation-play-state:paused]",
 						reverse && "[animation-direction:reverse]",
 						"motion-reduce:animate-none",

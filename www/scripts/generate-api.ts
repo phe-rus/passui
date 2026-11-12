@@ -7,7 +7,7 @@
 import { existsSync, readdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import ts from "typescript-api";
-import { registry } from "../src/features/components/registry";
+import { registry } from "../src/features/catalog/registry";
 
 const root = resolve(import.meta.dirname, "../..");
 const dist = `${root}/packages/ui/dist`;
@@ -122,7 +122,7 @@ for (const doc of registry) {
 	out[doc.slug] = parts;
 }
 writeFileSync(
-	`${import.meta.dirname}/../src/features/components/api.generated.json`,
+	`${import.meta.dirname}/../src/features/catalog/api.generated.json`,
 	`${JSON.stringify(out, null, "\t")}\n`,
 );
 console.log(`props for ${Object.keys(out).length} components`);

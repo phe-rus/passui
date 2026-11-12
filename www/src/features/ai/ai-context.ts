@@ -1,6 +1,6 @@
-import { siteOrigin } from "@/lib/site";
-import { registry } from "../components/registry";
-import { guides } from "../guides/guides";
+import { siteOrigin } from "@/features/seo/lib/site";
+import { registry } from "../catalog/registry";
+import { guides } from "../docs/lib/get-guides";
 
 /** The `/llms.txt` index, generated from the same registry as the docs. */
 export function getLlmsTxt() {

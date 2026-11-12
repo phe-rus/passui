@@ -1,9 +1,13 @@
 import { expect, it } from "vitest";
 import { getLlmsTxt, getSkill } from "../src/features/ai/ai-context";
-import { registry } from "../src/features/components/registry";
-import { getPageHead } from "../src/lib/seo";
-import { pageUrl } from "../src/lib/site";
-import { getRobots, getSitemap, getSitemapPaths } from "../src/lib/sitemap";
+import { registry } from "../src/features/catalog/registry";
+import { getPageHead } from "../src/features/seo/lib/seo";
+import { pageUrl } from "../src/features/seo/lib/site";
+import {
+	getRobots,
+	getSitemap,
+	getSitemapPaths,
+} from "../src/features/seo/lib/sitemap";
 
 it("canonical urls drop query strings, fragments and trailing slashes", () => {
 	expect(pageUrl("/docs/components/button/?x=1#top")).toBe(

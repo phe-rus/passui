@@ -7,7 +7,8 @@
         "lib": ["ES2022", "DOM", "DOM.Iterable"],
         "types": ["vite/client", "./worker-configuration.d.ts"],
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "content-collections": ["./.content-collections/generated"]
         },
         /* Bundler mode */
         "moduleResolution": "bundler",

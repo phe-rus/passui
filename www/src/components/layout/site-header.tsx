@@ -9,30 +9,29 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@passui/react/sheet";
+import { useQuery } from "@tanstack/react-query";
 import { Link, type LinkProps } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { DocsSidebar } from "../docs/docs-sidebar";
-import { MobileNav } from "./mobile-nav";
-import { PassuiMark } from "./passui-mark";
+import { useState } from "react";
+import { DocsNav } from "@/components/docs/docs-nav";
+import { starsQuery } from "@/features/layout/lib/github-stars";
 import { SearchDialog } from "./search-dialog";
 import { ThemeToggle } from "./theme-toggle";
 
-const compact = new Intl.NumberFormat("en", { notation: "compact" });
-type Navigations = {
-	label: string;
-} & LinkProps;
+type Destination = { label: string } & LinkProps;
 
-export function SiteHeader({ stars }: { stars: number | null }) {
+const destinations = [
+	{ to: "/docs/$slug", params: { slug: "introduction" }, label: "Docs" },
+	{ to: "/docs/components", label: "Components" },
+	{ to: "/docs", label: "Templates" },
+	{ to: "/docs", label: "Themes" },
+	{ to: "/docs", label: "Playground" },
+] satisfies Destination[];
+
+const compact = new Intl.NumberFormat("en", { notation: "compact" });
+
+export function SiteHeader() {
 	const [open, setOpen] = useState(false);
-	const navigation = useMemo<Navigations[]>(() => {
-		return [
-			{ to: "/docs/$slug", params: { slug: "introduction" }, label: "Docs" },
-			{ to: "/docs/components", label: "Components" },
-			{ to: "/docs", label: "Templates" },
-			{ to: "/docs", label: "Themes" },
-			{ to: "/docs", label: "Playground" },
-		] satisfies Navigations[];
-	}, []);
+	const { data: stars = null } = useQuery(starsQuery);
 
 	return (
 		<Sheet
@@ -45,44 +44,37 @@ export function SiteHeader({ stars }: { stars: number | null }) {
 					aria-label="Passui"
 					className="flex h-12 w-full items-center justify-between px-5"
 				>
-					<div className="flex scrollbar-none items-center gap-5">
+					<div className="flex items-center gap-5">
 						<Link
 							to="/"
 							aria-label="Passui home"
-							className="text-headline text-primary flex items-center gap-3 font-semibold"
+							className="text-headline text-label flex items-center gap-3 font-semibold"
 						>
 							Passui
 						</Link>
 
 						<nav
-							className={cn(
-								"order-3 hidden items-center gap-2 md:flex",
-								"min-w-0 scrollbar-none",
-							)}
+							aria-label="Site"
+							className="hidden min-w-0 items-center gap-2 md:flex"
 						>
-							{navigation.map((item) => {
-								const { label, ...props } = item;
-								return (
-									<Link
-										key={props.to}
-										{...props}
-										activeProps={{
-											"aria-current": "page",
-											className: "text-accent",
-										}}
-										activeOptions={{ exact: false }}
-										className={cn(
-											"truncate text-sm font-medium transition-colors",
-										)}
-									>
-										{label}
-									</Link>
-								);
-							})}
+							{destinations.map(({ label, ...link }) => (
+								<Link
+									key={label}
+									{...link}
+									activeProps={{
+										"aria-current": "page",
+										className: "text-accent",
+									}}
+									activeOptions={{ exact: false }}
+									className="truncate text-sm font-medium transition-colors"
+								>
+									{label}
+								</Link>
+							))}
 						</nav>
 					</div>
 
-					<nav className="flex items-center gap-1">
+					<nav aria-label="Tools" className="flex items-center gap-1">
 						<SearchDialog />
 						<ThemeToggle />
 						<a
@@ -132,10 +124,9 @@ export function SiteHeader({ stars }: { stars: number | null }) {
 					</nav>
 				</section>
 			</header>
-
 			<SheetContent className="w-72 overflow-y-auto p-4">
 				<SheetTitle className="sr-only">Documentation</SheetTitle>
-				<DocsSidebar onNavigate={() => setOpen(false)} />
+				<DocsNav onNavigate={() => setOpen(false)} />
 			</SheetContent>
 		</Sheet>
 	);

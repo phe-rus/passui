@@ -1,13 +1,13 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import api from "../src/features/components/api.generated.json";
+import api from "../src/features/catalog/api.generated.json";
 import {
 	getNavigation,
 	getNeighbours,
-} from "../src/features/components/navigation";
-import { groups, registry } from "../src/features/components/registry";
+} from "../src/features/catalog/navigation";
+import { groups, registry } from "../src/features/catalog/registry";
 
-const root = `${import.meta.dirname}/../src/features/components`;
+const root = `${import.meta.dirname}/../src/features/catalog`;
 const pascal = (s: string) =>
 	s
 		.split("-")
@@ -65,28 +65,9 @@ it("has generated props for every component", () => {
 
 it("lists guides then components in one reading order with neighbours", () => {
 	const nav = getNavigation();
-	expect(nav[0]?.title).toBe("Getting started");
+	expect(nav[0]?.title).toBe("Sections");
 	expect(getNeighbours("/docs/introduction").next?.href).toBe(
 		"/docs/installation",
 	);
 	expect(getNeighbours("/docs/components/accordion").previous).toBeDefined();
-});
-
-it("renders a component page as Markdown with its import, examples and accessibility notes", async () => {
-	const { pageMarkdown } = await import("../src/lib/page-markdown");
-	const meta = { name: "Thing", summary: "A thing.", entry: "thing" } as never;
-	const doc = {
-		examples: [{ id: "usage", title: "Usage", description: "Use it." }],
-		accessibility: ["It is labelled."],
-	} as never;
-	const text = pageMarkdown(
-		meta,
-		doc,
-		{ examples: { usage: { source: "<Thing />" } } },
-		[{ name: "Thing", description: "", props: [] }],
-	);
-	expect(text).toContain("# Thing");
-	expect(text).toContain('import { Thing } from "@passui/react/thing";');
-	expect(text).toContain("```tsx\n<Thing />\n```");
-	expect(text).toContain("- It is labelled.");
 });

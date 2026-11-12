@@ -1,32 +1,31 @@
+import { ChevronLeftIcon } from "@passui/icons/chevron-left";
+import { ChevronRightIcon } from "@passui/icons/chevron-right";
 import { Link } from "@tanstack/react-router";
-import { getNeighbours } from "@/features/components/navigation";
+import { getNeighbours } from "@/features/catalog/navigation";
 
-/** Previous and next, as links: a page you walk to is a link, never a button. */
+const linkClass =
+	"text-footnote text-label-secondary hover:bg-fill hover:text-label inline-flex items-center gap-1 rounded-full px-3 py-1.5 font-medium no-underline transition-colors";
+
+/** Previous and Next on one row: just the direction and its arrow. */
 export function PageNav({ href }: { href: string }) {
 	const { previous, next } = getNeighbours(href);
-	const link =
-		"group flex flex-col gap-0.5 rounded-2xl px-4 py-3 no-underline transition-colors duration-(--duration-fast) hover:bg-fill/70";
 	return (
 		<nav
-			aria-label="Previous and next page"
-			className="border-separator flex items-stretch justify-between gap-3 border-t pt-6"
+			aria-label="Pager"
+			className="not-typeset border-separator/60 flex items-center justify-between gap-2 border-t pt-4"
 		>
 			{previous ? (
-				<Link to={previous.href} className={link}>
-					<span className="text-footnote text-label-secondary">Previous</span>
-					<span className="text-subheadline text-label font-semibold">
-						{previous.title}
-					</span>
+				<Link to={previous.href} rel="prev" className={linkClass}>
+					<ChevronLeftIcon size={14} />
+					Previous
 				</Link>
 			) : (
 				<span />
 			)}
 			{next ? (
-				<Link to={next.href} className={`${link} text-end`}>
-					<span className="text-footnote text-label-secondary">Next</span>
-					<span className="text-subheadline text-label font-semibold">
-						{next.title}
-					</span>
+				<Link to={next.href} rel="next" className={linkClass}>
+					Next
+					<ChevronRightIcon size={14} />
 				</Link>
 			) : null}
 		</nav>

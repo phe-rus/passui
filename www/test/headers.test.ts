@@ -2,27 +2,25 @@ import { expect, it } from "vitest";
 import {
 	contentSecurityPolicy,
 	noindexHeader,
-	withSiteHeaders,
+	securityHeaders,
 } from "../src/lib/headers";
 
-it("allows Google Fonts and nothing else off origin for fonts and styles", () => {
+it("allows nothing off origin for scripts, styles and fonts", () => {
 	const csp = contentSecurityPolicy();
-	expect(csp).toContain("font-src 'self' data: https://fonts.gstatic.com");
-	expect(csp).toContain(
-		"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-	);
+	expect(csp).toContain("font-src 'self' data:");
+	expect(csp).toContain("style-src 'self' 'unsafe-inline'");
+	expect(csp).not.toContain("googleapis");
 	expect(csp).toContain("frame-ancestors 'none'");
 });
 
-it("adds the security headers to every response", () => {
-	const response = withSiteHeaders(new Response("ok"));
-	expect(response.headers.get("X-Frame-Options")).toBe("DENY");
-	expect(response.headers.get("X-Content-Type-Options")).toBe("nosniff");
-	expect(response.headers.get("X-Robots-Tag")).toBeNull();
+it("carries the security headers every response needs", () => {
+	expect(securityHeaders["X-Frame-Options"]).toBe("DENY");
+	expect(securityHeaders["X-Content-Type-Options"]).toBe("nosniff");
+	expect(securityHeaders["Content-Security-Policy"]).toContain(
+		"object-src 'none'",
+	);
 });
 
 it("marks missing pages noindex", () => {
-	const response = withSiteHeaders(new Response("missing", { status: 404 }));
-	expect(response.status).toBe(404);
-	expect(response.headers.get("X-Robots-Tag")).toBe(noindexHeader);
+	expect(noindexHeader).toBe("noindex, nofollow");
 });

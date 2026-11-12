@@ -4,10 +4,10 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"dev": "vite dev --port=3004 --strictPort",
+		"dev": "vite dev",
 		"build": "NODE_ENV=production vite build",
 		"deploy": "bun run build && wrangler deploy",
-		"preview": "vite preview --port=3004 --strictPort",
+		"preview": "vite preview",
 		"type-gen": "wrangler types",
 		"typecheck": "bun run type-gen && tsc --noEmit",
 		"test": "vitest run",
@@ -19,7 +19,10 @@
 		"@passui/tanstack": "workspace:*",
 		"@passui/tokens": "workspace:*",
 		"@tailwindcss/vite": "^4.3.3",
+		"@tanstack/markdown": "^1.2.0",
+		"@tanstack/react-query": "^5.104.0",
 		"@tanstack/react-router": "^1.170.39",
+		"@tanstack/react-router-ssr-query": "^1.167.3",
 		"@tanstack/react-start": "^1.168.58",
 		"motion": "catalog:",
 		"prettier": "3.9.9",
@@ -31,6 +34,8 @@
 	},
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "^1.60.2",
+		"@content-collections/core": "^0.15.3",
+		"@content-collections/vite": "^0.3.1",
 		"@rolldown/plugin-babel": "^0.2.4",
 		"@types/node": "catalog:",
 		"@types/react": "catalog:",
@@ -38,9 +43,9 @@
 		"@vitejs/plugin-react": "^6.1.1",
 		"babel-plugin-react-compiler": "^1.0.0",
 		"typescript": "catalog:",
+		"typescript-api": "npm:typescript@5.9.3",
 		"vite": "catalog:",
 		"vitest": "catalog:",
-		"wrangler": "^4.149.0",
-		"typescript-api": "npm:typescript@5.9.3"
+		"wrangler": "^4.149.0"
 	}
 }

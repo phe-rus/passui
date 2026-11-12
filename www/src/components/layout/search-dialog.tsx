@@ -16,8 +16,8 @@ import {
 } from "@passui/react/dialog";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { registry } from "@/features/components/registry";
-import { guides } from "@/features/guides/guides";
+import { registry } from "@/features/catalog/registry";
+import { guides } from "@/features/docs/lib/get-guides";
 
 /** Docs search: Command inside a Dialog, opened from the header or with Ctrl or Cmd K. */
 export function SearchDialog() {

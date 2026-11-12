@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { discoveryHeaders, getRobots } from "@/lib/sitemap";
+import { discoveryHeaders, getRobots } from "@/features/seo/lib/sitemap";
 
 export const Route = createFileRoute("/(meta)/robots.txt")({
 	server: {

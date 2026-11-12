@@ -6,17 +6,17 @@ import {
 import { Toaster } from "@passui/react/toast";
 import { ComposeViewport } from "@passui/tanstack/document";
 import {
-	createRootRoute,
+	createRootRouteWithContext,
 	HeadContent,
 	Outlet,
 	Scripts,
 } from "@tanstack/react-router";
-import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { getStars } from "@/lib/github-stars";
-import tailwind from "@/styles/site.css?url";
+import { starsQuery } from "@/features/layout/lib/github-stars";
+import type { RouterContext } from "@/lib/router-context";
+import styles from "@/styles.css?url";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -30,17 +30,7 @@ export const Route = createRootRoute({
 			{ name: "theme-color", content: "#d16988" },
 		],
 		links: [
-			{ rel: "stylesheet", href: tailwind },
-			{ rel: "preconnect", href: "https://fonts.googleapis.com" },
-			{
-				rel: "preconnect",
-				href: "https://fonts.gstatic.com",
-				crossOrigin: "anonymous",
-			},
-			{
-				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&display=swap",
-			},
+			{ rel: "stylesheet", href: styles },
 			{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
 			{
 				rel: "icon",
@@ -52,12 +42,11 @@ export const Route = createRootRoute({
 			{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 		],
 	}),
-	loader: () => getStars(),
+	loader: ({ context }) => context.queryClient.prefetchQuery(starsQuery),
 	shellComponent: RouteComponent,
 });
 
 function RouteComponent() {
-	const stars = Route.useLoaderData() ?? null;
 	return (
 		<ComposeViewport>
 			<head>
@@ -72,9 +61,8 @@ function RouteComponent() {
 						enableColorScheme
 						enableSystem
 					>
-						<SiteHeader stars={stars} />
+						<SiteHeader />
 						<Outlet />
-						<SiteFooter />
 						<Toaster />
 					</ThemeProvider>
 				</PlatformProvider>

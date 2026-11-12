@@ -93,7 +93,7 @@ export function Hero({ cycle, paused = false }: HeroProps) {
 				<h1
 					id="hero-title"
 					aria-label="Passui"
-					className="font-brand text-label flex text-[clamp(5rem,17vw,9.5rem)] leading-[0.9] font-extrabold tracking-[-0.055em]"
+					className="font-display text-label flex text-[clamp(5rem,17vw,9.5rem)] leading-[0.9] font-extrabold tracking-[-0.055em]"
 				>
 					{letters.map((letter, index) => (
 						<motion.span
