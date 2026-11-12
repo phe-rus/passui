@@ -1,5 +1,4 @@
 import { springs } from "@passui/tokens/motion";
-import { useMediaQuery } from "../../hooks/use-media-query";
 import {
 	forwardRef,
 	type HTMLAttributes,
@@ -10,6 +9,7 @@ import {
 import { useAnchoredPlacement } from "../../hooks/use-anchored-placement";
 import { FLOATING_LAYER } from "../../hooks/use-dismiss";
 import { useFloatingDismiss } from "../../hooks/use-floating-dismiss";
+import { useMediaQuery } from "../../hooks/use-media-query";
 import { cn } from "../../lib/class-names";
 import { registerFloatingLayer } from "../../lib/floating-layers";
 import { concealMenuSource } from "../context-menu/conceal-menu-source";

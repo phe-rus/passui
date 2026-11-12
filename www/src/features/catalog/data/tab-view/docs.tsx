@@ -1,9 +1,9 @@
-import { TabViewSettings } from "./examples/tab-view-settings";
+import { TabView } from "@passui/react/tab-view";
 import { defineDocs } from "../types";
 import { TabViewKeyboard } from "./examples/tab-view-keyboard";
+import { TabViewSettings } from "./examples/tab-view-settings";
 import { TabViewShowcase } from "./examples/tab-view-showcase";
 import { TabViewUsage } from "./examples/tab-view-usage";
-import { TabView } from "@passui/react/tab-view";
 
 // TabView is generic over its tab values, so the docs name the three
 // tabs the playground shows.

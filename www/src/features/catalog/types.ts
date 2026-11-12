@@ -1,7 +1,7 @@
-import type { CodeLang } from "@/features/playground";
 import type { IconProps } from "@passui/react/icons";
 import type { ComponentType } from "react";
 import type { RegisteredDocs } from "@/features/catalog/data";
+import type { CodeLang } from "@/features/playground";
 
 type DocsShape = {
 	controls: object;

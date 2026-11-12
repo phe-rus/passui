@@ -1,10 +1,10 @@
-import { LocaleSwitcherTranslatedPage } from "./examples/locale-switcher-translated-page";
-import { LocaleSwitcherNativeNames } from "./examples/locale-switcher-native-names";
+import { LocaleSwitcher } from "@passui/react/locale-switcher";
 import { useState } from "react";
 import { defineDocs } from "../types";
+import { LocaleSwitcherNativeNames } from "./examples/locale-switcher-native-names";
 import { LocaleSwitcherShowcase } from "./examples/locale-switcher-showcase";
+import { LocaleSwitcherTranslatedPage } from "./examples/locale-switcher-translated-page";
 import { LocaleSwitcherUsage } from "./examples/locale-switcher-usage";
-import { LocaleSwitcher } from "@passui/react/locale-switcher";
 
 // The locales list is an array, so the playground offers a few sets.
 type DemoProps = {

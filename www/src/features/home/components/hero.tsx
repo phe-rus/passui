@@ -6,8 +6,8 @@ import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { accentNames } from "@/features/settings";
-import type { AccentCycle } from "../types";
 import { accentOrder } from "../lib/use-accent-cycle";
+import type { AccentCycle } from "../types";
 import {
 	ComposerScene,
 	OfferChip,

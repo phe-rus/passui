@@ -1,7 +1,7 @@
+import { DatePicker } from "@passui/react/date-picker";
 import type { ComponentProps } from "react";
 import { useState } from "react";
 import { defineDocs } from "../types";
-import { DatePicker } from "@passui/react/date-picker";
 import { DatePickerLocales } from "./examples/date-picker-locales";
 import { DatePickerPastOnly } from "./examples/date-picker-past-only";
 import { DatePickerShowcase } from "./examples/date-picker-showcase";

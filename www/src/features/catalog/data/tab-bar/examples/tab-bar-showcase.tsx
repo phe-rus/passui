@@ -1,19 +1,18 @@
-import { Sheet } from "@passui/react/sheet";
-import {
-	SearchList,
-	SearchListField,
-	SearchListResults,
-	SearchListItem,
-	SearchListEmpty,
-} from "@passui/react/search-list";
+import { TabBar } from "@passui/react";
 import {
 	HeartIcon,
 	HomeIcon,
 	LibraryIcon,
 	PersonIcon,
 } from "@passui/react/icons";
-
-import { TabBar } from "@passui/react";
+import {
+	SearchList,
+	SearchListEmpty,
+	SearchListField,
+	SearchListItem,
+	SearchListResults,
+} from "@passui/react/search-list";
+import { Sheet } from "@passui/react/sheet";
 import { useState } from "react";
 
 const tabs = [

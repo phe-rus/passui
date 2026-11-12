@@ -1,10 +1,10 @@
 import { Menu } from "@passui/react/menu";
 import { toast } from "@passui/react/toast";
 import { defineDocs } from "../types";
-import { MenuUsage } from "./examples/menu-usage";
-import { MenuShowcase } from "./examples/menu-showcase";
 import { MenuActions } from "./examples/menu-actions";
 import { MenuChoices } from "./examples/menu-choices";
+import { MenuShowcase } from "./examples/menu-showcase";
+import { MenuUsage } from "./examples/menu-usage";
 
 type DemoProps = {
 	label: string;

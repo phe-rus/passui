@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { RadioGroup } from "@passui/react/radio-group";
+import { useState } from "react";
 export function RadioGroupCompact() {
 	const options = [
 		{ value: "system", label: "System" },

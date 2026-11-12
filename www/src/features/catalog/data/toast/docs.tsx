@@ -1,3 +1,4 @@
+import { type ToastTone, toast } from "@passui/react";
 import { Button } from "@passui/react/button";
 import { jsxText } from "../snippet";
 import { defineDocs } from "../types";
@@ -5,7 +6,6 @@ import { ToastAction } from "./examples/toast-action";
 import { ToastPromise } from "./examples/toast-promise";
 import { ToastShowcase } from "./examples/toast-showcase";
 import { ToastUsage } from "./examples/toast-usage";
-import { type ToastTone, toast } from "@passui/react";
 
 // toast is a function, not an element: the playground fires one from a
 // button, and the snippet writes that button.

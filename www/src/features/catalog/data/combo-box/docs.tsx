@@ -1,11 +1,12 @@
-import { ComboBoxCreate } from "./examples/combo-box-create";
-import { useState } from "react";
 import { ComboBox } from "@passui/react/combo-box";
+import { useState } from "react";
 import { defineDocs } from "../types";
-import { ComboBoxUsage } from "./examples/combo-box-usage";
-import { ComboBoxShowcase } from "./examples/combo-box-showcase";
-import { ComboBoxLanguages } from "./examples/combo-box-languages";
+import { ComboBoxCreate } from "./examples/combo-box-create";
 import { ComboBoxDisabled } from "./examples/combo-box-disabled";
+import { ComboBoxLanguages } from "./examples/combo-box-languages";
+import { ComboBoxShowcase } from "./examples/combo-box-showcase";
+import { ComboBoxUsage } from "./examples/combo-box-usage";
+
 function Demo({ label }: { label: string }) {
 	const options = [
 		{ value: "react", label: "React" },

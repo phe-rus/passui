@@ -173,8 +173,12 @@ small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 
 Public examples import React icons from `@passui/react/icons`. Export named
 props types beside controls and document fixed choices and defaults on props.
-React package exports pair declaration types in `dist/types` with source runtime
-entries. Build before typechecking or packing; keep generated declarations out of git. Declaration builds clear dist/types first so moved or deleted source does not survive in archives.
+React package exports are compiled ESM and `.d.ts` built by tsdown into `dist`,
+one module per source file. tsdown generates the `exports` map from
+`tsdown.config.ts`, so add a new subpath there. Build before typechecking or
+packing; `dist` stays out of git and each build starts clean. Zag 1.47.0 and
+`@zag-js/react` 1.47.0 are the verified pair for new components (`useMachine`,
+`normalizeProps`, `mergeProps`, `Portal`).
 `copyText` from `@passui/react/clipboard` returns true only after a confirmed
 write; show success only then and provide manual copying when access fails.
 

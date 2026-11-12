@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Slider } from "@passui/react/slider";
+import { useState } from "react";
 import { defineDocs } from "../types";
-import { SliderUsage } from "./examples/slider-usage";
-import { SliderShowcase } from "./examples/slider-showcase";
-import { SliderVolume } from "./examples/slider-volume";
 import { SliderDisabled } from "./examples/slider-disabled";
+import { SliderShowcase } from "./examples/slider-showcase";
+import { SliderUsage } from "./examples/slider-usage";
+import { SliderVolume } from "./examples/slider-volume";
 
 function SliderDemo({ label, disabled }: { label: string; disabled: boolean }) {
 	const [value, setValue] = useState(45);

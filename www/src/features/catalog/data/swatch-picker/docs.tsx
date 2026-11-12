@@ -1,11 +1,11 @@
-import { SwatchPickerLabels } from "./examples/swatch-picker-labels";
-import { SwatchPickerAccents } from "./examples/swatch-picker-accents";
-import { useState } from "react";
+import { SwatchPicker } from "@passui/react";
 import { accents } from "@passui/tokens";
+import { useState } from "react";
 import { defineDocs } from "../types";
+import { SwatchPickerAccents } from "./examples/swatch-picker-accents";
+import { SwatchPickerLabels } from "./examples/swatch-picker-labels";
 import { SwatchPickerShowcase } from "./examples/swatch-picker-showcase";
 import { SwatchPickerUsage } from "./examples/swatch-picker-usage";
-import { SwatchPicker } from "@passui/react";
 
 type DemoProps = { label: string };
 

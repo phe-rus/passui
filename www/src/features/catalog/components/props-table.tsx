@@ -1,10 +1,10 @@
 import {
 	Table,
-	TableHeader,
 	TableBody,
-	TableRow,
-	TableHead,
 	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
 } from "@passui/react/table";
 import type { AnyControl, RegisteredDocs } from "@/features/catalog/data";
 import reactApi from "../generated/react-api.json";

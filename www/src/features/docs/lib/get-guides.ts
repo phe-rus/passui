@@ -1,8 +1,8 @@
 import {
-	SparkleIcon,
 	BookIcon,
 	DownloadIcon,
 	LayoutIcon,
+	SparkleIcon,
 	ThemingIcon,
 	TypesetIcon,
 } from "@passui/react/icons";

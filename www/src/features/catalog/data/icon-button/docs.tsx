@@ -1,10 +1,10 @@
+import { IconButton, type IconButtonProps } from "@passui/react/icon-button";
 import { SettingsIcon } from "@passui/react/icons";
 import { defineDocs } from "../types";
 import { IconButtonPlayer } from "./examples/icon-button-player";
 import { IconButtonShowcase } from "./examples/icon-button-showcase";
 import { IconButtonUsage } from "./examples/icon-button-usage";
 import { IconButtonVariants } from "./examples/icon-button-variants";
-import { IconButton, type IconButtonProps } from "@passui/react/icon-button";
 
 export const iconButtonDocs = defineDocs<IconButtonProps>()({
 	slug: "icon-button",

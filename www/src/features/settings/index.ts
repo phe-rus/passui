@@ -1,5 +1,5 @@
-export { accentNames } from "./content/accent-names";
 export { SettingsBar } from "./components/settings-bar";
+export { accentNames } from "./content/accent-names";
 export type {
 	DocsSettings,
 	PreviewPlatform,

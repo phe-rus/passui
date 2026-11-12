@@ -1,16 +1,15 @@
-import { useRouter } from "@tanstack/react-router";
 import { Button } from "@passui/react/button";
+import { useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import type { RegisteredDocs } from "@/features/catalog/data";
+import type { z } from "zod";
 import { getChangedProps, type PropValues } from "@/features/catalog";
+import type { RegisteredDocs } from "@/features/catalog/data";
 import {
+	frameMessageSchema,
 	type ParentMessage,
 	type StateMessage,
-	frameMessageSchema,
 } from "@/features/preview";
-import type { z } from "zod";
-import type { previewSearchSchema } from "@/features/settings";
-import type { PreviewSettings } from "@/features/settings";
+import type { PreviewSettings, previewSearchSchema } from "@/features/settings";
 
 type PreviewFrameProps = {
 	docs: RegisteredDocs;

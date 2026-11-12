@@ -22,19 +22,20 @@
  * State is driven by a small pure machine (`popover.machine.ts`) that
  * translates directly to a Rust enum — see the architecture plan.
  */
+
+export {
+	PopoverContent as Content,
+	type PopoverOrigin,
+} from "./popover-content";
 export { PopoverRoot as Root } from "./popover-root";
 export {
 	PopoverTrigger as Trigger,
 	type PopoverTriggerRenderProps,
 } from "./popover-trigger";
-export {
-	PopoverContent as Content,
-	type PopoverOrigin,
-} from "./popover-content";
 
+import { PopoverContent } from "./popover-content";
 import { PopoverRoot } from "./popover-root";
 import { PopoverTrigger } from "./popover-trigger";
-import { PopoverContent } from "./popover-content";
 
 /**
  * Compound Popover. Use as `<Popover>` with `.Trigger` and `.Content` parts,
@@ -45,6 +46,6 @@ export const Popover = Object.assign(PopoverRoot, {
 	Content: PopoverContent,
 });
 
+export type { PopoverContentProps } from "./popover-content";
 export type { PopoverRootProps } from "./popover-root";
 export type { PopoverTriggerProps } from "./popover-trigger";
-export type { PopoverContentProps } from "./popover-content";

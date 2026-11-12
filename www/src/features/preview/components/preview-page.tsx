@@ -2,10 +2,9 @@ import { ContextMenuHost, DialogHost, TooltipHost } from "@passui/react";
 import { PlatformProvider } from "@passui/react/appearance";
 import { Toaster } from "@passui/react/toaster";
 import { useRef } from "react";
-import { getEntry, resolveProps } from "@/features/catalog";
 import type { z } from "zod";
-import type { previewSearchSchema } from "@/features/settings";
-import type { PreviewSettings } from "@/features/settings";
+import { getEntry, resolveProps } from "@/features/catalog";
+import type { PreviewSettings, previewSearchSchema } from "@/features/settings";
 import { usePreviewChannel } from "../lib/use-preview-channel";
 import { useSizeReporter } from "../lib/use-size-reporter";
 

@@ -1,6 +1,6 @@
+import { toast } from "@passui/react";
 import { Button } from "@passui/react/button";
 import { SecureField } from "@passui/react/secure-field";
-import { toast } from "@passui/react";
 import { useState } from "react";
 
 export function SecureFieldNewPassword() {

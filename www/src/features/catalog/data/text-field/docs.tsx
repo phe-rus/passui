@@ -1,12 +1,11 @@
 import { CheckIcon, MailIcon } from "@passui/react/icons";
-
+import { TextField, type TextFieldProps } from "@passui/react/text-field";
 import { useState } from "react";
 import { defineDocs } from "../types";
 import { TextFieldIcons } from "./examples/text-field-icons";
 import { TextFieldShowcase } from "./examples/text-field-showcase";
 import { TextFieldUsage } from "./examples/text-field-usage";
 import { TextFieldValidation } from "./examples/text-field-validation";
-import { TextField, type TextFieldProps } from "@passui/react/text-field";
 
 // The icons are nodes, so the playground offers a switch for each and
 // the snippet writes the icon itself.

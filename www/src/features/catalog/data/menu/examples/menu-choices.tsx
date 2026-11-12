@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Menu } from "@passui/react/menu";
+import { useState } from "react";
 
 export function MenuChoices() {
 	const [order, setOrder] = useState("Newest");

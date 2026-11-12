@@ -1,5 +1,5 @@
-import type { oneTimeCodeDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { oneTimeCodeDocs } from "..";
 export const oneTimeCodeContent: ComponentContent<typeof oneTimeCodeDocs> = {
 	summary:
 		"One native input drawn as code cells, with paste, autofill and verification feedback.",

@@ -1,6 +1,6 @@
 import { type ComponentProps, type ReactNode, useId, useState } from "react";
-import { Button } from "../button/button";
 import { cn } from "../../lib/class-names";
+import { Button } from "../button/button";
 
 /** Shared text control classes for components that reuse TextField's surface. */
 export const textControlClasses = cn(

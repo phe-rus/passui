@@ -1,13 +1,13 @@
-import { CheckIcon } from "../../icons/icons";
 import {
 	animate,
 	motion,
 	useMotionValue,
+	useReducedMotion,
 	useSpring,
 	useTransform,
-	useReducedMotion,
 } from "motion/react";
 import { useEffect, useId, useRef } from "react";
+import { CheckIcon } from "../../icons/icons";
 import { cn } from "../../lib/class-names";
 import { haptic } from "../../lib/haptics";
 import { spring } from "../../motion/transitions";

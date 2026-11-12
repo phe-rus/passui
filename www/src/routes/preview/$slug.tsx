@@ -1,12 +1,12 @@
-import { ComponentNotFound } from "@/features/catalog/components/component-not-found";
-import { getNavigationEntry } from "@/features/catalog/lib/get-navigation";
-import { PreviewPage } from "@/features/preview/components/preview-page";
-import { previewSearchSchema, settingsDefaults } from "@/features/settings";
 import {
 	createFileRoute,
 	notFound,
 	stripSearchParams,
 } from "@tanstack/react-router";
+import { ComponentNotFound } from "@/features/catalog/components/component-not-found";
+import { getNavigationEntry } from "@/features/catalog/lib/get-navigation";
+import { PreviewPage } from "@/features/preview/components/preview-page";
+import { previewSearchSchema, settingsDefaults } from "@/features/settings";
 
 export const Route = createFileRoute("/preview/$slug")({
 	validateSearch: previewSearchSchema,

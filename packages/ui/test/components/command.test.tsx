@@ -2,10 +2,10 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
 import {
 	Command,
-	CommandInput,
-	CommandList,
 	CommandGroup,
+	CommandInput,
 	CommandItem,
+	CommandList,
 	CommandShortcut,
 } from "../../src/components/command/command";
 

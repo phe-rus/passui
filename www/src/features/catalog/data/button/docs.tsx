@@ -1,8 +1,8 @@
+import type { ButtonSize } from "@passui/react/button";
+import { Button, type ButtonProps } from "@passui/react/button";
 import { ChevronRightIcon } from "@passui/react/icons";
 import { jsxText } from "../snippet";
 import { defineDocs } from "../types";
-import { Button, type ButtonProps } from "@passui/react/button";
-import type { ButtonSize } from "@passui/react/button";
 import { ButtonDisabled } from "./examples/button-disabled";
 import { ButtonIcon } from "./examples/button-icon";
 import { ButtonLink } from "./examples/button-link";

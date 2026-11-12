@@ -1,5 +1,5 @@
-import type { codeBlockDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { codeBlockDocs } from "..";
 export const codeBlockContent: ComponentContent<typeof codeBlockDocs> = {
 	summary: "Code with selectable source and optional line numbers.",
 	usage: "Code with selectable source and optional line numbers.",

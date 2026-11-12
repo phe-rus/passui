@@ -14,13 +14,12 @@ export const { useAppForm, withForm } = createFormHook({
 	formContext,
 });
 
-// for reading another field's live value from within a form — e.g. a
-// radioCard whose options depend on what's currently selected elsewhere in
-// the same form — without subscribing the whole component to every field
-export { useSelector, useStore };
+export { FormAlert } from "./elements/form-alert";
 
 // field prop/value types (e.g. FieldAvatarValue), for a caller that needs to
 // type a value it hands to a field before the form itself is submitted
 export * from "./fields/index";
-
-export { FormAlert } from "./elements/form-alert";
+// for reading another field's live value from within a form — e.g. a
+// radioCard whose options depend on what's currently selected elsewhere in
+// the same form — without subscribing the whole component to every field
+export { useSelector, useStore };

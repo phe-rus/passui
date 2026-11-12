@@ -1,6 +1,6 @@
-import { expect, test } from "vitest";
 import { posix } from "node:path";
 import { parseSync } from "oxc-parser";
+import { expect, test } from "vitest";
 import { starterFiles } from "../src/templates";
 
 test.each(["vite", "tanstack"] as const)(

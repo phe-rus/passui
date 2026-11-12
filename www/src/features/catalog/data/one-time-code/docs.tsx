@@ -1,12 +1,13 @@
+import type { OneTimeCodeProps } from "@passui/react/one-time-code";
 import { OneTimeCode } from "@passui/react/one-time-code";
 import { useState } from "react";
-import type { OneTimeCodeProps } from "@passui/react/one-time-code";
 import { defineDocs } from "../types";
-import { OneTimeCodeUsage } from "./examples/one-time-code-usage";
-import { OneTimeCodeShowcase } from "./examples/one-time-code-showcase";
-import { OneTimeCodeFourDigits } from "./examples/one-time-code-four-digits";
-import { OneTimeCodeDisabled } from "./examples/one-time-code-disabled";
 import { OneTimeCodeDeviceCode } from "./examples/one-time-code-device-code";
+import { OneTimeCodeDisabled } from "./examples/one-time-code-disabled";
+import { OneTimeCodeFourDigits } from "./examples/one-time-code-four-digits";
+import { OneTimeCodeShowcase } from "./examples/one-time-code-showcase";
+import { OneTimeCodeUsage } from "./examples/one-time-code-usage";
+
 function Demo(
 	props: Pick<OneTimeCodeProps, "label" | "length" | "status" | "format">,
 ) {

@@ -1,5 +1,5 @@
-import { BoldIcon, ItalicIcon, UnderlineIcon } from "@passui/react/icons";
 import { Button } from "@passui/react/button";
+import { BoldIcon, ItalicIcon, UnderlineIcon } from "@passui/react/icons";
 
 const tools = [
 	{ label: "Bold", keys: "⌘B", icon: BoldIcon },

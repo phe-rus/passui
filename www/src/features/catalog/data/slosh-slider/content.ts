@@ -1,5 +1,5 @@
-import type { sloshSliderDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { sloshSliderDocs } from "..";
 export const sloshSliderContent: ComponentContent<typeof sloshSliderDocs> = {
 	summary:
 		"A rigid handle with a spring-following liquid fill and a subtle meniscus.",

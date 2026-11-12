@@ -1,9 +1,9 @@
 import {
+	type ComponentProps,
 	createContext,
 	useContext,
 	useEffect,
 	useState,
-	type ComponentProps,
 } from "react";
 import { cn } from "../../lib/class-names";
 

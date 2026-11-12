@@ -1,9 +1,8 @@
-import { SupportIcon } from "@passui/react/icons";
-
 import {
 	Conversation,
 	type ConversationMessage,
 } from "@passui/react/conversation";
+import { SupportIcon } from "@passui/react/icons";
 import { useState } from "react";
 
 const minutesAgo = (minutes: number) =>

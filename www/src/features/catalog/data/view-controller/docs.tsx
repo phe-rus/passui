@@ -1,11 +1,11 @@
-import { ViewControllerSettings } from "./examples/view-controller-settings";
 import { Button } from "@passui/react/button";
+import { ViewController } from "@passui/react/view-controller";
 import { jsxAttribute } from "../snippet";
 import { defineDocs } from "../types";
 import { ViewControllerAction } from "./examples/view-controller-action";
+import { ViewControllerSettings } from "./examples/view-controller-settings";
 import { ViewControllerShowcase } from "./examples/view-controller-showcase";
 import { ViewControllerUsage } from "./examples/view-controller-usage";
-import { ViewController } from "@passui/react/view-controller";
 
 // The controls belong to ViewController.Heading, passed as `heading`;
 // the snippet writes that element itself.

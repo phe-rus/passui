@@ -1,7 +1,7 @@
-import { Button } from "../button/button";
 import { type ReactNode, useId } from "react";
 import { ChevronDownIcon } from "../../icons/icons";
 import { cn } from "../../lib/class-names";
+import { Button } from "../button/button";
 import { InlineDisclosure } from "../inline-disclosure/inline-disclosure";
 
 export type DisclosureGroupSize = "sm" | "md" | "lg";

@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState } from "react";
-import { viewportMetrics } from "./viewport/viewport-metrics";
 import type { ViewportMetrics } from "./viewport/types";
+import { viewportMetrics } from "./viewport/viewport-metrics";
+
 export type { ViewportMetrics } from "./viewport/types";
 
 /** Measures once per frame, including Android resize and Safari viewport panning. */

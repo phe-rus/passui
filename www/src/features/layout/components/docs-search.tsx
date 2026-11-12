@@ -1,14 +1,14 @@
-import { KeyboardShortcut } from "@passui/react/keyboard-shortcut";
-import { SearchIcon } from "@passui/react/icons";
 import { Button } from "@passui/react/button";
 import {
 	CommandDialog,
-	CommandInput,
-	CommandList,
-	CommandGroup,
-	CommandItem,
 	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
 } from "@passui/react/command";
+import { SearchIcon } from "@passui/react/icons";
+import { KeyboardShortcut } from "@passui/react/keyboard-shortcut";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { getNavigationCatalog } from "@/features/catalog/lib/get-navigation";

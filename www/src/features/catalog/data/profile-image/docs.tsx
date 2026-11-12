@@ -1,14 +1,14 @@
+import {
+	ProfileImage,
+	ProfileImageContent,
+	ProfileImageFallback,
+} from "@passui/react/profile-image";
 import { jsxText } from "../snippet";
 import { defineDocs } from "../types";
 import { ProfileImageFallbacks } from "./examples/profile-image-fallbacks";
 import { ProfileImageGroup } from "./examples/profile-image-group";
 import { ProfileImageShowcase } from "./examples/profile-image-showcase";
 import { ProfileImageUsage } from "./examples/profile-image-usage";
-import {
-	ProfileImage,
-	ProfileImageContent,
-	ProfileImageFallback,
-} from "@passui/react/profile-image";
 
 // Size is a class name on ProfileImage, and the photo and initials are
 // its children; the snippet writes all three itself.

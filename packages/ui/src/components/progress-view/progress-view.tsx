@@ -1,7 +1,7 @@
 import { type HTMLAttributes, useRef } from "react";
-import { useLiquidProgress } from "./use-liquid-progress";
 import { cn } from "../../lib/class-names";
 import { clampRange } from "../../lib/range-value";
+import { useLiquidProgress } from "./use-liquid-progress";
 
 export type ProgressViewSize = "sm" | "md" | "lg";
 

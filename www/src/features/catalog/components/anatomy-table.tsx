@@ -1,10 +1,10 @@
 import {
 	Table,
-	TableHeader,
 	TableBody,
-	TableRow,
-	TableHead,
 	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
 } from "@passui/react/table";
 import type { AnatomyPart } from "../types";
 

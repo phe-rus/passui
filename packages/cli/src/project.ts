@@ -1,6 +1,6 @@
-import { lstat, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
-import { basename, dirname, join, resolve, relative, sep } from "node:path";
 import { spawn } from "node:child_process";
+import { lstat, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { setupFiles, starterFiles, versions } from "./templates";
 
 export type PackageManager = "bun" | "npm" | "pnpm" | "yarn";

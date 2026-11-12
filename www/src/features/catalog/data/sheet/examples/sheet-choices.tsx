@@ -1,8 +1,7 @@
-import { LabeledContent, Section } from "@passui/react";
+import { haptic, LabeledContent, Section } from "@passui/react";
 import { Button } from "@passui/react/button";
-import { Sheet } from "@passui/react/sheet";
 import { CheckIcon } from "@passui/react/icons";
-import { haptic } from "@passui/react";
+import { Sheet } from "@passui/react/sheet";
 import { useRef, useState } from "react";
 
 const languages = ["English", "Français", "Deutsch", "日本語", "中文"];

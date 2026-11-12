@@ -1,12 +1,12 @@
-import { ContentUnavailableView } from "@passui/react/content-unavailable-view";
 import { Button } from "@passui/react/button";
+import { ContentUnavailableView } from "@passui/react/content-unavailable-view";
+import { catalogIcons } from "@passui/react/icons";
+import { SearchField } from "@passui/react/search-field";
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { catalogGroups } from "../lib/catalog-groups";
 import { getNavigationCatalog } from "../lib/get-navigation";
-import { catalogIcons } from "@passui/react/icons";
 import { componentTitle, matchesComponent } from "../lib/navigation";
-import { SearchField } from "@passui/react/search-field";
-import { useState } from "react";
 
 /** Every component, by group: its icon, name and what it's for. */
 export function ComponentsOverview() {

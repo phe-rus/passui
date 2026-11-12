@@ -1,10 +1,10 @@
+import { IconButton } from "@passui/react/icon-button";
 import {
 	NextTrackIcon,
 	PauseIcon,
 	PlayIcon,
 	PreviousTrackIcon,
 } from "@passui/react/icons";
-import { IconButton } from "@passui/react/icon-button";
 import { useState } from "react";
 
 export function IconButtonPlayer() {

@@ -1,10 +1,10 @@
+import { Button } from "@passui/react/button";
 import {
 	AlignCenterIcon,
 	AlignLeftIcon,
 	BoldIcon,
 	ItalicIcon,
 } from "@passui/react/icons";
-import { Button } from "@passui/react/button";
 
 const tools = [
 	{ label: "Bold", icon: BoldIcon },

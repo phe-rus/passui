@@ -1,10 +1,10 @@
-import { SegmentedControlOverflow } from "./examples/segmented-control-overflow";
-import { SegmentedControlViews } from "./examples/segmented-control-views";
+import { SegmentedControl } from "@passui/react/segmented-control";
 import { useState } from "react";
 import { defineDocs } from "../types";
+import { SegmentedControlOverflow } from "./examples/segmented-control-overflow";
 import { SegmentedControlShowcase } from "./examples/segmented-control-showcase";
 import { SegmentedControlUsage } from "./examples/segmented-control-usage";
-import { SegmentedControl } from "@passui/react/segmented-control";
+import { SegmentedControlViews } from "./examples/segmented-control-views";
 
 type DemoProps = { label: string };
 

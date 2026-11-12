@@ -1,11 +1,10 @@
+import { Ambient } from "@passui/react/ambient";
+import { IconButton } from "@passui/react/icon-button";
 import {
 	NextTrackIcon,
 	PauseIcon,
 	PreviousTrackIcon,
 } from "@passui/react/icons";
-
-import { Ambient } from "@passui/react/ambient";
-import { IconButton } from "@passui/react/icon-button";
 
 export function AmbientNowPlaying() {
 	return (

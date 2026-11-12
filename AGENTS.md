@@ -55,3 +55,26 @@ Use ChromeOS Chrome for browser checks. In Crostini, open links through
 For unfinished React and docs refinement, start with git status and
 [the checkpoint](docs/architecture/react-refinement-resume.md). Keep reads,
 tool output and updates short; reuse recorded decisions and passing checks.
+
+## Commands
+
+```bash
+bun install
+bun run dev              # turbo dev across packages
+bun run build
+bun run typecheck
+bun run test             # Vitest via turbo
+bun run check            # Biome, then typecheck
+bun run docs:api         # regenerate API docs
+bun run size:check       # React bundle size budget
+bun run publish:check    # dry run packing for every package
+bun run build:website    # builds www/
+```
+
+## Context files
+
+- [packages/tokens/AGENTS.md](packages/tokens/AGENTS.md) (generated theme CSS and token exports)
+- [packages/ui/AGENTS.md](packages/ui/AGENTS.md) (design language and component rules)
+- [packages/tanstack/AGENTS.md](packages/tanstack/AGENTS.md) (form, table, router and query integrations)
+- [packages/cli/AGENTS.md](packages/cli/AGENTS.md) (file safety and starter conventions)
+- [www/AGENTS.md](www/AGENTS.md) (official website)

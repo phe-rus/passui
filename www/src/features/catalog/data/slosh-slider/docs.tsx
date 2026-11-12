@@ -1,11 +1,12 @@
+import type { SloshSliderProps } from "@passui/react/slosh-slider";
 import { SloshSlider } from "@passui/react/slosh-slider";
 import { useState } from "react";
-import type { SloshSliderProps } from "@passui/react/slosh-slider";
 import { defineDocs } from "../types";
-import { SloshSliderUsage } from "./examples/slosh-slider-usage";
-import { SloshSliderShowcase } from "./examples/slosh-slider-showcase";
-import { SloshSliderRigid } from "./examples/slosh-slider-rigid";
 import { SloshSliderDisabled } from "./examples/slosh-slider-disabled";
+import { SloshSliderRigid } from "./examples/slosh-slider-rigid";
+import { SloshSliderShowcase } from "./examples/slosh-slider-showcase";
+import { SloshSliderUsage } from "./examples/slosh-slider-usage";
+
 function Demo(
 	props: Pick<SloshSliderProps, "label" | "viscosity" | "momentum" | "tilt">,
 ) {

@@ -1,4 +1,3 @@
-import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure";
 import {
 	type KeyboardEvent,
 	useCallback,
@@ -9,11 +8,12 @@ import {
 	useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure";
 import { CheckIcon, SearchIcon, SelectorIcon } from "../../icons/icons";
 import { cn } from "../../lib/class-names";
 import { haptic } from "../../lib/haptics";
 import { AnchoredSurface } from "../popover/anchored-surface";
-import { pickerTriggerStyle, type PickerSize } from "./picker-trigger";
+import { type PickerSize, pickerTriggerStyle } from "./picker-trigger";
 
 export interface PickerOption<T extends string> {
 	value: T;

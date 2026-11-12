@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { Button } from "@passui/react/button";
+import { Dialog, type DialogPresentation } from "@passui/react/dialog";
+import { useState } from "react";
 import { jsxAttribute } from "../snippet";
 import { defineDocs } from "../types";
-import { Dialog, type DialogPresentation } from "@passui/react/dialog";
 import { DialogConfirm } from "./examples/dialog-confirm";
 import { DialogForm } from "./examples/dialog-form";
 import { DialogInline } from "./examples/dialog-inline";

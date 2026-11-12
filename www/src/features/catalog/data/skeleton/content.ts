@@ -1,5 +1,5 @@
-import type { skeletonDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { skeletonDocs } from "..";
 export const skeletonContent: ComponentContent<typeof skeletonDocs> = {
 	summary:
 		"Reserve space while content is loading, with optional spoken status.",

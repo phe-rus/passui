@@ -1,12 +1,12 @@
-import { SearchFieldExpanding } from "./examples/search-field-expanding";
-import { SearchFieldToolbar } from "./examples/search-field-toolbar";
-import { SearchFieldFilter } from "./examples/search-field-filter";
 import type { SearchFieldProps } from "@passui/react/search-field";
+import { SearchField } from "@passui/react/search-field";
 import { useState } from "react";
 import { defineDocs } from "../types";
+import { SearchFieldExpanding } from "./examples/search-field-expanding";
+import { SearchFieldFilter } from "./examples/search-field-filter";
 import { SearchFieldShowcase } from "./examples/search-field-showcase";
+import { SearchFieldToolbar } from "./examples/search-field-toolbar";
 import { SearchFieldUsage } from "./examples/search-field-usage";
-import { SearchField } from "@passui/react/search-field";
 
 function SearchFieldDemo(
 	props: Pick<SearchFieldProps, "placeholder" | "disabled" | "collapsible">,

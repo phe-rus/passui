@@ -10,8 +10,8 @@ import {
 	SearchListItem,
 	SearchListResults,
 } from "../../src/components/search-list/search-list";
-import { SegmentedControl } from "../../src/components/segmented-control/segmented-control";
 import { Section } from "../../src/components/section/section";
+import { SegmentedControl } from "../../src/components/segmented-control/segmented-control";
 import { SidebarSection } from "../../src/components/sidebar/sidebar";
 import { TabBar } from "../../src/components/tab-bar/tab-bar";
 import { TabView } from "../../src/components/tab-view/tab-view";

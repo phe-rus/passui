@@ -1,9 +1,9 @@
-import { CompactTimePickerLocales } from "./examples/compact-time-picker-locales";
-import { CompactTimePickerIntervals } from "./examples/compact-time-picker-intervals";
+import { CompactTimePicker } from "@passui/react/compact-time-picker";
 import type { ComponentProps } from "react";
 import { useState } from "react";
 import { defineDocs } from "../types";
-import { CompactTimePicker } from "@passui/react/compact-time-picker";
+import { CompactTimePickerIntervals } from "./examples/compact-time-picker-intervals";
+import { CompactTimePickerLocales } from "./examples/compact-time-picker-locales";
 import { CompactTimePickerShowcase } from "./examples/compact-time-picker-showcase";
 import { CompactTimePickerUsage } from "./examples/compact-time-picker-usage";
 

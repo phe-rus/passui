@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { DisclosureGroup } from "@passui/react/disclosure-group";
+import { useState } from "react";
 import { defineDocs } from "../types";
-import { DisclosureGroupUsage } from "./examples/disclosure-group-usage";
-import { DisclosureGroupShowcase } from "./examples/disclosure-group-showcase";
-import { DisclosureGroupSettings } from "./examples/disclosure-group-settings";
 import { DisclosureGroupDisabled } from "./examples/disclosure-group-disabled";
+import { DisclosureGroupSettings } from "./examples/disclosure-group-settings";
+import { DisclosureGroupShowcase } from "./examples/disclosure-group-showcase";
+import { DisclosureGroupUsage } from "./examples/disclosure-group-usage";
 
 type DemoProps = { label: string; disabled: boolean; description: string };
 

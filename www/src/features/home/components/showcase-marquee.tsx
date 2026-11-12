@@ -1,7 +1,7 @@
 import { cn } from "@passui/react/cn";
 import type { ComponentType } from "react";
-import type { ShowcaseCardBodyProps, ShowcaseTheme } from "../types";
 import { accentOrder } from "../lib/use-accent-cycle";
+import type { ShowcaseCardBodyProps, ShowcaseTheme } from "../types";
 import { showcaseRowOne } from "./showcase-cards";
 import { showcaseRowTwo } from "./showcase-cards-two";
 

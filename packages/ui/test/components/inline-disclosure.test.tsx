@@ -1,5 +1,5 @@
-import { describe, expect, test } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
+import { describe, expect, test } from "vitest";
 import { InlineDisclosure } from "../../src/components/inline-disclosure/inline-disclosure";
 
 describe("InlineDisclosure", () => {

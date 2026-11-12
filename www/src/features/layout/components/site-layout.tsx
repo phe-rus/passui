@@ -1,14 +1,14 @@
 import { ContextMenuHost, DialogHost, TooltipHost } from "@passui/react";
-import { CloseIcon, MenuIcon } from "@passui/react/icons";
 import { buttonStyle } from "@passui/react/button";
+import { cn } from "@passui/react/cn";
 import { IconButton } from "@passui/react/icon-button";
+import { CloseIcon, MenuIcon } from "@passui/react/icons";
 import { Sheet } from "@passui/react/sheet";
 import { Toaster } from "@passui/react/toaster";
 import { Link, useLocation } from "@tanstack/react-router";
-import { PassuiMark } from "./passui-mark";
-import { DocsSearch } from "./docs-search";
-import { cn } from "@passui/react/cn";
 import { type ReactNode, useEffect, useRef, useState } from "react";
+import { DocsSearch } from "./docs-search";
+import { PassuiMark } from "./passui-mark";
 
 function Mark() {
 	return (

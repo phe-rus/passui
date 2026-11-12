@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { spring } from "../../motion/transitions";
 import { useEffect, useId, useState } from "react";
 import { cn } from "../../lib/class-names";
+import { spring } from "../../motion/transitions";
 
 export type TooltipSize = "sm" | "md" | "lg";
 

@@ -6,12 +6,6 @@ import {
 	useRef,
 	useState,
 } from "react";
-import { concealMenuSource } from "../context-menu/conceal-menu-source";
-import {
-	menuSurfaceExit,
-	menuSurfaceReveal,
-	type MenuRect,
-} from "../context-menu/menu-reveal";
 import { useVisualViewport } from "../../hooks/use-visual-viewport";
 import { cn } from "../../lib/class-names";
 import {
@@ -21,6 +15,12 @@ import {
 	spring,
 	zoomReveal,
 } from "../../motion/transitions";
+import { concealMenuSource } from "../context-menu/conceal-menu-source";
+import {
+	type MenuRect,
+	menuSurfaceExit,
+	menuSurfaceReveal,
+} from "../context-menu/menu-reveal";
 import { SheetPortal } from "./sheet-portal";
 import { useSheetFocus } from "./use-sheet-focus";
 

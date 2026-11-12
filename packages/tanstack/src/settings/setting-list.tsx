@@ -1,4 +1,3 @@
-import { IconButton, type IconButtonSize } from "@passui/react/icon-button";
 import {
 	ArrowRight01Icon,
 	Copy01Icon,
@@ -6,8 +5,9 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { cn } from "@passui/react/cn";
-import { Link } from "@tanstack/react-router";
+import { IconButton, type IconButtonSize } from "@passui/react/icon-button";
 import type { LinkProps } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useState } from "react";
 

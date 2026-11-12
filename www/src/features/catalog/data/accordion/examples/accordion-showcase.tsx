@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Accordion } from "@passui/react/accordion";
+import { useState } from "react";
 
 export function AccordionShowcase() {
 	const [value, setValue] = useState<string | null>("appearance");

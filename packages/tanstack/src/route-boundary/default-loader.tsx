@@ -1,5 +1,5 @@
-import { LoadingIcon } from "@passui/react/icons";
 import { cn } from "@passui/react/cn";
+import { LoadingIcon } from "@passui/react/icons";
 
 export type DefaultLoaderProps = {
 	/** Translated loading status for assistive technology; never displayed visually. */

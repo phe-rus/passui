@@ -1,7 +1,7 @@
-import { AmbientNowPlaying } from "./examples/ambient-now-playing";
 import { Ambient } from "@passui/react/ambient";
 import { defineDocs } from "../types";
 import { AmbientImages } from "./examples/ambient-images";
+import { AmbientNowPlaying } from "./examples/ambient-now-playing";
 import { AmbientShowcase } from "./examples/ambient-showcase";
 import { AmbientUsage } from "./examples/ambient-usage";
 

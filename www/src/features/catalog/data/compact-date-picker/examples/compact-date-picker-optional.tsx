@@ -1,5 +1,5 @@
-import { CompactDatePicker } from "@passui/react/compact-date-picker";
 import { LabeledContent } from "@passui/react";
+import { CompactDatePicker } from "@passui/react/compact-date-picker";
 import { useState } from "react";
 
 export function CompactDatePickerOptional() {

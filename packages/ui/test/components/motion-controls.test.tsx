@@ -1,15 +1,15 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
+import { AspectRatio } from "../../src/components/aspect-ratio/aspect-ratio";
+import {
+	normalizeCode,
+	OneTimeCode,
+} from "../../src/components/one-time-code/one-time-code";
 import { stepLiquid } from "../../src/components/slosh-slider/liquid-step";
 import { SloshSlider } from "../../src/components/slosh-slider/slosh-slider";
-import { WakeSlider } from "../../src/components/wake-slider/wake-slider";
-import {
-	OneTimeCode,
-	normalizeCode,
-} from "../../src/components/one-time-code/one-time-code";
-import { AspectRatio } from "../../src/components/aspect-ratio/aspect-ratio";
 import { TextField } from "../../src/components/text-field/text-field";
 import { Toggle } from "../../src/components/toggle/toggle";
+import { WakeSlider } from "../../src/components/wake-slider/wake-slider";
 
 test("zero viscosity is exact and a liquid overshoot rebounds inside its end stop", () => {
 	expect(stepLiquid({ fill: 10, velocity: 8 }, 75, 0, 1)).toEqual({

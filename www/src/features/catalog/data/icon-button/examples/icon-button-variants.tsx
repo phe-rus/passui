@@ -1,10 +1,10 @@
+import { IconButton } from "@passui/react/icon-button";
 import {
-	TrashIcon,
 	HeartIcon,
 	PlusIcon,
 	SettingsIcon,
+	TrashIcon,
 } from "@passui/react/icons";
-import { IconButton } from "@passui/react/icon-button";
 
 export function IconButtonVariants() {
 	return (

@@ -1,12 +1,12 @@
 import { Button } from "@passui/react/button";
-import type { RegisteredDocs } from "@/features/catalog/data";
 import { useNavigate } from "@tanstack/react-router";
-import type { PreviewSettings } from "@/features/settings";
+import type { RegisteredDocs } from "@/features/catalog/data";
 import { PreviewFrame } from "@/features/playground";
-import { ExampleCode } from "./example-code";
+import type { PreviewSettings } from "@/features/settings";
 import { getChangedProps, resolveProps } from "../lib/resolve-props";
 import type { ExampleContent } from "../types";
 import { DocSection } from "./doc-section";
+import { ExampleCode } from "./example-code";
 
 type Example = RegisteredDocs["examples"][number];
 

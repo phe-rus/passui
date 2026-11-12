@@ -1,10 +1,9 @@
-import { CopyIcon } from "@passui/react/icons";
-import { TooltipShortcuts } from "./examples/tooltip-shortcuts";
-
 import { Button } from "@passui/react/button";
+import { CopyIcon } from "@passui/react/icons";
 import { jsxAttribute, jsxText } from "../snippet";
 import { defineDocs } from "../types";
 import { TooltipIconButtons } from "./examples/tooltip-icon-buttons";
+import { TooltipShortcuts } from "./examples/tooltip-shortcuts";
 import { TooltipShowcase } from "./examples/tooltip-showcase";
 import { TooltipUsage } from "./examples/tooltip-usage";
 

@@ -4,13 +4,13 @@ import { expect, test } from "vitest";
 import { LabeledContent } from "../../src/components/labeled-content/labeled-content";
 import { Section } from "../../src/components/section/section";
 import {
-	StatusIndicator,
-	type StatusIndicatorState,
-} from "../../src/components/status-indicator/status-indicator";
-import {
 	StatTile,
 	type StatTileProps,
 } from "../../src/components/stat-tile/stat-tile";
+import {
+	StatusIndicator,
+	type StatusIndicatorState,
+} from "../../src/components/status-indicator/status-indicator";
 
 const validStatus: StatusIndicatorState = "syncing";
 // @ts-expect-error status states are closed, documented choices

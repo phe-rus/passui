@@ -1,16 +1,16 @@
 import {
 	Command,
-	CommandInput,
-	CommandList,
-	CommandItem,
 	CommandEmpty,
+	CommandInput,
+	CommandItem,
+	CommandList,
 } from "@passui/react/command";
-import { defineDocs } from "../types";
 import { jsxAttribute, jsxText } from "../snippet";
-import { CommandUsage } from "./examples/command-usage";
-import { CommandShowcase } from "./examples/command-showcase";
+import { defineDocs } from "../types";
 import { CommandDialog } from "./examples/command-dialog";
 import { CommandKeywords } from "./examples/command-keywords";
+import { CommandShowcase } from "./examples/command-showcase";
+import { CommandUsage } from "./examples/command-usage";
 
 export const commandDocs = defineDocs<{ placeholder: string; empty: string }>()(
 	{

@@ -11,6 +11,11 @@
 @import "./base.css";
 @import "./typeset.css";
 
+/* Compiled Passui classes. Missing packages are ignored. */
+@source "../../react/dist";
+@source "../../ui/dist";
+@source "../../tanstack/dist";
+
 @custom-variant dark (&:is(.dark *));
 
 /* Older role names some views still use, mapped onto Passui's roles. */

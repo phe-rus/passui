@@ -1,8 +1,6 @@
-import { ProgressView } from "@passui/react/progress-view";
-import {
-	ProfileImage,
-	ProfileImageFallback,
-} from "@passui/react/profile-image";
+import { Button, Chip, TextField, Toggle, toast } from "@passui/react";
+import { cn } from "@passui/react/cn";
+import { IconButton } from "@passui/react/icon-button";
 import {
 	AttachIcon,
 	NextTrackIcon,
@@ -11,9 +9,11 @@ import {
 	PreviousTrackIcon,
 	UploadIcon,
 } from "@passui/react/icons";
-import { Button, Chip, Toggle, TextField, toast } from "@passui/react";
-import { cn } from "@passui/react/cn";
-import { IconButton } from "@passui/react/icon-button";
+import {
+	ProfileImage,
+	ProfileImageFallback,
+} from "@passui/react/profile-image";
+import { ProgressView } from "@passui/react/progress-view";
 import { type ReactNode, useState } from "react";
 
 type SceneProps = {

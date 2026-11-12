@@ -1,5 +1,5 @@
-import { Table, TableBody, TableRow, TableCell } from "@passui/react/table";
 import { catalogIcons, LayersIcon, TypesetIcon } from "@passui/react/icons";
+import { Table, TableBody, TableCell, TableRow } from "@passui/react/table";
 import { Link } from "@tanstack/react-router";
 import { DocSection } from "@/features/catalog/components/doc-section";
 import type { TocItem } from "@/features/catalog/components/on-this-page";

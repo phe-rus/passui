@@ -1,5 +1,4 @@
 import { Breadcrumb } from "@passui/react/breadcrumb";
-import { ComponentNavigation } from "./component-navigation";
 import { buttonStyle } from "@passui/react/button";
 import { InfoIcon, LinkIcon } from "@passui/react/icons";
 import { Link } from "@tanstack/react-router";
@@ -9,10 +8,11 @@ import type { DocsSettings } from "@/features/settings";
 import { getEntry } from "../lib/get-catalog";
 import { getSetup } from "../lib/get-setup";
 import { componentTitle } from "../lib/navigation";
-import { ExampleCode } from "./example-code";
 import { AnatomyTable } from "./anatomy-table";
+import { ComponentNavigation } from "./component-navigation";
 import { DocSection } from "./doc-section";
 import { ExampleCard } from "./example-card";
+import { ExampleCode } from "./example-code";
 import { InstallSteps } from "./install-steps";
 import { OnThisPage, type TocItem } from "./on-this-page";
 import { PracticesList } from "./practices-list";

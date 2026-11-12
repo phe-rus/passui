@@ -1,4 +1,4 @@
-import type { ReactNode, ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { cn } from "../../lib/class-names";
 
 export type ContentUnavailableViewSize = "sm" | "md" | "lg";

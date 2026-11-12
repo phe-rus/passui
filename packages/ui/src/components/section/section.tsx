@@ -1,4 +1,4 @@
-import { useId, type HTMLAttributes, type ReactNode } from "react";
+import { type HTMLAttributes, type ReactNode, useId } from "react";
 import { cn } from "../../lib/class-names";
 
 export type SectionSize = "sm" | "md" | "lg";

@@ -5,18 +5,18 @@ import {
 	TextFontIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import { Ambient } from "@passui/react/ambient";
+import { Button } from "@passui/react/button";
+import { cn } from "@passui/react/cn";
 import {
 	ProfileImage,
-	ProfileImageFallback,
 	ProfileImageContent,
+	ProfileImageFallback,
 } from "@passui/react/profile-image";
-import { Button } from "@passui/react/button";
 import { Sheet } from "@passui/react/sheet";
+import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { cn } from "@passui/react/cn";
-import { Ambient } from "@passui/react/ambient";
 
 export type AvatarPickerLabels = {
 	photo: string;

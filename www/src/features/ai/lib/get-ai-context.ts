@@ -1,12 +1,12 @@
-import reactApi from "@/features/catalog/generated/react-api.json";
-import { getSetup } from "@/features/catalog/lib/get-setup";
+import { accents, textStyles } from "@passui/react/tokens";
 import type {
 	ApiReference,
 	ApiSurface,
 } from "@/features/catalog/components/api-props-table";
-import { accents, textStyles } from "@passui/react/tokens";
+import reactApi from "@/features/catalog/generated/react-api.json";
 import { catalogGroups, getCatalog } from "@/features/catalog/lib/get-catalog";
 import { getExampleSource } from "@/features/catalog/lib/get-example-source";
+import { getSetup } from "@/features/catalog/lib/get-setup";
 import type { CatalogEntry } from "@/features/catalog/types";
 import { guides } from "@/features/docs/lib/get-guides";
 

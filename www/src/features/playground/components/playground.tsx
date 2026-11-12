@@ -1,29 +1,29 @@
-import type { RegisteredDocs } from "@/features/catalog/data";
+import { Button } from "@passui/react/button";
+import { cn } from "@passui/react/cn";
+import { IconButton } from "@passui/react/icon-button";
+import {
+	CopyIcon,
+	LaptopIcon,
+	SettingsIcon,
+	SmartphoneIcon,
+	TabletIcon,
+	UndoIcon,
+} from "@passui/react/icons";
+import { SegmentedControl } from "@passui/react/segmented-control";
+import { Sheet } from "@passui/react/sheet";
 import { useNavigate } from "@tanstack/react-router";
 import { useId, useMemo, useState } from "react";
 import {
 	getChangedProps,
-	resolveProps,
 	type PropValues,
+	resolveProps,
 } from "@/features/catalog";
-import { cn } from "@passui/react/cn";
-import { Button } from "@passui/react/button";
-import { IconButton } from "@passui/react/icon-button";
-import { SegmentedControl } from "@passui/react/segmented-control";
-import { Sheet } from "@passui/react/sheet";
-import {
-	CopyIcon,
-	UndoIcon,
-	SettingsIcon,
-	LaptopIcon,
-	SmartphoneIcon,
-	TabletIcon,
-} from "@passui/react/icons";
+import type { RegisteredDocs } from "@/features/catalog/data";
 import {
 	type DocsSettings,
+	docsSettingsDefaults,
 	type PreviewViewport,
 	SettingsBar,
-	docsSettingsDefaults,
 } from "@/features/settings";
 import { useCopyText } from "@/hooks/use-copy-text";
 import { getSnippet } from "../lib/get-snippet";

@@ -1,5 +1,5 @@
-import type { comboBoxDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { comboBoxDocs } from "..";
 export const comboBoxContent: ComponentContent<typeof comboBoxDocs> = {
 	summary:
 		"A searchable Picker with the same control, glass surface and keyboard behavior. Optionally offer creation from a new query.",

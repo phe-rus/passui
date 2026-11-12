@@ -1,5 +1,5 @@
-import { CopyIcon, ShareIcon, TrashIcon } from "@passui/react/icons";
 import { IconButton } from "@passui/react/icon-button";
+import { CopyIcon, ShareIcon, TrashIcon } from "@passui/react/icons";
 
 export function TooltipIconButtons() {
 	// IconButton shows its label as a tooltip by itself

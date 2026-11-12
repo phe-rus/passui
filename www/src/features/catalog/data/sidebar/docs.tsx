@@ -1,16 +1,16 @@
 import { InboxIcon, SendIcon, StarIcon } from "@passui/react/icons";
-import { SidebarUnread } from "./examples/sidebar-unread";
-
-import { useState } from "react";
-import { defineDocs } from "../types";
-import { SidebarGroups } from "./examples/sidebar-groups";
-import { SidebarShowcase } from "./examples/sidebar-showcase";
-import { SidebarUsage } from "./examples/sidebar-usage";
 import {
 	SidebarItemContent,
 	SidebarSection,
 	sidebarItemClass,
 } from "@passui/react/sidebar";
+
+import { useState } from "react";
+import { defineDocs } from "../types";
+import { SidebarGroups } from "./examples/sidebar-groups";
+import { SidebarShowcase } from "./examples/sidebar-showcase";
+import { SidebarUnread } from "./examples/sidebar-unread";
+import { SidebarUsage } from "./examples/sidebar-usage";
 
 // Rows are the app's own links dressed by sidebarItemClass and
 // SidebarItemContent, so the playground switches counts on and the

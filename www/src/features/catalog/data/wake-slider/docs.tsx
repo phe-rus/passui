@@ -1,11 +1,12 @@
+import type { WakeSliderProps } from "@passui/react/wake-slider";
 import { WakeSlider } from "@passui/react/wake-slider";
 import { useState } from "react";
-import type { WakeSliderProps } from "@passui/react/wake-slider";
 import { defineDocs } from "../types";
-import { WakeSliderUsage } from "./examples/wake-slider-usage";
-import { WakeSliderShowcase } from "./examples/wake-slider-showcase";
-import { WakeSliderQuiet } from "./examples/wake-slider-quiet";
 import { WakeSliderDisabled } from "./examples/wake-slider-disabled";
+import { WakeSliderQuiet } from "./examples/wake-slider-quiet";
+import { WakeSliderShowcase } from "./examples/wake-slider-showcase";
+import { WakeSliderUsage } from "./examples/wake-slider-usage";
+
 function Demo(props: Pick<WakeSliderProps, "label" | "bars" | "wake">) {
 	const [value, setValue] = useState(50);
 	return (

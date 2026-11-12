@@ -9,52 +9,18 @@
 		"ignoreUnknown": false,
 		"includes": [
 			"**",
-			"!**/.next",
 			"!**/dist",
 			"!**/.turbo",
-			"!**/.nx",
-			"!**/dev-dist",
-			"!**/.zed",
-			"!**/.vscode",
+			"!**/.tanstack",
+			"!**/.output",
+			"!**/.wrangler",
+			"!**/node_modules",
+			"!.vscode",
 			"!**/routeTree.gen.ts",
 			"!**/worker-configuration.d.ts",
-			"!passid/src/lib/schemas/auth.ts",
-			"!**/src-tauri",
-			"!**/.nuxt",
-			"!bts.jsonc",
-			"!**/.expo",
-			"!**/.wrangler",
-			"!**/.alchemy",
-			"!**/.svelte-kit",
-			"!**/wrangler.jsonc",
-			"!**/.source",
-			"!**/convex/_generated",
-			"!**/node_modules",
-			"!**/package-lock.json",
-			"!**/yarn.lock",
-			"!**/pnpm-lock.yaml",
-			"!**/bun.lockb",
 			"!**/tsconfig.json",
 			"!**/tsconfig.*.json",
-			"!**/vite.config.ts",
-			"!**/vite.config.*.ts",
-			"!**/tailwind.config.ts",
-			"!**/tailwind.config.*.ts",
-			"!**/biome.json",
-			"!**/biome.*.json",
-			"!**/wrangler.toml",
-			"!**/wrangler.*.toml",
-			"!**/wrangler.json",
-			"!**/wrangler.*.json",
-			"!**/wrangler.*.jsonc",
-			"!**/cloudflare.*.toml",
-			"!**/cloudflare.toml",
-			"!**/bunfig.toml",
-			"!**/bunfig.*.toml",
-			"!**/bunfig.json",
-			"!**/bunfig.*.json",
-			"!**/bunfig.*.jsonc",
-			"!**/bunfig.jsonc",
+			"!**/wrangler.jsonc",
 			"!packages/tokens/theme.css"
 		]
 	},
@@ -65,7 +31,7 @@
 	"assist": {
 		"actions": {
 			"source": {
-				"organizeImports": "off"
+				"organizeImports": "on"
 			}
 		}
 	},
@@ -97,14 +63,6 @@
 				"noInvalidPositionAtImportRule": "off"
 			},
 			"a11y": {
-				"noAriaUnsupportedElements": "warn",
-				"noAutofocus": "warn",
-				"noPositiveTabindex": "warn",
-				"noNoninteractiveTabindex": "warn",
-				"noNoninteractiveElementToInteractiveRole": "warn",
-				"useAriaPropsForRole": "warn",
-				"useAriaPropsSupportedByRole": "warn",
-				"useValidAriaValues": "warn",
 				"noSvgWithoutTitle": "off",
 				"noStaticElementInteractions": "off",
 				"useSemanticElements": "off"
@@ -151,7 +109,7 @@
 			}
 		},
 		{
-			"includes": ["packages/solid/**", "packages/tokens/**"],
+			"includes": ["packages/tokens/**"],
 			"linter": {
 				"domains": {
 					"react": "none"
@@ -194,6 +152,25 @@
 					"a11y": {
 						"useSemanticElements": "off",
 						"useFocusableInteractive": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": ["**/*.machine.ts", "**/*.math.ts", "packages/tokens/src/**"],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"paths": {
+									"react": "Machine and token files hold data and pure functions only.",
+									"react-dom": "Machine and token files hold data and pure functions only.",
+									"@zag-js/react": "Zag adapters live in components, not machine files."
+								}
+							}
+						}
 					}
 				}
 			}

@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
+import { cn } from "../../lib/class-names";
 import {
 	DisclosureGroup,
 	type DisclosureGroupSize,
 } from "../disclosure-group/disclosure-group";
-import { cn } from "../../lib/class-names";
 
 export type AccordionSize = DisclosureGroupSize;
 

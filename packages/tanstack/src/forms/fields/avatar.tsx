@@ -1,18 +1,18 @@
+import { Delete02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Ambient } from "@passui/react/ambient";
+import { Button } from "@passui/react/button";
+import { cn } from "@passui/react/cn";
 import {
 	ProfileImage,
-	ProfileImageFallback,
 	ProfileImageContent,
+	ProfileImageFallback,
 } from "@passui/react/profile-image";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Delete02Icon } from "@hugeicons/core-free-icons";
-import { Button } from "@passui/react/button";
-import { useFieldContext } from "../contexts";
-import { useEffect, useRef, useState } from "react";
 import type { DragEvent, ReactNode } from "react";
-import { cn } from "@passui/react/cn";
-import { Ambient } from "@passui/react/ambient";
-import { AvatarPicker } from "./avatar-picker";
+import { useEffect, useRef, useState } from "react";
+import { useFieldContext } from "../contexts";
 import type { AvatarPickerLabels } from "./avatar-picker";
+import { AvatarPicker } from "./avatar-picker";
 
 // A field's value has three real states, not two: `null` (untouched, keep
 // whatever's already there), a `File` (a new one was picked), and `false`

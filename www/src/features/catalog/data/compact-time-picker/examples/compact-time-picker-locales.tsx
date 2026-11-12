@@ -1,5 +1,5 @@
-import { CompactTimePicker } from "@passui/react/compact-time-picker";
 import { LabeledContent } from "@passui/react";
+import { CompactTimePicker } from "@passui/react/compact-time-picker";
 import { useState } from "react";
 
 export function CompactTimePickerLocales() {

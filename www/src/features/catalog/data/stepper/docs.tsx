@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Stepper } from "@passui/react/stepper";
+import { useState } from "react";
 import { defineDocs } from "../types";
-import { StepperUsage } from "./examples/stepper-usage";
-import { StepperShowcase } from "./examples/stepper-showcase";
-import { StepperQuantity } from "./examples/stepper-quantity";
 import { StepperFractions } from "./examples/stepper-fractions";
+import { StepperQuantity } from "./examples/stepper-quantity";
+import { StepperShowcase } from "./examples/stepper-showcase";
+import { StepperUsage } from "./examples/stepper-usage";
 
 function StepperDemo({
 	label,

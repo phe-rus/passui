@@ -1,13 +1,13 @@
 import {
 	Command,
-	CommandInput,
-	CommandList,
-	CommandGroup,
-	CommandItem,
 	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
 	CommandShortcut,
 } from "@passui/react/command";
-import { HomeIcon, FolderIcon, CopyIcon, PlusIcon } from "@passui/react/icons";
+import { CopyIcon, FolderIcon, HomeIcon, PlusIcon } from "@passui/react/icons";
 import { toast } from "@passui/react/toast";
 
 export function CommandShowcase() {

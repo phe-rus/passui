@@ -1,5 +1,3 @@
-import { Menu } from "@passui/react/menu";
-import { toast } from "@passui/react/toast";
 import {
 	ArchiveIcon,
 	MoreIcon,
@@ -7,6 +5,8 @@ import {
 	ShareIcon,
 	TrashIcon,
 } from "@passui/react/icons";
+import { Menu } from "@passui/react/menu";
+import { toast } from "@passui/react/toast";
 
 export function MenuShowcase() {
 	return (

@@ -1,9 +1,9 @@
+import { Conversation } from "@passui/react/conversation";
 import { SupportIcon } from "@passui/react/icons";
-import { ConversationDays } from "./examples/conversation-days";
 
 import { defineDocs } from "../types";
-import { Conversation } from "@passui/react/conversation";
 import { ConversationComposer } from "./examples/conversation-composer";
+import { ConversationDays } from "./examples/conversation-days";
 import { ConversationShowcase } from "./examples/conversation-showcase";
 import { ConversationUsage } from "./examples/conversation-usage";
 

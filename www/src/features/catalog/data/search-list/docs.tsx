@@ -1,9 +1,3 @@
-import { SearchListDropdown } from "./examples/search-list-dropdown";
-import { jsxAttribute, jsxText } from "../snippet";
-import { defineDocs } from "../types";
-import { SearchListGroups } from "./examples/search-list-groups";
-import { SearchListShowcase } from "./examples/search-list-showcase";
-import { SearchListUsage } from "./examples/search-list-usage";
 import {
 	SearchList,
 	SearchListEmpty,
@@ -11,6 +5,12 @@ import {
 	SearchListItem,
 	SearchListResults,
 } from "@passui/react/search-list";
+import { jsxAttribute, jsxText } from "../snippet";
+import { defineDocs } from "../types";
+import { SearchListDropdown } from "./examples/search-list-dropdown";
+import { SearchListGroups } from "./examples/search-list-groups";
+import { SearchListShowcase } from "./examples/search-list-showcase";
+import { SearchListUsage } from "./examples/search-list-usage";
 
 // `placeholder` belongs to SearchListField, `empty` to SearchListEmpty;
 // the snippet writes both into the children.

@@ -1,13 +1,12 @@
-import { ContextMenuToolbar } from "./examples/context-menu-toolbar";
-import { ContextMenuChecked } from "./examples/context-menu-checked";
-import { toast } from "@passui/react";
-import { defineDocs } from "../types";
 import type { ContextMenuItem } from "@passui/react";
+import { toast, useContextMenu } from "@passui/react";
+import { copyText } from "@passui/react/clipboard";
+import { defineDocs } from "../types";
+import { ContextMenuChecked } from "./examples/context-menu-checked";
 import { ContextMenuList } from "./examples/context-menu-list";
 import { ContextMenuShowcase } from "./examples/context-menu-showcase";
+import { ContextMenuToolbar } from "./examples/context-menu-toolbar";
 import { ContextMenuUsage } from "./examples/context-menu-usage";
-import { useContextMenu } from "@passui/react";
-import { copyText } from "@passui/react/clipboard";
 
 async function copyLink() {
 	if (await copyText(window.location.href)) toast.success("Link copied");

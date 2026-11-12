@@ -1,9 +1,9 @@
-import { CompactDatePickerOptional } from "./examples/compact-date-picker-optional";
-import { CompactDatePickerBounded } from "./examples/compact-date-picker-bounded";
+import { CompactDatePicker } from "@passui/react/compact-date-picker";
 import type { ComponentProps } from "react";
 import { useState } from "react";
 import { defineDocs } from "../types";
-import { CompactDatePicker } from "@passui/react/compact-date-picker";
+import { CompactDatePickerBounded } from "./examples/compact-date-picker-bounded";
+import { CompactDatePickerOptional } from "./examples/compact-date-picker-optional";
 import { CompactDatePickerShowcase } from "./examples/compact-date-picker-showcase";
 import { CompactDatePickerUsage } from "./examples/compact-date-picker-usage";
 

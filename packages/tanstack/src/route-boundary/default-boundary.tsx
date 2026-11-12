@@ -1,12 +1,12 @@
-import type { ErrorComponentProps } from "@tanstack/react-router";
 import { Button, buttonStyle } from "@passui/react/button";
+import { cn } from "@passui/react/cn";
+import type { ErrorComponentProps } from "@tanstack/react-router";
 import {
 	ErrorComponent,
 	Link,
 	useLocation,
 	useRouter,
 } from "@tanstack/react-router";
-import { cn } from "@passui/react/cn";
 
 export function DefaultBoundary({ error }: ErrorComponentProps) {
 	const router = useRouter();

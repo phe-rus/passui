@@ -1,8 +1,8 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
+import { Breadcrumb } from "../../src/components/breadcrumb/breadcrumb";
 import { ComboBox } from "../../src/components/combo-box/combo-box";
 import { RadioGroup } from "../../src/components/radio-group/radio-group";
-import { Breadcrumb } from "../../src/components/breadcrumb/breadcrumb";
 import { Skeleton } from "../../src/components/skeleton/skeleton";
 
 const options = [

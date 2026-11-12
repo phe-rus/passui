@@ -1,13 +1,13 @@
-import { usePreviewDocumentAttributes } from "@/features/preview/lib/use-preview-document-attributes";
-import { ComposeViewport } from "@passui/tanstack/document";
-import tailwind from "@/styles/site.css?url";
 import { PlatformProvider, PlatformScript } from "@passui/react/appearance";
+import { ComposeViewport } from "@passui/tanstack/document";
 import {
+	createRootRoute,
 	HeadContent,
 	Outlet,
 	Scripts,
-	createRootRoute,
 } from "@tanstack/react-router";
+import { usePreviewDocumentAttributes } from "@/features/preview/lib/use-preview-document-attributes";
+import tailwind from "@/styles/site.css?url";
 
 export const Route = createRootRoute({
 	head: () => ({

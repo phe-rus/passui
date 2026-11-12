@@ -1,9 +1,9 @@
+import { StatTile } from "@passui/react/stat-tile";
+import { defineDocs } from "../types";
 import { StatTileFilters } from "./examples/stat-tile-filters";
 import { StatTileGrid } from "./examples/stat-tile-grid";
-import { defineDocs } from "../types";
 import { StatTileShowcase } from "./examples/stat-tile-showcase";
 import { StatTileUsage } from "./examples/stat-tile-usage";
-import { StatTile } from "@passui/react/stat-tile";
 
 type DemoProps = {
 	label: string;

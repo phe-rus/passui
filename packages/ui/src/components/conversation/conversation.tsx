@@ -1,9 +1,9 @@
-import { IconButton } from "../button/icon-button";
-import { SendIcon } from "../../icons/icons";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { formatTime } from "../../lib/date";
+import { SendIcon } from "../../icons/icons";
 import { cn } from "../../lib/class-names";
+import { formatTime } from "../../lib/date";
+import { IconButton } from "../button/icon-button";
 
 export type ConversationMessage = {
 	id: string;

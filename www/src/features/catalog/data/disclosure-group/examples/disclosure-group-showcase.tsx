@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { DisclosureGroup } from "@passui/react/disclosure-group";
+import { useState } from "react";
 
 export function DisclosureGroupShowcase() {
 	const [network, setNetwork] = useState(false);

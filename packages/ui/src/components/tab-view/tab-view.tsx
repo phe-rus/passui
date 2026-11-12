@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type ReactNode } from "react";
+import { type ReactNode, useId, useRef, useState } from "react";
 import { cn } from "../../lib/class-names";
 
 export type TabViewAlign = "start" | "center";

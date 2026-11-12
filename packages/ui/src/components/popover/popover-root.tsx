@@ -1,17 +1,18 @@
 import {
+	createContext,
 	type ReactNode,
+	type RefObject,
+	useContext,
 	useEffect,
 	useId,
 	useReducer,
 	useRef,
-	type RefObject,
 } from "react";
-import { createContext, useContext } from "react";
 import {
-	popoverMachine,
 	type PopoverContextValue,
 	type PopoverEvent,
 	type PopoverState,
+	popoverMachine,
 } from "../../machines/popover.machine";
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
@@ -93,5 +94,4 @@ export function PopoverRoot({
 }
 
 // Re-export the context type for consumers that need it.
-export type { PopoverContextValue };
-export type { RefObject };
+export type { PopoverContextValue, RefObject };

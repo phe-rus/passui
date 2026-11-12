@@ -1,5 +1,5 @@
-import type { aspectRatioDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { aspectRatioDocs } from "..";
 export const aspectRatioContent: ComponentContent<typeof aspectRatioDocs> = {
 	summary: "A responsive crop frame that preserves the image's proportions.",
 	usage:

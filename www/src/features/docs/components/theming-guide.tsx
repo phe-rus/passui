@@ -1,15 +1,15 @@
+import { SwatchPicker } from "@passui/react";
+import { Button } from "@passui/react/button";
 import {
 	Table,
-	TableHeader,
 	TableBody,
-	TableRow,
-	TableHead,
 	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
 } from "@passui/react/table";
 import { toast } from "@passui/react/toast";
-import { Button } from "@passui/react/button";
 import { Toggle } from "@passui/react/toggle";
-import { SwatchPicker } from "@passui/react";
 import {
 	type AccentId,
 	accents,

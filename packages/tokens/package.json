@@ -15,29 +15,30 @@
 		"registry": "https://registry.npmjs.org"
 	},
 	"files": [
-		"src",
+		"dist",
 		"styles",
 		"theme.css",
 		"README.md",
 		"LICENSE"
 	],
 	"exports": {
-		".": "./src/index.ts",
+		".": "./dist/index.js",
+		"./accent": "./dist/accent.js",
+		"./color": "./dist/color.js",
+		"./layout": "./dist/layout.js",
+		"./motion": "./dist/motion.js",
+		"./theme-css": "./dist/theme-css.js",
+		"./typography": "./dist/typography.js",
+		"./package.json": "./package.json",
 		"./theme.css": "./theme.css",
 		"./base.css": "./styles/base.css",
 		"./utilities.css": "./styles/utilities.css",
 		"./typeset.css": "./styles/typeset.css",
-		"./styles.css": "./styles/styles.css",
-		"./accent": "./src/accent.ts",
-		"./color": "./src/color.ts",
-		"./layout": "./src/layout.ts",
-		"./motion": "./src/motion.ts",
-		"./theme-css": "./src/theme-css.ts",
-		"./typography": "./src/typography.ts"
+		"./styles.css": "./styles/styles.css"
 	},
 	"scripts": {
 		"generate": "bun scripts/generate-css.ts",
-		"build": "bun run generate",
+		"build": "bun run generate && tsdown",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",
 		"publish:check": "bun pm pack --dry-run"
@@ -49,10 +50,14 @@
 		"tailwindcss": "^4.3.3"
 	},
 	"devDependencies": {
-		"typescript": "^7.0.2",
-		"@types/node": "^26.6.3",
-		"tailwindcss": "^4.3.3",
-		"vite": "8.3.5",
-		"vitest": "5.0.5"
-	}
+		"typescript": "catalog:",
+		"@types/node": "catalog:",
+		"tailwindcss": "catalog:",
+		"vite": "catalog:",
+		"vitest": "catalog:",
+		"tsdown": "catalog:"
+	},
+	"sideEffects": [
+		"**/*.css"
+	]
 }

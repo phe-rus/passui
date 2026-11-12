@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Accordion } from "@passui/react/accordion";
+import { useState } from "react";
 import { defineDocs } from "../types";
-import { AccordionUsage } from "./examples/accordion-usage";
-import { AccordionShowcase } from "./examples/accordion-showcase";
 import { AccordionFaq } from "./examples/accordion-faq";
 import { AccordionSettings } from "./examples/accordion-settings";
+import { AccordionShowcase } from "./examples/accordion-showcase";
+import { AccordionUsage } from "./examples/accordion-usage";
 
 function AccordionDemo({ title }: { title: string }) {
 	const [value, setValue] = useState<string | null>("details");

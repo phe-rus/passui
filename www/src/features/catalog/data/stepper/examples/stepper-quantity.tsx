@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Stepper } from "@passui/react/stepper";
+import { useState } from "react";
 
 export function StepperQuantity() {
 	const [quantity, setQuantity] = useState(3);

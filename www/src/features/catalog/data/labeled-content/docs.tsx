@@ -1,13 +1,13 @@
+import { LabeledContent } from "@passui/react";
+import { Toggle } from "@passui/react/toggle";
 import { useState } from "react";
-import { LabeledContentValues } from "./examples/labeled-content-values";
-import { LabeledContentWide } from "./examples/labeled-content-wide";
-import { LabeledContentDescriptions } from "./examples/labeled-content-descriptions";
 import { jsxAttribute } from "../snippet";
 import { defineDocs } from "../types";
-import { Toggle } from "@passui/react/toggle";
+import { LabeledContentDescriptions } from "./examples/labeled-content-descriptions";
 import { LabeledContentShowcase } from "./examples/labeled-content-showcase";
 import { LabeledContentUsage } from "./examples/labeled-content-usage";
-import { LabeledContent } from "@passui/react";
+import { LabeledContentValues } from "./examples/labeled-content-values";
+import { LabeledContentWide } from "./examples/labeled-content-wide";
 
 type DemoProps = {
 	label: string;

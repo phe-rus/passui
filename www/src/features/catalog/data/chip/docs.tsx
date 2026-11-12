@@ -1,6 +1,6 @@
-import { ChipInRows } from "./examples/chip-in-rows";
-import { defineDocs } from "../types";
 import { Chip, type ChipTone } from "@passui/react";
+import { defineDocs } from "../types";
+import { ChipInRows } from "./examples/chip-in-rows";
 import { ChipShowcase } from "./examples/chip-showcase";
 import { ChipTones } from "./examples/chip-tones";
 import { ChipUsage } from "./examples/chip-usage";

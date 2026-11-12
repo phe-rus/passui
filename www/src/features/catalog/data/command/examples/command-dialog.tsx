@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { Button } from "@passui/react/button";
 import {
-	CommandDialog as CommandPaletteDialog,
-	CommandInput,
-	CommandList,
-	CommandGroup,
-	CommandItem,
 	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
+	CommandDialog as CommandPaletteDialog,
 } from "@passui/react/command";
 import { toast } from "@passui/react/toast";
+import { useState } from "react";
 
 export function CommandDialog() {
 	const [open, setOpen] = useState(false);

@@ -3,10 +3,10 @@ import {
 	type ContentUnavailableViewProps,
 } from "@passui/react/content-unavailable-view";
 import { defineDocs } from "../types";
-import { ContentUnavailableViewUsage } from "./examples/content-unavailable-view-usage";
-import { ContentUnavailableViewShowcase } from "./examples/content-unavailable-view-showcase";
 import { ContentUnavailableViewEmpty } from "./examples/content-unavailable-view-empty";
 import { ContentUnavailableViewSearch } from "./examples/content-unavailable-view-search";
+import { ContentUnavailableViewShowcase } from "./examples/content-unavailable-view-showcase";
+import { ContentUnavailableViewUsage } from "./examples/content-unavailable-view-usage";
 export const contentUnavailableViewDocs =
 	defineDocs<ContentUnavailableViewProps>()({
 		slug: "content-unavailable-view",

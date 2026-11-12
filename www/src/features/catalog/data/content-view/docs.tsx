@@ -1,10 +1,10 @@
-import { ContentViewHeaderAction } from "./examples/content-view-header-action";
-import { jsxAttribute } from "../snippet";
-import { defineDocs } from "../types";
 import {
 	ContentView,
 	type ContentViewVariant,
 } from "@passui/react/content-view";
+import { jsxAttribute } from "../snippet";
+import { defineDocs } from "../types";
+import { ContentViewHeaderAction } from "./examples/content-view-header-action";
 import { ContentViewShowcase } from "./examples/content-view-showcase";
 import { ContentViewStats } from "./examples/content-view-stats";
 import { ContentViewUsage } from "./examples/content-view-usage";

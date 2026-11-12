@@ -3,10 +3,10 @@ import {
 	type ProgressViewProps,
 } from "@passui/react/progress-view";
 import { defineDocs } from "../types";
-import { ProgressViewUsage } from "./examples/progress-view-usage";
+import { ProgressViewIndeterminate } from "./examples/progress-view-indeterminate";
 import { ProgressViewShowcase } from "./examples/progress-view-showcase";
 import { ProgressViewUploading } from "./examples/progress-view-uploading";
-import { ProgressViewIndeterminate } from "./examples/progress-view-indeterminate";
+import { ProgressViewUsage } from "./examples/progress-view-usage";
 
 export const progressViewDocs = defineDocs<ProgressViewProps>()({
 	slug: "progress-view",

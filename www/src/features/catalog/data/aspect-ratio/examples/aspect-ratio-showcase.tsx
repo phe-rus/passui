@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { AspectRatio } from "@passui/react/aspect-ratio";
 import { SegmentedControl } from "@passui/react/segmented-control";
+import { useState } from "react";
 
 export function AspectRatioShowcase() {
 	const [format, setFormat] = useState<"landscape" | "square" | "portrait">(

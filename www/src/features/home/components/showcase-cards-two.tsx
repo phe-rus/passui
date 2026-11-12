@@ -1,10 +1,3 @@
-import { ProgressView } from "@passui/react/progress-view";
-import {
-	NextTrackIcon,
-	PauseIcon,
-	PlayIcon,
-	PreviousTrackIcon,
-} from "@passui/react/icons";
 import {
 	Button,
 	Chip,
@@ -15,6 +8,13 @@ import {
 } from "@passui/react";
 import { cn } from "@passui/react/cn";
 import { IconButton } from "@passui/react/icon-button";
+import {
+	NextTrackIcon,
+	PauseIcon,
+	PlayIcon,
+	PreviousTrackIcon,
+} from "@passui/react/icons";
+import { ProgressView } from "@passui/react/progress-view";
 import { useState } from "react";
 import type { ShowcaseCardBodyProps } from "../types";
 import { ShowcaseCard } from "./showcase-cards";

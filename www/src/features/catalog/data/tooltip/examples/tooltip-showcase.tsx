@@ -1,10 +1,10 @@
+import { IconButton } from "@passui/react/icon-button";
 import {
 	ArchiveIcon,
 	ReplyIcon,
 	StarIcon,
 	TrashIcon,
 } from "@passui/react/icons";
-import { IconButton } from "@passui/react/icon-button";
 
 const actions = [
 	{ label: "Reply", icon: ReplyIcon },

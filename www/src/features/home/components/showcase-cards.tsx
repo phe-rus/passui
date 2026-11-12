@@ -1,8 +1,3 @@
-import { ProgressView } from "@passui/react/progress-view";
-import {
-	ProfileImage,
-	ProfileImageFallback,
-} from "@passui/react/profile-image";
 import {
 	Button,
 	Chip,
@@ -15,6 +10,11 @@ import {
 	toast,
 } from "@passui/react";
 import { cn } from "@passui/react/cn";
+import {
+	ProfileImage,
+	ProfileImageFallback,
+} from "@passui/react/profile-image";
+import { ProgressView } from "@passui/react/progress-view";
 import { StatTile } from "@passui/react/stat-tile";
 import { type ReactNode, useState } from "react";
 import { accentNames } from "@/features/settings";

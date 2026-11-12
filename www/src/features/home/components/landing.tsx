@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Button } from "@passui/react/button";
 import { MotionConfig } from "motion/react";
+import { useState } from "react";
 import { useAccentCycle } from "../lib/use-accent-cycle";
 import { Bento } from "./bento";
 import { Changelog } from "./changelog";

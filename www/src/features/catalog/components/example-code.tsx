@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
 import { Button } from "@passui/react/button";
 import { Skeleton } from "@passui/react/skeleton";
+import { useEffect, useState } from "react";
 import { CodeView } from "@/features/playground/components/code-view";
 import { getExampleSource } from "../lib/get-example-source";
 

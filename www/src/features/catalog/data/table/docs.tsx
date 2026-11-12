@@ -1,11 +1,3 @@
-import { jsxText } from "../snippet";
-import { defineDocs } from "../types";
-import { TableEmpty } from "./examples/table-empty";
-import { TableInvoices } from "./examples/table-invoices";
-import { TableSelection } from "./examples/table-selection";
-import { TableWide } from "./examples/table-wide";
-import { TableShowcase } from "./examples/table-showcase";
-import { TableUsage } from "./examples/table-usage";
 import {
 	Table,
 	TableBody,
@@ -16,6 +8,14 @@ import {
 	TableHeader,
 	TableRow,
 } from "@passui/react/table";
+import { jsxText } from "../snippet";
+import { defineDocs } from "../types";
+import { TableEmpty } from "./examples/table-empty";
+import { TableInvoices } from "./examples/table-invoices";
+import { TableSelection } from "./examples/table-selection";
+import { TableShowcase } from "./examples/table-showcase";
+import { TableUsage } from "./examples/table-usage";
+import { TableWide } from "./examples/table-wide";
 
 // The caption and footer are parts inside Table, so the snippet writes
 // them into the children.

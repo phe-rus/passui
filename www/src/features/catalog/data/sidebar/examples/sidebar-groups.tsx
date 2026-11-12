@@ -2,18 +2,17 @@ import {
 	ArchiveIcon,
 	CalendarIcon,
 	FolderIcon,
+	type IconProps,
 	InboxIcon,
 	NoteIcon,
 	TrashIcon,
-	type IconProps,
 } from "@passui/react/icons";
-import type { ComponentType } from "react";
-
 import {
 	SidebarItemContent,
 	SidebarSection,
 	sidebarItemClass,
 } from "@passui/react/sidebar";
+import type { ComponentType } from "react";
 import { useState } from "react";
 
 type Row = {

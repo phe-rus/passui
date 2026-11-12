@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { PreviewSettings } from "@/features/settings";
-import { applyDocumentAttributes } from "./get-document-attributes";
 import { type FrameMessage, parentMessageSchema } from "../types";
+import { applyDocumentAttributes } from "./get-document-attributes";
 
 type PreviewState = {
 	settings: PreviewSettings;

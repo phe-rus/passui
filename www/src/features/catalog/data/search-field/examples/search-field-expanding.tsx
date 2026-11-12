@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { SearchField } from "@passui/react/search-field";
+import { useState } from "react";
 export function SearchFieldExpanding() {
 	const [value, setValue] = useState("");
 	return (

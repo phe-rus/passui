@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { QueryKey, UseMutationOptions } from "@tanstack/react-query";
 import { toast } from "@passui/react/toast";
+import type { QueryKey, UseMutationOptions } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type OptimisticUpdate<TOptimisticData, TVariables> = {
 	queryKey: QueryKey;
@@ -19,9 +19,10 @@ type MutationContext<TOptimisticData> =
 	| undefined;
 
 import { restoreOptimisticSnapshot } from "../shared/optimistic";
+
 export {
-	shouldRestoreOptimisticSnapshot,
 	restoreOptimisticSnapshot,
+	shouldRestoreOptimisticSnapshot,
 } from "../shared/optimistic";
 
 type AppMutationOptions<TData, TVariables, TOptimisticData> = Omit<

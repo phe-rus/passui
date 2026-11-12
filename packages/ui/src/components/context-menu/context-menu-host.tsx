@@ -21,6 +21,13 @@ import {
 import { screenEdges } from "../../lib/screen-edges";
 import { fluidOvershoot } from "../../motion/transitions";
 import { concealMenuSource } from "./conceal-menu-source";
+import type { OpenMenu } from "./context-menu-store";
+import {
+	type ContextMenuSize,
+	closeContextMenu,
+	getContextMenu,
+	subscribeContextMenu,
+} from "./context-menu-store";
 import {
 	findMenuTypeaheadIndex,
 	isMenuNavigationKey,
@@ -28,13 +35,6 @@ import {
 } from "./menu-navigation";
 import { menuPosition } from "./menu-position";
 import { menuSurfaceExit, menuSurfaceReveal } from "./menu-reveal";
-import {
-	closeContextMenu,
-	getContextMenu,
-	type ContextMenuSize,
-	subscribeContextMenu,
-} from "./context-menu-store";
-import type { OpenMenu } from "./context-menu-store";
 
 const surfaceSizes: Record<ContextMenuSize, string> = {
 	sm: "min-w-44 max-w-[min(240px,calc(100vw-24px))] rounded-2xl p-1",

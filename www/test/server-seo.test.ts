@@ -1,4 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
+
 vi.mock("@tanstack/react-start/server-entry", () => ({
 	default: {
 		fetch: async (request: Request) =>
@@ -8,6 +9,7 @@ vi.mock("@tanstack/react-start/server-entry", () => ({
 			}),
 	},
 }));
+
 import server from "../src/server";
 
 describe("indexing response headers", () => {

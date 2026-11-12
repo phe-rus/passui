@@ -1,5 +1,5 @@
 export {
-	isArrayValuedColumn,
-	getColumnLabel,
 	columnIdOf,
+	getColumnLabel,
+	isArrayValuedColumn,
 } from "../shared/table";

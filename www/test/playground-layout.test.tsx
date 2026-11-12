@@ -1,15 +1,15 @@
-import { createElement } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 import {
 	createMemoryHistory,
 	createRootRoute,
 	createRouter,
 	RouterProvider,
 } from "@tanstack/react-router";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
 import { getEntry } from "../src/features/catalog/lib/get-catalog";
-import { docsSettingsDefaults } from "../src/features/settings/types";
 import { Playground } from "../src/features/playground/components/playground";
+import { docsSettingsDefaults } from "../src/features/settings/types";
 
 test("playground starts with one toolbar and preview while settings, props and generated code stay closed", async () => {
 	const routeTree = createRootRoute({

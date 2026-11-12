@@ -1,6 +1,7 @@
 @import "@passui/tokens/styles.css";
 
-@source "../";
 @import "./code-block.css";
-
 @import "./motion-controls.css";
+
+@source "../";
+@source "../../dist";

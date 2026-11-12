@@ -6,12 +6,12 @@ import {
 } from "react";
 import { Button, type ButtonProps } from "../button/button";
 import {
+	type ContextMenuEdge,
+	type ContextMenuItem,
 	closeContextMenu,
 	getContextMenu,
 	openMenu,
 	subscribeContextMenu,
-	type ContextMenuEdge,
-	type ContextMenuItem,
 } from "../context-menu/context-menu-store";
 
 export interface MenuProps extends Omit<ButtonProps, "onClick" | "children"> {

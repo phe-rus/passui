@@ -1,14 +1,14 @@
-import { PopoverHelp } from "./examples/popover-help";
 import { Button } from "@passui/react/button";
-import { defineDocs } from "../types";
-import { PopoverMenu } from "./examples/popover-menu";
-import { PopoverShowcase } from "./examples/popover-showcase";
-import { PopoverUsage } from "./examples/popover-usage";
 import {
 	Popover,
 	type PopoverContentProps,
 	type PopoverOrigin,
 } from "@passui/react/popover";
+import { defineDocs } from "../types";
+import { PopoverHelp } from "./examples/popover-help";
+import { PopoverMenu } from "./examples/popover-menu";
+import { PopoverShowcase } from "./examples/popover-showcase";
+import { PopoverUsage } from "./examples/popover-usage";
 
 type DemoProps = { origin: PopoverOrigin };
 

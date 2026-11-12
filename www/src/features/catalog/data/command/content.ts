@@ -1,5 +1,5 @@
-import type { commandDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { commandDocs } from "..";
 export const commandContent: ComponentContent<typeof commandDocs> = {
 	summary:
 		"A compact command palette for finding destinations and performing quick actions.",

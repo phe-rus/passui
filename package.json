@@ -15,18 +15,36 @@
 		"typecheck": "turbo run typecheck",
 		"lint": "biome lint .",
 		"format": "biome format --write .",
-		"check": "bun run docs:api --check && biome check .",
+		"check": "biome check . && turbo run typecheck",
 		"test": "turbo run test",
-		"publish:check": "turbo run publish:check && bun scripts/check-packages.mjs",
+		"publish:check": "turbo run publish:check",
 		"build:website": "turbo run build --filter=passui",
 		"format:check": "biome format .",
-		"size:check": "bun scripts/measure-react.mjs --check"
+		"size:check": "turbo run build --filter=@passui/react && bun scripts/measure-react.mjs --check"
 	},
 	"devDependencies": {
 		"@babel/parser": "7.29.9",
-		"@biomejs/biome": "2.6.3",
+		"@biomejs/biome": "catalog:",
+		"tsdown": "catalog:",
 		"turbo": "2.11.10",
-		"vite": "8.3.5",
-		"vitest": "5.0.5"
+		"typescript": "catalog:",
+		"vite": "catalog:",
+		"vitest": "catalog:"
+	},
+	"catalog": {
+		"@biomejs/biome": "2.6.3",
+		"@types/node": "^26.6.6",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@hugeicons/core-free-icons": "4.4.0",
+		"@hugeicons/react": "1.1.10",
+		"motion": "14.12.0",
+		"react": "^19.3.0",
+		"react-dom": "^19.3.0",
+		"tailwindcss": "^4.3.5",
+		"tsdown": "0.23.7",
+		"typescript": "^7.0.2",
+		"vite": "8.3.8",
+		"vitest": "5.1.0"
 	}
 }

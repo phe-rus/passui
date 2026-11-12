@@ -1,6 +1,5 @@
-import { KeyIcon, PasswordIcon, SmartphoneIcon } from "@passui/react/icons";
-
 import { ContentView } from "@passui/react/content-view";
+import { KeyIcon, PasswordIcon, SmartphoneIcon } from "@passui/react/icons";
 
 const cards = [
 	{

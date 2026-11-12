@@ -1,5 +1,5 @@
-import { expect, test } from "vitest";
 import { QueryClient } from "@tanstack/react-query";
+import { expect, test } from "vitest";
 
 import {
 	restoreOptimisticSnapshot,

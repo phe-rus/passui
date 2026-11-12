@@ -1,5 +1,5 @@
-import { catalogIcons } from "@passui/react/icons";
 import { readFileSync, writeFileSync } from "node:fs";
+import { catalogIcons } from "@passui/react/icons";
 import { getCatalog } from "../src/features/catalog/lib/get-catalog";
 
 const output = new URL(

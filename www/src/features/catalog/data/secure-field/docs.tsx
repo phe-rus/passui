@@ -1,11 +1,11 @@
-import { SecureFieldNewPassword } from "./examples/secure-field-new-password";
-import { SecureFieldReveal } from "./examples/secure-field-reveal";
+import { SecureField } from "@passui/react/secure-field";
 import type { ComponentProps } from "react";
 import { useState } from "react";
 import { defineDocs } from "../types";
+import { SecureFieldNewPassword } from "./examples/secure-field-new-password";
+import { SecureFieldReveal } from "./examples/secure-field-reveal";
 import { SecureFieldShowcase } from "./examples/secure-field-showcase";
 import { SecureFieldUsage } from "./examples/secure-field-usage";
-import { SecureField } from "@passui/react/secure-field";
 
 type SecureFieldProps = ComponentProps<typeof SecureField>;
 type DemoProps = Pick<SecureFieldProps, "label" | "placeholder" | "disabled">;

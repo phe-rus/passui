@@ -1,5 +1,3 @@
-import { Link } from "@tanstack/react-router";
-import { CodeView } from "@/features/playground/components/code-view";
 import {
 	Button,
 	LabeledContent,
@@ -7,7 +5,9 @@ import {
 	Toggle,
 } from "@passui/react";
 import type { ButtonVariant } from "@passui/react/button";
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { CodeView } from "@/features/playground/components/code-view";
 
 type TeaserVariant = Extract<
 	ButtonVariant,

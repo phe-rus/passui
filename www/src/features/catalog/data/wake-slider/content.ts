@@ -1,5 +1,5 @@
-import type { wakeSliderDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { wakeSliderDocs } from "..";
 export const wakeSliderContent: ComponentContent<typeof wakeSliderDocs> = {
 	summary:
 		"A compact seeker whose marks briefly rise along the path of a fast drag.",

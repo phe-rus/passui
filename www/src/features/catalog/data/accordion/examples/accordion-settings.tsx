@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Accordion } from "@passui/react/accordion";
 import { Toggle } from "@passui/react/toggle";
+import { useState } from "react";
 
 export function AccordionSettings() {
 	const [value, setValue] = useState<string | null>("notifications");

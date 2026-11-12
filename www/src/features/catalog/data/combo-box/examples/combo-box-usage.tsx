@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { ComboBox } from "@passui/react/combo-box";
+import { useState } from "react";
 export function ComboBoxUsage() {
 	const options = [
 		{ value: "react", label: "React" },

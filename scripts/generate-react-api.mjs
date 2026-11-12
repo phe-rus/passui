@@ -1,4 +1,3 @@
-import { parse } from "@babel/parser";
 import {
 	existsSync,
 	globSync,
@@ -7,6 +6,7 @@ import {
 	writeFileSync,
 } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
+import { parse } from "@babel/parser";
 
 const root = resolve(import.meta.dirname, "..");
 const output = resolve(

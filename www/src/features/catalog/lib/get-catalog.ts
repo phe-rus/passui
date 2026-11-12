@@ -1,118 +1,118 @@
-import { aspectRatioContent } from "../data/aspect-ratio/content";
-import { aspectRatioDocs } from "../data/aspect-ratio/docs";
-import { oneTimeCodeContent } from "../data/one-time-code/content";
-import { oneTimeCodeDocs } from "../data/one-time-code/docs";
-import { wakeSliderContent } from "../data/wake-slider/content";
-import { wakeSliderDocs } from "../data/wake-slider/docs";
-import { sloshSliderContent } from "../data/slosh-slider/content";
-import { sloshSliderDocs } from "../data/slosh-slider/docs";
-import { commandContent } from "../data/command/content";
-import { commandDocs } from "../data/command/docs";
-import { skeletonContent } from "../data/skeleton/content";
-import { breadcrumbContent } from "../data/breadcrumb/content";
-import { radioGroupContent } from "../data/radio-group/content";
-import { comboBoxContent } from "../data/combo-box/content";
-import { contentUnavailableViewContent } from "../data/content-unavailable-view/content";
-import { keyboardShortcutContent } from "../data/keyboard-shortcut/content";
-import { codeBlockContent } from "../data/code-block/content";
-import { componentTitle } from "./navigation";
 import { catalogIcons } from "@passui/react/icons";
 import {
-	skeletonDocs,
-	breadcrumbDocs,
-	radioGroupDocs,
-	comboBoxDocs,
-	contentUnavailableViewDocs,
-	keyboardShortcutDocs,
-	codeBlockDocs,
 	accordionDocs,
+	ambientDocs,
+	breadcrumbDocs,
 	buttonDocs,
 	chipDocs,
-	iconButtonDocs,
-	labeledContentDocs,
-	pickerDocs,
-	searchFieldDocs,
-	secureFieldDocs,
-	sectionDocs,
-	inlineDisclosureDocs,
-	segmentedControlDocs,
-	statTileDocs,
-	statusIndicatorDocs,
-	swatchPickerDocs,
-	textFieldDocs,
-	toggleDocs,
-	menuDocs,
-	disclosureGroupDocs,
-	sliderDocs,
-	stepperDocs,
-	progressViewDocs,
-	dividerDocs,
-	datePickerDocs,
+	codeBlockDocs,
+	comboBoxDocs,
 	compactDatePickerDocs,
 	compactTimePickerDocs,
-	textEditorDocs,
-	searchListDocs,
-	profileImageDocs,
-	tabViewDocs,
-	tabBarDocs,
-	sidebarDocs,
-	viewControllerDocs,
-	tableDocs,
+	contentUnavailableViewDocs,
 	contentViewDocs,
-	conversationDocs,
-	ambientDocs,
-	dialogDocs,
-	sheetDocs,
-	popoverDocs,
-	toastDocs,
 	contextMenuDocs,
-	tooltipDocs,
+	conversationDocs,
+	datePickerDocs,
+	dialogDocs,
+	disclosureGroupDocs,
+	dividerDocs,
+	iconButtonDocs,
+	inlineDisclosureDocs,
+	keyboardShortcutDocs,
+	labeledContentDocs,
 	localeSwitcherDocs,
+	menuDocs,
+	pickerDocs,
+	popoverDocs,
+	profileImageDocs,
+	progressViewDocs,
+	radioGroupDocs,
+	searchFieldDocs,
+	searchListDocs,
+	sectionDocs,
+	secureFieldDocs,
+	segmentedControlDocs,
+	sheetDocs,
+	sidebarDocs,
+	skeletonDocs,
+	sliderDocs,
+	statTileDocs,
+	statusIndicatorDocs,
+	stepperDocs,
+	swatchPickerDocs,
+	tabBarDocs,
+	tableDocs,
+	tabViewDocs,
+	textEditorDocs,
+	textFieldDocs,
+	toastDocs,
+	toggleDocs,
+	tooltipDocs,
+	viewControllerDocs,
 } from "@/features/catalog/data";
-import { buttonContent } from "../data/button/content";
 import { accordionContent } from "../data/accordion/content";
+import { ambientContent } from "../data/ambient/content";
+import { aspectRatioContent } from "../data/aspect-ratio/content";
+import { aspectRatioDocs } from "../data/aspect-ratio/docs";
+import { breadcrumbContent } from "../data/breadcrumb/content";
+import { buttonContent } from "../data/button/content";
 import { chipContent } from "../data/chip/content";
-import { iconButtonContent } from "../data/icon-button/content";
-import { labeledContentContent } from "../data/labeled-content/content";
-import { pickerContent } from "../data/picker/content";
-import { searchFieldContent } from "../data/search-field/content";
-import { secureFieldContent } from "../data/secure-field/content";
-import { sectionContent } from "../data/section/content";
-import { inlineDisclosureContent } from "../data/inline-disclosure/content";
-import { segmentedControlContent } from "../data/segmented-control/content";
-import { statTileContent } from "../data/stat-tile/content";
-import { statusIndicatorContent } from "../data/status-indicator/content";
-import { swatchPickerContent } from "../data/swatch-picker/content";
-import { textFieldContent } from "../data/text-field/content";
-import { toggleContent } from "../data/toggle/content";
-import { menuContent } from "../data/menu/content";
-import { disclosureGroupContent } from "../data/disclosure-group/content";
-import { sliderContent } from "../data/slider/content";
-import { stepperContent } from "../data/stepper/content";
-import { progressViewContent } from "../data/progress-view/content";
-import { dividerContent } from "../data/divider/content";
+import { codeBlockContent } from "../data/code-block/content";
+import { comboBoxContent } from "../data/combo-box/content";
+import { commandContent } from "../data/command/content";
+import { commandDocs } from "../data/command/docs";
 import { compactDatePickerContent } from "../data/compact-date-picker/content";
 import { compactTimePickerContent } from "../data/compact-time-picker/content";
-import { datePickerContent } from "../data/date-picker/content";
-import { textEditorContent } from "../data/text-editor/content";
-import { searchListContent } from "../data/search-list/content";
-import { profileImageContent } from "../data/profile-image/content";
-import { tabViewContent } from "../data/tab-view/content";
-import { tabBarContent } from "../data/tab-bar/content";
-import { sidebarContent } from "../data/sidebar/content";
-import { viewControllerContent } from "../data/view-controller/content";
-import { tableContent } from "../data/table/content";
+import { contentUnavailableViewContent } from "../data/content-unavailable-view/content";
 import { contentViewContent } from "../data/content-view/content";
-import { conversationContent } from "../data/conversation/content";
-import { ambientContent } from "../data/ambient/content";
-import { dialogContent } from "../data/dialog/content";
-import { sheetContent } from "../data/sheet/content";
-import { popoverContent } from "../data/popover/content";
-import { toastContent } from "../data/toast/content";
 import { contextMenuContent } from "../data/context-menu/content";
-import { tooltipContent } from "../data/tooltip/content";
+import { conversationContent } from "../data/conversation/content";
+import { datePickerContent } from "../data/date-picker/content";
+import { dialogContent } from "../data/dialog/content";
+import { disclosureGroupContent } from "../data/disclosure-group/content";
+import { dividerContent } from "../data/divider/content";
+import { iconButtonContent } from "../data/icon-button/content";
+import { inlineDisclosureContent } from "../data/inline-disclosure/content";
+import { keyboardShortcutContent } from "../data/keyboard-shortcut/content";
+import { labeledContentContent } from "../data/labeled-content/content";
 import { localeSwitcherContent } from "../data/locale-switcher/content";
+import { menuContent } from "../data/menu/content";
+import { oneTimeCodeContent } from "../data/one-time-code/content";
+import { oneTimeCodeDocs } from "../data/one-time-code/docs";
+import { pickerContent } from "../data/picker/content";
+import { popoverContent } from "../data/popover/content";
+import { profileImageContent } from "../data/profile-image/content";
+import { progressViewContent } from "../data/progress-view/content";
+import { radioGroupContent } from "../data/radio-group/content";
+import { searchFieldContent } from "../data/search-field/content";
+import { searchListContent } from "../data/search-list/content";
+import { sectionContent } from "../data/section/content";
+import { secureFieldContent } from "../data/secure-field/content";
+import { segmentedControlContent } from "../data/segmented-control/content";
+import { sheetContent } from "../data/sheet/content";
+import { sidebarContent } from "../data/sidebar/content";
+import { skeletonContent } from "../data/skeleton/content";
+import { sliderContent } from "../data/slider/content";
+import { sloshSliderContent } from "../data/slosh-slider/content";
+import { sloshSliderDocs } from "../data/slosh-slider/docs";
+import { statTileContent } from "../data/stat-tile/content";
+import { statusIndicatorContent } from "../data/status-indicator/content";
+import { stepperContent } from "../data/stepper/content";
+import { swatchPickerContent } from "../data/swatch-picker/content";
+import { tabBarContent } from "../data/tab-bar/content";
+import { tabViewContent } from "../data/tab-view/content";
+import { tableContent } from "../data/table/content";
+import { textEditorContent } from "../data/text-editor/content";
+import { textFieldContent } from "../data/text-field/content";
+import { toastContent } from "../data/toast/content";
+import { toggleContent } from "../data/toggle/content";
+import { tooltipContent } from "../data/tooltip/content";
+import { viewControllerContent } from "../data/view-controller/content";
+import { wakeSliderContent } from "../data/wake-slider/content";
+import { wakeSliderDocs } from "../data/wake-slider/docs";
 import type { CatalogEntry } from "../types";
+import { componentTitle } from "./navigation";
 
 // Component families for the overview. Navigation uses alphabetical display names.
 const entries: CatalogEntry[] = [

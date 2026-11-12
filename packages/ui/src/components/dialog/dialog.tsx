@@ -1,16 +1,16 @@
-import { Sheet } from "../sheet/sheet";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Button } from "../button/button";
-import { cn } from "../../lib/class-names";
-import { contentCrossfade, spring } from "../../motion/transitions";
 import {
 	createContext,
-	useContext,
-	useId,
 	type FormEvent,
 	type ReactNode,
 	type RefObject,
+	useContext,
+	useId,
 } from "react";
+import { cn } from "../../lib/class-names";
+import { contentCrossfade, spring } from "../../motion/transitions";
+import { Button } from "../button/button";
+import { Sheet } from "../sheet/sheet";
 
 const CloseContext = createContext<() => void>(() => {});
 export type DialogPresentation = "drawer" | "center" | "inline";

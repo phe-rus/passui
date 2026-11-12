@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { SparkleIcon } from "@passui/react/icons";
-import { Button } from "@passui/react/button";
 import { haptic } from "@passui/react";
-import { useCopyText } from "@/hooks/use-copy-text";
+import { Button } from "@passui/react/button";
+import { SparkleIcon } from "@passui/react/icons";
+import { useState } from "react";
 import { getEntry } from "@/features/catalog/lib/get-catalog";
+import { useCopyText } from "@/hooks/use-copy-text";
 import { getComponentMarkdown } from "../lib/get-ai-context";
 
 /** Copies one component's docs as Markdown, for pasting into an AI chat. */

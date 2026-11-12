@@ -1,9 +1,9 @@
-import { afterEach, expect, test } from "vitest";
-import { version } from "../package.json";
+import { spawnSync } from "node:child_process";
 import { mkdtemp, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { spawnSync } from "node:child_process";
+import { afterEach, expect, test } from "vitest";
+import { version } from "../package.json";
 
 const directories: string[] = [];
 // the published bin, built by the test script first

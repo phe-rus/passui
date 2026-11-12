@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useSyncExternalStore } from "react";
-import { Button } from "../button/button";
 import { spring } from "../../motion/transitions";
+import { Button } from "../button/button";
 import {
 	advanceDialogQueue,
 	getDialog,

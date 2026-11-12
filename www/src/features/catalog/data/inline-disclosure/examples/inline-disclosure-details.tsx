@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { InlineDisclosure } from "@passui/react/inline-disclosure";
 import { Button } from "@passui/react/button";
+import { InlineDisclosure } from "@passui/react/inline-disclosure";
+import { useState } from "react";
 
 export function InlineDisclosureDetails() {
 	const [open, setOpen] = useState(true);

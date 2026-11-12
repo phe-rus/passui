@@ -1,11 +1,11 @@
 import {
-	FieldInput,
 	FieldCheckbox,
-	FieldTextarea,
-	FieldSwitch,
+	FieldInput,
 	FieldOtp,
+	FieldSwitch,
+	FieldTextarea,
 } from "../../form-fields/fields";
-import { FieldRadioCard, FieldMultiselect } from "../../form-fields/selection";
+import { FieldMultiselect, FieldRadioCard } from "../../form-fields/selection";
 import { FieldAvatar } from "./avatar";
 
 export const fields = {
@@ -19,11 +19,11 @@ export const fields = {
 	otp: FieldOtp,
 };
 
-export * from "./input";
-export * from "./checkbox";
-export * from "./textarea";
-export * from "./switch";
-export * from "./radio-card";
-export * from "./multiselect";
 export * from "./avatar";
+export * from "./checkbox";
+export * from "./input";
+export * from "./multiselect";
 export * from "./otp";
+export * from "./radio-card";
+export * from "./switch";
+export * from "./textarea";

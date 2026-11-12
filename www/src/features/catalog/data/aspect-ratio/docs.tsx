@@ -1,9 +1,9 @@
 import { AspectRatio, type AspectRatioProps } from "@passui/react/aspect-ratio";
 import { defineDocs } from "../types";
-import { AspectRatioUsage } from "./examples/aspect-ratio-usage";
-import { AspectRatioShowcase } from "./examples/aspect-ratio-showcase";
 import { AspectRatioPortrait } from "./examples/aspect-ratio-portrait";
+import { AspectRatioShowcase } from "./examples/aspect-ratio-showcase";
 import { AspectRatioSquare } from "./examples/aspect-ratio-square";
+import { AspectRatioUsage } from "./examples/aspect-ratio-usage";
 export const aspectRatioDocs = defineDocs<Pick<AspectRatioProps, "ratio">>()({
 	slug: "aspect-ratio",
 	name: "AspectRatio",

@@ -1,14 +1,14 @@
-import { createElement } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 import {
 	createMemoryHistory,
 	createRootRoute,
 	createRouter,
 	RouterProvider,
 } from "@tanstack/react-router";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
-import { getCatalog } from "@/features/catalog/lib/get-catalog";
 import { DocsNav } from "@/features/catalog/components/docs-nav";
+import { getCatalog } from "@/features/catalog/lib/get-catalog";
 
 async function renderNavigation(path = "/") {
 	const routeTree = createRootRoute({ component: DocsNav });

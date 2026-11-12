@@ -1,7 +1,7 @@
 import { type AccentColors, accents, defaultAccent } from "./accent";
 import { type ColorScheme, dark, light } from "./color";
 import { radius, space } from "./layout";
-import { duration, easing } from "./motion";
+import { duration, easing, springs, springToLinear } from "./motion";
 import { fontFamily, minimumTextSize, textStyles } from "./typography";
 
 const kebab = (key: string) =>
@@ -19,6 +19,16 @@ function textStyleVars(): string[] {
 		return [
 			`  --text-${kebab(name)}: ${scaled(style.size)};`,
 			`  --leading-${kebab(name)}: ${scaled(style.lineHeight)};`,
+		];
+	});
+}
+
+function springVars(): string[] {
+	return Object.entries(springs).flatMap(([name, spring]) => {
+		const { durationMs, easing: curve } = springToLinear(spring);
+		return [
+			`  --spring-${name}: ${curve};`,
+			`  --spring-${name}-duration: ${durationMs}ms;`,
 		];
 	});
 }
@@ -63,6 +73,7 @@ export function renderThemeCss(): string {
 		...Object.entries(space).map(([k, v]) => `  --space-${k}: ${v}px;`),
 		...Object.entries(duration).map(([k, v]) => `  --duration-${k}: ${v}ms;`),
 		...Object.entries(easing).map(([k, v]) => `  --ease-${k}: ${v};`),
+		...springVars(),
 		"}",
 		"",
 		// Native controls, scrollbars and form fills follow the same appearance.

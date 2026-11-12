@@ -1,20 +1,20 @@
-import { afterEach, describe, expect, test } from "vitest";
 import {
-	mkdtemp,
-	readFile,
-	writeFile,
 	mkdir,
-	symlink,
+	mkdtemp,
 	readdir,
+	readFile,
 	rm,
+	symlink,
+	writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { afterEach, describe, expect, test } from "vitest";
 import {
 	detectManager,
+	type Options,
 	planProject,
 	writePlan,
-	type Options,
 } from "../src/project";
 
 const directories: string[] = [];

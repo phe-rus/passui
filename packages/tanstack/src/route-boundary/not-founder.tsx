@@ -1,7 +1,7 @@
-import { Link, useRouter } from "@tanstack/react-router";
 import { Button, buttonStyle } from "@passui/react/button";
-import type { PropsWithChildren } from "react";
 import { cn } from "@passui/react/cn";
+import { Link, useRouter } from "@tanstack/react-router";
+import type { PropsWithChildren } from "react";
 
 type NotFoundProps = PropsWithChildren;
 

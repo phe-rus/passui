@@ -1,10 +1,10 @@
-import { PickerDetails } from "./examples/picker-details";
+import { Picker } from "@passui/react/picker";
 import { useState } from "react";
 import { defineDocs } from "../types";
+import { PickerDetails } from "./examples/picker-details";
 import { PickerSearchable } from "./examples/picker-searchable";
 import { PickerShowcase } from "./examples/picker-showcase";
 import { PickerUsage } from "./examples/picker-usage";
-import { Picker } from "@passui/react/picker";
 
 type DemoProps = { label: string; searchable?: boolean; disabled?: boolean };
 

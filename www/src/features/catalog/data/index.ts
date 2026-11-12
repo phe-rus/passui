@@ -1,3 +1,3 @@
 export * from "./registry";
-export * from "./types";
 export * from "./snippet";
+export * from "./types";

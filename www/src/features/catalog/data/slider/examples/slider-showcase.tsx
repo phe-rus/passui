@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Slider } from "@passui/react/slider";
+import { useState } from "react";
 
 export function SliderShowcase() {
 	const [brightness, setBrightness] = useState(65);

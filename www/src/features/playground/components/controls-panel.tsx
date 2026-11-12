@@ -1,13 +1,13 @@
 import {
 	LabeledContent,
-	Slider,
 	Picker,
 	SegmentedControl,
+	Slider,
 	TextField,
 	Toggle,
 } from "@passui/react";
-import type { AnyControl, RegisteredDocs } from "@/features/catalog/data";
 import type { ControlValue, PropValues } from "@/features/catalog";
+import type { AnyControl, RegisteredDocs } from "@/features/catalog/data";
 
 type ControlsPanelProps = {
 	docs: RegisteredDocs;

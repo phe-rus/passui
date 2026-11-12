@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Stepper } from "@passui/react/stepper";
+import { useState } from "react";
 
 export function StepperUsage() {
 	const [copies, setCopies] = useState(1);

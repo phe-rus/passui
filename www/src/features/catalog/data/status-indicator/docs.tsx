@@ -1,9 +1,9 @@
-import { StatusIndicatorLive } from "./examples/status-indicator-live";
-import { StatusIndicatorStates } from "./examples/status-indicator-states";
-import { defineDocs } from "../types";
-import { StatusIndicatorShowcase } from "./examples/status-indicator-showcase";
-import { StatusIndicatorUsage } from "./examples/status-indicator-usage";
 import { StatusIndicator } from "@passui/react";
+import { defineDocs } from "../types";
+import { StatusIndicatorLive } from "./examples/status-indicator-live";
+import { StatusIndicatorShowcase } from "./examples/status-indicator-showcase";
+import { StatusIndicatorStates } from "./examples/status-indicator-states";
+import { StatusIndicatorUsage } from "./examples/status-indicator-usage";
 
 type DemoProps = {
 	state: "saved" | "syncing" | "offline";

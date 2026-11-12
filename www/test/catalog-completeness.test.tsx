@@ -3,9 +3,9 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vitest";
 import type { RegisteredDocs } from "@/features/catalog/data";
-import type { PropValues } from "@/features/catalog/lib/resolve-props";
 import { getCatalog } from "@/features/catalog/lib/get-catalog";
 import { getExampleSource } from "@/features/catalog/lib/get-example-source";
+import type { PropValues } from "@/features/catalog/lib/resolve-props";
 import { resolveProps } from "@/features/catalog/lib/resolve-props";
 import { getSnippet } from "@/features/playground/lib/get-snippet";
 

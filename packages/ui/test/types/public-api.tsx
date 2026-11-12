@@ -1,4 +1,3 @@
-import { createRef } from "react";
 import { Button, type ButtonVariant } from "@passui/react/button";
 import { IconButton } from "@passui/react/icon-button";
 import {
@@ -13,6 +12,7 @@ import {
 	SegmentedControl,
 	type SegmentedControlProps,
 } from "@passui/react/segmented-control";
+import { createRef } from "react";
 
 /** Compiled by the package typecheck through consumer-facing export paths. */
 export function publicApiTypes() {

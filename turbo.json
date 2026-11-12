@@ -3,47 +3,22 @@
 	"ui": "tui",
 	"tasks": {
 		"dev": {
+			"dependsOn": ["^build"],
 			"cache": false,
 			"persistent": true
 		},
 		"build": {
 			"dependsOn": ["^build"],
-			"outputs": ["dist/**"]
+			"outputs": ["dist/**", "theme.css"]
 		},
 		"typecheck": {
-			"dependsOn": ["^typecheck"]
-		},
-		"lint": {
-			"dependsOn": ["^lint"]
-		},
-		"format": {
-			"cache": false
-		},
-		"check": {
-			"dependsOn": ["lint", "format"]
+			"dependsOn": ["^build"]
 		},
 		"test": {
 			"dependsOn": ["^build"]
 		},
 		"publish:check": {
-			"dependsOn": ["^publish:check"]
-		},
-		"@passui/tokens#build": {
-			"outputs": ["theme.css"]
-		},
-		"@passui/react#build": {
-			"dependsOn": ["^build"],
-			"outputs": ["dist/types/**"]
-		},
-		"@passui/react#typecheck": {
-			"dependsOn": ["build", "^typecheck"]
-		},
-		"@passui/tanstack#build": {
-			"dependsOn": ["^build"],
-			"outputs": []
-		},
-		"passui#typecheck": {
-			"dependsOn": ["build", "^typecheck"]
+			"dependsOn": ["build"]
 		}
 	}
 }

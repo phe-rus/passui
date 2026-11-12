@@ -1,4 +1,4 @@
-import { Fragment, type ComponentProps, type ReactNode } from "react";
+import { type ComponentProps, Fragment, type ReactNode } from "react";
 import { cn } from "../../lib/class-names";
 
 export type CodeBlockSize = "sm" | "md" | "lg";

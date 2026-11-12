@@ -1,13 +1,13 @@
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cn } from "../../lib/class-names";
-import { PendingSpinner } from "./pending-spinner";
-import { usePendingIndicator } from "./use-pending-indicator";
 import {
-	buttonSizes,
-	buttonVariants,
 	type ButtonSize,
 	type ButtonVariant,
+	buttonSizes,
+	buttonVariants,
 } from "./button-styles";
+import { PendingSpinner } from "./pending-spinner";
+import { usePendingIndicator } from "./use-pending-indicator";
 
 export type { ButtonSize, ButtonVariant };
 

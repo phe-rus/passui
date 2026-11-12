@@ -1,10 +1,23 @@
-import { HugeiconsIcon } from "@hugeicons/react";
 import {
 	Cancel01Icon,
 	ChevronDownIcon,
 	ChevronUpIcon,
 	Loading03Icon,
 } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { SearchField } from "@passui/react";
+import { Button } from "@passui/react/button";
+import { cn } from "@passui/react/cn";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableFooter,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@passui/react/table";
+import { Toggle } from "@passui/react/toggle";
 import type {
 	ColumnDef,
 	ColumnFiltersState,
@@ -22,9 +35,9 @@ import {
 	filterFn_arrIncludes,
 	filterFn_arrIncludesSome,
 	filterFn_equals,
+	filterFn_includesString,
 	filterFn_inDateRange,
 	filterFn_inNumberRange,
-	filterFn_includesString,
 	flexRender,
 	globalFilteringFeature,
 	rowPaginationFeature,
@@ -38,19 +51,6 @@ import {
 } from "@tanstack/react-table";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "@passui/react/button";
-import { Toggle } from "@passui/react/toggle";
-import { SearchField } from "@passui/react";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableFooter,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@passui/react/table";
-import { cn } from "@passui/react/cn";
 import { FilterRow } from "./filter-row";
 import { DataTablePagination } from "./pagination";
 import { columnIdOf, getColumnLabel, isArrayValuedColumn } from "./utils";

@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { RadioGroup } from "@passui/react/radio-group";
+import { useState } from "react";
 import { defineDocs } from "../types";
-import { RadioGroupUsage } from "./examples/radio-group-usage";
-import { RadioGroupShowcase } from "./examples/radio-group-showcase";
 import { RadioGroupCompact } from "./examples/radio-group-compact";
 import { RadioGroupDisabled } from "./examples/radio-group-disabled";
+import { RadioGroupShowcase } from "./examples/radio-group-showcase";
+import { RadioGroupUsage } from "./examples/radio-group-usage";
+
 function Demo({ label }: { label: string }) {
 	const options = [
 		{ value: "system", label: "System" },

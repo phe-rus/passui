@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { CodeView, type CodeLang } from "@/features/playground";
+import { type CodeLang, CodeView } from "@/features/playground";
 
 /** A paragraph of guide text. */
 export function Prose({ children }: { children: ReactNode }) {

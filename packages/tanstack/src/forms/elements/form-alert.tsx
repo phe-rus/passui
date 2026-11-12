@@ -1,7 +1,7 @@
 import { Alert02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import type { ReactNode } from "react";
 import { cn } from "@passui/react/cn";
+import type { ReactNode } from "react";
 
 /** A form-level error people can't miss: announced, tinted, and gently shaken in. */
 export function FormAlert({

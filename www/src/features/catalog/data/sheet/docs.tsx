@@ -1,11 +1,11 @@
-import { SheetChoices } from "./examples/sheet-choices";
-import { useState } from "react";
 import { Button } from "@passui/react/button";
+import { Sheet } from "@passui/react/sheet";
+import { useState } from "react";
 import { defineDocs } from "../types";
+import { SheetChoices } from "./examples/sheet-choices";
 import { SheetShare } from "./examples/sheet-share";
 import { SheetShowcase } from "./examples/sheet-showcase";
 import { SheetUsage } from "./examples/sheet-usage";
-import { Sheet } from "@passui/react/sheet";
 
 type DemoProps = {
 	label: string;

@@ -1,8 +1,8 @@
-import { clampRange as clamp } from "../../lib/range-value";
 // Adapted from Bencho. See THIRD_PARTY_NOTICES.md for the MIT notice.
 import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "../../hooks/use-media-query";
 import { cn } from "../../lib/class-names";
+import { clampRange as clamp } from "../../lib/range-value";
 
 /* ══ Wake slider ══════════════════════════════════════════
    A range with no thumb: a row of thin bars, solid up to the

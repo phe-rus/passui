@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import { version } from "../package.json";
-import { parseArgs } from "node:util";
 import { resolve } from "node:path";
+import { parseArgs } from "node:util";
+import { version } from "../package.json";
 import {
 	installProject,
-	planProject,
-	writePlan,
 	type Options,
 	type PackageManager,
+	planProject,
+	writePlan,
 } from "./project";
 
 const help = `Passui project setup

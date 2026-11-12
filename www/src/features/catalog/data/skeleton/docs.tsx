@@ -1,9 +1,9 @@
 import { Skeleton } from "@passui/react/skeleton";
 import { defineDocs } from "../types";
-import { SkeletonUsage } from "./examples/skeleton-usage";
+import { SkeletonProfile } from "./examples/skeleton-profile";
 import { SkeletonShowcase } from "./examples/skeleton-showcase";
 import { SkeletonText } from "./examples/skeleton-text";
-import { SkeletonProfile } from "./examples/skeleton-profile";
+import { SkeletonUsage } from "./examples/skeleton-usage";
 
 export const skeletonDocs = defineDocs<{ label: string }>()({
 	slug: "skeleton",

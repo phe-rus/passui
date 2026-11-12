@@ -1,9 +1,9 @@
 import { CodeBlock, type CodeBlockProps } from "@passui/react/code-block";
 import { defineDocs } from "../types";
-import { CodeBlockUsage } from "./examples/code-block-usage";
-import { CodeBlockShowcase } from "./examples/code-block-showcase";
-import { CodeBlockPlain } from "./examples/code-block-plain";
 import { CodeBlockMultiline } from "./examples/code-block-multiline";
+import { CodeBlockPlain } from "./examples/code-block-plain";
+import { CodeBlockShowcase } from "./examples/code-block-showcase";
+import { CodeBlockUsage } from "./examples/code-block-usage";
 export const codeBlockDocs = defineDocs<CodeBlockProps>()({
 	slug: "code-block",
 	name: "CodeBlock",

@@ -1,10 +1,10 @@
 import {
 	Command,
-	CommandInput,
-	CommandList,
-	CommandGroup,
-	CommandItem,
 	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
 } from "@passui/react/command";
 import { toast } from "@passui/react/toast";
 

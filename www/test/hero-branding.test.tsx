@@ -1,11 +1,11 @@
-import { createElement } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 import {
 	createMemoryHistory,
 	createRootRoute,
 	createRouter,
 	RouterProvider,
 } from "@tanstack/react-router";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
 import { Hero } from "@/features/home/components/hero";
 

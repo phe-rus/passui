@@ -1,9 +1,9 @@
 import {
 	Button,
-	spring,
 	Chip,
 	SearchField,
 	SwatchPicker,
+	spring,
 	Toggle,
 	toast,
 } from "@passui/react";
@@ -12,8 +12,8 @@ import { accents } from "@passui/react/tokens";
 import { motion } from "motion/react";
 import { type ReactNode, useState } from "react";
 import { accentNames } from "@/features/settings";
-import type { AccentCycle } from "../types";
 import { accentOrder } from "../lib/use-accent-cycle";
+import type { AccentCycle } from "../types";
 
 type TileProps = {
 	title: string;

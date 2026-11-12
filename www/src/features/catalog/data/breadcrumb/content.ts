@@ -1,5 +1,5 @@
-import type { breadcrumbDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { breadcrumbDocs } from "..";
 export const breadcrumbContent: ComponentContent<typeof breadcrumbDocs> = {
 	summary: "Show the current page within a hierarchy of linked ancestors.",
 	usage: "Show the current page within a hierarchy of linked ancestors.",

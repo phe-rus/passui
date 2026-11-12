@@ -1,12 +1,12 @@
 import {
+	type ComponentProps,
 	createContext,
 	useCallback,
 	useContext,
+	useEffect,
 	useId,
 	useRef,
 	useState,
-	useEffect,
-	type ComponentProps,
 } from "react";
 import { cn } from "../../lib/class-names";
 

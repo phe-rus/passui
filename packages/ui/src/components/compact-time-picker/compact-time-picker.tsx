@@ -1,11 +1,11 @@
-import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure";
-import { AnchoredSurface } from "../popover/anchored-surface";
 import { type KeyboardEvent, useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure";
 import { ClockIcon } from "../../icons/icons";
 import { cn } from "../../lib/class-names";
 import { haptic } from "../../lib/haptics";
-import { pickerTriggerStyle, type PickerSize } from "../picker/picker-trigger";
+import { type PickerSize, pickerTriggerStyle } from "../picker/picker-trigger";
+import { AnchoredSurface } from "../popover/anchored-surface";
 import {
 	formatTime,
 	fromTwelveHours,

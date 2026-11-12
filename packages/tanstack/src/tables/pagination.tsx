@@ -1,13 +1,13 @@
-import { IconButton } from "@passui/react/icon-button";
-import { HugeiconsIcon } from "@hugeicons/react";
 import {
 	ChevronFirstIcon,
 	ChevronLastIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@hugeicons/core-free-icons";
-import type { ReactTable, RowData } from "@tanstack/react-table";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Picker } from "@passui/react";
+import { IconButton } from "@passui/react/icon-button";
+import type { ReactTable, RowData } from "@tanstack/react-table";
 import type { DataTableFeatures } from "./data-table";
 
 type DataTablePaginationProps<TData extends RowData> = {

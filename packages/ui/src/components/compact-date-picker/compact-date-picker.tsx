@@ -1,5 +1,3 @@
-import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure";
-import { AnchoredSurface } from "../popover/anchored-surface";
 import {
 	type KeyboardEvent,
 	useEffect,
@@ -9,6 +7,7 @@ import {
 	useState,
 } from "react";
 import { createPortal } from "react-dom";
+import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure";
 import {
 	CalendarIcon,
 	ChevronLeftIcon,
@@ -17,7 +16,8 @@ import {
 import { cn } from "../../lib/class-names";
 import { haptic } from "../../lib/haptics";
 import { IconButton } from "../button/icon-button";
-import { pickerTriggerStyle, type PickerSize } from "../picker/picker-trigger";
+import { type PickerSize, pickerTriggerStyle } from "../picker/picker-trigger";
+import { AnchoredSurface } from "../popover/anchored-surface";
 import {
 	addDays,
 	addMonths,

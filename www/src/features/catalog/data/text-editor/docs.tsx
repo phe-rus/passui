@@ -1,11 +1,11 @@
-import { TextEditorComment } from "./examples/text-editor-comment";
+import { TextEditor } from "@passui/react/text-editor";
 import type { ComponentProps } from "react";
 import { useState } from "react";
 import { defineDocs } from "../types";
+import { TextEditorComment } from "./examples/text-editor-comment";
 import { TextEditorCount } from "./examples/text-editor-count";
 import { TextEditorShowcase } from "./examples/text-editor-showcase";
 import { TextEditorUsage } from "./examples/text-editor-usage";
-import { TextEditor } from "@passui/react/text-editor";
 
 type TextEditorProps = ComponentProps<typeof TextEditor>;
 type DemoProps = Pick<TextEditorProps, "placeholder" | "disabled" | "readOnly">;

@@ -1,3 +1,4 @@
+import { Toggle } from "@passui/react/toggle";
 import type { ComponentProps } from "react";
 import { useState } from "react";
 import { defineDocs } from "../types";
@@ -5,7 +6,6 @@ import { ToggleCheckboxes } from "./examples/toggle-checkboxes";
 import { ToggleSettings } from "./examples/toggle-settings";
 import { ToggleShowcase } from "./examples/toggle-showcase";
 import { ToggleUsage } from "./examples/toggle-usage";
-import { Toggle } from "@passui/react/toggle";
 
 type ToggleProps = ComponentProps<typeof Toggle>;
 type DemoProps = Omit<ToggleProps, "checked" | "onChange">;

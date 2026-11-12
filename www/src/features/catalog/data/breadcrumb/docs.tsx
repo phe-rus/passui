@@ -1,9 +1,9 @@
 import { Breadcrumb } from "@passui/react/breadcrumb";
 import { defineDocs } from "../types";
-import { BreadcrumbUsage } from "./examples/breadcrumb-usage";
-import { BreadcrumbShowcase } from "./examples/breadcrumb-showcase";
-import { BreadcrumbShort } from "./examples/breadcrumb-short";
 import { BreadcrumbCurrent } from "./examples/breadcrumb-current";
+import { BreadcrumbShort } from "./examples/breadcrumb-short";
+import { BreadcrumbShowcase } from "./examples/breadcrumb-showcase";
+import { BreadcrumbUsage } from "./examples/breadcrumb-usage";
 
 export const breadcrumbDocs = defineDocs<{ label: string }>()({
 	slug: "breadcrumb",

@@ -1,5 +1,5 @@
-import type { contentUnavailableViewDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { contentUnavailableViewDocs } from "..";
 export const contentUnavailableViewContent: ComponentContent<
 	typeof contentUnavailableViewDocs
 > = {

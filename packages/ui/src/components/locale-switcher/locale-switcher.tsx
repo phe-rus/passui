@@ -1,9 +1,9 @@
-import { getNativeLanguageName } from "../../lib/language";
-import { cn } from "../../lib/class-names";
 import { motion, useDragControls, useMotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useDismiss } from "../../hooks/use-dismiss";
 import { CheckIcon, GlobeIcon } from "../../icons/icons";
+import { cn } from "../../lib/class-names";
+import { getNativeLanguageName } from "../../lib/language";
 import { Popover } from "../popover";
 
 export type LocaleSwitcherSize = "sm" | "md" | "lg";

@@ -1,8 +1,8 @@
 import { Divider, type DividerProps } from "@passui/react/divider";
 import { defineDocs } from "../types";
-import { DividerUsage } from "./examples/divider-usage";
-import { DividerShowcase } from "./examples/divider-showcase";
 import { DividerSections } from "./examples/divider-sections";
+import { DividerShowcase } from "./examples/divider-showcase";
+import { DividerUsage } from "./examples/divider-usage";
 import { DividerVertical } from "./examples/divider-vertical";
 
 export const dividerDocs = defineDocs<DividerProps>()({

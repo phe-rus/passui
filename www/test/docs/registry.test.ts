@@ -1,6 +1,6 @@
-import { describe, expect, test } from "vitest";
 import { existsSync, globSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { describe, expect, test } from "vitest";
 import { registry } from "../../src/features/catalog/data/registry";
 
 const root = join(import.meta.dirname, "../..");

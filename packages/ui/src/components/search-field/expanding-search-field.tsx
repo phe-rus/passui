@@ -1,3 +1,4 @@
+import { springs } from "@passui/tokens/motion";
 import {
 	type InputHTMLAttributes,
 	type Ref,
@@ -9,7 +10,6 @@ import {
 import { useMediaQuery } from "../../hooks/use-media-query";
 import { SearchIcon } from "../../icons/icons";
 import { cn } from "../../lib/class-names";
-import { springs } from "@passui/tokens/motion";
 
 /** One object: the field stays inside the pill, and the lens never moves within it. */
 export function ExpandingSearchField({

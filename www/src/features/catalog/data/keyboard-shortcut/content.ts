@@ -1,5 +1,5 @@
-import type { keyboardShortcutDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { keyboardShortcutDocs } from "..";
 export const keyboardShortcutContent: ComponentContent<
 	typeof keyboardShortcutDocs
 > = {

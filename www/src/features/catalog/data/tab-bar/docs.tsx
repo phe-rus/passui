@@ -1,20 +1,20 @@
-import { Sheet } from "@passui/react/sheet";
+import { TabBar } from "@passui/react";
+import { HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons";
 import {
 	SearchList,
-	SearchListField,
-	SearchListResults,
-	SearchListItem,
 	SearchListEmpty,
+	SearchListField,
+	SearchListItem,
+	SearchListResults,
 } from "@passui/react/search-list";
-import { HomeIcon, LibraryIcon, PersonIcon } from "@passui/react/icons";
-import { TabBarFiveTabs } from "./examples/tab-bar-five-tabs";
+import { Sheet } from "@passui/react/sheet";
 
 import { useState } from "react";
 import { defineDocs } from "../types";
+import { TabBarFiveTabs } from "./examples/tab-bar-five-tabs";
 import { TabBarMinimize } from "./examples/tab-bar-minimize";
 import { TabBarShowcase } from "./examples/tab-bar-showcase";
 import { TabBarUsage } from "./examples/tab-bar-usage";
-import { TabBar } from "@passui/react";
 
 // The tabs and the search button are objects, so the playground picks
 // the active tab and switches search on; the snippet writes the rest.

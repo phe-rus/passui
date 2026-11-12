@@ -1,9 +1,9 @@
-import { defineDocs } from "../types";
 import { InlineDisclosure } from "@passui/react/inline-disclosure";
-import { InlineDisclosureUsage } from "./examples/inline-disclosure-usage";
-import { InlineDisclosureShowcase } from "./examples/inline-disclosure-showcase";
-import { InlineDisclosureSettings } from "./examples/inline-disclosure-settings";
+import { defineDocs } from "../types";
 import { InlineDisclosureDetails } from "./examples/inline-disclosure-details";
+import { InlineDisclosureSettings } from "./examples/inline-disclosure-settings";
+import { InlineDisclosureShowcase } from "./examples/inline-disclosure-showcase";
+import { InlineDisclosureUsage } from "./examples/inline-disclosure-usage";
 
 export const inlineDisclosureDocs = defineDocs<{
 	open: boolean;

@@ -1,5 +1,5 @@
-import type { radioGroupDocs } from "..";
 import type { ComponentContent } from "../../types";
+import type { radioGroupDocs } from "..";
 export const radioGroupContent: ComponentContent<typeof radioGroupDocs> = {
 	summary: "Compare a small set of mutually exclusive choices.",
 	usage: "Compare a small set of mutually exclusive choices.",

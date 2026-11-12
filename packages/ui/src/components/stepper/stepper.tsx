@@ -1,7 +1,7 @@
 import { useId } from "react";
-import { Button, type ButtonSize } from "../button/button";
 import { cn } from "../../lib/class-names";
 import { clampRange, stepRange } from "../../lib/range-value";
+import { Button, type ButtonSize } from "../button/button";
 import { RollingDigit } from "./rolling-digit";
 
 export type StepperSize = "sm" | "md" | "lg";

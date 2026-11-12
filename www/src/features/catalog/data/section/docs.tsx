@@ -1,10 +1,9 @@
+import { LabeledContent, Section } from "@passui/react";
+import { defineDocs } from "../types";
 import { SectionActions } from "./examples/section-actions";
 import { SectionGroups } from "./examples/section-groups";
-import { defineDocs } from "../types";
-import { LabeledContent } from "@passui/react";
 import { SectionShowcase } from "./examples/section-showcase";
 import { SectionUsage } from "./examples/section-usage";
-import { Section } from "@passui/react";
 
 type DemoProps = { title?: string; footer?: string };
 

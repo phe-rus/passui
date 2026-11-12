@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Accordion } from "@passui/react/accordion";
+import { useState } from "react";
 
 export function AccordionFaq() {
 	const [value, setValue] = useState<string | null>(null);

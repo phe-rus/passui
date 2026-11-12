@@ -1,5 +1,5 @@
-import { afterEach, expect, test, vi } from "vitest";
 import { copyText } from "@passui/react/clipboard";
+import { afterEach, expect, test, vi } from "vitest";
 
 afterEach(() => vi.unstubAllGlobals());
 

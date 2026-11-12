@@ -1,3 +1,4 @@
+import { TabBar } from "@passui/react";
 import {
 	CalendarIcon,
 	HomeIcon,
@@ -5,8 +6,6 @@ import {
 	LibraryIcon,
 	PersonIcon,
 } from "@passui/react/icons";
-
-import { TabBar } from "@passui/react";
 import { useState } from "react";
 
 const tabs = [
