@@ -7,6 +7,9 @@
 - Add `Drawer` and `Sheet` at `@passui/react/drawer` and `@passui/react/sheet`, built on `@zag-js/drawer` with the Vaul curve over 500 ms, swipe to dismiss, snap points and nested drawers. `Sheet` takes a `side`. `Drawer` is a bottom sheet with a `DrawerHandle`.
 - Page scaling behind a `Drawer` is opt in: put `data-passui-page` on your app root. Under reduced motion it is off.
 - `Dialog`, `Sheet` and `Drawer` size themselves from `--visual-viewport-height`, so a focused input stays above the soft keyboard.
+- Add `Popover`, `Tooltip` and `DropdownMenu` at `@passui/react/popover`, `@passui/react/tooltip` and `@passui/react/dropdown-menu`, built on `@zag-js/popover`, `@zag-js/tooltip` and `@zag-js/menu` with CSS enter and exit transitions. Tooltips open on hover and focus only. Dropdown menus have checkbox and radio items, groups, shortcuts, typeahead and submenus.
+- The old `Popover` moves to `@passui/react/legacy/popover` and is `@deprecated` until 0.3.0. The root export `Popover` is still the old one.
+- The docs site pages for Button, Dialog, Alert Dialog, Drawer, Sheet, Popover, Tooltip and Dropdown Menu render live demos directly (no iframe) with code highlighted on the server.
 - The old `Sheet` moves to `@passui/react/legacy/sheet` and is `@deprecated` until 0.3.0. The root export `Sheet` is now the new one, and the old props type is `LegacySheetProps`.
 - The old store based `Dialog` moves to `@passui/react/legacy/dialog` and is `@deprecated` until 0.3.0. `DialogHost` and `confirmDialog` keep working from `@passui/react`.
 

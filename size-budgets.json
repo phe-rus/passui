@@ -11,6 +11,9 @@
 		"dialog": 21100,
 		"alert-dialog": 21200,
 		"drawer": 32400,
-		"sheet": 31900
+		"sheet": 31900,
+		"popover": 32700,
+		"tooltip": 22400,
+		"dropdown-menu": 36400
 	}
 }

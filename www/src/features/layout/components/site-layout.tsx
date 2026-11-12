@@ -1,14 +1,23 @@
-import { ContextMenuHost, DialogHost, TooltipHost } from "@passui/react";
 import { cn } from "@passui/react/cn";
 import { IconButton } from "@passui/react/icon-button";
 import { CloseIcon, MenuIcon } from "@passui/react/icons";
 import { buttonStyle } from "@passui/react/legacy/button";
 import { Sheet } from "@passui/react/legacy/sheet";
 import { Toaster } from "@passui/react/toaster";
-import { Link, useLocation } from "@tanstack/react-router";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { Link, useLocation, useMatches } from "@tanstack/react-router";
+import {
+	lazy,
+	type ReactNode,
+	Suspense,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { DocsSearch } from "./docs-search";
 import { PassuiMark } from "./passui-mark";
+
+/** The old store based overlays live in the root barrel, so lean pages never load them. */
+const LegacyHosts = lazy(() => import("./legacy-hosts"));
 
 function Mark() {
 	return (
@@ -38,6 +47,9 @@ type SiteLayoutProps = {
 /** The site's frame: a top bar, the page, and a footer. */
 export function SiteLayout({ children }: SiteLayoutProps) {
 	const location = useLocation({ select: (state) => state.href });
+	const lean = useMatches({
+		select: (matches) => matches.some((match) => match.staticData.lean),
+	});
 	const top = useRef<HTMLDivElement>(null);
 	const [scrolled, setScrolled] = useState(false);
 	// the site's links on phones, where the bar has no room for them
@@ -211,9 +223,11 @@ export function SiteLayout({ children }: SiteLayoutProps) {
 				</div>
 			</footer>
 			<Toaster />
-			<ContextMenuHost />
-			<DialogHost />
-			<TooltipHost />
+			{lean ? null : (
+				<Suspense fallback={null}>
+					<LegacyHosts />
+				</Suspense>
+			)}
 		</div>
 	);
 }

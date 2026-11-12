@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getLlmsTxt } from "@/features/ai";
+import { getLlmsTxt } from "@/features/ai/lib/get-ai-context";
 
 export const Route = createFileRoute("/llms.txt")({
 	server: {

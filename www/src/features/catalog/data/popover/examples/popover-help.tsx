@@ -1,6 +1,6 @@
 import { IconButton } from "@passui/react/icon-button";
 import { InfoIcon } from "@passui/react/icons";
-import { Popover } from "@passui/react/popover";
+import { Popover } from "@passui/react/legacy/popover";
 import { TextField } from "@passui/react/text-field";
 import { useState } from "react";
 

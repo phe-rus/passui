@@ -7,6 +7,14 @@ import { axe } from "vitest-axe";
 	globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
+// jsdom has no ResizeObserver, which Zag's positioning observes.
+if (typeof globalThis.ResizeObserver === "undefined")
+	globalThis.ResizeObserver = class {
+		observe() {}
+		unobserve() {}
+		disconnect() {}
+	};
+
 /** Lets Zag effects and animation frames run. */
 export async function settle() {
 	await act(async () => {
@@ -26,7 +34,11 @@ export async function expectNoA11yViolations(
 	if (portal) await settle();
 	// Overlays render into document.body, so they are scanned from there.
 	const results = await axe(portal ? document.body : host, {
-		rules: { "color-contrast": { enabled: false } },
+		rules: {
+			"color-contrast": { enabled: false },
+			// A lone component is not a whole page, so landmarks do not apply.
+			region: { enabled: false },
+		},
 	});
 	const messages = results.violations.map((v) => `${v.id}: ${v.help}`);
 	await act(async () => root.unmount());

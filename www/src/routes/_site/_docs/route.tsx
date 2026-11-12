@@ -9,7 +9,7 @@ import {
 	carriedSettings,
 	docsSettingsDefaults,
 	docsSettingsSchema,
-} from "@/features/settings";
+} from "@/features/settings/types";
 
 export const Route = createFileRoute("/_site/_docs")({
 	validateSearch: docsSettingsSchema,

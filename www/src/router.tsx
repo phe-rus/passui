@@ -16,6 +16,10 @@ export function getRouter() {
 }
 
 declare module "@tanstack/react-router" {
+	interface StaticDataRouteOption {
+		/** Docs pages that need none of the legacy store based overlay hosts. */
+		lean?: boolean;
+	}
 	interface Register {
 		router: ReturnType<typeof getRouter>;
 	}

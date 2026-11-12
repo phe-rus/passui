@@ -54,16 +54,9 @@
 		},
 		"group": "Controls",
 		"icon": "tap",
-		"exampleIds": [
-			"variants",
-			"sizes",
-			"with-icon",
-			"icon",
-			"disabled",
-			"link"
-		],
+		"exampleIds": ["usage", "variants", "sizes", "link"],
 		"content": {
-			"summary": "A pressable control for the actions people take most. Each variant has a little depth, like a well made physical key."
+			"summary": "A native button with six variants and eight sizes. State is plain CSS, so it has no machine and costs about 1 KB."
 		}
 	},
 	{
@@ -205,9 +198,9 @@
 		},
 		"group": "Presentation",
 		"icon": "alert",
-		"exampleIds": ["form", "confirm", "inline"],
+		"exampleIds": ["usage", "form"],
 		"content": {
-			"summary": "A focused question or short form over the page, with a title, an optional description and a footer of actions."
+			"summary": "A focused question or short form over the page, on the Zag dialog machine, with enter and exit transitions that reverse mid flight."
 		}
 	},
 	{
@@ -337,9 +330,9 @@
 		},
 		"group": "Presentation",
 		"icon": "bubble",
-		"exampleIds": ["menu", "help"],
+		"exampleIds": ["usage", "placement"],
 		"content": {
-			"summary": "A glass panel tied to a control, placed within the visible screen, with an optional morph from its trigger."
+			"summary": "A small floating panel beside its trigger, on the Zag popover machine. It flips to stay on screen and grows from its trigger side."
 		}
 	},
 	{
@@ -445,9 +438,9 @@
 		},
 		"group": "Presentation",
 		"icon": "panel",
-		"exampleIds": ["share", "choices"],
+		"exampleIds": ["usage", "sides"],
 		"content": {
-			"summary": "A modal card that rises from the bottom on phones and floats in the middle on larger screens, holding whatever you put in it."
+			"summary": "A panel that slides in from any edge and swipes away, on the Zag drawer machine with the iOS sheet curve over 500 ms."
 		}
 	},
 	{
@@ -633,13 +626,13 @@
 	{
 		"docs": {
 			"slug": "tooltip",
-			"name": "TooltipHost"
+			"name": "Tooltip"
 		},
 		"group": "Presentation",
 		"icon": "help",
-		"exampleIds": ["icon-buttons", "shortcuts"],
+		"exampleIds": ["usage", "neighbours"],
 		"content": {
-			"summary": "A small label that appears on hover for any element with data-tooltip, shown by one host for the whole app."
+			"summary": "A short label on hover or keyboard focus, on the Zag tooltip machine. It never opens on touch and its neighbours skip the delay."
 		}
 	},
 	{
@@ -664,6 +657,42 @@
 		"exampleIds": ["quiet", "disabled"],
 		"content": {
 			"summary": "A compact seeker whose marks briefly rise along the path of a fast drag."
+		}
+	},
+	{
+		"docs": {
+			"slug": "alert-dialog",
+			"name": "Alert Dialog"
+		},
+		"group": "Presentation",
+		"icon": "alert",
+		"exampleIds": ["usage", "confirm"],
+		"content": {
+			"summary": "An interruption that needs an answer, such as confirming a deletion. An outside press does nothing and focus lands on Cancel."
+		}
+	},
+	{
+		"docs": {
+			"slug": "drawer",
+			"name": "Drawer"
+		},
+		"group": "Presentation",
+		"icon": "panel",
+		"exampleIds": ["usage", "snap-points"],
+		"content": {
+			"summary": "A bottom sheet with a grab handle that you drag down to dismiss, on the Zag drawer machine. Resting heights come from snap points."
+		}
+	},
+	{
+		"docs": {
+			"slug": "dropdown-menu",
+			"name": "Dropdown Menu"
+		},
+		"group": "Presentation",
+		"icon": "menu",
+		"exampleIds": ["usage", "options", "submenu"],
+		"content": {
+			"summary": "A list of actions from a button, on the Zag menu machine, with checkbox and radio items, groups, shortcuts and submenus."
 		}
 	}
 ]

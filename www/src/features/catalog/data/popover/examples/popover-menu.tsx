@@ -1,6 +1,6 @@
 import { toast } from "@passui/react";
 import { Button } from "@passui/react/legacy/button";
-import { Popover } from "@passui/react/popover";
+import { Popover } from "@passui/react/legacy/popover";
 
 const actions = ["Duplicate", "Move to folder", "Export as PDF"];
 

@@ -1,6 +1,6 @@
 import { IconButton } from "@passui/react/icon-button";
 import { Button } from "@passui/react/legacy/button";
-import { Popover } from "@passui/react/popover";
+import { Popover } from "@passui/react/legacy/popover";
 import {
 	ProfileImage,
 	ProfileImageContent,

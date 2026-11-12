@@ -53,5 +53,35 @@
 			"src/lib/visual-viewport.ts",
 			"src/ui/sheet.tsx"
 		]
+	},
+	"src/ui/popover.tsx": {
+		"packages": ["@zag-js/popover", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/ui/popover.tsx"
+		]
+	},
+	"src/ui/tooltip.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/tooltip", "react", "react-dom"],
+		"local": [
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/ui/tooltip.tsx"
+		]
+	},
+	"src/ui/dropdown-menu.tsx": {
+		"packages": ["@zag-js/menu", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/ui/dropdown-menu.tsx"
+		]
 	}
 }

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Landing } from "@/features/home";
+import { Landing } from "@/features/home/components/landing";
 import { getPageHead } from "@/features/seo/lib/get-page-head";
 
 export const Route = createFileRoute("/_site/")({

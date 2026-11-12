@@ -36,6 +36,8 @@ export default defineConfig({
 					persistState: true,
 				}),
 				tailwindcss(),
+				// Start always code splits routes: each route's component, error and
+				// not-found views load in their own chunk. Loaders stay in the main chunk.
 				tanstackStart(),
 				babel({
 					exclude: [/node_modules/],

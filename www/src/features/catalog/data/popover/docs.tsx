@@ -3,7 +3,7 @@ import {
 	Popover,
 	type PopoverContentProps,
 	type PopoverOrigin,
-} from "@passui/react/popover";
+} from "@passui/react/legacy/popover";
 import { defineDocs } from "../types";
 import { PopoverHelp } from "./examples/popover-help";
 import { PopoverMenu } from "./examples/popover-menu";
@@ -30,7 +30,7 @@ function PopoverDemo({ origin }: DemoProps) {
 export const popoverDocs = defineDocs<PopoverContentProps>()({
 	slug: "popover",
 	name: "Popover",
-	importPath: "@passui/react/popover",
+	importPath: "@passui/react/legacy/popover",
 	controls: {
 		origin: {
 			kind: "select",

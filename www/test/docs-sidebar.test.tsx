@@ -8,7 +8,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
 import { DocsNav } from "@/features/catalog/components/docs-nav";
-import { getCatalog } from "@/features/catalog/lib/get-catalog";
+import { getNavigationCatalog } from "@/features/catalog/lib/get-navigation";
 
 async function renderNavigation(path = "/") {
 	const routeTree = createRootRoute({ component: DocsNav });
@@ -30,6 +30,6 @@ test("sidebar exposes every component in one alphabetical list without collapsed
 	const links = [...html.matchAll(/href="\/components\/react\/([^"/]+)"/g)].map(
 		(match) => match[1],
 	);
-	expect(links).toEqual(getCatalog().map((entry) => entry.docs.slug));
+	expect(links).toEqual(getNavigationCatalog().map((entry) => entry.docs.slug));
 	expect(html).toContain('aria-current="page"');
 });

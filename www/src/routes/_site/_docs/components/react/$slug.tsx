@@ -7,7 +7,7 @@ import { ComponentNotFound } from "@/features/catalog/components/component-not-f
 import { ComponentPage } from "@/features/catalog/components/component-page";
 import { getNavigationEntry } from "@/features/catalog/lib/get-navigation";
 import { getPageHead } from "@/features/seo/lib/get-page-head";
-import { componentSearchSchema } from "@/features/settings";
+import { componentSearchSchema } from "@/features/settings/types";
 
 export const Route = createFileRoute("/_site/_docs/components/react/$slug")({
 	validateSearch: componentSearchSchema,
