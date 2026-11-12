@@ -121,7 +121,7 @@ export function ExpandingSearchField({
 		<div
 			ref={frame}
 			className={cn(
-				"relative flex h-11 w-full max-w-xs items-center justify-center",
+				"relative flex h-8.5 w-full max-w-xs items-center justify-center",
 				className,
 			)}
 			onPointerMove={(event) => {
@@ -146,15 +146,15 @@ export function ExpandingSearchField({
 			<label
 				ref={pill}
 				className={cn(
-					"passui-search-pill control-field relative block h-11 max-w-full overflow-hidden rounded-full",
+					"passui-search-pill control-field relative block h-8.5 max-w-full overflow-hidden rounded-full",
 					props.disabled && "opacity-40",
 				)}
 				style={{ width: expanded ? 320 : 44 }}
 			>
 				<SearchIcon
 					aria-hidden="true"
-					size={18}
-					className="text-label-secondary pointer-events-none absolute start-[13px] top-1/2 -translate-y-1/2"
+					size={14}
+					className="text-label-secondary pointer-events-none absolute start-[11px] top-1/2 -translate-y-1/2"
 				/>
 				<input
 					{...props}
@@ -170,7 +170,7 @@ export function ExpandingSearchField({
 							? undefined
 							: (props["aria-label"] ?? placeholder)
 					}
-					className="text-subheadline text-label placeholder:text-label-tertiary h-11 w-full min-w-0 bg-transparent ps-11 pe-3 outline-none"
+					className="text-footnote text-label placeholder:text-label-tertiary h-8.5 w-full min-w-0 bg-transparent ps-8 pe-3 outline-none"
 					onFocus={(event) => {
 						setExpanded(true);
 						props.onFocus?.(event);

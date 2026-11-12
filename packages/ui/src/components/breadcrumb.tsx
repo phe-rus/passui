@@ -11,7 +11,7 @@ export function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
 		<ol
 			data-slot="breadcrumb-list"
 			className={cx(
-				"m-0 flex list-none flex-wrap items-center gap-1.5 p-0 text-subheadline text-label-secondary",
+				"m-0 flex list-none flex-wrap items-center gap-1.5 p-0 text-footnote text-label-secondary",
 				className,
 			)}
 			{...props}
@@ -77,5 +77,22 @@ export function BreadcrumbSeparator({
 		>
 			{children}
 		</li>
+	);
+}
+
+/** Stands in for the crumbs that were folded away. Wrap it in a menu trigger to reveal them. */
+export function BreadcrumbEllipsis({
+	children = "…",
+	className,
+	...props
+}: ComponentProps<"span">) {
+	return (
+		<span
+			data-slot="breadcrumb-ellipsis"
+			className={cx("text-label-secondary flex h-6 items-center", className)}
+			{...props}
+		>
+			{children}
+		</span>
 	);
 }

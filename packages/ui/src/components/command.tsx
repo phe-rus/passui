@@ -105,7 +105,7 @@ export function CommandInput({
 				}
 			}}
 			className={cx(
-				"h-12 w-full border-b border-separator bg-transparent px-4 text-body outline-none placeholder:text-label-tertiary",
+				"h-10 w-full border-b border-separator bg-transparent px-3 text-footnote outline-none placeholder:text-label-tertiary",
 				className,
 			)}
 			{...props}
@@ -133,7 +133,7 @@ export function CommandEmpty({ className, ...props }: ComponentProps<"div">) {
 		<div
 			data-slot="command-empty"
 			className={cx(
-				"px-3 py-6 text-center text-subheadline text-label-secondary",
+				"px-3 py-6 text-center text-footnote text-label-secondary",
 				className,
 			)}
 			{...props}
@@ -198,7 +198,7 @@ export function CommandItem({
 			onPointerMove={() => c.setActive(value)}
 			onClick={() => !disabled && onSelect?.(value)}
 			className={cx(
-				"flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-subheadline aria-disabled:opacity-40 data-active:bg-accent/15",
+				"flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-footnote aria-disabled:opacity-40 data-active:bg-accent/15",
 				className,
 			)}
 			{...props}

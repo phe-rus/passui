@@ -154,7 +154,7 @@ export function PopoverDescription({
 		<p
 			{...api.getDescriptionProps()}
 			data-slot="popover-description"
-			className={cx("text-subheadline text-label-secondary", className)}
+			className={cx("text-footnote text-label-secondary", className)}
 			{...props}
 		/>
 	);

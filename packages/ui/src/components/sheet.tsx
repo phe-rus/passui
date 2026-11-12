@@ -163,7 +163,7 @@ export function SheetContent({
 							"data-slot": "sheet-content",
 							"data-side": side,
 							className: cx(
-								"relative flex flex-col overflow-y-auto overscroll-contain liquid-glass p-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] text-label outline-none transition-[transform,translate] duration-(--duration-sheet) ease-(--ease-sheet) motion-reduce:transition-none motion-reduce:data-ending-style:translate-x-0 motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-x-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
+								"relative flex flex-col overflow-y-auto overscroll-contain glass-menu squircle p-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] text-label outline-none transition-[transform,translate] duration-(--duration-sheet) ease-(--ease-sheet) motion-reduce:transition-none motion-reduce:data-ending-style:translate-x-0 motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-x-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
 								placement[side].panel,
 								className,
 							),
@@ -215,7 +215,7 @@ export function SheetDescription({ className, ...props }: ComponentProps<"p">) {
 		<p
 			{...api.getDescriptionProps()}
 			data-slot="sheet-description"
-			className={cx("text-subheadline text-label-secondary", className)}
+			className={cx("text-footnote text-label-secondary", className)}
 			{...props}
 		/>
 	);

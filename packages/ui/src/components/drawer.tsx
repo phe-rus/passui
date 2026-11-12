@@ -142,7 +142,7 @@ export function DrawerContent({
 								...style,
 							},
 							className: cx(
-								"relative flex max-h-[calc(100%-1.625rem)] w-full max-w-xl flex-col overflow-y-auto overscroll-contain rounded-t-3xl liquid-glass pb-[env(safe-area-inset-bottom)] text-label outline-none transition-[transform,translate,scale] duration-(--duration-sheet) ease-(--ease-sheet) data-ending-style:translate-y-full data-starting-style:translate-y-full data-nested-drawer-open:origin-bottom data-nested-drawer-open:scale-[calc(1-0.04*var(--nested-drawers,0))] motion-reduce:transition-none motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
+								"relative flex max-h-[calc(100%-1.625rem)] w-full max-w-xl flex-col overflow-y-auto overscroll-contain rounded-t-3xl glass-menu squircle pb-[env(safe-area-inset-bottom)] text-label outline-none transition-[transform,translate,scale] duration-(--duration-sheet) ease-(--ease-sheet) data-ending-style:translate-y-full data-starting-style:translate-y-full data-nested-drawer-open:origin-bottom data-nested-drawer-open:scale-[calc(1-0.04*var(--nested-drawers,0))] motion-reduce:transition-none motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
 								className,
 							),
 						},
@@ -217,7 +217,7 @@ export function DrawerDescription({
 		<p
 			{...api.getDescriptionProps()}
 			data-slot="drawer-description"
-			className={cx("text-subheadline text-label-secondary", className)}
+			className={cx("text-footnote text-label-secondary", className)}
 			{...props}
 		/>
 	);

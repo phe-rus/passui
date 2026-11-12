@@ -87,7 +87,7 @@ export function Select({
 					{...api.getTriggerProps()}
 					aria-label={ariaLabel}
 					data-slot="select-trigger"
-					className="bg-fill/60 text-body text-label focus-visible:ring-accent/70 aria-invalid:ring-danger/70 flex h-11 w-full items-center justify-between gap-2 rounded-2xl px-4 text-left transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none"
+					className="bg-fill/60 text-footnote text-label focus-visible:ring-accent/70 aria-invalid:ring-danger/70 flex h-8.5 w-full items-center justify-between gap-2 rounded-xl px-3 text-left transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none"
 				>
 					<span
 						{...api.getValueTextProps()}
@@ -97,7 +97,7 @@ export function Select({
 					</span>
 					<svg
 						viewBox="0 0 16 16"
-						className="text-label-secondary size-4 shrink-0 transition-transform data-[state=open]:rotate-180"
+						className="text-label-secondary size-3.5 shrink-0 transition-transform data-[state=open]:rotate-180"
 						fill="none"
 						stroke="currentColor"
 						strokeWidth="2"
@@ -125,7 +125,7 @@ export function Select({
 									key={item.value}
 									{...api.getItemProps({ item })}
 									data-slot="select-item"
-									className="text-subheadline text-label data-highlighted:bg-accent/15 flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 data-disabled:opacity-40"
+									className="text-footnote text-label data-highlighted:bg-accent/15 flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 data-disabled:opacity-40"
 								>
 									<span {...api.getItemTextProps({ item })}>{item.label}</span>
 									<span

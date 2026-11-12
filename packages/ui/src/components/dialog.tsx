@@ -164,7 +164,7 @@ export function DialogDescription({
 		<p
 			{...api.getDescriptionProps()}
 			data-slot="dialog-description"
-			className={cx("text-subheadline text-label-secondary", className)}
+			className={cx("text-footnote text-label-secondary", className)}
 			{...props}
 		/>
 	);

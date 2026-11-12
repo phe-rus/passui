@@ -9,7 +9,7 @@ export function Textarea({ className, ...props }: ComponentProps<"textarea">) {
 			data-slot="textarea"
 			className={cx(
 				inputStyles,
-				"field-sizing-content min-h-20 py-3",
+				"field-sizing-content min-h-16 py-2",
 				className,
 			)}
 			{...props}

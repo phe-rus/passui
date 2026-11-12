@@ -63,7 +63,7 @@ export function AvatarFallback({
 		<span
 			data-slot="avatar-fallback"
 			className={cx(
-				"absolute inset-0 flex items-center justify-center text-subheadline font-medium text-label-secondary",
+				"absolute inset-0 flex items-center justify-center text-footnote font-medium text-label-secondary",
 				className,
 			)}
 			{...props}

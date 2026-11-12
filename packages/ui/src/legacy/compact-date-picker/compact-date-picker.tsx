@@ -9,11 +9,6 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { useAnchoredDisclosure } from "../../hooks/use-anchored-disclosure";
-import { cn } from "../../lib/class-names";
-import { haptic } from "../../lib/haptics";
-import { IconButton } from "../button/icon-button";
-import { type PickerSize, pickerTriggerStyle } from "../picker/picker-trigger";
-import { AnchoredSurface } from "../popover/anchored-surface";
 import {
 	addDays,
 	addMonths,
@@ -23,7 +18,12 @@ import {
 	monthGrid,
 	parseDay,
 	withinBounds,
-} from "./calendar-month";
+} from "../../lib/calendar-month";
+import { cn } from "../../lib/class-names";
+import { haptic } from "../../lib/haptics";
+import { IconButton } from "../button/icon-button";
+import { type PickerSize, pickerTriggerStyle } from "../picker/picker-trigger";
+import { AnchoredSurface } from "../popover/anchored-surface";
 
 export interface CompactDatePickerProps {
 	/** `YYYY-MM-DD`, or "" when no date is chosen. */

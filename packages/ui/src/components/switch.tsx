@@ -33,7 +33,7 @@ export function Switch({
 			{...api.getRootProps()}
 			data-slot="switch"
 			className={cx(
-				"group inline-flex cursor-pointer items-center gap-2.5 text-subheadline data-disabled:cursor-not-allowed data-disabled:opacity-40",
+				"group inline-flex cursor-pointer items-center gap-2.5 text-footnote data-disabled:cursor-not-allowed data-disabled:opacity-40",
 				className,
 			)}
 		>
@@ -46,12 +46,12 @@ export function Switch({
 			<span
 				{...api.getControlProps()}
 				data-slot="switch-control"
-				className="bg-fill ease-standard group-focus-within:ring-accent/70 data-[state=checked]:bg-success inline-flex h-8 w-13 shrink-0 items-center rounded-full p-0.5 shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition duration-(--duration-normal) group-focus-within:ring-2 motion-reduce:transition-none"
+				className="bg-fill spring-smooth group-focus-within:ring-accent/70 data-[state=checked]:bg-success inline-flex h-8 w-13 shrink-0 items-center rounded-full p-0.5 shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition group-focus-within:ring-2 motion-reduce:transition-none"
 			>
 				<span
 					{...api.getThumbProps()}
 					data-slot="switch-thumb"
-					className="ease-sheet block size-7 rounded-full bg-white shadow-[0_2px_6px_rgb(0_0_0/0.25)] transition-transform duration-(--duration-normal) group-active:scale-x-110 data-[state=checked]:translate-x-5 motion-reduce:transition-none"
+					className="spring-bouncy block size-7 origin-left rounded-full bg-white shadow-[0_2px_6px_rgb(0_0_0/0.25)] transition-[transform,width] group-active:w-8.5 data-[state=checked]:origin-right data-[state=checked]:translate-x-5 group-active:data-[state=checked]:translate-x-3.5 motion-reduce:transition-none"
 				/>
 			</span>
 			{children ? <span {...api.getLabelProps()}>{children}</span> : null}

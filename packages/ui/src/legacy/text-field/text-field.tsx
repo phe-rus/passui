@@ -27,34 +27,34 @@ export function fieldSize(size: TextFieldSize): FieldSize {
 	switch (size) {
 		case "xs":
 			return {
-				height: "h-8",
-				floatingHeight: "h-9",
+				height: "h-6.5",
+				floatingHeight: "h-7.5",
 				padding: "px-2.5",
 				text: "text-caption",
 				radius: "rounded-lg",
 			};
 		case "sm":
 			return {
-				height: "h-9",
-				floatingHeight: "h-10",
-				padding: "px-3",
-				text: "text-subheadline",
+				height: "h-7.5",
+				floatingHeight: "h-8.5",
+				padding: "px-2.5",
+				text: "text-footnote",
 				radius: "rounded-xl",
 			};
 		case "lg":
 			return {
-				height: "h-12",
-				floatingHeight: "h-14",
-				padding: "px-4",
-				text: "text-body",
+				height: "h-9.5",
+				floatingHeight: "h-10.5",
+				padding: "px-3",
+				text: "text-subheadline",
 				radius: "rounded-xl",
 			};
 		default:
 			return {
-				height: "h-11",
-				floatingHeight: "h-12",
+				height: "h-8.5",
+				floatingHeight: "h-9.5",
 				padding: "px-3",
-				text: "text-body",
+				text: "text-footnote",
 				radius: "rounded-xl",
 			};
 	}

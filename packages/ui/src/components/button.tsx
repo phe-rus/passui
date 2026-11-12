@@ -21,7 +21,7 @@ export type ButtonSize =
 	| "icon-lg";
 
 const base =
-	"relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold tracking-[-0.005em] outline-none transition spring-snappy [-webkit-tap-highlight-color:transparent] active:scale-[0.96] disabled:pointer-events-none disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none motion-reduce:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4";
+	"relative inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold tracking-[-0.005em] outline-none transition spring-snappy [-webkit-tap-highlight-color:transparent] active:scale-[0.96] disabled:pointer-events-none disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none motion-reduce:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5";
 
 const variants: Record<ButtonVariant, string> = {
 	default:
@@ -39,14 +39,14 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const sizes: Record<ButtonSize, string> = {
-	default: "h-11 px-5 text-subheadline",
-	xs: "h-8 px-3 text-caption",
-	sm: "h-9 px-4 text-subheadline",
-	lg: "h-12 px-6 text-body",
-	icon: "size-11",
-	"icon-xs": "size-8",
-	"icon-sm": "size-9",
-	"icon-lg": "size-12",
+	default: "h-8.5 px-4 text-footnote",
+	xs: "h-6.5 px-2.5 text-caption",
+	sm: "h-7.5 px-3 text-footnote",
+	lg: "h-9.5 px-5 text-subheadline",
+	icon: "size-8.5",
+	"icon-xs": "size-6.5",
+	"icon-sm": "size-7.5",
+	"icon-lg": "size-9.5",
 };
 
 export interface ButtonStyleProps {

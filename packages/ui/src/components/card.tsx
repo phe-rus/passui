@@ -45,7 +45,7 @@ export function CardDescription({
 	return (
 		<div
 			data-slot="card-description"
-			className={cx("text-subheadline text-label-secondary", className)}
+			className={cx("text-footnote text-label-secondary", className)}
 			{...props}
 		/>
 	);

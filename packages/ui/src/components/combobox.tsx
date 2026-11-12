@@ -104,7 +104,7 @@ export function Combobox({
 					aria-label={ariaLabel}
 					placeholder={placeholder}
 					data-slot="combobox-input"
-					className="bg-fill/60 text-body text-label placeholder:text-label-tertiary focus-visible:ring-accent/70 aria-invalid:ring-danger/70 h-11 w-full rounded-2xl pr-10 pl-4 outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2"
+					className="bg-fill/60 text-footnote text-label placeholder:text-label-tertiary focus-visible:ring-accent/70 aria-invalid:ring-danger/70 h-8.5 w-full rounded-xl pr-9 pl-3 outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2"
 				/>
 				<button
 					{...api.getTriggerProps()}
@@ -137,7 +137,7 @@ export function Combobox({
 							className="liquid-glass-dense squircle morph-reset spring-smooth max-h-72 origin-(--transform-origin,center) overflow-y-auto p-1.5 transition outline-none [--squircle-radius:1.25rem] data-ending-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:scale-[0.88] data-starting-style:opacity-0 motion-reduce:transition-none"
 						>
 							{filtered.length === 0 ? (
-								<div className="text-subheadline text-label-secondary px-3 py-2">
+								<div className="text-footnote text-label-secondary px-3 py-2">
 									{empty}
 								</div>
 							) : (
@@ -146,7 +146,7 @@ export function Combobox({
 										key={item.value}
 										{...api.getItemProps({ item })}
 										data-slot="combobox-item"
-										className="text-subheadline text-label data-highlighted:bg-accent/15 flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 data-disabled:opacity-40"
+										className="text-footnote text-label data-highlighted:bg-accent/15 flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 data-disabled:opacity-40"
 									>
 										<span {...api.getItemTextProps({ item })}>
 											{item.label}

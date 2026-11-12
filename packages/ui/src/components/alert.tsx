@@ -20,7 +20,7 @@ export function Alert({
 			data-slot="alert"
 			data-variant={variant}
 			className={cx(
-				"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-2xl bg-fill/60 px-4 py-3 text-subheadline has-[>svg]:grid-cols-[1rem_1fr] has-[>svg]:gap-x-3 [&>svg]:mt-0.5 [&>svg]:size-4",
+				"relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-2xl bg-fill/60 px-4 py-3 text-footnote has-[>svg]:grid-cols-[1rem_1fr] has-[>svg]:gap-x-3 [&>svg]:mt-0.5 [&>svg]:size-4",
 				variant === "destructive"
 					? "bg-danger/10 text-danger [&>svg]:text-current"
 					: "text-label [&>svg]:text-label-secondary",

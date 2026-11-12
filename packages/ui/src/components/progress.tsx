@@ -36,7 +36,7 @@ export function Progress({
 			<div
 				data-slot="progress-indicator"
 				className={cx(
-					"h-full rounded-full bg-accent transition-[width] duration-(--duration-normal) ease-standard motion-reduce:transition-none",
+					"h-full rounded-full bg-accent spring-smooth transition-[width] motion-reduce:transition-none",
 					!determinate && "w-2/5 animate-pulse motion-reduce:animate-none",
 				)}
 				style={determinate ? { width: `${ratio * 100}%` } : undefined}

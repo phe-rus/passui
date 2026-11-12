@@ -61,7 +61,7 @@ export function Slider({
 					<div
 						key={index}
 						{...api.getThumbProps({ index })}
-						className="focus-visible:ring-accent/70 size-7 rounded-full bg-white shadow-[0_1px_4px_rgb(0_0_0/0.3)] transition-transform duration-(--duration-fast) outline-none focus-visible:ring-2 data-dragging:scale-110 motion-reduce:transition-none"
+						className="focus-visible:ring-accent/70 spring-snappy size-7 rounded-full bg-white shadow-[0_1px_4px_rgb(0_0_0/0.3)] transition-transform outline-none focus-visible:ring-2 data-dragging:scale-125 motion-reduce:transition-none"
 					>
 						<input {...api.getHiddenInputProps({ index })} />
 					</div>

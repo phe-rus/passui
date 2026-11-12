@@ -164,7 +164,7 @@ export function DropdownMenuSubContent(props: PartProps<"div">) {
 }
 
 const itemClass =
-	"relative flex cursor-default select-none items-center gap-2 rounded-xl px-2.5 py-1.5 text-subheadline outline-none transition-colors duration-(--duration-instant) data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-accent/15";
+	"relative flex cursor-default select-none items-center gap-2 rounded-xl px-2.5 py-1.5 text-footnote outline-none transition-colors duration-(--duration-instant) data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-accent/15";
 
 export interface DropdownMenuItemProps
 	extends Omit<ComponentProps<"div">, "onSelect"> {

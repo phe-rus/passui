@@ -42,9 +42,21 @@
 		"packages": ["react"],
 		"local": ["src/components/button.tsx", "src/lib/cx.ts"]
 	},
+	"src/components/calendar.tsx": {
+		"packages": ["@passui/icons", "react"],
+		"local": [
+			"src/components/calendar.tsx",
+			"src/lib/calendar-month.ts",
+			"src/lib/cx.ts"
+		]
+	},
 	"src/components/card.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/card.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/chart.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/chart.tsx", "src/lib/cx.ts"]
 	},
 	"src/components/checkbox.tsx": {
 		"packages": ["@zag-js/checkbox", "@zag-js/react", "react"],
@@ -71,6 +83,17 @@
 	"src/components/command.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/command.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/date-time-picker.tsx": {
+		"packages": ["react"],
+		"local": [
+			"src/components/button.tsx",
+			"src/components/calendar.tsx",
+			"src/components/date-time-picker.tsx",
+			"src/components/popover.tsx",
+			"src/lib/calendar-month.ts",
+			"src/lib/cx.ts"
+		]
 	},
 	"src/components/dialog.tsx": {
 		"packages": ["@zag-js/dialog", "@zag-js/react", "react", "react-dom"],
@@ -125,7 +148,11 @@
 	},
 	"src/components/input-group.tsx": {
 		"packages": ["react"],
-		"local": ["src/components/input-group.tsx", "src/lib/cx.ts"]
+		"local": [
+			"src/components/button.tsx",
+			"src/components/input-group.tsx",
+			"src/lib/cx.ts"
+		]
 	},
 	"src/components/input-otp.tsx": {
 		"packages": ["@zag-js/pin-input", "@zag-js/react", "react"],
@@ -147,8 +174,12 @@
 		"packages": ["react"],
 		"local": ["src/components/list.tsx", "src/lib/cx.ts", "src/lib/render.ts"]
 	},
-	"src/components/pagination.tsx": {
+	"src/components/marker.tsx": {
 		"packages": ["react"],
+		"local": ["src/components/marker.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/pagination.tsx": {
+		"packages": ["@passui/icons", "react"],
 		"local": [
 			"src/components/button.tsx",
 			"src/components/pagination.tsx",
@@ -170,6 +201,14 @@
 	"src/components/progress.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/progress.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/questionnaire.tsx": {
+		"packages": ["react"],
+		"local": [
+			"src/components/button.tsx",
+			"src/components/questionnaire.tsx",
+			"src/lib/cx.ts"
+		]
 	},
 	"src/components/radio-group.tsx": {
 		"packages": ["@zag-js/radio-group", "@zag-js/react", "react"],
@@ -226,6 +265,10 @@
 		"packages": ["@zag-js/react", "@zag-js/switch", "react"],
 		"local": ["src/components/switch.tsx", "src/lib/cx.ts"]
 	},
+	"src/components/tab-bar.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/tab-bar.tsx", "src/lib/cx.ts"]
+	},
 	"src/components/tabs.tsx": {
 		"packages": ["@zag-js/react", "@zag-js/tabs", "react"],
 		"local": ["src/components/tabs.tsx", "src/lib/cx.ts"]
@@ -276,5 +319,9 @@
 			"src/lib/presence.ts",
 			"src/lib/render.ts"
 		]
+	},
+	"src/components/trace.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/trace.tsx", "src/lib/cx.ts"]
 	}
 }

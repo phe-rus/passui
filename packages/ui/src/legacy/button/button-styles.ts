@@ -9,10 +9,10 @@ export type ButtonVariant =
 
 /** Icon-only buttons use the same sizing contract as Button. */
 export const iconButtonSizes = {
-	icon: "size-11 p-0 rounded-full",
-	"icon-xs": "size-8 p-0 rounded-full",
-	"icon-sm": "size-9 p-0 rounded-full",
-	"icon-lg": "size-12 p-0 rounded-full",
+	icon: "size-8.5 p-0 rounded-full",
+	"icon-xs": "size-6.5 p-0 rounded-full",
+	"icon-sm": "size-7.5 p-0 rounded-full",
+	"icon-lg": "size-9.5 p-0 rounded-full",
 } as const;
 
 export type IconButtonSize = keyof typeof iconButtonSizes;
@@ -40,10 +40,10 @@ export const buttonVariants: Record<ButtonVariant, string> = {
 };
 
 export const buttonSizes: Record<ButtonSize, string> = {
-	default: "h-11 px-5 text-subheadline rounded-full",
-	xs: "h-8 px-3 text-caption rounded-full",
-	sm: "h-9 px-4 text-subheadline rounded-full",
-	lg: "h-12 px-6 text-body rounded-full",
+	default: "h-8.5 px-4 text-footnote rounded-full",
+	xs: "h-6.5 px-2.5 text-caption rounded-full",
+	sm: "h-7.5 px-3 text-footnote rounded-full",
+	lg: "h-9.5 px-5 text-subheadline rounded-full",
 	...iconButtonSizes,
-	"icon-full": "h-11 w-full px-5 text-subheadline rounded-full",
+	"icon-full": "h-8.5 w-full px-4 text-footnote rounded-full",
 };

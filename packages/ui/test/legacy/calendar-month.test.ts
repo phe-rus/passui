@@ -8,7 +8,7 @@ import {
 	monthGrid,
 	parseDay,
 	withinBounds,
-} from "../../src/legacy/compact-date-picker/calendar-month";
+} from "../../src/lib/calendar-month";
 
 test("reads only real dates", () => {
 	expect(parseDay("2026-10-15")).toEqual({

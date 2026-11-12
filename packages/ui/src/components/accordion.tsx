@@ -94,7 +94,7 @@ export function AccordionTrigger({
 				{...api.getItemTriggerProps(item)}
 				data-slot="accordion-trigger"
 				className={cx(
-					"flex flex-1 items-center justify-between gap-4 rounded-xl py-4 text-left text-body font-semibold outline-none transition-colors hover:text-label-secondary focus-visible:ring-2 focus-visible:ring-accent/70 disabled:opacity-40 [&[data-state=open]>svg]:rotate-180",
+					"flex flex-1 items-center justify-between gap-4 rounded-xl py-4 text-left text-subheadline font-semibold outline-none transition-colors hover:text-label-secondary focus-visible:ring-2 focus-visible:ring-accent/70 disabled:opacity-40 [&[data-state=open]>svg]:rotate-180",
 					className,
 				)}
 				{...props}
@@ -102,7 +102,7 @@ export function AccordionTrigger({
 				{children}
 				<svg
 					viewBox="0 0 16 16"
-					className="text-label-secondary ease-standard size-4 shrink-0 transition-transform duration-(--duration-normal) motion-reduce:transition-none"
+					className="text-label-secondary spring-snappy size-4 shrink-0 transition-transform motion-reduce:transition-none"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2"
@@ -129,7 +129,7 @@ export function AccordionContent({
 		<div
 			{...api.getItemContentProps(item)}
 			data-slot="accordion-content"
-			className="text-subheadline text-label-secondary grid overflow-hidden data-[state=closed]:hidden"
+			className="text-footnote text-label-secondary collapse-motion"
 			{...props}
 		>
 			<div className={cx("pb-4", className)}>{children}</div>

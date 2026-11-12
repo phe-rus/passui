@@ -75,7 +75,7 @@ export function AlertDialog({ children, ...props }: AlertDialogProps) {
 
 /** Full bleed hairline action cells, as in iOS alerts. */
 const actionStyles =
-	"h-11 px-3 text-body outline-none transition spring-snappy hover:bg-fill/50 active:bg-fill/80 focus-visible:bg-fill/60";
+	"h-9.5 px-3 text-footnote outline-none transition spring-snappy hover:bg-fill/50 active:bg-fill/80 focus-visible:bg-fill/60";
 
 type PartProps<T extends "button" | "div" | "h2" | "p"> = ComponentProps<T> & {
 	/** Render your own element instead of the default one. */
@@ -236,7 +236,7 @@ export function AlertDialogDescription({
 		<p
 			{...api.getDescriptionProps()}
 			data-slot="alert-dialog-description"
-			className={cx("text-subheadline text-label-secondary", className)}
+			className={cx("text-footnote text-label-secondary", className)}
 			{...props}
 		/>
 	);

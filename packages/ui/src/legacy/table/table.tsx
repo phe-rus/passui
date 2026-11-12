@@ -12,8 +12,8 @@ const tableText: Record<TableSize, string> = {
 };
 const headCell: Record<TableSize, string> = {
 	sm: "h-8 px-2 text-start align-middle text-caption2 font-semibold whitespace-nowrap",
-	md: "h-10 px-3 text-start align-middle text-footnote font-semibold whitespace-nowrap",
-	lg: "h-12 px-4 text-start align-middle text-subheadline font-semibold whitespace-nowrap",
+	md: "h-8.5 px-3 text-start align-middle text-footnote font-semibold whitespace-nowrap",
+	lg: "h-9.5 px-4 text-start align-middle text-subheadline font-semibold whitespace-nowrap",
 };
 const bodyCell: Record<TableSize, string> = {
 	sm: "px-2 py-1.5 align-middle whitespace-nowrap",
@@ -44,7 +44,7 @@ function Table({
 			<TableSizeContext value={size}>
 				<table
 					data-slot="table"
-					className={cn(tableText[size], className)}
+					className={cn("w-full", tableText[size], className)}
 					{...props}
 				/>
 			</TableSizeContext>

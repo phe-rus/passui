@@ -72,7 +72,7 @@ export function RadioGroupItem({
 			{...api.getItemProps(item)}
 			data-slot="radio-group-item"
 			className={cx(
-				"group inline-flex cursor-pointer items-center gap-2.5 text-subheadline data-disabled:cursor-not-allowed data-disabled:opacity-40",
+				"group inline-flex cursor-pointer items-center gap-2.5 text-footnote data-disabled:cursor-not-allowed data-disabled:opacity-40",
 				className,
 			)}
 			{...props}
@@ -80,7 +80,7 @@ export function RadioGroupItem({
 			<input {...api.getItemHiddenInputProps(item)} />
 			<span
 				{...api.getItemControlProps(item)}
-				className="bg-fill ease-standard group-focus-within:ring-accent/70 data-[state=checked]:bg-accent inline-flex size-5.5 shrink-0 items-center justify-center rounded-full shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition duration-(--duration-fast) group-focus-within:ring-2 motion-reduce:transition-none"
+				className="bg-fill spring-snappy group-focus-within:ring-accent/70 data-[state=checked]:bg-accent inline-flex size-5.5 shrink-0 items-center justify-center rounded-full shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition group-focus-within:ring-2 motion-reduce:transition-none"
 			>
 				<span className="bg-on-accent spring-bouncy size-2 scale-0 rounded-full transition-transform group-data-[state=checked]:scale-100" />
 			</span>

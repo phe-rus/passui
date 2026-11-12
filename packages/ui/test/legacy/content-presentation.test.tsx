@@ -30,3 +30,32 @@ test("empty states render actions and hide decorative icons from assistive techn
 	expect(html).toContain("Save your first item.");
 	expect(html).toContain("Add item</button>");
 });
+
+test("code can carry a caption, its language and a copy button", () => {
+	const html = renderToStaticMarkup(
+		<CodeBlock
+			code="bun add @passui/react"
+			title="install.sh"
+			language="Shell"
+			copyable
+		/>,
+	);
+	expect(html).toContain("install.sh");
+	expect(html).toContain("Shell");
+	expect(html).toContain('aria-label="Copy code"');
+	// Plain code stays plain: no header, no button.
+	const plain = renderToStaticMarkup(
+		<CodeBlock code="bun add @passui/react" />,
+	);
+	expect(plain).not.toContain("Copy code");
+});
+
+test("long code starts folded with an Expand code button, short code does not", () => {
+	const long = Array.from({ length: 10 }, (_, i) => `line ${i}`).join("\n");
+	const folded = renderToStaticMarkup(<CodeBlock code={long} foldAfter={6} />);
+	expect(folded).toContain("Expand code");
+	expect(folded).toContain('aria-expanded="false"');
+	expect(
+		renderToStaticMarkup(<CodeBlock code="one\ntwo" foldAfter={6} />),
+	).not.toContain("Expand code");
+});
