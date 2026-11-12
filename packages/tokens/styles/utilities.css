@@ -312,6 +312,44 @@
 	}
 }
 
+@keyframes passui-draw {
+	from {
+		stroke-dashoffset: 1;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes passui-grow {
+	from {
+		transform: scaleY(0);
+	}
+	to {
+		transform: scaleY(1);
+	}
+}
+
+@keyframes passui-fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes passui-step-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
 @keyframes passui-collapse-close {
 	from {
 		height: var(--height);
@@ -332,7 +370,8 @@
 	}
 
 	&[data-state="closed"] {
-		animation: passui-collapse-close var(--duration-fast) var(--ease-standard);
+		animation: passui-collapse-close var(--duration-fast) var(--ease-standard)
+			forwards;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -436,5 +475,16 @@
 	& + & {
 		box-shadow: inset 0 0.5px 0 0 var(--color-separator);
 		background-clip: padding-box;
+	}
+}
+
+/* The component showcase sliding by. */
+@theme {
+	--animate-marquee: marquee 60s linear infinite;
+
+	@keyframes marquee {
+		to {
+			transform: translateX(-100%);
+		}
 	}
 }

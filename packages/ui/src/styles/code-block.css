@@ -13,6 +13,10 @@
 		counter-reset: code-line;
 		tab-size: 4;
 	}
+	.passui-code-block[data-wrap] pre {
+		white-space: pre-wrap;
+		overflow-wrap: anywhere;
+	}
 	.passui-code-block .line {
 		display: inline-block;
 		min-width: 100%;
