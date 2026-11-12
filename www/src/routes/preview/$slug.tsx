@@ -1,7 +1,7 @@
-import { ComponentNotFound } from "@/domains/catalog/views/component-not-found";
-import { getNavigationEntry } from "@/domains/catalog/get-navigation";
-import { PreviewPage } from "@/domains/preview/views/preview-page";
-import { previewSearchSchema, settingsDefaults } from "@/domains/settings";
+import { ComponentNotFound } from "@/features/catalog/components/component-not-found";
+import { getNavigationEntry } from "@/features/catalog/lib/get-navigation";
+import { PreviewPage } from "@/features/preview/components/preview-page";
+import { previewSearchSchema, settingsDefaults } from "@/features/settings";
 import {
 	createFileRoute,
 	notFound,

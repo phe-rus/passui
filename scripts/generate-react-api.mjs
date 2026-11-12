@@ -11,7 +11,7 @@ import { dirname, relative, resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const output = resolve(
 	root,
-	"www/src/domains/catalog/react-api.generated.json",
+	"www/src/features/catalog/react-api.generated.json",
 );
 const reactExports = JSON.parse(
 	readFileSync(resolve(root, "packages/ui/package.json"), "utf8"),
@@ -336,7 +336,7 @@ function component(module, node) {
 }
 const result = {};
 for (const path of [
-	...globSync("www/src/domains/catalog/definitions/*/*.docs.tsx", {
+	...globSync("www/src/features/catalog/data/*/*/docs.tsx", {
 		cwd: root,
 	}),
 ].sort()) {

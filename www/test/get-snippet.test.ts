@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
-import type { RegisteredDocs } from "@/domains/catalog/definitions";
-import { resolveProps } from "@/domains/catalog/resolve-props";
-import { getSnippet } from "@/domains/playground/get-snippet";
+import type { RegisteredDocs } from "@/features/catalog/data";
+import { resolveProps } from "@/features/catalog/lib/resolve-props";
+import { getSnippet } from "@/features/playground/lib/get-snippet";
 
 // A small stand-in for a component's docs, so each rule is tested alone.
 function docsWith(overrides: Partial<RegisteredDocs> = {}): RegisteredDocs {
@@ -135,7 +135,7 @@ test("select props reject inherited object keys from shared URLs", () => {
 });
 
 test("overlay snippets include a usable trigger and anchored parent", async () => {
-	const { registry } = await import("@/domains/catalog/definitions/registry");
+	const { registry } = await import("@/features/catalog/data/registry");
 	for (const slug of ["dialog", "sheet", "popover"]) {
 		const docs = registry.find((entry) => entry.slug === slug)!;
 		const code = snippet(docs);

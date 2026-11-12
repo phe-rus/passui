@@ -7,7 +7,7 @@ import {
 	RouterProvider,
 } from "@tanstack/react-router";
 import { expect, test } from "vitest";
-import { Hero } from "@/domains/landing/views/hero";
+import { Hero } from "@/features/home/components/hero";
 
 test("the visible animated wordmark agrees with its accessible brand name", async () => {
 	const routeTree = createRootRoute({

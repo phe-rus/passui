@@ -1,4 +1,4 @@
-import { getSitemap, discoveryHeaders } from "@/domains/seo/sitemap";
+import { getSitemap, discoveryHeaders } from "@/features/seo/lib/sitemap";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/sitemap.xml")({

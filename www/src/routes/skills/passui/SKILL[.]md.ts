@@ -1,4 +1,4 @@
-import { getSkillMarkdown } from "@/domains/ai-context";
+import { getSkillMarkdown } from "@/features/ai";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/skills/passui/SKILL.md")({

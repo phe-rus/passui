@@ -3,7 +3,7 @@ import {
 	componentSearchSchema,
 	docsSettingsSchema,
 	previewSearchSchema,
-} from "@/domains/settings/types";
+} from "@/features/settings/types";
 
 describe("search params", () => {
 	test("a bare address gets every default", () => {

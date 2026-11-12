@@ -2,12 +2,12 @@ import { parse } from "@babel/parser";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vitest";
-import type { RegisteredDocs } from "@/domains/catalog/definitions";
-import type { PropValues } from "@/domains/catalog/resolve-props";
-import { getCatalog } from "@/domains/catalog/get-catalog";
-import { getExampleSource } from "@/domains/catalog/get-example-source";
-import { resolveProps } from "@/domains/catalog/resolve-props";
-import { getSnippet } from "@/domains/playground/get-snippet";
+import type { RegisteredDocs } from "@/features/catalog/data";
+import type { PropValues } from "@/features/catalog/lib/resolve-props";
+import { getCatalog } from "@/features/catalog/lib/get-catalog";
+import { getExampleSource } from "@/features/catalog/lib/get-example-source";
+import { resolveProps } from "@/features/catalog/lib/resolve-props";
+import { getSnippet } from "@/features/playground/lib/get-snippet";
 
 function PlaygroundDemo({
 	docs,

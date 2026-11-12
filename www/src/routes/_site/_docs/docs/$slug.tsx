@@ -1,7 +1,7 @@
-import { getPageHead } from "@/domains/seo/get-page-head";
-import { ComponentNotFound } from "@/domains/catalog/views/component-not-found";
-import { GuidePage } from "@/domains/guides/views/guide-page";
-import { getGuide } from "@/domains/guides/get-guides";
+import { getPageHead } from "@/features/seo/lib/get-page-head";
+import { ComponentNotFound } from "@/features/catalog/components/component-not-found";
+import { GuidePage } from "@/features/docs/components/guide-page";
+import { getGuide } from "@/features/docs/lib/get-guides";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_site/_docs/docs/$slug")({

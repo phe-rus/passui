@@ -1,8 +1,8 @@
-import { getPageHead } from "@/domains/seo/get-page-head";
-import { ComponentNotFound } from "@/domains/catalog/views/component-not-found";
-import { ComponentPage } from "@/domains/catalog/views/component-page";
-import { getNavigationEntry } from "@/domains/catalog/get-navigation";
-import { componentSearchSchema } from "@/domains/settings";
+import { getPageHead } from "@/features/seo/lib/get-page-head";
+import { ComponentNotFound } from "@/features/catalog/components/component-not-found";
+import { ComponentPage } from "@/features/catalog/components/component-page";
+import { getNavigationEntry } from "@/features/catalog/lib/get-navigation";
+import { componentSearchSchema } from "@/features/settings";
 import {
 	createFileRoute,
 	notFound,

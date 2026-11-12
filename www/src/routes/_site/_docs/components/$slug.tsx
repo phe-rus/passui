@@ -1,6 +1,6 @@
-import { ComponentNotFound } from "@/domains/catalog/views/component-not-found";
-import { getNavigationEntry } from "@/domains/catalog/get-navigation";
-import { componentSearchSchema } from "@/domains/settings";
+import { ComponentNotFound } from "@/features/catalog/components/component-not-found";
+import { getNavigationEntry } from "@/features/catalog/lib/get-navigation";
+import { componentSearchSchema } from "@/features/settings";
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_site/_docs/components/$slug")({

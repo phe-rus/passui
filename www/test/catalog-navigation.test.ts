@@ -1,9 +1,12 @@
 import { expect, test } from "vitest";
-import { getCatalog, getNeighbours } from "../src/domains/catalog/get-catalog";
+import {
+	getCatalog,
+	getNeighbours,
+} from "../src/features/catalog/lib/get-catalog";
 import {
 	componentTitle,
 	matchesComponent,
-} from "../src/domains/catalog/navigation";
+} from "../src/features/catalog/lib/navigation";
 
 test("search finds concepts by API name or purpose, regardless of case", () => {
 	const menu = getCatalog().find(

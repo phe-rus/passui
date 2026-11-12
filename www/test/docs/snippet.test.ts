@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import {
 	jsxAttribute,
 	jsxText,
-} from "../../src/domains/catalog/definitions/snippet";
+} from "../../src/features/playground/lib/get-snippet";
 
 test("plain attribute values are quoted", () => {
 	expect(jsxAttribute("label", "Email")).toBe('label="Email"');

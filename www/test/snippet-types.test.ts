@@ -2,9 +2,9 @@ import { execFileSync } from "node:child_process";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { expect, test } from "vitest";
-import { getCatalog } from "@/domains/catalog/get-catalog";
-import { resolveProps } from "@/domains/catalog/resolve-props";
-import { getSnippet } from "@/domains/playground/get-snippet";
+import { getCatalog } from "@/features/catalog/lib/get-catalog";
+import { resolveProps } from "@/features/catalog/lib/resolve-props";
+import { getSnippet } from "@/features/playground/lib/get-snippet";
 
 /** Compile copied code as an independent consumer, without the website's router types. */
 test("every playground snippet typechecks against the public package exports", () => {

@@ -3,8 +3,8 @@ import {
 	getComponentMarkdown,
 	getLlmsTxt,
 	getSkillMarkdown,
-} from "@/domains/ai-context/get-ai-context";
-import { getCatalog, getEntry } from "@/domains/catalog/get-catalog";
+} from "@/features/ai/lib/get-ai-context";
+import { getCatalog, getEntry } from "@/features/catalog/lib/get-catalog";
 
 test("both AI indexes link to every canonical component page", async () => {
 	for (const text of [

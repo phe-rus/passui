@@ -7,8 +7,8 @@ import {
 	RouterProvider,
 } from "@tanstack/react-router";
 import { expect, test } from "vitest";
-import { getCatalog } from "@/domains/catalog/get-catalog";
-import { DocsNav } from "@/domains/catalog/views/docs-nav";
+import { getCatalog } from "@/features/catalog/lib/get-catalog";
+import { DocsNav } from "@/features/catalog/components/docs-nav";
 
 async function renderNavigation(path = "/") {
 	const routeTree = createRootRoute({ component: DocsNav });

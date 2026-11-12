@@ -1,9 +1,13 @@
 import { existsSync } from "node:fs";
 import { describe, expect, test } from "vitest";
-import { getPageHead } from "@/domains/seo/get-page-head";
-import { getRobots, getSitemap, getSitemapPaths } from "@/domains/seo/sitemap";
-import { getCatalog } from "@/domains/catalog/get-catalog";
-import { guides } from "@/domains/guides/get-guides";
+import { getPageHead } from "@/features/seo/lib/get-page-head";
+import {
+	getRobots,
+	getSitemap,
+	getSitemapPaths,
+} from "@/features/seo/lib/sitemap";
+import { getCatalog } from "@/features/catalog/lib/get-catalog";
+import { guides } from "@/features/docs/lib/get-guides";
 
 describe("search discovery", () => {
 	test("every public guide and component has one canonical sitemap URL", () => {

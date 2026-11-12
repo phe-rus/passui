@@ -1,7 +1,7 @@
 import { catalogIcons } from "@passui/react/icons";
 import { expect, test } from "vitest";
-import { getCatalog } from "../src/domains/catalog/get-catalog";
-import { getNavigationCatalog } from "../src/domains/catalog/get-navigation";
+import { getCatalog } from "../src/features/catalog/lib/get-catalog";
+import { getNavigationCatalog } from "../src/features/catalog/lib/get-navigation";
 
 test("lightweight shell metadata matches every registered page in the same order", () => {
 	expect(getNavigationCatalog()).toEqual(

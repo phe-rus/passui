@@ -1,9 +1,9 @@
-import { DocsLayout } from "@/domains/catalog/views/docs-layout";
+import { DocsLayout } from "@/features/catalog/components/docs-layout";
 import {
 	carriedSettings,
 	docsSettingsDefaults,
 	docsSettingsSchema,
-} from "@/domains/settings";
+} from "@/features/settings";
 import {
 	Outlet,
 	createFileRoute,

@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 import { existsSync, globSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { registry } from "../../src/domains/catalog/definitions/registry";
+import { registry } from "../../src/features/catalog/data/registry";
 
 const root = join(import.meta.dirname, "../..");
-const components = join(root, "src/domains/catalog/definitions");
+const components = join(root, "src/features/catalog/definitions");
 const library = join(root, "../packages/ui");
 const exportsMap: Record<string, string | { types: string; default: string }> =
 	JSON.parse(readFileSync(join(library, "package.json"), "utf8")).exports;
@@ -122,9 +122,9 @@ describe("docs registry", () => {
 	});
 
 	test("documentation belongs to the website, not the published package", () => {
-		expect(
-			existsSync(join(root, "src/domains/catalog/definitions/index.ts")),
-		).toBe(true);
+		expect(existsSync(join(root, "src/features/catalog/data/index.ts"))).toBe(
+			true,
+		);
 		expect(exportsMap["./docs"]).toBeUndefined();
 	});
 });

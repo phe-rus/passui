@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
-import { DocSection } from "@/domains/catalog/views/doc-section";
+import { DocSection } from "@/features/catalog/components/doc-section";
 
 test("collapsible documentation uses PassUI disclosure semantics, not browser details", () => {
 	const markup = renderToStaticMarkup(

@@ -2,12 +2,12 @@ import { describe, expect, test } from "vitest";
 import {
 	applyDocumentAttributes,
 	getDocumentAttributes,
-} from "@/domains/preview/get-document-attributes";
+} from "@/features/preview/lib/get-document-attributes";
 import {
 	frameMessageSchema,
 	parentMessageSchema,
-} from "@/domains/preview/types";
-import { settingsDefaults } from "@/domains/settings";
+} from "@/features/preview/types";
+import { settingsDefaults } from "@/features/settings";
 
 describe("preview messages", () => {
 	test("accepts handshakes and bounded finite content sizes", () => {

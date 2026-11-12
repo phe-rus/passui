@@ -7,9 +7,9 @@ import {
 	RouterProvider,
 } from "@tanstack/react-router";
 import { expect, test } from "vitest";
-import { getEntry } from "../src/domains/catalog/get-catalog";
-import { docsSettingsDefaults } from "../src/domains/settings/types";
-import { Playground } from "../src/domains/playground/views/playground";
+import { getEntry } from "../src/features/catalog/lib/get-catalog";
+import { docsSettingsDefaults } from "../src/features/settings/types";
+import { Playground } from "../src/features/playground/components/playground";
 
 test("playground starts with one toolbar and preview while settings, props and generated code stay closed", async () => {
 	const routeTree = createRootRoute({

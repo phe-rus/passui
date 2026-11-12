@@ -1,9 +1,9 @@
 import { catalogIcons } from "@passui/react/icons";
 import { readFileSync, writeFileSync } from "node:fs";
-import { getCatalog } from "../src/domains/catalog/get-catalog";
+import { getCatalog } from "../src/features/catalog/lib/get-catalog";
 
 const output = new URL(
-	"../src/domains/catalog/navigation.generated.json",
+	"../src/features/catalog/generated/navigation.json",
 	import.meta.url,
 );
 const entries = getCatalog().map(({ docs, group, content, icon }) => ({
