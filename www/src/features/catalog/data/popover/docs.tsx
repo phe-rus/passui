@@ -1,34 +1,25 @@
 import { PopoverHelp } from "./examples/popover-help";
-import { useRef, useState } from "react";
 import { Button } from "@passui/react/button";
 import { defineDocs } from "../types";
-import { useDismiss } from "@passui/react/use-dismiss";
 import { PopoverMenu } from "./examples/popover-menu";
 import { PopoverShowcase } from "./examples/popover-showcase";
 import { PopoverUsage } from "./examples/popover-usage";
-import { Popover, type PopoverProps } from "@passui/react/popover";
+import {
+	Popover,
+	type PopoverContentProps,
+	type PopoverOrigin,
+} from "@passui/react/popover";
 
-type DemoProps = Pick<PopoverProps, "origin">;
+type DemoProps = { origin: PopoverOrigin };
 
 function PopoverDemo({ origin }: DemoProps) {
-	const [open, setOpen] = useState(false);
-	const anchor = useRef<HTMLDivElement>(null);
-	const trigger = useRef<HTMLButtonElement>(null);
-	useDismiss(anchor, open, () => setOpen(false));
 	return (
-		<div ref={anchor} className="relative">
-			<Button
-				ref={trigger}
-				variant="secondary"
-				aria-expanded={open}
-				onClick={() => setOpen(!open)}
-			>
-				Open popover
-			</Button>
-			<Popover
-				open={open}
+		<Popover>
+			<Popover.Trigger>
+				<Button variant="secondary">Open popover</Button>
+			</Popover.Trigger>
+			<Popover.Content
 				origin={origin}
-				anchorRef={trigger}
 				className={
 					origin === "top-right"
 						? "top-full right-0 mt-2 w-60 p-4"
@@ -36,15 +27,14 @@ function PopoverDemo({ origin }: DemoProps) {
 				}
 			>
 				<p className="text-callout text-label">
-					Grows from its {origin ?? "top-left"} corner. Escape or a click
-					outside closes it.
+					Grows from its {origin} corner. Escape or a click outside closes it.
 				</p>
-			</Popover>
-		</div>
+			</Popover.Content>
+		</Popover>
 	);
 }
 
-export const popoverDocs = defineDocs<PopoverProps>()({
+export const popoverDocs = defineDocs<PopoverContentProps>()({
 	slug: "popover",
 	name: "Popover",
 	importPath: "@passui/react/popover",
@@ -57,24 +47,18 @@ export const popoverDocs = defineDocs<PopoverProps>()({
 	},
 	render: (values) => <PopoverDemo {...values} />,
 	childrenSnippet: ({ origin }) => ({
-		imports: [
-			'import { Button } from "@passui/react/button"',
-			'import { useRef, useState } from "react"',
-			'import { useDismiss } from "@passui/react/use-dismiss"',
-		],
-		setup: [
-			"const [open, setOpen] = useState(false)",
-			"const anchor = useRef<HTMLDivElement>(null)",
-			"const trigger = useRef<HTMLButtonElement>(null)",
-			"useDismiss(anchor, open, () => setOpen(false))",
-		],
+		imports: ['import { Button } from "@passui/react/button"'],
+		setup: [],
+		element: "Popover.Content",
 		wrapper: {
 			before:
-				'<div ref={anchor} className="relative"><Button ref={trigger} aria-expanded={open} onClick={() => setOpen(!open)}>Open popover</Button>',
-			after: "</div>",
+				'<Popover><Popover.Trigger><Button variant="secondary">Open popover</Button></Popover.Trigger>',
+			after: "</Popover>",
 		},
-		expressionProps: { open: "open", anchorRef: "trigger" },
+		// `origin` is a control; don't let the generator also emit it from `changed`.
+		omit: ["origin"],
 		extraProps: {
+			origin,
 			className:
 				origin === "top-right"
 					? "top-full right-0 mt-2 w-60 p-4"

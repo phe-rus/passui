@@ -6,37 +6,29 @@ import {
 	ProfileImageContent,
 	ProfileImageFallback,
 } from "@passui/react/profile-image";
-import { useDismiss } from "@passui/react/use-dismiss";
-import { useRef, useState } from "react";
 
 export function PopoverShowcase() {
-	const [open, setOpen] = useState(true);
-	const anchor = useRef<HTMLDivElement>(null);
-	const trigger = useRef<HTMLButtonElement>(null);
-	useDismiss(anchor, open, () => setOpen(false));
-
 	return (
 		<div className="flex h-80 w-full max-w-sm items-start justify-end">
-			<div ref={anchor} className="relative">
-				<IconButton
-					ref={trigger}
-					type="button"
-					label="Account"
-					variant="ghost"
-					aria-expanded={open}
-					onClick={() => setOpen(!open)}
-				>
-					<ProfileImage className="size-11">
-						<ProfileImageContent src="/avatars/aiko.svg" />
-						<ProfileImageFallback>AK</ProfileImageFallback>
-					</ProfileImage>
-				</IconButton>
-				<Popover
-					open={open}
+			<Popover defaultOpen>
+				<Popover.Trigger
+					render={(props) => (
+						<IconButton
+							{...props}
+							type="button"
+							label="Account"
+							variant="ghost"
+						>
+							<ProfileImage className="size-11">
+								<ProfileImageContent src="/avatars/aiko.svg" />
+								<ProfileImageFallback>AK</ProfileImageFallback>
+							</ProfileImage>
+						</IconButton>
+					)}
+				/>
+				<Popover.Content
 					origin="top-right"
-					anchorRef={trigger}
-					role="dialog"
-					aria-label="Account"
+					label="Account"
 					className="top-full right-0 mt-2 flex w-64 flex-col items-center gap-3 p-5 text-center"
 				>
 					<ProfileImage className="text-title3 size-16">
@@ -54,8 +46,8 @@ export function PopoverShowcase() {
 					<Button variant="secondary" size="sm">
 						Manage your account
 					</Button>
-				</Popover>
-			</div>
+				</Popover.Content>
+			</Popover>
 		</div>
 	);
 }

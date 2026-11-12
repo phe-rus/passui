@@ -2,15 +2,10 @@ import { InfoIcon } from "@passui/react/icons";
 import { IconButton } from "@passui/react/icon-button";
 import { Popover } from "@passui/react/popover";
 import { TextField } from "@passui/react/text-field";
-import { useDismiss } from "@passui/react/use-dismiss";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export function PopoverHelp() {
-	const [open, setOpen] = useState(false);
 	const [uri, setUri] = useState("https://app.example.com/callback");
-	const anchor = useRef<HTMLDivElement>(null);
-	const trigger = useRef<HTMLButtonElement>(null);
-	useDismiss(anchor, open, () => setOpen(false));
 
 	return (
 		<div className="flex h-72 w-full max-w-sm flex-col gap-2">
@@ -19,31 +14,30 @@ export function PopoverHelp() {
 				value={uri}
 				onChange={(event) => setUri(event.target.value)}
 				action={
-					<div ref={anchor} className="relative">
-						<IconButton
-							ref={trigger}
-							label="What's a redirect URI?"
-							size="icon-xs"
-							variant="ghost"
-							aria-expanded={open}
-							onClick={() => setOpen(!open)}
-						>
-							<InfoIcon size={18} />
-						</IconButton>
-						<Popover
-							open={open}
+					<Popover>
+						<Popover.Trigger
+							render={(props) => (
+								<IconButton
+									{...props}
+									label="What's a redirect URI?"
+									size="icon-xs"
+									variant="ghost"
+								>
+									<InfoIcon size={18} />
+								</IconButton>
+							)}
+						/>
+						<Popover.Content
 							origin="top-right"
-							anchorRef={trigger}
-							role="dialog"
-							aria-label="Redirect URI"
+							label="Redirect URI"
 							className="top-full right-0 mt-2 w-64 p-4"
 						>
 							<p className="text-footnote text-label">
 								Where Pass sends people back after they sign in. It must match
 								your app exactly.
 							</p>
-						</Popover>
-					</div>
+						</Popover.Content>
+					</Popover>
 				}
 			/>
 		</div>

@@ -1,33 +1,19 @@
 import { Button } from "@passui/react/button";
 import { Popover } from "@passui/react/popover";
-import { useDismiss } from "@passui/react/use-dismiss";
 import { toast } from "@passui/react";
-import { useRef, useState } from "react";
 
 const actions = ["Duplicate", "Move to folder", "Export as PDF"];
 
 export function PopoverMenu() {
-	const [open, setOpen] = useState(false);
-	const anchor = useRef<HTMLDivElement>(null);
-	const trigger = useRef<HTMLButtonElement>(null);
-	useDismiss(anchor, open, () => setOpen(false));
-
 	return (
-		<div ref={anchor} className="relative">
-			<Button
-				ref={trigger}
-				variant="secondary"
-				aria-haspopup="menu"
-				aria-expanded={open}
-				onClick={() => setOpen(!open)}
-			>
-				More
-			</Button>
-			<Popover
-				open={open}
+		<Popover>
+			<Popover.Trigger>
+				<Button variant="secondary">More</Button>
+			</Popover.Trigger>
+			<Popover.Content
 				origin="top-right"
-				anchorRef={trigger}
 				role="menu"
+				label="More actions"
 				className="top-full right-0 mt-2 flex w-56 flex-col p-1.5"
 			>
 				{actions.map((action) => (
@@ -38,15 +24,12 @@ export function PopoverMenu() {
 						variant="ghost"
 						size="sm"
 						className="w-full justify-start"
-						onClick={() => {
-							setOpen(false);
-							toast(action);
-						}}
+						onClick={() => toast(action)}
 					>
 						{action}
 					</Button>
 				))}
-			</Popover>
-		</div>
+			</Popover.Content>
+		</Popover>
 	);
 }

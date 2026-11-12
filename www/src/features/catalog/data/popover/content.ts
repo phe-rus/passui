@@ -5,7 +5,7 @@ export const popoverContent: ComponentContent<typeof popoverDocs> = {
 	summary:
 		"A glass panel tied to a control, placed within the visible screen, with an optional morph from its trigger.",
 	usage:
-		"Use it for a little extra detail or a short menu tied to one control, such as an account card or a More menu. Pass the trigger ref as anchorRef for a shared opening shape, and pair it with useDismiss so Escape and a click outside close it.",
+		"Use it for a little extra detail or a short menu tied to one control, such as an account card or a More menu. Pass the trigger as Popover.Trigger so the glass surface can morph from its shape; Escape and a click outside close it automatically.",
 	propDescriptions: {
 		origin:
 			"The corner it grows from. Use top-right for controls near the end of a row.",
@@ -24,26 +24,32 @@ export const popoverContent: ComponentContent<typeof popoverDocs> = {
 	},
 	anatomy: [
 		{
-			element: "Anchor",
+			element: "Popover",
 			description:
-				"A relative parent holding the trigger and the popover. useDismiss watches it.",
+				"The compound root. Holds state for its Trigger and Content parts.",
 			required: true,
 		},
 		{
-			element: "Popover",
+			element: "Popover.Trigger",
 			description:
-				"The glass panel, placed with className, such as top-full left-0 mt-2.",
+				"Wraps the button that opens the popover. Wires aria-haspopup, aria-expanded and click + keyboard toggling.",
+			required: true,
+		},
+		{
+			element: "Popover.Content",
+			description:
+				"The glass panel, placed with className (such as top-full left-0 mt-2). Picks its origin corner and morphs from the trigger.",
 			required: true,
 		},
 	],
 	practices: [
 		{
 			kind: "do",
-			text: "Set aria-expanded on the trigger, so its state is announced.",
+			text: "Close it once an action inside is picked — call onOpenChange on the root, or let the menu item drive navigation.",
 		},
 		{
 			kind: "do",
-			text: "Close it once an action inside is picked.",
+			text: 'Pass role="menu" when the content is a list of actions, so screen readers announce it as a menu.',
 		},
 		{
 			kind: "dont",
@@ -51,7 +57,7 @@ export const popoverContent: ComponentContent<typeof popoverDocs> = {
 		},
 	],
 	accessibility: [
-		"Give it a role that fits its content, such as menu or dialog, and a name.",
-		"useDismiss closes it on Escape or a click outside, and ignores clicks in pop-ups opened from inside.",
+		"Give it a role that fits its content (menu or dialog) and a name via label or labelledBy.",
+		"Escape and a tap outside close it; focus is trapped inside while open.",
 	],
 };

@@ -141,6 +141,12 @@ test("overlay snippets include a usable trigger and anchored parent", async () =
 		if (!docs) throw new Error(`${slug} not found`);
 		const code = snippet(docs);
 		expect(code, slug).toContain("import { Button }");
-		expect(code, slug).toMatch(/setOpen\((true|!open)\)/);
+		// Dialog and Sheet use a controlled trigger with setOpen; the compound
+		// Popover toggles itself via Popover.Trigger, so it has no setOpen.
+		if (slug === "popover") {
+			expect(code, slug).toContain("<Popover.Trigger>");
+		} else {
+			expect(code, slug).toMatch(/setOpen\((true|!open)\)/);
+		}
 	}
 });

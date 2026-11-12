@@ -4,7 +4,7 @@ import { motion, useDragControls, useMotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useDismiss } from "../../hooks/use-dismiss";
 import { CheckIcon, GlobeIcon } from "../../icons/icons";
-import { Popover } from "../popover/popover";
+import { Popover } from "../popover";
 
 export type LocaleSwitcherSize = "sm" | "md" | "lg";
 
@@ -208,84 +208,103 @@ export function LocaleSwitcher<L extends string>({
 			}}
 			className="z-60"
 		>
-			<button
-				ref={triggerRef}
-				type="button"
-				aria-label={label}
-				aria-haspopup="menu"
-				aria-expanded={open}
-				onPointerDown={(e) => dragControls.start(e)}
-				onClick={() => setOpen((prev) => !prev)}
-				onKeyDown={(event) => {
-					if (!open && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
-						event.preventDefault();
-						setOpen(true);
-					}
-				}}
-				className={triggerSizes[size]}
-			>
-				<GlobeIcon aria-hidden="true" className={iconSizes[size]} />
-				{locale.toUpperCase()}
-			</button>
-			<Popover
-				open={open}
-				anchorRef={triggerRef}
-				origin={anchor.side === "right" ? "top-right" : "top-left"}
-				role="menu"
-				aria-label={label}
-				className={cn(
-					"top-0 flex max-w-[calc(100vw-2.5rem)] gap-2 p-2",
-					popoverWidths[size],
-					anchor.side === "right" ? "right-0" : "left-0",
-					growsUp ? "flex-col-reverse" : "flex-col",
-				)}
-			>
-				<button
-					type="button"
-					aria-label={label}
-					onClick={() => {
-						setOpen(false);
-						triggerRef.current?.focus();
-					}}
-					className={headerSizes[size]}
+			<Popover open={open} onOpenChange={setOpen}>
+				<Popover.Trigger
+					render={({
+						ref,
+						"aria-haspopup": ariaHasPopup,
+						"aria-expanded": ariaExpanded,
+						"aria-controls": ariaControls,
+						onClick,
+						onKeyDown,
+					}) => (
+						<button
+							ref={(node) => {
+								ref(node);
+								triggerRef.current = node;
+							}}
+							type="button"
+							aria-label={label}
+							aria-haspopup={ariaHasPopup}
+							aria-expanded={ariaExpanded}
+							aria-controls={ariaControls}
+							onPointerDown={(e) => dragControls.start(e)}
+							onClick={onClick}
+							onKeyDown={(event) => {
+								onKeyDown(event);
+								if (
+									!open &&
+									(event.key === "ArrowDown" || event.key === "ArrowUp")
+								) {
+									event.preventDefault();
+									setOpen(true);
+								}
+							}}
+							className={triggerSizes[size]}
+						>
+							<GlobeIcon aria-hidden="true" className={iconSizes[size]} />
+							{locale.toUpperCase()}
+						</button>
+					)}
+				/>
+				<Popover.Content
+					origin={anchor.side === "right" ? "top-right" : "top-left"}
+					role="menu"
+					label={label}
+					className={cn(
+						"top-0 flex max-w-[calc(100vw-2.5rem)] gap-2 p-2",
+						popoverWidths[size],
+						anchor.side === "right" ? "right-0" : "left-0",
+						growsUp ? "flex-col-reverse" : "flex-col",
+					)}
 				>
-					<GlobeIcon aria-hidden="true" className={iconSizes[size]} />
-					{locale.toUpperCase()}
-				</button>
-				<div className="flex flex-col gap-1">
-					{langs.map((item) => {
-						const active = item.value === locale;
-						return (
-							<button
-								key={item.value}
-								type="button"
-								role="menuitemradio"
-								aria-checked={active}
-								tabIndex={-1}
-								onClick={() => {
-									setOpen(false);
-									triggerRef.current?.focus();
-									if (!active) {
-										onSelect(item.value);
-									}
-								}}
-								className={cn(
-									itemSizes[size],
-									"hover:bg-fill/65 focus-visible:bg-fill/65 transition-colors",
-									active && "bg-accent/12 font-medium",
-								)}
-							>
-								{item.label}
-								{active && (
-									<CheckIcon
-										aria-hidden="true"
-										className={checkIconSizes[size]}
-									/>
-								)}
-							</button>
-						);
-					})}
-				</div>
+					<button
+						type="button"
+						aria-label={label}
+						onClick={() => {
+							setOpen(false);
+							triggerRef.current?.focus();
+						}}
+						className={headerSizes[size]}
+					>
+						<GlobeIcon aria-hidden="true" className={iconSizes[size]} />
+						{locale.toUpperCase()}
+					</button>
+					<div className="flex flex-col gap-1">
+						{langs.map((item) => {
+							const active = item.value === locale;
+							return (
+								<button
+									key={item.value}
+									type="button"
+									role="menuitemradio"
+									aria-checked={active}
+									tabIndex={-1}
+									onClick={() => {
+										setOpen(false);
+										triggerRef.current?.focus();
+										if (!active) {
+											onSelect(item.value);
+										}
+									}}
+									className={cn(
+										itemSizes[size],
+										"hover:bg-fill/65 focus-visible:bg-fill/65 transition-colors",
+										active && "bg-accent/12 font-medium",
+									)}
+								>
+									{item.label}
+									{active && (
+										<CheckIcon
+											aria-hidden="true"
+											className={checkIconSizes[size]}
+										/>
+									)}
+								</button>
+							);
+						})}
+					</div>
+				</Popover.Content>
 			</Popover>
 		</motion.div>
 	);

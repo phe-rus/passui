@@ -9,17 +9,14 @@ import {
 import { useSheetFocus } from "../sheet/use-sheet-focus";
 import { SheetPortal } from "../sheet/sheet-portal";
 import { cn } from "../../lib/class-names";
+import { screenEdges } from "../../lib/screen-edges";
 import { fluidCollapse, fluidOvershoot } from "../../motion/transitions";
+import { fitPopover, type PopoverFit } from "./popover-fit";
 import { usePopover } from "./popover-root";
 
-export function PopoverContent({
-	children,
-	className,
-	label,
-	labelledBy,
-	dismissOnOutsidePress = true,
-	placement = "anchor",
-}: {
+export type PopoverOrigin = "top-left" | "top-right";
+
+export interface PopoverContentProps {
 	children: ReactNode;
 	className?: string;
 	/** Accessible name (used when there is no labelledBy). */
@@ -34,25 +31,56 @@ export function PopoverContent({
 	 * - "center" floats in the middle of the viewport (modal)
 	 */
 	placement?: "anchor" | "center";
-}) {
+	/**
+	 * Which corner the popover grows from when placement="anchor".
+	 * top-left: panel's left edge aligns to the trigger's left.
+	 * top-right: panel's right edge aligns to the trigger's right.
+	 * @default "top-left"
+	 */
+	origin?: PopoverOrigin;
+	/**
+	 * ARIA role for the panel. Use "menu" for action menus, "dialog"
+	 * (the default) for free-form content, "tooltip" for tips.
+	 * @default "dialog"
+	 */
+	role?: "dialog" | "menu" | "tooltip";
+}
+
+export function PopoverContent({
+	children,
+	className,
+	label,
+	labelledBy,
+	dismissOnOutsidePress = true,
+	placement = "anchor",
+	origin = "top-left",
+	role = "dialog",
+}: PopoverContentProps) {
 	const { state, send, triggerRef, contentId } = usePopover();
 	const panel = useRef<HTMLDivElement>(null);
 	const reducedMotion = useReducedMotion();
 	const [settled, setSettled] = useState(false);
 	const [material, setMaterial] = useState({ width: 0, height: 0, radius: 0 });
+	const [fit, setFit] = useState<PopoverFit>({
+		shiftX: 0,
+		shiftY: 0,
+		maxWidth: 0,
+		above: false,
+	});
 	const [reveal, setReveal] = useState<ReturnType<
 		typeof menuSurfaceReveal
 	> | null>(null);
 
 	useSheetFocus(panel, () => send("CLOSE"));
 
-	// Measure panel + trigger rects, compute the reveal (initial morph state).
+	// Measure panel + trigger rects, compute the reveal (initial morph state)
+	// and the viewport fit (so the panel stays on screen as it resizes).
 	useLayoutEffect(() => {
 		const surface = panel.current;
 		const source = triggerRef.current;
 		if (!surface) return;
 
-		const measure = () => {
+		const refit = () => {
 			const panelRect = surface.getBoundingClientRect();
 			const radius =
 				Number.parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0;
@@ -64,32 +92,72 @@ export function PopoverContent({
 					: { width: panelRect.width, height: panelRect.height, radius },
 			);
 
-			const sourceRect = source?.getBoundingClientRect();
+			const visualViewport = window.visualViewport;
+			const offsetLeft = visualViewport?.offsetLeft ?? 0;
+			const offsetTop = visualViewport?.offsetTop ?? 0;
+			const edges = screenEdges();
+			const trigger = source?.getBoundingClientRect();
+			const next = fitPopover(
+				{
+					left: panelRect.left,
+					top: panelRect.top,
+					width: panelRect.width,
+					height: panelRect.height,
+				},
+				trigger ? { top: trigger.top, bottom: trigger.bottom } : undefined,
+				{
+					viewport: {
+						width: offsetLeft + (visualViewport?.width ?? window.innerWidth),
+						height: offsetTop + (visualViewport?.height ?? window.innerHeight),
+					},
+					edges: {
+						...edges,
+						left: offsetLeft + edges.left,
+						top: offsetTop + edges.top,
+					},
+				},
+				trigger ? -trigger.height : 6,
+				origin,
+			);
+			setFit((current) => {
+				if (
+					current.shiftX === next.shiftX &&
+					current.shiftY === next.shiftY &&
+					current.maxWidth === next.maxWidth &&
+					current.maxHeight === next.maxHeight &&
+					current.above === next.above
+				)
+					return current;
+				return next;
+			});
+
 			const sourceArg: MenuRect | undefined =
-				sourceRect && sourceRect.width > 0 && sourceRect.height > 0
+				trigger && trigger.width > 0 && trigger.height > 0
 					? {
-							left: sourceRect.left,
-							top: sourceRect.top,
-							width: sourceRect.width,
-							height: sourceRect.height,
+							left: trigger.left,
+							top: trigger.top,
+							width: trigger.width,
+							height: trigger.height,
 						}
 					: undefined;
 			setReveal(
 				menuSurfaceReveal(sourceArg, {
 					left: panelRect.left,
 					top: panelRect.top,
-					width: panelRect.width,
-					height: panelRect.height,
+					width: next.maxWidth || panelRect.width,
+					height: next.maxHeight
+						? Math.min(next.maxHeight, panelRect.height)
+						: panelRect.height,
 					radius,
 				}),
 			);
 		};
 
-		measure();
+		refit();
 		let frame = 0;
 		const schedule = () => {
 			cancelAnimationFrame(frame);
-			frame = requestAnimationFrame(measure);
+			frame = requestAnimationFrame(refit);
 		};
 		const observer = new ResizeObserver(schedule);
 		observer.observe(surface);
@@ -107,7 +175,7 @@ export function PopoverContent({
 			window.removeEventListener("resize", schedule);
 			window.removeEventListener("scroll", schedule, true);
 		};
-	}, [triggerRef]);
+	}, [triggerRef, origin]);
 
 	// Conceal the trigger while the surface is morphing.
 	useLayoutEffect(() => {
@@ -118,6 +186,8 @@ export function PopoverContent({
 			restore();
 		};
 	}, [triggerRef]);
+
+	const anchored = placement === "anchor";
 
 	return (
 		<AnimatePresence>
@@ -137,7 +207,7 @@ export function PopoverContent({
 					<motion.div
 						ref={panel}
 						id={contentId}
-						role="dialog"
+						role={role}
 						aria-modal={placement === "center" || undefined}
 						aria-label={labelledBy ? undefined : label}
 						aria-labelledby={labelledBy}
@@ -145,32 +215,50 @@ export function PopoverContent({
 						data-state={state}
 						className={cn(
 							"relative isolate flex flex-col outline-none",
-							placement === "center"
-								? "fixed z-[76] max-h-[92%] w-full max-w-[560px] p-6"
-								: "absolute z-40",
-							settled && "overflow-hidden",
+							anchored
+								? cn(
+										"rounded-5xl absolute z-40",
+										"[&>:not([data-popover-surface])]:opacity-[var(--popover-content-opacity)]",
+									)
+								: "rounded-5xl fixed z-[76] max-h-[92%] w-full max-w-[560px] p-6",
+							settled && anchored ? "overflow-hidden" : undefined,
 							className,
 						)}
+						style={
+							anchored
+								? {
+										transformOrigin:
+											origin === "top-left"
+												? `0% ${fit.above ? "100%" : "0%"}`
+												: `100% ${fit.above ? "100%" : "0%"}`,
+										translate: `${fit.shiftX}px ${fit.shiftY}px`,
+										maxWidth: fit.maxWidth || undefined,
+										maxHeight: fit.maxHeight,
+										overflowY:
+											fit.maxHeight !== undefined && settled
+												? "auto"
+												: undefined,
+									}
+								: undefined
+						}
 						initial={
-							placement === "center"
-								? { opacity: 0 }
-								: { "--popover-content-opacity": reducedMotion ? 1 : 0 }
+							anchored
+								? { "--popover-content-opacity": reducedMotion ? 1 : 0 }
+								: { opacity: 0 }
 						}
 						animate={
-							placement === "center"
-								? { opacity: 1 }
-								: { "--popover-content-opacity": 1 }
+							anchored ? { "--popover-content-opacity": 1 } : { opacity: 1 }
 						}
 						exit={
-							placement === "center"
-								? { opacity: 0 }
-								: {
+							anchored
+								? {
 										"--popover-content-opacity": 0,
 										transition: { duration: reducedMotion ? 0 : 0.06 },
 									}
+								: { opacity: 0 }
 						}
 						transition={
-							placement === "center"
+							anchored
 								? reducedMotion
 									? { duration: 0 }
 									: { duration: 0.16, delay: 0.06 }
@@ -190,10 +278,7 @@ export function PopoverContent({
 								if (state === "closing") send("CLOSED");
 								if (reveal) setSettled(true);
 							}}
-							className={cn(
-								"glass-menu pointer-events-none absolute top-0 left-0 -z-10",
-								placement === "center" ? "rounded-5xl" : "rounded-5xl",
-							)}
+							className="glass-menu rounded-5xl pointer-events-none absolute top-0 left-0 -z-10"
 							style={{ width: "100%", height: "100%" }}
 							initial={reducedMotion || !reveal ? { opacity: 0 } : reveal}
 							animate={
@@ -202,7 +287,9 @@ export function PopoverContent({
 											x: 0,
 											y: 0,
 											width: material.width,
-											height: material.height,
+											height: fit.maxHeight
+												? Math.min(material.height, fit.maxHeight)
+												: material.height,
 											opacity: 1,
 											borderRadius: material.radius,
 										}

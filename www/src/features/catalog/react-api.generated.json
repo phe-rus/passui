@@ -1379,45 +1379,38 @@
 		"parts": []
 	},
 	"popover": {
-		"source": "packages/ui/src/components/popover/popover.tsx",
+		"source": "packages/ui/src/components/popover/index.ts",
 		"props": [
 			{
-				"name": "open",
-				"type": "boolean",
+				"name": "children",
+				"type": "ReactNode",
 				"required": true,
 				"description": "",
 				"defaultValue": null
 			},
 			{
-				"name": "children",
-				"type": "ReactNode",
+				"name": "defaultOpen",
+				"type": "boolean",
 				"required": false,
-				"description": "",
+				"description": "Start open (uncontrolled) or set the initial state. Ignored when `open` is provided.",
+				"defaultValue": "false"
+			},
+			{
+				"name": "open",
+				"type": "boolean",
+				"required": false,
+				"description": "Controlled open state. When provided, the popover is driven by this prop: setting it to true opens, false closes. The internal machine still runs the open/close transitions so the morph can play.",
 				"defaultValue": null
 			},
 			{
-				"name": "origin",
-				"type": "\"top-left\" | \"top-right\"",
+				"name": "onOpenChange",
+				"type": "(open: boolean) => void",
 				"required": false,
-				"description": "Which corner the popover grows from.",
+				"description": "Called when the popover finishes opening or closing.",
 				"defaultValue": null
-			},
-			{
-				"name": "anchorRef",
-				"type": "RefObject<HTMLElement | null>",
-				"required": false,
-				"description": "Trigger whose shape the popover uses during its opening and closing motion.",
-				"defaultValue": null
-			},
-			{
-				"name": "size",
-				"type": "\"sm\" | \"md\"",
-				"required": false,
-				"description": "Surface corner radius.",
-				"defaultValue": "\"md\""
 			}
 		],
-		"native": ["Omit<HTMLMotionProps<\"div\">, \"children\">"],
+		"native": [],
 		"parts": []
 	},
 	"profile-image": {

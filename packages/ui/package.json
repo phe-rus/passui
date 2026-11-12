@@ -63,8 +63,8 @@
 			"default": "./src/components/profile-image/profile-image.tsx"
 		},
 		"./popover": {
-			"types": "./dist/types/src/components/popover/popover.d.ts",
-			"default": "./src/components/popover/popover.tsx"
+			"types": "./dist/types/src/components/popover/index.d.ts",
+			"default": "./src/components/popover/index.ts"
 		},
 		"./morph": {
 			"types": "./dist/types/src/components/morph/index.d.ts",

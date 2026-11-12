@@ -1,5 +1,6 @@
 import {
 	type ReactNode,
+	useEffect,
 	useId,
 	useReducer,
 	useRef,
@@ -21,17 +22,29 @@ export function usePopover(): PopoverContextValue {
 	return ctx;
 }
 
+export interface PopoverRootProps {
+	children: ReactNode;
+	/**
+	 * Start open (uncontrolled) or set the initial state.
+	 * Ignored when `open` is provided.
+	 */
+	defaultOpen?: boolean;
+	/**
+	 * Controlled open state. When provided, the popover is driven by this
+	 * prop: setting it to true opens, false closes. The internal machine
+	 * still runs the open/close transitions so the morph can play.
+	 */
+	open?: boolean;
+	/** Called when the popover finishes opening or closing. */
+	onOpenChange?: (open: boolean) => void;
+}
+
 export function PopoverRoot({
 	children,
 	defaultOpen = false,
+	open,
 	onOpenChange,
-}: {
-	children: ReactNode;
-	/** Start open (uncontrolled) or set the initial state. */
-	defaultOpen?: boolean;
-	/** Called when the popover finishes opening or closing. */
-	onOpenChange?: (open: boolean) => void;
-}) {
+}: PopoverRootProps) {
 	const [state, dispatch] = useReducer(
 		popoverMachine,
 		defaultOpen ? "opening" : ("closed" satisfies PopoverState),
@@ -57,7 +70,18 @@ export function PopoverRoot({
 		}
 	};
 
-	const isPresent = state !== "closed";
+	// Controlled mode: drive OPEN/CLOSE from the `open` prop. The machine
+	// still runs the morph transitions; we only nudge it when the desired
+	// presence differs from the current presence.
+	const present = state !== "closed";
+	useEffect(() => {
+		if (open === undefined) return;
+		if (open && !present) send("OPEN");
+		if (!open && present) send("CLOSE");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [open]);
+
+	const isPresent = present;
 
 	return (
 		<PopoverContext

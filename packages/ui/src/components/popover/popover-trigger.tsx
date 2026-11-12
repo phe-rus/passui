@@ -10,10 +10,7 @@ export type PopoverTriggerRenderProps = {
 	onKeyDown: (event: React.KeyboardEvent) => void;
 };
 
-export function PopoverTrigger({
-	children,
-	render,
-}: {
+export interface PopoverTriggerProps {
 	/** The trigger content when using render prop. */
 	children?: ReactNode;
 	/**
@@ -25,7 +22,9 @@ export function PopoverTrigger({
 	 * cloned with the trigger props merged in.
 	 */
 	render?: (props: PopoverTriggerRenderProps) => ReactNode;
-}) {
+}
+
+export function PopoverTrigger({ children, render }: PopoverTriggerProps) {
 	const { state, send, triggerRef, contentId } = usePopover();
 
 	const triggerProps: PopoverTriggerRenderProps = {
