@@ -1,7 +1,7 @@
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Button } from "@passui/react/button";
 import { IconButton } from "@passui/react/icon-button";
+import { Button } from "@passui/react/legacy/button";
 import { Toggle } from "@passui/react/toggle";
 import type { Column, RowData } from "@tanstack/react-table";
 import { useMemo } from "react";

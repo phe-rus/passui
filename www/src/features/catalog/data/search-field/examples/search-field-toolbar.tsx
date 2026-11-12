@@ -1,5 +1,5 @@
 import { SearchField } from "@passui/react";
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { useState } from "react";
 
 export function SearchFieldToolbar() {

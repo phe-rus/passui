@@ -6,8 +6,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Ambient } from "@passui/react/ambient";
-import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
+import { Button } from "@passui/react/legacy/button";
 import {
 	ProfileImage,
 	ProfileImageContent,

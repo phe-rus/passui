@@ -3,8 +3,11 @@ export * from "./appearance";
 export * from "./components/accordion/accordion";
 export * from "./components/aspect-ratio/aspect-ratio";
 export * from "./components/breadcrumb/breadcrumb";
-export * from "./components/button/button";
-export * from "./components/button/icon-button";
+export {
+	IconButton,
+	type IconButtonProps,
+	type IconButtonSize,
+} from "./components/button/icon-button";
 export * from "./components/chip/chip";
 export * from "./components/code-block/code-block";
 export * from "./components/combo-box/combo-box";
@@ -94,3 +97,11 @@ export { registerFloatingLayer } from "./lib/floating-layers";
 export * from "./lib/haptics";
 export * from "./lib/screen-edges";
 export * from "./motion/transitions";
+export {
+	Button,
+	type ButtonProps,
+	type ButtonSize,
+	type ButtonStyleProps,
+	type ButtonVariant,
+	buttonVariants,
+} from "./ui/button";

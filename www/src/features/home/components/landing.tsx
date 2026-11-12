@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { MotionConfig } from "motion/react";
 import { useState } from "react";
 import { useAccentCycle } from "../lib/use-accent-cycle";

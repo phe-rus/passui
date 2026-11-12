@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { useFormContext } from "../forms/contexts";
 
 export function Submit({ label }: { label: string }) {

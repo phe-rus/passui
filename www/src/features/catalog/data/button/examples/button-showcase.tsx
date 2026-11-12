@@ -6,12 +6,8 @@ import { useState } from "react";
 
 export function ButtonShowcase() {
 	const [name, setName] = useState("Passui launch");
-	const [saving, setSaving] = useState(false);
 
-	async function save() {
-		setSaving(true);
-		await new Promise((resolve) => setTimeout(resolve, 1400));
-		setSaving(false);
+	function save() {
 		toast.success("Project saved");
 	}
 
@@ -57,9 +53,7 @@ export function ButtonShowcase() {
 					<Button variant="ghost" onClick={() => setName("Passui launch")}>
 						Cancel
 					</Button>
-					<Button variant="accent" isPending={saving} onClick={save}>
-						Save changes
-					</Button>
+					<Button onClick={save}>Save changes</Button>
 				</footer>
 			</section>
 			<section className="bg-elevated ring-danger/25 flex items-center justify-between gap-4 rounded-4xl p-5 ring-1">

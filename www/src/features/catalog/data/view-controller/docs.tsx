@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { ViewController } from "@passui/react/view-controller";
 import { jsxAttribute } from "../snippet";
 import { defineDocs } from "../types";

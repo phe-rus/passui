@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { useNavigate } from "@tanstack/react-router";
 import type { RegisteredDocs } from "@/features/catalog/data";
 import { PreviewFrame } from "@/features/playground";

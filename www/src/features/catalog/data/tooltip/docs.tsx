@@ -1,5 +1,5 @@
-import { Button } from "@passui/react/button";
 import { CopyIcon } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { jsxAttribute, jsxText } from "../snippet";
 import { defineDocs } from "../types";
 import { TooltipIconButtons } from "./examples/tooltip-icon-buttons";
@@ -30,7 +30,7 @@ export const tooltipDocs = defineDocs<DemoProps>()({
 		</Button>
 	),
 	childrenSnippet: ({ tooltip }) => ({
-		imports: ['import { Button } from "@passui/react/button"'],
+		imports: ['import { Button } from "@passui/react/legacy/button"'],
 		element: "div",
 		omit: ["tooltip"],
 		children: [

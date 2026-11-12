@@ -179,6 +179,11 @@ one module per source file. tsdown generates the `exports` map from
 packing; `dist` stays out of git and each build starts clean. Zag 1.47.0 and
 `@zag-js/react` 1.47.0 are the verified pair for new components (`useMachine`,
 `normalizeProps`, `mergeProps`, `Portal`).
+
+Zag less native elements: `Button` is a native `<button>`, so it has no machine.
+Each new component lists its allowed imports in `allowlist.json`; a test fails
+if the import graph grows. New classes must pass without `tailwind-merge`.
+Old components live at `./legacy/*` and are `@deprecated` until 0.3.0.
 `copyText` from `@passui/react/clipboard` returns true only after a confirmed
 write; show success only then and provide manual copying when access fails.
 

@@ -1,5 +1,5 @@
 import { SwatchPicker } from "@passui/react";
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { type AccentId, accents } from "@passui/react/tokens";
 import { type CSSProperties, useState } from "react";
 

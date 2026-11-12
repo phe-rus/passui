@@ -1,5 +1,4 @@
 import {
-	Button,
 	Chip,
 	SegmentedControl,
 	StatusIndicator,
@@ -14,6 +13,7 @@ import {
 	PlayIcon,
 	PreviousTrackIcon,
 } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { ProgressView } from "@passui/react/progress-view";
 import { useState } from "react";
 import type { ShowcaseCardBodyProps } from "../types";

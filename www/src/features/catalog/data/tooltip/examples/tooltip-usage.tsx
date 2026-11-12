@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 
 export function TooltipUsage() {
 	// render one <TooltipHost /> near the root of your app

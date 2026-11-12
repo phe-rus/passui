@@ -1,5 +1,5 @@
 import { confirmDialog, toast } from "@passui/react";
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 
 export function DialogConfirm() {
 	return (

@@ -1,7 +1,7 @@
-import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
 import { ChevronDownIcon } from "@passui/react/icons";
 import { InlineDisclosure } from "@passui/react/inline-disclosure";
+import { Button } from "@passui/react/legacy/button";
 import { type ReactNode, useEffect, useState } from "react";
 
 type DocSectionProps = {

@@ -1,5 +1,5 @@
-import { Button } from "@passui/react/button";
 import { SidebarIcon } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { Sheet } from "@passui/react/sheet";
 import { useLocation } from "@tanstack/react-router";
 import { type ReactNode, useEffect, useRef, useState } from "react";

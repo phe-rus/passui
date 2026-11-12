@@ -53,6 +53,7 @@
 		"./inline-disclosure": "./dist/inline-disclosure.js",
 		"./keyboard-shortcut": "./dist/keyboard-shortcut.js",
 		"./language": "./dist/language.js",
+		"./legacy/button": "./dist/legacy/button.js",
 		"./locale-switcher": "./dist/locale-switcher.js",
 		"./menu": "./dist/menu.js",
 		"./morph": "./dist/morph.js",
@@ -108,16 +109,20 @@
 		"tailwindcss": "^4.3.3"
 	},
 	"devDependencies": {
+		"@tailwindcss/node": "4.3.5",
+		"@tailwindcss/oxide": "4.3.5",
+		"@types/node": "catalog:",
 		"@types/react": "catalog:",
 		"@types/react-dom": "catalog:",
+		"jsdom": "^31.0.0",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"typescript": "catalog:",
 		"tailwindcss": "catalog:",
-		"@types/node": "catalog:",
-		"vitest": "catalog:",
+		"tsdown": "catalog:",
+		"typescript": "catalog:",
 		"vite": "catalog:",
-		"tsdown": "catalog:"
+		"vitest": "catalog:",
+		"vitest-axe": "^0.1.0"
 	},
 	"dependencies": {
 		"@hugeicons/core-free-icons": "catalog:",

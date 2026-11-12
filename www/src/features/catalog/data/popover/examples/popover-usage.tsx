@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { Popover } from "@passui/react/popover";
 
 export function PopoverUsage() {

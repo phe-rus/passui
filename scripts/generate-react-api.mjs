@@ -13,9 +13,16 @@ const output = resolve(
 	root,
 	"www/src/features/catalog/react-api.generated.json",
 );
-const reactExports = JSON.parse(
-	readFileSync(resolve(root, "packages/ui/package.json"), "utf8"),
-).exports;
+// Public subpaths map to source files through the tsdown entries.
+const { default: uiBuild } = await import(
+	resolve(root, "packages/ui/tsdown.config.ts")
+);
+const reactExports = Object.fromEntries(
+	Object.entries(uiBuild.entry).map(([name, source]) => [
+		name === "index" ? "." : `./${name}`,
+		{ default: `./${source}` },
+	]),
+);
 const modules = new Map();
 const fileExists = (path) => existsSync(path) && statSync(path).isFile();
 function load(path) {

@@ -1,5 +1,5 @@
 import { toast } from "@passui/react";
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { TextField } from "@passui/react/text-field";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import { Button, Chip, TextField, Toggle, toast } from "@passui/react";
+import { Chip, TextField, Toggle, toast } from "@passui/react";
 import { cn } from "@passui/react/cn";
 import { IconButton } from "@passui/react/icon-button";
 import {
@@ -9,6 +9,7 @@ import {
 	PreviousTrackIcon,
 	UploadIcon,
 } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import {
 	ProfileImage,
 	ProfileImageFallback,

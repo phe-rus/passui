@@ -1,6 +1,6 @@
 import { toast } from "@passui/react";
-import { Button } from "@passui/react/button";
 import { DatePicker } from "@passui/react/date-picker";
+import { Button } from "@passui/react/legacy/button";
 import { useState } from "react";
 
 export function DatePickerShowcase() {

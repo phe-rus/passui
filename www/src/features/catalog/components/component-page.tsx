@@ -1,6 +1,6 @@
 import { Breadcrumb } from "@passui/react/breadcrumb";
-import { buttonStyle } from "@passui/react/button";
 import { InfoIcon, LinkIcon } from "@passui/react/icons";
+import { buttonStyle } from "@passui/react/legacy/button";
 import { Link } from "@tanstack/react-router";
 import { CopyForAi } from "@/features/ai";
 import { CodeView, Playground, PreviewFrame } from "@/features/playground";

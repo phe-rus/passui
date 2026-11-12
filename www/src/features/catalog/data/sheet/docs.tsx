@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { Sheet } from "@passui/react/sheet";
 import { useState } from "react";
 import { defineDocs } from "../types";
@@ -45,7 +45,7 @@ export const sheetDocs = defineDocs<DemoProps>()({
 	render: (values) => <SheetDemo {...values} />,
 	childrenSnippet: () => ({
 		imports: [
-			'import { Button } from "@passui/react/button"',
+			'import { Button } from "@passui/react/legacy/button"',
 			'import { useState } from "react"',
 		],
 		setup: ["const [open, setOpen] = useState(false)"],

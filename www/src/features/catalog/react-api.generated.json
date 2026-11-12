@@ -112,45 +112,31 @@
 		"parts": []
 	},
 	"button": {
-		"source": "packages/ui/src/components/button/button.tsx",
+		"source": "packages/ui/src/ui/button.tsx",
 		"props": [
 			{
 				"name": "variant",
-				"type": "| \"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\" | \"accent\"",
+				"type": "| \"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\"",
 				"required": false,
-				"description": "Visual emphasis: `default` (solid), `accent` (main action), `secondary` (quiet fill), `outline`, `ghost`, `link`, or `destructive`.",
+				"description": "Visual emphasis.",
 				"defaultValue": "\"default\""
 			},
 			{
 				"name": "size",
-				"type": "ButtonSize",
+				"type": "| \"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\"",
 				"required": false,
-				"description": "Label sizes: `xs`, `sm`, `default`, `lg`. Icon sizes: `icon-xs`, `icon-sm`, `icon`, `icon-lg`, `icon-full`. Prefer IconButton for an icon with a built-in accessible label.",
+				"description": "Label sizes `xs`, `sm`, `default`, `lg`, and square icon sizes.",
 				"defaultValue": "\"default\""
 			},
 			{
-				"name": "isPending",
-				"type": "boolean",
-				"required": false,
-				"description": "Shows a delayed spinner, keeps the button's width, and prevents repeat presses.",
-				"defaultValue": "false"
-			},
-			{
-				"name": "contentClassName",
+				"name": "className",
 				"type": "string",
 				"required": false,
-				"description": "Layout classes for the content wrapper, such as a full-width disclosure row.",
-				"defaultValue": null
-			},
-			{
-				"name": "ref",
-				"type": "Ref<HTMLButtonElement>",
-				"required": false,
-				"description": "Reference to the native element.",
+				"description": "",
 				"defaultValue": null
 			}
 		],
-		"native": ["ButtonHTMLAttributes<HTMLButtonElement>"],
+		"native": ["ComponentProps<\"button\">"],
 		"parts": []
 	},
 	"chip": {
@@ -825,6 +811,13 @@
 				"required": false,
 				"description": "Title, description, body and footer density.",
 				"defaultValue": "\"md\""
+			},
+			{
+				"name": "sourceRef",
+				"type": "RefObject<HTMLElement | null>",
+				"required": false,
+				"description": "The element whose rect the dialog grows from and collapses back to (passed through to the underlying Sheet's `sourceRef`). When provided, the glass material springs out of the trigger — Apple's matched-geometry effect — instead of rising from the screen edge. Ignored for `inline`.",
+				"defaultValue": null
 			},
 			{
 				"name": "className",
@@ -1875,6 +1868,13 @@
 				"required": false,
 				"description": "Outer padding and panel max-width.",
 				"defaultValue": "\"md\""
+			},
+			{
+				"name": "sourceRef",
+				"type": "RefObject<HTMLElement | null>",
+				"required": false,
+				"description": "The element whose rect the sheet grows from and collapses back to. When provided, the glass material springs out of the source (Apple's matched-geometry effect) instead of rising from the screen edge / zooming from center. The source is concealed while mounted.",
+				"defaultValue": null
 			},
 			{
 				"name": "className",

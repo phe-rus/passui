@@ -33,7 +33,7 @@ Import the styles once and each control from its own entry point:
 ```
 
 ```tsx
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 
 export function SaveButton() {
 	return <Button variant="accent">Save</Button>;

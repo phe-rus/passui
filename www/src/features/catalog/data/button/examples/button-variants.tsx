@@ -8,7 +8,6 @@ export function ButtonVariants() {
 			<Button variant="outline">Outline</Button>
 			<Button variant="ghost">Ghost</Button>
 			<Button variant="link">Link</Button>
-			<Button variant="accent">Accent</Button>
 			<Button variant="destructive">Destructive</Button>
 		</div>
 	);

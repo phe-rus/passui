@@ -131,7 +131,7 @@ export function App() {
     return (
         <main className="min-h-screen bg-background text-foreground p-8">
             <h1 className="text-title font-semibold">Hello, Passui</h1>
-            <Button variant="accent" onClick={() => toast.success("Passui is ready")}>Try Passui</Button>
+            <Button onClick={() => toast.success("Passui is ready")}>Try Passui</Button>
         </main>
     )
 }

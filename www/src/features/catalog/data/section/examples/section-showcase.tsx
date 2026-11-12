@@ -1,5 +1,5 @@
 import { LabeledContent, Picker, Section } from "@passui/react";
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { Toggle } from "@passui/react/toggle";
 import { useState } from "react";
 

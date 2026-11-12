@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { toast } from "@passui/react/toast";
 import { useState } from "react";
 

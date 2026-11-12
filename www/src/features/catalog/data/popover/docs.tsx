@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import {
 	Popover,
 	type PopoverContentProps,
@@ -40,7 +40,7 @@ export const popoverDocs = defineDocs<PopoverContentProps>()({
 	},
 	render: (values) => <PopoverDemo {...values} />,
 	childrenSnippet: ({ origin }) => ({
-		imports: ['import { Button } from "@passui/react/button"'],
+		imports: ['import { Button } from "@passui/react/legacy/button"'],
 		setup: [],
 		element: "Popover.Content",
 		wrapper: {

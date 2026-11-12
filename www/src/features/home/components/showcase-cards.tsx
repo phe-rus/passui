@@ -1,5 +1,4 @@
 import {
-	Button,
 	Chip,
 	LabeledContent,
 	SearchField,
@@ -10,6 +9,7 @@ import {
 	toast,
 } from "@passui/react";
 import { cn } from "@passui/react/cn";
+import { Button } from "@passui/react/legacy/button";
 import {
 	ProfileImage,
 	ProfileImageFallback,

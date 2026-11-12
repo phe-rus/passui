@@ -1,6 +1,6 @@
 import { haptic, LabeledContent, Section } from "@passui/react";
-import { Button } from "@passui/react/button";
 import { CheckIcon } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { Sheet } from "@passui/react/sheet";
 import { useRef, useState } from "react";
 

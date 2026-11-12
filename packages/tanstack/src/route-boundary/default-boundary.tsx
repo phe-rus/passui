@@ -1,5 +1,5 @@
-import { Button, buttonStyle } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
+import { Button, buttonStyle } from "@passui/react/legacy/button";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 import {
 	ErrorComponent,

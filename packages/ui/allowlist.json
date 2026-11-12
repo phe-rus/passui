@@ -1,0 +1,6 @@
+{
+	"src/ui/button.tsx": {
+		"packages": ["react"],
+		"local": ["src/lib/cx.ts", "src/ui/button.tsx"]
+	}
+}

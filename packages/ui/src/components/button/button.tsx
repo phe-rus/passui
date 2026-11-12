@@ -12,6 +12,9 @@ import { usePendingIndicator } from "./use-pending-indicator";
 export type { ButtonSize, ButtonVariant };
 
 /**
+ * @deprecated Use `Button` from `@passui/react/button`. This version stays at
+ * `@passui/react/legacy/button` until 0.3.0.
+ *
  * Each variant has a little depth: a fine highlight along the top edge and
  * a soft, layered shadow, like a well-made physical key.
  */
@@ -37,7 +40,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	contentClassName?: string;
 }
 
-/** Shares native button appearance with semantic links without nesting a button. */
+/** @deprecated Use `buttonVariants` from `@passui/react/button`.
+ * Shares native button appearance with semantic links without nesting a button. */
 export function buttonStyle({
 	variant = "default",
 	size = "default",
@@ -54,7 +58,8 @@ export function buttonStyle({
 	);
 }
 
-/** A native button with Passui styling, pending feedback, and an HTMLButtonElement ref. */
+/** @deprecated Use `Button` from `@passui/react/button`.
+ * A native button with Passui styling, pending feedback, and an HTMLButtonElement ref. */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	function Button(
 		{

@@ -12,10 +12,10 @@
 			"outputs": ["dist/**", "theme.css"]
 		},
 		"typecheck": {
-			"dependsOn": ["^build"]
+			"dependsOn": ["build"]
 		},
 		"test": {
-			"dependsOn": ["^build"]
+			"dependsOn": ["build"]
 		},
 		"publish:check": {
 			"dependsOn": ["build"]

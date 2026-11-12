@@ -4,7 +4,7 @@ import { DownloadIcon, MailIcon, TrashIcon } from "@passui/react/icons";
 export function ButtonWithIcon() {
 	return (
 		<div className="flex flex-wrap items-center justify-center gap-3">
-			<Button variant="accent">
+			<Button variant="default">
 				<MailIcon size={18} />
 				Email
 			</Button>

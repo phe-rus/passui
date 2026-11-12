@@ -6,8 +6,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { SearchField } from "@passui/react";
-import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
+import { Button } from "@passui/react/legacy/button";
 import {
 	Table,
 	TableBody,

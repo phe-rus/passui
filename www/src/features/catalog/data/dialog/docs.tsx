@@ -1,5 +1,5 @@
-import { Button } from "@passui/react/button";
 import { Dialog, type DialogPresentation } from "@passui/react/dialog";
+import { Button } from "@passui/react/legacy/button";
 import { useState } from "react";
 import { jsxAttribute } from "../snippet";
 import { defineDocs } from "../types";
@@ -77,7 +77,7 @@ export const dialogDocs = defineDocs<DemoProps>()({
 	render: (values) => <DialogDemo {...values} />,
 	childrenSnippet: ({ destructive }) => ({
 		imports: [
-			'import { Button } from "@passui/react/button"',
+			'import { Button } from "@passui/react/legacy/button"',
 			'import { useState } from "react"',
 		],
 		setup: ["const [open, setOpen] = useState(false)"],

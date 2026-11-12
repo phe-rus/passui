@@ -1,5 +1,5 @@
 import { Ambient } from "@passui/react/ambient";
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 
 export function AmbientShowcase() {
 	return (

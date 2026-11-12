@@ -17,7 +17,7 @@ import { createRef } from "react";
 /** Compiled by the package typecheck through consumer-facing export paths. */
 export function publicApiTypes() {
 	const ref = createRef<HTMLButtonElement>();
-	const variant: ButtonVariant = "accent";
+	const variant: ButtonVariant = "destructive";
 	const button = (
 		<Button
 			ref={ref}

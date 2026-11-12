@@ -1,5 +1,5 @@
-import { Button } from "@passui/react/button";
 import { Dialog } from "@passui/react/dialog";
+import { Button } from "@passui/react/legacy/button";
 import { useRef, useState } from "react";
 
 export function DialogUsage() {

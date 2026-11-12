@@ -1,4 +1,3 @@
-import { Button } from "@passui/react/button";
 import {
 	CommandEmpty,
 	CommandGroup,
@@ -7,6 +6,7 @@ import {
 	CommandList,
 	CommandDialog as CommandPaletteDialog,
 } from "@passui/react/command";
+import { Button } from "@passui/react/legacy/button";
 import { toast } from "@passui/react/toast";
 import { useState } from "react";
 

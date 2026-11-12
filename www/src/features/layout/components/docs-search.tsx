@@ -1,4 +1,3 @@
-import { Button } from "@passui/react/button";
 import {
 	CommandDialog,
 	CommandEmpty,
@@ -9,6 +8,7 @@ import {
 } from "@passui/react/command";
 import { SearchIcon } from "@passui/react/icons";
 import { KeyboardShortcut } from "@passui/react/keyboard-shortcut";
+import { Button } from "@passui/react/legacy/button";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { getNavigationCatalog } from "@/features/catalog/lib/get-navigation";

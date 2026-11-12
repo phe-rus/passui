@@ -1,5 +1,5 @@
-import { Button } from "@passui/react/button";
 import { InlineDisclosure } from "@passui/react/inline-disclosure";
+import { Button } from "@passui/react/legacy/button";
 import { useState } from "react";
 
 export function InlineDisclosureDetails() {

@@ -1,6 +1,6 @@
-import { Button } from "@passui/react/button";
 import { ContentView } from "@passui/react/content-view";
 import { KeyIcon } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 
 export function ContentViewHeaderAction() {
 	return (

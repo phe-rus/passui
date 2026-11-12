@@ -1,4 +1,3 @@
-import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
 import { IconButton } from "@passui/react/icon-button";
 import {
@@ -9,6 +8,7 @@ import {
 	TabletIcon,
 	UndoIcon,
 } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { SegmentedControl } from "@passui/react/segmented-control";
 import { Sheet } from "@passui/react/sheet";
 import { useNavigate } from "@tanstack/react-router";

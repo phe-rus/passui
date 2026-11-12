@@ -14,6 +14,6 @@ export const installSteps: InstallStep[] = [
 	},
 	{
 		title: "Import components from their own entry point.",
-		code: `import { Button } from "@passui/react/button"`,
+		code: `import { Button } from "@passui/react/legacy/button"`,
 	},
 ];

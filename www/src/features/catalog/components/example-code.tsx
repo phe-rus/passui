@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { Skeleton } from "@passui/react/skeleton";
 import { useEffect, useState } from "react";
 import { CodeView } from "@/features/playground/components/code-view";

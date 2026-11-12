@@ -1,12 +1,14 @@
-import type { ButtonSize } from "@passui/react/button";
-import { Button, type ButtonProps } from "@passui/react/button";
+import {
+	Button,
+	type ButtonProps,
+	type ButtonSize,
+} from "@passui/react/button";
 import { ChevronRightIcon } from "@passui/react/icons";
 import { jsxText } from "../snippet";
 import { defineDocs } from "../types";
 import { ButtonDisabled } from "./examples/button-disabled";
 import { ButtonIcon } from "./examples/button-icon";
 import { ButtonLink } from "./examples/button-link";
-import { ButtonPending } from "./examples/button-pending";
 import { ButtonShowcase } from "./examples/button-showcase";
 import { ButtonSizes } from "./examples/button-sizes";
 import { ButtonUsage } from "./examples/button-usage";
@@ -21,7 +23,6 @@ const iconSizes = new Set<ButtonSize>([
 	"icon-xs",
 	"icon-sm",
 	"icon-lg",
-	"icon-full",
 ]);
 
 export const buttonDocs = defineDocs<ButtonProps>()({
@@ -37,7 +38,6 @@ export const buttonDocs = defineDocs<ButtonProps>()({
 				outline: true,
 				ghost: true,
 				link: true,
-				accent: true,
 				destructive: true,
 			},
 			default: "default",
@@ -53,11 +53,9 @@ export const buttonDocs = defineDocs<ButtonProps>()({
 				"icon-xs": true,
 				"icon-sm": true,
 				"icon-lg": true,
-				"icon-full": true,
 			},
 			default: "default",
 		},
-		isPending: { kind: "boolean", default: false },
 		disabled: { kind: "boolean", default: false },
 		children: { kind: "text", default: sampleLabel },
 	},
@@ -86,14 +84,6 @@ export const buttonDocs = defineDocs<ButtonProps>()({
 		{ id: "sizes", component: ButtonSizes },
 		{ id: "with-icon", component: ButtonWithIcon },
 		{ id: "icon", component: ButtonIcon },
-		{
-			id: "pending",
-			component: ButtonPending,
-			playground: {
-				variant: "accent",
-				isPending: true,
-			},
-		},
 		{
 			id: "disabled",
 			component: ButtonDisabled,

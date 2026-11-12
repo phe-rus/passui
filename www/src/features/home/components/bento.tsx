@@ -1,5 +1,4 @@
 import {
-	Button,
 	Chip,
 	SearchField,
 	SwatchPicker,
@@ -8,6 +7,7 @@ import {
 	toast,
 } from "@passui/react";
 import { cn } from "@passui/react/cn";
+import { Button } from "@passui/react/legacy/button";
 import { accents } from "@passui/react/tokens";
 import { motion } from "motion/react";
 import { type ReactNode, useState } from "react";

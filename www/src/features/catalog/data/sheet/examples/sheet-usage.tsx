@@ -1,4 +1,4 @@
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { Sheet } from "@passui/react/sheet";
 import { useRef, useState } from "react";
 

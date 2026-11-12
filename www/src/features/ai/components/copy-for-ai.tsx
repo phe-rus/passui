@@ -1,6 +1,6 @@
 import { haptic } from "@passui/react";
-import { Button } from "@passui/react/button";
 import { SparkleIcon } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { useState } from "react";
 import { getEntry } from "@/features/catalog/lib/get-catalog";
 import { useCopyText } from "@/hooks/use-copy-text";

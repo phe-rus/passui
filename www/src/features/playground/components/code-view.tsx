@@ -1,9 +1,9 @@
 import { haptic } from "@passui/react";
-import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
 import { CodeBlock } from "@passui/react/code-block";
 import { IconButton } from "@passui/react/icon-button";
 import { CheckIcon, CopyIcon } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { useState } from "react";
 import { useCopyText } from "@/hooks/use-copy-text";
 import { type CodeLang, useHighlight } from "../lib/use-highlight";

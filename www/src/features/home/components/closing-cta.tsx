@@ -1,4 +1,4 @@
-import { buttonStyle } from "@passui/react/button";
+import { buttonStyle } from "@passui/react/legacy/button";
 import { Link } from "@tanstack/react-router";
 
 export function ClosingCta() {

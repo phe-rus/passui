@@ -1,10 +1,6 @@
-import {
-	Button,
-	LabeledContent,
-	SegmentedControl,
-	Toggle,
-} from "@passui/react";
-import type { ButtonVariant } from "@passui/react/button";
+import { LabeledContent, SegmentedControl, Toggle } from "@passui/react";
+import type { ButtonVariant } from "@passui/react/legacy/button";
+import { Button } from "@passui/react/legacy/button";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { CodeView } from "@/features/playground/components/code-view";
@@ -23,7 +19,7 @@ export function PlaygroundTeaser() {
 	]
 		.filter(Boolean)
 		.join(" ");
-	const code = `import { Button } from "@passui/react/button"\n\n<Button${props ? ` ${props}` : ""}>Continue</Button>`;
+	const code = `import { Button } from "@passui/react/legacy/button"\n\n<Button${props ? ` ${props}` : ""}>Continue</Button>`;
 
 	return (
 		<section

@@ -2,7 +2,8 @@
 	"unit": "gzip bytes of the entry's own code plus bundled dependencies. React and @passui/* are external, CSS is excluded.",
 	"package": "packages/ui",
 	"budgets": {
-		"button": 12000,
+		"button": 2048,
+		"legacy/button": 12000,
 		"stepper": 14000,
 		"picker": 16000,
 		"code-block": 11000,

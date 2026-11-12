@@ -1,6 +1,6 @@
-import { Button } from "@passui/react/button";
 import { ContentUnavailableView } from "@passui/react/content-unavailable-view";
 import { catalogIcons } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import { SearchField } from "@passui/react/search-field";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";

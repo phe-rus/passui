@@ -1,5 +1,5 @@
-import { Button } from "@passui/react/button";
 import { InboxIcon, StarIcon } from "@passui/react/icons";
+import { Button } from "@passui/react/legacy/button";
 import {
 	SidebarItemContent,
 	SidebarSection,

@@ -171,7 +171,7 @@ export function Root({ children }: { children: React.ReactNode }) {
 				description="Import each control from its own entry point."
 			>
 				<CodeBlock
-					code={`import { Button } from "@passui/react/button"
+					code={`import { Button } from "@passui/react/legacy/button"
 import { toast } from "@passui/react/toast"
 
 export function SaveButton() {

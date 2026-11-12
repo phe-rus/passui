@@ -1,5 +1,5 @@
 import { type ToastTone, toast } from "@passui/react";
-import { Button } from "@passui/react/button";
+import { Button } from "@passui/react/legacy/button";
 import { jsxText } from "../snippet";
 import { defineDocs } from "../types";
 import { ToastAction } from "./examples/toast-action";
@@ -53,7 +53,7 @@ export const toastDocs = defineDocs<DemoProps>()({
 			? `, { description: ${JSON.stringify(description)} }`
 			: "";
 		return {
-			imports: ['import { Button } from "@passui/react/button"'],
+			imports: ['import { Button } from "@passui/react/legacy/button"'],
 			element: "Button",
 			omit: ["tone", "title", "description"],
 			extraProps: { variant: "secondary" },

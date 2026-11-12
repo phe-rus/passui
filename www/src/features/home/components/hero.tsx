@@ -1,6 +1,6 @@
 import { haptic, spring } from "@passui/react";
-import { Button, buttonStyle } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
+import { Button, buttonStyle } from "@passui/react/legacy/button";
 import { accents } from "@passui/react/tokens";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
