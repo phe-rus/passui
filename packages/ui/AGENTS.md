@@ -48,13 +48,8 @@ exported for advanced integrations. www imports the full integration stylesheet.
   colors, pixel font sizes or ad hoc shadows. If a value is missing, add a
   token here first. (Existing one-off values are being migrated; don't add
   new ones.)
-- **Names come from SwiftUI** where SwiftUI has one: `Toggle`, `Picker`,
-  `SegmentedControl`, `Sheet`, `Popover`, `TabBar`, text styles like
-  `footnote`. Our own concepts keep plain English names.
-- **One component, one folder:** `src/components/<kebab-name>/<kebab-name>.tsx`,
-  with its store and hooks beside it. Tests, helpers and fixtures live
-  in `test/`, mirroring `src/`; token tests live in `../tokens/test/`.
-  Export the component from `src/index.ts`.
+- **Names come from shadcn** (`Dialog`, `DialogContent`, `Card`, `CardHeader`). SwiftUI names survive only where shadcn has none (`Stepper`, `SegmentedControl`). Our own concepts keep plain English names.
+- **One component, one file:** `src/components/<kebab-name>.tsx`. Tests, helpers and fixtures live in `test/`, mirroring `src/`; token tests live in `../tokens/test/`. Export the component from `src/index.ts` and add its entry to `tsdown.config.ts`.
 - **Typed choices.** Props with fixed options, such as `size`, `variant` or
   `tone`, use named string literal unions rather than `string`. Export those
   types with the component so editors can suggest valid values and TypeScript
@@ -169,107 +164,45 @@ Springs in `../tokens/src/motion.ts`, used through `spring` in
 `src/motion/transitions.ts`: `smooth` for most transitions, `snappy` for
 small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 
-## Docs
+## Layout
 
-Public examples import React icons from `@passui/react/icons`. Export named
-props types beside controls and document fixed choices and defaults on props.
-React package exports are compiled ESM and `.d.ts` built by tsdown into `dist`,
-one module per source file. tsdown generates the `exports` map from
-`tsdown.config.ts`, so add a new subpath there. Build before typechecking or
-packing; `dist` stays out of git and each build starts clean. Zag 1.47.0 and
-`@zag-js/react` 1.47.0 are the verified pair for new components (`useMachine`,
-`normalizeProps`, `mergeProps`, `Portal`).
+```
+src/
+  components/   one file per component, shadcn names, Zag or native: dialog.tsx, select.tsx ...
+  legacy/       components not yet rebuilt (wave 2 and blocks) and the internals they need
+  lib/          cx, render, presence, portal and other shared helpers
+  hooks/        shared hooks
+  appearance/   theme and platform providers
+  motion/ styles/ tokens.ts index.ts
+test/           mirrors src: components/, legacy/, lib/, helpers/
+```
 
-Zag less native elements: `Button` is a native `<button>`, so it has no machine.
-Each new component lists its allowed imports in `allowlist.json`; a test fails
-if the import graph grows. New classes must pass without `tailwind-merge`.
-Old components live at `./legacy/*` and are `@deprecated` until 0.3.0.
-`copyText` from `@passui/react/clipboard` returns true only after a confirmed
-write; show success only then and provide manual copying when access fails.
+A component is one file in `src/components/<name>.tsx`, 150 lines or fewer when simple, and one entry in `tsdown.config.ts`. A component file imports only React, tokens, its own Zag machine, `cx` and the shared helpers `render`, `presence` and `portal`. Its allow list lives in `allowlist.json` and its size budget in `../../size-budgets.json`; both are checked in CI. Names follow shadcn (`Dialog`, `DialogContent`); triggers take a `render` prop. State is styled through data attributes (`data-state`, `data-starting-style`, `data-ending-style`). Animation is CSS only. No `tailwind-merge`, so overrides use data attributes, not class order.
 
-Every component has docs for the site in `www`, split so code
-breaks loudly and prose stays out of Passui:
+Icons come from `@passui/icons`. The Hugeicons dependency is gone.
 
-- `www/src/domains/catalog/definitions/<name>/<slug>.docs.tsx`: `defineDocs<Props>()` with the
-  playground's controls, a `render`, an optional `childrenSnippet`, and
-  its examples. Register it in `www/src/domains/catalog/definitions/registry.ts`.
-- `www/src/domains/catalog/definitions/<name>/examples/<slug>-<id>.tsx`: one real example per
-  file, exporting exactly one function named `<Slug><Id>` (for example
-  `table-empty.tsx` exports `TableEmpty`). The site shows the file's own
-  source, so it imports from `@passui/react/...` as an app would.
-  Every page needs `usage`, `showcase` and at least two examples.
-- The words (summary, prop descriptions, example titles, practices) live
-  in `www/src/domains/catalog/content/<slug>.ts`, typed against the
-  docs, so a new control without a description fails the typecheck.
-- `www/test/docs/registry.test.ts` enforces unique slugs, real `exports`
-  entries, valid defaults and the example file names.
+Zag less native components: Button, Card, Badge, Alert, Separator, Skeleton, Spinner, Kbd, Label, Input, Textarea, Breadcrumb, Pagination, Button Group, Field, Input Group, Progress, Avatar, Toggle, Command.
+
+Zag 1.47.0 and `@zag-js/react` 1.47.0 are the verified pair (`useMachine`, `normalizeProps`). tsdown generates the package `exports` from `tsdown.config.ts`; add new subpaths there and rebuild. Build before typechecking or packing; `dist` stays out of git.
+
+`copyText` from `@passui/react/clipboard` returns true only after a confirmed write; show success only then.
+
+Docs for every component live in `www/src/features/components` (see `www/AGENTS.md`).
 
 ## Components
 
-| Component              | Folder               | Notes                                                                                                                                                                |
-| ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Accordion`            | `accordion/`         | Controlled, single-open disclosure sections.                                                                                                                         |
-| `Button`, `IconButton` | `button/`            |                                                                                                                                                                      |
-| `Chip`                 | `chip/`              |                                                                                                                                                                      |
-| `LabeledContent`       | `labeled-content/`   | A row: label, description, trailing control; wide controls move under the label                                                                                      |
-| Context menu           | `context-menu/`      | `useContextMenu`, `openContextMenu`                                                                                                                                  |
-| `confirmDialog`        | `dialog/`            | Host mounted once by the app                                                                                                                                         |
-| `Picker`               | `picker/`            | The pop-up button; never a native select                                                                                                                             |
-| `Popover`              | `popover/`           | Keeps to `screenEdges()`; pass `anchorRef` for trigger morphing.                                                                                                     |
-| `SearchField`          | `search-field/`      |                                                                                                                                                                      |
-| `Section`              | `section/`           | A titled, inset group of rows with a footer, as in iOS Settings                                                                                                      |
-| `SegmentedControl`     | `segmented-control/` | Turns into a `Picker` when its labels don't fit                                                                                                                      |
-| `Sheet`                | `sheet/`             | Focus, floating ownership and background isolation are included in the upstream checkpoint. See UPSTREAM.md and the owning Notables review for remaining boundaries. |
-| `Sidebar`              | `sidebar/`           |                                                                                                                                                                      |
-| `StatusIndicator`      | `status-indicator/`  |                                                                                                                                                                      |
-| `SwatchPicker`         | `swatch-picker/`     |                                                                                                                                                                      |
-| `TabBar`               | `tab-bar/`           | iOS 26 floating capsule, minimizes on scroll; flush on Android                                                                                                       |
-| `toast`                | `toast/`             | Host mounted once by the app                                                                                                                                         |
-| `Toggle`               | `toggle/`            |                                                                                                                                                                      |
-| Tooltip                | `tooltip/`           | `data-tooltip` on any element                                                                                                                                        |
+Rebuilt on Zag or native (`src/components/`): Accordion, Alert, Alert Dialog, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Collapsible, Combobox, Command, Dialog, Drawer, Dropdown Menu, Field, Input, Input Group, Input OTP, Kbd, Label, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Switch, Tabs, Textarea, Toast, Toggle, Toggle Group, Tooltip.
+
+Still in `src/legacy/` with their old APIs (wave 2 and blocks): Aspect Ratio, Code Block, Compact Date Picker, Compact Time Picker, Date Picker, Search Field, Sidebar, Stepper, Table, Context menu, and the blocks Ambient, Content Unavailable View, Labeled Content, Locale Switcher, Stat Tile, Swatch Picker, View Controller, Wake Slider, Conversation, Morph. `legacy/button`, `picker`, `popover`, `sheet` and `text-field` remain only as internals of these and are not public entries.
 
 ## Repository and public package
 
-This repository owns Passui's UI source and is developed as its own
-checkout (`~/pherus/passui`). Pherus consumes published npm releases, not
-a submodule or sibling files; the docs website lives in `www` and the
-optional TanStack integration in `packages/tanstack`, both in this
-repository. Dependency versions here are explicit so this repo
-can install independently of Pherus's catalogs.
+This repository owns Passui's UI source and is developed as its own checkout (`~/pherus/passui`). Pherus consumes published npm releases. `bun run publish:check` previews the public npm packages. Publishing uses `registry.npmjs.org` and public access, in the order tokens, icons, react, tanstack. Credentials stay outside the repository.
 
-`bun run publish:check` previews the public npm package. Publishing uses
-`registry.npmjs.org` and public access. The package exports TS/TSX
-source and CSS; consumers need a bundler that processes that source,
-React 19 and Tailwind CSS 4. Keep npm credentials in user configuration,
-outside the repository. Validate typecheck and tests before publishing.
-
-`.github/workflows/publish.yml` runs manually on `main`, using the
-`npm-publish` GitHub environment and job scoped `id-token: write`.
-Bun installs, tests and packs; npm publishes the tarball with OIDC.
-The npm trusted publisher must match `phe-rus/passui`, `publish.yml`
-and `npm-publish`. No npm token secret is needed.
+`.github/workflows/publish.yml` runs manually on `main`, using the `npm-publish` environment and job scoped `id-token: write`. Each package needs its own npm trusted publisher matching `phe-rus/passui`, `publish.yml` and `npm-publish`, including the new `@passui/icons`.
 
 ## Integration boundaries
 
-Native controls in `src/` do not import TanStack or application domains. `packages/tanstack/` adapts them to form state, tables and routing. Domain-specific layouts and actions stay in apps. The former `@pherus/ui` package is removed; add missing controls to their native component folder rather than recreating compatibility wrappers.
+Components do not import TanStack or application domains. `packages/tanstack/` adapts them to form state, tables and routing, with `@passui/react` and `@passui/icons` as peers.
 
-All three app theme providers set both `class` and `data-theme`. www imports native token and utility styles while retaining its public stylesheet and layout. Keep document scripts outside `<main>` via the document shell's `after` slot.
-
-Viewport-aware shells and sheets use `useVisualViewport()`. It accounts for
-Safari visual viewport changes and Android WebView resizing without subtracting
-the keyboard twice. Sheets focus the panel unless a child requests focus.
-
-`TabBar` accepts `minimizeBehavior`: platform defaults, scroll on every platform,
-or never. App search toolbars can share `useMinimizeOnScroll`; modal and floating
-panel scrolling does not minimize the navigation behind them.
-
-UI 0.1.10: anchored menus measure before revealing, preserve the trigger's
-rectangle through the opening/closing spring, and restore its opacity on cleanup.
-Point menus retain a compact reveal. Material rim roles differ by appearance;
-regenerate ../tokens/theme.css after changing ../tokens/src/color.ts. Geometry tests
-cover a menu flipped above its trigger and an empty/detached anchor.
-
-CodeBlock owns shared code display styles, including its line gutter. Consumers
-supply an optional highlighter, which is not a runtime dependency. Keep icon
-factory calls pure and CSS side effectful; `bun run size:check` measures
-representative consumer entries with React external and other dependencies included.
+Viewport aware shells and sheets use the visual viewport variables the overlays write (`--visual-viewport-height`). `TabBar`, `Picker` and the old store based hosts were removed; `ContextMenuHost` remains for the legacy context menu.

@@ -10,14 +10,14 @@
 		"preview": "vite preview --port=3004 --strictPort",
 		"type-gen": "wrangler types",
 		"typecheck": "bun run type-gen && tsc --noEmit",
-		"test": "vitest run"
+		"test": "vitest run",
+		"docs:api": "bun scripts/generate-api.ts"
 	},
 	"dependencies": {
-		"@hugeicons/core-free-icons": "catalog:",
-		"@hugeicons/react": "catalog:",
+		"@passui/icons": "workspace:^",
 		"@passui/react": "workspace:*",
-		"@passui/tokens": "workspace:*",
 		"@passui/tanstack": "workspace:*",
+		"@passui/tokens": "workspace:*",
 		"@tailwindcss/vite": "^4.3.3",
 		"@tanstack/react-router": "^1.170.39",
 		"@tanstack/react-start": "^1.168.58",
@@ -40,6 +40,7 @@
 		"typescript": "catalog:",
 		"vite": "catalog:",
 		"vitest": "catalog:",
-		"wrangler": "^4.149.0"
+		"wrangler": "^4.149.0",
+		"typescript-api": "npm:typescript@5.9.3"
 	}
 }

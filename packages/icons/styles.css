@@ -1,0 +1,42 @@
+/* Optional icon animation. Import once: `@import "@passui/icons/styles.css";`
+   Drive it with `<Icon animate="spin" />`; every effect is off under reduced motion. */
+@keyframes passui-icon-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+@keyframes passui-icon-pulse {
+	50% {
+		opacity: 0.45;
+	}
+}
+@keyframes passui-icon-draw {
+	from {
+		stroke-dashoffset: 1;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+[data-icon-animate="spin"] {
+	animation: passui-icon-spin 0.9s linear infinite;
+	transform-origin: center;
+}
+[data-icon-animate="pulse"] {
+	animation: passui-icon-pulse 1.4s ease-in-out infinite;
+}
+[data-icon-animate="draw"] [data-part] {
+	stroke-dasharray: 1;
+	animation: passui-icon-draw 0.7s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[data-icon-animate] {
+		animation: none;
+	}
+	[data-icon-animate] [data-part] {
+		animation: none;
+		stroke-dasharray: none;
+	}
+}

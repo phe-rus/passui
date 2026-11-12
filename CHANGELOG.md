@@ -8,16 +8,38 @@
 - Page scaling behind a `Drawer` is opt in: put `data-passui-page` on your app root. Under reduced motion it is off.
 - `Dialog`, `Sheet` and `Drawer` size themselves from `--visual-viewport-height`, so a focused input stays above the soft keyboard.
 - Add `Popover`, `Tooltip` and `DropdownMenu` at `@passui/react/popover`, `@passui/react/tooltip` and `@passui/react/dropdown-menu`, built on `@zag-js/popover`, `@zag-js/tooltip` and `@zag-js/menu` with CSS enter and exit transitions. Tooltips open on hover and focus only. Dropdown menus have checkbox and radio items, groups, shortcuts, typeahead and submenus.
-- The old `Popover` moves to `@passui/react/legacy/popover` and is `@deprecated` until 0.3.0. The root export `Popover` is still the old one.
-- The docs site pages for Button, Dialog, Alert Dialog, Drawer, Sheet, Popover, Tooltip and Dropdown Menu render live demos directly (no iframe) with code highlighted on the server.
-- The old `Sheet` moves to `@passui/react/legacy/sheet` and is `@deprecated` until 0.3.0. The root export `Sheet` is now the new one, and the old props type is `LegacySheetProps`.
-- The old store based `Dialog` moves to `@passui/react/legacy/dialog` and is `@deprecated` until 0.3.0. `DialogHost` and `confirmDialog` keep working from `@passui/react`.
+- Add the form set at `@passui/react/<name>`: `Field`, `Label`, `Input`, `InputGroup`, `Textarea`, `Checkbox`, `Switch`, `RadioGroup`, `Toggle`, `ToggleGroup`, `Slider`, `Select`, `Combobox`, `Command`, `InputOTP`, `SegmentedControl`.
+- Add the display and navigation set: `Card`, `Badge`, `Avatar`, `Alert`, `Separator`, `Skeleton`, `Spinner`, `Kbd`, `Progress`, `Tabs`, `Accordion`, `Collapsible`, `Breadcrumb`, `Pagination`, `ButtonGroup` and `Toast` (`toast.success({ title })` with one `<Toaster />`).
+- Add `@passui/icons`: 119 redrawn icons, one subpath each (`@passui/icons/home`), `tone="mono" | "duo"`, optional `animate` from `@passui/icons/styles.css`. `@passui/react` no longer depends on Hugeicons and `@passui/react/icons` is removed.
+- **Removed, replaced components** (deleted outright, no deprecation period): see the table below. `@passui/react/legacy/*` entries no longer exist.
+- `@passui/tanstack` uses the new components and takes `@passui/react` and `@passui/icons` as peers. `FieldInput` takes `label`, `description` and `icon`; `toast.success` now takes an options object.
+- The docs site is rebuilt around Passui's own components. Guides stay at `/docs/<slug>`; components moved to `/docs/components/<slug>`. Props tables are read from the built `.d.ts`.
+- The Biome and CI setup lists `@passui/icons`, and `publish.yml` publishes tokens, icons, react, then tanstack.
 
-| Old                                     | New                                                                                                                                                           |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<Dialog title=... open onOpenChange>`  | `<Dialog open onOpenChange><DialogContent><DialogHeader><DialogTitle>`                                                                                        |
-| `<Sheet open onOpenChange title>`       | `<Sheet open onOpenChange side="bottom"><SheetContent><SheetHeader><SheetTitle>`. Use `Drawer` for a bottom sheet with a handle.                              |
-| `confirmDialog({ title, destructive })` | `<AlertDialog>` with `AlertDialogAction` and `AlertDialogCancel`. Hold the open state in your own component, since the new dialogs ship no imperative helper. |
+| Old                                           | New                                                                                                                                                           |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<Dialog title=... open onOpenChange>`        | `<Dialog open onOpenChange><DialogContent><DialogHeader><DialogTitle>`                                                                                        |
+| `<Sheet open onOpenChange title>`             | `<Sheet open onOpenChange side="bottom"><SheetContent><SheetHeader><SheetTitle>`. Use `Drawer` for a bottom sheet with a handle.                              |
+| `confirmDialog({ title, destructive })`       | `<AlertDialog>` with `AlertDialogAction` and `AlertDialogCancel`. Hold the open state in your own component, since the new dialogs ship no imperative helper. |
+| `Button`, `buttonStyle`, `IconButton`         | `Button` (`size="icon"`), `buttonVariants`                                                                                                                    |
+| `Chip`                                        | `Badge`                                                                                                                                                       |
+| `ProfileImage*`                               | `Avatar`, `AvatarImage`, `AvatarFallback`                                                                                                                     |
+| `Section`                                     | `Card`, `CardHeader`, `CardContent`                                                                                                                           |
+| `Divider`                                     | `Separator`                                                                                                                                                   |
+| `Toggle style="checkbox"` / switch            | `Checkbox`, `Switch`, `Toggle`                                                                                                                                |
+| `RadioGroup` (old props)                      | `RadioGroup`, `RadioGroupItem`                                                                                                                                |
+| `TextField`, `SecureField`, `TextEditor`      | `Input`, `InputGroup`, `Textarea`                                                                                                                             |
+| `OneTimeCode`                                 | `InputOTP`                                                                                                                                                    |
+| `Picker`, `SearchList`, `ComboBox`            | `Select`, `Combobox`                                                                                                                                          |
+| `Slider`, `SloshSlider`                       | `Slider`                                                                                                                                                      |
+| `TabBar`, `TabView`                           | `Tabs`                                                                                                                                                        |
+| `DisclosureGroup`, `InlineDisclosure`         | `Accordion`, `Collapsible`                                                                                                                                    |
+| `Menu`                                        | `DropdownMenu`                                                                                                                                                |
+| `Tooltip` host (`data-tooltip`)               | `Tooltip`, `TooltipTrigger`, `TooltipContent`                                                                                                                 |
+| `Toaster` from `/toaster`, `toast("msg")`     | `Toaster` from `/toast`, `toast.success({ title })`                                                                                                           |
+| `ProgressView`, `Skeleton`, `StatusIndicator` | `Progress`, `Skeleton`, `Badge` or `Spinner`                                                                                                                  |
+| `KeyboardShortcut`                            | `Kbd`                                                                                                                                                         |
+| `Breadcrumb` (old props)                      | `Breadcrumb` parts                                                                                                                                            |
 
 ## React 0.1.27, TanStack 0.2.7 and Tokens 0.1.3
 

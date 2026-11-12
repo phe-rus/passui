@@ -1,5 +1,4 @@
-import { Alert02Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { WarningIcon } from "@passui/icons/warning";
 import { cn } from "@passui/react/cn";
 import type { ReactNode } from "react";
 
@@ -20,7 +19,7 @@ export function FormAlert({
 				className,
 			)}
 		>
-			<HugeiconsIcon icon={Alert02Icon} className="mt-px size-4 shrink-0" />
+			<WarningIcon size={16} className="mt-px shrink-0" />
 			<span className="min-w-0">{children}</span>
 		</div>
 	);

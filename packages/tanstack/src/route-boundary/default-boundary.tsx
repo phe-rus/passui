@@ -1,5 +1,5 @@
+import { Button, buttonVariants } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
-import { Button, buttonStyle } from "@passui/react/legacy/button";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 import {
 	ErrorComponent,
@@ -36,7 +36,7 @@ export function DefaultBoundary({ error }: ErrorComponentProps) {
 					<Link
 						to="/"
 						className={cn(
-							buttonStyle({
+							buttonVariants({
 								variant: "default",
 								size: "sm",
 							}),

@@ -1,22 +1,15 @@
-import {
-	Camera01Icon,
-	Delete02Icon,
-	Image01Icon,
-	TextFontIcon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { CameraIcon } from "@passui/icons/camera";
+import type { IconProps } from "@passui/icons/create-icon";
+import { PhotoIcon } from "@passui/icons/photo";
+import { TrashIcon } from "@passui/icons/trash";
+import { TypesetIcon } from "@passui/icons/typeset";
 import { Ambient } from "@passui/react/ambient";
+import { Avatar, AvatarFallback, AvatarImage } from "@passui/react/avatar";
+import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
-import { Button } from "@passui/react/legacy/button";
-import { Sheet } from "@passui/react/legacy/sheet";
-import {
-	ProfileImage,
-	ProfileImageContent,
-	ProfileImageFallback,
-} from "@passui/react/profile-image";
-import type { ReactNode } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@passui/react/dialog";
+import type { ComponentType, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 
 export type AvatarPickerLabels = {
 	photo: string;
@@ -51,7 +44,7 @@ type CameraViewProps = {
 };
 
 type OptionProps = {
-	icon: typeof Image01Icon;
+	icon: ComponentType<IconProps>;
 	tone?: "default" | "destructive";
 	onClick: () => void;
 	children: ReactNode;
@@ -105,7 +98,12 @@ async function renderMonogram(
 	return toFile(canvas, "monogram.png", "image/png");
 }
 
-function Option({ icon, tone = "default", onClick, children }: OptionProps) {
+function Option({
+	icon: Icon,
+	tone = "default",
+	onClick,
+	children,
+}: OptionProps) {
 	return (
 		<button
 			type="button"
@@ -116,7 +114,7 @@ function Option({ icon, tone = "default", onClick, children }: OptionProps) {
 				tone === "destructive" && "text-destructive",
 			)}
 		>
-			<HugeiconsIcon icon={icon} className="size-4.5 shrink-0 opacity-80" />
+			<Icon size={18} className="shrink-0 opacity-80" />
 			{children}
 		</button>
 	);
@@ -235,96 +233,94 @@ export function AvatarPicker({
 		}
 	}, [open]);
 
-	if (typeof document === "undefined") return null;
-	return createPortal(
-		<Sheet
-			open={open}
-			onClose={() => onOpenChange(false)}
-			label={mode === "camera" ? labels.takePhoto : labels.photo}
-			className="gap-0 overflow-hidden rounded-3xl p-0 sm:max-w-[22rem]"
-		>
-			{mode === "camera" ? (
-				<>
-					<h2 className="sr-only">{labels.takePhoto}</h2>
+	return (
+		<Dialog open={open} onOpenChange={({ open: next }) => onOpenChange(next)}>
+			<DialogContent
+				className="gap-0 overflow-hidden rounded-3xl"
+				style={{ maxWidth: "22rem", padding: 0 }}
+			>
+				<DialogTitle className="sr-only">
+					{mode === "camera" ? labels.takePhoto : labels.photo}
+				</DialogTitle>
+				{mode === "camera" ? (
 					<CameraView
 						labels={labels}
 						onCapture={onCapture}
 						onCancel={() => setMode("menu")}
 					/>
-				</>
-			) : (
-				<>
-					<Ambient
-						src={image}
-						className="flex flex-col items-center gap-3 px-5 pt-8 pb-6 text-center"
-					>
-						<ProfileImage className="size-28 shadow-[0_12px_32px_-12px_rgb(0_0_0/0.45)] ring-1 ring-white/50">
-							<ProfileImageContent src={image} alt={label} />
-							<ProfileImageFallback className="text-title">
-								{initials}
-							</ProfileImageFallback>
-						</ProfileImage>
-						<div className="flex flex-col gap-0.5">
-							<h2>{labels.photo}</h2>
-							<p>{labels.photoDescription}</p>
-						</div>
-					</Ambient>
-
-					<div className="divide-border/40 border-border/35 bg-card m-3 flex flex-col divide-y overflow-hidden rounded-2xl border shadow-xs">
-						<Option icon={Image01Icon} onClick={onChooseFile}>
-							{labels.choosePhoto}
-						</Option>
-						{canUseCamera && (
-							<Option icon={Camera01Icon} onClick={() => setMode("camera")}>
-								{labels.takePhoto}
-							</Option>
-						)}
-						<Option
-							icon={TextFontIcon}
-							onClick={() => setMonogramOpen((current) => !current)}
+				) : (
+					<>
+						<Ambient
+							src={image}
+							className="flex flex-col items-center gap-3 px-5 pt-8 pb-6 text-center"
 						>
-							{labels.monogram}
-						</Option>
-						{monogramOpen && (
-							<div className="flex items-center justify-between gap-2 px-4 py-3">
-								{MONOGRAM_GRADIENTS.map((gradient) => (
-									<button
-										key={gradient[0]}
-										type="button"
-										aria-label={`${labels.monogram} ${gradient[0]}`}
-										onClick={() =>
-											void renderMonogram(initials, gradient).then(onChoose)
-										}
-										className="text-subheadline flex size-10 items-center justify-center rounded-full font-semibold text-white shadow-xs ring-1 ring-black/5 transition-transform hover:scale-105 active:scale-95"
-										style={{
-											backgroundImage: `linear-gradient(${gradient[0]}, ${gradient[1]})`,
-										}}
-									>
-										{initials}
-									</button>
-								))}
+							<Avatar className="size-28 shadow-[0_12px_32px_-12px_rgb(0_0_0/0.45)] ring-1 ring-white/50">
+								<AvatarImage src={image} alt={label} />
+								<AvatarFallback className="text-title">
+									{initials}
+								</AvatarFallback>
+							</Avatar>
+							<div className="flex flex-col gap-0.5">
+								<h2>{labels.photo}</h2>
+								<p>{labels.photoDescription}</p>
 							</div>
-						)}
-						{clearable && image && (
-							<Option icon={Delete02Icon} tone="destructive" onClick={onRemove}>
-								{labels.removePhoto}
-							</Option>
-						)}
-					</div>
+						</Ambient>
 
-					<div className="px-3 pb-3">
-						<Button
-							type="button"
-							variant="secondary"
-							className="w-full rounded-2xl"
-							onClick={() => onOpenChange(false)}
-						>
-							{labels.cancel}
-						</Button>
-					</div>
-				</>
-			)}
-		</Sheet>,
-		document.body,
+						<div className="divide-border/40 border-border/35 bg-card m-3 flex flex-col divide-y overflow-hidden rounded-2xl border shadow-xs">
+							<Option icon={PhotoIcon} onClick={onChooseFile}>
+								{labels.choosePhoto}
+							</Option>
+							{canUseCamera && (
+								<Option icon={CameraIcon} onClick={() => setMode("camera")}>
+									{labels.takePhoto}
+								</Option>
+							)}
+							<Option
+								icon={TypesetIcon}
+								onClick={() => setMonogramOpen((current) => !current)}
+							>
+								{labels.monogram}
+							</Option>
+							{monogramOpen && (
+								<div className="flex items-center justify-between gap-2 px-4 py-3">
+									{MONOGRAM_GRADIENTS.map((gradient) => (
+										<button
+											key={gradient[0]}
+											type="button"
+											aria-label={`${labels.monogram} ${gradient[0]}`}
+											onClick={() =>
+												void renderMonogram(initials, gradient).then(onChoose)
+											}
+											className="text-subheadline flex size-10 items-center justify-center rounded-full font-semibold text-white shadow-xs ring-1 ring-black/5 transition-transform hover:scale-105 active:scale-95"
+											style={{
+												backgroundImage: `linear-gradient(${gradient[0]}, ${gradient[1]})`,
+											}}
+										>
+											{initials}
+										</button>
+									))}
+								</div>
+							)}
+							{clearable && image && (
+								<Option icon={TrashIcon} tone="destructive" onClick={onRemove}>
+									{labels.removePhoto}
+								</Option>
+							)}
+						</div>
+
+						<div className="px-3 pb-3">
+							<Button
+								type="button"
+								variant="secondary"
+								className="w-full rounded-2xl"
+								onClick={() => onOpenChange(false)}
+							>
+								{labels.cancel}
+							</Button>
+						</div>
+					</>
+				)}
+			</DialogContent>
+		</Dialog>
 	);
 }

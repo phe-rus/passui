@@ -1,13 +1,11 @@
-import {
-	Cancel01Icon,
-	ChevronDownIcon,
-	ChevronUpIcon,
-	Loading03Icon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { SearchField } from "@passui/react";
+import { ChevronDownIcon } from "@passui/icons/chevron-down";
+import { ChevronUpIcon } from "@passui/icons/chevron-up";
+import { CloseIcon } from "@passui/icons/close";
+import { Button } from "@passui/react/button";
+import { Checkbox } from "@passui/react/checkbox";
 import { cn } from "@passui/react/cn";
-import { Button } from "@passui/react/legacy/button";
+import { SearchField } from "@passui/react/search-field";
+import { Spinner } from "@passui/react/spinner";
 import {
 	Table,
 	TableBody,
@@ -17,7 +15,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@passui/react/table";
-import { Toggle } from "@passui/react/toggle";
 import type {
 	ColumnDef,
 	ColumnFiltersState,
@@ -165,10 +162,10 @@ function ToolbarToggle({
 					{count}
 				</span>
 			)}
-			<HugeiconsIcon
-				icon={ChevronDownIcon}
+			<ChevronDownIcon
+				size={12}
 				className={cn(
-					"size-3 transition-transform duration-150",
+					"transition-transform duration-150",
 					open && "rotate-180",
 				)}
 			/>
@@ -296,13 +293,7 @@ export function DataTable<TData extends RowData>({
 					value={searchInput}
 					onChange={(event) => setSearchInput(event.target.value)}
 				/>
-				{isLoading && (
-					<HugeiconsIcon
-						icon={Loading03Icon}
-						className="size-4 shrink-0 animate-spin"
-						aria-label="Loading"
-					/>
-				)}
+				{isLoading && <Spinner className="shrink-0" />}
 				<div className="flex shrink-0 items-center gap-1.5 sm:ml-auto">
 					<ToolbarToggle
 						label="Columns"
@@ -346,12 +337,10 @@ export function DataTable<TData extends RowData>({
 							const visible = column.getIsVisible();
 							return (
 								<div key={column.id} className="flex items-center gap-2">
-									<Toggle
-										style="checkbox"
-										labelHidden
-										label={getColumnLabel(column)}
+									<Checkbox
+										aria-label={getColumnLabel(column)}
 										checked={visible}
-										onChange={() => column.toggleVisibility()}
+										onCheckedChange={() => column.toggleVisibility()}
 									/>
 									<span className="text-caption">{getColumnLabel(column)}</span>
 								</div>
@@ -373,7 +362,7 @@ export function DataTable<TData extends RowData>({
 								onClick={() => setColumnFilters([])}
 								className="text-muted-foreground hover:text-foreground"
 							>
-								<HugeiconsIcon icon={Cancel01Icon} className="size-3" />
+								<CloseIcon size={12} />
 								Clear all
 							</Button>
 						)}
@@ -461,18 +450,18 @@ export function DataTable<TData extends RowData>({
 												header.getContext(),
 											)}
 											<div className="flex flex-col">
-												<HugeiconsIcon
-													icon={ChevronUpIcon}
+												<ChevronUpIcon
+													size={12}
 													className={cn(
-														"size-3 opacity-20",
+														"opacity-20",
 														header.column.getIsSorted() === "asc" &&
 															"opacity-100",
 													)}
 												/>
-												<HugeiconsIcon
-													icon={ChevronDownIcon}
+												<ChevronDownIcon
+													size={12}
 													className={cn(
-														"-mt-1.5 size-3 opacity-20",
+														"-mt-1.5 opacity-20",
 														header.column.getIsSorted() === "desc" &&
 															"opacity-100",
 													)}

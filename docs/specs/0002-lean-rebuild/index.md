@@ -157,3 +157,9 @@ Order is Tracer Bullet (no approach is recorded in `AGENTS.md`, so this follows 
 ## Rationale
 
 Reasoning and options: see `rationale.md`.
+
+## Build status, 2026-11-12
+
+Done: steps 0 to 9 for wave 1. Form and display components (step 5 and 6) are in `packages/ui/src/components`. `@passui/icons` (step 7) ships 119 redrawn icons with a frozen `icons.manifest.json`; the icons child spec was not written first, so the icon list was taken from the icons the repo already used. `www` reads props tables from the built declarations (step 8, `www/scripts/generate-api.ts`). `@passui/tanstack` uses the new components with peers on `@passui/react` and `@passui/icons` (step 9).
+
+Open: step 10 (CHANGELOG mapping, version bumps, `0.2.0` publish, the `@passui/icons` npm trusted publisher), wave 2 rebuilds of the components still in `packages/ui/src/legacy`, and real device checks.

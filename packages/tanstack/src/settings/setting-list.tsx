@@ -1,11 +1,8 @@
-import {
-	ArrowRight01Icon,
-	Copy01Icon,
-	Tick02Icon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { CheckIcon } from "@passui/icons/check";
+import { ChevronRightIcon } from "@passui/icons/chevron-right";
+import { CopyIcon } from "@passui/icons/copy";
+import { Button, type ButtonSize } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
-import { IconButton, type IconButtonSize } from "@passui/react/icon-button";
 import type { LinkProps } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
@@ -171,10 +168,7 @@ function Row({
 			)}
 			{trailing}
 			{(chevron ?? interactive) && (
-				<HugeiconsIcon
-					icon={ArrowRight01Icon}
-					className="text-muted-foreground/60 size-4 shrink-0"
-				/>
+				<ChevronRightIcon size={16} className="text-label-tertiary shrink-0" />
 			)}
 		</>
 	);
@@ -205,14 +199,14 @@ function Copy({
 	value: string;
 	label?: string;
 	/** Quiet and row-sized by default; any of Passui's icon sizes. */
-	size?: IconButtonSize;
+	size?: ButtonSize;
 }) {
 	const [copied, setCopied] = useState(false);
 	return (
-		<IconButton
+		<Button
 			variant="ghost"
 			size={size}
-			label={label}
+			aria-label={label}
 			onClick={async (event) => {
 				event.stopPropagation();
 				await navigator.clipboard.writeText(value);
@@ -220,11 +214,8 @@ function Copy({
 				setTimeout(() => setCopied(false), 1500);
 			}}
 		>
-			<HugeiconsIcon
-				icon={copied ? Tick02Icon : Copy01Icon}
-				className="size-4"
-			/>
-		</IconButton>
+			{copied ? <CheckIcon size={16} /> : <CopyIcon size={16} />}
+		</Button>
 	);
 }
 

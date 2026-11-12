@@ -1,87 +1,255 @@
 {
-	"src/ui/button.tsx": {
+	"src/components/accordion.tsx": {
+		"packages": ["@zag-js/accordion", "@zag-js/react", "react"],
+		"local": ["src/components/accordion.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/alert-dialog.tsx": {
+		"packages": ["@zag-js/dialog", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/components/alert-dialog.tsx",
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts"
+		]
+	},
+	"src/components/alert.tsx": {
 		"packages": ["react"],
-		"local": ["src/lib/cx.ts", "src/ui/button.tsx"]
+		"local": ["src/components/alert.tsx", "src/lib/cx.ts"]
 	},
-	"src/ui/dialog.tsx": {
+	"src/components/avatar.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/avatar.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/badge.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/badge.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/breadcrumb.tsx": {
+		"packages": ["react"],
+		"local": [
+			"src/components/breadcrumb.tsx",
+			"src/lib/cx.ts",
+			"src/lib/render.ts"
+		]
+	},
+	"src/components/button-group.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/button-group.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/button.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/button.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/card.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/card.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/checkbox.tsx": {
+		"packages": ["@zag-js/checkbox", "@zag-js/react", "react"],
+		"local": ["src/components/checkbox.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/collapsible.tsx": {
+		"packages": ["@zag-js/collapsible", "@zag-js/react", "react"],
+		"local": [
+			"src/components/collapsible.tsx",
+			"src/lib/cx.ts",
+			"src/lib/render.ts"
+		]
+	},
+	"src/components/combobox.tsx": {
+		"packages": ["@zag-js/combobox", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/components/combobox.tsx",
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts"
+		]
+	},
+	"src/components/command.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/command.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/dialog.tsx": {
 		"packages": ["@zag-js/dialog", "@zag-js/react", "react", "react-dom"],
 		"local": [
+			"src/components/dialog.tsx",
 			"src/lib/cx.ts",
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
-			"src/lib/visual-viewport.ts",
-			"src/ui/dialog.tsx"
+			"src/lib/visual-viewport.ts"
 		]
 	},
-	"src/ui/alert-dialog.tsx": {
-		"packages": ["@zag-js/dialog", "@zag-js/react", "react", "react-dom"],
-		"local": [
-			"src/lib/cx.ts",
-			"src/lib/portal.tsx",
-			"src/lib/presence.ts",
-			"src/lib/render.ts",
-			"src/ui/alert-dialog.tsx"
-		]
-	},
-	"src/ui/drawer.tsx": {
+	"src/components/drawer.tsx": {
 		"packages": [
+			"@passui/tokens",
 			"@zag-js/drawer",
 			"@zag-js/react",
-			"@passui/tokens",
 			"react",
 			"react-dom"
 		],
 		"local": [
+			"src/components/drawer.tsx",
 			"src/lib/cx.ts",
 			"src/lib/drawer.math.ts",
 			"src/lib/page-scale.ts",
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
-			"src/lib/visual-viewport.ts",
-			"src/ui/drawer.tsx"
+			"src/lib/visual-viewport.ts"
 		]
 	},
-	"src/ui/sheet.tsx": {
-		"packages": ["@zag-js/drawer", "@zag-js/react", "react", "react-dom"],
-		"local": [
-			"src/lib/cx.ts",
-			"src/lib/portal.tsx",
-			"src/lib/presence.ts",
-			"src/lib/render.ts",
-			"src/lib/visual-viewport.ts",
-			"src/ui/sheet.tsx"
-		]
-	},
-	"src/ui/popover.tsx": {
-		"packages": ["@zag-js/popover", "@zag-js/react", "react", "react-dom"],
-		"local": [
-			"src/lib/cx.ts",
-			"src/lib/portal.tsx",
-			"src/lib/presence.ts",
-			"src/lib/render.ts",
-			"src/ui/popover.tsx"
-		]
-	},
-	"src/ui/tooltip.tsx": {
-		"packages": ["@zag-js/react", "@zag-js/tooltip", "react", "react-dom"],
-		"local": [
-			"src/lib/cx.ts",
-			"src/lib/portal.tsx",
-			"src/lib/presence.ts",
-			"src/lib/render.ts",
-			"src/ui/tooltip.tsx"
-		]
-	},
-	"src/ui/dropdown-menu.tsx": {
+	"src/components/dropdown-menu.tsx": {
 		"packages": ["@zag-js/menu", "@zag-js/react", "react", "react-dom"],
 		"local": [
+			"src/components/dropdown-menu.tsx",
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts"
+		]
+	},
+	"src/components/field.tsx": {
+		"packages": ["react"],
+		"local": [
+			"src/components/field.tsx",
+			"src/components/label.tsx",
+			"src/lib/cx.ts"
+		]
+	},
+	"src/components/input-group.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/input-group.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/input-otp.tsx": {
+		"packages": ["@zag-js/pin-input", "@zag-js/react", "react"],
+		"local": ["src/components/input-otp.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/input.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/input.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/kbd.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/kbd.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/label.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/label.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/pagination.tsx": {
+		"packages": ["react"],
+		"local": [
+			"src/components/button.tsx",
+			"src/components/pagination.tsx",
+			"src/lib/cx.ts",
+			"src/lib/render.ts"
+		]
+	},
+	"src/components/popover.tsx": {
+		"packages": ["@zag-js/popover", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/components/popover.tsx",
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts"
+		]
+	},
+	"src/components/progress.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/progress.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/radio-group.tsx": {
+		"packages": ["@zag-js/radio-group", "@zag-js/react", "react"],
+		"local": ["src/components/radio-group.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/segmented-control.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/toggle-group", "react"],
+		"local": [
+			"src/components/segmented-control.tsx",
+			"src/components/toggle-group.tsx",
+			"src/components/toggle.tsx",
+			"src/lib/cx.ts"
+		]
+	},
+	"src/components/select.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/select", "react", "react-dom"],
+		"local": [
+			"src/components/select.tsx",
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts"
+		]
+	},
+	"src/components/separator.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/separator.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/sheet.tsx": {
+		"packages": ["@zag-js/drawer", "@zag-js/react", "react", "react-dom"],
+		"local": [
+			"src/components/sheet.tsx",
 			"src/lib/cx.ts",
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
-			"src/ui/dropdown-menu.tsx"
+			"src/lib/visual-viewport.ts"
+		]
+	},
+	"src/components/skeleton.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/skeleton.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/slider.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/slider", "react"],
+		"local": ["src/components/slider.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/spinner.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/spinner.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/switch.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/switch", "react"],
+		"local": ["src/components/switch.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/tabs.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/tabs", "react"],
+		"local": ["src/components/tabs.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/textarea.tsx": {
+		"packages": ["react"],
+		"local": [
+			"src/components/input.tsx",
+			"src/components/textarea.tsx",
+			"src/lib/cx.ts"
+		]
+	},
+	"src/components/toast.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/toast", "react", "react-dom"],
+		"local": ["src/components/toast.tsx", "src/lib/cx.ts", "src/lib/portal.tsx"]
+	},
+	"src/components/toggle-group.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/toggle-group", "react"],
+		"local": [
+			"src/components/toggle-group.tsx",
+			"src/components/toggle.tsx",
+			"src/lib/cx.ts"
+		]
+	},
+	"src/components/toggle.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/toggle.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/tooltip.tsx": {
+		"packages": ["@zag-js/react", "@zag-js/tooltip", "react", "react-dom"],
+		"local": [
+			"src/components/tooltip.tsx",
+			"src/lib/cx.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts"
 		]
 	}
 }

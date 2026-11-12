@@ -159,7 +159,7 @@ export async function planProject(options: Options): Promise<Plan> {
 				"@tanstack/react-devtools": "^0.10.13",
 				"@tanstack/react-query-devtools": "^5.104.0",
 				"@tanstack/react-router-devtools": "^1.167.2",
-				"@hugeicons/react": "^1.1.10",
+				"@passui/icons": "^0.1.0",
 				motion: "^13.4.4",
 			}))
 				add(runtime, name, version);

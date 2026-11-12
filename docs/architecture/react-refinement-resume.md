@@ -1,5 +1,9 @@
 # React and website refinement checkpoint
 
+## Lean rebuild, 2026-11-12
+
+The website was rebuilt around Passui's own components with a Pass style layout (see `www/AGENTS.md`); the playground, preview iframe and old catalog were removed. Wave 1 is complete in `packages/ui/src/components`; the rest sits in `packages/ui/src/legacy`. Verified: root typecheck, Biome, all package tests, bundle budgets, dev server HTTP 200 on all 58 component pages with highlighted code. Not verified: visual checks in a real browser, touch devices, production deploy. Sections below describe the pre rebuild site and are historical.
+
 ## Device authorization input, 2026-11-04
 
 React 0.1.21 adds `OneTimeCode format="alphanumeric"` for uppercase ASCII
@@ -26,7 +30,7 @@ previous release hold. Website deployment and consumer upgrades remain separate.
 The supported runtime is React. Native controls live in `packages/ui`; shared
 styles and tokens in `packages/tokens`; optional integrations in
 `packages/tanstack`; setup tooling in `packages/cli`. Website code lives in
-`www/src/{domains,routes,styles}` and tests in `www/test`.
+`www/src/{components,features,lib,routes,styles}` and tests in `www/test`.
 
 The docs rail and command search use a flat alphabetical component list. They
 share generated metadata without importing executable examples. Component family

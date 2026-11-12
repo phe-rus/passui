@@ -196,3 +196,7 @@ Order follows Tracer Bullet, the default for production work, since no approach 
 - [ ] Create the Playwright setup (Chromium and WebKit, touch emulation) and a real device checklist file before step 4 ships.
 - [ ] Record the shared helper allow list and the `render` prop rule in `packages/ui/AGENTS.md` through `/sync` once step 1 of this build plan lands.
 - [ ] Wave 2 still needs its own spec (Hover Card, Context Menu, Menubar and the rest). The icons child spec is also still owed.
+
+## Status, 2026-11-12
+
+Steps 1 to 9 are built. The Close step (legacy moves, SSR hydration tests in `packages/ui/test/components/ssr.test.tsx`, website pages) is done, with one deviation: the replaced old components were deleted rather than kept under `./legacy/*`, at the owner's request, so the CHANGELOG mapping documents removals. Still open: the stacking e2e run in a browser, the Dropdown Menu in Sheet in Dialog case, and the real device checklist.

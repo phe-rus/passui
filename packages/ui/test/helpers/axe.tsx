@@ -15,6 +15,11 @@ if (typeof globalThis.ResizeObserver === "undefined")
 		disconnect() {}
 	};
 
+// jsdom lacks scrolling methods Zag calls when highlighting list items.
+for (const m of ["scrollTo", "scrollIntoView"] as const)
+	if (!(m in Element.prototype))
+		(Element.prototype as unknown as Record<string, unknown>)[m] = () => {};
+
 /** Lets Zag effects and animation frames run. */
 export async function settle() {
 	await act(async () => {

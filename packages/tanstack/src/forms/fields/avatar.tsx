@@ -1,13 +1,8 @@
-import { Delete02Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { TrashIcon } from "@passui/icons/trash";
 import { Ambient } from "@passui/react/ambient";
+import { Avatar, AvatarFallback, AvatarImage } from "@passui/react/avatar";
+import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
-import { Button } from "@passui/react/legacy/button";
-import {
-	ProfileImage,
-	ProfileImageContent,
-	ProfileImageFallback,
-} from "@passui/react/profile-image";
 import type { DragEvent, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useFieldContext } from "../contexts";
@@ -148,7 +143,7 @@ export function FieldAvatar({
 				)}
 				aria-label={`${text.edit} ${label}`}
 			>
-				<ProfileImage
+				<Avatar
 					className={cn(
 						"relative ring-1 ring-white/40",
 						compact ? "size-16!" : "size-43!",
@@ -157,17 +152,17 @@ export function FieldAvatar({
 						(dragOver || pending) && "scale-[1.04]",
 					)}
 				>
-					<ProfileImageContent
+					<AvatarImage
 						src={currentImage}
 						alt={label}
 						className="object-cover transition-[filter] duration-300 group-hover:brightness-90"
 					/>
-					<ProfileImageFallback
+					<AvatarFallback
 						className={compact ? "text-title3" : "text-large-title"}
 					>
 						{(label.charAt(0) || "?").toUpperCase()}
-					</ProfileImageFallback>
-				</ProfileImage>
+					</AvatarFallback>
+				</Avatar>
 				{/* the frosted "Edit" capsule sitting on the photo's lower edge */}
 				{!pending && (
 					<span
@@ -208,7 +203,7 @@ export function FieldAvatar({
 					className="text-muted-foreground"
 					onClick={() => field.handleChange(false)}
 				>
-					<HugeiconsIcon icon={Delete02Icon} />
+					<TrashIcon size={16} />
 					{text.remove}
 				</Button>
 			)}

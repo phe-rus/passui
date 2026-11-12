@@ -83,17 +83,16 @@ export function useAppMutation<
 		},
 		onSuccess: (data, variables) => {
 			if (successMessage) {
-				toast.success(
-					typeof successMessage === "function"
-						? successMessage(data, variables)
-						: successMessage,
-					{
-						description:
-							typeof successDescription === "function"
-								? successDescription(data, variables)
-								: successDescription,
-					},
-				);
+				toast.success({
+					title:
+						typeof successMessage === "function"
+							? successMessage(data, variables)
+							: successMessage,
+					description:
+						typeof successDescription === "function"
+							? successDescription(data, variables)
+							: successDescription,
+				});
 			}
 			onSuccess?.(data, variables);
 		},
@@ -109,7 +108,8 @@ export function useAppMutation<
 					context.next,
 				);
 			}
-			toast.error(errorMessage ?? "Something went wrong", {
+			toast.error({
+				title: errorMessage ?? "Something went wrong",
 				description: error.message,
 			});
 			onError?.(error, variables);

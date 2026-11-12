@@ -1,17 +1,17 @@
 # Search discovery and metadata
 
 The canonical origin is `https://passui.pherus.org`, defined once in
-`www/src/domains/seo/site.ts`. `pageUrl` strips query strings, fragments and
+`www/src/features/seo/site.ts`. `pageUrl` strips query strings, fragments and
 trailing slashes, preserving `/` for the home page. Playground settings
 therefore share the documentation page's canonical URL.
 
-`get-page-head.ts` supplies page titles, descriptions, canonical links,
+`www/src/features/seo/head.ts` supplies page titles, descriptions, canonical links,
 Open Graph, Twitter summary cards, and JSON LD website, page and breadcrumb
 data. The home page also describes the TypeScript source repository.
 The shared root supplies document metadata and icons, without a second
 canonical. Keep JSON LD escaped for safe inclusion in HTML.
 
-`sitemap.ts` builds `/sitemap.xml` from the real guide list and component
+`www/src/features/seo/sitemap.ts` builds `/sitemap.xml` from the real guide list and component
 catalog. Adding a guide or documented control includes its canonical
 page automatically. `/components` occurs once. The sitemap excludes
 preview iframes, search variants, AI text endpoints and nonexistent pages.

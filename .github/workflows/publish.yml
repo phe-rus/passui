@@ -9,13 +9,14 @@ on:
   workflow_dispatch:
     inputs:
       package:
-        description: Package to publish ("all" is tokens, ui, then tanstack)
+        description: Package to publish ("all" is tokens, icons, ui, then tanstack)
         required: true
         default: all
         type: choice
         options:
           - all
           - tokens
+          - icons
           - ui
           - tanstack
           - cli
@@ -63,7 +64,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package: ${{ github.event.inputs.package == 'all' && fromJSON('["tokens","ui","tanstack"]') || fromJSON(format('["{0}"]', github.event.inputs.package)) }}
+        package: ${{ github.event.inputs.package == 'all' && fromJSON('["tokens","icons","ui","tanstack"]') || fromJSON(format('["{0}"]', github.event.inputs.package)) }}
     runs-on: ubuntu-latest
     environment: npm-publish
     permissions:

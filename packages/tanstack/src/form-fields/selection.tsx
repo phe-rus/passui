@@ -1,5 +1,6 @@
+import { Checkbox } from "@passui/react/checkbox";
 import { cn } from "@passui/react/cn";
-import { Toggle } from "@passui/react/toggle";
+import { RadioGroup, RadioGroupItem } from "@passui/react/radio-group";
 import type { ReactNode } from "react";
 import { useFieldContext } from "../forms/contexts";
 
@@ -26,33 +27,33 @@ export function FieldRadioCard({
 }) {
 	const field = useFieldContext<string>();
 	return (
-		<fieldset disabled={disabled} className="flex flex-col gap-2">
-			<legend className="text-subheadline font-semibold">{label}</legend>
+		<RadioGroup
+			name={field.name}
+			disabled={disabled}
+			value={field.state.value}
+			aria-label={label}
+			onValueChange={(value) => {
+				if (value !== null) field.handleChange(value);
+				field.handleBlur();
+			}}
+		>
+			<div className="text-subheadline font-semibold">{label}</div>
 			{description && (
 				<p className="text-footnote text-label-secondary">{description}</p>
 			)}
 			<div className={cn("grid gap-2", columns === 2 && "md:grid-cols-2")}>
 				{options.map((option) => (
-					<label
+					<RadioGroupItem
 						key={option.value}
+						value={option.value}
+						disabled={option.disabled}
 						className={cn(
-							"flex items-start gap-3 rounded-xl border p-3",
+							"items-start rounded-xl border p-3",
 							field.state.value === option.value
 								? "border-accent-text bg-accent/10"
 								: "border-separator bg-elevated",
-							(disabled || option.disabled) && "opacity-40",
 						)}
 					>
-						<input
-							type="radio"
-							name={field.name}
-							value={option.value}
-							checked={field.state.value === option.value}
-							disabled={option.disabled}
-							onBlur={field.handleBlur}
-							onChange={() => field.handleChange(option.value)}
-							className="accent-accent-text mt-1"
-						/>
 						{option.icon}
 						<span className="text-subheadline">
 							{option.label}
@@ -62,10 +63,10 @@ export function FieldRadioCard({
 								</span>
 							)}
 						</span>
-					</label>
+					</RadioGroupItem>
 				))}
 			</div>
-		</fieldset>
+		</RadioGroup>
 	);
 }
 
@@ -87,20 +88,20 @@ export function FieldMultiselect({
 			)}
 			{options.map((option) => (
 				<div key={option.value}>
-					<Toggle
-						style="checkbox"
-						label={option.label}
+					<Checkbox
 						disabled={option.disabled}
 						checked={field.state.value.includes(option.value)}
-						onChange={(checked) => {
+						onCheckedChange={(checked) => {
 							field.handleChange(
-								checked
+								checked === true
 									? Array.from(new Set([...field.state.value, option.value]))
 									: field.state.value.filter((value) => value !== option.value),
 							);
 							field.handleBlur();
 						}}
-					/>
+					>
+						{option.label}
+					</Checkbox>
 					{option.description && (
 						<p className="text-footnote text-label-secondary pl-8">
 							{option.description}

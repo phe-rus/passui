@@ -25,15 +25,12 @@
 		"publish:check": "bun pm pack --dry-run",
 		"build": "tsdown"
 	},
-	"dependencies": {
-		"@hugeicons/core-free-icons": "catalog:"
-	},
+	"dependencies": {},
 	"peerDependencies": {
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
 		"@tanstack/react-query": "^5.104.0",
 		"tailwindcss": "^4.3.3",
-		"@hugeicons/react": "^1.1.10",
 		"@tanstack/react-devtools": "^0.10.13",
 		"@tanstack/react-form": "^1.33.5",
 		"@tanstack/react-query-devtools": "^5.104.0",
@@ -41,7 +38,8 @@
 		"@tanstack/react-router-devtools": "^1.167.2",
 		"@tanstack/react-table": "^9.2.4",
 		"motion": "^13.4.4",
-		"@passui/react": "^0.1.24"
+		"@passui/react": "^0.1.24",
+		"@passui/icons": "^0.1.0"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",
@@ -51,7 +49,6 @@
 		"typescript": "catalog:",
 		"vitest": "catalog:",
 		"vite": "catalog:",
-		"@hugeicons/react": "catalog:",
 		"@tanstack/react-devtools": "^0.10.13",
 		"@tanstack/react-form": "^1.33.5",
 		"@tanstack/react-query-devtools": "^5.104.0",
@@ -63,7 +60,8 @@
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"@tanstack/react-query": "^5.104.0",
-		"tsdown": "catalog:"
+		"tsdown": "catalog:",
+		"@passui/icons": "workspace:^"
 	},
 	"exports": {
 		"./auth-shell": "./dist/auth-shell.js",
@@ -98,9 +96,6 @@
 		"@tanstack/react-query": {
 			"optional": true
 		},
-		"@hugeicons/react": {
-			"optional": true
-		},
 		"@tanstack/react-devtools": {
 			"optional": true
 		},
@@ -124,6 +119,9 @@
 		},
 		"@passui/react": {
 			"optional": true
+		},
+		"@passui/icons": {
+			"optional": false
 		}
 	},
 	"sideEffects": [

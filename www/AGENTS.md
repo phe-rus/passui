@@ -2,50 +2,52 @@
 
 `www/` is the official Passui docs website in `phe-rus/passui`, deployed as a Cloudflare Worker at `passui.pherus.org` (dev port 3004). Its words are written for people outside Pherus.
 
-TanStack Start, React compiler, Tailwind through one import (`src/styles/site.css` imports `@passui/tanstack/styles.css` and adds `@source "../"`). No auth, no data, no bindings.
+TanStack Start, React compiler, Tailwind through one import (`src/styles/site.css` imports `@passui/tanstack/styles.css` and adds `@source "../"`). No auth, no data, no bindings. It is built from Passui's own components: Tabs for Preview and Code, Command in a Dialog for search, a Sheet for the phone menu.
 
 ## Layout
 
-Application code lives under `src/`: `routes/` for thin route modules, `domains/` for features, and `styles/` for shared website CSS. Tests, public assets and tool configuration stay outside `src/`.
+```
+src/
+  components/
+    docs/      doc and guide pages, example block, props tables, sidebar, on this page
+    layout/    site header, footer, search dialog, phone nav, the mark
+    home/      hero and feature grid
+  features/
+    components/  registry.ts (one row per component), definitions/<slug>.tsx,
+                 examples/<slug>/<id>.tsx, api.generated.json, navigation.ts
+    guides/      guides.ts and content.tsx (Introduction, Installation, Theming, Typeset, Skills)
+    ai/          llms.txt and the skill, from the registry
+    seo/         canonical urls, page head, sitemap
+  lib/           copy hook, server side Shiki (highlight.server.ts) and its server function
+  routes/        thin route modules; (meta) holds llms, robots, sitemap
+  styles/        site.css
+scripts/generate-api.ts   props tables from the built declarations
+test/                     registry, example and SEO tests
+```
 
-- `src/domains/catalog`: one entry per component (`get-catalog.ts`: group, sidebar icon, docs, words), the words in `content/<slug>.ts`, and the page views (component page, overview grid, docs sidebar).
-- `src/domains/playground`: the iframe host, controls panel, snippet generator (`get-snippet.ts`) and code view (Shiki and Prettier, both lazy loaded).
-- `src/domains/preview`: the page inside the iframe (`/preview/$slug`), its message channel and size reporter. It mounts `Toaster`, `ContextMenuHost`, `DialogHost` and `TooltipHost` so overlays work inside it.
-- `src/domains/settings`: the URL search schemas (theme, accent, platform, viewport, props), each key falling back on its own.
-- `src/domains/guides`: the getting-started pages under `/docs/$slug` (Introduction, Installation, Theming, Typeset, Skills) and the `/components` entry in their list.
-- `src/domains/ai-context`: `/llms.txt`, `/skills/passui/SKILL.md` and Copy for AI, all generated from the registry and the catalog's words. It imports catalog files directly, not `@/domains/catalog`, to avoid an import cycle.
-- `src/domains/landing`, `src/domains/shell`: the home page and the site frame (header with a phone menu, footer).
+URLs: guides at `/docs/<slug>`, components at `/docs/components/<slug>`, an overview at `/docs/components`.
 
-Website-owned docs definitions and examples live in `src/domains/catalog/definitions`; public component contracts come from `../packages/ui`. See [UI guidance](../packages/ui/AGENTS.md).
+## Adding or changing a component page
 
-The website, catalog prose, tests and reusable packages share this public repository. Pherus consumes published library releases and does not build this website. Tests stay under `test/`, outside `src/`.
+1. Add a row to `src/features/components/registry.ts` (slug, name, group, summary, entry).
+2. Write `definitions/<slug>.tsx`: `doc.examples` (id, title, description, `Demo`) and `doc.accessibility`.
+3. Write each example as `examples/<slug>/<id>.tsx`, exporting exactly `<Slug><Id>` (`select/controlled.tsx` exports `SelectControlled`). The site shows the file's own source, so import from `@passui/react/...` and `@passui/icons/...` as an app would. Every page needs at least two examples. Do not name an example like a part it imports.
+4. Run `bun run --cwd packages/ui build` and then `bun run docs:api` to refresh `api.generated.json`. It reads types, `@default` tags and JSDoc from `packages/ui/dist`, so describe props in JSDoc, never by hand here. It uses a separate `typescript-api` copy because TypeScript 7 has no JS API.
+
+Component demos load per page (`import.meta.glob` in `doc-view.tsx`), so the registry stays light. Shiki and the example sources run only on the server; client navigations receive HTML.
+
+Components marked `preview` in the registry have not been rebuilt on Zag yet and are documented as they ship.
 
 ## Conventions
 
-- Route files hold only `Route` and `RouteComponent`, as everywhere in the repo.
-- The page scrolls inside `<main>` (ComposeViewport fixes `<body>`), so the router resets it with `scrollToTopSelectors: ["main"]`. Keep `resetScroll: false` on navigations that only change search params.
-- Pages that render per slug pass `key={slug}`, so folds and local state start over on each page.
-- A playground snippet must compile when pasted: required props carry `required: true`, demo-only controls go in `omit`, and text goes through `jsxAttribute`/`jsxText`.
-- Phones: the docs sidebar is hidden below `md` and opens in a Sheet from the bar naming the current page.
-- The sidebar separates Getting started guides from one flat alphabetical Components list, without an Overview row or category toggles. Use compact native Sidebar rows and share order with previous/next navigation. Header search uses the same metadata in a native SearchList Sheet with Ctrl/Cmd K. `get-navigation.ts` keeps executable demos out of the shell; `bun run docs:api` regenerates its metadata alongside API contracts.
-- Code and AI copy actions share `src/domains/clipboard/use-copy-text.tsx`; browser refusal opens a manual selection Sheet rather than reporting success.
-- React API tables use source-derived `src/domains/catalog/react-api.generated.json`. Run `bun run docs:api` after changing component contracts; root `bun run check` rejects a stale reference. Playground controls remain a separate demo contract.
+- Route files hold only imports, `Route` and `RouteComponent`.
+- The page scrolls inside `<main>` (ComposeViewport fixes `<body>`), so the router resets it with `scrollToTopSelectors: ["main"]`.
+- Pages that render per slug pass `key={slug}` so local state starts over.
+- Copy actions go through `src/lib/use-copy-text.ts`, which reports success only after a confirmed write.
+- No playground iframe: examples render directly.
 
 ## Checks
 
-`bun run test` (all catalog examples and control states, independent snippet TypeScript compilation, sidebar hierarchy, native controls, preview messages, routing and SEO), `bun run typecheck`, `bun run build`. Registry and example-file coverage lives in `test/docs/`. Build React declarations before standalone website tests (`bun run --cwd packages/ui build`); root test tasks already build workspace dependencies.
+`bun run test` (registry and example coverage, SEO), `bun run typecheck` (compiles every example), `bun run build`. Build the React and icons packages first (root tasks do).
 
-Page metadata lives in `src/domains/seo/get-page-head.ts`: canonical URLs omit playground search params, with Open Graph and Twitter summary cards using the Passui logo. Preview routes remain noindex. Installation instructions cover the public CLI and manual setup; keep generated AI setup text aligned.
-
-`src/domains/seo/sitemap.ts` generates `/sitemap.xml` from the guide and
-component catalogs and `/robots.txt` with the canonical sitemap URL.
-No preview, settings query, AI text or invented last modified dates
-belong in the sitemap. `src/server.ts` marks previews and 404 responses
-noindex; preview embedding is limited to the same origin. Structured
-page, website and breadcrumb data live in `get-page-head.ts`.
-
-For the current audit, validation boundaries and continuation, read
-[website refinement](../docs/architecture/website-refinement.md). Full-screen
-ViewController and floating LocaleSwitcher demonstrations use the shared preview
-iframe for showcase, usage and example scenes, keeping their headings and global
-positioning inside the demo document.
+`src/features/seo/sitemap.ts` generates `/sitemap.xml` and `/robots.txt`; see [the SEO guide](../docs/seo.md). `src/server.ts` marks 404 responses noindex.

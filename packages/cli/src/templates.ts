@@ -8,9 +8,8 @@ export const versions = {
 export const providers = `"use client"
 
 import type { PropsWithChildren } from "react"
-import { ContextMenuHost, DialogHost, TooltipHost } from "@passui/react"
 import { PlatformProvider, ThemeProvider } from "@passui/react/appearance"
-import { Toaster } from "@passui/react/toaster"
+import { Toaster } from "@passui/react/toast"
 
 export function PassuiProvider({ children }: PropsWithChildren) {
     return (
@@ -18,9 +17,6 @@ export function PassuiProvider({ children }: PropsWithChildren) {
             <ThemeProvider attribute={["class", "data-theme"]} defaultTheme="system" enableSystem enableColorScheme>
                 {children}
                 <Toaster />
-                <ContextMenuHost />
-                <DialogHost />
-                <TooltipHost />
             </ThemeProvider>
         </PlatformProvider>
     )
@@ -79,7 +75,7 @@ export function starterFiles(
 							"@tanstack/react-devtools": "^0.10.13",
 							"@tanstack/react-query-devtools": "^5.104.0",
 							"@tanstack/react-router-devtools": "^1.167.2",
-							"@hugeicons/react": "^1.1.10",
+							"@passui/icons": "^0.1.0",
 							motion: "^13.4.4",
 						}
 					: {}),

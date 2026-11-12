@@ -1,17 +1,11 @@
+import { SettingsIcon } from "@passui/icons/settings";
+import { Badge } from "@passui/react/badge";
 import { Button, type ButtonVariant } from "@passui/react/button";
-import { IconButton } from "@passui/react/icon-button";
-import {
-	ArchiveIcon,
-	InfoIcon,
-	ReplyIcon,
-	SettingsIcon,
-	UnderlineIcon,
-} from "@passui/react/icons";
-import { Picker, type PickerProps } from "@passui/react/picker";
 import {
 	SegmentedControl,
 	type SegmentedControlProps,
 } from "@passui/react/segmented-control";
+import { Select, type SelectProps } from "@passui/react/select";
 import { createRef } from "react";
 
 /** Compiled by the package typecheck through consumer-facing export paths. */
@@ -22,87 +16,35 @@ export function publicApiTypes() {
 		<Button
 			ref={ref}
 			variant={variant}
-			size="sm"
+			size="icon"
+			aria-label="Settings"
 			onClick={(event) => event.currentTarget.focus()}
 		>
-			Save
-		</Button>
-	);
-	const icon = (
-		<IconButton ref={ref} label="Settings">
 			<SettingsIcon size={18} />
-		</IconButton>
-	);
-	const additionalIcons = (
-		<>
-			<ArchiveIcon />
-			<InfoIcon />
-			<ReplyIcon />
-			<UnderlineIcon />
-		</>
+		</Button>
 	);
 	// @ts-expect-error fixed options must not widen to string
 	const invalid = <Button variant="unknown" />;
-	const unnamed = (
-		// @ts-expect-error icon actions require an accessible label
-		<IconButton>
-			<SettingsIcon />
-		</IconButton>
-	);
+	// @ts-expect-error badge variants are a closed set
+	const badBadge = <Badge variant="loud" />;
 	const wrongRef = (
 		// @ts-expect-error button refs must target the native element
 		<Button ref={createRef<HTMLAnchorElement>()} />
 	);
-	type Choice = "personal" | "team";
-	const props: PickerProps<Choice> = {
-		label: "Workspace",
-		value: "personal",
-		options: [
+	const props: SelectProps = {
+		items: [
 			{ value: "personal", label: "Personal" },
 			{ value: "team", label: "Team" },
 		],
-		onChange(value) {
-			const choice: Choice = value;
+		onValueChange(value) {
+			const choice: string | null = value;
 			void choice;
 		},
 	};
-	const segments: SegmentedControlProps<Choice> = props;
-	const picker = <Picker {...props} />;
-	const segmented = <SegmentedControl {...segments} />;
-	const choices = [
-		{ value: "personal", label: "Personal" },
-		{ value: "team", label: "Team" },
-	] as const;
-	const inferred = (
-		<Picker
-			label="Workspace"
-			options={choices}
-			value="team"
-			onChange={(value) => {
-				const choice: Choice = value;
-				void choice;
-			}}
-		/>
-	);
-	const outsideOptions = (
-		<Picker<Choice>
-			label="Workspace"
-			options={choices}
-			// @ts-expect-error values outside an explicitly bounded choice are rejected
-			value="other"
-			onChange={() => {}}
-		/>
-	);
-	return {
-		button,
-		icon,
-		additionalIcons,
-		invalid,
-		unnamed,
-		wrongRef,
-		picker,
-		segmented,
-		inferred,
-		outsideOptions,
+	const select = <Select {...props} />;
+	const segments: SegmentedControlProps = {
+		options: [{ value: "a", label: "A" }],
 	};
+	const segmented = <SegmentedControl {...segments} />;
+	return { button, invalid, badBadge, wrongRef, select, segmented };
 }

@@ -1,5 +1,5 @@
+import { Button, buttonVariants } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
-import { Button, buttonStyle } from "@passui/react/legacy/button";
 import { Link, useRouter } from "@tanstack/react-router";
 import type { PropsWithChildren } from "react";
 
@@ -34,7 +34,7 @@ export function NotFound({ children }: NotFoundProps) {
 					>
 						Go back
 					</Button>
-					<Link to="/" className={cn(buttonStyle({ size: "sm" }))}>
+					<Link to="/" className={cn(buttonVariants({ size: "sm" }))}>
 						Start Over
 					</Link>
 				</div>

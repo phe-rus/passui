@@ -1,5 +1,5 @@
 import { cn } from "@passui/react/cn";
-import { LoadingIcon } from "@passui/react/icons";
+import { Spinner } from "@passui/react/spinner";
 
 export type DefaultLoaderProps = {
 	/** Translated loading status for assistive technology; never displayed visually. */
@@ -17,10 +17,7 @@ export function DefaultLoader({ label, className }: DefaultLoaderProps = {}) {
 				className,
 			)}
 		>
-			<LoadingIcon
-				aria-hidden="true"
-				className="size-6! animate-spin motion-reduce:animate-none"
-			/>
+			<Spinner className="size-6" role="presentation" aria-hidden="true" />
 		</section>
 	);
 }

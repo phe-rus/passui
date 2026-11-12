@@ -120,7 +120,7 @@
 			"includes": [
 				"packages/ui/src/appearance/platform.tsx",
 				"packages/ui/src/appearance/theme.tsx",
-				"www/src/domains/playground/views/code-view.tsx"
+				"www/src/components/docs/highlighted-code.tsx"
 			],
 			"linter": {
 				"rules": {
@@ -132,8 +132,8 @@
 		},
 		{
 			"includes": [
-				"packages/ui/src/components/compact-date-picker/compact-date-picker.tsx",
-				"packages/ui/src/icons/icons.tsx"
+				"packages/ui/src/legacy/compact-date-picker/compact-date-picker.tsx",
+				"packages/icons/src/create-icon.tsx"
 			],
 			"linter": {
 				"rules": {
@@ -145,7 +145,7 @@
 		},
 		{
 			"includes": [
-				"packages/ui/src/components/compact-date-picker/compact-date-picker.tsx"
+				"packages/ui/src/legacy/compact-date-picker/compact-date-picker.tsx"
 			],
 			"linter": {
 				"rules": {

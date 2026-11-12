@@ -1,4 +1,5 @@
-import { Button } from "@passui/react/legacy/button";
+import { Button } from "@passui/react/button";
+import { Spinner } from "@passui/react/spinner";
 import { useFormContext } from "../forms/contexts";
 
 export function Submit({ label }: { label: string }) {
@@ -21,12 +22,7 @@ export function Submit({ label }: { label: string }) {
 					disabled={pending || !valid || !dirty || !touched}
 					className="w-full"
 				>
-					{pending && (
-						<span
-							aria-hidden
-							className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent"
-						/>
-					)}
+					{pending && <Spinner />}
 					{label}
 				</Button>
 			)}

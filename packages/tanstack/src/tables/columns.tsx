@@ -1,4 +1,4 @@
-import { Toggle } from "@passui/react/toggle";
+import { Checkbox } from "@passui/react/checkbox";
 import type { RowData } from "@tanstack/react-table";
 import type { DataTableColumnDef } from "./data-table";
 
@@ -10,24 +10,23 @@ export function selectColumn<
 		enableColumnFilter: false,
 		enableGlobalFilter: false,
 		header: ({ table }) => (
-			<Toggle
-				style="checkbox"
-				labelHidden
-				checked={table.getIsAllPageRowsSelected()}
-				mixed={
+			<Checkbox
+				aria-label="Select all"
+				checked={
 					table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()
+						? "indeterminate"
+						: table.getIsAllPageRowsSelected()
 				}
-				onChange={(checked) => table.toggleAllPageRowsSelected(checked)}
-				label="Select all"
+				onCheckedChange={(checked) =>
+					table.toggleAllPageRowsSelected(checked === true)
+				}
 			/>
 		),
 		cell: ({ row }) => (
-			<Toggle
-				style="checkbox"
-				labelHidden
+			<Checkbox
+				aria-label="Select row"
 				checked={row.getIsSelected()}
-				onChange={(checked) => row.toggleSelected(checked)}
-				label="Select row"
+				onCheckedChange={(checked) => row.toggleSelected(checked === true)}
 			/>
 		),
 	};

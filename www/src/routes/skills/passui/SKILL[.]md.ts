@@ -1,14 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getSkillMarkdown } from "@/features/ai/lib/get-ai-context";
+import { getSkill } from "@/features/ai/ai-context";
 
 export const Route = createFileRoute("/skills/passui/SKILL.md")({
 	server: {
 		handlers: {
-			GET: ({ request }) =>
-				new Response(getSkillMarkdown(new URL(request.url).origin), {
-					headers: {
-						"content-type": "text/markdown; charset=utf-8",
-					},
+			GET: () =>
+				new Response(getSkill(), {
+					headers: { "content-type": "text/markdown; charset=utf-8" },
 				}),
 		},
 	},

@@ -1,12 +1,9 @@
-import {
-	ChevronFirstIcon,
-	ChevronLastIcon,
-	ChevronLeftIcon,
-	ChevronRightIcon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Picker } from "@passui/react";
-import { IconButton } from "@passui/react/icon-button";
+import { ChevronFirstIcon } from "@passui/icons/chevron-first";
+import { ChevronLastIcon } from "@passui/icons/chevron-last";
+import { ChevronLeftIcon } from "@passui/icons/chevron-left";
+import { ChevronRightIcon } from "@passui/icons/chevron-right";
+import { Button } from "@passui/react/button";
+import { Select } from "@passui/react/select";
 import type { ReactTable, RowData } from "@tanstack/react-table";
 import type { DataTableFeatures } from "./data-table";
 
@@ -29,55 +26,58 @@ export function DataTablePagination<TData extends RowData>({
 			</p>
 
 			<div className="flex items-center gap-1">
-				<IconButton
-					label="First page"
+				<Button
+					variant="ghost"
+					aria-label="First page"
 					type="button"
 					size="icon-sm"
 					disabled={!table.getCanPreviousPage()}
 					onClick={() => table.setPageIndex(0)}
 				>
-					<HugeiconsIcon icon={ChevronFirstIcon} />
-				</IconButton>
-				<IconButton
-					label="Previous page"
+					<ChevronFirstIcon size={16} />
+				</Button>
+				<Button
+					variant="ghost"
+					aria-label="Previous page"
 					type="button"
 					size="icon-sm"
 					disabled={!table.getCanPreviousPage()}
 					onClick={() => table.previousPage()}
 				>
-					<HugeiconsIcon icon={ChevronLeftIcon} />
-				</IconButton>
-				<IconButton
-					label="Next page"
+					<ChevronLeftIcon size={16} />
+				</Button>
+				<Button
+					variant="ghost"
+					aria-label="Next page"
 					type="button"
 					size="icon-sm"
 					disabled={!table.getCanNextPage()}
 					onClick={() => table.nextPage()}
 				>
-					<HugeiconsIcon icon={ChevronRightIcon} />
-				</IconButton>
-				<IconButton
-					label="Last page"
+					<ChevronRightIcon size={16} />
+				</Button>
+				<Button
+					variant="ghost"
+					aria-label="Last page"
 					type="button"
 					size="icon-sm"
 					disabled={!table.getCanNextPage()}
 					onClick={() => table.setPageIndex(pageCount - 1)}
 				>
-					<HugeiconsIcon icon={ChevronLastIcon} />
-				</IconButton>
+					<ChevronLastIcon size={16} />
+				</Button>
 			</div>
 
 			<div className="w-20 shrink-0">
-				<Picker
+				<Select
 					className="w-full"
-					label="Rows per page"
+					aria-label="Rows per page"
 					value={String(pageSize)}
-					onChange={(value) => table.setPageSize(Number(value))}
-					options={pageSizeOptions.map((size) => ({
+					onValueChange={(value) => value && table.setPageSize(Number(value))}
+					items={pageSizeOptions.map((size) => ({
 						value: String(size),
 						label: String(size),
 					}))}
-					searchable={false}
 				/>
 			</div>
 		</div>

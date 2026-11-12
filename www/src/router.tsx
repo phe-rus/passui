@@ -6,8 +6,7 @@ export function getRouter() {
 	return createTanStackRouter({
 		routeTree,
 		scrollRestoration: true,
-		// the page scrolls inside <main> (ComposeViewport fixes <body>),
-		// so a new page must reset that, not the window
+		// The page scrolls inside <main> (ComposeViewport fixes <body>).
 		scrollToTopSelectors: ["main"],
 		defaultPreload: "intent",
 		defaultErrorComponent: DefaultBoundary,
@@ -16,10 +15,6 @@ export function getRouter() {
 }
 
 declare module "@tanstack/react-router" {
-	interface StaticDataRouteOption {
-		/** Docs pages that need none of the legacy store based overlay hosts. */
-		lean?: boolean;
-	}
 	interface Register {
 		router: ReturnType<typeof getRouter>;
 	}

@@ -1,25 +1,60 @@
 export { AnimatePresence, motion } from "motion/react";
 export * from "./appearance";
-export * from "./components/accordion/accordion";
-export * from "./components/aspect-ratio/aspect-ratio";
-export * from "./components/breadcrumb/breadcrumb";
-export {
-	IconButton,
-	type IconButtonProps,
-	type IconButtonSize,
-} from "./components/button/icon-button";
-export * from "./components/chip/chip";
-export * from "./components/code-block/code-block";
-export * from "./components/combo-box/combo-box";
-export * from "./components/command/command";
-export * from "./components/compact-date-picker/compact-date-picker";
-export * from "./components/compact-time-picker/compact-time-picker";
-export * from "./components/content-unavailable-view/content-unavailable-view";
+export * from "./components/accordion";
+export * from "./components/alert";
+export * from "./components/alert-dialog";
+export * from "./components/avatar";
+export * from "./components/badge";
+export * from "./components/breadcrumb";
+export * from "./components/button";
+export * from "./components/button-group";
+export * from "./components/card";
+export * from "./components/checkbox";
+export * from "./components/collapsible";
+export * from "./components/combobox";
+export * from "./components/command";
+export * from "./components/dialog";
+export * from "./components/drawer";
+export * from "./components/dropdown-menu";
+export * from "./components/field";
+export * from "./components/input";
+export * from "./components/input-group";
+export * from "./components/input-otp";
+export * from "./components/kbd";
+export * from "./components/label";
+export * from "./components/pagination";
+export * from "./components/popover";
+export * from "./components/progress";
+export * from "./components/radio-group";
+export * from "./components/segmented-control";
+export * from "./components/select";
+export * from "./components/separator";
+export * from "./components/sheet";
+export * from "./components/skeleton";
+export * from "./components/slider";
+export * from "./components/spinner";
+export * from "./components/switch";
+export * from "./components/tabs";
+export * from "./components/textarea";
+export * from "./components/toast";
+export * from "./components/toggle";
+export * from "./components/toggle-group";
+export * from "./components/tooltip";
+export * from "./hooks/use-anchored-placement";
+export * from "./hooks/use-dismiss";
+export * from "./hooks/use-media-query";
+export * from "./hooks/use-minimize-on-scroll";
+export * from "./hooks/use-visual-viewport";
+export * from "./legacy/aspect-ratio/aspect-ratio";
+export * from "./legacy/code-block/code-block";
+export * from "./legacy/compact-date-picker/compact-date-picker";
+export * from "./legacy/compact-time-picker/compact-time-picker";
+export * from "./legacy/content-unavailable-view/content-unavailable-view";
 export type {
 	ContentViewHeadingLevel,
 	ContentViewVariant,
-} from "./components/content-view/content-view";
-export * from "./components/context-menu/context-menu-host";
+} from "./legacy/content-view/content-view";
+export * from "./legacy/context-menu/context-menu-host";
 export {
 	type ContextMenuAlignX,
 	type ContextMenuAlignY,
@@ -29,69 +64,18 @@ export {
 	openContextMenu,
 	openFollowUpMenu,
 	openMenu,
-} from "./components/context-menu/context-menu-store";
-export * from "./components/context-menu/use-context-menu";
-export * from "./components/date-picker/date-picker";
-export type {
-	DialogPresentation,
-	DialogTone,
-} from "./components/dialog/dialog";
-export * from "./components/dialog/dialog-host";
-export {
-	type ConfirmOptions,
-	confirmDialog,
-} from "./components/dialog/dialog-store";
-export * from "./components/disclosure-group/disclosure-group";
-export * from "./components/divider/divider";
-export * from "./components/inline-disclosure/inline-disclosure";
-export * from "./components/keyboard-shortcut/keyboard-shortcut";
-export * from "./components/labeled-content/labeled-content";
-export * from "./components/menu/menu";
-export * from "./components/morph";
-export * from "./components/one-time-code/one-time-code";
-export * from "./components/picker/picker";
-export * from "./components/popover";
-export * from "./components/profile-image/profile-image";
-export * from "./components/progress-view/progress-view";
-export * from "./components/radio-group/radio-group";
-export * from "./components/search-field/search-field";
-export * from "./components/search-list/search-list";
-export * from "./components/section/section";
-export * from "./components/secure-field/secure-field";
-export * from "./components/segmented-control/segmented-control";
-export type {
-	SheetPlacement,
-	SheetProps as LegacySheetProps,
-	SheetSize,
-} from "./components/sheet/sheet";
-export * from "./components/sidebar/sidebar";
-export * from "./components/skeleton/skeleton";
-export * from "./components/slider/slider";
-export * from "./components/slosh-slider/slosh-slider";
-export type { StatTileTone } from "./components/stat-tile/stat-tile";
-export * from "./components/status-indicator/status-indicator";
-export * from "./components/stepper/stepper";
-export * from "./components/swatch-picker/swatch-picker";
-export * from "./components/tab-bar/tab-bar";
-export * from "./components/tab-view/tab-view";
-export * from "./components/table/table";
-export * from "./components/text-editor/text-editor";
-export * from "./components/text-field/text-field";
-export {
-	type ToastOptions,
-	type ToastTone,
-	toast,
-} from "./components/toast/toast-store";
-export * from "./components/toast/toaster";
-export * from "./components/toggle/toggle";
-export * from "./components/tooltip/tooltip-host";
-export * from "./components/wake-slider/wake-slider";
-export * from "./hooks/use-anchored-placement";
-export * from "./hooks/use-dismiss";
-export * from "./hooks/use-media-query";
-export * from "./hooks/use-minimize-on-scroll";
-export * from "./hooks/use-visual-viewport";
-export * from "./icons/icons";
+} from "./legacy/context-menu/context-menu-store";
+export * from "./legacy/context-menu/use-context-menu";
+export * from "./legacy/date-picker/date-picker";
+export * from "./legacy/labeled-content/labeled-content";
+export * from "./legacy/morph";
+export * from "./legacy/search-field/search-field";
+export * from "./legacy/sidebar/sidebar";
+export type { StatTileTone } from "./legacy/stat-tile/stat-tile";
+export * from "./legacy/stepper/stepper";
+export * from "./legacy/swatch-picker/swatch-picker";
+export * from "./legacy/table/table";
+export * from "./legacy/wake-slider/wake-slider";
 export * from "./lib/anchored-placement";
 export * from "./lib/class-names";
 export * from "./lib/clipboard";
@@ -99,15 +83,3 @@ export { registerFloatingLayer } from "./lib/floating-layers";
 export * from "./lib/haptics";
 export * from "./lib/screen-edges";
 export * from "./motion/transitions";
-export * from "./ui/alert-dialog";
-export {
-	Button,
-	type ButtonProps,
-	type ButtonSize,
-	type ButtonStyleProps,
-	type ButtonVariant,
-	buttonVariants,
-} from "./ui/button";
-export * from "./ui/dialog";
-export * from "./ui/drawer";
-export * from "./ui/sheet";

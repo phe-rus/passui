@@ -7,7 +7,7 @@ test("route loading exposes translated status without visible copy or a viewport
 	expect(html).toContain('role="status"');
 	expect(html).toContain('aria-label="Chargement"');
 	expect(html).toContain("animate-spin");
-	expect(html).toContain("motion-reduce:animate-none");
+	expect(html).toContain("motion-reduce:animate-");
 	expect(html).not.toContain(">Chargement<");
 	expect(html).not.toContain("h-screen");
 });

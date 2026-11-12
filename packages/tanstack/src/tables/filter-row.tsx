@@ -1,8 +1,6 @@
-import { Cancel01Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { IconButton } from "@passui/react/icon-button";
-import { Button } from "@passui/react/legacy/button";
-import { Toggle } from "@passui/react/toggle";
+import { CloseIcon } from "@passui/icons/close";
+import { Button } from "@passui/react/button";
+import { Checkbox } from "@passui/react/checkbox";
 import type { Column, RowData } from "@tanstack/react-table";
 import { useMemo } from "react";
 import type { DataTableFeatures } from "./data-table";
@@ -100,15 +98,15 @@ export function FilterRow<TData extends RowData>({
 						className="border-input/40 bg-background text-caption h-7 rounded-none border border-dashed px-2 outline-none"
 					/>
 					{(from || to) && (
-						<IconButton
-							label="Clear filter"
+						<Button
+							aria-label="Clear filter"
 							type="button"
 							size="icon-sm"
 							onClick={() => column.setFilterValue(undefined)}
 							className="text-muted-foreground hover:text-foreground"
 						>
-							<HugeiconsIcon icon={Cancel01Icon} className="size-3" />
-						</IconButton>
+							<CloseIcon size={12} />
+						</Button>
 					)}
 				</div>
 			</div>
@@ -144,12 +142,10 @@ export function FilterRow<TData extends RowData>({
 								className="flex cursor-pointer items-center gap-2"
 								onClick={setActive}
 							>
-								<Toggle
-									style="checkbox"
-									labelHidden
-									label={value}
+								<Checkbox
+									aria-label={value}
 									checked={active}
-									onChange={setActive}
+									onCheckedChange={() => setActive()}
 								/>
 								<span className="text-caption">{value}</span>
 							</button>
@@ -163,7 +159,7 @@ export function FilterRow<TData extends RowData>({
 							onClick={() => column.setFilterValue(undefined)}
 							className="text-muted-foreground hover:text-foreground"
 						>
-							<HugeiconsIcon icon={Cancel01Icon} className="size-3" />
+							<CloseIcon size={12} />
 							Clear
 						</Button>
 					)}
@@ -194,15 +190,15 @@ export function FilterRow<TData extends RowData>({
 					className="border-input/40 bg-background text-caption placeholder:text-muted-foreground/40 h-7 w-full rounded-none border border-dashed px-2.5 outline-none"
 				/>
 				{activeValue && (
-					<IconButton
-						label="Clear filter"
+					<Button
+						aria-label="Clear filter"
 						type="button"
 						size="icon-sm"
 						onClick={() => column.setFilterValue(undefined)}
 						className="text-muted-foreground hover:text-foreground absolute top-1/2 right-1 -translate-y-1/2"
 					>
-						<HugeiconsIcon icon={Cancel01Icon} className="size-3" />
-					</IconButton>
+						<CloseIcon size={12} />
+					</Button>
 				)}
 			</div>
 		</div>

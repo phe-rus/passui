@@ -1,11 +1,28 @@
-import { TextEditor } from "@passui/react/text-editor";
-import { TextField, type TextFieldProps } from "@passui/react/text-field";
-import { Toggle } from "@passui/react/toggle";
+import { HiddenIcon } from "@passui/icons/hidden";
+import { VisibleIcon } from "@passui/icons/visible";
+import { Checkbox } from "@passui/react/checkbox";
+import {
+	Field,
+	FieldDescription,
+	FieldError,
+	FieldLabel,
+} from "@passui/react/field";
+import { Input } from "@passui/react/input";
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupInput,
+} from "@passui/react/input-group";
+import { InputOTP } from "@passui/react/input-otp";
+import { Switch } from "@passui/react/switch";
+import { Textarea } from "@passui/react/textarea";
 import {
 	type ComponentProps,
 	createContext,
 	type ReactNode,
 	useContext,
+	useId,
+	useState,
 } from "react";
 import { useFieldContext } from "../forms/contexts";
 
@@ -13,42 +30,118 @@ export const PeachFieldLabels = createContext<
 	{ show: string; hide: string } | undefined
 >(undefined);
 
-export function FieldInput(
-	props: Omit<TextFieldProps, "value" | "onChange" | "onBlur" | "name">,
-) {
+function useFieldErrors() {
+	const field = useFieldContext<unknown>();
+	return field.state.meta.isTouched
+		? Array.from(
+				new Set(
+					field.state.meta.errors.flatMap((error) =>
+						error &&
+						typeof error === "object" &&
+						"message" in error &&
+						error.message
+							? [String(error.message)]
+							: [],
+					),
+				),
+			)
+		: [];
+}
+
+export type FieldInputProps = Omit<
+	ComponentProps<"input">,
+	"value" | "onChange" | "onBlur" | "name"
+> & {
+	label: string;
+	description?: string;
+	/** Leading icon or text inside the field. */
+	icon?: ReactNode;
+};
+
+/** A labelled input wired to the TanStack form field. Password fields get a show/hide button. */
+export function FieldInput({
+	label,
+	description,
+	icon,
+	type,
+	id,
+	...props
+}: FieldInputProps) {
 	const field = useFieldContext<string>();
-	const revealLabels = useContext(PeachFieldLabels);
+	const reveal = useContext(PeachFieldLabels);
+	const [shown, setShown] = useState(false);
+	const generated = useId();
+	const inputId = id ?? generated;
+	const errors = useFieldErrors();
+	const invalid = errors.length > 0;
+	const describedBy =
+		[description && `${inputId}-hint`, invalid && `${inputId}-error`]
+			.filter(Boolean)
+			.join(" ") || undefined;
+	const common = {
+		id: inputId,
+		name: field.name,
+		value: field.state.value,
+		onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+			field.handleChange(event.target.value),
+		onBlur: field.handleBlur,
+		"aria-invalid": invalid || undefined,
+		"aria-describedby": describedBy,
+		...props,
+	};
+	const isPassword = type === "password";
 	return (
-		<TextField
-			revealLabels={revealLabels}
-			{...props}
-			name={field.name}
-			value={field.state.value}
-			onChange={(event) => field.handleChange(event.target.value)}
-			onBlur={field.handleBlur}
-			errors={
-				field.state.meta.isTouched
-					? field.state.meta.errors.flatMap((error) =>
-							error?.message ? [error.message] : [],
-						)
-					: []
-			}
-		/>
+		<Field invalid={invalid}>
+			<FieldLabel htmlFor={inputId}>{label}</FieldLabel>
+			{icon || isPassword ? (
+				<InputGroup>
+					{icon ? <InputGroupAddon>{icon}</InputGroupAddon> : null}
+					<InputGroupInput
+						{...common}
+						type={isPassword && shown ? "text" : type}
+					/>
+					{isPassword && reveal ? (
+						<InputGroupAddon align="end">
+							<button
+								type="button"
+								aria-pressed={shown}
+								aria-label={shown ? reveal.hide : reveal.show}
+								onClick={() => setShown(!shown)}
+								className="focus-visible:ring-accent/70 rounded-full p-1 outline-none focus-visible:ring-2"
+							>
+								{shown ? <HiddenIcon size={18} /> : <VisibleIcon size={18} />}
+							</button>
+						</InputGroupAddon>
+					) : null}
+				</InputGroup>
+			) : (
+				<Input {...common} type={type} />
+			)}
+			{description ? (
+				<FieldDescription id={`${inputId}-hint`}>
+					{description}
+				</FieldDescription>
+			) : null}
+			{invalid ? (
+				<FieldError id={`${inputId}-error`}>{errors.join(". ")}</FieldError>
+			) : null}
+		</Field>
 	);
 }
 
 export function FieldCheckbox({ label }: { label: string }) {
 	const field = useFieldContext<boolean>();
 	return (
-		<Toggle
-			style="checkbox"
-			label={label}
+		<Checkbox
+			name={field.name}
 			checked={field.state.value}
-			onChange={(checked) => {
-				field.handleChange(checked);
+			onCheckedChange={(checked) => {
+				field.handleChange(checked === true);
 				field.handleBlur();
 			}}
-		/>
+		>
+			{label}
+		</Checkbox>
 	);
 }
 
@@ -70,11 +163,12 @@ export function FieldSwitch({
 					<p className="text-footnote text-label-secondary">{description}</p>
 				)}
 			</div>
-			<Toggle
-				label={label}
+			<Switch
+				aria-label={label}
+				name={field.name}
 				checked={field.state.value}
 				disabled={disabled}
-				onChange={(checked) => {
+				onCheckedChange={(checked) => {
 					field.handleChange(checked);
 					field.handleBlur();
 				}}
@@ -92,37 +186,27 @@ export function FieldTextarea({
 	icon?: ReactNode;
 }) {
 	const field = useFieldContext<string>();
-	const errors = field.state.meta.isTouched
-		? field.state.meta.errors.flatMap((error) =>
-				error?.message ? [error.message] : [],
-			)
-		: [];
+	const errors = useFieldErrors();
 	return (
-		<div className="flex flex-col gap-2">
-			<label htmlFor={field.name} className="text-subheadline font-semibold">
+		<Field invalid={errors.length > 0}>
+			<FieldLabel htmlFor={field.name}>
 				{icon}
 				{label}
-			</label>
-			<TextEditor
+			</FieldLabel>
+			<Textarea
 				{...props}
 				id={field.name}
 				name={field.name}
-				aria-invalid={errors.length > 0}
+				aria-invalid={errors.length > 0 || undefined}
 				aria-describedby={errors.length ? `${field.name}-errors` : undefined}
 				value={field.state.value}
 				onBlur={field.handleBlur}
 				onChange={(event) => field.handleChange(event.target.value)}
 			/>
 			{errors.length > 0 && (
-				<p
-					id={`${field.name}-errors`}
-					role="alert"
-					className="text-footnote text-danger"
-				>
-					{Array.from(new Set(errors)).join(". ")}
-				</p>
+				<FieldError id={`${field.name}-errors`}>{errors.join(". ")}</FieldError>
 			)}
-		</div>
+		</Field>
 	);
 }
 
@@ -136,29 +220,20 @@ export function FieldOtp({
 	onComplete?: (value: string) => void;
 }) {
 	const field = useFieldContext<string>();
+	const errors = useFieldErrors();
 	return (
-		<TextField
-			label={label}
-			name={field.name}
-			value={field.state.value}
-			inputMode="numeric"
-			autoComplete="one-time-code"
-			pattern="[0-9]*"
-			maxLength={maxLength}
-			autoFocus
-			onBlur={field.handleBlur}
-			onChange={(event) => {
-				const code = event.target.value.replace(/\D/g, "").slice(0, maxLength);
-				field.handleChange(code);
-				if (code.length === maxLength) onComplete?.(code);
-			}}
-			errors={
-				field.state.meta.isTouched
-					? field.state.meta.errors.flatMap((error) =>
-							error?.message ? [error.message] : [],
-						)
-					: []
-			}
-		/>
+		<Field invalid={errors.length > 0}>
+			<FieldLabel>{label}</FieldLabel>
+			<InputOTP
+				aria-label={label}
+				name={field.name}
+				length={maxLength}
+				value={field.state.value}
+				invalid={errors.length > 0}
+				onValueChange={(code) => field.handleChange(code)}
+				onComplete={(code) => onComplete?.(code)}
+			/>
+			{errors.length > 0 && <FieldError>{errors.join(". ")}</FieldError>}
+		</Field>
 	);
 }
