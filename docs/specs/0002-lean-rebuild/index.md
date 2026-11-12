@@ -149,10 +149,10 @@ Order is Tracer Bullet (no approach is recorded in `AGENTS.md`, so this follows 
 - [ ] Write child specs: icons (set list, tone rules, animation vocabulary), overlays (written, see [0003](0003-overlays.md)), and wave 2.
 - [ ] The icons and overlays child specs must exist before build plan steps 4 and 7 start.
 - [ ] Manual blocker: create the `@passui/icons` npm trusted publisher before its first publish.
-- [ ] Stepper and SegmentedControl are kept but sit in no wave. Place them in wave 2.
-- [ ] Write the Zag less component table (Button, Card, Badge, Alert, Separator, Skeleton, Spinner, Kbd, Label, Input, Textarea, Breadcrumb, Pagination, Button Group, Field, Input Group, Progress) into `packages/ui/AGENTS.md`.
-- [ ] Update `packages/ui/AGENTS.md` and root `AGENTS.md` once the Zag and tsdown decisions are built (`/sync` owns this).
-- [ ] Record the license notice for any borrowed Vaul constants (velocity threshold, close threshold, scale).
+- [x] Stepper and SegmentedControl are kept but sit in no wave. SegmentedControl is rebuilt in wave 1; Stepper stays unplaced until the wave 2 spec.
+- [x] Write the Zag less component table (Button, Card, Badge, Alert, Separator, Skeleton, Spinner, Kbd, Label, Input, Textarea, Breadcrumb, Pagination, Button Group, Field, Input Group, Progress) into `packages/ui/AGENTS.md`.
+- [x] Update `packages/ui/AGENTS.md` and root `AGENTS.md` once the Zag and tsdown decisions are built (`/sync` owns this).
+- [x] Record the license notice for any borrowed Vaul constants (velocity threshold, close threshold, scale).
 
 ## Rationale
 

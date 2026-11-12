@@ -191,9 +191,9 @@ Order follows Tracer Bullet, the default for production work, since no approach 
 
 ## Follow-up
 
-- [ ] Verify the page scale constants (top offset 26 px, radius 8 px) against the Vaul source before step 4 sets them in tokens. They were recalled, not read.
+- [x] Verify the page scale constants (top offset 26 px, radius 8 px) against the Vaul source before step 4 sets them in tokens. They were recalled, not read.
 - [ ] Zag, Playwright and the other new tools have no installed Agent Skills or MCP servers. Discovery was deferred. Run it before step 2 if you want it, then list the skills in this spec's Decision.
-- [ ] Create the Playwright setup (Chromium and WebKit, touch emulation) and a real device checklist file before step 4 ships.
+- [x] Create the Playwright setup (Chromium and WebKit, touch emulation) and a real device checklist file before step 4 ships.
 - [ ] Record the shared helper allow list and the `render` prop rule in `packages/ui/AGENTS.md` through `/sync` once step 1 of this build plan lands.
 - [ ] Wave 2 still needs its own spec (Hover Card, Context Menu, Menubar and the rest). The icons child spec is also still owed.
 
