@@ -6,15 +6,6 @@ import {
 	useReducedMotion,
 } from "motion/react";
 import {
-<<<<<<< HEAD
-    contentCrossfade,
-    floatingPanelMotion,
-    fluidCollapse,
-    fluidOvershoot,
-    spring,
-} from "../../motion/transitions"
-import { fitPopover, type PopoverFit } from "./popover-fit"
-=======
 	type ReactNode,
 	type RefObject,
 	useLayoutEffect,
@@ -29,13 +20,11 @@ import {
 import { cn } from "../../lib/class-names";
 import { screenEdges } from "../../lib/screen-edges";
 import {
-	contentCrossfade,
+	fluidCollapse,
 	floatingPanelMotion,
 	fluidOvershoot,
-	spring,
 } from "../../motion/transitions";
 import { fitPopover, type PopoverFit } from "./popover-fit";
->>>>>>> 271bc0e (refactor(tests): improve test readability and consistency)
 
 export type PopoverOrigin = "top-left" | "top-right";
 export type PopoverSize = "sm" | "md";
@@ -237,125 +226,6 @@ function OpenPopover({
 		};
 	}, [anchorRef, present]);
 
-<<<<<<< HEAD
-    return (
-        <motion.div
-            ref={ref}
-            {...(!anchorRef && popoverMotion)}
-            initial={
-                anchorRef
-                    ? { "--popover-content-opacity": reducedMotion ? 1 : 0 }
-                    : reducedMotion
-                      ? { opacity: 0 }
-                      : popoverMotion.initial
-            }
-            animate={
-                anchorRef
-                    ? { "--popover-content-opacity": 1 }
-                    : reducedMotion
-                      ? { opacity: 1 }
-                      : popoverMotion.animate
-            }
-            exit={
-                anchorRef
-                    ? {
-                          "--popover-content-opacity": 0,
-                          transition: { duration: reducedMotion ? 0 : 0.06 },
-                      }
-                    : reducedMotion
-                      ? { opacity: 0 }
-                      : popoverMotion.exit
-            }
-            transition={
-                anchorRef
-                    ? reducedMotion
-                        ? { duration: 0 }
-                        : { duration: 0.16, delay: 0.06 }
-                    : reducedMotion
-                      ? { duration: 0 }
-                      : popoverMotion.transition
-            }
-            style={{
-                transformOrigin:
-                    origin === "top-left"
-                        ? `0% ${fit.above ? "100%" : "0%"}`
-                        : `100% ${fit.above ? "100%" : "0%"}`,
-                translate: `${fit.shiftX}px ${fit.shiftY}px`,
-                maxWidth: fit.maxWidth || undefined,
-                maxHeight: fit.maxHeight,
-                overflowY:
-                    fit.maxHeight !== undefined && (!anchorRef || (present && settled))
-                        ? "auto"
-                        : undefined,
-                ...style,
-            }}
-            className={cn(
-                anchorRef
-                    ? "isolate [&>:not([data-popover-surface])]:opacity-[var(--popover-content-opacity)]"
-                    : "glass-menu",
-                "absolute z-40 outline-none",
-                surfaceRadius[size],
-                className
-            )}
-            {...props}
-        >
-            {anchorRef && (
-                <motion.div
-                    key={reveal ? "surface" : "measure"}
-                    aria-hidden="true"
-                    data-popover-surface=""
-                    onAnimationComplete={() => {
-                        if (reveal) setSettled(true)
-                    }}
-                    className={cn(
-                        "glass-menu pointer-events-none absolute top-0 left-0 -z-10",
-                        surfaceRadius[size]
-                    )}
-                    style={{ width: "100%", height: "100%" }}
-                    initial={reducedMotion || !reveal ? { opacity: 0 } : reveal}
-                    animate={
-                        reveal
-                            ? {
-                                  x: 0,
-                                  y: 0,
-                                  width: material.width,
-                                  height: fit.maxHeight
-                                      ? Math.min(material.height, fit.maxHeight)
-                                      : material.height,
-                                  opacity: 1,
-                                  borderRadius: material.radius,
-                              }
-                            : undefined
-                    }
-                    exit={
-                        reducedMotion || !reveal
-                            ? { opacity: 0 }
-                            : { ...menuSurfaceExit(reveal), transition: fluidCollapse }
-                    }
-                    transition={
-                        reducedMotion
-                            ? { duration: 0 }
-                            : { ...fluidOvershoot, opacity: { duration: 0.16 } }
-                    }
-                />
-            )}
-            <motion.div
-                initial={reducedMotion ? false : anchorRef ? { opacity: 0 } : undefined}
-                animate={reducedMotion ? undefined : anchorRef ? { opacity: 1 } : undefined}
-                exit={
-                    reducedMotion
-                        ? undefined
-                        : anchorRef
-                          ? { opacity: 0, transition: { duration: 0.12 } }
-                          : undefined
-                }
-                transition={reducedMotion ? { duration: 0 } : { duration: 0.16, delay: 0.06 }}
-            >
-                {children}
-            </motion.div>
-        </motion.div>
-    )
-=======
 	return (
 		<motion.div
 			ref={ref}
@@ -446,7 +316,9 @@ function OpenPopover({
 							: undefined
 					}
 					exit={
-						reducedMotion || !reveal ? { opacity: 0 } : menuSurfaceExit(reveal)
+						reducedMotion || !reveal
+							? { opacity: 0 }
+							: { ...menuSurfaceExit(reveal), transition: fluidCollapse }
 					}
 					transition={
 						reducedMotion
@@ -460,6 +332,13 @@ function OpenPopover({
 				animate={
 					reducedMotion ? undefined : anchorRef ? { opacity: 1 } : undefined
 				}
+				exit={
+					reducedMotion
+						? undefined
+						: anchorRef
+							? { opacity: 0, transition: { duration: 0.12 } }
+							: undefined
+				}
 				transition={
 					reducedMotion ? { duration: 0 } : { duration: 0.16, delay: 0.06 }
 				}
@@ -468,5 +347,4 @@ function OpenPopover({
 			</motion.div>
 		</motion.div>
 	);
->>>>>>> 271bc0e (refactor(tests): improve test readability and consistency)
 }

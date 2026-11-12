@@ -2,7 +2,7 @@ import { Sheet } from "../sheet/sheet";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Button } from "../button/button";
 import { cn } from "../../lib/class-names";
-import { contentCrossfade, spring, zoomReveal } from "../../motion/transitions";
+import { contentCrossfade, spring } from "../../motion/transitions";
 import {
 	createContext,
 	useContext,
