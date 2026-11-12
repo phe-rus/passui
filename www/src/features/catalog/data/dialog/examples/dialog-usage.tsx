@@ -1,13 +1,18 @@
 import { Button } from "@passui/react/button";
 import { Dialog } from "@passui/react/dialog";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function DialogUsage() {
 	const [open, setOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<>
-			<Button variant="secondary" onClick={() => setOpen(true)}>
+			<Button
+				variant="secondary"
+				ref={triggerRef}
+				onClick={() => setOpen(true)}
+			>
 				Sign out
 			</Button>
 			<Dialog
@@ -15,6 +20,7 @@ export function DialogUsage() {
 				onOpenChange={setOpen}
 				title="Sign out of Pass?"
 				description="You can sign back in at any time."
+				sourceRef={triggerRef}
 				footer={
 					<Dialog.Actions
 						submitLabel="Sign out"

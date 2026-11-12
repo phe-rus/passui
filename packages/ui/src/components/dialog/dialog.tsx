@@ -9,6 +9,7 @@ import {
 	useId,
 	type FormEvent,
 	type ReactNode,
+	type RefObject,
 } from "react";
 
 const CloseContext = createContext<() => void>(() => {});
@@ -48,6 +49,13 @@ export type DialogProps = {
 	presentation?: DialogPresentation;
 	/** Title, description, body and footer density. @default "md" */
 	size?: DialogSize;
+	/**
+	 * The element whose rect the dialog grows from and collapses back to
+	 * (passed through to the underlying Sheet's `sourceRef`). When provided,
+	 * the glass material springs out of the trigger — Apple's matched-geometry
+	 * effect — instead of rising from the screen edge. Ignored for `inline`.
+	 */
+	sourceRef?: RefObject<HTMLElement | null>;
 	className?: string;
 	onSubmit?: (event: FormEvent<HTMLFormElement>) => void;
 };
@@ -69,6 +77,7 @@ export function Dialog({
 	footer,
 	presentation = "drawer",
 	size = "md",
+	sourceRef,
 	className,
 	onSubmit,
 }: DialogProps) {
@@ -171,6 +180,7 @@ export function Dialog({
 			label=""
 			labelledBy={titleId}
 			placement={presentation === "center" ? "center" : "adaptive"}
+			sourceRef={sourceRef}
 		>
 			{body}
 		</Sheet>

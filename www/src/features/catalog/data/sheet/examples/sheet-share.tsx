@@ -3,16 +3,24 @@ import { Button } from "@passui/react/button";
 import { copyText } from "@passui/react/clipboard";
 import { Sheet } from "@passui/react/sheet";
 import { Toggle } from "@passui/react/toggle";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function SheetShare() {
 	const [open, setOpen] = useState(false);
 	const [canEdit, setCanEdit] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<>
-			<Button onClick={() => setOpen(true)}>Share</Button>
-			<Sheet open={open} onClose={() => setOpen(false)} label="Share note">
+			<Button ref={triggerRef} onClick={() => setOpen(true)}>
+				Share
+			</Button>
+			<Sheet
+				open={open}
+				onClose={() => setOpen(false)}
+				label="Share note"
+				sourceRef={triggerRef}
+			>
 				<div className="flex flex-col gap-5 p-6">
 					<h2 className="text-title3 text-label font-semibold">Share note</h2>
 					<Toggle

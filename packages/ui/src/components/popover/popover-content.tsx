@@ -1,5 +1,11 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { type ReactNode, useLayoutEffect, useRef, useState } from "react";
+import {
+	type ReactNode,
+	useCallback,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from "react";
 import { concealMenuSource } from "../context-menu/conceal-menu-source";
 import {
 	menuSurfaceExit,
@@ -135,10 +141,21 @@ export function PopoverContent({
 
 	useSheetFocus(panel, () => send("CLOSE"));
 
+	// Track the actual mounted surface node. Because the panel lives behind a
+	// SheetPortal (whose host is set in its own layout effect) and AnimatePresence,
+	// the `panel` ref is null on the renders where the host isn't ready yet.
+	// Storing the node in state lets the measurement effect re-run the instant
+	// the surface really attaches to the DOM.
+	const [surfaceNode, setSurfaceNode] = useState<HTMLDivElement | null>(null);
+	const setPanelRef = useCallback((node: HTMLDivElement | null) => {
+		panel.current = node;
+		setSurfaceNode(node);
+	}, []);
+
 	// Re-measure on every layout pass: trigger position, panel size, scroll,
 	// viewport resize. Recompute the fixed placement + the morph source rect.
 	useLayoutEffect(() => {
-		const surface = panel.current;
+		const surface = surfaceNode;
 		const source = triggerRef.current;
 		if (!surface) return;
 
@@ -215,7 +232,7 @@ export function PopoverContent({
 			window.removeEventListener("resize", schedule);
 			window.removeEventListener("scroll", schedule, true);
 		};
-	}, [triggerRef, origin, gap]);
+	}, [surfaceNode, triggerRef, origin, gap]);
 
 	// Conceal the trigger while the surface is morphing out of it.
 	useLayoutEffect(() => {
@@ -246,7 +263,7 @@ export function PopoverContent({
 						/>
 					)}
 					<motion.div
-						ref={panel}
+						ref={setPanelRef}
 						id={contentId}
 						role={role}
 						aria-modal={placement === "center" || undefined}

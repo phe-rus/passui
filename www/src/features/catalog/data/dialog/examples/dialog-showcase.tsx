@@ -1,11 +1,12 @@
 import { LabeledContent, Section, toast } from "@passui/react";
 import { Button } from "@passui/react/button";
 import { Dialog } from "@passui/react/dialog";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function DialogShowcase() {
 	const [open, setOpen] = useState(false);
 	const [pending, setPending] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<div className="w-full max-w-sm">
@@ -15,6 +16,7 @@ export function DialogShowcase() {
 						variant="ghost"
 						size="sm"
 						className="text-danger"
+						ref={triggerRef}
 						onClick={() => setOpen(true)}
 					>
 						Sign out
@@ -26,6 +28,7 @@ export function DialogShowcase() {
 				onOpenChange={setOpen}
 				title="Sign out of iPad mini?"
 				description="It will need your password or a passkey to sign back in."
+				sourceRef={triggerRef}
 				footer={
 					<Dialog.Actions
 						submitLabel="Sign out"

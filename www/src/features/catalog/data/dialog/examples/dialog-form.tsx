@@ -2,21 +2,27 @@ import { toast } from "@passui/react";
 import { Button } from "@passui/react/button";
 import { Dialog } from "@passui/react/dialog";
 import { TextField } from "@passui/react/text-field";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function DialogForm() {
 	const [open, setOpen] = useState(false);
 	const [name, setName] = useState("Pass console");
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<>
-			<Button variant="secondary" onClick={() => setOpen(true)}>
+			<Button
+				variant="secondary"
+				ref={triggerRef}
+				onClick={() => setOpen(true)}
+			>
 				Rename project
 			</Button>
 			<Dialog
 				open={open}
 				onOpenChange={setOpen}
 				title="Rename project"
+				sourceRef={triggerRef}
 				onSubmit={(event) => {
 					event.preventDefault();
 					setOpen(false);

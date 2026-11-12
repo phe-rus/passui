@@ -1,16 +1,26 @@
 import { Button } from "@passui/react/button";
 import { Sheet } from "@passui/react/sheet";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function SheetUsage() {
 	const [open, setOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<>
-			<Button variant="secondary" onClick={() => setOpen(true)}>
+			<Button
+				variant="secondary"
+				ref={triggerRef}
+				onClick={() => setOpen(true)}
+			>
 				About this app
 			</Button>
-			<Sheet open={open} onClose={() => setOpen(false)} label="About this app">
+			<Sheet
+				open={open}
+				onClose={() => setOpen(false)}
+				label="About this app"
+				sourceRef={triggerRef}
+			>
 				<div className="flex flex-col gap-2 p-6">
 					<h2 className="text-title3 text-label font-semibold">Pass</h2>
 					<p className="text-callout text-label-secondary">

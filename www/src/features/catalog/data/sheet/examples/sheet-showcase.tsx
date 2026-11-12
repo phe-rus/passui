@@ -1,7 +1,7 @@
 import { LabeledContent, Section, SwatchPicker } from "@passui/react";
 import { Button } from "@passui/react/button";
 import { Sheet } from "@passui/react/sheet";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const accents = [
 	{
@@ -27,17 +27,28 @@ const accents = [
 export function SheetShowcase() {
 	const [open, setOpen] = useState(false);
 	const [accent, setAccent] = useState("blush");
+	const triggerRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<div className="w-full max-w-sm">
 			<Section title="Appearance">
 				<LabeledContent label="Accent color">
-					<Button variant="ghost" size="sm" onClick={() => setOpen(true)}>
+					<Button
+						variant="ghost"
+						size="sm"
+						ref={triggerRef}
+						onClick={() => setOpen(true)}
+					>
 						{accents.find((a) => a.value === accent)?.label}
 					</Button>
 				</LabeledContent>
 			</Section>
-			<Sheet open={open} onClose={() => setOpen(false)} label="Accent color">
+			<Sheet
+				open={open}
+				onClose={() => setOpen(false)}
+				label="Accent color"
+				sourceRef={triggerRef}
+			>
 				<div className="flex flex-col gap-5 p-6">
 					<h2 className="text-title3 text-label font-semibold">Accent color</h2>
 					<SwatchPicker
