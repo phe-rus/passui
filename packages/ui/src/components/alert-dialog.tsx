@@ -139,7 +139,7 @@ export function AlertDialogContent({
 	const { api } = useAlertDialog();
 	const drop = useWaterDrop({
 		sourceId: api.getTriggerProps().id,
-		material: "liquid-glass squircle [--squircle-radius:1.5rem]",
+		material: "glass-menu squircle [--squircle-radius:1.5rem]",
 	});
 	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	if (!mounted) return null;
@@ -151,11 +151,11 @@ export function AlertDialogContent({
 				{...state}
 				hidden={false}
 				data-slot="alert-dialog-overlay"
-				className="ease-standard fixed inset-0 z-50 bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none"
+				className="ease-standard fixed inset-0 z-[60] bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none"
 			/>
 			<div
 				{...api.getPositionerProps()}
-				className="fixed inset-0 z-50 flex items-center justify-center p-4"
+				className="fixed inset-0 z-[60] flex items-center justify-center p-4"
 			>
 				{renderPart(
 					"div",
@@ -167,7 +167,7 @@ export function AlertDialogContent({
 							hidden: false,
 							"data-slot": "alert-dialog-content",
 							className: cx(
-								"relative grid w-[17.5rem] max-w-[calc(100vw-3rem)] gap-0 overflow-hidden liquid-glass squircle morph-reset [--squircle-radius:1.5rem] text-center text-label outline-none transition spring-smooth data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"relative grid w-[17.5rem] max-w-[calc(100vw-3rem)] gap-0 overflow-hidden glass-menu squircle morph-reset [--squircle-radius:1.5rem] text-center text-label outline-none transition spring-smooth data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},

@@ -1,3 +1,4 @@
+import { SheetFilters } from "../examples/sheet/filters";
 import { SheetSides } from "../examples/sheet/sides";
 import { SheetUsage } from "../examples/sheet/usage";
 import type { ComponentDoc } from "../types";
@@ -15,6 +16,13 @@ export const doc: ComponentDoc = {
 			title: "Sides",
 			description: "Each side swipes away in its own direction.",
 			Demo: SheetSides,
+		},
+		{
+			id: "filters",
+			title: "A form in a sheet",
+			description:
+				"Hold `open` yourself so Apply can close the sheet after it saves.",
+			Demo: SheetFilters,
 		},
 	],
 	accessibility: [

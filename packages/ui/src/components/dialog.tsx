@@ -75,7 +75,7 @@ export function DialogContent({
 	// Grows out of its trigger when it has one; opened from code it pops at the centre.
 	const drop = useWaterDrop({
 		sourceId: api.getTriggerProps().id,
-		material: "liquid-glass squircle [--squircle-radius:1.75rem]",
+		material: "glass-menu squircle [--squircle-radius:1.75rem]",
 	});
 	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	const positioner = useRef<HTMLDivElement>(null);
@@ -90,12 +90,12 @@ export function DialogContent({
 				{...state}
 				hidden={false}
 				data-slot="dialog-overlay"
-				className="ease-standard fixed inset-0 z-50 bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none"
+				className="ease-standard fixed inset-0 z-[60] bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none"
 			/>
 			<div
 				{...api.getPositionerProps()}
 				ref={positioner}
-				className="fixed inset-x-0 top-(--visual-viewport-top,0px) z-50 flex h-(--visual-viewport-height,100dvh) items-center justify-center p-4"
+				className="fixed inset-x-0 top-(--visual-viewport-top,0px) z-[60] flex h-(--visual-viewport-height,100dvh) items-center justify-center p-4"
 			>
 				{renderPart(
 					"div",
@@ -107,7 +107,7 @@ export function DialogContent({
 							hidden: false,
 							"data-slot": "dialog-content",
 							className: cx(
-								"relative grid max-h-full w-full max-w-lg gap-4 overflow-y-auto liquid-glass squircle morph-reset [--squircle-radius:1.75rem] p-6 text-label outline-none transition spring-smooth data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"relative grid max-h-full w-full max-w-lg gap-4 overflow-y-auto glass-menu squircle morph-reset [--squircle-radius:1.75rem] p-6 text-label outline-none transition spring-smooth data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},

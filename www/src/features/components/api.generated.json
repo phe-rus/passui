@@ -426,6 +426,12 @@
 					"required": false
 				},
 				{
+					"name": "isPending",
+					"type": "boolean",
+					"description": "Disables the button, marks it busy and shows a spinner while work runs.",
+					"required": false
+				},
+				{
 					"name": "size",
 					"type": "ButtonSize",
 					"default": "\"default\"",
@@ -2090,7 +2096,7 @@
 	"kbd": [
 		{
 			"name": "Kbd",
-			"description": "A keyboard key cap.",
+			"description": "A keyboard key cap. Pass `Mod`, `Alt`, `Shift` and friends and the platform's own symbol shows.",
 			"props": []
 		},
 		{
@@ -3460,6 +3466,13 @@
 					"type": "string",
 					"description": "The controlled selected tab value",
 					"required": false
+				},
+				{
+					"name": "variant",
+					"type": "TabsVariant",
+					"default": "\"glass\"",
+					"description": "The look of the tab strip.",
+					"required": false
 				}
 			]
 		},
@@ -3503,8 +3516,21 @@
 	"toast": [
 		{
 			"name": "Toaster",
-			"description": "Renders the toasts. Mount it once, near the root.",
-			"props": []
+			"description": "Toasts drop from the top centre like an island: a small pill carrying the\nicon, out of which the message flows. Both shapes sit under an SVG \"goo\"\nfilter, so where they meet looks liquid while they grow, morph between\nstates and shrink away. Text is drawn above the filter to stay crisp.",
+			"props": [
+				{
+					"name": "className",
+					"type": "string",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "label",
+					"type": "string",
+					"description": "",
+					"required": false
+				}
+			]
 		}
 	],
 	"toggle": [

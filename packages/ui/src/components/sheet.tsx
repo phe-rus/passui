@@ -14,8 +14,8 @@ import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
+import { useSwipeTouchAction } from "../lib/swipe-touch-action";
 import { useVisualViewportVars } from "../lib/visual-viewport";
-import { useWaterDrop } from "../lib/water-drop";
 
 export type SheetSide = "top" | "right" | "bottom" | "left";
 
@@ -123,14 +123,15 @@ export function SheetContent({
 	...props
 }: PartProps<"div">) {
 	const { api, side } = useSheet();
-	// Grows out of its trigger when it has one; opened from code it slides from its edge.
-	const drop = useWaterDrop({
-		sourceId: api.getTriggerProps().id,
-		material: "liquid-glass squircle [--squircle-radius:1.75rem]",
-	});
-	const { ref, mounted, attrs } = usePresence(api.open, drop);
+	const { ref, mounted, attrs } = usePresence(api.open);
 	const positioner = useRef<HTMLDivElement>(null);
 	useVisualViewportVars(positioner, mounted);
+	// The body drags on touch too, not only the handle.
+	useSwipeTouchAction(
+		ref,
+		mounted,
+		side === "top" || side === "bottom" ? "y" : "x",
+	);
 	if (!mounted) return null;
 	const state = { ...attrs, "data-open": api.open ? "" : undefined };
 	return (
@@ -140,14 +141,14 @@ export function SheetContent({
 				{...state}
 				hidden={false}
 				data-slot="sheet-overlay"
-				className="ease-standard fixed inset-0 z-50 bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 data-swiping:opacity-[calc(1-var(--drawer-swipe-progress))] data-swiping:transition-none motion-reduce:transition-none"
+				className="ease-standard fixed inset-0 z-[60] bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 data-swiping:opacity-[calc(1-var(--drawer-swipe-progress))] data-swiping:transition-none motion-reduce:transition-none"
 			/>
 			<div
 				{...api.getPositionerProps()}
 				ref={positioner}
 				hidden={false}
 				className={cx(
-					"fixed inset-x-0 top-(--visual-viewport-top,0px) z-50 flex h-(--visual-viewport-height,100dvh)",
+					"fixed inset-x-0 top-(--visual-viewport-top,0px) z-[60] flex h-(--visual-viewport-height,100dvh)",
 					placement[side].positioner,
 				)}
 			>
@@ -162,7 +163,7 @@ export function SheetContent({
 							"data-slot": "sheet-content",
 							"data-side": side,
 							className: cx(
-								"relative flex flex-col overflow-y-auto overscroll-contain liquid-glass morph-reset p-6 text-label outline-none transition-[transform,translate] duration-(--duration-sheet) ease-(--ease-sheet) motion-reduce:transition-none motion-reduce:data-ending-style:translate-x-0 motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-x-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
+								"relative flex flex-col overflow-y-auto overscroll-contain liquid-glass p-6 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))] text-label outline-none transition-[transform,translate] duration-(--duration-sheet) ease-(--ease-sheet) motion-reduce:transition-none motion-reduce:data-ending-style:translate-x-0 motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-x-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
 								placement[side].panel,
 								className,
 							),

@@ -71,3 +71,22 @@ it("lists guides then components in one reading order with neighbours", () => {
 	);
 	expect(getNeighbours("/docs/components/accordion").previous).toBeDefined();
 });
+
+it("renders a component page as Markdown with its import, examples and accessibility notes", async () => {
+	const { pageMarkdown } = await import("../src/lib/page-markdown");
+	const meta = { name: "Thing", summary: "A thing.", entry: "thing" } as never;
+	const doc = {
+		examples: [{ id: "usage", title: "Usage", description: "Use it." }],
+		accessibility: ["It is labelled."],
+	} as never;
+	const text = pageMarkdown(
+		meta,
+		doc,
+		{ examples: { usage: { source: "<Thing />" } } },
+		[{ name: "Thing", description: "", props: [] }],
+	);
+	expect(text).toContain("# Thing");
+	expect(text).toContain('import { Thing } from "@passui/react/thing";');
+	expect(text).toContain("```tsx\n<Thing />\n```");
+	expect(text).toContain("- It is labelled.");
+});

@@ -393,9 +393,14 @@
  * left alone on purpose, since the drop's animation overrides it anyway.
  */
 @utility morph-reset {
+	/* The !important is deliberate: each panel's own `data-starting-style` and
+	   `data-ending-style` utilities have the same specificity and must lose. */
 	&[data-morph] {
+		/* biome-ignore lint/complexity/noImportantStyles: must beat same-specificity state utilities */
 		transition: none !important;
+		/* biome-ignore lint/complexity/noImportantStyles: must beat same-specificity state utilities */
 		translate: none !important;
+		/* biome-ignore lint/complexity/noImportantStyles: must beat same-specificity state utilities */
 		scale: none !important;
 	}
 }

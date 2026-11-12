@@ -1,4 +1,5 @@
 import { Badge } from "@passui/react/badge";
+import { Button } from "@passui/react/button";
 import { Link } from "@tanstack/react-router";
 import { getNeighbours } from "@/features/components/navigation";
 import type {
@@ -7,6 +8,8 @@ import type {
 	PartApi,
 } from "@/features/components/types";
 import type { DocCode } from "@/lib/highlight.server";
+import { pageMarkdown } from "@/lib/page-markdown";
+import { useCopyText } from "@/lib/use-copy-text";
 import { Composition } from "./composition";
 import { DocsPage } from "./docs-page";
 import { ExampleBlock } from "./example-block";
@@ -15,7 +18,6 @@ import { InstallBlock } from "./install-block";
 import { PageNav } from "./page-nav";
 import { PropsTables } from "./props-table";
 import { Section } from "./prose";
-import { StageProvider } from "./stage";
 
 interface Props {
 	meta: ComponentMeta;
@@ -34,6 +36,7 @@ export function ComponentPage({ meta, doc, code, api, sizeKb }: Props) {
 		{ id: "api", title: "API Reference" },
 		{ id: "accessibility", title: "Accessibility" },
 	];
+	const copy = useCopyText();
 	const href = `/docs/components/${meta.slug}`;
 	const { previous, next } = getNeighbours(href);
 	return (
@@ -47,6 +50,18 @@ export function ComponentPage({ meta, doc, code, api, sizeKb }: Props) {
 						{meta.preview ? <Badge variant="outline">Preview</Badge> : null}
 					</div>
 					<div className="text-footnote flex shrink-0 items-center gap-3 pt-3">
+						<Button
+							variant="ghost"
+							size="xs"
+							onClick={() =>
+								copy(
+									pageMarkdown(meta, doc, code, api),
+									"Page copied as Markdown",
+								)
+							}
+						>
+							Copy page
+						</Button>
 						{previous ? (
 							<Link
 								to={previous.href}
@@ -89,25 +104,15 @@ export function ComponentPage({ meta, doc, code, api, sizeKb }: Props) {
 				<Composition parts={api} />
 			</Section>
 			<Section id="examples" title="Examples">
-				<StageProvider>
-					{({ picker }) => (
-						<div className="flex flex-col gap-10">
-							<div className="flex flex-wrap items-center gap-3">
-								<span className="text-footnote text-label-secondary">
-									Background
-								</span>
-								{picker}
-							</div>
-							{doc.examples.map((example) => (
-								<ExampleBlock
-									key={example.id}
-									example={example}
-									code={code.examples[example.id]}
-								/>
-							))}
-						</div>
-					)}
-				</StageProvider>
+				<div className="flex flex-col gap-10">
+					{doc.examples.map((example) => (
+						<ExampleBlock
+							key={example.id}
+							example={example}
+							code={code.examples[example.id]}
+						/>
+					))}
+				</div>
 			</Section>
 			<Section id="api" title="API Reference">
 				<PropsTables parts={api} />

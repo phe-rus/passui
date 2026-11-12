@@ -1,4 +1,5 @@
 import { DialogForm } from "../examples/dialog/form";
+import { DialogScrollable } from "../examples/dialog/scrollable";
 import { DialogUsage } from "../examples/dialog/usage";
 import type { ComponentDoc } from "../types";
 
@@ -17,6 +18,13 @@ export const doc: ComponentDoc = {
 			description:
 				"Hold `open` yourself so the form can close the dialog when it saves.",
 			Demo: DialogForm,
+		},
+		{
+			id: "scrollable",
+			title: "Scrollable with a sticky footer",
+			description:
+				"A long dialog scrolls inside its panel; keep the actions in view with a sticky footer.",
+			Demo: DialogScrollable,
 		},
 	],
 	accessibility: [

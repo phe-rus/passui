@@ -12,7 +12,7 @@ const managers = [
 export function InstallBlock({ entry }: { entry: string }) {
 	return (
 		<div className="flex flex-col gap-4">
-			<Tabs defaultValue="bun">
+			<Tabs defaultValue="bun" variant="line">
 				<TabsList>
 					{managers.map((m) => (
 						<TabsTrigger key={m.id} value={m.id}>

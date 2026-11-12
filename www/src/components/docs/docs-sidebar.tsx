@@ -26,9 +26,9 @@ export function DocsSidebar({ onNavigate }: { onNavigate?: () => void }) {
 									title={item.title}
 									onClick={onNavigate}
 									activeOptions={{ exact: true }}
-									className="text-subheadline text-label-secondary hover:bg-accent/15 hover:text-label flex h-8 min-w-0 items-center justify-between gap-2 rounded-xl px-3 no-underline transition-colors duration-(--duration-instant)"
+									className="text-label-secondary hover:bg-accent/15 hover:text-label flex h-8 min-w-0 items-center justify-between gap-2 rounded-xl px-3 text-sm font-normal no-underline transition-colors duration-(--duration-instant)"
 									activeProps={{
-										className: "bg-accent/15 text-label font-semibold",
+										className: "bg-accent/15 text-label font-medium",
 										"aria-current": "page",
 									}}
 								>

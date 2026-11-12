@@ -15,7 +15,7 @@ import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
-import { useWaterDrop } from "../lib/water-drop";
+import { anchorOnTrigger, useWaterDrop } from "../lib/water-drop";
 
 type Placement = NonNullable<menu.Props["positioning"]>["placement"];
 
@@ -51,11 +51,17 @@ export interface DropdownMenuProps
 function useMenuMachine(
 	props: Omit<menu.Props, "id">,
 	placement: Placement,
+	/** A top level menu opens on its trigger; a submenu opens beside the item it came from. */
+	onTrigger = false,
 ): Ctx {
 	const id = useId();
 	const service = useMachine(menu.machine, {
 		id,
-		positioning: { placement, offset: { mainAxis: 6 } },
+		positioning: {
+			placement,
+			offset: { mainAxis: 6 },
+			...(onTrigger && { getAnchorRect: anchorOnTrigger(placement ?? "", 6) }),
+		},
 		...props,
 	});
 	return { service, api: menu.connect(service, normalizeProps) };
@@ -67,7 +73,7 @@ export function DropdownMenu({
 	placement = "bottom-start",
 	...props
 }: DropdownMenuProps) {
-	const ctx = useMenuMachine(props, placement);
+	const ctx = useMenuMachine(props, placement, true);
 	return <Context.Provider value={ctx}>{children}</Context.Provider>;
 }
 
@@ -124,7 +130,7 @@ function Panel({
 	if (!mounted) return null;
 	return (
 		<Portal>
-			<div {...api.getPositionerProps()} className="z-50">
+			<div {...api.getPositionerProps()} className="z-[70]">
 				{renderPart(
 					"div",
 					mergeProps(

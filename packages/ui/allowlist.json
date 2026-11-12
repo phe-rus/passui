@@ -100,6 +100,7 @@
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
+			"src/lib/swipe-touch-action.ts",
 			"src/lib/visual-viewport.ts"
 		]
 	},
@@ -205,8 +206,8 @@
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
-			"src/lib/visual-viewport.ts",
-			"src/lib/water-drop.ts"
+			"src/lib/swipe-touch-action.ts",
+			"src/lib/visual-viewport.ts"
 		]
 	},
 	"src/components/skeleton.tsx": {
@@ -238,8 +239,21 @@
 		]
 	},
 	"src/components/toast.tsx": {
-		"packages": ["@zag-js/react", "@zag-js/toast", "react", "react-dom"],
-		"local": ["src/components/toast.tsx", "src/lib/cx.ts", "src/lib/portal.tsx"]
+		"packages": [
+			"@passui/icons",
+			"@passui/tokens",
+			"clsx",
+			"motion",
+			"react",
+			"tailwind-merge"
+		],
+		"local": [
+			"src/components/toast.tsx",
+			"src/components/toast/toast-store.ts",
+			"src/components/toast/toaster.tsx",
+			"src/lib/class-names.ts",
+			"src/motion/transitions.ts"
+		]
 	},
 	"src/components/toggle-group.tsx": {
 		"packages": ["@zag-js/react", "@zag-js/toggle-group", "react"],

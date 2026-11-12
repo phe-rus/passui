@@ -7,7 +7,13 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "../../src/components/dropdown-menu";
-import { boxKeyframe, canMorph, readBox, toMs } from "../../src/lib/water-drop";
+import {
+	anchorOnTrigger,
+	boxKeyframe,
+	canMorph,
+	readBox,
+	toMs,
+} from "../../src/lib/water-drop";
 import { act, settle } from "../helpers/axe";
 
 let root: Root | undefined;
@@ -72,7 +78,6 @@ it("does not morph under Reduce Motion", () => {
 		vi.fn(() => ({ matches: true })),
 	);
 	expect(canMorph()).toBe(false);
-	// biome-ignore lint/performance/noDelete: restoring the jsdom shape
 	delete (Element.prototype as { animate?: unknown }).animate;
 });
 
@@ -139,5 +144,44 @@ it("grows a menu out of its trigger and hands the trigger back on close", async 
 	await settle();
 	expect(animate).toHaveBeenCalledTimes(4);
 
+	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+const trigger = {
+	getBoundingClientRect: () =>
+		({
+			left: 300,
+			top: 40,
+			right: 336,
+			bottom: 76,
+			width: 36,
+			height: 36,
+		}) as DOMRect,
+};
+
+it("puts a downward panel's top edge on the trigger's top edge", () => {
+	Element.prototype.animate = vi.fn() as never;
+	// The machine adds a 6px gap below the anchor, so the anchor sits 6px above the trigger.
+	expect(anchorOnTrigger("bottom-end", 6)(trigger)).toEqual({
+		x: 300,
+		y: 34,
+		width: 36,
+		height: 0,
+	});
+	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+it("puts an upward panel's bottom edge on the trigger's bottom edge", () => {
+	Element.prototype.animate = vi.fn() as never;
+	expect(anchorOnTrigger("top-start", 6)(trigger)?.y).toBe(82);
+	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+it("leaves positioning alone where the morph does not run or the panel sits beside", () => {
+	// No Web Animations API here: the panel keeps its normal place.
+	expect(anchorOnTrigger("bottom-end", 6)(trigger)).toBeNull();
+	Element.prototype.animate = vi.fn() as never;
+	expect(anchorOnTrigger("right-start", 6)(trigger)).toBeNull();
+	expect(anchorOnTrigger("bottom", 6)(null)).toBeNull();
 	delete (Element.prototype as { animate?: unknown }).animate;
 });

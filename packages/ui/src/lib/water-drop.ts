@@ -29,6 +29,31 @@ export function canMorph(): boolean {
 	return !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 }
 
+/** The edges of a rectangle, which both a DOM element and Zag's virtual element can report. */
+type EdgeRect = Pick<DOMRect, "left" | "top" | "bottom" | "width" | "height">;
+
+/**
+ * Positioning for a panel that opens on its trigger instead of beside it. The
+ * water drop swells out of the trigger, so the panel's near edge belongs on the
+ * trigger's near edge, not a gap away: iOS lays the menu over the button and
+ * grows it from there. Pass the gap the machine adds so it cancels out.
+ *
+ * Give it to a machine's `positioning.getAnchorRect`. It stands down (`null`
+ * means the trigger's own rectangle) wherever the morph does not run, so the
+ * panel then sits below or above the trigger as usual.
+ */
+export function anchorOnTrigger(placement: string, gap: number) {
+	return (element: { getBoundingClientRect(): EdgeRect } | null) => {
+		const vertical =
+			placement.startsWith("bottom") || placement.startsWith("top");
+		if (!element || !vertical || !canMorph()) return null;
+		const rect = element.getBoundingClientRect();
+		// A zero height anchor on the near edge: the panel's edge lands on the trigger's.
+		const y = placement.startsWith("top") ? rect.bottom + gap : rect.top - gap;
+		return { x: rect.left, y, width: rect.width, height: 0 };
+	};
+}
+
 /** Reads an element's viewport rectangle and the radius it is drawn with, capped to a full pill. */
 export function readBox(el: Element): DropBox {
 	const rect = el.getBoundingClientRect();

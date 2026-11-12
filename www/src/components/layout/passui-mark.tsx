@@ -12,7 +12,7 @@ export function PassuiMark({
 		<svg
 			viewBox="0 0 32 32"
 			aria-hidden="true"
-			className={cn("size-7 shrink-0", className)}
+			className={cn("size-4.5 shrink-0", className)}
 		>
 			<circle
 				cx="16"

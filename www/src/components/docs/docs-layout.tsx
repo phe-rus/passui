@@ -9,7 +9,7 @@ import { DocsSidebar } from "./docs-sidebar";
 export function DocsLayout({ children }: { children: ReactNode }) {
 	return (
 		<div className="flex w-full flex-1">
-			<aside className="border-separator/50 no-scrollbar sticky top-12 hidden h-[calc(100svh-3rem)] w-64 shrink-0 overflow-y-auto border-e md:block">
+			<aside className="border-separator/50 no-scrollbar sticky top-12 hidden h-[calc(100svh-3rem)] w-64 shrink-0 overflow-y-auto border-e [mask-image:linear-gradient(transparent,black_1.25rem,black_calc(100%-1.5rem),transparent)] md:block">
 				<DocsSidebar />
 			</aside>
 			<div className="min-w-0 flex-1">{children}</div>

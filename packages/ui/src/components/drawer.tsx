@@ -16,6 +16,7 @@ import { usePageScale } from "../lib/page-scale";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
+import { useSwipeTouchAction } from "../lib/swipe-touch-action";
 import { useVisualViewportVars } from "../lib/visual-viewport";
 
 const Context = createContext<drawer.Api | null>(null);
@@ -100,6 +101,8 @@ export function DrawerContent({
 	const { ref, mounted, attrs } = usePresence(api.open);
 	const positioner = useRef<HTMLDivElement>(null);
 	useVisualViewportVars(positioner, mounted);
+	// The body drags on touch too, not only the handle.
+	useSwipeTouchAction(ref, mounted, "y");
 	// Until Zag has measured the panel its open percentage reads 0, so treat that as fully open.
 	const openness = !api.open
 		? 0
@@ -117,13 +120,13 @@ export function DrawerContent({
 				{...state}
 				hidden={false}
 				data-slot="drawer-overlay"
-				className="ease-standard fixed inset-0 z-50 bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 data-swiping:opacity-[calc(1-var(--drawer-swipe-progress))] data-swiping:transition-none motion-reduce:transition-none"
+				className="ease-standard fixed inset-0 z-[60] bg-black/30 backdrop-blur-sm transition-opacity duration-(--duration-normal) data-ending-style:opacity-0 data-starting-style:opacity-0 data-swiping:opacity-[calc(1-var(--drawer-swipe-progress))] data-swiping:transition-none motion-reduce:transition-none"
 			/>
 			<div
 				{...api.getPositionerProps()}
 				ref={positioner}
 				hidden={false}
-				className="fixed inset-x-0 top-(--visual-viewport-top,0px) z-50 flex h-(--visual-viewport-height,100dvh) items-end justify-center"
+				className="fixed inset-x-0 top-(--visual-viewport-top,0px) z-[60] flex h-(--visual-viewport-height,100dvh) items-end justify-center"
 			>
 				{renderPart(
 					"div",
