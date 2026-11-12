@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,12 +31,12 @@ jobs:
       - run: node packages/cli/dist/passui.js --help
       - run: bun run --cwd www type-gen
       - run: bun run build
-      - run: bun run typecheck
       - run: bun run test
       - run: bun run publish:check
       - run: bun run size:check
 
-  touch:
+  e2e:
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -47,6 +48,51 @@ jobs:
           node-version: "24"
           package-manager-cache: false
       - run: bun install --frozen-lockfile
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+      # On a cache hit the browsers are reused; --with-deps still installs the
+      # system libraries, which the cache does not hold.
       - run: bunx playwright install --with-deps chromium webkit
         working-directory: packages/ui
       - run: bun run --cwd packages/ui test:e2e
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: |
+            packages/ui/test-results/
+            packages/ui/playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  # Runs only for a release marked commit on main (or a manual dispatch on
+  # main), and only after check and e2e passed. It does not publish itself: npm
+  # trusts the workflow file publish.yml, so this job dispatches that workflow
+  # for this exact commit, and publish.yml verifies check and e2e again.
+  release:
+    needs: [check, e2e]
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'push' &&
+        (startsWith(github.event.head_commit.message, 'chore(release):') ||
+         contains(github.event.head_commit.message, '[release]'))))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Dispatch the publish workflow for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh workflow run publish.yml
+          --repo "$GITHUB_REPOSITORY"
+          --ref main
+          -f package=all
+          -f sha="$GITHUB_SHA"

@@ -13,3 +13,7 @@ dist/
 .dev.vars*
 worker-configuration.d.ts
 **/src/routeTree.gen.ts
+
+# Playwright
+test-results/
+playwright-report/

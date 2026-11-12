@@ -1,43 +1,69 @@
 name: Publish Passui packages
 
+# Never triggered by a push. It runs from the `release` job in ci.yml (after
+# check and e2e pass on a commit marked `chore(release):` or `[release]`), or by
+# hand. Either way the gate job below must find check and e2e green for the
+# commit before anything is published. Keep the file name: the npm trusted
+# publishers are bound to `publish.yml`.
 on:
-  workflow_run:
-    workflows: ["Passui CI"]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
     inputs:
       package:
-        description: Package to publish
+        description: Package to publish ("all" is tokens, ui, then tanstack)
         required: true
-        default: ui
+        default: all
         type: choice
         options:
+          - all
           - tokens
           - ui
           - tanstack
           - cli
+      sha:
+        description: Commit to publish. Defaults to the head of main.
+        required: false
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: npm-publish-${{ github.event.inputs.package || 'auto' }}
+  group: npm-publish-${{ github.event.inputs.package }}
   cancel-in-progress: false
 
 jobs:
+  gate:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: read
+    outputs:
+      sha: ${{ steps.verify.outputs.sha }}
+    steps:
+      - name: Require green check and e2e for the commit
+        id: verify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.inputs.sha || github.sha }}
+        run: |
+          for job in check e2e; do
+            result=$(gh api "repos/$GITHUB_REPOSITORY/commits/$SHA/check-runs?per_page=100" \
+              --jq "[.check_runs[] | select(.name == \"$job\")] | map(.conclusion) | if length > 0 and all(. == \"success\") then \"success\" else \"missing or failed\" end")
+            echo "$job: $result"
+            if [ "$result" != "success" ]; then
+              echo "::error::$job has not passed for $SHA, so nothing is published."
+              exit 1
+            fi
+          done
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
   publish:
+    needs: gate
     strategy:
       fail-fast: false
       matrix:
-        package: ${{ github.event_name == 'workflow_dispatch' && fromJSON(format('["{0}"]', github.event.inputs.package)) || fromJSON('["tokens","ui","tanstack"]') }}
-    if: >-
-      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main') ||
-      (github.event_name == 'workflow_run' &&
-       github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.event == 'push' &&
-       github.event.workflow_run.head_branch == 'main' &&
-       github.event.workflow_run.head_repository.full_name == github.repository)
+        package: ${{ github.event.inputs.package == 'all' && fromJSON('["tokens","ui","tanstack"]') || fromJSON(format('["{0}"]', github.event.inputs.package)) }}
     runs-on: ubuntu-latest
     environment: npm-publish
     permissions:
@@ -50,7 +76,7 @@ jobs:
       - name: Checkout validated commit
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ needs.gate.outputs.sha }}
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2

@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { finger, panelRect, settled } from "./touch";
+import { finger, panelRect, settled, swipe } from "./touch";
 
 async function open(page: import("@playwright/test").Page, search = "") {
 	await page.goto(`/${search}`);
@@ -20,11 +20,14 @@ test("a slow drag past a quarter of the height dismisses", async ({ page }) => {
 test("a quick flick dismisses even when short", async ({ page }) => {
 	await open(page);
 	const rect = await panelRect(page);
-	const touch = finger(page);
-	await touch.down(rect.left + rect.width / 2, rect.top + 12);
-	// About 40 px in 40 ms is 1000 px/s, above the 700 px/s release threshold.
-	await touch.move(0, 40, 4, 10);
-	await touch.up();
+	// 60 px in about 40 ms is well over 1000 px/s. Zag adds 0.4 s of that
+	// velocity to the drop point (60 + 0.4 × 1000+ px), which lands past halfway.
+	await swipe(
+		page,
+		{ x: rect.left + rect.width / 2, y: rect.top + 12 },
+		{ dx: 0, dy: 60 },
+		{ steps: 5, stepMs: 8 },
+	);
 	await expect(page.getByTestId("panel")).toHaveCount(0, { timeout: 4000 });
 });
 
@@ -47,13 +50,21 @@ test("reversing mid exit continues from where the panel is", async ({
 	await open(page);
 	await page.evaluate(() => window.__setOpen(false));
 	await page.waitForTimeout(150);
-	const within = await page.evaluate(() => {
+	const within = await page.evaluate(async () => {
 		const panel = document.querySelector('[data-testid="panel"]');
 		if (!panel) throw new Error("the panel unmounted before the reversal");
-		// Freeze the transition so the reading is the position at this instant.
+		const frame = () => new Promise((r) => requestAnimationFrame(r));
+		// pause() only takes effect on the next frame, so freeze the exit and let
+		// two frames pass. Then the reading is a settled position, not a moving one.
 		for (const a of document.getAnimations()) a.pause();
+		await frame();
+		await frame();
 		const before = panel.getBoundingClientRect().top;
 		window.__setOpen(true);
+		// The reversal starts a new transition. Pausing it before it has ticked
+		// holds it at progress zero, so the reading is its start value in this
+		// very task, with no frame of movement in between.
+		for (const a of document.getAnimations()) a.pause();
 		const after = panel.getBoundingClientRect().top;
 		for (const a of document.getAnimations()) a.play();
 		return {
@@ -84,7 +95,9 @@ test("the page scales back while open, follows the finger and eases out", async 
 	const rect = await panelRect(page);
 	const touch = finger(page);
 	await touch.down(rect.left + rect.width / 2, rect.top + 12);
-	await touch.move(0, rect.height * 0.5, 10, 20);
+	// Well past halfway: at exactly half Zag's drop point ties with the snap
+	// point and a stale release velocity springs back instead of dismissing.
+	await touch.move(0, rect.height * 0.7, 10, 20);
 	await expect(pageEl).toHaveAttribute("data-passui-page-dragging", "");
 	const mid = await scale();
 	expect(mid).toBeGreaterThan((width - 26) / width);

@@ -49,12 +49,21 @@ test("reversing mid exit continues from where the panel is", async ({
 	await open(page, "right");
 	await page.evaluate(() => window.__setOpen(false));
 	await page.waitForTimeout(150);
-	const within = await page.evaluate(() => {
+	const within = await page.evaluate(async () => {
 		const panel = document.querySelector('[data-testid="panel"]');
 		if (!panel) throw new Error("the panel unmounted before the reversal");
+		const frame = () => new Promise((r) => requestAnimationFrame(r));
+		// pause() only takes effect on the next frame, so freeze the exit and let
+		// two frames pass. Then the reading is a settled position, not a moving one.
 		for (const a of document.getAnimations()) a.pause();
+		await frame();
+		await frame();
 		const before = panel.getBoundingClientRect().left;
 		window.__setOpen(true);
+		// The reversal starts a new transition. Pausing it before it has ticked
+		// holds it at progress zero, so the reading is its start value in this
+		// very task, with no frame of movement in between.
+		for (const a of document.getAnimations()) a.pause();
 		const after = panel.getBoundingClientRect().left;
 		for (const a of document.getAnimations()) a.play();
 		return { before, after };
