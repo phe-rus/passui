@@ -82,7 +82,7 @@ export function RadioGroupItem({
 				{...api.getItemControlProps(item)}
 				className="bg-fill ease-standard group-focus-within:ring-accent/70 data-[state=checked]:bg-accent inline-flex size-5.5 shrink-0 items-center justify-center rounded-full shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition duration-(--duration-fast) group-focus-within:ring-2 motion-reduce:transition-none"
 			>
-				<span className="bg-on-accent size-2 scale-0 rounded-full transition-transform duration-(--duration-fast) group-data-[state=checked]:scale-100" />
+				<span className="bg-on-accent spring-bouncy size-2 scale-0 rounded-full transition-transform group-data-[state=checked]:scale-100" />
 			</span>
 			<span {...api.getItemTextProps(item)}>{children}</span>
 		</label>

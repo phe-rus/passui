@@ -15,6 +15,7 @@ import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
 import { useVisualViewportVars } from "../lib/visual-viewport";
+import { useWaterDrop } from "../lib/water-drop";
 
 const Context = createContext<dialog.Api | null>(null);
 
@@ -71,7 +72,12 @@ export function DialogContent({
 	...props
 }: PartProps<"div">) {
 	const api = useDialog();
-	const { ref, mounted, attrs } = usePresence(api.open);
+	// Grows out of its trigger when it has one; opened from code it pops at the centre.
+	const drop = useWaterDrop({
+		sourceId: api.getTriggerProps().id,
+		material: "liquid-glass squircle [--squircle-radius:1.75rem]",
+	});
+	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	const positioner = useRef<HTMLDivElement>(null);
 	// Keeps the panel above the soft keyboard (spec 0003 AC-8).
 	useVisualViewportVars(positioner, mounted);
@@ -101,7 +107,7 @@ export function DialogContent({
 							hidden: false,
 							"data-slot": "dialog-content",
 							className: cx(
-								"relative grid max-h-full w-full max-w-lg gap-4 overflow-y-auto rounded-3xl bg-elevated p-6 text-label shadow-floating outline-none ring-1 ring-separator transition duration-(--duration-normal) ease-standard data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"relative grid max-h-full w-full max-w-lg gap-4 overflow-y-auto liquid-glass squircle morph-reset [--squircle-radius:1.75rem] p-6 text-label outline-none transition spring-smooth data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},

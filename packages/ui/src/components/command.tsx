@@ -62,7 +62,7 @@ export function Command({
 			<div
 				data-slot="command"
 				className={cx(
-					"flex w-full flex-col overflow-hidden rounded-3xl bg-elevated text-label",
+					"flex w-full flex-col overflow-hidden liquid-glass-dense squircle [--squircle-radius:1.5rem] text-label",
 					className,
 				)}
 				{...props}
@@ -198,7 +198,7 @@ export function CommandItem({
 			onPointerMove={() => c.setActive(value)}
 			onClick={() => !disabled && onSelect?.(value)}
 			className={cx(
-				"flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-subheadline aria-disabled:opacity-40 data-active:bg-fill",
+				"flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2 text-subheadline aria-disabled:opacity-40 data-active:bg-accent/15",
 				className,
 			)}
 			{...props}

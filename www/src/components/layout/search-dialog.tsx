@@ -14,7 +14,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@passui/react/dialog";
-import { Kbd } from "@passui/react/kbd";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { registry } from "@/features/components/registry";
@@ -46,18 +45,14 @@ export function SearchDialog() {
 			<DialogTrigger
 				render={
 					<Button
-						variant="secondary"
-						size="sm"
-						className="text-label-secondary w-9 px-0 sm:w-56 sm:justify-between sm:px-3"
+						variant="ghost"
+						size="icon-sm"
 						aria-label="Search documentation"
+						aria-keyshortcuts="Control+K Meta+K"
 					/>
 				}
 			>
-				<span className="flex items-center gap-2">
-					<SearchIcon size={16} />
-					<span className="hidden sm:inline">Search</span>
-				</span>
-				<Kbd className="hidden sm:inline-flex">⌘K</Kbd>
+				<SearchIcon size={18} />
 			</DialogTrigger>
 			<DialogContent className="gap-0 p-0">
 				<DialogTitle className="sr-only">Search documentation</DialogTitle>

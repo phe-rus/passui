@@ -1,23 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FeatureGrid } from "@/components/home/feature-grid";
-import { Hero } from "@/components/home/hero";
-import { getPageHead } from "@/features/seo/head";
+import { Landing } from "@/components/home/landing";
+import { getPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
 	head: () =>
 		getPageHead(
 			"/",
-			"Passui · Native React controls",
+			"Passui · Native controls for the web",
 			"Native React controls on Zag.js with an Apple 2026 look. Import one component and pay only for it.",
 		),
-	component: RouteComponent,
+	component: Landing,
 });
-
-function RouteComponent() {
-	return (
-		<>
-			<Hero />
-			<FeatureGrid />
-		</>
-	);
-}

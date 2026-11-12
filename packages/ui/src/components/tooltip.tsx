@@ -87,7 +87,7 @@ export function TooltipContent({
 							hidden: false,
 							"data-slot": "tooltip-content",
 							className: cx(
-								"pointer-events-none max-w-64 rounded-md bg-inverse px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-on-inverse shadow-lg transition duration-(--duration-fast,150ms) ease-standard data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:scale-95 data-starting-style:scale-95 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"pointer-events-none max-w-64 liquid-glass-dense squircle [--squircle-radius:0.875rem] px-2.5 py-1.5 text-center text-caption leading-tight font-medium text-label transition spring-smooth origin-(--transform-origin,center) data-ending-style:opacity-0 data-starting-style:opacity-0 data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},

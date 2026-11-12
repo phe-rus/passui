@@ -2,7 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { GuidePage } from "@/components/docs/guide-page";
 import { DocNotFound } from "@/components/docs/not-found";
 import { getGuide } from "@/features/guides/guides";
-import { getPageHead } from "@/features/seo/head";
+import { getPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/docs/$slug")({
 	loader: ({ params }) => {

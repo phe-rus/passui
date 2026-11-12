@@ -1,3 +1,4 @@
+import { DropdownMenuNotes } from "../examples/dropdown-menu/notes";
 import { DropdownMenuOptions } from "../examples/dropdown-menu/options";
 import { DropdownMenuSubmenu } from "../examples/dropdown-menu/submenu";
 import { DropdownMenuUsage } from "../examples/dropdown-menu/usage";
@@ -5,6 +6,13 @@ import type { ComponentDoc } from "../types";
 
 export const doc: ComponentDoc = {
 	examples: [
+		{
+			id: "notes",
+			title: "Water drop",
+			description:
+				"The round button swells into the menu and, on close, the menu drops back into it, as in the iOS Notes three dots menu.",
+			Demo: DropdownMenuNotes,
+		},
 		{
 			id: "usage",
 			title: "Usage",

@@ -28,8 +28,8 @@ function load() {
 				import("shiki/langs/css.mjs"),
 			],
 			themes: [
-				import("shiki/themes/github-light-default.mjs"),
-				import("shiki/themes/github-dark-default.mjs"),
+				import("shiki/themes/light-plus.mjs"),
+				import("shiki/themes/dark-plus.mjs"),
 			],
 			engine: engine.createJavaScriptRegexEngine(),
 		}),
@@ -41,7 +41,7 @@ export async function highlight(code: string, lang = "tsx") {
 	const shiki = await load();
 	return shiki.codeToHtml(code.trimEnd(), {
 		lang,
-		themes: { light: "github-light-default", dark: "github-dark-default" },
+		themes: { light: "light-plus", dark: "dark-plus" },
 		defaultColor: false,
 	});
 }

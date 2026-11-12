@@ -78,7 +78,7 @@ export function CollapsibleContent({
 		<div
 			{...api.getContentProps()}
 			data-slot="collapsible-content"
-			className={cx("overflow-hidden", className)}
+			className={cx("collapse-motion", className)}
 			{...props}
 		/>
 	);

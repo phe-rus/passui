@@ -1,45 +1,111 @@
+import { GithubIcon } from "@passui/icons/github";
+import { StarIcon } from "@passui/icons/star";
 import { buttonVariants } from "@passui/react/button";
-import { Link } from "@tanstack/react-router";
+import { cn } from "@passui/react/cn";
+import { Link, type LinkProps } from "@tanstack/react-router";
+import { useMemo } from "react";
 import { MobileNav } from "./mobile-nav";
 import { PassuiMark } from "./passui-mark";
 import { SearchDialog } from "./search-dialog";
+import { ThemeToggle } from "./theme-toggle";
 
-const link = buttonVariants({ variant: "ghost", size: "sm" });
+const compact = new Intl.NumberFormat("en", { notation: "compact" });
+type Navigations = {
+	label: string;
+} & LinkProps;
 
-export function SiteHeader() {
+export function SiteHeader({ stars }: { stars: number | null }) {
+	const navigation = useMemo<Navigations[]>(() => {
+		return [
+			{ to: "/docs/$slug", params: { slug: "introduction" }, label: "Docs" },
+			{ to: "/docs/components", label: "Components" },
+			{ to: "/docs", label: "Templates" },
+			{ to: "/docs", label: "Themes" },
+			{ to: "/docs", label: "Playground" },
+		] satisfies Navigations[];
+	}, []);
+
 	return (
-		<header className="glass-bar sticky top-0 z-40">
-			<div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 md:px-6">
-				<MobileNav />
-				<Link
-					to="/"
-					aria-label="Passui home"
-					className="flex items-center gap-2 no-underline"
-				>
-					<PassuiMark />
-					<span className="font-display text-title3 text-label font-black tracking-[-0.05em]">
+		<header className="glass-pane bg-accent-soft/70 sticky top-0 z-55 flex border-0!">
+			<section
+				aria-label="Passui"
+				className="flex h-12 w-full items-center justify-between px-5"
+			>
+				<div className="flex scrollbar-none items-center gap-5">
+					<Link
+						to="/"
+						aria-label="Passui home"
+						className="text-headline text-primary flex items-center font-semibold"
+					>
+						<PassuiMark />
 						passui
-					</span>
-				</Link>
-				<nav
-					aria-label="Site"
-					className="ms-4 hidden items-center gap-1 md:flex"
-				>
+					</Link>
+					<nav
+						className={cn(
+							"order-3 hidden items-center gap-2 md:flex",
+							"min-w-0 scrollbar-none",
+						)}
+					>
+						{navigation.map((item) => {
+							const { label, ...props } = item;
+							return (
+								<Link
+									key={props.to}
+									{...props}
+									activeProps={{
+										"aria-current": "page",
+										className: "text-accent",
+									}}
+									activeOptions={{ exact: false }}
+									className={cn(
+										"truncate text-sm font-medium transition-colors",
+									)}
+								>
+									{label}
+								</Link>
+							);
+						})}
+					</nav>
+				</div>
+
+				<nav className="flex items-center gap-1">
+					<SearchDialog />
+					<ThemeToggle />
+					<a
+						href="https://github.com/phe-rus/passui"
+						rel="noreferrer"
+						aria-label={
+							stars === null
+								? "Passui on GitHub"
+								: `Passui on GitHub, ${stars} ${stars === 1 ? "star" : "stars"}`
+						}
+						className={cn(
+							buttonVariants({ variant: "accent", size: "xs" }),
+							"flex items-center!",
+						)}
+					>
+						<GithubIcon size={18} />
+						Github
+						{stars === null ? null : (
+							<span className="text-footnote text-label-secondary flex items-center gap-1">
+								<StarIcon size={14} />
+								{compact.format(stars)}
+							</span>
+						)}
+					</a>
 					<Link
 						to="/docs/$slug"
-						params={{ slug: "introduction" }}
-						className={link}
+						params={{ slug: "installation" }}
+						className={buttonVariants({
+							size: "xs",
+							className: "ms-1 hidden no-underline sm:inline-flex",
+						})}
 					>
-						Docs
+						Get started
 					</Link>
-					<Link to="/docs/components" className={link}>
-						Components
-					</Link>
+					<MobileNav />
 				</nav>
-				<div className="ms-auto">
-					<SearchDialog />
-				</div>
-			</div>
+			</section>
 		</header>
 	);
 }

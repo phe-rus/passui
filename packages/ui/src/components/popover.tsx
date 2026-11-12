@@ -13,6 +13,7 @@ import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
+import { useWaterDrop } from "../lib/water-drop";
 
 const Context = createContext<popover.Api | null>(null);
 
@@ -96,7 +97,11 @@ export function PopoverContent({
 	...props
 }: PartProps<"div">) {
 	const api = usePopover();
-	const { ref, mounted, attrs } = usePresence(api.open);
+	const drop = useWaterDrop({
+		sourceId: api.getTriggerProps().id,
+		material: "liquid-glass-dense squircle [--squircle-radius:1.5rem]",
+	});
+	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	if (!mounted) return null;
 	return (
 		<Portal>
@@ -111,7 +116,7 @@ export function PopoverContent({
 							hidden: false,
 							"data-slot": "popover-content",
 							className: cx(
-								"w-72 rounded-2xl bg-elevated p-4 text-label shadow-floating outline-none ring-1 ring-separator transition duration-(--duration-fast,150ms) ease-standard data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:origin-top data-[side=top]:origin-bottom data-[side=left]:origin-right data-[side=right]:origin-left motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"w-72 liquid-glass-dense squircle morph-reset [--squircle-radius:1.5rem] p-4 text-label outline-none transition spring-smooth origin-(--transform-origin,center) data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:origin-top data-[side=top]:origin-bottom data-[side=left]:origin-right data-[side=right]:origin-left motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},

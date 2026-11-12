@@ -7,7 +7,7 @@ export function Card({ className, ...props }: ComponentProps<"div">) {
 		<div
 			data-slot="card"
 			className={cx(
-				"flex flex-col gap-4 rounded-3xl bg-elevated py-5 text-label shadow-[inset_0_0_0_0.5px_var(--color-separator)]",
+				"card-surface squircle flex flex-col gap-4 py-5 text-label [--squircle-radius:1.5rem]",
 				className,
 			)}
 			{...props}

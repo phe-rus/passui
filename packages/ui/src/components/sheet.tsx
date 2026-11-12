@@ -15,6 +15,7 @@ import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
 import { useVisualViewportVars } from "../lib/visual-viewport";
+import { useWaterDrop } from "../lib/water-drop";
 
 export type SheetSide = "top" | "right" | "bottom" | "left";
 
@@ -122,7 +123,12 @@ export function SheetContent({
 	...props
 }: PartProps<"div">) {
 	const { api, side } = useSheet();
-	const { ref, mounted, attrs } = usePresence(api.open);
+	// Grows out of its trigger when it has one; opened from code it slides from its edge.
+	const drop = useWaterDrop({
+		sourceId: api.getTriggerProps().id,
+		material: "liquid-glass squircle [--squircle-radius:1.75rem]",
+	});
+	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	const positioner = useRef<HTMLDivElement>(null);
 	useVisualViewportVars(positioner, mounted);
 	if (!mounted) return null;
@@ -156,7 +162,7 @@ export function SheetContent({
 							"data-slot": "sheet-content",
 							"data-side": side,
 							className: cx(
-								"relative flex flex-col overflow-y-auto overscroll-contain bg-elevated p-6 text-label shadow-floating outline-none ring-1 ring-separator transition-[transform,translate] duration-(--duration-sheet) ease-(--ease-sheet) motion-reduce:transition-none motion-reduce:data-ending-style:translate-x-0 motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-x-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
+								"relative flex flex-col overflow-y-auto overscroll-contain liquid-glass morph-reset p-6 text-label outline-none transition-[transform,translate] duration-(--duration-sheet) ease-(--ease-sheet) motion-reduce:transition-none motion-reduce:data-ending-style:translate-x-0 motion-reduce:data-ending-style:translate-y-0 motion-reduce:data-starting-style:translate-x-0 motion-reduce:data-starting-style:translate-y-0 motion-reduce:data-ending-style:opacity-0 motion-reduce:data-starting-style:opacity-0",
 								placement[side].panel,
 								className,
 							),

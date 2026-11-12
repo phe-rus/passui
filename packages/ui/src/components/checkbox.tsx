@@ -54,14 +54,17 @@ export function Checkbox({
 				className="bg-fill text-on-accent ease-standard group-focus-within:ring-accent/70 data-[state=checked]:bg-accent data-[state=indeterminate]:bg-accent inline-flex size-5.5 shrink-0 items-center justify-center rounded-lg shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition duration-(--duration-fast) group-focus-within:ring-2 motion-reduce:transition-none"
 			>
 				<svg
-					{...(api.getIndicatorProps() as ComponentProps<"svg">)}
+					{...({
+						...api.getIndicatorProps(),
+						hidden: false,
+					} as ComponentProps<"svg">)}
 					viewBox="0 0 16 16"
 					fill="none"
 					stroke="currentColor"
 					strokeWidth="2.25"
 					strokeLinecap="round"
 					strokeLinejoin="round"
-					className="size-3.5"
+					className="spring-bouncy size-3.5 scale-0 transition-transform group-data-[state=checked]:scale-100 group-data-[state=indeterminate]:scale-100"
 					aria-hidden="true"
 				>
 					{api.indeterminate ? (

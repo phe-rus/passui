@@ -1,5 +1,5 @@
 import { guides } from "../guides/guides";
-import { getMeta, groups, registry } from "./registry";
+import { getMeta, registry } from "./registry";
 import type { ComponentMeta } from "./types";
 
 export interface NavItem {
@@ -16,7 +16,7 @@ export interface NavGroup {
 const byName = (a: ComponentMeta, b: ComponentMeta) =>
 	a.name.localeCompare(b.name);
 
-/** The docs sidebar: guides first, then components by family. */
+/** The docs sidebar: guides first, then every component in one alphabetical category. */
 export function getNavigation(): NavGroup[] {
 	return [
 		{
@@ -25,21 +25,15 @@ export function getNavigation(): NavGroup[] {
 		},
 		{
 			title: "Components",
-			items: [{ title: "Overview", href: "/docs/components" }],
+			items: [
+				{ title: "Overview", href: "/docs/components" },
+				...[...registry].sort(byName).map((c) => ({
+					title: c.name,
+					href: `/docs/components/${c.slug}`,
+					preview: c.preview,
+				})),
+			],
 		},
-		...groups
-			.map((group) => ({
-				title: group,
-				items: registry
-					.filter((c) => c.group === group)
-					.sort(byName)
-					.map((c) => ({
-						title: c.name,
-						href: `/docs/components/${c.slug}`,
-						preview: c.preview,
-					})),
-			}))
-			.filter((g) => g.items.length > 0),
 	];
 }
 

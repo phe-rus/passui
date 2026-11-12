@@ -10,7 +10,8 @@
 			"src/lib/cx.ts",
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
-			"src/lib/render.ts"
+			"src/lib/render.ts",
+			"src/lib/water-drop.ts"
 		]
 	},
 	"src/components/alert.tsx": {
@@ -63,7 +64,8 @@
 			"src/components/combobox.tsx",
 			"src/lib/cx.ts",
 			"src/lib/portal.tsx",
-			"src/lib/presence.ts"
+			"src/lib/presence.ts",
+			"src/lib/water-drop.ts"
 		]
 	},
 	"src/components/command.tsx": {
@@ -78,7 +80,8 @@
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
-			"src/lib/visual-viewport.ts"
+			"src/lib/visual-viewport.ts",
+			"src/lib/water-drop.ts"
 		]
 	},
 	"src/components/drawer.tsx": {
@@ -107,7 +110,8 @@
 			"src/lib/cx.ts",
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
-			"src/lib/render.ts"
+			"src/lib/render.ts",
+			"src/lib/water-drop.ts"
 		]
 	},
 	"src/components/field.tsx": {
@@ -138,6 +142,10 @@
 		"packages": ["react"],
 		"local": ["src/components/label.tsx", "src/lib/cx.ts"]
 	},
+	"src/components/list.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/list.tsx", "src/lib/cx.ts", "src/lib/render.ts"]
+	},
 	"src/components/pagination.tsx": {
 		"packages": ["react"],
 		"local": [
@@ -154,7 +162,8 @@
 			"src/lib/cx.ts",
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
-			"src/lib/render.ts"
+			"src/lib/render.ts",
+			"src/lib/water-drop.ts"
 		]
 	},
 	"src/components/progress.tsx": {
@@ -180,7 +189,8 @@
 			"src/components/select.tsx",
 			"src/lib/cx.ts",
 			"src/lib/portal.tsx",
-			"src/lib/presence.ts"
+			"src/lib/presence.ts",
+			"src/lib/water-drop.ts"
 		]
 	},
 	"src/components/separator.tsx": {
@@ -195,7 +205,8 @@
 			"src/lib/portal.tsx",
 			"src/lib/presence.ts",
 			"src/lib/render.ts",
-			"src/lib/visual-viewport.ts"
+			"src/lib/visual-viewport.ts",
+			"src/lib/water-drop.ts"
 		]
 	},
 	"src/components/skeleton.tsx": {

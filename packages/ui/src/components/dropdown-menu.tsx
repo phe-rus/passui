@@ -15,6 +15,7 @@ import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
+import { useWaterDrop } from "../lib/water-drop";
 
 type Placement = NonNullable<menu.Props["positioning"]>["placement"];
 
@@ -115,7 +116,11 @@ function Panel({
 	...props
 }: PartProps<"div"> & { slot: string }) {
 	const { api } = useMenu();
-	const { ref, mounted, attrs } = usePresence(api.open);
+	const drop = useWaterDrop({
+		sourceId: api.getTriggerProps().id,
+		material: "liquid-glass-dense squircle [--squircle-radius:1.25rem]",
+	});
+	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	if (!mounted) return null;
 	return (
 		<Portal>
@@ -130,7 +135,7 @@ function Panel({
 							hidden: false,
 							"data-slot": slot,
 							className: cx(
-								"min-w-44 max-h-(--available-height,24rem) overflow-y-auto rounded-xl bg-elevated p-1 text-label shadow-menu outline-none ring-1 ring-separator transition duration-(--duration-fast,150ms) ease-standard data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:origin-top data-[side=top]:origin-bottom motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"min-w-44 max-h-(--available-height,24rem) overflow-y-auto liquid-glass-dense squircle morph-reset [--squircle-radius:1.25rem] p-1 text-label outline-none transition spring-smooth origin-(--transform-origin,center) data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 data-[side=bottom]:origin-top data-[side=top]:origin-bottom motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},
@@ -153,7 +158,7 @@ export function DropdownMenuSubContent(props: PartProps<"div">) {
 }
 
 const itemClass =
-	"relative flex cursor-default select-none items-center gap-2 rounded-lg px-2.5 py-1.5 text-subheadline outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-fill";
+	"relative flex cursor-default select-none items-center gap-2 rounded-xl px-2.5 py-1.5 text-subheadline outline-none transition-colors duration-(--duration-instant) data-[disabled]:pointer-events-none data-[disabled]:opacity-40 data-[highlighted]:bg-accent/15";
 
 export interface DropdownMenuItemProps
 	extends Omit<ComponentProps<"div">, "onSelect"> {

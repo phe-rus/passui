@@ -15,6 +15,7 @@ import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
+import { useWaterDrop } from "../lib/water-drop";
 
 interface Value {
 	api: dialog.Api;
@@ -72,6 +73,10 @@ export function AlertDialog({ children, ...props }: AlertDialogProps) {
 	);
 }
 
+/** Full bleed hairline action cells, as in iOS alerts. */
+const actionStyles =
+	"h-11 px-3 text-body outline-none transition spring-snappy hover:bg-fill/50 active:bg-fill/80 focus-visible:bg-fill/60";
+
 type PartProps<T extends "button" | "div" | "h2" | "p"> = ComponentProps<T> & {
 	/** Render your own element instead of the default one. */
 	render?: RenderProp;
@@ -96,7 +101,14 @@ export function AlertDialogAction({ render, ...props }: PartProps<"button">) {
 	const { id: _id, ...closeProps } = api.getCloseTriggerProps();
 	return renderPart(
 		"button",
-		mergeProps({ ...closeProps, "data-slot": "alert-dialog-action" }, props),
+		mergeProps(
+			{
+				...closeProps,
+				"data-slot": "alert-dialog-action",
+				className: actionStyles + " font-semibold text-accent-text",
+			},
+			props,
+		),
 		render,
 	);
 }
@@ -111,6 +123,7 @@ export function AlertDialogCancel({ render, ...props }: PartProps<"button">) {
 				...api.getCloseTriggerProps(),
 				ref: cancel,
 				"data-slot": "alert-dialog-cancel",
+				className: actionStyles,
 			},
 			props,
 		),
@@ -124,7 +137,11 @@ export function AlertDialogContent({
 	...props
 }: PartProps<"div">) {
 	const { api } = useAlertDialog();
-	const { ref, mounted, attrs } = usePresence(api.open);
+	const drop = useWaterDrop({
+		sourceId: api.getTriggerProps().id,
+		material: "liquid-glass squircle [--squircle-radius:1.5rem]",
+	});
+	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	if (!mounted) return null;
 	const state = { ...attrs, "data-open": api.open ? "" : undefined };
 	return (
@@ -150,7 +167,7 @@ export function AlertDialogContent({
 							hidden: false,
 							"data-slot": "alert-dialog-content",
 							className: cx(
-								"relative grid w-full max-w-md gap-4 rounded-3xl bg-elevated p-6 text-label shadow-floating outline-none ring-1 ring-separator transition duration-(--duration-normal) ease-standard data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
+								"relative grid w-[17.5rem] max-w-[calc(100vw-3rem)] gap-0 overflow-hidden liquid-glass squircle morph-reset [--squircle-radius:1.5rem] text-center text-label outline-none transition spring-smooth data-ending-style:scale-[0.88] data-starting-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100",
 								className,
 							),
 						},
@@ -170,7 +187,10 @@ export function AlertDialogHeader({
 	return (
 		<div
 			data-slot="alert-dialog-header"
-			className={cx("flex flex-col gap-1.5", className)}
+			className={cx(
+				"flex flex-col items-center gap-1 px-4 pt-5 pb-4",
+				className,
+			)}
 			{...props}
 		/>
 	);
@@ -184,7 +204,7 @@ export function AlertDialogFooter({
 		<div
 			data-slot="alert-dialog-footer"
 			className={cx(
-				"flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+				"flex divide-x divide-separator border-t border-separator [&>*]:min-w-0 [&>*]:flex-1",
 				className,
 			)}
 			{...props}

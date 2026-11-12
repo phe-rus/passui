@@ -8,7 +8,7 @@ export function InputGroup({ className, ...props }: ComponentProps<"div">) {
 			role="group"
 			data-slot="input-group"
 			className={cx(
-				"flex h-11 w-full min-w-0 items-center gap-2 rounded-2xl bg-fill/60 px-3 text-body transition duration-(--duration-fast) ease-standard focus-within:ring-2 focus-within:ring-accent/70 has-[[aria-invalid=true]]:ring-2 has-[[aria-invalid=true]]:ring-danger/70 has-[:disabled]:opacity-40 motion-reduce:transition-none",
+				"control-field flex h-11 w-full min-w-0 items-center gap-2 rounded-2xl px-3 text-body has-[:disabled]:opacity-40 has-[[aria-invalid=true]]:shadow-[inset_0_0_0_1.5px_var(--color-danger)]",
 				className,
 			)}
 			{...props}

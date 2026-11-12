@@ -3,7 +3,7 @@ import { DocView } from "@/components/docs/doc-view";
 import { DocNotFound } from "@/components/docs/not-found";
 import { loadComponentPage } from "@/features/components/load";
 import { getMeta } from "@/features/components/registry";
-import { getPageHead } from "@/features/seo/head";
+import { getPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/docs/components/$slug")({
 	loader: async ({ params }) => {

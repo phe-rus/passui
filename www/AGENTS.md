@@ -17,8 +17,7 @@ src/
                  examples/<slug>/<id>.tsx, api.generated.json, navigation.ts
     guides/      guides.ts and content.tsx (Introduction, Installation, Theming, Typeset, Skills)
     ai/          llms.txt and the skill, from the registry
-    seo/         canonical urls, page head, sitemap
-  lib/           copy hook, server side Shiki (highlight.server.ts) and its server function
+  lib/           site.ts, seo.ts, sitemap.ts, headers.ts (CSP and security headers), copy hook, server side Shiki and its server function
   routes/        thin route modules; (meta) holds llms, robots, sitemap
   styles/        site.css
 scripts/generate-api.ts   props tables from the built declarations
@@ -50,4 +49,4 @@ Components marked `preview` in the registry have not been rebuilt on Zag yet and
 
 `bun run test` (registry and example coverage, SEO), `bun run typecheck` (compiles every example), `bun run build`. Build the React and icons packages first (root tasks do).
 
-`src/features/seo/sitemap.ts` generates `/sitemap.xml` and `/robots.txt`; see [the SEO guide](../docs/seo.md). `src/server.ts` marks 404 responses noindex.
+`src/lib/sitemap.ts` generates `/sitemap.xml` and `/robots.txt`; see [the SEO guide](../docs/seo.md). `src/server.ts` only composes `withSiteHeaders` from `src/lib/headers.ts`; `src/start.ts` registers the CSRF middleware; `public/_headers` covers static assets. Keep each policy in its own small, named module, as the Pass app does.

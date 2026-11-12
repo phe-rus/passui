@@ -2,6 +2,14 @@ import { useLayoutEffect, useRef, useState } from "react";
 
 type Phase = "closed" | "starting" | "open" | "ending";
 
+/** Lets a panel run its own enter and exit motion while presence keeps it mounted. */
+export interface PresenceHooks<T extends HTMLElement = HTMLElement> {
+	/** Runs once the panel has mounted, and again when a close is reversed. */
+	enter?: (el: T) => void;
+	/** Runs the moment `open` turns false. Animations started here hold the panel mounted until they end. */
+	exit?: (el: T) => void;
+}
+
 /**
  * Keeps a panel mounted until its CSS exit transition ends.
  *
@@ -13,9 +21,13 @@ type Phase = "closed" | "starting" | "open" | "ending";
  */
 export function usePresence<T extends HTMLElement = HTMLDivElement>(
 	open: boolean,
+	hooks?: PresenceHooks<NoInfer<T>>,
 ) {
 	const ref = useRef<T | null>(null);
 	const [phase, setPhase] = useState<Phase>(open ? "open" : "closed");
+	const hooksRef = useRef(hooks);
+	hooksRef.current = hooks;
+	const previous = useRef<Phase>(phase);
 
 	// Derived from `open`, so the reversal needs no effect and no extra frame.
 	if (open && phase === "closed") setPhase("starting");
@@ -24,15 +36,24 @@ export function usePresence<T extends HTMLElement = HTMLDivElement>(
 		setPhase("ending");
 
 	useLayoutEffect(() => {
+		const was = previous.current;
+		previous.current = phase;
+		const el = ref.current;
 		if (phase === "starting") {
 			// Reading layout commits the starting styles before they are removed.
-			ref.current?.getBoundingClientRect();
+			el?.getBoundingClientRect();
+			if (el) hooksRef.current?.enter?.(el);
 			setPhase("open");
 			return;
 		}
+		// A close that was reversed mid flight opens again from where it is.
+		if (phase === "open" && was === "ending" && el)
+			hooksRef.current?.enter?.(el);
 		if (phase !== "ending") return;
+		// Before the exit is measured, so animations it starts keep the panel mounted.
+		if (el) hooksRef.current?.exit?.(el);
 		let cancelled = false;
-		const animations = ref.current?.getAnimations?.() ?? [];
+		const animations = el?.getAnimations?.() ?? [];
 		if (animations.length === 0) setPhase("closed");
 		else
 			Promise.allSettled(animations.map((a) => a.finished)).then(() => {

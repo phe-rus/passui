@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ComponentIndex } from "@/components/docs/component-index";
-import { getPageHead } from "@/features/seo/head";
+import { getPageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/docs/components/")({
 	head: () =>

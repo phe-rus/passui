@@ -13,6 +13,7 @@ import {
 } from "@tanstack/react-router";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { getStars } from "@/lib/github-stars";
 import tailwind from "@/styles/site.css?url";
 
 export const Route = createRootRoute({
@@ -51,10 +52,12 @@ export const Route = createRootRoute({
 			{ rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 		],
 	}),
+	loader: () => getStars(),
 	shellComponent: RouteComponent,
 });
 
 function RouteComponent() {
+	const stars = Route.useLoaderData() ?? null;
 	return (
 		<ComposeViewport>
 			<head>
@@ -69,7 +72,7 @@ function RouteComponent() {
 						enableColorScheme
 						enableSystem
 					>
-						<SiteHeader />
+						<SiteHeader stars={stars} />
 						<Outlet />
 						<SiteFooter />
 						<Toaster />

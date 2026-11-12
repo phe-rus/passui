@@ -76,6 +76,8 @@ export default defineConfig({
 		tooltip: "src/components/tooltip.tsx",
 		"use-dismiss": "src/hooks/use-dismiss.ts",
 		"use-media-query": "src/hooks/use-media-query.ts",
+		"use-os": "src/hooks/use-os.ts",
+		list: "src/components/list.tsx",
 		"view-controller": "src/legacy/view-controller/index.ts",
 		"wake-slider": "src/legacy/wake-slider/wake-slider.tsx",
 	},

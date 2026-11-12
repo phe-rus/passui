@@ -1,5 +1,5 @@
-import { registry } from "../components/registry";
-import { guides } from "../guides/guides";
+import { registry } from "@/features/components/registry";
+import { guides } from "@/features/guides/guides";
 import { pageUrl, siteOrigin } from "./site";
 
 const escapeXml = (value: string) =>

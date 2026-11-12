@@ -164,6 +164,10 @@ Springs in `../tokens/src/motion.ts`, used through `spring` in
 `src/motion/transitions.ts`: `smooth` for most transitions, `snappy` for
 small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 
+## Materials and motion in components
+
+Floating surfaces use `liquid-glass` or `liquid-glass-dense` plus `squircle` (tokens `utilities.css`): 40px blur at 180% saturation, a lit top rim, a hairline and layered shadows. Transitions use `spring-smooth`, `spring-snappy` or `spring-bouncy` (CSS `linear()` springs from the motion tokens). Dropdown Menu, Popover, Select, Combobox, Dialog, Alert Dialog and Sheet use the water drop (`useWaterDrop` in `src/lib/water-drop.ts`): the trigger's glass swells into the panel and, on close, drops back into the trigger, like the iOS Notes three dots menu. Only a separate ghost layer of glass changes size (Web Animations, no dependency), so panel content never stretches; the panel itself carries `morph-reset` so its scale and slide step aside while `data-morph` is set. Without a trigger, with Reduce Motion or without `Element.animate`, the panel keeps its scale and fade pop. Pass the hook's result to `usePresence(open, drop)`; presence calls `enter` and `exit` so exit animations keep the panel mounted. Pressable controls use `active:scale-[0.96]` with `spring-snappy`. Tabs and ToggleGroup slide a `glass-lens` under the selection. Kbd shows Apple symbols or words from `data-os`, with no hydration mismatch. `List`, `ListSection` and `ListItem` are the iOS inset grouped list.
+
 ## Layout
 
 ```
@@ -177,7 +181,7 @@ src/
 test/           mirrors src: components/, legacy/, lib/, helpers/
 ```
 
-A component is one file in `src/components/<name>.tsx`, 150 lines or fewer when simple, and one entry in `tsdown.config.ts`. A component file imports only React, tokens, its own Zag machine, `cx` and the shared helpers `render`, `presence` and `portal`. Its allow list lives in `allowlist.json` and its size budget in `../../size-budgets.json`; both are checked in CI. Names follow shadcn (`Dialog`, `DialogContent`); triggers take a `render` prop. State is styled through data attributes (`data-state`, `data-starting-style`, `data-ending-style`). Animation is CSS only. No `tailwind-merge`, so overrides use data attributes, not class order.
+A component is one file in `src/components/<name>.tsx`, 150 lines or fewer when simple, and one entry in `tsdown.config.ts`. A component file imports only React, tokens, its own Zag machine, `cx` and the shared helpers `render`, `presence`, `portal` and `water-drop`. Its allow list lives in `allowlist.json` and its size budget in `../../size-budgets.json`; both are checked in CI. Names follow shadcn (`Dialog`, `DialogContent`); triggers take a `render` prop. State is styled through data attributes (`data-state`, `data-starting-style`, `data-ending-style`). Animation is CSS only. No `tailwind-merge`, so overrides use data attributes, not class order.
 
 Icons come from `@passui/icons`. The Hugeicons dependency is gone.
 

@@ -282,3 +282,154 @@
 	scroll-padding-block: 1rem var(--scroll-clearance, 1rem);
 	padding-bottom: var(--scroll-clearance, 1rem);
 }
+
+/* Spring easing from the motion tokens, for transitions that settle like a
+   physical object: `transition spring-snappy` on a control, `spring-smooth` on a panel. */
+@utility spring-smooth {
+	transition-timing-function: var(--spring-smooth);
+	transition-duration: var(--spring-smooth-duration);
+}
+
+@utility spring-snappy {
+	transition-timing-function: var(--spring-snappy);
+	transition-duration: var(--spring-snappy-duration);
+}
+
+@utility spring-bouncy {
+	transition-timing-function: var(--spring-bouncy);
+	transition-duration: var(--spring-bouncy-duration);
+}
+
+/* Zag writes the content's measured size to --height; these ease it open and shut. */
+@keyframes passui-collapse-open {
+	from {
+		height: 0;
+		opacity: 0;
+	}
+	to {
+		height: var(--height);
+		opacity: 1;
+	}
+}
+
+@keyframes passui-collapse-close {
+	from {
+		height: var(--height);
+		opacity: 1;
+	}
+	to {
+		height: 0;
+		opacity: 0;
+	}
+}
+
+@utility collapse-motion {
+	overflow: hidden;
+
+	&[data-state="open"] {
+		animation: passui-collapse-open var(--spring-smooth-duration)
+			var(--spring-smooth);
+	}
+
+	&[data-state="closed"] {
+		animation: passui-collapse-close var(--duration-fast) var(--ease-standard);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&[data-state] {
+			animation: none;
+		}
+	}
+}
+
+/*
+ * iOS liquid glass. One material for every floating surface: a tinted
+ * translucent fill, 2xl blur with 180% saturation so what is behind it glows
+ * through, a lit top rim, a crisp hairline and layered elevation shadows.
+ * Continuous (squircle) corners apply wherever the browser supports them.
+ */
+@utility liquid-glass {
+	background-color: var(--color-glass-tint);
+	background-image:
+		linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--color-glass-specular) 38%, transparent),
+			transparent 42%
+		),
+		var(--grain-sea-salt);
+	backdrop-filter: blur(40px) saturate(180%);
+	-webkit-backdrop-filter: blur(40px) saturate(180%);
+	box-shadow:
+		inset 0 1px 0 0 var(--color-glass-specular),
+		inset 0 0 0 0.5px var(--color-glass-rim),
+		0 1px 2px rgb(0 0 0 / 0.06),
+		0 8px 24px -8px var(--color-shadow-menu),
+		0 28px 64px -24px var(--color-shadow-floating);
+}
+
+/* The same glass, denser, for menus and lists where text must stay crisp. */
+@utility liquid-glass-dense {
+	background-color: color-mix(in srgb, var(--color-elevated) 86%, transparent);
+	background-image:
+		linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--color-glass-specular) 30%, transparent),
+			transparent 36%
+		),
+		var(--grain-sea-salt);
+	backdrop-filter: blur(40px) saturate(180%);
+	-webkit-backdrop-filter: blur(40px) saturate(180%);
+	box-shadow:
+		inset 0 1px 0 0 var(--color-glass-specular),
+		inset 0 0 0 0.5px var(--color-glass-rim),
+		0 1px 2px rgb(0 0 0 / 0.06),
+		0 10px 30px -8px var(--color-shadow-menu),
+		0 30px 70px -26px var(--color-shadow-floating);
+}
+
+/*
+ * A panel the water drop animates (`data-morph`, set by `useWaterDrop`): its own
+ * scale, slide and fade transitions step aside so only the drop moves. Opacity is
+ * left alone on purpose, since the drop's animation overrides it anyway.
+ */
+@utility morph-reset {
+	&[data-morph] {
+		transition: none !important;
+		translate: none !important;
+		scale: none !important;
+	}
+}
+
+/* Android keeps the shapes on a solid surface. */
+:root[data-os="android"] :is(.liquid-glass, .liquid-glass-dense) {
+	background-image: none;
+	background-color: var(--color-elevated);
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+/* Continuous iOS corners where `corner-shape` exists; plain rounding elsewhere. */
+@utility squircle {
+	@supports (corner-shape: squircle) {
+		corner-shape: squircle;
+		border-radius: calc(var(--squircle-radius, 1.5rem) * 1.6);
+	}
+	border-radius: var(--squircle-radius, 1.5rem);
+}
+
+/* iOS inset grouped lists: rows on one rounded plate, with hairlines inset from the leading edge. */
+@utility inset-group {
+	background-color: var(--color-elevated);
+	border-radius: 1.25rem;
+	overflow: hidden;
+	box-shadow: inset 0 0 0 0.5px
+		color-mix(in srgb, var(--color-separator) 55%, transparent);
+}
+
+/* The hairline between grouped rows. */
+@utility group-hairline {
+	& + & {
+		box-shadow: inset 0 0.5px 0 0 var(--color-separator);
+		background-clip: padding-box;
+	}
+}

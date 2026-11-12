@@ -52,18 +52,31 @@ export function Tabs({
 	);
 }
 
-export function TabsList({ className, ...props }: ComponentProps<"div">) {
+export function TabsList({
+	className,
+	children,
+	...props
+}: ComponentProps<"div">) {
 	const api = useTabs();
 	return (
 		<div
 			{...api.getListProps()}
 			data-slot="tabs-list"
 			className={cx(
-				"inline-flex w-fit items-center gap-1 rounded-full bg-fill/60 p-1",
+				"glass relative inline-flex w-fit items-center gap-1 rounded-full p-1",
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{/* The lens glides between triggers; Zag measures the selected one. */}
+			<span
+				{...api.getIndicatorProps()}
+				aria-hidden="true"
+				data-slot="tabs-indicator"
+				className="glass-lens spring-smooth absolute z-0 rounded-full transition-[left,top,width,height] motion-reduce:transition-none"
+			/>
+			{children}
+		</div>
 	);
 }
 
@@ -79,7 +92,7 @@ export function TabsTrigger({
 			{...api.getTriggerProps({ value, disabled })}
 			data-slot="tabs-trigger"
 			className={cx(
-				"inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-subheadline font-semibold text-label-secondary outline-none transition duration-(--duration-fast) focus-visible:ring-2 focus-visible:ring-accent/70 disabled:opacity-40 data-selected:bg-elevated data-selected:text-label data-selected:shadow-[0_1px_3px_rgb(0_0_0/0.15)] motion-reduce:transition-none",
+				"relative z-10 inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-subheadline font-semibold text-label-secondary outline-none transition spring-snappy hover:text-label active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-accent/70 disabled:opacity-40 data-selected:text-label motion-reduce:transition-none",
 				className,
 			)}
 			{...props}

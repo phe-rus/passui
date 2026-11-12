@@ -6,6 +6,7 @@ import { type ReactNode, useId, useMemo, useState } from "react";
 import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
+import { useWaterDrop } from "../lib/water-drop";
 
 export interface ComboboxItem {
 	value: string;
@@ -85,7 +86,12 @@ export function Combobox({
 		},
 	});
 	const api = zagCombobox.connect(service, normalizeProps);
-	const { ref, mounted, attrs } = usePresence(api.open);
+	// The list grows from the whole field, not from the small chevron inside it.
+	const drop = useWaterDrop({
+		sourceId: api.getControlProps().id,
+		material: "liquid-glass-dense squircle [--squircle-radius:1.25rem]",
+	});
+	const { ref, mounted, attrs } = usePresence(api.open, drop);
 	return (
 		<div
 			{...api.getRootProps()}
@@ -128,7 +134,7 @@ export function Combobox({
 							ref={ref}
 							hidden={false}
 							data-slot="combobox-content"
-							className="bg-elevated shadow-floating ring-separator ease-standard max-h-72 overflow-y-auto rounded-2xl p-1.5 ring-1 transition duration-(--duration-fast) outline-none data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 motion-reduce:transition-none"
+							className="liquid-glass-dense squircle morph-reset spring-smooth max-h-72 origin-(--transform-origin,center) overflow-y-auto p-1.5 transition outline-none [--squircle-radius:1.25rem] data-ending-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:scale-[0.88] data-starting-style:opacity-0 motion-reduce:transition-none"
 						>
 							{filtered.length === 0 ? (
 								<div className="text-subheadline text-label-secondary px-3 py-2">
@@ -140,7 +146,7 @@ export function Combobox({
 										key={item.value}
 										{...api.getItemProps({ item })}
 										data-slot="combobox-item"
-										className="text-subheadline text-label data-highlighted:bg-fill flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 data-disabled:opacity-40"
+										className="text-subheadline text-label data-highlighted:bg-accent/15 flex cursor-pointer items-center justify-between gap-3 rounded-xl px-3 py-2 data-disabled:opacity-40"
 									>
 										<span {...api.getItemTextProps({ item })}>
 											{item.label}
