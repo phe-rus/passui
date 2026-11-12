@@ -13,4 +13,3 @@ dist/
 .dev.vars*
 worker-configuration.d.ts
 **/src/routeTree.gen.ts
-bun.lock
