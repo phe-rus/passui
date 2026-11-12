@@ -1,8 +1,9 @@
 name: Passui CI
 
 on:
+  # Every push runs check, then e2e. Only a release marked commit on main goes
+  # further (see the release job).
   push:
-    branches: [main]
   pull_request:
   workflow_dispatch:
 

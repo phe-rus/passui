@@ -161,6 +161,7 @@ Order follows Tracer Bullet, the default for production work, since no approach 
 3. **Alert Dialog.** On the dialog machine with role, focus and dismissal rules. Satisfies **AC-4**, **AC-14**.
 4. **Drawer thread.** Drawer then Sheet on `@zag-js/drawer`: curve, handle, snap points, sides. Then the page scale math and tests, the soft keyboard variable, Playwright touch tests on Chromium and WebKit in CI, and the real device checklist. Satisfies **AC-6**, **AC-7**, **AC-8**, **AC-12**.
 5. **Stacking.** Tests and fixes for any overlay in any other, nested Drawers, top layer dismissal, focus return and scroll lock. Satisfies **AC-9**.
+   *Status*: `packages/ui/e2e/stacking.e2e.ts` and the `?ui=stack&layers=` fixture cover Dialog, Sheet and Drawer in each other (seven stacks): Escape and outside press close the top layer only, focus returns to each closed layer's trigger, scroll lock holds until the last layer closes, a parent Drawer scales back and the page scale clears after the last. They pass Biome and `typecheck:e2e`, but have not yet been run in a browser. Zag supplies the layering (shared dismissable and focus trap stacks, a ref counted `preventBodyScroll`), so no component change was needed unless a run fails. The Dropdown Menu in Sheet in Dialog case waits for step 8.
 6. **Popover.** Satisfies **AC-2**, **AC-3**, **AC-5**.
 7. **Tooltip.** Satisfies **AC-10**.
 8. **Dropdown Menu.** Parts first, submenus last. Satisfies **AC-11**.

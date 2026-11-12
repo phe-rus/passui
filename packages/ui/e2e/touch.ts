@@ -132,16 +132,16 @@ export const panelRect = (page: Page) =>
  * a release leaves the panel still for a frame or two before the spring back
  * (or the exit) begins.
  */
-export async function settled(page: Page) {
-	await page.getByTestId("panel").waitFor();
+export async function settled(page: Page, testId = "panel") {
+	await page.getByTestId(testId).waitFor();
 	await page.evaluate(
-		() =>
+		(testId) =>
 			new Promise<void>((resolve) => {
 				const frames = 15;
 				let still = 0;
 				let last = "";
 				const tick = () => {
-					const el = document.querySelector('[data-testid="panel"]');
+					const el = document.querySelector(`[data-testid="${testId}"]`);
 					if (!el) return resolve();
 					const r = el.getBoundingClientRect();
 					const now = `${r.top}|${r.left}|${r.width}|${r.height}`;
@@ -155,5 +155,6 @@ export async function settled(page: Page) {
 				};
 				requestAnimationFrame(tick);
 			}),
+		testId,
 	);
 }
