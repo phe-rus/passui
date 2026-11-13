@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/tokens 0.1.5
+
+### Changed
+
+- `inset-group` now has a clearer hairline edge, a faint lit top rim and a barely visible lift, so grouped lists no longer look flat against the page.
+
 ## @passui/tokens 0.1.4
 
 ### Fixed
