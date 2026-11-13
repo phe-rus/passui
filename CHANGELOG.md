@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/tokens 0.1.6
+
+### Changed
+
+- No focus rings anywhere. The base layer replaces the global `:focus-visible` outline with a rule that zeroes the Tailwind ring layers and the outline whenever an element or something inside it has focus, so the `focus-visible:ring-2 ring-accent/70` that components draw no longer shows. Apps no longer need their own override.
+
 ## @passui/react 0.3.5
 
 ### Fixed
