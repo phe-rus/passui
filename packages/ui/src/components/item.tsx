@@ -261,7 +261,7 @@ export function ItemDescription({
 		<div
 			data-slot="item-description"
 			className={cx(
-				"text-footnote text-label-secondary line-clamp-2 group-data-[size=sm]/item-group:text-caption",
+				"text-footnote text-label-secondary -mt-0.5 line-clamp-2 group-data-[size=sm]/item-group:text-caption",
 				className,
 			)}
 			{...props}

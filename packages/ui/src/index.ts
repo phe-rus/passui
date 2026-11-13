@@ -15,6 +15,7 @@ export * from "./components/checkbox";
 export * from "./components/collapsible";
 export * from "./components/combobox";
 export * from "./components/command";
+export * from "./components/context-menu";
 export * from "./components/date-time-picker";
 export * from "./components/dialog";
 export * from "./components/drawer";
@@ -23,9 +24,9 @@ export * from "./components/field";
 export * from "./components/input";
 export * from "./components/input-group";
 export * from "./components/input-otp";
+export * from "./components/item";
 export * from "./components/kbd";
 export * from "./components/label";
-export * from "./components/item";
 export * from "./components/list";
 export * from "./components/marker";
 export * from "./components/pagination";
@@ -41,6 +42,7 @@ export * from "./components/sheet";
 export * from "./components/sidebar";
 export * from "./components/skeleton";
 export * from "./components/slider";
+export * from "./components/slosh-slider";
 export * from "./components/spinner";
 export * from "./components/switch";
 export * from "./components/tab-bar";
@@ -65,18 +67,6 @@ export type {
 	ContentViewHeadingLevel,
 	ContentViewVariant,
 } from "./legacy/content-view/content-view";
-export * from "./legacy/context-menu/context-menu-host";
-export {
-	type ContextMenuAlignX,
-	type ContextMenuAlignY,
-	type ContextMenuEdge,
-	type ContextMenuItem,
-	closeContextMenu,
-	openContextMenu,
-	openFollowUpMenu,
-	openMenu,
-} from "./legacy/context-menu/context-menu-store";
-export * from "./legacy/context-menu/use-context-menu";
 export * from "./legacy/date-picker/date-picker";
 export * from "./legacy/empty/empty";
 export * from "./legacy/labeled-content/labeled-content";

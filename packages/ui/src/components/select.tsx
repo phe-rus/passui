@@ -113,7 +113,7 @@ export function Select({
 					{...api.getTriggerProps()}
 					aria-label={ariaLabel}
 					data-slot="select-trigger"
-					className="group bg-fill/60 text-footnote text-label focus-visible:ring-accent/70 aria-invalid:ring-danger/70 flex h-8.5 w-full items-center justify-between gap-2 rounded-xl px-3 text-left transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none"
+					className="group bg-fill/60 text-footnote text-label focus-visible:ring-accent/70 aria-invalid:ring-danger/70 spring-snappy flex h-8.5 w-full items-center justify-between gap-2 rounded-xl px-3 text-left transition outline-none focus-visible:ring-2 active:scale-[0.98] disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none motion-reduce:active:scale-100"
 				>
 					<span
 						{...api.getValueTextProps()}

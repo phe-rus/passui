@@ -90,6 +90,29 @@ export function DropdownMenu({
 	return <Context.Provider value={ctx}>{children}</Context.Provider>;
 }
 
+/** A menu that opens at the pointer on right click or long press, instead of on a trigger. */
+export function ContextMenu({
+	children,
+	placement = "bottom-start",
+	...props
+}: DropdownMenuProps) {
+	const ctx = useMenuMachine(props, placement);
+	return <Context.Provider value={ctx}>{children}</Context.Provider>;
+}
+
+/** The region that answers to a right click or long press. Renders a `div` by default. */
+export function ContextMenuTrigger({ render, ...props }: PartProps<"div">) {
+	const { api } = useMenu();
+	return renderPart(
+		"div",
+		mergeProps(
+			{ ...api.getContextTriggerProps(), "data-slot": "context-menu-trigger" },
+			props,
+		),
+		render,
+	);
+}
+
 /** A nested menu. Put a `DropdownMenuSubTrigger` and `DropdownMenuSubContent` inside. */
 export function DropdownMenuSub({
 	children,

@@ -205,7 +205,7 @@ Docs for every component live in `www/src/features/components` (see `www/AGENTS.
 
 Rebuilt on Zag or native (`src/components/`, plus `Locales` and `Swatch Picker` on Select and Radio Group): Accordion, Alert, Alert Dialog, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Collapsible, Combobox, Command, Dialog, Drawer, Dropdown Menu, Field, Input, Input Group, Input OTP, Kbd, Label, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Search Field, Sidebar, Switch, Table, Tabs, Text, Textarea, Toast, Toggle, Toggle Group, Tooltip.
 
-Still in `src/legacy/` with their old APIs (wave 2 and blocks): Aspect Ratio, Code Block, Date Picker, Stepper, Context menu, and the blocks Ambient, Empty, Labeled Content, Stat Tile, Layout, Wake Slider, Conversation, Morph. `legacy/button`, `picker`, `popover`, `sheet` and `text-field` remain only as internals of these and are not public entries.
+Still in `src/legacy/` with their old APIs (wave 2 and blocks): Aspect Ratio, Code Block, Date Picker, Stepper, and the blocks Ambient, Empty, Labeled Content, Stat Tile, Layout, Wake Slider, Conversation, Morph. `legacy/button`, `picker`, `popover`, `sheet` and `text-field` remain only as internals of these and are not public entries.
 
 ## Repository and public package
 
@@ -217,4 +217,4 @@ This repository owns Passui's UI source and is developed as its own checkout (`~
 
 Components do not import TanStack or application domains. `packages/tanstack/` adapts them to form state, tables and routing, with `@passui/react` and `@passui/icons` as peers.
 
-Viewport aware shells and sheets use the visual viewport variables the overlays write (`--visual-viewport-height`). `TabBar`, `Picker` and the old store based hosts were removed; `ContextMenuHost` remains for the legacy context menu.
+Viewport aware shells and sheets use the visual viewport variables the overlays write (`--visual-viewport-height`). `TabBar`, `Picker` and the old store based hosts were removed.

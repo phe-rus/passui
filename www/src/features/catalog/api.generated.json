@@ -1214,6 +1214,536 @@
 			"props": []
 		}
 	],
+	"context-menu": [
+		{
+			"name": "ContextMenu",
+			"description": "A menu that opens at the pointer on right click or long press, instead of on a trigger.",
+			"props": [
+				{
+					"name": "anchorPoint",
+					"type": "Point",
+					"description": "The positioning point for the menu. Can be set by the context menu trigger or the button trigger.",
+					"required": false
+				},
+				{
+					"name": "aria-label",
+					"type": "string",
+					"description": "The accessibility label for the menu",
+					"required": false
+				},
+				{
+					"name": "children",
+					"type": "ReactNode",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "closeOnSelect",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether to close the menu when an option is selected",
+					"required": false
+				},
+				{
+					"name": "composite",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether the menu is a composed with other composite widgets like a combobox or tabs",
+					"required": false
+				},
+				{
+					"name": "defaultHighlightedValue",
+					"type": "string",
+					"description": "The initial highlighted value of the menu item when rendered.\nUse when you don't need to control the highlighted value of the menu item.",
+					"required": false
+				},
+				{
+					"name": "defaultOpen",
+					"type": "boolean",
+					"description": "The initial open state of the menu when rendered.\nUse when you don't need to control the open state of the menu.",
+					"required": false
+				},
+				{
+					"name": "defaultTriggerValue",
+					"type": "string",
+					"description": "The initial trigger value when rendered.\nUse when you don't need to control the trigger value.",
+					"required": false
+				},
+				{
+					"name": "dir",
+					"type": "\"ltr\" | \"rtl\"",
+					"default": "\"ltr\"",
+					"description": "The document's text/writing direction.",
+					"required": false
+				},
+				{
+					"name": "getRootNode",
+					"type": "() => ShadowRoot | Node | Document",
+					"description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron.",
+					"required": false
+				},
+				{
+					"name": "highlightedValue",
+					"type": "string",
+					"description": "The controlled highlighted value of the menu item.",
+					"required": false
+				},
+				{
+					"name": "loopFocus",
+					"type": "boolean",
+					"default": "false",
+					"description": "Whether to loop the keyboard navigation.",
+					"required": false
+				},
+				{
+					"name": "navigate",
+					"type": "(details: NavigateDetails) => void",
+					"description": "Function to navigate to the selected item if it's an anchor element",
+					"required": false
+				},
+				{
+					"name": "onEscapeKeyDown",
+					"type": "(event: KeyboardEvent) => void",
+					"description": "Function called when the escape key is pressed",
+					"required": false
+				},
+				{
+					"name": "onFocusOutside",
+					"type": "(event: FocusOutsideEvent) => void",
+					"description": "Function called when the focus is moved outside the component",
+					"required": false
+				},
+				{
+					"name": "onHighlightChange",
+					"type": "(details: HighlightChangeDetails) => void",
+					"description": "Function called when the highlighted menu item changes.",
+					"required": false
+				},
+				{
+					"name": "onInteractOutside",
+					"type": "(event: InteractOutsideEvent) => void",
+					"description": "Function called when an interaction happens outside the component",
+					"required": false
+				},
+				{
+					"name": "onOpenChange",
+					"type": "(details: OpenChangeDetails) => void",
+					"description": "Function called when the menu opens or closes",
+					"required": false
+				},
+				{
+					"name": "onPointerDownOutside",
+					"type": "(event: PointerDownOutsideEvent) => void",
+					"description": "Function called when the pointer is pressed down outside the component",
+					"required": false
+				},
+				{
+					"name": "onRequestDismiss",
+					"type": "(event: LayerDismissEvent) => void",
+					"description": "Function called when this layer is closed due to a parent layer being closed",
+					"required": false
+				},
+				{
+					"name": "onSelect",
+					"type": "(details: SelectionDetails) => void",
+					"description": "Function called when a menu item is selected.",
+					"required": false
+				},
+				{
+					"name": "onTriggerValueChange",
+					"type": "(details: TriggerValueChangeDetails) => void",
+					"description": "Function called when the trigger value changes.",
+					"required": false
+				},
+				{
+					"name": "open",
+					"type": "boolean",
+					"description": "The controlled open state of the menu",
+					"required": false
+				},
+				{
+					"name": "placement",
+					"type": "Placement",
+					"description": "Where the menu sits against its trigger. Defaults to `bottom-start`.",
+					"required": false
+				},
+				{
+					"name": "triggerValue",
+					"type": "string",
+					"description": "The controlled trigger value",
+					"required": false
+				},
+				{
+					"name": "typeahead",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether the pressing printable characters should trigger typeahead navigation",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuCheckboxItem",
+			"description": "",
+			"props": [
+				{
+					"name": "checked",
+					"type": "boolean",
+					"description": "",
+					"required": true
+				},
+				{
+					"name": "onCheckedChange",
+					"type": "(checked: boolean) => void",
+					"description": "",
+					"required": true
+				},
+				{
+					"name": "closeOnSelect",
+					"type": "boolean",
+					"description": "Set false to keep the menu open after this item is chosen.",
+					"required": false
+				},
+				{
+					"name": "disabled",
+					"type": "boolean",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "value",
+					"type": "string",
+					"description": "Identifies the item for typeahead and `onSelect` on the menu. Defaults to a generated id.",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuContent",
+			"description": "The floating list. Mounts only while open or leaving.",
+			"props": [
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "Render your own element instead of the default one.",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuGroup",
+			"description": "",
+			"props": []
+		},
+		{
+			"name": "ContextMenuItem",
+			"description": "",
+			"props": [
+				{
+					"name": "closeOnSelect",
+					"type": "boolean",
+					"description": "Set false to keep the menu open after this item is chosen.",
+					"required": false
+				},
+				{
+					"name": "disabled",
+					"type": "boolean",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "onSelect",
+					"type": "() => void",
+					"description": "Runs when the item is chosen by pointer or keyboard.",
+					"required": false
+				},
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "value",
+					"type": "string",
+					"description": "Identifies the item for typeahead and `onSelect` on the menu. Defaults to a generated id.",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuLabel",
+			"description": "",
+			"props": []
+		},
+		{
+			"name": "ContextMenuRadioGroup",
+			"description": "",
+			"props": [
+				{
+					"name": "onValueChange",
+					"type": "(value: string) => void",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "value",
+					"type": "string",
+					"description": "",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuRadioItem",
+			"description": "",
+			"props": [
+				{
+					"name": "value",
+					"type": "string",
+					"description": "Identifies the item for typeahead and `onSelect` on the menu. Defaults to a generated id.",
+					"required": true
+				},
+				{
+					"name": "closeOnSelect",
+					"type": "boolean",
+					"description": "Set false to keep the menu open after this item is chosen.",
+					"required": false
+				},
+				{
+					"name": "disabled",
+					"type": "boolean",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuSeparator",
+			"description": "",
+			"props": []
+		},
+		{
+			"name": "ContextMenuShortcut",
+			"description": "",
+			"props": []
+		},
+		{
+			"name": "ContextMenuSub",
+			"description": "A nested menu. Put a `DropdownMenuSubTrigger` and `DropdownMenuSubContent` inside.",
+			"props": [
+				{
+					"name": "anchorPoint",
+					"type": "Point",
+					"description": "The positioning point for the menu. Can be set by the context menu trigger or the button trigger.",
+					"required": false
+				},
+				{
+					"name": "aria-label",
+					"type": "string",
+					"description": "The accessibility label for the menu",
+					"required": false
+				},
+				{
+					"name": "children",
+					"type": "ReactNode",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "closeOnSelect",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether to close the menu when an option is selected",
+					"required": false
+				},
+				{
+					"name": "composite",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether the menu is a composed with other composite widgets like a combobox or tabs",
+					"required": false
+				},
+				{
+					"name": "defaultHighlightedValue",
+					"type": "string",
+					"description": "The initial highlighted value of the menu item when rendered.\nUse when you don't need to control the highlighted value of the menu item.",
+					"required": false
+				},
+				{
+					"name": "defaultOpen",
+					"type": "boolean",
+					"description": "The initial open state of the menu when rendered.\nUse when you don't need to control the open state of the menu.",
+					"required": false
+				},
+				{
+					"name": "defaultTriggerValue",
+					"type": "string",
+					"description": "The initial trigger value when rendered.\nUse when you don't need to control the trigger value.",
+					"required": false
+				},
+				{
+					"name": "dir",
+					"type": "\"ltr\" | \"rtl\"",
+					"default": "\"ltr\"",
+					"description": "The document's text/writing direction.",
+					"required": false
+				},
+				{
+					"name": "getRootNode",
+					"type": "() => ShadowRoot | Node | Document",
+					"description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron.",
+					"required": false
+				},
+				{
+					"name": "highlightedValue",
+					"type": "string",
+					"description": "The controlled highlighted value of the menu item.",
+					"required": false
+				},
+				{
+					"name": "loopFocus",
+					"type": "boolean",
+					"default": "false",
+					"description": "Whether to loop the keyboard navigation.",
+					"required": false
+				},
+				{
+					"name": "navigate",
+					"type": "(details: NavigateDetails) => void",
+					"description": "Function to navigate to the selected item if it's an anchor element",
+					"required": false
+				},
+				{
+					"name": "onEscapeKeyDown",
+					"type": "(event: KeyboardEvent) => void",
+					"description": "Function called when the escape key is pressed",
+					"required": false
+				},
+				{
+					"name": "onFocusOutside",
+					"type": "(event: FocusOutsideEvent) => void",
+					"description": "Function called when the focus is moved outside the component",
+					"required": false
+				},
+				{
+					"name": "onHighlightChange",
+					"type": "(details: HighlightChangeDetails) => void",
+					"description": "Function called when the highlighted menu item changes.",
+					"required": false
+				},
+				{
+					"name": "onInteractOutside",
+					"type": "(event: InteractOutsideEvent) => void",
+					"description": "Function called when an interaction happens outside the component",
+					"required": false
+				},
+				{
+					"name": "onOpenChange",
+					"type": "(details: OpenChangeDetails) => void",
+					"description": "Function called when the menu opens or closes",
+					"required": false
+				},
+				{
+					"name": "onPointerDownOutside",
+					"type": "(event: PointerDownOutsideEvent) => void",
+					"description": "Function called when the pointer is pressed down outside the component",
+					"required": false
+				},
+				{
+					"name": "onRequestDismiss",
+					"type": "(event: LayerDismissEvent) => void",
+					"description": "Function called when this layer is closed due to a parent layer being closed",
+					"required": false
+				},
+				{
+					"name": "onSelect",
+					"type": "(details: SelectionDetails) => void",
+					"description": "Function called when a menu item is selected.",
+					"required": false
+				},
+				{
+					"name": "onTriggerValueChange",
+					"type": "(details: TriggerValueChangeDetails) => void",
+					"description": "Function called when the trigger value changes.",
+					"required": false
+				},
+				{
+					"name": "open",
+					"type": "boolean",
+					"description": "The controlled open state of the menu",
+					"required": false
+				},
+				{
+					"name": "placement",
+					"type": "Placement",
+					"description": "Where the menu sits against its trigger. Defaults to `bottom-start`.",
+					"required": false
+				},
+				{
+					"name": "triggerValue",
+					"type": "string",
+					"description": "The controlled trigger value",
+					"required": false
+				},
+				{
+					"name": "typeahead",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether the pressing printable characters should trigger typeahead navigation",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuSubContent",
+			"description": "",
+			"props": [
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "Render your own element instead of the default one.",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuSubTrigger",
+			"description": "The item that opens a submenu. Place it inside `DropdownMenuSub`.",
+			"props": [
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "Render your own element instead of the default one.",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuTrigger",
+			"description": "The region that answers to a right click or long press. Renders a `div` by default.",
+			"props": [
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "Render your own element instead of the default one.",
+					"required": false
+				}
+			]
+		}
+	],
 	"date-time-picker": [
 		{
 			"name": "DateTimePicker",
@@ -1934,6 +2464,185 @@
 					"type": "boolean",
 					"default": "true",
 					"description": "Whether the pressing printable characters should trigger typeahead navigation",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenu",
+			"description": "A menu that opens at the pointer on right click or long press, instead of on a trigger.",
+			"props": [
+				{
+					"name": "anchorPoint",
+					"type": "Point",
+					"description": "The positioning point for the menu. Can be set by the context menu trigger or the button trigger.",
+					"required": false
+				},
+				{
+					"name": "aria-label",
+					"type": "string",
+					"description": "The accessibility label for the menu",
+					"required": false
+				},
+				{
+					"name": "children",
+					"type": "ReactNode",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "closeOnSelect",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether to close the menu when an option is selected",
+					"required": false
+				},
+				{
+					"name": "composite",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether the menu is a composed with other composite widgets like a combobox or tabs",
+					"required": false
+				},
+				{
+					"name": "defaultHighlightedValue",
+					"type": "string",
+					"description": "The initial highlighted value of the menu item when rendered.\nUse when you don't need to control the highlighted value of the menu item.",
+					"required": false
+				},
+				{
+					"name": "defaultOpen",
+					"type": "boolean",
+					"description": "The initial open state of the menu when rendered.\nUse when you don't need to control the open state of the menu.",
+					"required": false
+				},
+				{
+					"name": "defaultTriggerValue",
+					"type": "string",
+					"description": "The initial trigger value when rendered.\nUse when you don't need to control the trigger value.",
+					"required": false
+				},
+				{
+					"name": "dir",
+					"type": "\"ltr\" | \"rtl\"",
+					"default": "\"ltr\"",
+					"description": "The document's text/writing direction.",
+					"required": false
+				},
+				{
+					"name": "getRootNode",
+					"type": "() => ShadowRoot | Node | Document",
+					"description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron.",
+					"required": false
+				},
+				{
+					"name": "highlightedValue",
+					"type": "string",
+					"description": "The controlled highlighted value of the menu item.",
+					"required": false
+				},
+				{
+					"name": "loopFocus",
+					"type": "boolean",
+					"default": "false",
+					"description": "Whether to loop the keyboard navigation.",
+					"required": false
+				},
+				{
+					"name": "navigate",
+					"type": "(details: NavigateDetails) => void",
+					"description": "Function to navigate to the selected item if it's an anchor element",
+					"required": false
+				},
+				{
+					"name": "onEscapeKeyDown",
+					"type": "(event: KeyboardEvent) => void",
+					"description": "Function called when the escape key is pressed",
+					"required": false
+				},
+				{
+					"name": "onFocusOutside",
+					"type": "(event: FocusOutsideEvent) => void",
+					"description": "Function called when the focus is moved outside the component",
+					"required": false
+				},
+				{
+					"name": "onHighlightChange",
+					"type": "(details: HighlightChangeDetails) => void",
+					"description": "Function called when the highlighted menu item changes.",
+					"required": false
+				},
+				{
+					"name": "onInteractOutside",
+					"type": "(event: InteractOutsideEvent) => void",
+					"description": "Function called when an interaction happens outside the component",
+					"required": false
+				},
+				{
+					"name": "onOpenChange",
+					"type": "(details: OpenChangeDetails) => void",
+					"description": "Function called when the menu opens or closes",
+					"required": false
+				},
+				{
+					"name": "onPointerDownOutside",
+					"type": "(event: PointerDownOutsideEvent) => void",
+					"description": "Function called when the pointer is pressed down outside the component",
+					"required": false
+				},
+				{
+					"name": "onRequestDismiss",
+					"type": "(event: LayerDismissEvent) => void",
+					"description": "Function called when this layer is closed due to a parent layer being closed",
+					"required": false
+				},
+				{
+					"name": "onSelect",
+					"type": "(details: SelectionDetails) => void",
+					"description": "Function called when a menu item is selected.",
+					"required": false
+				},
+				{
+					"name": "onTriggerValueChange",
+					"type": "(details: TriggerValueChangeDetails) => void",
+					"description": "Function called when the trigger value changes.",
+					"required": false
+				},
+				{
+					"name": "open",
+					"type": "boolean",
+					"description": "The controlled open state of the menu",
+					"required": false
+				},
+				{
+					"name": "placement",
+					"type": "Placement",
+					"description": "Where the menu sits against its trigger. Defaults to `bottom-start`.",
+					"required": false
+				},
+				{
+					"name": "triggerValue",
+					"type": "string",
+					"description": "The controlled trigger value",
+					"required": false
+				},
+				{
+					"name": "typeahead",
+					"type": "boolean",
+					"default": "true",
+					"description": "Whether the pressing printable characters should trigger typeahead navigation",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "ContextMenuTrigger",
+			"description": "The region that answers to a right click or long press. Renders a `div` by default.",
+			"props": [
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "Render your own element instead of the default one.",
 					"required": false
 				}
 			]
@@ -3728,6 +4437,265 @@
 			"name": "Skeleton",
 			"description": "A placeholder block while content loads. Size it with classes.",
 			"props": []
+		}
+	],
+	"slider": [
+		{
+			"name": "Slider",
+			"description": "A draggable range control. Pass an array for two or more thumbs.",
+			"props": [
+				{
+					"name": "aria-label",
+					"type": "string[]",
+					"description": "The aria-label of each slider thumb. Useful for providing an accessible name to the slider",
+					"required": false
+				},
+				{
+					"name": "aria-labelledby",
+					"type": "string[]",
+					"description": "The `id` of the elements that labels each slider thumb. Useful for providing an accessible name to the slider",
+					"required": false
+				},
+				{
+					"name": "className",
+					"type": "string",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "defaultValue",
+					"type": "number | number[]",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "dir",
+					"type": "\"ltr\" | \"rtl\"",
+					"default": "\"ltr\"",
+					"description": "The document's text/writing direction.",
+					"required": false
+				},
+				{
+					"name": "disabled",
+					"type": "boolean",
+					"description": "Whether the slider is disabled",
+					"required": false
+				},
+				{
+					"name": "form",
+					"type": "string",
+					"description": "The associate form of the underlying input element.",
+					"required": false
+				},
+				{
+					"name": "getAriaValueText",
+					"type": "(details: ValueTextDetails) => string",
+					"description": "Function that returns a human readable value for the slider thumb",
+					"required": false
+				},
+				{
+					"name": "getRootNode",
+					"type": "() => ShadowRoot | Node | Document",
+					"description": "A root node to correctly resolve document in custom environments. E.x.: Iframes, Electron.",
+					"required": false
+				},
+				{
+					"name": "invalid",
+					"type": "boolean",
+					"description": "Whether the slider is invalid",
+					"required": false
+				},
+				{
+					"name": "largeStep",
+					"type": "number",
+					"default": "10 * step",
+					"description": "The step value of the slider when the `Shift` key is held, or the\n`PageUp`/`PageDown` keys are used.",
+					"required": false
+				},
+				{
+					"name": "max",
+					"type": "number",
+					"default": "100",
+					"description": "The maximum value of the slider",
+					"required": false
+				},
+				{
+					"name": "min",
+					"type": "number",
+					"default": "0",
+					"description": "The minimum value of the slider",
+					"required": false
+				},
+				{
+					"name": "minStepsBetweenThumbs",
+					"type": "number",
+					"default": "0",
+					"description": "The minimum permitted steps between multiple thumbs.\n\n`minStepsBetweenThumbs` * `step` should reflect the gap between the thumbs.\n\n- `step: 1` and `minStepsBetweenThumbs: 10` => gap is `10`\n- `step: 10` and `minStepsBetweenThumbs: 2` => gap is `20`",
+					"required": false
+				},
+				{
+					"name": "name",
+					"type": "string",
+					"description": "The name associated with each slider thumb (when used in a form)",
+					"required": false
+				},
+				{
+					"name": "onFocusChange",
+					"type": "(details: FocusChangeDetails) => void",
+					"description": "Function invoked when the slider's focused index changes",
+					"required": false
+				},
+				{
+					"name": "onValueChange",
+					"type": "(value: number[]) => void",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "onValueChangeEnd",
+					"type": "(details: ValueChangeDetails) => void",
+					"description": "Function invoked when the slider value change is done",
+					"required": false
+				},
+				{
+					"name": "orientation",
+					"type": "\"horizontal\" | \"vertical\"",
+					"default": "\"horizontal\"",
+					"description": "The orientation of the slider",
+					"required": false
+				},
+				{
+					"name": "origin",
+					"type": "\"center\" | \"start\" | \"end\"",
+					"default": "\"start\"",
+					"description": "The origin of the slider range. The track is filled from the origin\nto the thumb for single values.\n- \"start\": Useful when the value represents an absolute value\n- \"center\": Useful when the value represents an offset (relative)\n- \"end\": Useful when the value represents an offset from the end",
+					"required": false
+				},
+				{
+					"name": "readOnly",
+					"type": "boolean",
+					"description": "Whether the slider is read-only",
+					"required": false
+				},
+				{
+					"name": "step",
+					"type": "number",
+					"default": "1",
+					"description": "The step value of the slider",
+					"required": false
+				},
+				{
+					"name": "thumbAlignment",
+					"type": "\"center\" | \"contain\"",
+					"default": "\"contain\"",
+					"description": "The alignment of the slider thumb relative to the track\n- `center`: the thumb will extend beyond the bounds of the slider track.\n- `contain`: the thumb will be contained within the bounds of the track.",
+					"required": false
+				},
+				{
+					"name": "thumbCollisionBehavior",
+					"type": "\"none\" | \"push\" | \"swap\"",
+					"default": "\"none\"",
+					"description": "Controls how thumbs behave when they collide during pointer interactions.\n- `none` (default): Thumbs cannot move past each other; excess movement is ignored.\n- `push`: Thumbs push each other without restoring their previous positions when dragged back.\n- `swap`: Thumbs swap places when dragged past each other.",
+					"required": false
+				},
+				{
+					"name": "thumbSize",
+					"type": "{ width: number; height: number; }",
+					"description": "The slider thumbs dimensions",
+					"required": false
+				},
+				{
+					"name": "value",
+					"type": "number | number[]",
+					"description": "",
+					"required": false
+				}
+			]
+		}
+	],
+	"slosh-slider": [
+		{
+			"name": "SloshSlider",
+			"description": "",
+			"props": [
+				{
+					"name": "label",
+					"type": "string",
+					"description": "",
+					"required": true
+				},
+				{
+					"name": "className",
+					"type": "string",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "corner",
+					"type": "number",
+					"default": "20",
+					"description": "Track corner, from square to a pill, 0–20.",
+					"required": false
+				},
+				{
+					"name": "defaultValue",
+					"type": "number",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "disabled",
+					"type": "boolean",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "formatValue",
+					"type": "(value: number) => string",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "momentum",
+					"type": "number",
+					"default": "55",
+					"description": "How far the handle coasts after release, 0–100.",
+					"required": false
+				},
+				{
+					"name": "onChange",
+					"type": "(value: number) => void",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "SloshSliderSize",
+					"default": "\"md\"",
+					"description": "Track height and knob scale.",
+					"required": false
+				},
+				{
+					"name": "tilt",
+					"type": "number",
+					"default": "45",
+					"description": "Lean of the liquid's leading edge, 0–100.",
+					"required": false
+				},
+				{
+					"name": "value",
+					"type": "number",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "viscosity",
+					"type": "number",
+					"default": "15",
+					"description": "0 is rigid; 100 is loose liquid.",
+					"required": false
+				}
+			]
 		}
 	],
 	"spinner": [

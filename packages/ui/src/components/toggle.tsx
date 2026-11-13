@@ -7,7 +7,7 @@ export type ToggleVariant = "default" | "outline";
 export type ToggleSize = "default" | "sm" | "lg";
 
 export const toggleVariants = {
-	base: "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold outline-none transition duration-(--duration-fast) ease-standard hover:bg-fill/80 focus-visible:ring-2 focus-visible:ring-accent/70 disabled:pointer-events-none disabled:opacity-40 aria-pressed:bg-fill aria-pressed:text-label data-[state=on]:bg-fill motion-reduce:transition-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+	base: "inline-flex shrink-0 select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold outline-none transition spring-snappy active:scale-[0.96] hover:bg-fill/80 focus-visible:ring-2 focus-visible:ring-accent/70 disabled:pointer-events-none disabled:opacity-40 aria-pressed:bg-fill aria-pressed:text-label data-[state=on]:bg-fill motion-reduce:transition-none motion-reduce:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
 	variant: {
 		default: "",
 		outline: "shadow-[inset_0_0_0_0.5px_var(--color-separator)]",

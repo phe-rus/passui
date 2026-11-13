@@ -8,6 +8,12 @@ import {
 } from "react";
 import { useVisualViewport } from "../../hooks/use-visual-viewport";
 import { cn } from "../../lib/class-names";
+import { concealMenuSource } from "../../lib/conceal-menu-source";
+import {
+	type MenuRect,
+	menuSurfaceExit,
+	menuSurfaceReveal,
+} from "../../lib/menu-reveal";
 import {
 	contentCrossfade,
 	fluidCollapse,
@@ -15,12 +21,6 @@ import {
 	spring,
 	zoomReveal,
 } from "../../motion/transitions";
-import { concealMenuSource } from "../context-menu/conceal-menu-source";
-import {
-	type MenuRect,
-	menuSurfaceExit,
-	menuSurfaceReveal,
-} from "../context-menu/menu-reveal";
 import { SheetPortal } from "./sheet-portal";
 import { useSheetFocus } from "./use-sheet-focus";
 

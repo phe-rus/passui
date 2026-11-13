@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { concealMenuSource } from "../../../src/legacy/context-menu/conceal-menu-source";
+import { concealMenuSource } from "../../src/lib/conceal-menu-source";
 
 test("a follow-up keeps its toolbar hidden until both exit animations complete", () => {
 	// Only the platform properties owned by the helper are needed here.

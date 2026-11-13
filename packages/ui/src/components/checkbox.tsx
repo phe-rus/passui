@@ -51,7 +51,7 @@ export function Checkbox({
 			<span
 				{...api.getControlProps()}
 				data-slot="checkbox-control"
-				className="bg-fill text-on-accent spring-snappy group-focus-within:ring-accent/70 data-[state=checked]:bg-accent data-[state=indeterminate]:bg-accent inline-flex size-5.5 shrink-0 items-center justify-center rounded-lg shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition group-focus-within:ring-2 motion-reduce:transition-none"
+				className="bg-fill text-on-accent spring-snappy group-focus-within:ring-accent/70 data-[state=checked]:bg-accent data-[state=indeterminate]:bg-accent inline-flex size-5.5 shrink-0 items-center justify-center rounded-lg shadow-[inset_0_0_0_0.5px_var(--color-separator)] transition group-focus-within:ring-2 group-active:scale-90 motion-reduce:transition-none motion-reduce:group-active:scale-100"
 			>
 				<svg
 					{...({

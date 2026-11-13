@@ -120,6 +120,14 @@ export const registry: ComponentMeta[] = [
 		status: "updated",
 	},
 	{
+		slug: "context-menu",
+		name: "Context Menu",
+		group: "Overlays",
+		summary: "A menu that opens at the pointer on right click or long press.",
+		entry: "context-menu",
+		status: "new",
+	},
+	{
 		slug: "date-time-picker",
 		name: "Date & Time Picker",
 		group: "Forms",
@@ -287,6 +295,21 @@ export const registry: ComponentMeta[] = [
 		group: "Feedback",
 		summary: "A placeholder block while content loads.",
 		entry: "skeleton",
+	},
+	{
+		slug: "slider",
+		name: "Slider",
+		group: "Forms",
+		summary: "A draggable range control with one or more thumbs.",
+		entry: "slider",
+	},
+	{
+		slug: "slosh-slider",
+		name: "Slosh Slider",
+		group: "Forms",
+		summary: "A slider whose fill has mass, lagging the handle like liquid.",
+		entry: "slosh-slider",
+		status: "new",
 	},
 	{
 		slug: "spinner",

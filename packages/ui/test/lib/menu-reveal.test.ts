@@ -1,8 +1,5 @@
 import { expect, test } from "vitest";
-import {
-	menuSurfaceExit,
-	menuSurfaceReveal,
-} from "../../../src/legacy/context-menu/menu-reveal";
+import { menuSurfaceExit, menuSurfaceReveal } from "../../src/lib/menu-reveal";
 
 test("closing material fades away as its bounds return to the real trigger", () => {
 	const source = menuSurfaceReveal(
