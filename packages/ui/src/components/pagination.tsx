@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@passui/icons/chevron-left";
 import { ChevronRightIcon } from "@passui/icons/chevron-right";
-import type { ComponentProps } from "react";
+import { type ComponentProps, createContext, useContext } from "react";
 import { cx } from "../lib/cx";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
 import { buttonVariants } from "./button";
@@ -28,14 +28,55 @@ export function pageRange(
 	return range;
 }
 
-export function Pagination({ className, ...props }: ComponentProps<"nav">) {
+export type PaginationSize = "xs" | "sm" | "default" | "lg";
+/** Which theme role marks the current page: the neutral raised chip, the app's accent, or the primary ink. */
+export type PaginationTone = "neutral" | "accent" | "primary";
+
+const squareSizes = {
+	xs: "icon-xs",
+	sm: "icon-sm",
+	default: "icon",
+	lg: "icon-lg",
+} as const;
+const ellipsisSizes: Record<PaginationSize, string> = {
+	xs: "size-6.5 text-caption",
+	sm: "size-7.5 text-footnote",
+	default: "size-8.5 text-footnote",
+	lg: "size-9.5 text-subheadline",
+};
+const activeVariants = {
+	neutral: "secondary",
+	accent: "accent",
+	primary: "default",
+} as const;
+
+const PaginationContext = createContext<{
+	size: PaginationSize;
+	tone: PaginationTone;
+}>({ size: "default", tone: "neutral" });
+
+export function Pagination({
+	className,
+	size = "default",
+	tone = "neutral",
+	...props
+}: ComponentProps<"nav"> & {
+	/** Height of every page button, like the other controls. @default "default" */
+	size?: PaginationSize;
+	/** The theme role that marks the current page. @default "neutral" */
+	tone?: PaginationTone;
+}) {
 	return (
-		<nav
-			aria-label="Pagination"
-			data-slot="pagination"
-			className={cx("mx-auto flex w-full justify-center", className)}
-			{...props}
-		/>
+		<PaginationContext value={{ size, tone }}>
+			<nav
+				aria-label="Pagination"
+				data-slot="pagination"
+				data-size={size}
+				data-tone={tone}
+				className={cx("mx-auto flex w-full justify-center", className)}
+				{...props}
+			/>
+		</PaginationContext>
 	);
 }
 
@@ -61,16 +102,20 @@ export function PaginationItem(props: ComponentProps<"li">) {
 
 export type PaginationLinkProps = ComponentProps<"a"> & {
 	isActive?: boolean;
+	/** Sizes the link by its label instead of as a square page number. */
+	wide?: boolean;
 	render?: RenderProp;
 };
 
 /** A page link. Pass `render` to use your router's link element. */
 export function PaginationLink({
 	isActive,
+	wide,
 	className,
 	render,
 	...props
 }: PaginationLinkProps) {
+	const { size, tone } = useContext(PaginationContext);
 	return renderPart(
 		"a",
 		mergeProps(
@@ -79,8 +124,8 @@ export function PaginationLink({
 				"data-slot": "pagination-link",
 				"data-active": isActive ? "" : undefined,
 				className: buttonVariants({
-					variant: isActive ? "secondary" : "ghost",
-					size: "icon",
+					variant: isActive ? activeVariants[tone] : "ghost",
+					size: wide ? size : squareSizes[size],
 					className,
 				}),
 			},
@@ -98,7 +143,8 @@ export function PaginationPrevious({
 	return (
 		<PaginationLink
 			aria-label="Go to previous page"
-			className={cx("w-auto gap-1 ps-2.5 pe-3", className)}
+			wide
+			className={cx("gap-1 ps-2.5 pe-3", className)}
 			{...props}
 		>
 			<ChevronLeftIcon size={14} />
@@ -115,7 +161,8 @@ export function PaginationNext({
 	return (
 		<PaginationLink
 			aria-label="Go to next page"
-			className={cx("w-auto gap-1 ps-3 pe-2.5", className)}
+			wide
+			className={cx("gap-1 ps-3 pe-2.5", className)}
 			{...props}
 		>
 			{children}
@@ -128,12 +175,14 @@ export function PaginationEllipsis({
 	className,
 	...props
 }: ComponentProps<"span">) {
+	const { size } = useContext(PaginationContext);
 	return (
 		<span
 			aria-hidden="true"
 			data-slot="pagination-ellipsis"
 			className={cx(
-				"flex size-8.5 items-center justify-center text-label-secondary",
+				"flex items-center justify-center text-label-secondary",
+				ellipsisSizes[size],
 				className,
 			)}
 			{...props}

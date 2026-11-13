@@ -40,12 +40,60 @@ const triggerStyles: Record<TabsVariant, string> = {
 	line: "h-9 rounded-md px-0.5 font-medium transition-colors data-[orientation=vertical]:justify-start data-[orientation=vertical]:px-3",
 	solid:
 		"h-7 rounded-[10px] px-3 font-medium transition spring-snappy active:scale-[0.96]",
-	pill: "h-7.5 rounded-full px-3 font-medium transition spring-snappy data-selected:text-accent-text active:scale-[0.96]",
+	pill: "h-7.5 rounded-full px-3 font-medium transition spring-snappy active:scale-[0.96]",
+};
+
+/**
+ * Which theme role colors the selection. `neutral` keeps the quiet glass,
+ * `accent` follows the app's chosen accent, `primary` is the inverse ink used
+ * by primary buttons.
+ */
+export type TabsTone = "neutral" | "accent" | "primary";
+
+/** Indicator fill and the selected label for each tone; `null` keeps the variant's own look. */
+const toneStyles: Record<
+	Exclude<TabsTone, "neutral">,
+	Record<TabsVariant, { indicator: string; selected: string }>
+> = {
+	accent: {
+		glass: {
+			indicator: "bg-accent rounded-full",
+			selected: "data-selected:text-on-accent",
+		},
+		solid: {
+			indicator: "bg-accent rounded-[10px]",
+			selected: "data-selected:text-on-accent",
+		},
+		pill: {
+			indicator: "bg-accent rounded-full",
+			selected: "data-selected:text-on-accent",
+		},
+		line: {
+			indicator: "bg-accent",
+			selected: "data-selected:text-accent-text",
+		},
+	},
+	primary: {
+		glass: {
+			indicator: "bg-inverse rounded-full",
+			selected: "data-selected:text-on-inverse",
+		},
+		solid: {
+			indicator: "bg-inverse rounded-[10px]",
+			selected: "data-selected:text-on-inverse",
+		},
+		pill: {
+			indicator: "bg-inverse rounded-full",
+			selected: "data-selected:text-on-inverse",
+		},
+		line: { indicator: "bg-inverse", selected: "data-selected:text-label" },
+	},
 };
 
 const Context = createContext<{
 	api: zagTabs.Api;
 	variant: TabsVariant;
+	tone: TabsTone;
 } | null>(null);
 
 function useTabs() {
@@ -59,6 +107,8 @@ export interface TabsProps
 	onValueChange?: (value: string) => void;
 	/** The look of the tab strip. @default "glass" */
 	variant?: TabsVariant;
+	/** The theme role that colors the selection. @default "neutral" */
+	tone?: TabsTone;
 	children?: ReactNode;
 	className?: string;
 }
@@ -66,6 +116,7 @@ export interface TabsProps
 export function Tabs({
 	onValueChange,
 	variant = "glass",
+	tone = "neutral",
 	children,
 	className,
 	...props
@@ -78,10 +129,11 @@ export function Tabs({
 	});
 	const api = zagTabs.connect(service, normalizeProps);
 	return (
-		<Context.Provider value={{ api, variant }}>
+		<Context.Provider value={{ api, variant, tone }}>
 			<div
 				{...api.getRootProps()}
 				data-slot="tabs"
+				data-tone={tone}
 				className={cx(
 					"flex flex-col gap-3 data-[orientation=vertical]:flex-row",
 					className,
@@ -98,7 +150,7 @@ export function TabsList({
 	children,
 	...props
 }: ComponentProps<"div">) {
-	const { api, variant } = useTabs();
+	const { api, variant, tone } = useTabs();
 	return (
 		<div
 			{...api.getListProps()}
@@ -118,7 +170,9 @@ export function TabsList({
 				data-slot="tabs-indicator"
 				className={cx(
 					"spring-smooth absolute z-0 transition-[left,top,width,height] motion-reduce:transition-none",
-					indicatorStyles[variant],
+					tone === "neutral"
+						? indicatorStyles[variant]
+						: toneStyles[tone][variant].indicator,
 				)}
 			/>
 			{children}
@@ -132,14 +186,19 @@ export function TabsTrigger({
 	className,
 	...props
 }: Omit<ComponentProps<"button">, "value"> & { value: string }) {
-	const { api, variant } = useTabs();
+	const { api, variant, tone } = useTabs();
 	return (
 		<button
 			{...api.getTriggerProps({ value, disabled })}
 			data-slot="tabs-trigger"
 			className={cx(
-				"relative z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap text-footnote text-label-secondary outline-none hover:text-label focus-visible:ring-2 focus-visible:ring-accent/70 disabled:opacity-40 data-selected:text-label motion-reduce:transition-none",
+				"relative z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap text-footnote text-label-secondary outline-none hover:text-label focus-visible:ring-2 focus-visible:ring-accent/70 disabled:opacity-40 motion-reduce:transition-none",
 				triggerStyles[variant],
+				tone === "neutral"
+					? variant === "pill"
+						? "data-selected:text-accent-text"
+						: "data-selected:text-label"
+					: toneStyles[tone][variant].selected,
 				className,
 			)}
 			{...props}

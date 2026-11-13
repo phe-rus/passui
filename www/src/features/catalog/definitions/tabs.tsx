@@ -2,6 +2,7 @@ import { TabsControlled } from "../examples/tabs/controlled";
 import { TabsLine } from "../examples/tabs/line";
 import { TabsPill } from "../examples/tabs/pill";
 import { TabsSolid } from "../examples/tabs/solid";
+import { TabsTones } from "../examples/tabs/tones";
 import { TabsUsage } from "../examples/tabs/usage";
 import { TabsVertical } from "../examples/tabs/vertical";
 import { TabsVerticalSolid } from "../examples/tabs/vertical-solid";
@@ -33,6 +34,13 @@ export const doc: ComponentDoc = {
 			description:
 				"A filled track with a raised thumb, like a segmented control.",
 			Demo: TabsSolid,
+		},
+		{
+			id: "tones",
+			title: "Tones",
+			description:
+				"`tone` colors the selection from the theme: neutral glass, the app's accent, or the primary ink.",
+			Demo: TabsTones,
 		},
 		{
 			id: "pill",
