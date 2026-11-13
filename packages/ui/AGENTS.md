@@ -179,12 +179,11 @@ Menus and popovers use `liquid-glass` or `liquid-glass-dense` plus `squircle`; D
 ```
 src/
   components/   one file per component, shadcn names, Zag or native: dialog.tsx, select.tsx ...
-  legacy/       dead code: the few items not yet replaced, deleted once they are. Never extend, restore or import from it in new work
   lib/          cx, render, presence, portal and other shared helpers
   hooks/        shared hooks
   appearance/   theme and platform providers
   motion/ styles/ tokens.ts index.ts
-test/           mirrors src: components/, legacy/, lib/, helpers/
+test/           mirrors src: components/, lib/, helpers/
 ```
 
 A component is one file in `src/components/<name>.tsx`, 150 lines or fewer when simple, and one entry in `tsdown.config.ts`. A component file imports only React, tokens, its own Zag machine, `cx` and the shared helpers `render`, `presence`, `portal` and `water-drop`. Its allow list lives in `allowlist.json` and its size budget in `../../size-budgets.json`; both are checked in CI. Names follow shadcn (`Dialog`, `DialogContent`); triggers take a `render` prop. State is styled through data attributes (`data-state`, `data-starting-style`, `data-ending-style`). Animation is CSS only. No `tailwind-merge`, so overrides use data attributes, not class order.
@@ -203,9 +202,9 @@ Docs for every component live in `www/src/features/components` (see `www/AGENTS.
 
 ## Components
 
-Rebuilt on Zag or native (`src/components/`, plus `Locales` and `Swatch Picker` on Select and Radio Group): Accordion, Alert, Alert Dialog, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Collapsible, Combobox, Command, Dialog, Drawer, Dropdown Menu, Field, Input, Input Group, Input OTP, Kbd, Label, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Search Field, Sidebar, Switch, Table, Tabs, Text, Textarea, Toast, Toggle, Toggle Group, Tooltip.
+Rebuilt on Zag or native (`src/components/`): Accordion, Alert, Alert Dialog, Ambient, Aspect Ratio, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Code Block, Collapsible, Combobox, Command, Conversation, Dialog, Drawer, Dropdown Menu, Empty, Field, Input, Input Group, Input OTP, Kbd, Label, Labeled Content, Layout, Locales, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Search Field, Sidebar, Stat Tile, Stepper, Swatch Picker, Switch, Table, Tabs, Text, Textarea, Toast, Toggle, Toggle Group, Tooltip, Wake Slider.
 
-`src/components/` is the only library going forward. `src/legacy/` is dead code that still holds the last unreplaced items (Aspect Ratio, Code Block, Date Picker, Stepper, and the blocks Ambient, Empty, Labeled Content, Stat Tile, Layout, Wake Slider, Conversation, Morph) plus `legacy/button`, `sheet` and `text-field`, which only those items use. Do not restore, preserve or extend anything there; delete each folder once its replacement lands.
+`src/components/` is the only library. The old `src/legacy/` folder has been deleted; do not recreate it.
 
 ## Repository and public package
 

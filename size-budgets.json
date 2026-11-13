@@ -56,6 +56,18 @@
 		"toast": 64000,
 		"toggle": 800,
 		"toggle-group": 9200,
-		"tooltip": 22400
+		"tooltip": 22400,
+		"empty": 500,
+		"labeled-content": 700,
+		"locales": 37500,
+		"swatch-picker": 11400,
+		"aspect-ratio": 400,
+		"ambient": 500,
+		"layout": 600,
+		"stat-tile": 700,
+		"code-block": 2300,
+		"stepper": 3200,
+		"wake-slider": 2300,
+		"conversation": 2950
 	}
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useMediaQuery } from "../../hooks/use-media-query";
+import { useMediaQuery } from "../hooks/use-media-query";
 
 /** Counts at a place retain carries: the tens column of 1284 targets 128. */
 export function digitAt(count: number) {

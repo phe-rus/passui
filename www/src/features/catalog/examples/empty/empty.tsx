@@ -1,10 +1,17 @@
-import { Empty } from "@passui/react/empty";
+import {
+	Empty,
+	EmptyDescription,
+	EmptyHeader,
+	EmptyTitle,
+} from "@passui/react/empty";
 
 export function EmptyEmpty() {
 	return (
-		<Empty
-			title="No saved items"
-			description="Items you save will appear here."
-		/>
+		<Empty>
+			<EmptyHeader>
+				<EmptyTitle>No saved items</EmptyTitle>
+				<EmptyDescription>Items you save will appear here.</EmptyDescription>
+			</EmptyHeader>
+		</Empty>
 	);
 }

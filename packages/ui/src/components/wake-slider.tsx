@@ -1,8 +1,8 @@
 // Adapted from Bencho. See THIRD_PARTY_NOTICES.md for the MIT notice.
 import { type CSSProperties, useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "../../hooks/use-media-query";
-import { cn } from "../../lib/class-names";
-import { clampRange as clamp } from "../../lib/range-value";
+import { useMediaQuery } from "../hooks/use-media-query";
+import { cx } from "../lib/cx";
+import { clampRange as clamp } from "../lib/range-value";
 
 /* ══ Wake slider ══════════════════════════════════════════
    A range with no thumb: a row of thin bars, solid up to the
@@ -155,7 +155,8 @@ export function WakeSlider({
 
 	return (
 		<div
-			className={cn(
+			data-slot="wake-slider"
+			className={cx(
 				"passui-wake-slider not-typeset",
 				disabled && "opacity-40",
 				className,

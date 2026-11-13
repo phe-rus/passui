@@ -5714,40 +5714,33 @@
 	"empty": [
 		{
 			"name": "Empty",
-			"description": "A focused empty or unavailable state with an optional next action.",
-			"props": [
-				{
-					"name": "title",
-					"type": "string",
-					"description": "",
-					"required": true
-				},
-				{
-					"name": "actions",
-					"type": "ReactNode",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "description",
-					"type": "string",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "icon",
-					"type": "ReactNode",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "size",
-					"type": "EmptySize",
-					"default": "\"md\"",
-					"description": "Title, description and vertical rhythm.",
-					"required": false
-				}
-			]
+			"description": "A focused empty or unavailable state. Compose it from the parts below.",
+			"props": []
+		},
+		{
+			"name": "EmptyHeader",
+			"description": "Groups the media, title and description.",
+			"props": []
+		},
+		{
+			"name": "EmptyMedia",
+			"description": "A decorative glyph above the title. Hidden from assistive technology.",
+			"props": []
+		},
+		{
+			"name": "EmptyTitle",
+			"description": "",
+			"props": []
+		},
+		{
+			"name": "EmptyDescription",
+			"description": "",
+			"props": []
+		},
+		{
+			"name": "EmptyContent",
+			"description": "The next actions, such as buttons.",
+			"props": []
 		}
 	],
 	"labeled-content": [

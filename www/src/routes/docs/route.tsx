@@ -1,19 +1,29 @@
 import { buttonVariants } from "@passui/react/button";
-import { Empty } from "@passui/react/empty";
+import {
+	Empty,
+	EmptyContent,
+	EmptyDescription,
+	EmptyHeader,
+	EmptyTitle,
+} from "@passui/react/empty";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { DocsLegend, DocsNav } from "@/components/docs/docs-nav";
 
 export const Route = createFileRoute("/docs")({
 	notFoundComponent: () => (
-		<Empty
-			title="Page not found"
-			description="That page does not exist in the docs."
-			actions={
+		<Empty>
+			<EmptyHeader>
+				<EmptyTitle>Page not found</EmptyTitle>
+				<EmptyDescription>
+					That page does not exist in the docs.
+				</EmptyDescription>
+			</EmptyHeader>
+			<EmptyContent>
 				<Link to="/docs/components" className={buttonVariants()}>
 					Browse components
 				</Link>
-			}
-		/>
+			</EmptyContent>
+		</Empty>
 	),
 	component: RouteComponent,
 });

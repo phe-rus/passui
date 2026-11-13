@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { advanceDigit, digitAt } from "../../src/legacy/stepper/rolling-digit";
+import { advanceDigit, digitAt } from "../../src/lib/rolling-digit";
 
 test("carries roll forward and reverse across zero without reversing through eight digits", () => {
 	expect(advanceDigit(9, 0, 10, 1).position).toBeGreaterThan(9);

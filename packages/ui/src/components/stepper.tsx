@@ -1,8 +1,8 @@
 import { useId } from "react";
-import { cn } from "../../lib/class-names";
-import { clampRange, stepRange } from "../../lib/range-value";
-import { Button, type ButtonSize } from "../button/button";
-import { RollingDigit } from "./rolling-digit";
+import { cx } from "../lib/cx";
+import { clampRange, stepRange } from "../lib/range-value";
+import { RollingDigit } from "../lib/rolling-digit";
+import { Button, type ButtonSize } from "./button";
 
 export type StepperSize = "sm" | "md" | "lg";
 
@@ -19,15 +19,15 @@ const outputText: Record<StepperSize, string> = {
 const buttonSizes: Record<StepperSize, { size: ButtonSize; cls: string }> = {
 	sm: {
 		size: "icon-sm",
-		cls: "size-7 rounded-none text-subheadline text-accent-text [@media(pointer:coarse)]:size-10",
+		cls: "size-7! rounded-none! text-subheadline text-accent-text [@media(pointer:coarse)]:size-10!",
 	},
 	md: {
 		size: "icon",
-		cls: "size-8 rounded-none text-title3 text-accent-text [@media(pointer:coarse)]:size-11",
+		cls: "size-8! rounded-none! text-title3 text-accent-text [@media(pointer:coarse)]:size-11!",
 	},
 	lg: {
 		size: "icon-lg",
-		cls: "size-9 rounded-none text-title2 text-accent-text [@media(pointer:coarse)]:size-12",
+		cls: "size-9! rounded-none! text-title2 text-accent-text [@media(pointer:coarse)]:size-12!",
 	},
 };
 
@@ -73,7 +73,8 @@ export function Stepper({
 
 	return (
 		<div
-			className={cn(
+			data-slot="stepper"
+			className={cx(
 				"flex min-w-0 items-center justify-between gap-3",
 				className,
 			)}

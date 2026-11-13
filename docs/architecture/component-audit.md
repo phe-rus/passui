@@ -1,23 +1,21 @@
 # Component audit, 2026-11-13
 
-Compared the pre-rebuild set (commit before `a2c1914`) with `packages/ui/src/components` and `src/legacy`, then against the bencho.dev catalogue.
+Compared the pre-rebuild set (commit before `a2c1914`) with `packages/ui/src/components` and the since deleted `src/legacy`, then against the bencho.dev catalogue.
 
 ## Original components with no successor
 
-| Original | Status | Action |
-| --- | --- | --- |
-| secure-field | missing | Add as `Input` password reveal (or `PasswordField`) |
-| search-list | missing | Rebuild on Command/Combobox |
-| slosh-slider | missing | Rebuild on Slider (bencho signature) |
-| status-indicator | missing | Add a dot variant of Badge |
-| text-editor | missing | Decide: keep out of Passui or port |
-| view-controller | missing | Decide: probably retire |
+| Original         | Status  | Action                                              |
+| ---------------- | ------- | --------------------------------------------------- |
+| secure-field     | missing | Add as `Input` password reveal (or `PasswordField`) |
+| search-list      | missing | Rebuild on Command/Combobox                         |
+| slosh-slider     | missing | Rebuild on Slider (bencho signature)                |
+| status-indicator | missing | Add a dot variant of Badge                          |
+| text-editor      | missing | Decide: keep out of Passui or port                  |
+| view-controller  | missing | Decide: probably retire                             |
 
-## Original components still in `legacy/` (old API, not rebuilt)
+## Original components still in `legacy/`
 
-Ambient, Aspect Ratio, Code Block, Content View, Context Menu, Conversation, Date Picker, Empty (content-unavailable-view), Labeled Content, Locales, Morph, Stat Tile, Stepper, Swatch Picker, Wake Slider.
-
-Rebuild priority: Context Menu, Empty, Stepper, Date Picker (Calendar and DateTimePicker already exist), Code Block, Aspect Ratio. The rest are blocks and can follow.
+None. `src/legacy/` was deleted once Code Block, Stepper, Wake Slider and Conversation were rebuilt in `src/components/`.
 
 ## Renamed, so covered
 

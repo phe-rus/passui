@@ -1,9 +1,9 @@
 import { SendIcon } from "@passui/icons";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { cn } from "../../lib/class-names";
-import { formatTime } from "../../lib/date";
-import { IconButton } from "../button/icon-button";
+import { cx } from "../lib/cx";
+import { formatTime } from "../lib/date";
+import { Button } from "./button";
 
 export type ConversationMessage = {
 	id: string;
@@ -72,9 +72,9 @@ const textareaClasses: Record<ConversationSize, string> = {
 	lg: "field-sizing-content max-h-48 min-h-10 flex-1 resize-none bg-transparent py-[9px] text-body text-label outline-none placeholder:text-label-secondary",
 };
 const sendButtonClasses: Record<ConversationSize, string> = {
-	sm: "size-8 shrink-0 rounded-full",
-	md: "size-9 shrink-0 rounded-full",
-	lg: "size-10 shrink-0 rounded-full",
+	sm: "size-8! shrink-0",
+	md: "size-9! shrink-0",
+	lg: "size-10! shrink-0",
 };
 const sendIconSizes: Record<ConversationSize, number> = {
 	sm: 16,
@@ -135,7 +135,11 @@ function Messages({
 	size?: ConversationSize;
 }) {
 	return (
-		<ol data-not-typeset className="flex flex-col">
+		<ol
+			data-slot="conversation-messages"
+			data-not-typeset
+			className="flex flex-col"
+		>
 			{messages.map((message, index) => {
 				const prev = messages[index - 1];
 				const next = messages[index + 1];
@@ -161,7 +165,7 @@ function Messages({
 						{newDay && (
 							<span
 								suppressHydrationWarning
-								className={cn(
+								className={cx(
 									dayMargins[size],
 									"text-caption2 text-label-secondary text-center font-medium",
 								)}
@@ -170,7 +174,7 @@ function Messages({
 							</span>
 						)}
 						<div
-							className={cn(
+							className={cx(
 								"flex items-end gap-2",
 								message.mine ? "justify-end" : "justify-start",
 								startsGroup ? "mt-3" : "mt-0.5",
@@ -178,7 +182,7 @@ function Messages({
 						>
 							{!message.mine && (
 								<span
-									className={cn(
+									className={cx(
 										"flex shrink-0 items-center justify-center",
 										avatarSizes[size],
 									)}
@@ -187,7 +191,7 @@ function Messages({
 								</span>
 							)}
 							<div
-								className={cn(
+								className={cx(
 									"flex max-w-[78%] flex-col gap-0.5",
 									message.mine ? "items-end" : "items-start",
 								)}
@@ -198,7 +202,7 @@ function Messages({
 								<p
 									suppressHydrationWarning
 									title={formatTime(message.createdAt)}
-									className={cn(
+									className={cx(
 										bubbleClasses[size],
 										"wrap-break-word whitespace-pre-wrap",
 										message.mine
@@ -218,7 +222,7 @@ function Messages({
 							<time
 								suppressHydrationWarning
 								dateTime={message.createdAt}
-								className={cn(
+								className={cx(
 									"mt-1",
 									timeText[size],
 									message.mine ? "self-end" : timeIndent[size],
@@ -273,6 +277,7 @@ function Composer({
 
 	return (
 		<form
+			data-slot="conversation-composer"
 			data-not-typeset
 			className="flex flex-col gap-2"
 			onSubmit={(event) => {
@@ -295,19 +300,19 @@ function Composer({
 					rows={1}
 					className={textareaClasses[size]}
 				/>
-				<IconButton
+				<Button
 					type="submit"
 					size="icon-xs"
 					disabled={!ready}
-					label={sendLabel}
-					className={sendButtonClasses[size]}
+					aria-label={sendLabel}
+					className={cx("active:scale-[0.92]", sendButtonClasses[size])}
 				>
 					<SendIcon size={sendIconSizes[size]} strokeWidth={2.5} />
-				</IconButton>
+				</Button>
 			</div>
 			<div className="flex min-h-6 items-center gap-2 px-1">
 				{actions}
-				<span className={cn("ml-auto", counterText[size])}>
+				<span className={cx("ml-auto", counterText[size])}>
 					{body.length > maxLength * 0.8 &&
 						(remaining?.(maxLength - body.length) ?? maxLength - body.length)}
 				</span>

@@ -1,7 +1,6 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
-import { CodeBlock } from "../../src/legacy/code-block/code-block";
-import { Empty } from "../../src/legacy/empty/empty";
+import { CodeBlock } from "../../src/components/code-block";
 
 test("plain code preserves line breaks and escapes markup without a highlighter", () => {
 	const html = renderToStaticMarkup(
@@ -15,20 +14,6 @@ test("plain code preserves line breaks and escapes markup without a highlighter"
 	expect(
 		renderToStaticMarkup(<CodeBlock code="bun install" lineNumbers={false} />),
 	).not.toContain("data-line-numbers");
-});
-
-test("empty states render actions and hide decorative icons from assistive technology", () => {
-	const html = renderToStaticMarkup(
-		<Empty
-			title="No items"
-			description="Save your first item."
-			icon={<svg />}
-			actions={<button type="button">Add item</button>}
-		/>,
-	);
-	expect(html).toContain('aria-hidden="true"');
-	expect(html).toContain("Save your first item.");
-	expect(html).toContain("Add item</button>");
 });
 
 test("code can carry a caption, its language and a copy button", () => {

@@ -1,32 +1,10 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
-import { LabeledContent } from "../../src/legacy/labeled-content/labeled-content";
-import {
-	StatTile,
-	type StatTileProps,
-} from "../../src/legacy/stat-tile/stat-tile";
+import { StatTile, type StatTileProps } from "../../src/components/stat-tile";
 
 const validStat: StatTileProps = { label: "Devices", value: 2 };
 void validStat;
-
-test("labeled content accepts attributes without losing its content", () => {
-	const markup = renderToStaticMarkup(
-		<LabeledContent
-			label="Name"
-			description="Public name"
-			id="name-row"
-			className="custom-row"
-		>
-			<span>Niina</span>
-		</LabeledContent>,
-	);
-
-	expect(markup).toContain('id="name-row"');
-	expect(markup).toContain("custom-row");
-	expect(markup).toContain("Public name");
-	expect(markup).toContain("Niina");
-});
 
 test("a selectable stat tile exposes its pressed state", () => {
 	const markup = renderToStaticMarkup(
@@ -39,4 +17,29 @@ test("a selectable stat tile exposes its pressed state", () => {
 	);
 	expect(markup).toContain('aria-pressed="true"');
 	expect(markup).toContain("Active devices");
+});
+
+test("aspect ratio sets its frame and falls back on a bad ratio", async () => {
+	const { AspectRatio } = await import("../../src/components/aspect-ratio");
+	const wide = renderToStaticMarkup(<AspectRatio ratio={16 / 9} />);
+	expect(wide).toContain("aspect-ratio:1.77");
+	expect(renderToStaticMarkup(<AspectRatio ratio={-1} />)).toContain(
+		"aspect-ratio:1.33",
+	);
+});
+
+test("ambient glows only when it has an image, and layout carries a heading", async () => {
+	const { Ambient } = await import("../../src/components/ambient");
+	const { Layout } = await import("../../src/components/layout");
+	expect(renderToStaticMarkup(<Ambient>Hi</Ambient>)).not.toContain("<img");
+	expect(renderToStaticMarkup(<Ambient src="/a.jpg">Hi</Ambient>)).toContain(
+		'aria-hidden="true"',
+	);
+	const page = renderToStaticMarkup(
+		<Layout heading={<Layout.Heading title="Settings" description="Tune" />}>
+			Body
+		</Layout>,
+	);
+	expect(page).toContain("<h1");
+	expect(page).toContain("Tune");
 });

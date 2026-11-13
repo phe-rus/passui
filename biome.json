@@ -21,7 +21,10 @@
 			"!**/tsconfig.json",
 			"!**/tsconfig.*.json",
 			"!**/wrangler.jsonc",
-			"!packages/tokens/theme.css"
+			"!packages/tokens/theme.css",
+			"!.claude",
+			"!.impeccable",
+			"!DESIGN.md"
 		]
 	},
 	"formatter": {

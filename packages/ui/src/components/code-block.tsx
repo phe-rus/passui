@@ -10,10 +10,10 @@ import {
 	useId,
 	useState,
 } from "react";
-import { Button } from "../../components/button";
-import { cn } from "../../lib/class-names";
-import { copyText } from "../../lib/clipboard";
-import { haptic } from "../../lib/haptics";
+import { copyText } from "../lib/clipboard";
+import { cx } from "../lib/cx";
+import { haptic } from "../lib/haptics";
+import { Button } from "./button";
 
 export type CodeBlockSize = "sm" | "md" | "lg";
 
@@ -89,7 +89,8 @@ export function CodeBlock({
 	return (
 		<div
 			{...props}
-			className={cn("passui-code-block relative", className)}
+			className={cx("passui-code-block relative", className)}
+			data-slot="code-block"
 			data-line-numbers={lineNumbers || undefined}
 			data-size={size}
 			data-wrap={wrap || undefined}
@@ -107,7 +108,7 @@ export function CodeBlock({
 			) : null}
 			{title || header || language || copyable ? (
 				<div
-					className={cn(
+					className={cx(
 						"border-separator/60 flex min-h-9 items-center justify-between gap-3 border-b px-4",
 						!header && "py-2",
 					)}
@@ -136,7 +137,7 @@ export function CodeBlock({
 					</div>
 				</div>
 			) : null}
-			<div className={cn("relative", folded && "max-h-36 overflow-hidden")}>
+			<div className={cx("relative", folded && "max-h-36 overflow-hidden")}>
 				{children ?? (
 					<pre>
 						<code>
@@ -155,7 +156,7 @@ export function CodeBlock({
 			</div>
 			{foldable ? (
 				<div
-					className={cn(
+					className={cx(
 						"flex justify-center",
 						folded ? "absolute inset-x-0 bottom-3" : "pb-4",
 					)}

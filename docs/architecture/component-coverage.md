@@ -20,7 +20,7 @@ concept exists. References: [shadcn components](https://ui.shadcn.com/docs/compo
 | Collapsible               | DisclosureGroup and InlineDisclosure                                    |
 | Command                   | Command and CommandDialog, composed from SearchList and Sheet           |
 | Combobox                  | ComboBox                                                                |
-| Context menu              | ContextMenu parts, built on Dropdown Menu                                |
+| Context menu              | ContextMenu parts, built on Dropdown Menu                               |
 | Dialog and drawer         | Sheet, plus confirmDialog for focused decisions                         |
 | Dropdown and select       | Menu and Picker                                                         |
 | Empty                     | Empty                                                                   |

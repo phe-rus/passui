@@ -5,6 +5,13 @@ import { EmptyUsage } from "../examples/empty/usage";
 import type { ComponentDoc } from "../types";
 
 export const doc: ComponentDoc = {
+	anatomy: {
+		EmptyHeader: "Empty",
+		EmptyMedia: "EmptyHeader",
+		EmptyTitle: "EmptyHeader",
+		EmptyDescription: "EmptyHeader",
+		EmptyContent: "Empty",
+	},
 	examples: [
 		{
 			id: "empty",
