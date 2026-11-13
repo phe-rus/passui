@@ -1,9 +1,12 @@
 import { LinkIcon } from "@passui/icons/link";
 import { cn } from "@passui/react/cn";
 import {
-	SidebarItemContent,
-	SidebarSection,
-	sidebarItemClass,
+	Sidebar,
+	SidebarGroup,
+	SidebarGroupLabel,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
 } from "@passui/react/sidebar";
 import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
@@ -47,63 +50,60 @@ export function DocsNav({ onNavigate }: DocsNavProps) {
 		return () => cancelAnimationFrame(frame);
 	}, [pathname]);
 	return (
-		<nav
-			ref={navigation}
-			aria-label="Docs"
-			className="flex flex-col gap-6 p-3 pb-10"
-		>
+		<Sidebar ref={navigation} aria-label="Docs" className="gap-6 p-3 pb-10">
 			{getNavigation().map((group) => (
-				<SidebarSection key={group.title} title={group.title}>
-					<ul className="m-0 flex list-none flex-col gap-px p-0">
+				<SidebarGroup key={group.title}>
+					<SidebarGroupLabel size="sm">{group.title}</SidebarGroupLabel>
+					<SidebarMenu>
 						{group.items.map((item) => (
-							<li key={item.href} className="min-w-0">
+							<SidebarMenuItem key={item.href}>
 								{item.external ? (
-									<a
+									<SidebarMenuButton
+										size="sm"
 										href={item.href}
 										target="_blank"
 										rel="noopener noreferrer"
 										title={item.title}
-										className={sidebarItemClass(false, "compact")}
+										badge={
+											<LinkIcon size={12} className="text-label-tertiary" />
+										}
 									>
-										<SidebarItemContent>{item.title}</SidebarItemContent>
-										<LinkIcon
-											size={12}
-											className="text-label-tertiary shrink-0"
-										/>
-									</a>
+										{item.title}
+									</SidebarMenuButton>
 								) : (
-									<Link
-										to={item.href}
+									<SidebarMenuButton
+										size="sm"
 										title={item.title}
-										onClick={onNavigate}
-										activeOptions={{ exact: true, includeSearch: false }}
-										activeProps={{
-											className: sidebarItemClass(true, "compact"),
-											"aria-current": "page",
-										}}
-										inactiveProps={{
-											className: sidebarItemClass(false, "compact"),
-										}}
-									>
-										<SidebarItemContent>{item.title}</SidebarItemContent>
-										{item.status ? (
-											<span
-												role="img"
-												aria-label={item.status}
-												title={item.status}
-												className={cn(
-													"size-1.5 shrink-0 rounded-full",
-													statusDot[item.status],
-												)}
+										isActive={pathname === item.href}
+										badge={
+											item.status ? (
+												<span
+													role="img"
+													aria-label={item.status}
+													title={item.status}
+													className={cn(
+														"block size-1.5 rounded-full",
+														statusDot[item.status],
+													)}
+												/>
+											) : undefined
+										}
+										render={
+											<Link
+												to={item.href}
+												onClick={onNavigate}
+												activeOptions={{ exact: true, includeSearch: false }}
 											/>
-										) : null}
-									</Link>
+										}
+									>
+										{item.title}
+									</SidebarMenuButton>
 								)}
-							</li>
+							</SidebarMenuItem>
 						))}
-					</ul>
-				</SidebarSection>
+					</SidebarMenu>
+				</SidebarGroup>
 			))}
-		</nav>
+		</Sidebar>
 	);
 }

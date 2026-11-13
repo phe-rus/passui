@@ -2,9 +2,12 @@ import { InboxIcon } from "@passui/icons/inbox";
 import { StarIcon } from "@passui/icons/star";
 import { Button } from "@passui/react/button";
 import {
-	SidebarItemContent,
-	SidebarSection,
-	sidebarItemClass,
+	Sidebar,
+	SidebarGroup,
+	SidebarGroupLabel,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
 } from "@passui/react/sidebar";
 import { useState } from "react";
 
@@ -13,28 +16,28 @@ export function SidebarUnread() {
 
 	return (
 		<div className="bg-sidebar flex w-60 flex-col gap-4 rounded-4xl p-3">
-			<nav aria-label="Mail">
-				<SidebarSection title="Mailboxes">
-					<a
-						href="#inbox"
-						aria-current="page"
-						className={sidebarItemClass(true)}
-					>
-						<SidebarItemContent
-							active
-							count={unread || undefined}
-							icon={<InboxIcon size={18} />}
-						>
-							Inbox
-						</SidebarItemContent>
-					</a>
-					<a href="#starred" className={sidebarItemClass()}>
-						<SidebarItemContent icon={<StarIcon size={18} />}>
-							Starred
-						</SidebarItemContent>
-					</a>
-				</SidebarSection>
-			</nav>
+			<Sidebar aria-label="Mail">
+				<SidebarGroup>
+					<SidebarGroupLabel>Mailboxes</SidebarGroupLabel>
+					<SidebarMenu>
+						<SidebarMenuItem>
+							<SidebarMenuButton
+								href="#inbox"
+								isActive
+								icon={<InboxIcon size={18} />}
+								badge={unread || undefined}
+							>
+								Inbox
+							</SidebarMenuButton>
+						</SidebarMenuItem>
+						<SidebarMenuItem>
+							<SidebarMenuButton href="#starred" icon={<StarIcon size={18} />}>
+								Starred
+							</SidebarMenuButton>
+						</SidebarMenuItem>
+					</SidebarMenu>
+				</SidebarGroup>
+			</Sidebar>
 			<Button
 				variant="secondary"
 				size="sm"

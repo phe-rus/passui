@@ -379,7 +379,6 @@ export const registry: ComponentMeta[] = [
 		group: "Forms",
 		summary: "A search input that can expand from a circle into a pill.",
 		entry: "search-field",
-		preview: true,
 	},
 	{
 		slug: "sidebar",
@@ -387,7 +386,6 @@ export const registry: ComponentMeta[] = [
 		group: "Navigation",
 		summary: "A navigation rail with groups and rows.",
 		entry: "sidebar",
-		preview: true,
 	},
 	{
 		slug: "stepper",
@@ -404,7 +402,6 @@ export const registry: ComponentMeta[] = [
 		summary: "Styled parts for a plain HTML table.",
 		entry: "table",
 		status: "updated",
-		preview: true,
 	},
 	{
 		slug: "ambient",

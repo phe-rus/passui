@@ -228,6 +228,10 @@
 		"packages": ["@zag-js/radio-group", "@zag-js/react", "react"],
 		"local": ["src/components/radio-group.tsx", "src/lib/cx.ts"]
 	},
+	"src/components/search-field.tsx": {
+		"packages": ["@passui/icons", "react"],
+		"local": ["src/components/search-field.tsx", "src/lib/cx.ts"]
+	},
 	"src/components/segmented-control.tsx": {
 		"packages": ["@zag-js/react", "@zag-js/toggle-group", "react"],
 		"local": [
@@ -263,6 +267,14 @@
 			"src/lib/visual-viewport.ts"
 		]
 	},
+	"src/components/sidebar.tsx": {
+		"packages": ["react"],
+		"local": [
+			"src/components/sidebar.tsx",
+			"src/lib/cx.ts",
+			"src/lib/render.ts"
+		]
+	},
 	"src/components/skeleton.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/skeleton.tsx", "src/lib/cx.ts"]
@@ -282,6 +294,10 @@
 	"src/components/tab-bar.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/tab-bar.tsx", "src/lib/cx.ts"]
+	},
+	"src/components/table.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/table.tsx", "src/lib/cx.ts"]
 	},
 	"src/components/tabs.tsx": {
 		"packages": ["@zag-js/react", "@zag-js/tabs", "react"],

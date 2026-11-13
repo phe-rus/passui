@@ -4183,20 +4183,20 @@
 	"search-field": [
 		{
 			"name": "SearchField",
-			"description": "",
+			"description": "A search input in a full pill. Native `type=\"search\"`, so the clear button,\nEscape and mobile search keyboards come with it. It can rest as a round\nbutton and open on focus, in CSS only.",
 			"props": [
 				{
 					"name": "collapsible",
 					"type": "boolean",
 					"default": "false",
-					"description": "Expand a single pill from its search icon on focus.",
+					"description": "Rests as a round search button and opens into the field when focused or\nwhen it holds text. Needs a `width` class on the field to open to.",
 					"required": false
 				},
 				{
 					"name": "size",
 					"type": "SearchFieldSize",
 					"default": "\"md\"",
-					"description": "Pill height, icon size and text scale (non-collapsible variant).",
+					"description": "Height, icon and text, from the shared control scale.",
 					"required": false
 				}
 			]
@@ -4204,61 +4204,71 @@
 	],
 	"sidebar": [
 		{
-			"name": "SidebarSection",
-			"description": "",
+			"name": "Sidebar",
+			"description": "The navigation landmark that holds groups of rows. Name it with `aria-label`.",
+			"props": []
+		},
+		{
+			"name": "SidebarGroup",
+			"description": "A titled run of rows.",
+			"props": []
+		},
+		{
+			"name": "SidebarGroupLabel",
+			"description": "The group's heading, bold enough to read as a category.",
 			"props": [
-				{
-					"name": "children",
-					"type": "ReactNode",
-					"description": "",
-					"required": true
-				},
-				{
-					"name": "title",
-					"type": "string",
-					"description": "Visible heading for this group of navigation rows.",
-					"required": true
-				},
 				{
 					"name": "size",
 					"type": "SidebarSize",
-					"description": "",
+					"default": "\"md\"",
+					"description": "Matches the rows' size.",
 					"required": false
 				}
 			]
 		},
 		{
-			"name": "SidebarItemContent",
+			"name": "SidebarMenu",
 			"description": "",
+			"props": []
+		},
+		{
+			"name": "SidebarMenuItem",
+			"description": "",
+			"props": []
+		},
+		{
+			"name": "SidebarMenuButton",
+			"description": "One row. It is an anchor by default; pass `render` for a router link or a\nbutton. The current row carries `aria-current=\"page\"` and the accent.",
 			"props": [
 				{
-					"name": "children",
+					"name": "badge",
 					"type": "ReactNode",
-					"description": "",
-					"required": true
-				},
-				{
-					"name": "active",
-					"type": "boolean",
-					"description": "Matches the router link's active state.",
-					"required": false
-				},
-				{
-					"name": "count",
-					"type": "number",
-					"description": "Optional trailing count.",
+					"description": "A count or status at the end.",
 					"required": false
 				},
 				{
 					"name": "icon",
 					"type": "ReactNode",
-					"description": "",
+					"description": "A glyph before the label.",
+					"required": false
+				},
+				{
+					"name": "isActive",
+					"type": "boolean",
+					"description": "The current destination.",
+					"required": false
+				},
+				{
+					"name": "render",
+					"type": "RenderProp",
+					"description": "Use your router's link, or a button.",
 					"required": false
 				},
 				{
 					"name": "size",
 					"type": "SidebarSize",
-					"description": "",
+					"default": "\"md\"",
+					"description": "Row height, text and corners.",
 					"required": false
 				}
 			]

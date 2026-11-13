@@ -4,9 +4,12 @@ import { HomeIcon } from "@passui/icons/home";
 import { PersonIcon } from "@passui/icons/person";
 import { SettingsIcon } from "@passui/icons/settings";
 import {
-	SidebarItemContent,
-	SidebarSection,
-	sidebarItemClass,
+	Sidebar,
+	SidebarGroup,
+	SidebarGroupLabel,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
 } from "@passui/react/sidebar";
 import { Text } from "@passui/react/text";
 import { useState } from "react";
@@ -64,35 +67,34 @@ export function SidebarShowcase() {
 
 	return (
 		<div className="rounded-5xl bg-background ring-separator/60 flex h-80 w-full max-w-2xl overflow-hidden shadow-sm ring-1">
-			<nav
+			<Sidebar
 				aria-label="Console"
-				className="glass-pane flex w-56 shrink-0 flex-col gap-5 p-3 max-sm:hidden"
+				className="glass-pane w-56 shrink-0 p-3 max-sm:hidden"
 			>
 				{sections.map((section) => (
-					<SidebarSection key={section.title} title={section.title}>
-						{section.items.map((item) => (
-							<a
-								key={item.id}
-								href={`#${item.id}`}
-								aria-current={item.id === active ? "page" : undefined}
-								className={sidebarItemClass(item.id === active)}
-								onClick={(event) => {
-									event.preventDefault();
-									setActive(item.id);
-								}}
-							>
-								<SidebarItemContent
-									active={item.id === active}
-									count={item.count}
-									icon={<item.icon size={18} />}
-								>
-									{item.label}
-								</SidebarItemContent>
-							</a>
-						))}
-					</SidebarSection>
+					<SidebarGroup key={section.title}>
+						<SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+						<SidebarMenu>
+							{section.items.map((item) => (
+								<SidebarMenuItem key={item.id}>
+									<SidebarMenuButton
+										href={`#${item.id}`}
+										isActive={item.id === active}
+										icon={<item.icon size={18} />}
+										badge={item.count}
+										onClick={(event) => {
+											event.preventDefault();
+											setActive(item.id);
+										}}
+									>
+										{item.label}
+									</SidebarMenuButton>
+								</SidebarMenuItem>
+							))}
+						</SidebarMenu>
+					</SidebarGroup>
 				))}
-			</nav>
+			</Sidebar>
 			<div className="flex flex-1 flex-col gap-3 p-6">
 				<Text as="h2" size="title3" weight="bold">
 					{titles[active]}

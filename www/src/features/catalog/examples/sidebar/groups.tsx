@@ -6,9 +6,12 @@ import { InboxIcon } from "@passui/icons/inbox";
 import { NoteIcon } from "@passui/icons/note";
 import { TrashIcon } from "@passui/icons/trash";
 import {
-	SidebarItemContent,
-	SidebarSection,
-	sidebarItemClass,
+	Sidebar,
+	SidebarGroup,
+	SidebarGroupLabel,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
 } from "@passui/react/sidebar";
 import type { ComponentType } from "react";
 import { useState } from "react";
@@ -82,34 +85,30 @@ export function SidebarGroups() {
 	const [active, setActive] = useState("today");
 
 	return (
-		<nav
-			aria-label="Notes"
-			className="bg-sidebar flex w-60 flex-col gap-5 rounded-4xl p-3"
-		>
+		<Sidebar aria-label="Notes" className="bg-sidebar w-60 rounded-4xl p-3">
 			{sections.map((section) => (
-				<SidebarSection key={section.title} title={section.title}>
-					{section.items.map((item) => (
-						<a
-							key={item.id}
-							href={`#${item.id}`}
-							aria-current={item.id === active ? "page" : undefined}
-							className={sidebarItemClass(item.id === active)}
-							onClick={(event) => {
-								event.preventDefault();
-								setActive(item.id);
-							}}
-						>
-							<SidebarItemContent
-								active={item.id === active}
-								count={item.count}
-								icon={<item.icon size={18} />}
-							>
-								{item.label}
-							</SidebarItemContent>
-						</a>
-					))}
-				</SidebarSection>
+				<SidebarGroup key={section.title}>
+					<SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+					<SidebarMenu>
+						{section.items.map((item) => (
+							<SidebarMenuItem key={item.id}>
+								<SidebarMenuButton
+									href={`#${item.id}`}
+									isActive={item.id === active}
+									icon={<item.icon size={18} />}
+									badge={item.count}
+									onClick={(event) => {
+										event.preventDefault();
+										setActive(item.id);
+									}}
+								>
+									{item.label}
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						))}
+					</SidebarMenu>
+				</SidebarGroup>
 			))}
-		</nav>
+		</Sidebar>
 	);
 }

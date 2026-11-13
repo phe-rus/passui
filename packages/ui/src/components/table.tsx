@@ -1,7 +1,7 @@
 import type * as React from "react";
 import { createContext, useContext } from "react";
 
-import { cn } from "../../lib/class-names";
+import { cx } from "../lib/cx";
 
 export type TableSize = "sm" | "md" | "lg";
 
@@ -44,7 +44,7 @@ function Table({
 			<TableSizeContext value={size}>
 				<table
 					data-slot="table"
-					className={cn("w-full", tableText[size], className)}
+					className={cx("w-full", tableText[size], className)}
 					{...props}
 				/>
 			</TableSizeContext>
@@ -56,7 +56,7 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
 	return (
 		<thead
 			data-slot="table-header"
-			className={cn("[&_tr]:border-separator [&_tr]:border-b", className)}
+			className={cx("[&_tr]:border-separator [&_tr]:border-b", className)}
 			{...props}
 		/>
 	);
@@ -66,7 +66,7 @@ function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
 	return (
 		<tbody
 			data-slot="table-body"
-			className={cn("[&_tr:last-child]:border-0", className)}
+			className={cx("[&_tr:last-child]:border-0", className)}
 			{...props}
 		/>
 	);
@@ -76,7 +76,7 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
 	return (
 		<tfoot
 			data-slot="table-footer"
-			className={cn(
+			className={cx(
 				"border-separator bg-fill/50 border-t font-semibold [&>tr]:last:border-b-0",
 				className,
 			)}
@@ -89,7 +89,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
 	return (
 		<tr
 			data-slot="table-row"
-			className={cn(
+			className={cx(
 				"border-separator duration-fast hover:bg-fill/50 has-aria-expanded:bg-fill/50 border-b transition-colors",
 				"data-[state=selected]:bg-accent-soft/60",
 				className,
@@ -104,7 +104,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
 	return (
 		<th
 			data-slot="table-head"
-			className={cn(
+			className={cx(
 				headCell[size],
 				"text-label-secondary has-[[role=checkbox]]:pe-0",
 				className,
@@ -119,7 +119,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
 	return (
 		<td
 			data-slot="table-cell"
-			className={cn(bodyCell[size], "has-[[role=checkbox]]:pe-0", className)}
+			className={cx(bodyCell[size], "has-[[role=checkbox]]:pe-0", className)}
 			{...props}
 		/>
 	);
@@ -133,7 +133,7 @@ function TableCaption({
 	return (
 		<caption
 			data-slot="table-caption"
-			className={cn(captionText[size], className)}
+			className={cx(captionText[size], className)}
 			{...props}
 		/>
 	);

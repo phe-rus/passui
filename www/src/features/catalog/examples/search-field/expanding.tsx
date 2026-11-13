@@ -3,12 +3,14 @@ import { useState } from "react";
 export function SearchFieldExpanding() {
 	const [value, setValue] = useState("");
 	return (
-		<SearchField
-			collapsible
-			aria-label="Search notes"
-			placeholder="Search notes…"
-			value={value}
-			onChange={(event) => setValue(event.target.value)}
-		/>
+		<div className="w-full max-w-xs">
+			<SearchField
+				collapsible
+				aria-label="Search notes"
+				placeholder="Search notes…"
+				value={value}
+				onChange={(event) => setValue(event.target.value)}
+			/>
+		</div>
 	);
 }
