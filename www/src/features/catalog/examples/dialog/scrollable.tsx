@@ -9,6 +9,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@passui/react/dialog";
+import { Text } from "@passui/react/text";
 
 const terms = [
 	"Passui ships as small, separate imports. You pay only for the controls a page uses.",
@@ -34,7 +35,7 @@ export function DialogScrollable() {
 				<div className="text-subheadline text-label-secondary flex flex-col gap-4">
 					{[...terms, ...terms].map((paragraph, index) => (
 						// biome-ignore lint/suspicious/noArrayIndexKey: a fixed demo list
-						<p key={index}>{paragraph}</p>
+						<Text key={index}>{paragraph}</Text>
 					))}
 				</div>
 				<DialogFooter className="bg-elevated border-separator/60 sticky -bottom-6 -mx-6 mt-2 -mb-6 border-t px-6 py-4">

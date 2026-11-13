@@ -1,4 +1,5 @@
 import { Combobox } from "@passui/react/combobox";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 export function ComboboxControlled() {
@@ -15,9 +16,9 @@ export function ComboboxControlled() {
 					{ value: "ug", label: "Uganda" },
 				]}
 			/>
-			<p className="text-footnote text-label-secondary">
+			<Text size="footnote" tone="secondary">
 				Chosen: {value ?? "nothing"}
-			</p>
+			</Text>
 		</div>
 	);
 }

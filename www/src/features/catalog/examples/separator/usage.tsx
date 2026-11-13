@@ -1,14 +1,17 @@
 import { Separator } from "@passui/react/separator";
+import { Text } from "@passui/react/text";
 
 export function SeparatorUsage() {
 	return (
 		<div className="w-full max-w-xs">
-			<p className="text-subheadline font-semibold">Passui</p>
-			<p className="text-footnote text-label-secondary">
+			<Text size="subheadline" weight="semibold">
+				Passui
+			</Text>
+			<Text size="footnote" tone="secondary">
 				Native React controls.
-			</p>
+			</Text>
 			<Separator className="my-3" />
-			<p className="text-footnote">Open source</p>
+			<Text size="footnote">Open source</Text>
 		</div>
 	);
 }

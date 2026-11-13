@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@passui/react/card";
 import { LabeledContent } from "@passui/react/labeled-content";
 import { SearchField } from "@passui/react/search-field";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const apps = [
@@ -29,15 +30,24 @@ export function SearchFieldFilter() {
 					{matches.length ? (
 						matches.map((app) => (
 							<LabeledContent key={app.name} label={app.name}>
-								<span className="text-footnote text-label-secondary tabular-nums">
+								<Text
+									as="span"
+									size="footnote"
+									tone="secondary"
+									className="tabular-nums"
+								>
 									{app.people} people
-								</span>
+								</Text>
 							</LabeledContent>
 						))
 					) : (
-						<p className="text-footnote text-label-secondary px-4 py-6 text-center">
+						<Text
+							size="footnote"
+							tone="secondary"
+							className="px-4 py-6 text-center"
+						>
 							No applications match “{query}”
-						</p>
+						</Text>
 					)}
 				</CardContent>
 			</Card>

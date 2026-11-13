@@ -1,4 +1,5 @@
 import { Switch } from "@passui/react/switch";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 export function SwitchControlled() {
@@ -8,7 +9,9 @@ export function SwitchControlled() {
 			<Switch checked={on} onCheckedChange={setOn}>
 				Wi-Fi
 			</Switch>
-			<p className="text-footnote text-label-secondary">{on ? "On" : "Off"}</p>
+			<Text size="footnote" tone="secondary">
+				{on ? "On" : "Off"}
+			</Text>
 		</div>
 	);
 }

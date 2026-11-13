@@ -1,6 +1,7 @@
 import { Badge } from "@passui/react/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@passui/react/card";
 import { LabeledContent } from "@passui/react/labeled-content";
+import { Text } from "@passui/react/text";
 
 export function LabeledContentValues() {
 	return (
@@ -11,17 +12,22 @@ export function LabeledContentValues() {
 				</CardHeader>
 				<CardContent className="px-0">
 					<LabeledContent label="Account ID">
-						<span className="text-footnote text-label-secondary font-mono">
+						<Text
+							as="span"
+							size="footnote"
+							tone="secondary"
+							className="font-mono"
+						>
 							pass_7f3a9c
-						</span>
+						</Text>
 					</LabeledContent>
 					<LabeledContent label="Plan">
 						<Badge>Family</Badge>
 					</LabeledContent>
 					<LabeledContent label="Member since">
-						<span className="text-subheadline text-label-secondary">
+						<Text as="span" size="subheadline" tone="secondary">
 							March 2024
-						</span>
+						</Text>
 					</LabeledContent>
 				</CardContent>
 			</Card>

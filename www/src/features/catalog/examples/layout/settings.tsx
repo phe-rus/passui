@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@passui/react/card";
 import { LabeledContent } from "@passui/react/labeled-content";
 import { Layout } from "@passui/react/layout";
+import { Text } from "@passui/react/text";
 
 export function LayoutSettings() {
 	return (
@@ -20,14 +21,14 @@ export function LayoutSettings() {
 					</CardHeader>
 					<CardContent className="px-0">
 						<LabeledContent label="Name">
-							<span className="text-subheadline text-label-secondary">
+							<Text as="span" size="subheadline" tone="secondary">
 								Aiko Kamado
-							</span>
+							</Text>
 						</LabeledContent>
 						<LabeledContent label="Birthday">
-							<span className="text-subheadline text-label-secondary">
+							<Text as="span" size="subheadline" tone="secondary">
 								21 July
-							</span>
+							</Text>
 						</LabeledContent>
 					</CardContent>
 				</Card>

@@ -3,12 +3,12 @@ import { FolderIcon } from "@passui/icons/folder";
 import { HomeIcon } from "@passui/icons/home";
 import { PersonIcon } from "@passui/icons/person";
 import { SettingsIcon } from "@passui/icons/settings";
-
 import {
 	SidebarItemContent,
 	SidebarSection,
 	sidebarItemClass,
 } from "@passui/react/sidebar";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const sections = [
@@ -94,7 +94,9 @@ export function SidebarShowcase() {
 				))}
 			</nav>
 			<div className="flex flex-1 flex-col gap-3 p-6">
-				<h2 className="text-title3 text-label font-bold">{titles[active]}</h2>
+				<Text as="h2" size="title3" weight="bold">
+					{titles[active]}
+				</Text>
 				<div className="bg-fill/60 h-16 rounded-3xl" />
 				<div className="bg-fill/60 h-16 rounded-3xl" />
 			</div>

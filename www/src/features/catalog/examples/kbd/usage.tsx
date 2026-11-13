@@ -1,9 +1,10 @@
 import { Kbd } from "@passui/react/kbd";
+import { Text } from "@passui/react/text";
 
 export function KbdUsage() {
 	return (
-		<p className="text-subheadline">
+		<Text size="subheadline">
 			Press <Kbd>Esc</Kbd> to close.
-		</p>
+		</Text>
 	);
 }

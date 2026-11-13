@@ -1,4 +1,5 @@
 import { Ambient } from "@passui/react/ambient";
+import { Text } from "@passui/react/text";
 
 const people = [
 	{ name: "Aiko", src: "/avatars/aiko.svg" },
@@ -16,9 +17,9 @@ export function AmbientImages() {
 					className="flex flex-col items-center gap-2 py-8"
 				>
 					<img src={person.src} alt="" className="size-14 rounded-full" />
-					<span className="text-subheadline text-label font-medium">
+					<Text as="span" size="subheadline" weight="medium">
 						{person.name}
-					</span>
+					</Text>
 				</Ambient>
 			))}
 		</div>

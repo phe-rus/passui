@@ -5,6 +5,7 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "@passui/react/pagination";
+import { Text } from "@passui/react/text";
 
 export function PaginationSimple() {
 	return (
@@ -14,9 +15,9 @@ export function PaginationSimple() {
 					<PaginationPrevious href="#1" />
 				</PaginationItem>
 				<PaginationItem>
-					<span className="text-footnote text-label-secondary">
+					<Text as="span" size="footnote" tone="secondary">
 						Page 2 of 9
-					</span>
+					</Text>
 				</PaginationItem>
 				<PaginationItem>
 					<PaginationNext href="#3" />

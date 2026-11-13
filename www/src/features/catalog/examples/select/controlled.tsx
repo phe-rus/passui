@@ -1,4 +1,5 @@
 import { Select } from "@passui/react/select";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 export function SelectControlled() {
@@ -15,9 +16,9 @@ export function SelectControlled() {
 					{ value: "l", label: "Large" },
 				]}
 			/>
-			<p className="text-footnote text-label-secondary">
+			<Text size="footnote" tone="secondary">
 				Size: {size ?? "none"}
-			</p>
+			</Text>
 		</div>
 	);
 }

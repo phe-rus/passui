@@ -1,5 +1,6 @@
 import { Badge } from "@passui/react/badge";
 import { SwatchPicker } from "@passui/react/swatch-picker";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const colors = [
@@ -29,9 +30,9 @@ export function SwatchPickerLabels() {
 	return (
 		<div className="bg-elevated ring-separator/60 flex w-full max-w-sm flex-col gap-4 rounded-4xl p-6 shadow-sm ring-1">
 			<div className="flex items-center justify-between">
-				<span className="text-subheadline text-label font-medium">
+				<Text as="span" size="subheadline" weight="medium">
 					Tag color
-				</span>
+				</Text>
 				<Badge variant="secondary">Weekend trip</Badge>
 			</div>
 			<SwatchPicker

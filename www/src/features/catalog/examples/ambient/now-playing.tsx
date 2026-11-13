@@ -3,6 +3,7 @@ import { PauseIcon } from "@passui/icons/pause";
 import { PreviousTrackIcon } from "@passui/icons/previous-track";
 import { Ambient } from "@passui/react/ambient";
 import { Button } from "@passui/react/button";
+import { Text } from "@passui/react/text";
 
 export function AmbientNowPlaying() {
 	return (
@@ -16,10 +17,12 @@ export function AmbientNowPlaying() {
 				className="size-40 rounded-4xl shadow-sm"
 			/>
 			<div className="flex flex-col">
-				<span className="text-headline text-label font-semibold">
+				<Text as="span" size="headline" weight="semibold">
 					Morning Light
-				</span>
-				<span className="text-footnote text-label-secondary">Kenji Mori</span>
+				</Text>
+				<Text as="span" size="footnote" tone="secondary">
+					Kenji Mori
+				</Text>
 			</div>
 			<div className="flex items-center gap-2">
 				<Button size="icon" aria-label="Previous" variant="ghost">

@@ -1,4 +1,5 @@
 import { Slider } from "@passui/react/slider";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 export function ProgressSliderControlled() {
@@ -13,9 +14,9 @@ export function ProgressSliderControlled() {
 				step={1}
 				aria-label={["Rating"]}
 			/>
-			<p className="text-footnote text-label-secondary">
+			<Text size="footnote" tone="secondary">
 				Rating {value[0]} of 10
-			</p>
+			</Text>
 		</div>
 	);
 }

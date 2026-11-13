@@ -9,6 +9,7 @@ import {
 	AlertDialogTitle,
 } from "@passui/react/alert-dialog";
 import { Button } from "@passui/react/button";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 /**
@@ -23,7 +24,9 @@ export function AlertDialogConfirm() {
 			<Button variant="outline" onClick={() => setOpen(true)}>
 				Empty trash
 			</Button>
-			<span className="text-footnote text-label-secondary">{status}</span>
+			<Text as="span" size="footnote" tone="secondary">
+				{status}
+			</Text>
 			<AlertDialog
 				open={open}
 				onOpenChange={(details) => setOpen(details.open)}

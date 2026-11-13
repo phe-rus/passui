@@ -1,5 +1,6 @@
 import { Ambient } from "@passui/react/ambient";
 import { Button } from "@passui/react/button";
+import { Text } from "@passui/react/text";
 
 export function AmbientShowcase() {
 	return (
@@ -13,10 +14,12 @@ export function AmbientShowcase() {
 				className="size-28 rounded-full shadow-sm"
 			/>
 			<div className="flex flex-col gap-1">
-				<h2 className="text-title2 text-label font-bold">Mira Patel</h2>
-				<p className="text-callout text-label-secondary">
+				<Text as="h2" size="title2" weight="bold">
+					Mira Patel
+				</Text>
+				<Text size="callout" tone="secondary">
 					Support lead, Lisbon
-				</p>
+				</Text>
 			</div>
 			<div className="flex gap-2">
 				<Button size="sm">Message</Button>

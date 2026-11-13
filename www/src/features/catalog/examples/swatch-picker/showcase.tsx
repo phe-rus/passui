@@ -1,5 +1,6 @@
 import { Badge } from "@passui/react/badge";
 import { SwatchPicker } from "@passui/react/swatch-picker";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const colours = [
@@ -51,9 +52,9 @@ export function SwatchPickerShowcase() {
 				</span>
 			</div>
 			<div className="flex items-center justify-between">
-				<span className="text-subheadline text-label font-semibold">
+				<Text as="span" size="subheadline" weight="semibold">
 					Notebook colour
-				</span>
+				</Text>
 				<Badge variant="secondary">{chosen.label}</Badge>
 			</div>
 			<SwatchPicker

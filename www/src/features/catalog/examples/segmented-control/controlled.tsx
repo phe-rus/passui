@@ -1,4 +1,5 @@
 import { SegmentedControl } from "@passui/react/segmented-control";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 export function SegmentedControlControlled() {
@@ -14,7 +15,9 @@ export function SegmentedControlControlled() {
 					{ value: "week", label: "Week" },
 				]}
 			/>
-			<p className="text-footnote text-label-secondary">Showing {range}</p>
+			<Text size="footnote" tone="secondary">
+				Showing {range}
+			</Text>
 		</div>
 	);
 }

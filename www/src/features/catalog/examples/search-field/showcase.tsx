@@ -1,4 +1,5 @@
 import { SearchField } from "@passui/react/search-field";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const people = [
@@ -36,7 +37,9 @@ export function SearchFieldShowcase() {
 								.map((part) => part[0])
 								.join("")}
 						</span>
-						<span className="text-subheadline text-label">{person}</span>
+						<Text as="span" size="subheadline">
+							{person}
+						</Text>
 					</li>
 				))}
 				{results.length === 0 && (

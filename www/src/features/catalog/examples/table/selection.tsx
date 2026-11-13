@@ -11,6 +11,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@passui/react/table";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const devices = [
@@ -86,9 +87,9 @@ export function TableSelection() {
 										<span className="bg-fill text-label-secondary flex size-8 items-center justify-center rounded-full">
 											<device.icon size={18} />
 										</span>
-										<span className="text-subheadline text-label font-medium">
+										<Text as="span" size="subheadline" weight="medium">
 											{device.name}
-										</span>
+										</Text>
 									</div>
 								</TableCell>
 								<TableCell className="text-label-secondary">
@@ -100,9 +101,9 @@ export function TableSelection() {
 				</TableBody>
 			</Table>
 			<div className="flex items-center justify-between px-2">
-				<span className="text-footnote text-label-secondary">
+				<Text as="span" size="footnote" tone="secondary">
 					{selected.length} selected
-				</span>
+				</Text>
 				<Button
 					variant="destructive"
 					size="sm"

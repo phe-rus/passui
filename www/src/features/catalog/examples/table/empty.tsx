@@ -8,6 +8,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@passui/react/table";
+import { Text } from "@passui/react/text";
 
 export function TableEmpty() {
 	return (
@@ -24,12 +25,12 @@ export function TableEmpty() {
 						<TableCell colSpan={2}>
 							<div className="flex flex-col items-center gap-2 py-8 text-center">
 								<InboxIcon size={28} className="text-label-tertiary" />
-								<span className="text-subheadline text-label font-medium">
+								<Text as="span" size="subheadline" weight="medium">
 									No applications yet
-								</span>
-								<span className="text-footnote text-label-secondary">
+								</Text>
+								<Text as="span" size="footnote" tone="secondary">
 									Apps you create appear here.
-								</span>
+								</Text>
 								<Button size="sm" className="mt-2">
 									New application
 								</Button>

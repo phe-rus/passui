@@ -13,6 +13,7 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@passui/react/dropdown-menu";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 /** The three dots menu in iOS Notes: the round button swells into the menu and drops back on close. */
@@ -66,9 +67,9 @@ export function DropdownMenuNotes() {
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			<p className="text-footnote text-label-secondary">
+			<Text size="footnote" tone="secondary">
 				{last} · View: {view}
-			</p>
+			</Text>
 		</div>
 	);
 }

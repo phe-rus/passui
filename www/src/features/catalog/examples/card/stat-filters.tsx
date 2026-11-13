@@ -1,4 +1,5 @@
 import { StatTile } from "@passui/react/stat-tile";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const filters = [
@@ -23,9 +24,9 @@ export function CardStatFilters() {
 					/>
 				))}
 			</div>
-			<p className="text-footnote text-label-secondary text-center">
+			<Text size="footnote" tone="secondary" className="text-center">
 				Showing: {filters.find((f) => f.id === active)?.label}
-			</p>
+			</Text>
 		</div>
 	);
 }

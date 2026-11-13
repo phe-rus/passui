@@ -1,4 +1,5 @@
 import { Questionnaire } from "@passui/react/questionnaire";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 const labels = {
@@ -11,8 +12,7 @@ const labels = {
 
 export function QuestionnaireDescriptions() {
 	const [done, setDone] = useState(false);
-	if (done)
-		return <p className="text-footnote text-label">Thanks, plan chosen.</p>;
+	if (done) return <Text size="footnote">Thanks, plan chosen.</Text>;
 	return (
 		<Questionnaire
 			labels={labels}

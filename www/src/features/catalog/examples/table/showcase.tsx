@@ -10,6 +10,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@passui/react/table";
+import { Text } from "@passui/react/text";
 
 const members = [
 	{
@@ -63,12 +64,12 @@ export function TableShowcase() {
 										<AvatarFallback>{member.initials}</AvatarFallback>
 									</Avatar>
 									<div className="flex flex-col">
-										<span className="text-subheadline text-label font-medium">
+										<Text as="span" size="subheadline" weight="medium">
 											{member.name}
-										</span>
-										<span className="text-caption text-label-secondary">
+										</Text>
+										<Text as="span" size="caption" tone="secondary">
 											{member.email}
-										</span>
+										</Text>
 									</div>
 								</div>
 							</TableCell>

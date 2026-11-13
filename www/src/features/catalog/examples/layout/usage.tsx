@@ -1,4 +1,5 @@
 import { Layout } from "@passui/react/layout";
+import { Text } from "@passui/react/text";
 
 export function LayoutUsage() {
 	return (
@@ -11,9 +12,9 @@ export function LayoutUsage() {
 				/>
 			}
 		>
-			<p className="text-callout text-label-secondary">
+			<Text size="callout" tone="secondary">
 				The screen's content goes here.
-			</p>
+			</Text>
 		</Layout>
 	);
 }

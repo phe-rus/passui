@@ -1,4 +1,5 @@
 import { RadioGroup, RadioGroupItem } from "@passui/react/radio-group";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 export function RadioGroupControlled() {
@@ -9,7 +10,9 @@ export function RadioGroupControlled() {
 				<RadioGroupItem value="free">Free</RadioGroupItem>
 				<RadioGroupItem value="pro">Pro</RadioGroupItem>
 			</RadioGroup>
-			<p className="text-footnote text-label-secondary">Plan: {value}</p>
+			<Text size="footnote" tone="secondary">
+				Plan: {value}
+			</Text>
 		</div>
 	);
 }

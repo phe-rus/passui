@@ -8,6 +8,7 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "@passui/react/dropdown-menu";
+import { Text } from "@passui/react/text";
 import { useState } from "react";
 
 export function DropdownMenuUsage() {
@@ -30,7 +31,9 @@ export function DropdownMenuUsage() {
 					<DropdownMenuItem disabled>Share…</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			<span className="text-footnote text-label-secondary">{last}</span>
+			<Text as="span" size="footnote" tone="secondary">
+				{last}
+			</Text>
 		</div>
 	);
 }

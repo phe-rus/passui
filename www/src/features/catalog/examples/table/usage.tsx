@@ -7,6 +7,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@passui/react/table";
+import { Text } from "@passui/react/text";
 
 const members = [
 	{
@@ -42,9 +43,9 @@ export function TableUsage() {
 										<AvatarImage src={member.src} />
 										<AvatarFallback>{member.initials}</AvatarFallback>
 									</Avatar>
-									<span className="text-subheadline text-label font-medium">
+									<Text as="span" size="subheadline" weight="medium">
 										{member.name}
-									</span>
+									</Text>
 								</div>
 							</TableCell>
 							<TableCell>{member.role}</TableCell>

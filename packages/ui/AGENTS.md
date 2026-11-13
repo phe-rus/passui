@@ -203,7 +203,7 @@ Docs for every component live in `www/src/features/components` (see `www/AGENTS.
 
 ## Components
 
-Rebuilt on Zag or native (`src/components/`, plus `Locales` and `Swatch Picker` on Select and Radio Group): Accordion, Alert, Alert Dialog, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Collapsible, Combobox, Command, Dialog, Drawer, Dropdown Menu, Field, Input, Input Group, Input OTP, Kbd, Label, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Switch, Tabs, Textarea, Toast, Toggle, Toggle Group, Tooltip.
+Rebuilt on Zag or native (`src/components/`, plus `Locales` and `Swatch Picker` on Select and Radio Group): Accordion, Alert, Alert Dialog, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Collapsible, Combobox, Command, Dialog, Drawer, Dropdown Menu, Field, Input, Input Group, Input OTP, Kbd, Label, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Switch, Tabs, Text, Textarea, Toast, Toggle, Toggle Group, Tooltip.
 
 Still in `src/legacy/` with their old APIs (wave 2 and blocks): Aspect Ratio, Code Block, Compact Date Picker, Compact Time Picker, Date Picker, Search Field, Sidebar, Stepper, Table, Context menu, and the blocks Ambient, Empty, Labeled Content, Stat Tile, Layout, Wake Slider, Conversation, Morph. `legacy/button`, `picker`, `popover`, `sheet` and `text-field` remain only as internals of these and are not public entries.
 
