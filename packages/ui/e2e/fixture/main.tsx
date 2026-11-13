@@ -7,7 +7,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "../../src/ui/dialog";
+} from "../../src/components/dialog";
 import {
 	Drawer,
 	DrawerContent,
@@ -15,7 +15,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	DrawerTrigger,
-} from "../../src/ui/drawer";
+} from "../../src/components/drawer";
 import {
 	Sheet,
 	SheetContent,
@@ -23,7 +23,7 @@ import {
 	type SheetSide,
 	SheetTitle,
 	SheetTrigger,
-} from "../../src/ui/sheet";
+} from "../../src/components/sheet";
 import "./app.css";
 
 declare global {
