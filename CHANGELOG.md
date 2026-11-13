@@ -1,5 +1,29 @@
 # Changelog
 
+## @passui/react 0.3.0 and @passui/tanstack 0.3.1
+
+### Changed
+
+- `Progress` now has three variants: the default bar, `wake` and `slosh`, with `size`. `Wake Slider` and `Slosh Slider` are no longer separate components. Their fills, bars and handles take the accent. **Breaking for 0.2.0 users:** `@passui/react/wake-slider` and `@passui/react/slosh-slider` are gone; use `<Progress variant="wake" ...>` and `<Progress variant="slosh" ...>`, and `onChange` is now `onValueChange`.
+- `Stepper` is one aligned segmented control with equal cells, a centred divider and accent glyphs, and its value shares the label's centreline.
+- `Switch` has `size`, `tone` (the on track follows the accent by default, `success` keeps the green) and a `liquid` variant where a second drop chases the thumb through a goo filter.
+- `Tab Bar` uses iOS proportions, one lens that glides between destinations, `autoMinimize` (folds on scroll down, restores on scroll up, at the top or on tap), `size`, and `action` with `TabBarAction` for the four and one layout. `useMinimizeOnScroll` takes an `enabled` argument.
+- `Search Field` is one box whose width is its state, so the closed circle equals the control height with the icon centred; `variant="floating"` adds a glass pill.
+- `Input` and `Textarea` gain `size`, `variant="floating"` (an outline that parts under a lifted label) and, for `Textarea`, `showCount`. `Textarea` no longer shows a resize grip.
+- `Calendar` follows Apple Calendar: the title on the left, accent chevrons on the right, larger aligned days and a continuous range band.
+- `haptic()` plays by default: vibration patterns on Android and a tick on iOS Safari. New kinds `soft` and `rigid`, and `setHapticsEnabled` and `hapticsSupported`.
+
+### Added
+
+- `AccentPicker` in `@passui/react/swatch-picker`: Passui's seven accents as a picker that sets `data-accent` on the root, so every control follows, and remembers the choice.
+
+### Fixed
+
+- `@passui/tanstack` 0.3.1 requires `@passui/react` `^0.3.0`, and its form `input` takes `size` and `variant`.
+- `@passui/tanstack` used colour classes the theme does not define (`border-border`, `text-muted-foreground`, `bg-destructive` and others), so tables, boundaries and settings lists ignored the accent and dark mode. They now use Passui's roles.
+- The docs site highlighted code inside every Worker request, which exceeded Cloudflare's CPU limit (error 1102). Highlighting now happens at build time.
+- A tab opened before a deploy reloads once instead of failing with "Failed to fetch dynamically imported module".
+
 ## @passui/react 0.2.0 and @passui/tanstack 0.3.0 (lean rebuild)
 
 ### Added since the last checkpoint

@@ -1,6 +1,8 @@
 "use client";
 
 import { CheckIcon } from "@passui/icons/check";
+import { type AccentId, accents } from "@passui/tokens/accent";
+import { useEffect, useState } from "react";
 import { cx } from "../lib/cx";
 import { RadioGroup, RadioGroupItem } from "./radio-group";
 
@@ -115,5 +117,84 @@ export function SwatchPicker<T extends string>({
 				})}
 			</div>
 		</RadioGroup>
+	);
+}
+
+export interface AccentPickerProps {
+	/** Accessible name for the group. */
+	label: string;
+	/** The element that carries `data-accent`. Defaults to `<html>`, so every control follows. */
+	target?: HTMLElement | null;
+	/** Controlled accent. Leave out to let the picker own it. */
+	value?: AccentId;
+	onChange?: (value: AccentId) => void;
+	/** Remembers the choice in localStorage under this key. Pass `false` to skip. @default "passui-accent" */
+	storageKey?: string | false;
+	/** Translated names for the accents. Falls back to the token names. */
+	names?: Partial<Record<AccentId, string>>;
+	size?: SwatchPickerSize;
+	className?: string;
+}
+
+/**
+ * Passui's seven accents as a swatch picker that retints the app. Choosing
+ * one sets `data-accent` on the root, so buttons, switches, sliders, focus
+ * rings, selection and the window ground all follow, and it survives a reload.
+ */
+export function AccentPicker({
+	label,
+	target,
+	value,
+	onChange,
+	storageKey = "passui-accent",
+	names,
+	size,
+	className,
+}: AccentPickerProps) {
+	const [own, setOwn] = useState<AccentId>("blush");
+	const current = value ?? own;
+
+	// Read the saved or current accent after mount, so server and browser agree on first paint.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: only the first mount adopts the stored choice.
+	useEffect(() => {
+		if (value) return;
+		const root = target ?? document.documentElement;
+		let saved: string | null = null;
+		try {
+			saved = storageKey ? localStorage.getItem(storageKey) : null;
+		} catch {
+			/* storage blocked */
+		}
+		const found = saved ?? root.dataset.accent;
+		if (found && found in accents) setOwn(found as AccentId);
+	}, []);
+
+	useEffect(() => {
+		(target ?? document.documentElement).dataset.accent = current;
+	}, [current, target]);
+
+	const options = Object.values(accents).map((accent) => ({
+		value: accent.id,
+		label: names?.[accent.id] ?? accent.name,
+		color: accent.swatch,
+		ink: accent.light.accentText,
+	}));
+	return (
+		<SwatchPicker
+			label={label}
+			options={options}
+			value={current}
+			size={size}
+			className={className}
+			onChange={(next) => {
+				setOwn(next);
+				try {
+					if (storageKey) localStorage.setItem(storageKey, next);
+				} catch {
+					/* storage blocked */
+				}
+				onChange?.(next);
+			}}
+		/>
 	);
 }

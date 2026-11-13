@@ -240,7 +240,7 @@ export const registry: ComponentMeta[] = [
 		name: "Progress",
 		group: "Feedback",
 		summary:
-			"A progress bar, determinate or not, and the Slider variants you can drag.",
+			"A progress bar, determinate or not, with wake and slosh variants you can drag, and the Slider.",
 		entry: "progress",
 	},
 	{
@@ -302,14 +302,6 @@ export const registry: ComponentMeta[] = [
 		group: "Forms",
 		summary: "A draggable range control with one or more thumbs.",
 		entry: "slider",
-	},
-	{
-		slug: "slosh-slider",
-		name: "Slosh Slider",
-		group: "Forms",
-		summary: "A slider whose fill has mass, lagging the handle like liquid.",
-		entry: "slosh-slider",
-		status: "new",
 	},
 	{
 		slug: "spinner",

@@ -1,17 +1,4 @@
-import apiJson from "@/features/catalog/api.generated.json";
-import { installCommand, packageManagers } from "@/features/catalog/install";
 import type { PartApi } from "@/features/catalog/types";
-import budgets from "../../../../../size-budgets.json";
-import { highlight } from "./highlighter";
-
-/**
- * Server only: reached through a dynamic import inside the server function,
- * so Shiki and the example sources never enter the browser bundle.
- */
-const sources = import.meta.glob<string>("../../catalog/examples/*/*.tsx", {
-	query: "?raw",
-	import: "default",
-});
 
 export interface CodeSample {
 	html: string;
@@ -33,47 +20,20 @@ export interface DocCode {
 }
 
 /**
- * An import as Biome formats it: specifiers sorted, and one per line as soon
- * as there is more than one, so a long part list never runs off the block.
+ * Server only. The highlighted code is prepared by `scripts/generate-code.ts`
+ * at build time, because Shiki is too heavy to run inside a Worker request.
  */
-function formatImport(names: string[], from: string): string {
-	if (!names.length) return `import "${from}";`;
-	const sorted = [...names].sort((a, b) => a.localeCompare(b));
-	if (sorted.length === 1) return `import { ${sorted[0]} } from "${from}";`;
-	return `import {\n${sorted.map((name) => `\t${name},`).join("\n")}\n} from "${from}";`;
-}
+const pages = import.meta.glob<DocCode>("../../catalog/code/*.json", {
+	import: "default",
+});
 
 /** Highlighted HTML for a page's import line and every example file. */
 export async function highlightDoc(
 	slug: string,
-	entry: string,
+	_entry: string,
 ): Promise<DocCode> {
-	const parts = (apiJson as Record<string, PartApi[]>)[slug] ?? [];
-	const names = parts.map((p) => p.name);
-	const importLine = formatImport(names, `@passui/react/${entry}`);
-	const examples: DocCode["examples"] = {};
-	for (const [path, read] of Object.entries(sources)) {
-		const [, folder, file] =
-			path.match(/examples\/([^/]+)\/([^/]+)\.tsx$/) ?? [];
-		if (folder !== slug || !file) continue;
-		const source = await read();
-		examples[file] = { html: highlight(source), source };
-	}
-	const budget = (budgets.budgets as Record<string, number>)[slug];
-	return {
-		api: parts,
-		sizeKb: budget ? Math.ceil(budget / 1100) : undefined,
-		installs: Object.fromEntries(
-			packageManagers.map(({ id, add }) => [
-				id,
-				{
-					html: highlight(installCommand(add), "bash"),
-					source: installCommand(add),
-				},
-			]),
-		),
-		importLine,
-		install: highlight(importLine),
-		examples,
-	};
+	const load = pages[`../../catalog/code/${slug}.json`];
+	if (!load)
+		throw new Error(`No generated code for "${slug}". Run bun run docs:code.`);
+	return load();
 }

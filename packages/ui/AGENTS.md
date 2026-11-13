@@ -202,7 +202,7 @@ Docs for every component live in `www/src/features/components` (see `www/AGENTS.
 
 ## Components
 
-Rebuilt on Zag or native (`src/components/`): Accordion, Alert, Alert Dialog, Ambient, Aspect Ratio, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Code Block, Collapsible, Combobox, Command, Conversation, Dialog, Drawer, Dropdown Menu, Empty, Field, Input, Input Group, Input OTP, Kbd, Label, Labeled Content, Layout, Locales, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Search Field, Sidebar, Stat Tile, Stepper, Swatch Picker, Switch, Table, Tabs, Text, Textarea, Toast, Toggle, Toggle Group, Tooltip, Wake Slider.
+Rebuilt on Zag or native (`src/components/`): Accordion, Alert, Alert Dialog, Ambient, Aspect Ratio, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Code Block, Collapsible, Combobox, Command, Conversation, Dialog, Drawer, Dropdown Menu, Empty, Field, Input, Input Group, Input OTP, Kbd, Label, Labeled Content, Layout, Locales, Pagination, Popover, Progress (default, `wake` and `slosh` variants), Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Search Field, Sidebar, Stat Tile, Stepper, Swatch Picker, Switch, Table, Tabs, Text, Textarea, Toast, Toggle, Toggle Group, Tooltip.
 
 `src/components/` is the only library. The old `src/legacy/` folder has been deleted; do not recreate it.
 

@@ -1,5 +1,7 @@
 import { TextareaControlled } from "../examples/textarea/controlled";
+import { TextareaCount } from "../examples/textarea/count";
 import { TextareaDisabled } from "../examples/textarea/disabled";
+import { TextareaFloating } from "../examples/textarea/floating";
 import { TextareaRows } from "../examples/textarea/rows";
 import { TextareaUsage } from "../examples/textarea/usage";
 import type { ComponentDoc } from "../types";
@@ -11,6 +13,19 @@ export const doc: ComponentDoc = {
 			title: "Usage",
 			description: "Grows with its content where `field-sizing` is supported.",
 			Demo: TextareaUsage,
+		},
+		{
+			id: "floating",
+			title: "Floating label",
+			description: "The same outlined field as `Input`, for several lines.",
+			Demo: TextareaFloating,
+		},
+		{
+			id: "count",
+			title: "Character count",
+			description:
+				"`showCount` with `maxLength` shows `count / max` under the field and turns it red at the limit.",
+			Demo: TextareaCount,
 		},
 		{
 			id: "disabled",

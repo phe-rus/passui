@@ -7,7 +7,7 @@ import {
 	FieldError,
 	FieldLabel,
 } from "@passui/react/field";
-import { Input } from "@passui/react/input";
+import { Input, type InputSize, type InputVariant } from "@passui/react/input";
 import {
 	InputGroup,
 	InputGroupAddon,
@@ -50,8 +50,12 @@ function useFieldErrors() {
 
 export type FieldInputProps = Omit<
 	ComponentProps<"input">,
-	"value" | "onChange" | "onBlur" | "name"
+	"value" | "onChange" | "onBlur" | "name" | "size"
 > & {
+	/** Height and text, from Passui's control scale. @default "md" */
+	size?: InputSize;
+	/** `floating` outlines the field and lifts the label into its top edge. @default "default" */
+	variant?: InputVariant;
 	label: string;
 	description?: string;
 	/** Leading icon or text inside the field. */
@@ -65,6 +69,8 @@ export function FieldInput({
 	icon,
 	type,
 	id,
+	size,
+	variant,
 	...props
 }: FieldInputProps) {
 	const field = useFieldContext<string>();
@@ -90,9 +96,11 @@ export function FieldInput({
 		...props,
 	};
 	const isPassword = type === "password";
+	// A floating label lives inside the field, so the plain one steps aside. Grouped fields keep it.
+	const floating = variant === "floating" && !icon && !isPassword;
 	return (
 		<Field invalid={invalid}>
-			<FieldLabel htmlFor={inputId}>{label}</FieldLabel>
+			{floating ? null : <FieldLabel htmlFor={inputId}>{label}</FieldLabel>}
 			{icon || isPassword ? (
 				<InputGroup>
 					{icon ? <InputGroupAddon>{icon}</InputGroupAddon> : null}
@@ -115,7 +123,13 @@ export function FieldInput({
 					) : null}
 				</InputGroup>
 			) : (
-				<Input {...common} type={type} />
+				<Input
+					{...common}
+					size={size}
+					variant={variant}
+					label={label}
+					type={type}
+				/>
 			)}
 			{description ? (
 				<FieldDescription id={`${inputId}-hint`}>

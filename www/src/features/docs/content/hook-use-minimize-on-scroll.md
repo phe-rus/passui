@@ -16,14 +16,24 @@ import { useMinimizeOnScroll } from "@passui/react";
 
 ```tsx
 function Bar() {
-	const minimized = useMinimizeOnScroll();
-	return <nav data-minimized={minimized}>…</nav>;
+	const [minimized, setMinimized] = useMinimizeOnScroll();
+	return (
+		<nav data-minimized={minimized} onPointerUp={() => setMinimized(false)}>
+			…
+		</nav>
+	);
 }
 ```
 
+`TabBar` already does this: pass `autoMinimize` and it folds to icons while you scroll down, restores on scroll up, and expands when tapped. Reach for the hook when your own chrome should follow the same rule.
+
+## Parameter
+
+`useMinimizeOnScroll(enabled = true)`. Pass `false` to attach no listeners, for a bar that only sometimes follows the scroll.
+
 ## Return value
 
-A `boolean`.
+A tuple, `[minimized, setMinimized]`. The setter lets a tap on the folded bar bring it back.
 
 ## How it decides
 

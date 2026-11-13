@@ -16,8 +16,8 @@ export function DefaultBoundary({ error }: ErrorComponentProps) {
 
 	return (
 		<div className="flex min-h-100 w-full flex-col items-center justify-center gap-6 p-6 text-center">
-			<div className="border-destructive/20 bg-destructive/5 w-full max-w-md overflow-hidden rounded-md border p-4 text-left">
-				<p className="text-caption text-destructive mb-2 font-semibold tracking-wider uppercase">
+			<div className="border-danger/20 bg-danger/5 w-full max-w-md overflow-hidden rounded-md border p-4 text-left">
+				<p className="text-caption text-danger mb-2 font-semibold tracking-wider uppercase">
 					Application Error
 				</p>
 				<ErrorComponent error={error} />

@@ -37,7 +37,7 @@ export function Continue() {
 
 The catalog includes native Accordion, ComboBox, RadioGroup, Breadcrumb,
 Skeleton, Empty, CodeBlock, KeyboardShortcut, Command,
-OneTimeCode, AspectRatio, SloshSlider and WakeSlider. Use `Toggle`
+OneTimeCode and AspectRatio. `Progress` carries the draggable `wake` and `slosh` variants. Use `Toggle`
 with `style="checkbox"` for checkboxes. Names follow SwiftUI where the concepts
 match; see [component coverage](docs/architecture/component-coverage.md).
 

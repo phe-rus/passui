@@ -68,8 +68,9 @@ export function InstallSection({
 			title="Installation"
 			description={
 				<>
-					Add the package once, import <code>@passui/react/{entry}</code> where
-					you use it.
+					Add the package once, import{" "}
+					<code className="break-all">@passui/react/{entry}</code> where you use
+					it.
 				</>
 			}
 		>

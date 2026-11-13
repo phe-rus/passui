@@ -48,7 +48,7 @@
     },
     "packages/tanstack": {
       "name": "@passui/tanstack",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "devDependencies": {
         "@passui/icons": "workspace:^",
         "@passui/react": "workspace:^",
@@ -120,7 +120,7 @@
     },
     "packages/ui": {
       "name": "@passui/react",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "dependencies": {
         "@passui/icons": "workspace:^",
         "@passui/tokens": "workspace:^",

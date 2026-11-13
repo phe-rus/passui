@@ -110,8 +110,8 @@ function Option({
 			onClick={onClick}
 			className={cn(
 				"text-subheadline flex w-full items-center gap-3 px-4 py-3 text-left transition-colors",
-				"hover:bg-foreground/[0.04] focus-visible:bg-foreground/[0.06] focus-visible:outline-none",
-				tone === "destructive" && "text-destructive",
+				"hover:bg-label/[0.04] focus-visible:bg-label/[0.06] focus-visible:outline-none",
+				tone === "destructive" && "text-danger",
 			)}
 		>
 			<Icon size={18} className="shrink-0 opacity-80" />
@@ -266,7 +266,7 @@ export function AvatarPicker({
 							</div>
 						</Ambient>
 
-						<div className="divide-border/40 border-border/35 bg-card m-3 flex flex-col divide-y overflow-hidden rounded-2xl border shadow-xs">
+						<div className="divide-separator/40 border-separator/35 bg-elevated m-3 flex flex-col divide-y overflow-hidden rounded-2xl border shadow-xs">
 							<Option icon={PhotoIcon} onClick={onChooseFile}>
 								{labels.choosePhoto}
 							</Option>

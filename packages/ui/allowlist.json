@@ -287,7 +287,15 @@
 	},
 	"src/components/progress.tsx": {
 		"packages": ["react"],
-		"local": ["src/components/progress.tsx", "src/lib/cx.ts"]
+		"local": [
+			"src/components/progress.tsx",
+			"src/hooks/use-media-query.ts",
+			"src/lib/cx.ts",
+			"src/lib/liquid-step.ts",
+			"src/lib/range-value.ts",
+			"src/lib/slosh-track.tsx",
+			"src/lib/wake-track.tsx"
+		]
 	},
 	"src/components/questionnaire.tsx": {
 		"packages": ["react"],
@@ -356,16 +364,6 @@
 		"packages": ["@zag-js/react", "@zag-js/slider", "react"],
 		"local": ["src/components/slider.tsx", "src/lib/cx.ts"]
 	},
-	"src/components/slosh-slider.tsx": {
-		"packages": ["react"],
-		"local": [
-			"src/components/slosh-slider.tsx",
-			"src/hooks/use-media-query.ts",
-			"src/lib/cx.ts",
-			"src/lib/liquid-step.ts",
-			"src/lib/range-value.ts"
-		]
-	},
 	"src/components/spinner.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/spinner.tsx", "src/lib/cx.ts"]
@@ -375,12 +373,12 @@
 		"local": ["src/components/stat-tile.tsx", "src/lib/cx.ts"]
 	},
 	"src/components/stepper.tsx": {
-		"packages": ["react"],
+		"packages": ["@passui/icons", "react"],
 		"local": [
-			"src/components/button.tsx",
 			"src/components/stepper.tsx",
 			"src/hooks/use-media-query.ts",
 			"src/lib/cx.ts",
+			"src/lib/haptics.ts",
 			"src/lib/range-value.ts",
 			"src/lib/rolling-digit.tsx"
 		]
@@ -388,6 +386,7 @@
 	"src/components/swatch-picker.tsx": {
 		"packages": [
 			"@passui/icons",
+			"@passui/tokens",
 			"@zag-js/radio-group",
 			"@zag-js/react",
 			"react"
@@ -400,11 +399,21 @@
 	},
 	"src/components/switch.tsx": {
 		"packages": ["@zag-js/react", "@zag-js/switch", "react"],
-		"local": ["src/components/switch.tsx", "src/lib/cx.ts"]
+		"local": [
+			"src/components/switch.tsx",
+			"src/lib/cx.ts",
+			"src/lib/haptics.ts"
+		]
 	},
 	"src/components/tab-bar.tsx": {
 		"packages": ["react"],
-		"local": ["src/components/tab-bar.tsx", "src/lib/cx.ts"]
+		"local": [
+			"src/components/tab-bar.tsx",
+			"src/hooks/scroll/minimize-decision.ts",
+			"src/hooks/use-minimize-on-scroll.ts",
+			"src/lib/cx.ts",
+			"src/lib/haptics.ts"
+		]
 	},
 	"src/components/table.tsx": {
 		"packages": ["react"],
@@ -468,14 +477,5 @@
 	"src/components/trace.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/trace.tsx", "src/lib/cx.ts"]
-	},
-	"src/components/wake-slider.tsx": {
-		"packages": ["react"],
-		"local": [
-			"src/components/wake-slider.tsx",
-			"src/hooks/use-media-query.ts",
-			"src/lib/cx.ts",
-			"src/lib/range-value.ts"
-		]
 	}
 }

@@ -22,3 +22,4 @@ playwright-report/
 packages/icons/src/icons/
 packages/icons/src/index.ts
 .content-collections
+www/src/features/catalog/code/

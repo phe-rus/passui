@@ -8,9 +8,9 @@ export const doc: ComponentDoc = {
 	examples: [
 		{
 			id: "accents",
-			title: "Every Passui accent",
+			title: "Accent picker",
 			description:
-				"The seven accents from Passui's tokens, with the chosen one previewed on a button.",
+				"`AccentPicker` offers the seven Passui accents and sets `data-accent` on the root, so every control, the focus rings and the window ground follow, and the choice is remembered.",
 			Demo: SwatchPickerAccents,
 		},
 		{
@@ -30,6 +30,7 @@ export const doc: ComponentDoc = {
 	],
 	accessibility: [
 		"Name every colour, so it does not rely on colour vision.",
+		"`AccentPicker` is a radio group: arrow keys move and select, and each accent has a name.",
 		"Preview the result next to the picker.",
 	],
 };

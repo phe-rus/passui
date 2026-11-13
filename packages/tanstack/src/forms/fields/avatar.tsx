@@ -179,7 +179,7 @@ export function FieldAvatar({
 			</button>
 			{pending && (
 				<div className="animate-in fade-in-0 slide-in-from-top-1 flex flex-col items-center gap-2 duration-300">
-					<p className="text-muted-foreground">{text.confirmHint}</p>
+					<p className="text-label-secondary">{text.confirmHint}</p>
 					<div className="flex items-center gap-1">
 						<Button
 							type="button"
@@ -200,7 +200,7 @@ export function FieldAvatar({
 					type="button"
 					variant="ghost"
 					size="sm"
-					className="text-muted-foreground"
+					className="text-label-secondary"
 					onClick={() => field.handleChange(false)}
 				>
 					<TrashIcon size={16} />

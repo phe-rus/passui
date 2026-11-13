@@ -3052,9 +3052,72 @@
 	],
 	"input": [
 		{
+			"name": "FloatingField",
+			"description": "The shell of an outlined, floating label field. The outline is a fieldset\nwhose legend opens a real gap under the label, so nothing is painted over\nthe border and it fits any surface.",
+			"props": [
+				{
+					"name": "children",
+					"type": "ReactNode",
+					"description": "",
+					"required": true
+				},
+				{
+					"name": "id",
+					"type": "string",
+					"description": "",
+					"required": true
+				},
+				{
+					"name": "label",
+					"type": "string",
+					"description": "",
+					"required": true
+				},
+				{
+					"name": "className",
+					"type": "string",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "multiline",
+					"type": "boolean",
+					"description": "",
+					"required": false
+				}
+			]
+		},
+		{
 			"name": "Input",
-			"description": "A native text input.",
-			"props": []
+			"description": "A native text input, in the shared control sizes, or an outlined field with a floating label.",
+			"props": [
+				{
+					"name": "label",
+					"type": "string",
+					"description": "The floating label.",
+					"required": false
+				},
+				{
+					"name": "leading",
+					"type": "ReactNode",
+					"description": "An icon or text before the value. Only used by `floating`.",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "InputSize",
+					"default": "\"md\"",
+					"description": "Height and text, from the shared control scale.",
+					"required": false
+				},
+				{
+					"name": "variant",
+					"type": "InputVariant",
+					"default": "\"default\"",
+					"description": "`floating` draws the field as one whole outline whose top line parts\nunder the label as it lifts, like Material's outlined field. It needs `label`.",
+					"required": false
+				}
+			]
 		}
 	],
 	"input-group": [
@@ -3728,19 +3791,38 @@
 	"progress": [
 		{
 			"name": "Progress",
-			"description": "A read only progress bar.",
+			"description": "Progress in three variants. The default is a bar you read; `wake` and\n`slosh` are the same control made draggable, with motion that carries the\nvalue's momentum. All three take the accent and scale with `size`.",
 			"props": [
 				{
-					"name": "max",
-					"type": "number",
-					"default": "100",
+					"name": "className",
+					"type": "string",
 					"description": "",
+					"required": false
+				},
+				{
+					"name": "defaultValue",
+					"type": "string | number | readonly string[]",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "ProgressSize",
+					"default": "\"md\"",
+					"description": "Track height, handle and reading scale.",
 					"required": false
 				},
 				{
 					"name": "value",
 					"type": "number",
 					"description": "0 to `max`. Leave undefined for an indeterminate bar.",
+					"required": false
+				},
+				{
+					"name": "variant",
+					"type": "\"default\" | \"wake\" | \"slosh\"",
+					"default": "\"default\"",
+					"description": "A plain bar you read.\nA row of thin bars that spring up in the wake of a fast drag.\nA fill with mass: it lags the handle and sloshes at the end stops.",
 					"required": false
 				}
 			]
@@ -4613,91 +4695,6 @@
 			]
 		}
 	],
-	"slosh-slider": [
-		{
-			"name": "SloshSlider",
-			"description": "",
-			"props": [
-				{
-					"name": "label",
-					"type": "string",
-					"description": "",
-					"required": true
-				},
-				{
-					"name": "className",
-					"type": "string",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "corner",
-					"type": "number",
-					"default": "20",
-					"description": "Track corner, from square to a pill, 0–20.",
-					"required": false
-				},
-				{
-					"name": "defaultValue",
-					"type": "number",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "disabled",
-					"type": "boolean",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "formatValue",
-					"type": "(value: number) => string",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "momentum",
-					"type": "number",
-					"default": "55",
-					"description": "How far the handle coasts after release, 0–100.",
-					"required": false
-				},
-				{
-					"name": "onChange",
-					"type": "(value: number) => void",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "size",
-					"type": "SloshSliderSize",
-					"default": "\"md\"",
-					"description": "Track height and knob scale.",
-					"required": false
-				},
-				{
-					"name": "tilt",
-					"type": "number",
-					"default": "45",
-					"description": "Lean of the liquid's leading edge, 0–100.",
-					"required": false
-				},
-				{
-					"name": "value",
-					"type": "number",
-					"description": "",
-					"required": false
-				},
-				{
-					"name": "viscosity",
-					"type": "number",
-					"default": "15",
-					"description": "0 is rigid; 100 is loose liquid.",
-					"required": false
-				}
-			]
-		}
-	],
 	"spinner": [
 		{
 			"name": "Spinner",
@@ -4802,10 +4799,31 @@
 					"required": false
 				},
 				{
+					"name": "size",
+					"type": "SwitchSize",
+					"default": "\"md\"",
+					"description": "Track height, width and thumb.",
+					"required": false
+				},
+				{
+					"name": "tone",
+					"type": "SwitchTone",
+					"default": "\"accent\"",
+					"description": "The colour of the switched on track. `accent` follows the chosen accent.",
+					"required": false
+				},
+				{
 					"name": "value",
 					"type": "string | number",
 					"default": "\"on\"",
 					"description": "The value of switch input. Useful for form submission.",
+					"required": false
+				},
+				{
+					"name": "variant",
+					"type": "SwitchVariant",
+					"default": "\"default\"",
+					"description": "`liquid` lets a second drop of glass chase the thumb through a goo filter, so it stretches as it travels.",
 					"required": false
 				}
 			]
@@ -4814,12 +4832,31 @@
 	"tab-bar": [
 		{
 			"name": "TabBar",
-			"description": "The bottom tab bar: a floating glass capsule of destinations.",
+			"description": "The bottom tab bar: a floating glass capsule of destinations, with one lens that glides to the chosen one.",
 			"props": [
+				{
+					"name": "action",
+					"type": "ReactNode",
+					"description": "A separate round button beside the capsule, the iOS 26 \"four and one\"\nlayout: four destinations and a search or compose action of their own.",
+					"required": false
+				},
+				{
+					"name": "autoMinimize",
+					"type": "boolean",
+					"description": "Minimizes by itself while the person scrolls down through content and\nrestores on scroll up, at the top, or when the bar is tapped.",
+					"required": false
+				},
 				{
 					"name": "minimized",
 					"type": "boolean",
-					"description": "Shrinks to icons only, like iOS 26 while you scroll down. Pair with `useMinimizeOnScroll`.",
+					"description": "Shrinks to icons only, like iOS 26 while you scroll down. Leave undefined to let `autoMinimize` decide.",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "TabBarSize",
+					"default": "\"md\"",
+					"description": "Item size, from the symbol to the label.",
 					"required": false
 				}
 			]
@@ -4845,6 +4882,24 @@
 					"type": "boolean",
 					"description": "The current destination.",
 					"required": false
+				}
+			]
+		},
+		{
+			"name": "TabBarAction",
+			"description": "The round button beside the capsule, for the one action that is not a destination, usually search.",
+			"props": [
+				{
+					"name": "icon",
+					"type": "ReactNode",
+					"description": "",
+					"required": true
+				},
+				{
+					"name": "label",
+					"type": "string",
+					"description": "Names the button for assistive technology.",
+					"required": true
 				}
 			]
 		}
@@ -4997,8 +5052,36 @@
 	"textarea": [
 		{
 			"name": "Textarea",
-			"description": "A native multi line input. It grows with its content where the browser supports it.",
-			"props": []
+			"description": "A multi line field that grows with its content. It can float its label like\n`Input` and count characters against `maxLength`. The resize grip is gone:\nthe field sizes itself.",
+			"props": [
+				{
+					"name": "label",
+					"type": "string",
+					"description": "The floating label.",
+					"required": false
+				},
+				{
+					"name": "showCount",
+					"type": "boolean",
+					"default": "false",
+					"description": "Shows `count / maxLength` under the field. Needs `maxLength`.",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "InputSize",
+					"default": "\"md\"",
+					"description": "Minimum height and text, from the shared control scale.",
+					"required": false
+				},
+				{
+					"name": "variant",
+					"type": "\"default\" | \"floating\"",
+					"default": "\"default\"",
+					"description": "`floating` draws one whole outline whose top line parts under the label. Needs `label`.",
+					"required": false
+				}
+			]
 		}
 	],
 	"toast": [
@@ -5481,13 +5564,13 @@
 	"search-field": [
 		{
 			"name": "SearchField",
-			"description": "A search input in a full pill. Native `type=\"search\"`, so the clear button,\nEscape and mobile search keyboards come with it. It can rest as a round\nbutton and open on focus, in CSS only.",
+			"description": "A search input in a full pill. It is one box whose width is its state:\nthe lens sits at a fixed inset from the left edge, which at the closed\nwidth happens to centre it in the circle, so opening is the box growing\naround a mark that stayed put. Native `type=\"search\"`, so the clear button,\nEscape and mobile search keyboards come with it.",
 			"props": [
 				{
 					"name": "collapsible",
 					"type": "boolean",
 					"default": "false",
-					"description": "Rests as a round search button and opens into the field when focused or\nwhen it holds text. Needs a `width` class on the field to open to.",
+					"description": "Rests as a round search button and opens into the field when focused or\nwhen it holds text. Opens to the width of its container, so size a wrapper, not the field.",
 					"required": false
 				},
 				{
@@ -5495,6 +5578,13 @@
 					"type": "SearchFieldSize",
 					"default": "\"md\"",
 					"description": "Height, icon and text, from the shared control scale.",
+					"required": false
+				},
+				{
+					"name": "variant",
+					"type": "SearchFieldVariant",
+					"default": "\"inset\"",
+					"description": "`inset` is a quiet filled field; `floating` is a glass pill that sits above content, like iOS 26's search.",
 					"required": false
 				}
 			]
@@ -5881,6 +5971,61 @@
 					"type": "SwatchPickerSize",
 					"default": "\"md\"",
 					"description": "Swatch diameter, check icon and caption scale.",
+					"required": false
+				}
+			]
+		},
+		{
+			"name": "AccentPicker",
+			"description": "Passui's seven accents as a swatch picker that retints the app. Choosing\none sets `data-accent` on the root, so buttons, switches, sliders, focus\nrings, selection and the window ground all follow, and it survives a reload.",
+			"props": [
+				{
+					"name": "label",
+					"type": "string",
+					"description": "Accessible name for the group.",
+					"required": true
+				},
+				{
+					"name": "className",
+					"type": "string",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "names",
+					"type": "Partial<Record<AccentId, string>>",
+					"description": "Translated names for the accents. Falls back to the token names.",
+					"required": false
+				},
+				{
+					"name": "onChange",
+					"type": "(value: AccentId) => void",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "SwatchPickerSize",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "storageKey",
+					"type": "string | false",
+					"default": "\"passui-accent\"",
+					"description": "Remembers the choice in localStorage under this key. Pass `false` to skip.",
+					"required": false
+				},
+				{
+					"name": "target",
+					"type": "HTMLElement",
+					"description": "The element that carries `data-accent`. Defaults to `<html>`, so every control follows.",
+					"required": false
+				},
+				{
+					"name": "value",
+					"type": "AccentId",
+					"description": "Controlled accent. Leave out to let the picker own it.",
 					"required": false
 				}
 			]

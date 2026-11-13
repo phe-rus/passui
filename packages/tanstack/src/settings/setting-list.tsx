@@ -56,8 +56,8 @@ export function SettingList({
 	className,
 }: SettingListProps) {
 	const lines = cn(
-		"[&>*+*]:border-border/40 [&>*+*]:border-t",
-		"[&_.setting-row+.setting-row]:border-border/40 [&_.setting-row+.setting-row]:border-t",
+		"[&>*+*]:border-separator/40 [&>*+*]:border-t",
+		"[&_.setting-row+.setting-row]:border-separator/40 [&_.setting-row+.setting-row]:border-t",
 	);
 
 	// the account app's tile: the heading lives inside the card, on a tinted band
@@ -76,7 +76,7 @@ export function SettingList({
 						<div className="flex min-w-0 flex-1 flex-col">
 							<Heading className="text-callout">{title}</Heading>
 							{description && (
-								<p className="text-footnote text-muted-foreground">
+								<p className="text-footnote text-label-secondary">
 									{description}
 								</p>
 							)}
@@ -124,7 +124,7 @@ export function SettingList({
 			)}
 			<div
 				className={cn(
-					"border-border/35 bg-card flex flex-col overflow-hidden rounded-xl border shadow-xs",
+					"border-separator/35 bg-elevated flex flex-col overflow-hidden rounded-xl border shadow-xs",
 					lines,
 				)}
 			>
@@ -151,8 +151,8 @@ function Row({
 	const className = cn(
 		"setting-row flex min-h-10 w-full items-center gap-3 px-3.5 py-1.5 text-left",
 		interactive &&
-			"hover:bg-foreground/[0.035] focus-visible:bg-foreground/[0.05] cursor-pointer transition-colors focus-visible:outline-none",
-		tone === "destructive" && "[&_h3]:text-destructive",
+			"hover:bg-label/[0.035] focus-visible:bg-label/[0.05] cursor-pointer transition-colors focus-visible:outline-none",
+		tone === "destructive" && "[&_h3]:text-danger",
 	);
 	const body = (
 		<>
@@ -162,7 +162,7 @@ function Row({
 				{description && <p className="text-caption">{description}</p>}
 			</span>
 			{value && (
-				<span className="text-subheadline text-muted-foreground max-w-[45%] truncate">
+				<span className="text-subheadline text-label-secondary max-w-[45%] truncate">
 					{value}
 				</span>
 			)}

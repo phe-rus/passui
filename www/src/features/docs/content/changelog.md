@@ -8,6 +8,11 @@ order: 8
 
 The full history lives in [`CHANGELOG.md`](https://github.com/phe-rus/passui/blob/main/CHANGELOG.md) in the repository. This is the short version of the current rebuild.
 
+## 0.3.0
+
+- `Progress` has `wake` and `slosh` variants and sizes, replacing the separate Wake and Slosh sliders.
+- New `Switch` sizes, tones and a `liquid` variant; `Tab Bar` with a gliding lens, `autoMinimize` and a four and one layout; floating label `Input` and `Textarea`; an expanding `Search Field` with a glass variant; `AccentPicker`; built in haptics.
+
 ## 0.2.0, the lean rebuild
 
 - Every component is rebuilt on Zag.js state machines where behaviour is hard, and on native elements where it is not. One subpath per component, so you pay only for what you import.

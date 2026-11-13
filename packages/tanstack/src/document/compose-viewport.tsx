@@ -44,7 +44,7 @@ function Window({ className, children, after, ...props }: WindowProps) {
 		<body
 			className={cn(
 				"bg-background fixed h-svh w-full min-w-full",
-				"overflow-x-hidden selection:bg-olive-500/15",
+				"selection:bg-accent/20 overflow-x-hidden",
 				"typeset wrap-anywhere duration-200",
 				"flex flex-col",
 				className,

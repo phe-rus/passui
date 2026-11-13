@@ -1,5 +1,8 @@
+import { TabBarFourAndOne } from "../examples/tab-bar/four-and-one";
 import { TabBarLabelsOnly } from "../examples/tab-bar/labels-only";
 import { TabBarMinimized } from "../examples/tab-bar/minimized";
+import { TabBarScrollAware } from "../examples/tab-bar/scroll-aware";
+import { TabBarSizes } from "../examples/tab-bar/sizes";
 import { TabBarTwoTabs } from "../examples/tab-bar/two-tabs";
 import { TabBarUsage } from "../examples/tab-bar/usage";
 import type { ComponentDoc } from "../types";
@@ -14,10 +17,31 @@ export const doc: ComponentDoc = {
 			Demo: TabBarUsage,
 		},
 		{
+			id: "four-and-one",
+			title: "Four and one",
+			description:
+				"`action` places a round glass button beside the capsule, the iOS 26 layout for search: destinations on one side, the one action that is not a destination on the other.",
+			Demo: TabBarFourAndOne,
+		},
+		{
+			id: "scroll-aware",
+			title: "Scroll aware",
+			description:
+				"`autoMinimize` folds the bar to icons while you scroll down through content, and restores it on scroll up, at the top, or when you tap it.",
+			Demo: TabBarScrollAware,
+		},
+		{
+			id: "sizes",
+			title: "Sizes",
+			description:
+				"`md` is the iOS proportion: a 24 pt symbol over an 11 pt label. `sm` and `lg` scale the symbol, the item and the padding.",
+			Demo: TabBarSizes,
+		},
+		{
 			id: "minimized",
 			title: "Minimized",
 			description:
-				"Shrinks to icons only. Drive `minimized` from `useMinimizeOnScroll` to match iOS 26 while the page scrolls down.",
+				"Shrinks to icons only. Set `minimized` yourself, or use `autoMinimize` as above.",
 			Demo: TabBarMinimized,
 		},
 		{
@@ -36,6 +60,7 @@ export const doc: ComponentDoc = {
 	accessibility: [
 		"Each item keeps its label as an `aria-label`, so it is named even when minimized.",
 		'The current destination has `aria-current="page"`.',
+		"The lens that marks it is decorative and moves with a spring; under reduced motion it jumps.",
 		"Use a `nav` landmark per bar and give it an `aria-label` when a page has more than one.",
 	],
 };

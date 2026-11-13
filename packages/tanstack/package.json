@@ -1,6 +1,6 @@
 {
 	"name": "@passui/tanstack",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"license": "MIT",
 	"type": "module",
 	"repository": {
@@ -38,7 +38,7 @@
 		"@tanstack/react-router-devtools": "^1.167.2",
 		"@tanstack/react-table": "^9.2.4",
 		"motion": "^13.4.4",
-		"@passui/react": "^0.2.0",
+		"@passui/react": "^0.3.0",
 		"@passui/icons": "^0.1.0"
 	},
 	"devDependencies": {

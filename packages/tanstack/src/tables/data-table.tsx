@@ -150,15 +150,15 @@ function ToolbarToggle({
 			aria-expanded={open}
 			onClick={onClick}
 			className={cn(
-				"border-border/40 text-caption flex h-8 cursor-pointer items-center gap-1.5 rounded-full border px-3 transition-colors",
+				"border-separator/40 text-caption flex h-8 cursor-pointer items-center gap-1.5 rounded-full border px-3 transition-colors",
 				engaged
-					? "bg-foreground/[0.07] text-foreground"
-					: "text-muted-foreground hover:bg-foreground/[0.04] hover:text-foreground",
+					? "bg-label/[0.07] text-label"
+					: "text-label-secondary hover:bg-label/[0.04] hover:text-label",
 			)}
 		>
 			{label}
 			{count > 0 && (
-				<span className="bg-foreground/10 rounded-full px-1.5 tabular-nums">
+				<span className="bg-label/10 rounded-full px-1.5 tabular-nums">
 					{count}
 				</span>
 			)}
@@ -317,7 +317,7 @@ export function DataTable<TData extends RowData>({
 			</div>
 
 			{columnsOpen && (
-				<div className="border-border/40 bg-foreground/[0.025] flex flex-col gap-2 rounded-2xl border p-4">
+				<div className="border-separator/40 bg-label/[0.025] flex flex-col gap-2 rounded-2xl border p-4">
 					<div className="flex items-center justify-between">
 						<h3 className="text-caption">Columns</h3>
 						{hiddenCount > 0 && (
@@ -326,7 +326,7 @@ export function DataTable<TData extends RowData>({
 								variant="ghost"
 								size="sm"
 								onClick={() => table.resetColumnVisibility()}
-								className="text-muted-foreground hover:text-foreground"
+								className="text-label-secondary hover:text-label"
 							>
 								Show all
 							</Button>
@@ -351,7 +351,7 @@ export function DataTable<TData extends RowData>({
 			)}
 
 			{filtersOpen && (
-				<div className="border-border/40 bg-foreground/[0.025] flex flex-col gap-2 rounded-2xl border p-4">
+				<div className="border-separator/40 bg-label/[0.025] flex flex-col gap-2 rounded-2xl border p-4">
 					<div className="flex items-center justify-between">
 						<h3 className="text-caption">Filters</h3>
 						{activeFilterCount > 0 && (
@@ -360,7 +360,7 @@ export function DataTable<TData extends RowData>({
 								variant="ghost"
 								size="sm"
 								onClick={() => setColumnFilters([])}
-								className="text-muted-foreground hover:text-foreground"
+								className="text-label-secondary hover:text-label"
 							>
 								<CloseIcon size={12} />
 								Clear all
@@ -368,7 +368,7 @@ export function DataTable<TData extends RowData>({
 						)}
 					</div>
 					{filterableColumns.length === 0 ? (
-						<p className="text-caption text-muted-foreground/60">
+						<p className="text-caption text-label-secondary/60">
 							No filterable columns.
 						</p>
 					) : (
@@ -395,7 +395,7 @@ export function DataTable<TData extends RowData>({
 			)}
 
 			{bulkActions && selectedCount > 0 && (
-				<div className="border-border/40 bg-foreground/[0.035] flex items-center gap-3 rounded-full border py-1.5 pr-1.5 pl-4">
+				<div className="border-separator/40 bg-label/[0.035] flex items-center gap-3 rounded-full border py-1.5 pr-1.5 pl-4">
 					<span className="text-caption font-medium">
 						{selectedCount} selected
 					</span>
@@ -406,7 +406,7 @@ export function DataTable<TData extends RowData>({
 						variant="ghost"
 						size="sm"
 						onClick={clearSelection}
-						className="text-muted-foreground hover:text-foreground ml-auto"
+						className="text-label-secondary hover:text-label ml-auto"
 					>
 						Clear
 					</Button>
@@ -424,7 +424,7 @@ export function DataTable<TData extends RowData>({
 					{table.getHeaderGroups().map((headerGroup) => (
 						<TableRow
 							key={headerGroup.id}
-							className="border-border/40 border-b hover:bg-transparent"
+							className="border-separator/40 border-b hover:bg-transparent"
 						>
 							{headerGroup.headers.map((header) => (
 								<TableHead
@@ -442,7 +442,7 @@ export function DataTable<TData extends RowData>({
 									{header.isPlaceholder ? null : header.column.getCanSort() ? (
 										<button
 											type="button"
-											className="text-muted-foreground hover:text-foreground flex w-fit items-center gap-1 focus-visible:outline-2 focus-visible:outline-offset-2"
+											className="text-label-secondary hover:text-label flex w-fit items-center gap-1 focus-visible:outline-2 focus-visible:outline-offset-2"
 											onClick={header.column.getToggleSortingHandler()}
 										>
 											{flexRender(
@@ -485,7 +485,7 @@ export function DataTable<TData extends RowData>({
 							<TableRow
 								key={row.id}
 								className={cn(
-									"border-border/25 hover:bg-foreground/[0.025] border-b transition-colors last:border-b-0",
+									"border-separator/25 hover:bg-label/[0.025] border-b transition-colors last:border-b-0",
 									onRowClick && "cursor-pointer",
 								)}
 								data-state={row.getIsSelected() ? "selected" : undefined}

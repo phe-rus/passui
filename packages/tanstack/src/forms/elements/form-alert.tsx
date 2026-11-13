@@ -14,7 +14,7 @@ export function FormAlert({
 		<div
 			role="alert"
 			className={cn(
-				"bg-destructive/12 text-subheadline text-destructive ring-destructive/25 flex items-start gap-2.5 rounded-2xl px-4 py-3 font-medium ring-1 ring-inset",
+				"bg-danger/12 text-subheadline text-danger ring-danger/25 flex items-start gap-2.5 rounded-2xl px-4 py-3 font-medium ring-1 ring-inset",
 				"motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-300",
 				className,
 			)}

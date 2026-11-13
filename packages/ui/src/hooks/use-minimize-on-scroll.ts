@@ -6,9 +6,10 @@ import { minimizeDecision } from "./scroll/minimize-decision";
  * back up or reach the top: iOS 26's `tabBarMinimizeBehavior(.onScrollDown)`.
  * Listens to every scroll container, since each screen scrolls its own pane.
  */
-export function useMinimizeOnScroll() {
+export function useMinimizeOnScroll(enabled = true) {
 	const [minimized, setMinimized] = useState(false);
 	useEffect(() => {
+		if (!enabled) return;
 		const anchors = new WeakMap<Element, number>();
 		let intent: number | null = null;
 		const onIntent = () => {
@@ -72,6 +73,6 @@ export function useMinimizeOnScroll() {
 			document.removeEventListener("pointermove", onPointer);
 			document.removeEventListener("keydown", onKey);
 		};
-	}, []);
+	}, [enabled]);
 	return [minimized, setMinimized] as const;
 }

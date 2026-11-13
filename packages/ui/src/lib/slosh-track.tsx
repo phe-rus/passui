@@ -7,9 +7,9 @@ import { cx } from "../lib/cx";
 import { stepLiquid } from "../lib/liquid-step";
 import { clampRange as clamp } from "../lib/range-value";
 
-export type SloshSliderSize = "sm" | "md" | "lg";
+export type SloshTrackSize = "sm" | "md" | "lg";
 
-export interface SloshSliderProps {
+export interface SloshTrackProps {
 	label: string;
 	value?: number;
 	defaultValue?: number;
@@ -23,7 +23,7 @@ export interface SloshSliderProps {
 	/** Track corner, from square to a pill, 0–20. @default 20 */
 	corner?: number;
 	/** Track height and knob scale. @default "md" */
-	size?: SloshSliderSize;
+	size?: SloshTrackSize;
 	disabled?: boolean;
 	className?: string;
 	formatValue?: (value: number) => string;
@@ -41,7 +41,7 @@ export interface SloshSliderProps {
 
    The loop writes geometry directly and parks as soon as it rests.
    React receives only changed integer values for the application's state. */
-export function SloshSlider({
+export function SloshTrack({
 	label,
 	value,
 	defaultValue = 62,
@@ -54,7 +54,7 @@ export function SloshSlider({
 	disabled = false,
 	className,
 	formatValue,
-}: SloshSliderProps) {
+}: SloshTrackProps) {
 	const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
 	const track = useRef<HTMLDivElement>(null);
 	const fillEl = useRef<HTMLDivElement>(null);

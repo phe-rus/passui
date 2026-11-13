@@ -76,7 +76,7 @@ export function FilterRow<TData extends RowData>({
 			(column.getFilterValue() as [string?, string?] | undefined) ?? [];
 		return (
 			<div className="flex items-center gap-3">
-				<span className="text-caption2 text-muted-foreground w-20 shrink-0 font-medium">
+				<span className="text-caption2 text-label-secondary w-20 shrink-0 font-medium">
 					{label}
 				</span>
 				<div className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export function FilterRow<TData extends RowData>({
 						}
 						className="border-input/40 bg-background text-caption h-7 rounded-none border border-dashed px-2 outline-none"
 					/>
-					<span className="text-caption2 text-muted-foreground">to</span>
+					<span className="text-caption2 text-label-secondary">to</span>
 					<input
 						type="date"
 						value={to ?? ""}
@@ -103,7 +103,7 @@ export function FilterRow<TData extends RowData>({
 							type="button"
 							size="icon-sm"
 							onClick={() => column.setFilterValue(undefined)}
-							className="text-muted-foreground hover:text-foreground"
+							className="text-label-secondary hover:text-label"
 						>
 							<CloseIcon size={12} />
 						</Button>
@@ -157,7 +157,7 @@ export function FilterRow<TData extends RowData>({
 							variant="ghost"
 							size="sm"
 							onClick={() => column.setFilterValue(undefined)}
-							className="text-muted-foreground hover:text-foreground"
+							className="text-label-secondary hover:text-label"
 						>
 							<CloseIcon size={12} />
 							Clear
@@ -170,7 +170,7 @@ export function FilterRow<TData extends RowData>({
 
 	return (
 		<div className="flex items-center gap-3">
-			<span className="text-caption2 text-muted-foreground w-20 shrink-0 font-medium capitalize">
+			<span className="text-caption2 text-label-secondary w-20 shrink-0 font-medium capitalize">
 				{label}
 			</span>
 			<div className="relative max-w-xs flex-1">
@@ -187,7 +187,7 @@ export function FilterRow<TData extends RowData>({
 								: undefined,
 						)
 					}
-					className="border-input/40 bg-background text-caption placeholder:text-muted-foreground/40 h-7 w-full rounded-none border border-dashed px-2.5 outline-none"
+					className="border-input/40 bg-background text-caption placeholder:text-label-secondary/40 h-7 w-full rounded-none border border-dashed px-2.5 outline-none"
 				/>
 				{activeValue && (
 					<Button
@@ -195,7 +195,7 @@ export function FilterRow<TData extends RowData>({
 						type="button"
 						size="icon-sm"
 						onClick={() => column.setFilterValue(undefined)}
-						className="text-muted-foreground hover:text-foreground absolute top-1/2 right-1 -translate-y-1/2"
+						className="text-label-secondary hover:text-label absolute top-1/2 right-1 -translate-y-1/2"
 					>
 						<CloseIcon size={12} />
 					</Button>

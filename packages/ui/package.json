@@ -1,6 +1,6 @@
 {
 	"name": "@passui/react",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"description": "Passui: native React controls, design tokens, presentation and appearance.",
 	"license": "MIT",
 	"repository": {
@@ -83,7 +83,6 @@
 		"./sidebar": "./dist/sidebar.js",
 		"./skeleton": "./dist/skeleton.js",
 		"./slider": "./dist/slider.js",
-		"./slosh-slider": "./dist/slosh-slider.js",
 		"./spinner": "./dist/spinner.js",
 		"./stat-tile": "./dist/stat-tile.js",
 		"./stepper": "./dist/stepper.js",
@@ -103,7 +102,6 @@
 		"./use-dismiss": "./dist/use-dismiss.js",
 		"./use-media-query": "./dist/use-media-query.js",
 		"./use-os": "./dist/use-os.js",
-		"./wake-slider": "./dist/wake-slider.js",
 		"./package.json": "./package.json",
 		"./base.css": "./src/styles/base.css",
 		"./utilities.css": "./src/styles/utilities.css",

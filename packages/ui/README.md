@@ -47,14 +47,14 @@ component has its own subpath, such as `@passui/react/dialog` or
 
 ### Controls with a value
 
-`Stepper`, `SloshSlider` and `WakeSlider` take their value from
-`value` and `onChange`. `Stepper` supports fractional steps, disables its actions at the
+`Stepper` takes its value from `value` and `onChange`, and the draggable
+`Progress` variants (`wake`, `slosh`) from `value` and `onValueChange`. `Stepper` supports fractional steps, disables its actions at the
 bounds and rolls its digits unless Reduce Motion is on.
 
 ```tsx
 import { useState } from "react";
 import { Stepper } from "@passui/react/stepper";
-import { WakeSlider } from "@passui/react/wake-slider";
+import { Progress } from "@passui/react/progress";
 
 export function PrintSettings() {
 	const [copies, setCopies] = useState(1);
@@ -70,7 +70,12 @@ export function PrintSettings() {
 				min={1}
 				max={10}
 			/>
-			<WakeSlider label="Volume" value={volume} onChange={setVolume} />
+			<Progress
+				variant="wake"
+				label="Volume"
+				value={volume}
+				onValueChange={setVolume}
+			/>
 		</section>
 	);
 }

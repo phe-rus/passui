@@ -24,11 +24,11 @@ import { clampRange as clamp } from "../lib/range-value";
    changes, which is what the reading and the colours need, and
    the loop runs only while some bar still has energy. */
 
-const H: Record<WakeSliderSize, number> = { sm: 16, md: 20, lg: 26 }; // a bar at rest, px
+const H: Record<WakeTrackSize, number> = { sm: 16, md: 20, lg: 26 }; // a bar at rest, px
 
-export type WakeSliderSize = "sm" | "md" | "lg";
+export type WakeTrackSize = "sm" | "md" | "lg";
 
-export interface WakeSliderProps {
+export interface WakeTrackProps {
 	label: string;
 	value?: number;
 	defaultValue?: number;
@@ -39,10 +39,10 @@ export interface WakeSliderProps {
 	className?: string;
 	formatValue?: (value: number) => string;
 	/** Bar height at rest and value text scale. @default "md" */
-	size?: WakeSliderSize;
+	size?: WakeTrackSize;
 }
 
-export function WakeSlider({
+export function WakeTrack({
 	label,
 	value: controlledValue,
 	defaultValue = 50,
@@ -55,7 +55,7 @@ export function WakeSlider({
 	bars = 36,
 	/* how high the wake rises, 0..100 */
 	wake = 60,
-}: WakeSliderProps) {
+}: WakeTrackProps) {
 	const n = Math.round(clamp(Number.isFinite(bars) ? bars : 36, 12, 64));
 	const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
 	const [value, setValue] = useState(() =>

@@ -5,8 +5,8 @@
     "compatibility_flags": ["nodejs_compat"],
     "main": "src/server.ts",
     "observability": {
-        "enabled": true,
-        "traces": { "enabled": true }
+        "enabled": false,
+        "traces": { "enabled": false }
     },
     "workers_dev": false,
     "preview_urls": false,
