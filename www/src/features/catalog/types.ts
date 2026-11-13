@@ -36,6 +36,8 @@ export interface ExampleDoc {
 /** The part of a docs page that holds executable demos. Loaded per page. */
 export interface ComponentDoc {
 	examples: ExampleDoc[];
+	/** Where a part nests: part name to its parent. Parts left out sit directly under the root. */
+	anatomy?: Record<string, string>;
 	accessibility: string[];
 }
 

@@ -24,6 +24,7 @@
 		"input-otp": 10600,
 		"kbd": 800,
 		"label": 300,
+		"item": 1800,
 		"list": 1300,
 		"pagination": 2000,
 		"popover": 32700,

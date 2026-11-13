@@ -274,6 +274,12 @@ interface Latest {
 	sourceId: string | undefined;
 	/** Utility classes that give the drop the panel's material and corner shape. */
 	material: string;
+	/**
+	 * For a field the reader keeps typing in, such as a combobox. The source stays
+	 * visible the whole time and the glass grows from, and returns to, the
+	 * source's bottom edge instead of swelling out of its face.
+	 */
+	keepSource?: boolean;
 }
 
 /**
@@ -318,6 +324,14 @@ function createController(latest: { current: Latest }) {
 		return animation;
 	};
 
+	/** Where the glass starts and lands: the source's box, or a flat line on its bottom edge. */
+	const sourceBox = (from: HTMLElement): DropBox => {
+		const box = readBox(from);
+		return latest.current.keepSource
+			? { ...box, top: box.top + box.height, height: 0 }
+			: box;
+	};
+
 	/** Drops the ghost once its fade ends. A cancelled fade rejects, which is fine. */
 	const retireOnFinish = (fade: Animation, ghost: HTMLElement) => {
 		fade.finished.then(
@@ -356,7 +370,7 @@ function createController(latest: { current: Latest }) {
 				ghosts.push(ghost);
 				track(
 					ghost.animate(
-						[boxKeyframe(readBox(from)), boxKeyframe(readBox(panel))],
+						[boxKeyframe(sourceBox(from)), boxKeyframe(readBox(panel))],
 						{ duration: ms, easing, fill: "forwards" },
 					),
 				);
@@ -367,13 +381,15 @@ function createController(latest: { current: Latest }) {
 					),
 				);
 				retireOnFinish(fade, ghost);
-				track(
-					from.animate([{ opacity: 1 }, { opacity: 0 }], {
-						duration: HIDE_MS,
-						easing: "ease-out",
-						fill: "forwards",
-					}),
-				);
+				if (!latest.current.keepSource) {
+					track(
+						from.animate([{ opacity: 1 }, { opacity: 0 }], {
+							duration: HIDE_MS,
+							easing: "ease-out",
+							fill: "forwards",
+						}),
+					);
+				}
 				content.play();
 				content.onfinish = () => content.cancel();
 			} catch {
@@ -417,7 +433,7 @@ function createController(latest: { current: Latest }) {
 				const ghost = makeGhost(panel, latest.current.material);
 				ghosts.push(ghost);
 				track(
-					ghost.animate([boxKeyframe(start), boxKeyframe(readBox(to))], {
+					ghost.animate([boxKeyframe(start), boxKeyframe(sourceBox(to))], {
 						duration: CLOSE_MS,
 						easing: CLOSE_EASING,
 						fill: "forwards",
@@ -438,12 +454,14 @@ function createController(latest: { current: Latest }) {
 					),
 				);
 				// The trigger's face returns as the drop lands on it.
-				track(
-					to.animate(
-						[{ opacity: 0 }, { opacity: 0, offset: 0.7 }, { opacity: 1 }],
-						{ duration: CLOSE_MS, easing: "linear" },
-					),
-				);
+				if (!latest.current.keepSource) {
+					track(
+						to.animate(
+							[{ opacity: 0 }, { opacity: 0, offset: 0.7 }, { opacity: 1 }],
+							{ duration: CLOSE_MS, easing: "linear" },
+						),
+					);
+				}
 			} catch {
 				reset();
 			}

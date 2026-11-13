@@ -104,22 +104,26 @@ export function DocsNav({ onNavigate }: DocsNavProps) {
 					</SidebarMenu>
 				</SidebarGroup>
 			))}
-			<ul
-				aria-label="What the dots mean"
-				className="text-caption text-label-tertiary m-0 flex list-none flex-wrap gap-x-4 gap-y-1 p-0 px-3"
-			>
-				{(Object.keys(statusDot) as (keyof typeof statusDot)[]).map(
-					(status) => (
-						<li key={status} className="flex items-center gap-1.5">
-							<span
-								aria-hidden
-								className={cn("block size-1.5 rounded-full", statusDot[status])}
-							/>
-							<span className="capitalize">{status}</span>
-						</li>
-					),
-				)}
-			</ul>
 		</Sidebar>
+	);
+}
+
+/** The key to the dots beside rows. Pinned under the list so it never scrolls away. */
+export function DocsLegend() {
+	return (
+		<ul
+			aria-label="What the dots mean"
+			className="text-caption text-label-tertiary border-separator/50 m-0 flex list-none flex-wrap gap-x-4 gap-y-1 border-t px-6 py-3"
+		>
+			{(Object.keys(statusDot) as (keyof typeof statusDot)[]).map((status) => (
+				<li key={status} className="flex items-center gap-1.5">
+					<span
+						aria-hidden
+						className={cn("block size-1.5 rounded-full", statusDot[status])}
+					/>
+					<span className="capitalize">{status}</span>
+				</li>
+			))}
+		</ul>
 	);
 }

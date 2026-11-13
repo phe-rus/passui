@@ -64,6 +64,15 @@ export const registry: ComponentMeta[] = [
 		status: "updated",
 	},
 	{
+		slug: "item",
+		name: "Item",
+		group: "Layout",
+		summary:
+			"A titled, inset group of rows with a footer note, as in iOS Settings.",
+		entry: "item",
+		status: "new",
+	},
+	{
 		slug: "card",
 		name: "Card",
 		group: "Layout",

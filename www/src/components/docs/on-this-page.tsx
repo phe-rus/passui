@@ -22,7 +22,7 @@ export function OnThisPage({
 	return (
 		<nav
 			aria-label="On this page"
-			className="sticky top-24 flex flex-col gap-3"
+			className="no-scrollbar sticky top-24 flex max-h-[calc(100svh-8rem)] flex-col gap-3 overflow-y-auto"
 		>
 			<Text as="span" size="footnote" weight="semibold">
 				On this page
@@ -34,7 +34,7 @@ export function OnThisPage({
 							href={`#${item.id}`}
 							aria-current={item.id === active ? "location" : undefined}
 							className={cn(
-								"text-footnote -ms-px block truncate border-s-2 py-1 no-underline transition-colors",
+								"text-footnote focus-visible:ring-accent/70 -ms-px block truncate rounded-e-lg border-s-2 py-1 no-underline transition-colors outline-none focus-visible:ring-2",
 								item.depth ? "ps-6" : "ps-3",
 								item.id === active
 									? "border-accent text-label font-medium"

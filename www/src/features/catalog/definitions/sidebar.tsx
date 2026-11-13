@@ -41,6 +41,12 @@ export const doc: ComponentDoc = {
 			Demo: SidebarUsage,
 		},
 	],
+	anatomy: {
+		SidebarGroupLabel: "SidebarGroup",
+		SidebarMenu: "SidebarGroup",
+		SidebarMenuItem: "SidebarMenu",
+		SidebarMenuButton: "SidebarMenuItem",
+	},
 	accessibility: [
 		'A `nav` landmark: name it with `aria-label`. The current row carries `aria-current="page"` through `isActive`, or through your router when you pass `render`.',
 		"Show counts only when they need attention, like unread items.",

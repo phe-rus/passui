@@ -32,6 +32,10 @@ export const doc: ComponentDoc = {
 			Demo: AccordionDisabled,
 		},
 	],
+	anatomy: {
+		AccordionTrigger: "AccordionItem",
+		AccordionContent: "AccordionItem",
+	},
 	accessibility: [
 		"Each trigger is a button inside a heading, with `aria-expanded` and `aria-controls`.",
 		"Arrow keys, Home and End move between triggers.",

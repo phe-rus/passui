@@ -11,25 +11,17 @@ import {
 	BreadcrumbSeparator,
 } from "@passui/react/breadcrumb";
 import { Button } from "@passui/react/button";
-import { CodeBlock } from "@passui/react/code-block";
 import { Layout } from "@passui/react/layout";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@passui/react/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@passui/react/tabs";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { use } from "react";
+import { AnatomySection } from "@/components/docs/anatomy-section";
+import { ApiSection } from "@/components/docs/api-section";
 import { DocSection } from "@/components/docs/doc-section";
 import { ExampleCard } from "@/components/docs/example-card";
+import { InstallSection } from "@/components/docs/install-section";
 import { OnThisPage } from "@/components/docs/on-this-page";
 import { PageNav } from "@/components/docs/page-nav";
 import { getComponentMarkdown } from "@/features/ai/lib/get-component-markdown";
-import { packageManagers } from "@/features/catalog/install";
 import { loadComponentPage, loadDefinition } from "@/features/catalog/load";
 import { getMeta } from "@/features/catalog/registry";
 import { pageColumn, pageGrid, pageRail } from "@/features/docs/lib/prose";
@@ -130,88 +122,19 @@ function RouteComponent() {
 					</>
 				}
 			>
-				<DocSection
-					first
-					id="installation"
-					title="Installation"
-					description={
-						<>
-							Add the package once, import{" "}
-							<code>@passui/react/{meta.entry}</code> where you use it.
-						</>
-					}
-				>
-					<Tabs
-						defaultValue="bun"
-						variant="line"
-						tone="accent"
-						className="ring-separator/60 gap-0 overflow-hidden rounded-3xl ring-1"
-					>
-						<TabsList className="px-4">
-							{packageManagers.map(({ id }) => (
-								<TabsTrigger key={id} value={id}>
-									{id}
-								</TabsTrigger>
-							))}
-						</TabsList>
-						{packageManagers.map(({ id }) => (
-							<TabsContent key={id} value={id}>
-								<CodeBlock
-									className="bg-elevated"
-									code={code.installs[id]?.source ?? ""}
-									title={id}
-									language="Shell"
-									lineNumbers={false}
-									copyable
-								>
-									{/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlighted on the server */}
-									<div
-										dangerouslySetInnerHTML={{
-											__html: code.installs[id]?.html ?? "",
-										}}
-									/>
-								</CodeBlock>
-							</TabsContent>
-						))}
-					</Tabs>
-					<div className="ring-separator/60 overflow-hidden rounded-3xl ring-1">
-						<CodeBlock
-							className="bg-elevated"
-							code={code.importLine}
-							title="tsx"
-							language="TypeScript JSX"
-							lineNumbers={code.importLine.includes("\n")}
-							copyable
-						>
-							{/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlighted on the server */}
-							<div dangerouslySetInnerHTML={{ __html: code.install }} />
-						</CodeBlock>
-					</div>
-				</DocSection>
+				<InstallSection
+					entry={meta.entry}
+					installs={code.installs}
+					importLine={code.importLine}
+					importHtml={code.install}
+				/>
 
 				{api.length > 1 ? (
-					<DocSection
-						id="anatomy"
-						title="Anatomy"
-						description="The parts, and how they nest."
-					>
-						<div className="ring-separator/60 overflow-hidden rounded-3xl ring-1">
-							<CodeBlock
-								className="bg-elevated"
-								lineNumbers={false}
-								copyable
-								code={[
-									api[0]?.name,
-									...api
-										.slice(1)
-										.map(
-											(part, index, parts) =>
-												`${index === parts.length - 1 ? "└─" : "├─"} ${part.name}`,
-										),
-								].join("\n")}
-							/>
-						</div>
-					</DocSection>
+					<AnatomySection
+						entry={meta.entry}
+						parts={api}
+						parents={doc.anatomy}
+					/>
 				) : null}
 
 				<DocSection
@@ -259,76 +182,7 @@ function RouteComponent() {
 					</ul>
 				</DocSection>
 
-				<DocSection
-					id="api-reference"
-					title="API reference"
-					description="Props for every part, read from the component's types."
-				>
-					<div className="flex flex-col gap-8">
-						{api
-							.filter((part) => part.props.length > 0)
-							.map((part) => (
-								<div key={part.name} className="text-caption">
-									<h3 className="text-caption text-label m-0 font-medium">
-										<code>{part.name}</code>
-									</h3>
-									{part.description ? (
-										<p
-											className="text-caption text-label-secondary m-0"
-											title={part.description}
-										>
-											{part.description}
-										</p>
-									) : null}
-									<Table className="ring-separator/60 text-caption mt-3 w-full table-fixed rounded-3xl text-left ring-1">
-										<TableHeader className="bg-fill/50">
-											<TableRow>
-												<TableHead className="text-caption w-[28%] px-3 py-2">
-													Prop
-												</TableHead>
-												<TableHead className="text-caption w-[44%] px-3 py-2">
-													Type
-												</TableHead>
-												<TableHead className="text-caption w-[28%] px-3 py-2">
-													Default
-												</TableHead>
-											</TableRow>
-										</TableHeader>
-										<TableBody>
-											{part.props.map((prop) => (
-												<TableRow
-													key={prop.name}
-													className="border-separator/60 border-t align-top"
-												>
-													<TableCell
-														className="text-caption truncate px-3 py-2 font-mono font-medium"
-														title={prop.description || prop.name}
-													>
-														{prop.name}
-														{prop.required ? (
-															<span className="text-danger ms-1">*</span>
-														) : null}
-													</TableCell>
-													<TableCell
-														className="text-caption truncate px-3 py-2 font-mono"
-														title={prop.type}
-													>
-														{prop.type}
-													</TableCell>
-													<TableCell
-														className="text-caption truncate px-3 py-2 font-mono"
-														title={prop.default}
-													>
-														{prop.default ?? "–"}
-													</TableCell>
-												</TableRow>
-											))}
-										</TableBody>
-									</Table>
-								</div>
-							))}
-					</div>
-				</DocSection>
+				<ApiSection parts={api} />
 
 				<PageNav href={`/docs/components/${meta.slug}`} />
 			</Layout>

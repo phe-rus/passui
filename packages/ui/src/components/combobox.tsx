@@ -14,7 +14,20 @@ export interface ComboboxItem {
 	disabled?: boolean;
 }
 
-export interface ComboboxProps {
+export interface ComboboxProps
+	extends Omit<
+		zagCombobox.Props<ComboboxItem>,
+		| "id"
+		| "ids"
+		| "collection"
+		| "value"
+		| "defaultValue"
+		| "onValueChange"
+		| "inputValue"
+		| "defaultInputValue"
+		| "onInputValueChange"
+		| "placeholder"
+	> {
 	items: ComboboxItem[];
 	value?: string | null;
 	defaultValue?: string | null;
@@ -22,6 +35,8 @@ export interface ComboboxProps {
 	placeholder?: string;
 	/** Shown when the query matches nothing. */
 	empty?: ReactNode;
+	/** The accessible name of the chevron button, so apps can translate it. @default "Show options" */
+	triggerLabel?: string;
 	disabled?: boolean;
 	invalid?: boolean;
 	name?: string;
@@ -37,11 +52,13 @@ export function Combobox({
 	onValueChange,
 	placeholder = "Search",
 	empty = "No results.",
+	triggerLabel = "Show options",
 	disabled,
 	invalid,
 	name,
 	"aria-label": ariaLabel,
 	className,
+	...props
 }: ComboboxProps) {
 	const id = useId();
 	const [query, setQuery] = useState("");
@@ -79,16 +96,23 @@ export function Combobox({
 			onValueChange?.(next[0] ?? null);
 			setQuery("");
 		},
+		// The list sits below the field so the query stays visible while typing,
+		// unlike Select's list, which opens over its trigger. It is as wide as
+		// the field, never taller than the room left, and flips when short.
 		positioning: {
 			sameWidth: true,
+			fitViewport: true,
 			placement: "bottom-start",
 			offset: { mainAxis: 6 },
 		},
+		...props,
 	});
 	const api = zagCombobox.connect(service, normalizeProps);
-	// The list grows from the whole field, not from the small chevron inside it.
+	// The list drops from the field's bottom edge and the field stays put, so
+	// the query remains visible while the reader types.
 	const drop = useWaterDrop({
 		sourceId: api.getControlProps().id,
+		keepSource: true,
 		material: "liquid-glass-dense squircle [--squircle-radius:1.25rem]",
 	});
 	const { ref, mounted, attrs } = usePresence(api.open, drop);
@@ -104,16 +128,16 @@ export function Combobox({
 					aria-label={ariaLabel}
 					placeholder={placeholder}
 					data-slot="combobox-input"
-					className="bg-fill/60 text-footnote text-label placeholder:text-label-tertiary focus-visible:ring-accent/70 aria-invalid:ring-danger/70 h-8.5 w-full rounded-xl pr-9 pl-3 outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2"
+					className="bg-fill/60 text-footnote text-label placeholder:text-label-tertiary focus-visible:ring-accent/70 aria-invalid:ring-danger/70 h-8.5 w-full rounded-xl pr-9 pl-3 transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none"
 				/>
 				<button
 					{...api.getTriggerProps()}
-					className="text-label-secondary absolute inset-y-0 right-1 flex w-9 items-center justify-center"
-					aria-label="Show options"
+					className="group text-label-secondary focus-visible:ring-accent/70 absolute inset-y-0 right-1 flex w-9 items-center justify-center rounded-xl outline-none focus-visible:ring-2 disabled:opacity-40"
+					aria-label={triggerLabel}
 				>
 					<svg
 						viewBox="0 0 16 16"
-						className="size-4"
+						className="size-4 transition-transform duration-(--duration-fast) group-data-[state=open]:rotate-180 motion-reduce:transition-none"
 						fill="none"
 						stroke="currentColor"
 						strokeWidth="2"
@@ -134,7 +158,7 @@ export function Combobox({
 							ref={ref}
 							hidden={false}
 							data-slot="combobox-content"
-							className="liquid-glass-dense squircle morph-reset spring-smooth max-h-72 origin-(--transform-origin,center) overflow-y-auto p-1.5 transition outline-none [--squircle-radius:1.25rem] data-ending-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:scale-[0.88] data-starting-style:opacity-0 motion-reduce:transition-none"
+							className="liquid-glass-dense squircle morph-reset spring-smooth max-h-[min(18rem,var(--available-height,18rem))] w-max max-w-(--available-width,100vw) min-w-(--reference-width) origin-(--transform-origin,center) overflow-y-auto p-1.5 transition outline-none [--squircle-radius:1.25rem] data-ending-style:scale-[0.88] data-ending-style:opacity-0 data-starting-style:scale-[0.88] data-starting-style:opacity-0 data-[side=bottom]:origin-top data-[side=top]:origin-bottom motion-reduce:transition-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-starting-style:scale-100"
 						>
 							{filtered.length === 0 ? (
 								<div className="text-footnote text-label-secondary px-3 py-2">

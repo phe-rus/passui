@@ -31,6 +31,14 @@ export const doc: ComponentDoc = {
 			Demo: DrawerControlled,
 		},
 	],
+	anatomy: {
+		DrawerClose: "DrawerContent",
+		DrawerHandle: "DrawerContent",
+		DrawerHeader: "DrawerContent",
+		DrawerFooter: "DrawerContent",
+		DrawerTitle: "DrawerHeader",
+		DrawerDescription: "DrawerHeader",
+	},
 	accessibility: [
 		"A modal dialog: focus is trapped, Escape closes it, and focus returns to the trigger.",
 		"Swiping is an extra, never the only way. The close part and Escape always work.",

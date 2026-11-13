@@ -34,6 +34,13 @@ export const doc: ComponentDoc = {
 			Demo: DialogControlled,
 		},
 	],
+	anatomy: {
+		DialogClose: "DialogContent",
+		DialogHeader: "DialogContent",
+		DialogFooter: "DialogContent",
+		DialogTitle: "DialogHeader",
+		DialogDescription: "DialogHeader",
+	},
 	accessibility: [
 		"The panel has role `dialog` and is named by `DialogTitle` and described by `DialogDescription`.",
 		"Focus moves in on open, stays inside while open, and returns to the trigger on close.",

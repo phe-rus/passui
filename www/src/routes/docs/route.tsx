@@ -1,7 +1,7 @@
 import { buttonVariants } from "@passui/react/button";
 import { Empty } from "@passui/react/empty";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { DocsNav } from "@/components/docs/docs-nav";
+import { DocsLegend, DocsNav } from "@/components/docs/docs-nav";
 
 export const Route = createFileRoute("/docs")({
 	notFoundComponent: () => (
@@ -25,13 +25,14 @@ export const Route = createFileRoute("/docs")({
 function RouteComponent() {
 	return (
 		<div className="flex w-full flex-1">
-			<div className="sticky top-12 hidden h-[calc(100svh-3rem)] w-[261px] shrink-0 md:block">
+			<div className="sticky top-12 hidden h-[calc(100svh-3rem)] w-[261px] shrink-0 md:flex md:flex-col">
 				<aside
 					data-docs-scroller
-					className="no-scrollbar h-full overflow-y-auto"
+					className="no-scrollbar min-h-0 flex-1 overflow-y-auto mask-[linear-gradient(to_bottom,transparent,black_1rem,black_calc(100%-1.5rem),transparent)]"
 				>
 					<DocsNav />
 				</aside>
+				<DocsLegend />
 				{/* A hairline that fades out at both ends instead of a hard border. */}
 				<span
 					aria-hidden

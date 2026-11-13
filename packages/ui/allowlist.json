@@ -184,6 +184,10 @@
 		"packages": ["react"],
 		"local": ["src/components/label.tsx", "src/lib/cx.ts"]
 	},
+	"src/components/item.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/item.tsx", "src/lib/cx.ts", "src/lib/render.ts"]
+	},
 	"src/components/list.tsx": {
 		"packages": ["react"],
 		"local": ["src/components/list.tsx", "src/lib/cx.ts", "src/lib/render.ts"]

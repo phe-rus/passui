@@ -25,6 +25,7 @@ export * from "./components/input-group";
 export * from "./components/input-otp";
 export * from "./components/kbd";
 export * from "./components/label";
+export * from "./components/item";
 export * from "./components/list";
 export * from "./components/marker";
 export * from "./components/pagination";

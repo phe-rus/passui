@@ -69,7 +69,7 @@ const toneStyles: Record<
 			selected: "data-selected:text-on-accent",
 		},
 		line: {
-			indicator: "bg-accent",
+			indicator: indicatorStyles.line,
 			selected: "data-selected:text-accent-text",
 		},
 	},
@@ -86,7 +86,10 @@ const toneStyles: Record<
 			indicator: "bg-inverse rounded-full",
 			selected: "data-selected:text-on-inverse",
 		},
-		line: { indicator: "bg-inverse", selected: "data-selected:text-label" },
+		line: {
+			indicator: indicatorStyles.line.replace("bg-accent", "bg-inverse"),
+			selected: "data-selected:text-label",
+		},
 	},
 };
 
@@ -169,7 +172,7 @@ export function TabsList({
 				aria-hidden="true"
 				data-slot="tabs-indicator"
 				className={cx(
-					"spring-smooth absolute z-0 transition-[left,top,width,height] motion-reduce:transition-none",
+					"spring-smooth absolute z-0 left-(--left) top-(--top) h-(--height) w-(--width) transition-[left,top,width,height] motion-reduce:transition-none",
 					tone === "neutral"
 						? indicatorStyles[variant]
 						: toneStyles[tone][variant].indicator,

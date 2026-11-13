@@ -32,6 +32,13 @@ export const doc: ComponentDoc = {
 			Demo: BreadcrumbCollapsed,
 		},
 	],
+	anatomy: {
+		BreadcrumbItem: "BreadcrumbList",
+		BreadcrumbSeparator: "BreadcrumbList",
+		BreadcrumbEllipsis: "BreadcrumbList",
+		BreadcrumbLink: "BreadcrumbItem",
+		BreadcrumbPage: "BreadcrumbItem",
+	},
 	accessibility: [
 		"A `nav` landmark named Breadcrumb holding an ordered list.",
 		'The current page carries `aria-current="page"`; separators are hidden.',

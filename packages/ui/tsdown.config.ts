@@ -80,6 +80,7 @@ export default defineConfig({
 		"use-dismiss": "src/hooks/use-dismiss.ts",
 		"use-media-query": "src/hooks/use-media-query.ts",
 		"use-os": "src/hooks/use-os.ts",
+		item: "src/components/item.tsx",
 		list: "src/components/list.tsx",
 		layout: "src/legacy/layout/index.ts",
 		"wake-slider": "src/legacy/wake-slider/wake-slider.tsx",

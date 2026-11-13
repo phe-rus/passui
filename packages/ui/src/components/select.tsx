@@ -113,7 +113,7 @@ export function Select({
 					{...api.getTriggerProps()}
 					aria-label={ariaLabel}
 					data-slot="select-trigger"
-					className="bg-fill/60 text-footnote text-label focus-visible:ring-accent/70 aria-invalid:ring-danger/70 flex h-8.5 w-full items-center justify-between gap-2 rounded-xl px-3 text-left transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none"
+					className="group bg-fill/60 text-footnote text-label focus-visible:ring-accent/70 aria-invalid:ring-danger/70 flex h-8.5 w-full items-center justify-between gap-2 rounded-xl px-3 text-left transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none"
 				>
 					<span
 						{...api.getValueTextProps()}
@@ -123,7 +123,7 @@ export function Select({
 					</span>
 					<svg
 						viewBox="0 0 16 16"
-						className="text-label-secondary size-3.5 shrink-0 transition-transform data-[state=open]:rotate-180"
+						className="text-label-secondary size-3.5 shrink-0 transition-transform duration-(--duration-fast) group-data-[state=open]:rotate-180 motion-reduce:transition-none"
 						fill="none"
 						stroke="currentColor"
 						strokeWidth="2"

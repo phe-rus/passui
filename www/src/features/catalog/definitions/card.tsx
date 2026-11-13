@@ -33,6 +33,11 @@ export const doc: ComponentDoc = {
 			Demo: CardStatFilters,
 		},
 	],
+	anatomy: {
+		CardTitle: "CardHeader",
+		CardDescription: "CardHeader",
+		CardAction: "CardHeader",
+	},
 	accessibility: [
 		"A card is a plain `div`. Use headings inside it that fit the page's outline.",
 	],

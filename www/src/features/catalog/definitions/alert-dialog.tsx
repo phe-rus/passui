@@ -33,6 +33,14 @@ export const doc: ComponentDoc = {
 			Demo: AlertDialogNonDestructive,
 		},
 	],
+	anatomy: {
+		AlertDialogHeader: "AlertDialogContent",
+		AlertDialogFooter: "AlertDialogContent",
+		AlertDialogTitle: "AlertDialogHeader",
+		AlertDialogDescription: "AlertDialogHeader",
+		AlertDialogAction: "AlertDialogFooter",
+		AlertDialogCancel: "AlertDialogFooter",
+	},
 	accessibility: [
 		"Role `alertdialog`, named by the title and described by the description.",
 		"An outside press is ignored, so the person must choose. Escape cancels.",

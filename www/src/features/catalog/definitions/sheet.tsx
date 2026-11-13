@@ -32,6 +32,13 @@ export const doc: ComponentDoc = {
 			Demo: SheetControlled,
 		},
 	],
+	anatomy: {
+		SheetClose: "SheetContent",
+		SheetHeader: "SheetContent",
+		SheetFooter: "SheetContent",
+		SheetTitle: "SheetHeader",
+		SheetDescription: "SheetHeader",
+	},
 	accessibility: [
 		"A modal dialog: focus is trapped, Escape closes it, and focus returns to the trigger.",
 		"Swiping is optional. The close part and Escape always work.",

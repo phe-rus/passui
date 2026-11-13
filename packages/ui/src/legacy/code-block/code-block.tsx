@@ -28,6 +28,8 @@ export interface CodeBlockProps
 	size?: CodeBlockSize;
 	/** A caption over the code, such as a file name. */
 	title?: string;
+	/** Replaces the caption with your own content, such as a tab strip that fills the row's height. */
+	header?: ReactNode;
 	/** The language's name, shown beside the caption. */
 	language?: string;
 	/** Show a copy button that writes `code`. @default false */
@@ -49,6 +51,7 @@ export function CodeBlock({
 	lineNumbers = true,
 	size = "md",
 	title,
+	header,
 	language,
 	copyable = false,
 	foldAfter,
@@ -102,11 +105,18 @@ export function CodeBlock({
 						.join("")}
 				</style>
 			) : null}
-			{title || language || copyable ? (
-				<div className="border-separator/60 flex min-h-9 items-center justify-between gap-3 border-b px-4 py-2">
-					<span className="text-caption text-label-tertiary min-w-0 truncate font-mono">
-						{title}
-					</span>
+			{title || header || language || copyable ? (
+				<div
+					className={cn(
+						"border-separator/60 flex min-h-9 items-center justify-between gap-3 border-b px-4",
+						!header && "py-2",
+					)}
+				>
+					{header ?? (
+						<span className="text-caption text-label-tertiary min-w-0 truncate font-mono">
+							{title}
+						</span>
+					)}
 					<div className="flex shrink-0 items-center gap-1.5">
 						{language ? (
 							<span className="bg-fill/70 text-caption2 text-label-secondary rounded-full px-2 py-1 font-medium">

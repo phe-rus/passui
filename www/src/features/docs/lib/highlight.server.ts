@@ -32,6 +32,17 @@ export interface DocCode {
 	examples: Record<string, CodeSample>;
 }
 
+/**
+ * An import as Biome formats it: specifiers sorted, and one per line as soon
+ * as there is more than one, so a long part list never runs off the block.
+ */
+function formatImport(names: string[], from: string): string {
+	if (!names.length) return `import "${from}";`;
+	const sorted = [...names].sort((a, b) => a.localeCompare(b));
+	if (sorted.length === 1) return `import { ${sorted[0]} } from "${from}";`;
+	return `import {\n${sorted.map((name) => `\t${name},`).join("\n")}\n} from "${from}";`;
+}
+
 /** Highlighted HTML for a page's import line and every example file. */
 export async function highlightDoc(
 	slug: string,
@@ -39,9 +50,7 @@ export async function highlightDoc(
 ): Promise<DocCode> {
 	const parts = (apiJson as Record<string, PartApi[]>)[slug] ?? [];
 	const names = parts.map((p) => p.name);
-	const importLine = names.length
-		? `import { ${names.join(", ")} } from "@passui/react/${entry}";`
-		: `import "@passui/react/${entry}";`;
+	const importLine = formatImport(names, `@passui/react/${entry}`);
 	const examples: DocCode["examples"] = {};
 	for (const [path, read] of Object.entries(sources)) {
 		const [, folder, file] =
