@@ -16,7 +16,7 @@ src/
     catalog/    registry.ts (one row per component), definitions/, examples/, api.generated.json, load.ts, navigation.ts
     docs/       get-guides.ts, content/*.md (the guides), server side highlighting
     ai/         llms.txt, the skill, and a component page as Markdown
-    layout/     the GitHub stars query
+    layout/     the GitHub stars query, cached 24 hours in the Workers edge cache (5 minutes after a failed lookup) so GitHub's unauthenticated rate limit is not hit
     seo/        page head, sitemap, site constants
     home/       the landing page's content and hooks
   hooks/        use-copy-text, use-active-section
