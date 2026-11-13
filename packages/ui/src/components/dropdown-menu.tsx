@@ -15,7 +15,12 @@ import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
-import { anchorOnTrigger, useWaterDrop } from "../lib/water-drop";
+import {
+	positionerSide,
+	useAnchorFollow,
+	useTriggerAnchor,
+	useWaterDrop,
+} from "../lib/water-drop";
 
 type Placement = NonNullable<menu.Props["positioning"]>["placement"];
 
@@ -55,16 +60,24 @@ function useMenuMachine(
 	onTrigger = false,
 ): Ctx {
 	const id = useId();
+	const anchor = useTriggerAnchor(placement ?? "", 6);
 	const service = useMachine(menu.machine, {
 		id,
 		positioning: {
 			placement,
 			offset: { mainAxis: 6 },
-			...(onTrigger && { getAnchorRect: anchorOnTrigger(placement ?? "", 6) }),
+			...(onTrigger && { getAnchorRect: anchor.getAnchorRect }),
 		},
 		...props,
 	});
-	return { service, api: menu.connect(service, normalizeProps) };
+	const api = menu.connect(service, normalizeProps);
+	useAnchorFollow(
+		anchor,
+		onTrigger && api.open,
+		positionerSide(api.getPositionerProps()),
+		api.reposition,
+	);
+	return { service, api };
 }
 
 /** Owns the open state, highlight and typeahead. Renders no element of its own. */

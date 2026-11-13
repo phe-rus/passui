@@ -13,7 +13,12 @@ import { cx } from "../lib/cx";
 import { Portal } from "../lib/portal";
 import { usePresence } from "../lib/presence";
 import { mergeProps, type RenderProp, renderPart } from "../lib/render";
-import { anchorOnTrigger, useWaterDrop } from "../lib/water-drop";
+import {
+	positionerSide,
+	useAnchorFollow,
+	useTriggerAnchor,
+	useWaterDrop,
+} from "../lib/water-drop";
 
 const Context = createContext<popover.Api | null>(null);
 
@@ -40,16 +45,23 @@ export function Popover({
 	...props
 }: PopoverProps) {
 	const id = useId();
+	const anchor = useTriggerAnchor(placement, offset);
 	const service = useMachine(popover.machine, {
 		id,
 		positioning: {
 			placement,
 			offset: { mainAxis: offset },
-			getAnchorRect: anchorOnTrigger(placement, offset),
+			getAnchorRect: anchor.getAnchorRect,
 		},
 		...props,
 	});
 	const api = popover.connect(service, normalizeProps);
+	useAnchorFollow(
+		anchor,
+		api.open,
+		positionerSide(api.getPositionerProps()),
+		api.reposition,
+	);
 	return <Context.Provider value={api}>{children}</Context.Provider>;
 }
 

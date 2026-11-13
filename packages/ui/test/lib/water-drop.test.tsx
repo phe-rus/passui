@@ -8,6 +8,7 @@ import {
 	DropdownMenuTrigger,
 } from "../../src/components/dropdown-menu";
 import {
+	alignSelectedOption,
 	anchorOnTrigger,
 	boxKeyframe,
 	canMorph,
@@ -177,11 +178,70 @@ it("puts an upward panel's bottom edge on the trigger's bottom edge", () => {
 	delete (Element.prototype as { animate?: unknown }).animate;
 });
 
-it("leaves positioning alone where the morph does not run or the panel sits beside", () => {
+it("puts a side panel's near edge on the trigger's matching edge", () => {
+	Element.prototype.animate = vi.fn() as never;
+	expect(anchorOnTrigger("right-start", 6)(trigger)).toEqual({
+		x: 294,
+		y: 40,
+		width: 0,
+		height: 36,
+	});
+	expect(anchorOnTrigger("left-start", 6)(trigger)?.x).toBe(342);
+	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+it("follows a flip to the opposite side", () => {
+	Element.prototype.animate = vi.fn() as never;
+	const state = { flipped: true };
+	expect(anchorOnTrigger("bottom", 6, state)(trigger)?.y).toBe(82);
+	expect(anchorOnTrigger("right", 6, state)(trigger)?.x).toBe(342);
+	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+it("moves a downward panel by the measured shift", () => {
+	Element.prototype.animate = vi.fn() as never;
+	expect(
+		anchorOnTrigger("bottom-start", 6, { shift: () => -20 })(trigger)?.y,
+	).toBe(14);
+	// A flipped panel opens upward, where the shift does not apply.
+	expect(
+		anchorOnTrigger("bottom-start", 6, { flipped: true, shift: () => -20 })(
+			trigger,
+		)?.y,
+	).toBe(82);
+	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+it("leaves positioning alone where the morph does not run", () => {
 	// No Web Animations API here: the panel keeps its normal place.
 	expect(anchorOnTrigger("bottom-end", 6)(trigger)).toBeNull();
 	Element.prototype.animate = vi.fn() as never;
-	expect(anchorOnTrigger("right-start", 6)(trigger)).toBeNull();
 	expect(anchorOnTrigger("bottom", 6)(null)).toBeNull();
+	expect(anchorOnTrigger("auto", 6)(trigger)).toBeNull();
 	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+it("lands the selected option on the trigger's value", () => {
+	const list = document.createElement("div");
+	const option = document.createElement("div");
+	option.setAttribute("role", "option");
+	option.setAttribute("data-state", "checked");
+	list.append(option);
+	Object.defineProperty(list, "offsetTop", { value: 10 });
+	Object.defineProperty(option, "offsetTop", { value: 70 });
+	Object.defineProperty(option, "offsetHeight", { value: 30 });
+	Object.defineProperty(list, "scrollHeight", {
+		value: 200,
+		configurable: true,
+	});
+	Object.defineProperty(list, "clientHeight", { value: 200 });
+	// Option centre is 75px into the list, trigger centre 18px: move up 57.
+	expect(alignSelectedOption(trigger as unknown as Element, list)).toBe(-57);
+	// A list that scrolls cannot keep the two together.
+	Object.defineProperty(list, "scrollHeight", {
+		value: 400,
+		configurable: true,
+	});
+	expect(alignSelectedOption(trigger as unknown as Element, list)).toBe(0);
+	expect(alignSelectedOption(trigger as unknown as Element, null)).toBe(0);
 });

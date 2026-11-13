@@ -30,7 +30,37 @@ export function canMorph(): boolean {
 }
 
 /** The edges of a rectangle, which both a DOM element and Zag's virtual element can report. */
-type EdgeRect = Pick<DOMRect, "left" | "top" | "bottom" | "width" | "height">;
+type EdgeRect = Pick<
+	DOMRect,
+	"left" | "top" | "right" | "bottom" | "width" | "height"
+>;
+
+type Side = "top" | "bottom" | "left" | "right";
+
+const OPPOSITE: Record<Side, Side> = {
+	top: "bottom",
+	bottom: "top",
+	left: "right",
+	right: "left",
+};
+
+const isSide = (value: string | undefined): value is Side =>
+	value === "top" ||
+	value === "bottom" ||
+	value === "left" ||
+	value === "right";
+
+/** What an anchor needs to know beyond the trigger's rectangle. */
+export interface AnchorState {
+	/** Set once the machine has flipped to the opposite side, so the anchor follows it. */
+	flipped?: boolean;
+	/**
+	 * Extra pixels to move the panel along the vertical axis, measured when the
+	 * panel is open. Item aligned Select uses it to land the selected option on
+	 * the trigger's value. Only applies to a panel opening downward.
+	 */
+	shift?: () => number;
+}
 
 /**
  * Positioning for a panel that opens on its trigger instead of beside it. The
@@ -38,20 +68,142 @@ type EdgeRect = Pick<DOMRect, "left" | "top" | "bottom" | "width" | "height">;
  * trigger's near edge, not a gap away: iOS lays the menu over the button and
  * grows it from there. Pass the gap the machine adds so it cancels out.
  *
+ * Works on all four sides: above and below the anchor is a flat line on the
+ * trigger's top or bottom edge; left and right it is a line on the left or
+ * right edge, as tall as the trigger so start and end alignment still hold.
+ *
  * Give it to a machine's `positioning.getAnchorRect`. It stands down (`null`
  * means the trigger's own rectangle) wherever the morph does not run, so the
- * panel then sits below or above the trigger as usual.
+ * panel then sits beside the trigger as usual.
  */
-export function anchorOnTrigger(placement: string, gap: number) {
+export function anchorOnTrigger(
+	placement: string,
+	gap: number,
+	state?: AnchorState,
+) {
 	return (element: { getBoundingClientRect(): EdgeRect } | null) => {
-		const vertical =
-			placement.startsWith("bottom") || placement.startsWith("top");
-		if (!element || !vertical || !canMorph()) return null;
+		const asked = placement.split("-")[0];
+		if (!element || !isSide(asked) || !canMorph()) return null;
+		const side = state?.flipped ? OPPOSITE[asked] : asked;
 		const rect = element.getBoundingClientRect();
-		// A zero height anchor on the near edge: the panel's edge lands on the trigger's.
-		const y = placement.startsWith("top") ? rect.bottom + gap : rect.top - gap;
-		return { x: rect.left, y, width: rect.width, height: 0 };
+		// The machine puts the panel a gap past the anchor, so the anchor is a gap
+		// inside the trigger's edge on the side the panel opens toward.
+		switch (side) {
+			case "bottom": {
+				const shift = state?.shift?.() ?? 0;
+				return {
+					x: rect.left,
+					y: rect.top - gap + shift,
+					width: rect.width,
+					height: 0,
+				};
+			}
+			case "top":
+				return {
+					x: rect.left,
+					y: rect.bottom + gap,
+					width: rect.width,
+					height: 0,
+				};
+			case "right":
+				return {
+					x: rect.left - gap,
+					y: rect.top,
+					width: 0,
+					height: rect.height,
+				};
+			case "left":
+				return {
+					x: rect.right + gap,
+					y: rect.top,
+					width: 0,
+					height: rect.height,
+				};
+		}
 	};
+}
+
+/** The side a machine placed its panel on, from the positioner's props. */
+export function positionerSide(props: object): string | undefined {
+	const side = (props as Record<string, unknown>)["data-side"];
+	return typeof side === "string" ? side : undefined;
+}
+
+/** A trigger anchor that follows the panel when the machine flips it to the other side. */
+export interface TriggerAnchor {
+	getAnchorRect: ReturnType<typeof anchorOnTrigger>;
+	/** Read and written by the anchor and `useAnchorFollow`. */
+	state: AnchorState;
+	/** The side the placement asked for. */
+	base: string;
+}
+
+/**
+ * `anchorOnTrigger` that survives a flip. The machine decides the side after the
+ * anchor is read, so a panel pushed to the other side of the trigger would float
+ * a gap away from it. Pass the result to `useAnchorFollow` once the machine's
+ * api exists.
+ */
+export function useTriggerAnchor(
+	placement: string,
+	gap: number,
+): TriggerAnchor {
+	return useMemo(() => {
+		const state: AnchorState = {};
+		return {
+			getAnchorRect: anchorOnTrigger(placement, gap, state),
+			state,
+			base: placement.split("-")[0] ?? placement,
+		};
+	}, [placement, gap]);
+}
+
+/**
+ * Re-aims the anchor at the trigger's opposite edge the first time the machine
+ * opens on the other side, then repositions. The panel is still hidden while
+ * the drop waits for it to settle, so the correction is never seen. It flips at
+ * most once per opening, so a panel that fits neither side cannot loop.
+ */
+export function useAnchorFollow(
+	anchor: TriggerAnchor,
+	open: boolean,
+	side: string | undefined,
+	reposition: () => void,
+) {
+	const again = useRef(reposition);
+	again.current = reposition;
+	useEffect(() => {
+		if (!open) {
+			anchor.state.flipped = false;
+			return;
+		}
+		if (anchor.state.flipped || !isSide(side) || side === anchor.base) return;
+		anchor.state.flipped = true;
+		again.current();
+	}, [anchor, open, side]);
+}
+
+/**
+ * How far to move a downward list so its selected option lands on the trigger's
+ * value, as macOS and iOS pickers do. Measured from the open list, which is
+ * already in the DOM when the machine positions it. Returns 0 (the list sits
+ * below the trigger) when nothing is selected or the list scrolls, because a
+ * scrolled list cannot keep the option and the trigger together.
+ */
+export function alignSelectedOption(
+	trigger: Element | null,
+	list: HTMLElement | null,
+	selector = '[role="option"][data-state="checked"]',
+): number {
+	const option = list?.querySelector<HTMLElement>(selector);
+	if (!trigger || !list || !option) return 0;
+	if (list.scrollHeight > list.clientHeight + 1) return 0;
+	// offsetTop is relative to the positioner for both, so the difference holds
+	// whatever the list's own offset parent is.
+	const optionCenter =
+		option.offsetTop - list.offsetTop + option.offsetHeight / 2;
+	const triggerCenter = trigger.getBoundingClientRect().height / 2;
+	return triggerCenter - optionCenter;
 }
 
 /** Reads an element's viewport rectangle and the radius it is drawn with, capped to a full pill. */
