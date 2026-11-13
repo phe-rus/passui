@@ -14,7 +14,7 @@ import {
 	withinBounds,
 } from "../lib/calendar-month";
 import { cx } from "../lib/cx";
-import { Wheel } from "../lib/wheel";
+import { WHEEL_ROW, Wheel } from "../lib/wheel";
 
 /** A chosen span of days, as `YYYY-MM-DD`. `to` is empty while the span is open. */
 export interface DateRange {
@@ -182,7 +182,10 @@ export function Calendar(props: CalendarProps) {
 	const edge = range && props.value.from && !props.value.to ? hover : to;
 
 	return (
-		<div data-slot="calendar" className={cx("w-[17.5rem] p-0.5", className)}>
+		<div
+			data-slot="calendar"
+			className={cx("not-typeset w-[17.5rem] p-0.5", className)}
+		>
 			<div className="mb-3 flex items-center justify-between pl-1">
 				<button
 					type="button"
@@ -224,14 +227,21 @@ export function Calendar(props: CalendarProps) {
 			</div>
 			{jumping ? (
 				<div
-					className="flex min-h-[14rem] items-center justify-center gap-2"
+					className="relative flex min-h-[14rem] items-center justify-center"
 					onKeyDown={(event) => {
 						if (event.key !== "Escape") return;
 						event.stopPropagation();
 						setJumping(false);
 					}}
 				>
+					<div
+						aria-hidden="true"
+						className="bg-fill/70 pointer-events-none absolute inset-x-0 rounded-xl"
+						style={{ top: "50%", height: WHEEL_ROW, translate: "0 -50%" }}
+					/>
 					<Wheel
+						band={false}
+						align="end"
 						label={field("month")}
 						options={monthOptions}
 						value={focus.month}
@@ -241,6 +251,8 @@ export function Calendar(props: CalendarProps) {
 						className="w-32"
 					/>
 					<Wheel
+						band={false}
+						align="start"
 						label={field("year")}
 						options={yearOptions}
 						value={focus.year}
@@ -256,7 +268,7 @@ export function Calendar(props: CalendarProps) {
 					aria-labelledby={headingId}
 					aria-label={label}
 					onKeyDown={onKeyDown}
-					className="w-full table-fixed border-collapse"
+					className="not-typeset w-full table-fixed border-collapse border-0 [&_td]:border-0 [&_td]:p-0 [&_th]:border-0 [&_th]:p-0 [&_tr]:border-0"
 				>
 					<thead>
 						<tr>
@@ -322,13 +334,14 @@ export function Calendar(props: CalendarProps) {
 												onMouseEnter={() => setHover(value)}
 												className={cx(
 													cell,
-													!day.inMonth && "text-label-tertiary",
-													day.inMonth && "text-label",
-													value === todayValue &&
-														"text-accent-text font-semibold",
-													!(isStart || isEnd) && "hover:bg-fill/80",
-													(isStart || isEnd) &&
-														"bg-accent text-on-accent font-semibold",
+													// One colour per state, so no class has to win a fight.
+													isStart || isEnd
+														? "bg-accent text-on-accent font-semibold"
+														: value === todayValue
+															? "text-accent-text hover:bg-accent-soft font-semibold"
+															: day.inMonth
+																? "text-label hover:bg-fill/80"
+																: "text-label-tertiary hover:bg-fill/60",
 												)}
 											>
 												{day.day}

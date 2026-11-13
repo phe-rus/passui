@@ -3,7 +3,7 @@
 import { type ReactNode, useMemo, useState } from "react";
 import { formatDay, parseDay } from "../lib/calendar-month";
 import { cx } from "../lib/cx";
-import { Wheel } from "../lib/wheel";
+import { WHEEL_ROW, Wheel } from "../lib/wheel";
 import { buttonVariants } from "./button";
 import { Calendar, type DateRange } from "./calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
@@ -121,25 +121,37 @@ function TimeWheels({
 		];
 	}, [locale]);
 	return (
-		<div className="flex justify-center gap-1">
+		<div className="relative flex w-fit justify-center">
+			{/* One band across every column, like the iOS time wheels, not a pill per column. */}
+			<div
+				aria-hidden="true"
+				className="bg-fill/70 pointer-events-none absolute inset-x-0 rounded-xl"
+				style={{ top: 3 * WHEEL_ROW, height: WHEEL_ROW }}
+			/>
 			<Wheel
+				band={false}
+				align="end"
 				label={labels.hour}
 				options={hours}
 				value={twelve ? time.hour % 12 || 12 : time.hour}
 				onValueChange={(hour) =>
 					emit(twelve ? (hour % 12) + (pm ? 12 : 0) : hour, time.minute)
 				}
-				className="w-16"
+				className="w-[4.5rem]"
 			/>
 			<Wheel
+				band={false}
+				align="start"
 				label={labels.minute}
 				options={minutes}
 				value={time.minute}
 				onValueChange={(minute) => emit(time.hour, minute)}
-				className="w-16"
+				className="w-14"
 			/>
 			{twelve ? (
 				<Wheel
+					band={false}
+					align="start"
 					label={labels.period}
 					options={periods}
 					value={pm ? "pm" : "am"}

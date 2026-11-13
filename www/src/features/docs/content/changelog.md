@@ -8,6 +8,10 @@ order: 8
 
 The full history lives in [`CHANGELOG.md`](https://github.com/phe-rus/passui/blob/main/CHANGELOG.md) in the repository. This is the short version of the current rebuild.
 
+## 0.3.1
+
+- `DateTimePicker` and `Calendar` polished to the iOS look: shared wheel bands, exact row centring, no table lines, aligned weekdays.
+
 ## 0.3.0
 
 - `Progress` has `wake` and `slosh` variants and sizes, replacing the separate Wake and Slosh sliders.

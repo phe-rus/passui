@@ -1,5 +1,14 @@
 # Changelog
 
+## @passui/react 0.3.1
+
+### Fixed
+
+- `DateTimePicker` and `Calendar` follow the iOS pickers. The time wheels share one band across hour, minute and period, with the hour right aligned and the minute left aligned. The month and year wheels share one band too.
+- `Wheel` rows land exactly on the centre. Native scroll snap left every row about 9 px off in Chrome, so the wheel now settles on exact rows itself, and the fade and shrink moved from the row to its text.
+- `Calendar` no longer picks up the `typeset` table styles: the hairlines between weeks are gone and the weekday labels line up over the day numbers. Today takes the accent colour, and a chosen day is a filled accent circle.
+- `Popover` pickers open exactly where every other popover does, on their trigger.
+
 ## @passui/react 0.3.0 and @passui/tanstack 0.3.1
 
 ### Changed

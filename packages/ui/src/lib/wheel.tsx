@@ -28,6 +28,10 @@ interface WheelProps<T extends string | number> {
 	/** Names the wheel for assistive technology. */
 	label: string;
 	className?: string;
+	/** Draws the chosen row's band. Turn it off when several wheels share one band. @default true */
+	band?: boolean;
+	/** Where the text sits in its column. @default "center" */
+	align?: "start" | "center" | "end";
 }
 
 /**
@@ -42,6 +46,8 @@ export function Wheel<T extends string | number>({
 	onValueChange,
 	label,
 	className,
+	band = true,
+	align = "center",
 }: WheelProps<T>) {
 	const id = useId();
 	const scroller = useRef<HTMLDivElement>(null);
@@ -64,7 +70,11 @@ export function Wheel<T extends string | number>({
 		const from = Math.max(0, Math.floor(middle) - 4);
 		const to = Math.min(rows.length - 1, Math.ceil(middle) + 4);
 		for (let row = from; row <= to; row++) {
-			const element = rows[row] as HTMLElement;
+			// The text carries the fade and shrink, never the row: scroll snap reads
+			// the row's box, and a scaled row drifts the wheel off its centre.
+			const element = (rows[row] as HTMLElement)
+				.firstElementChild as HTMLElement | null;
+			if (!element) continue;
 			const distance = Math.abs(row - middle);
 			element.style.opacity = String(Math.max(0.2, 1 - distance * 0.28));
 			element.style.transform = `scale(${1 - Math.min(distance, 3) * 0.05})`;
@@ -88,6 +98,27 @@ export function Wheel<T extends string | number>({
 		shape();
 	}, [index]);
 
+	// A panel that is still opening, scaled or hidden reports a different size,
+	// and the browser leaves the scroll a few pixels off the row. Put the chosen
+	// row back in the middle whenever the box changes size, unless a hand is on it.
+	useEffect(() => {
+		const node = scroller.current;
+		if (!node) return;
+		const resync = () => {
+			if (settle.current) return;
+			const target = latest.current.index * WHEEL_ROW;
+			if (Math.abs(node.scrollTop - target) > 0.5) node.scrollTop = target;
+			shape();
+		};
+		const observer = new ResizeObserver(resync);
+		observer.observe(node);
+		const late = window.setTimeout(resync, 400);
+		return () => {
+			observer.disconnect();
+			clearTimeout(late);
+		};
+	}, []);
+
 	useEffect(
 		() => () => {
 			cancelAnimationFrame(frame.current);
@@ -108,6 +139,7 @@ export function Wheel<T extends string | number>({
 		}
 		clearTimeout(settle.current);
 		settle.current = window.setTimeout(() => {
+			settle.current = 0;
 			const {
 				options: all,
 				index: current,
@@ -115,7 +147,10 @@ export function Wheel<T extends string | number>({
 			} = latest.current;
 			const chosen = all[Math.min(all.length - 1, Math.max(0, row))];
 			if (chosen && !chosen.disabled && row !== current) emit(chosen.value);
-		}, 90);
+			// Land exactly on the row; a pointer that stopped mid row leaves it a little off.
+			if (node && Math.abs(node.scrollTop - row * WHEEL_ROW) > 0.5)
+				goTo(Math.min(all.length - 1, Math.max(0, row)), true);
+		}, 110);
 	};
 
 	const onKeyDown = (event: KeyboardEvent) => {
@@ -149,11 +184,13 @@ export function Wheel<T extends string | number>({
 			style={{ height: VISIBLE_ROWS * WHEEL_ROW }}
 		>
 			{/* The band the chosen row sits in. */}
-			<div
-				aria-hidden="true"
-				className="bg-fill/70 pointer-events-none absolute inset-x-0 rounded-xl"
-				style={{ top: edge, height: WHEEL_ROW }}
-			/>
+			{band ? (
+				<div
+					aria-hidden="true"
+					className="bg-fill/70 pointer-events-none absolute inset-x-0 rounded-xl"
+					style={{ top: edge, height: WHEEL_ROW }}
+				/>
+			) : null}
 			<div
 				ref={scroller}
 				role="listbox"
@@ -162,7 +199,7 @@ export function Wheel<T extends string | number>({
 				aria-activedescendant={`${id}-${index}`}
 				onScroll={onScroll}
 				onKeyDown={onKeyDown}
-				className="no-scrollbar focus-visible:ring-accent/70 relative h-full snap-y snap-mandatory overflow-y-auto overscroll-contain rounded-xl [mask-image:linear-gradient(transparent,black_28%,black_72%,transparent)] outline-none focus-visible:ring-2"
+				className="no-scrollbar focus-visible:ring-accent/70 relative h-full overflow-y-auto overscroll-contain rounded-xl [mask-image:linear-gradient(transparent,black_28%,black_72%,transparent)] outline-none focus-visible:ring-2"
 				style={{ paddingBlock: edge }}
 			>
 				{options.map((option, row) => (
@@ -180,13 +217,18 @@ export function Wheel<T extends string | number>({
 							goTo(row, true);
 						}}
 						className={cx(
-							"text-footnote text-label flex cursor-pointer snap-center items-center justify-center px-3 tabular-nums select-none",
-							row === index && "font-semibold",
+							"text-body text-label flex cursor-pointer items-center px-3 tabular-nums select-none",
+							align === "center" && "justify-center",
+							align === "start" && "justify-start",
+							align === "end" && "justify-end",
+							row === index && "font-medium",
 							option.disabled && "pointer-events-none opacity-30",
 						)}
 						style={{ height: WHEEL_ROW }}
 					>
-						{option.label}
+						<span className="block origin-center will-change-transform">
+							{option.label}
+						</span>
 					</div>
 				))}
 			</div>
