@@ -269,9 +269,28 @@ function makeGhost(panel: HTMLElement, material: string): HTMLElement {
 	return ghost;
 }
 
+/** Half the size of the bead of glass a point origin starts as and lands on. */
+const POINT_RADIUS = 6;
+
+/** A small round bead centered on a point, where a context menu's glass starts and lands. */
+export function pointBox(x: number, y: number): DropBox {
+	return {
+		left: x - POINT_RADIUS,
+		top: y - POINT_RADIUS,
+		width: POINT_RADIUS * 2,
+		height: POINT_RADIUS * 2,
+		radius: POINT_RADIUS,
+	};
+}
+
 interface Latest {
 	/** Id of the element the panel grows from. Nothing morphs when it is absent. */
 	sourceId: string | undefined;
+	/**
+	 * Where the glass grows from when there is no source element, such as the
+	 * pointer of a context menu. Read when the panel opens and again when it closes.
+	 */
+	point?: () => { x: number; y: number } | null;
 	/** Utility classes that give the drop the panel's material and corner shape. */
 	material: string;
 	/**
@@ -299,11 +318,18 @@ export function useWaterDrop(options: Latest): PresenceHooks<HTMLElement> {
 	return controller;
 }
 
+/** Where a drop starts and lands, and the element whose face it hides on the way, if any. */
+interface Origin {
+	el: HTMLElement | null;
+	box: DropBox;
+}
+
 function createController(latest: { current: Latest }) {
 	let animations: Animation[] = [];
 	let ghosts: HTMLElement[] = [];
 	let frame = 0;
 
+	/** The element the glass grows from, when there is one. */
 	const source = () => {
 		const id = latest.current.sourceId;
 		return id ? document.getElementById(id) : null;
@@ -332,6 +358,14 @@ function createController(latest: { current: Latest }) {
 			: box;
 	};
 
+	/** Where the glass starts and lands: the source element, or else a bead at the point. */
+	const origin = (): Origin | null => {
+		const el = source();
+		if (el) return { el, box: sourceBox(el) };
+		const at = latest.current.point?.();
+		return at ? { el: null, box: pointBox(at.x, at.y) } : null;
+	};
+
 	/** Drops the ghost once its fade ends. A cancelled fade rejects, which is fine. */
 	const retireOnFinish = (fade: Animation, ghost: HTMLElement) => {
 		fade.finished.then(
@@ -343,7 +377,7 @@ function createController(latest: { current: Latest }) {
 		);
 	};
 
-	const open = (panel: HTMLElement, from: HTMLElement) => {
+	const open = (panel: HTMLElement, from: Origin) => {
 		const { easing, ms } = openSpring(panel);
 		const content = track(
 			panel.animate(
@@ -369,10 +403,11 @@ function createController(latest: { current: Latest }) {
 				const ghost = makeGhost(panel, latest.current.material);
 				ghosts.push(ghost);
 				track(
-					ghost.animate(
-						[boxKeyframe(sourceBox(from)), boxKeyframe(readBox(panel))],
-						{ duration: ms, easing, fill: "forwards" },
-					),
+					ghost.animate([boxKeyframe(from.box), boxKeyframe(readBox(panel))], {
+						duration: ms,
+						easing,
+						fill: "forwards",
+					}),
 				);
 				const fade = track(
 					ghost.animate(
@@ -381,9 +416,9 @@ function createController(latest: { current: Latest }) {
 					),
 				);
 				retireOnFinish(fade, ghost);
-				if (!latest.current.keepSource) {
+				if (from.el && !latest.current.keepSource) {
 					track(
-						from.animate([{ opacity: 1 }, { opacity: 0 }], {
+						from.el.animate([{ opacity: 1 }, { opacity: 0 }], {
 							duration: HIDE_MS,
 							easing: "ease-out",
 							fill: "forwards",
@@ -403,7 +438,7 @@ function createController(latest: { current: Latest }) {
 	return {
 		enter(panel: HTMLElement) {
 			reset();
-			const from = source();
+			const from = origin();
 			if (!from || !canMorph()) return;
 			panel.setAttribute("data-morph", "");
 			try {
@@ -416,7 +451,7 @@ function createController(latest: { current: Latest }) {
 
 		exit(panel: HTMLElement) {
 			if (!panel.hasAttribute("data-morph")) return;
-			const to = source();
+			const to = origin();
 			// Leave from wherever the drop is now, so a close mid-open is continuous.
 			const live = ghosts[0];
 			const start = readBox(live ?? panel);
@@ -433,7 +468,7 @@ function createController(latest: { current: Latest }) {
 				const ghost = makeGhost(panel, latest.current.material);
 				ghosts.push(ghost);
 				track(
-					ghost.animate([boxKeyframe(start), boxKeyframe(sourceBox(to))], {
+					ghost.animate([boxKeyframe(start), boxKeyframe(to.box)], {
 						duration: CLOSE_MS,
 						easing: CLOSE_EASING,
 						fill: "forwards",
@@ -454,9 +489,9 @@ function createController(latest: { current: Latest }) {
 					),
 				);
 				// The trigger's face returns as the drop lands on it.
-				if (!latest.current.keepSource) {
+				if (to.el && !latest.current.keepSource) {
 					track(
-						to.animate(
+						to.el.animate(
 							[{ opacity: 0 }, { opacity: 0, offset: 0.7 }, { opacity: 1 }],
 							{ duration: CLOSE_MS, easing: "linear" },
 						),

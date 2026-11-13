@@ -111,7 +111,7 @@ There is no 14 px style: interface text that once used it is `subheadline`.
 Control sizes follow one compact scale, Mira's 32 px default plus 2 px: `xs`
 26, `sm` 30, default 34, `lg` 38 (`h-6.5`, `h-7.5`, `h-8.5`, `h-9.5`), with
 `footnote` text (`caption` for `xs`, `subheadline` for `lg`) and `rounded-xl`
-fields. Every control, legacy ones included, takes its height from this scale.
+fields. Every control takes its height from this scale.
 List rows keep the 44 px iOS touch row.
 A one-off size is only for content (artwork, printed paper) or a
 deliberately dense surface such as a calendar month cell.
@@ -172,14 +172,14 @@ small feedback, `bouncy` for playful moments. Haptics go through `haptic()`.
 
 ## Materials and motion in components
 
-Menus and popovers use `liquid-glass` or `liquid-glass-dense` plus `squircle`; Dialog, Alert Dialog, Sheet and Drawer share one surface, `glass-menu` plus `squircle`. Sheet and Drawer slide from their edge the iOS way (no water drop) and, like every modal surface, sit at z 60, above the sticky site header (z 55); menus and popovers sit at 70 and tooltips at 80. Floating surfaces use `liquid-glass` or `liquid-glass-dense` plus `squircle` (tokens `utilities.css`): 40px blur at 180% saturation, a lit top rim, a hairline and layered shadows. Transitions use `spring-smooth`, `spring-snappy` or `spring-bouncy` (CSS `linear()` springs from the motion tokens). Dropdown Menu, Popover, Select, Combobox, Dialog and Alert Dialog use the water drop (`useWaterDrop` in `src/lib/water-drop.ts`): the trigger's glass swells into the panel and, on close, drops back into the trigger, like the iOS Notes three dots menu. Only a separate ghost layer of glass changes size (Web Animations, no dependency), so panel content never stretches; the panel itself carries `morph-reset` so its scale and slide step aside while `data-morph` is set. Without a trigger, with Reduce Motion or without `Element.animate`, the panel keeps its scale and fade pop. Pass the hook's result to `usePresence(open, drop)`; presence calls `enter` and `exit` so exit animations keep the panel mounted. Pressable controls use `active:scale-[0.96]` with `spring-snappy`. Tabs and ToggleGroup slide a `glass-lens` under the selection. Kbd shows Apple symbols or words from `data-os`, with no hydration mismatch. `List`, `ListSection` and `ListItem` are the iOS inset grouped list.
+Menus and popovers use `liquid-glass` or `liquid-glass-dense` plus `squircle`; Dialog, Alert Dialog, Sheet and Drawer share one surface, `glass-menu` plus `squircle`. Sheet and Drawer slide from their edge the iOS way (no water drop) and, like every modal surface, sit at z 60, above the sticky site header (z 55); menus and popovers sit at 70 and tooltips at 80. Floating surfaces use `liquid-glass` or `liquid-glass-dense` plus `squircle` (tokens `utilities.css`): 40px blur at 180% saturation, a lit top rim, a hairline and layered shadows. Transitions use `spring-smooth`, `spring-snappy` or `spring-bouncy` (CSS `linear()` springs from the motion tokens). Dropdown Menu, Context Menu (the glass grows from the pointer), Popover, Select, Combobox, Dialog and Alert Dialog use the water drop (`useWaterDrop` in `src/lib/water-drop.ts`): the trigger's glass swells into the panel and, on close, drops back into the trigger, like the iOS Notes three dots menu. Only a separate ghost layer of glass changes size (Web Animations, no dependency), so panel content never stretches; the panel itself carries `morph-reset` so its scale and slide step aside while `data-morph` is set. Without a trigger, with Reduce Motion or without `Element.animate`, the panel keeps its scale and fade pop. Pass the hook's result to `usePresence(open, drop)`; presence calls `enter` and `exit` so exit animations keep the panel mounted. Pressable controls use `active:scale-[0.96]` with `spring-snappy`. Tabs and ToggleGroup slide a `glass-lens` under the selection. Kbd shows Apple symbols or words from `data-os`, with no hydration mismatch. `List`, `ListSection` and `ListItem` are the iOS inset grouped list.
 
 ## Layout
 
 ```
 src/
   components/   one file per component, shadcn names, Zag or native: dialog.tsx, select.tsx ...
-  legacy/       components not yet rebuilt (wave 2 and blocks) and the internals they need
+  legacy/       dead code: the few items not yet replaced, deleted once they are. Never extend, restore or import from it in new work
   lib/          cx, render, presence, portal and other shared helpers
   hooks/        shared hooks
   appearance/   theme and platform providers
@@ -205,7 +205,7 @@ Docs for every component live in `www/src/features/components` (see `www/AGENTS.
 
 Rebuilt on Zag or native (`src/components/`, plus `Locales` and `Swatch Picker` on Select and Radio Group): Accordion, Alert, Alert Dialog, Avatar, Badge, Breadcrumb, Button, Button Group, Card, Checkbox, Collapsible, Combobox, Command, Dialog, Drawer, Dropdown Menu, Field, Input, Input Group, Input OTP, Kbd, Label, Pagination, Popover, Progress, Radio Group, Segmented Control, Select, Separator, Sheet, Skeleton, Slider, Spinner, Search Field, Sidebar, Switch, Table, Tabs, Text, Textarea, Toast, Toggle, Toggle Group, Tooltip.
 
-Still in `src/legacy/` with their old APIs (wave 2 and blocks): Aspect Ratio, Code Block, Date Picker, Stepper, and the blocks Ambient, Empty, Labeled Content, Stat Tile, Layout, Wake Slider, Conversation, Morph. `legacy/button`, `picker`, `popover`, `sheet` and `text-field` remain only as internals of these and are not public entries.
+`src/components/` is the only library going forward. `src/legacy/` is dead code that still holds the last unreplaced items (Aspect Ratio, Code Block, Date Picker, Stepper, and the blocks Ambient, Empty, Labeled Content, Stat Tile, Layout, Wake Slider, Conversation, Morph) plus `legacy/button`, `sheet` and `text-field`, which only those items use. Do not restore, preserve or extend anything there; delete each folder once its replacement lands.
 
 ## Repository and public package
 

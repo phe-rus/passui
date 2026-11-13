@@ -5,7 +5,7 @@ exists and Reduce Motion is off, so jsdom never exercises it. Run this in
 ChromeOS Chrome (`bun run dev`, the docs site) after any change to
 `water-drop.ts`, `popover.tsx`, `select.tsx` or `dropdown-menu.tsx`.
 
-Check Dropdown Menu, Popover and Select each time unless noted.
+Check Dropdown Menu, Context Menu, Popover and Select each time unless noted.
 
 ## Open and close
 
@@ -27,6 +27,13 @@ Check Dropdown Menu, Popover and Select each time unless noted.
 - [ ] With nothing chosen, the list opens at the trigger's top edge.
 - [ ] Short list near the bottom: flips above without the option alignment fighting it.
 - [ ] A list taller than the viewport cap (scrolls) sits below the trigger; alignment is skipped on purpose.
+
+## Context Menu
+
+- [ ] A small bead of glass appears at the pointer and swells into the menu; nothing in the region fades.
+- [ ] Close drops the menu back into a bead at the same point, then it disappears.
+- [ ] Touch long press and Shift+F10 start the bead where the press or the focused region is.
+- [ ] Near the right or bottom edge the menu shifts or flips and the bead still starts at the pointer.
 
 ## Reduce Motion and fallbacks
 

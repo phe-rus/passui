@@ -9,7 +9,8 @@ export const doc: ComponentDoc = {
 		{
 			id: "usage",
 			title: "Usage",
-			description: "Opens a listbox beside the trigger.",
+			description:
+				"The trigger swells into the listbox and drops back on close, with the chosen option landing over the trigger's value.",
 			Demo: SelectUsage,
 		},
 		{

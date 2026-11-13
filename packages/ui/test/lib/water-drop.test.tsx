@@ -2,6 +2,12 @@
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import {
+	ContextMenu,
+	ContextMenuContent,
+	ContextMenuItem,
+	ContextMenuTrigger,
+} from "../../src/components/context-menu";
+import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
@@ -12,6 +18,7 @@ import {
 	anchorOnTrigger,
 	boxKeyframe,
 	canMorph,
+	pointBox,
 	readBox,
 	toMs,
 } from "../../src/lib/water-drop";
@@ -244,4 +251,67 @@ it("lands the selected option on the trigger's value", () => {
 	});
 	expect(alignSelectedOption(trigger as unknown as Element, list)).toBe(0);
 	expect(alignSelectedOption(trigger as unknown as Element, null)).toBe(0);
+});
+
+it("starts a context menu's glass as a round bead centered on the pointer", () => {
+	expect(pointBox(100, 50)).toEqual({
+		left: 94,
+		top: 44,
+		width: 12,
+		height: 12,
+		radius: 6,
+	});
+});
+
+it("grows a context menu out of the pointer and leaves the region's face alone", async () => {
+	const finished = new Promise<void>(() => {});
+	const animate = vi.fn(() => ({
+		pause: vi.fn(),
+		play: vi.fn(),
+		cancel: vi.fn(),
+		finished,
+		onfinish: null,
+	}));
+	Element.prototype.animate = animate as never;
+
+	const host = document.createElement("div");
+	document.body.append(host);
+	root = createRoot(host);
+	await act(async () =>
+		root?.render(
+			<ContextMenu>
+				<ContextMenuTrigger>Region</ContextMenuTrigger>
+				<ContextMenuContent>
+					<ContextMenuItem>Copy</ContextMenuItem>
+				</ContextMenuContent>
+			</ContextMenu>,
+		),
+	);
+	const region = host.querySelector('[data-slot="context-menu-trigger"]');
+	await act(async () => {
+		region?.dispatchEvent(
+			new MouseEvent("contextmenu", {
+				bubbles: true,
+				cancelable: true,
+				clientX: 120,
+				clientY: 80,
+			}),
+		);
+	});
+	await settle();
+
+	const panel = document.querySelector("[data-slot=dropdown-menu-content]");
+	expect(panel?.hasAttribute("data-morph")).toBe(true);
+	expect(document.querySelectorAll("[data-slot=water-drop]")).toHaveLength(1);
+	// Geometry, fade and the panel's own content fade: no trigger face to hide.
+	expect(animate).toHaveBeenCalledTimes(3);
+	// The bead starts centered on the pointer (120, 80).
+	const frames = (animate.mock.calls as unknown as [Keyframe[]][]).flatMap(
+		([keyframes]) => keyframes,
+	);
+	expect(frames.some((f) => f.transform === "translate(114px, 74px)")).toBe(
+		true,
+	);
+
+	delete (Element.prototype as { animate?: unknown }).animate;
 });

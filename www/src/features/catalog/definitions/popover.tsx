@@ -9,7 +9,8 @@ export const doc: ComponentDoc = {
 		{
 			id: "usage",
 			title: "Usage",
-			description: "A trigger and a titled panel.",
+			description:
+				"A trigger and a titled panel. The trigger's glass swells into the panel and drops back on close.",
 			Demo: PopoverUsage,
 		},
 		{

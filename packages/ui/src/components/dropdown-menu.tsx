@@ -5,6 +5,9 @@ import { normalizeProps, useMachine } from "@zag-js/react";
 import {
 	type ComponentProps,
 	createContext,
+	type MouseEvent,
+	type MutableRefObject,
+	type PointerEvent,
 	type ReactNode,
 	useContext,
 	useEffect,
@@ -27,6 +30,8 @@ type Placement = NonNullable<menu.Props["positioning"]>["placement"];
 interface Ctx {
 	api: menu.Api;
 	service: menu.Service;
+	/** Where the pointer last pressed the context region, so the glass can grow from it. */
+	point: MutableRefObject<{ x: number; y: number } | null>;
 }
 
 const Context = createContext<Ctx | null>(null);
@@ -60,6 +65,7 @@ function useMenuMachine(
 	onTrigger = false,
 ): Ctx {
 	const id = useId();
+	const point = useRef<{ x: number; y: number } | null>(null);
 	const anchor = useTriggerAnchor(placement ?? "", 6);
 	const service = useMachine(menu.machine, {
 		id,
@@ -77,7 +83,7 @@ function useMenuMachine(
 		positionerSide(api.getPositionerProps()),
 		api.reposition,
 	);
-	return { service, api };
+	return { service, api, point };
 }
 
 /** Owns the open state, highlight and typeahead. Renders no element of its own. */
@@ -102,11 +108,26 @@ export function ContextMenu({
 
 /** The region that answers to a right click or long press. Renders a `div` by default. */
 export function ContextMenuTrigger({ render, ...props }: PartProps<"div">) {
-	const { api } = useMenu();
+	const { api, point } = useMenu();
+	const base = api.getContextTriggerProps();
+	const remember = (event: { clientX: number; clientY: number }) => {
+		point.current = { x: event.clientX, y: event.clientY };
+	};
 	return renderPart(
 		"div",
 		mergeProps(
-			{ ...api.getContextTriggerProps(), "data-slot": "context-menu-trigger" },
+			{
+				...base,
+				"data-slot": "context-menu-trigger",
+				onPointerDown(event: PointerEvent<HTMLElement>) {
+					remember(event);
+					base.onPointerDown?.(event);
+				},
+				onContextMenu(event: MouseEvent<HTMLElement>) {
+					remember(event);
+					base.onContextMenu?.(event);
+				},
+			},
 			props,
 		),
 		render,
@@ -157,9 +178,10 @@ function Panel({
 	slot,
 	...props
 }: PartProps<"div"> & { slot: string }) {
-	const { api } = useMenu();
+	const { api, point } = useMenu();
 	const drop = useWaterDrop({
 		sourceId: api.getTriggerProps().id,
+		point: () => point.current,
 		material: "liquid-glass-dense squircle [--squircle-radius:1.25rem]",
 	});
 	const { ref, mounted, attrs } = usePresence(api.open, drop);
