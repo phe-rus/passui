@@ -1,3 +1,5 @@
+import { TraceAllStates } from "../examples/trace/all-states";
+import { TraceOpen } from "../examples/trace/open";
 import { TraceStates } from "../examples/trace/states";
 import { TraceUsage } from "../examples/trace/usage";
 import type { ComponentDoc } from "../types";
@@ -17,6 +19,18 @@ export const doc: ComponentDoc = {
 			description:
 				"`pending`, `running`, `done` and `error`, shown by the dot beside each step.",
 			Demo: TraceStates,
+		},
+		{
+			id: "all-states",
+			title: "Every state",
+			description: "Done, running and waiting rows together.",
+			Demo: TraceAllStates,
+		},
+		{
+			id: "open",
+			title: "Opened by default",
+			description: "Show the detail of the step that matters.",
+			Demo: TraceOpen,
 		},
 	],
 	accessibility: [

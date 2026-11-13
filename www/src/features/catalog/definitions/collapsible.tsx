@@ -1,4 +1,6 @@
+import { CollapsibleControlled } from "../examples/collapsible/controlled";
 import { CollapsibleDefaultOpen } from "../examples/collapsible/default-open";
+import { CollapsibleList } from "../examples/collapsible/list";
 import { CollapsibleUsage } from "../examples/collapsible/usage";
 import type { ComponentDoc } from "../types";
 
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "Open at first",
 			description: "`defaultOpen` starts it expanded.",
 			Demo: CollapsibleDefaultOpen,
+		},
+		{
+			id: "controlled",
+			title: "Controlled",
+			description: "Own the open state to react to it.",
+			Demo: CollapsibleControlled,
+		},
+		{
+			id: "list",
+			title: "A list that folds",
+			description: "Show a few rows and fold away the rest.",
+			Demo: CollapsibleList,
 		},
 	],
 	accessibility: [

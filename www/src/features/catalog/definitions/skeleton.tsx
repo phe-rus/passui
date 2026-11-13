@@ -1,4 +1,6 @@
 import { SkeletonCard } from "../examples/skeleton/card";
+import { SkeletonList } from "../examples/skeleton/list";
+import { SkeletonText } from "../examples/skeleton/text";
 import { SkeletonUsage } from "../examples/skeleton/usage";
 import type { ComponentDoc } from "../types";
 
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "Card",
 			description: "Mirror the layout that will replace it.",
 			Demo: SkeletonCard,
+		},
+		{
+			id: "text",
+			title: "Lines of text",
+			description: "Widths vary so it reads like a paragraph.",
+			Demo: SkeletonText,
+		},
+		{
+			id: "list",
+			title: "A list loading",
+			description: "Repeat a row while data arrives.",
+			Demo: SkeletonList,
 		},
 	],
 	accessibility: [

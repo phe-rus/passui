@@ -1,4 +1,6 @@
+import { ToggleGroupIcons } from "../examples/toggle-group/icons";
 import { ToggleGroupMultiple } from "../examples/toggle-group/multiple";
+import { ToggleGroupSingle } from "../examples/toggle-group/single";
 import { ToggleGroupUsage } from "../examples/toggle-group/usage";
 import type { ComponentDoc } from "../types";
 
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "Multiple",
 			description: "Any number can be on at once.",
 			Demo: ToggleGroupMultiple,
+		},
+		{
+			id: "single",
+			title: "One at a time",
+			description: "Choose a single value.",
+			Demo: ToggleGroupSingle,
+		},
+		{
+			id: "icons",
+			title: "Icons",
+			description: "Square items for a toolbar.",
+			Demo: ToggleGroupIcons,
 		},
 	],
 	accessibility: [

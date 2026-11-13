@@ -1,3 +1,5 @@
+import { DrawerActions } from "../examples/drawer/actions";
+import { DrawerControlled } from "../examples/drawer/controlled";
 import { DrawerSnapPoints } from "../examples/drawer/snap-points";
 import { DrawerUsage } from "../examples/drawer/usage";
 import type { ComponentDoc } from "../types";
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "Snap points",
 			description: "Rest at 40% height and drag up to open fully.",
 			Demo: DrawerSnapPoints,
+		},
+		{
+			id: "actions",
+			title: "With actions",
+			description: "A header, content and a footer of buttons.",
+			Demo: DrawerActions,
+		},
+		{
+			id: "controlled",
+			title: "Controlled",
+			description: "Own the open state to close it from your own code.",
+			Demo: DrawerControlled,
 		},
 	],
 	accessibility: [

@@ -1,4 +1,5 @@
 import { SelectControlled } from "../examples/select/controlled";
+import { SelectDisabled } from "../examples/select/disabled";
 import { SelectForm } from "../examples/select/form";
 import { SelectUsage } from "../examples/select/usage";
 import type { ComponentDoc } from "../types";
@@ -22,6 +23,12 @@ export const doc: ComponentDoc = {
 			title: "In a form",
 			description: "A hidden native `select` submits the value under `name`.",
 			Demo: SelectForm,
+		},
+		{
+			id: "disabled",
+			title: "Disabled options",
+			description: "An option can be listed but not chosen.",
+			Demo: SelectDisabled,
 		},
 	],
 	accessibility: [

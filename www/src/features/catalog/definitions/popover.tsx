@@ -1,3 +1,5 @@
+import { PopoverControlled } from "../examples/popover/controlled";
+import { PopoverForm } from "../examples/popover/form";
 import { PopoverPlacement } from "../examples/popover/placement";
 import { PopoverUsage } from "../examples/popover/usage";
 import type { ComponentDoc } from "../types";
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "Placement",
 			description: "Choose a side. The panel flips when there is no room.",
 			Demo: PopoverPlacement,
+		},
+		{
+			id: "form",
+			title: "A small form",
+			description: "A popover can hold controls, not just text.",
+			Demo: PopoverForm,
+		},
+		{
+			id: "controlled",
+			title: "Controlled",
+			description: "Own the open state to close it after an action.",
+			Demo: PopoverControlled,
 		},
 	],
 	accessibility: [

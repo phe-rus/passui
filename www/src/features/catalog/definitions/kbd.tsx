@@ -1,4 +1,6 @@
 import { KbdChord } from "../examples/kbd/chord";
+import { KbdKeys } from "../examples/kbd/keys";
+import { KbdShortcut } from "../examples/kbd/shortcut";
 import { KbdUsage } from "../examples/kbd/usage";
 import type { ComponentDoc } from "../types";
 
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "Group",
 			description: "`KbdGroup` spaces a chord.",
 			Demo: KbdChord,
+		},
+		{
+			id: "shortcut",
+			title: "A shortcut in a menu row",
+			description: "Keys sit at the end of a row of text.",
+			Demo: KbdShortcut,
+		},
+		{
+			id: "keys",
+			title: "Special keys",
+			description: "Single caps for the keys people look for.",
+			Demo: KbdKeys,
 		},
 	],
 	accessibility: [

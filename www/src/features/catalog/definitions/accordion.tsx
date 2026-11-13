@@ -1,3 +1,5 @@
+import { AccordionDisabled } from "../examples/accordion/disabled";
+import { AccordionFaq } from "../examples/accordion/faq";
 import { AccordionMultiple } from "../examples/accordion/multiple";
 import { AccordionUsage } from "../examples/accordion/usage";
 import type { ComponentDoc } from "../types";
@@ -16,6 +18,18 @@ export const doc: ComponentDoc = {
 			title: "Several open",
 			description: "`multiple` lets any number of sections stay open.",
 			Demo: AccordionMultiple,
+		},
+		{
+			id: "faq",
+			title: "Frequently asked questions",
+			description: "One item open at a time, the way a FAQ reads best.",
+			Demo: AccordionFaq,
+		},
+		{
+			id: "disabled",
+			title: "Disabled item",
+			description: "A disabled item stays in the list but cannot be opened.",
+			Demo: AccordionDisabled,
 		},
 	],
 	accessibility: [

@@ -1,3 +1,5 @@
+import { AvatarBrokenImage } from "../examples/avatar/broken-image";
+import { AvatarGroup } from "../examples/avatar/group";
 import { AvatarInitials } from "../examples/avatar/initials";
 import { AvatarUsage } from "../examples/avatar/usage";
 import type { ComponentDoc } from "../types";
@@ -16,6 +18,18 @@ export const doc: ComponentDoc = {
 			title: "Initials",
 			description: "With no source, initials are all there is.",
 			Demo: AvatarInitials,
+		},
+		{
+			id: "group",
+			title: "A stack of people",
+			description: "Overlap avatars with a ring in the ground color.",
+			Demo: AvatarGroup,
+		},
+		{
+			id: "broken-image",
+			title: "Fallback when the image fails",
+			description: "The fallback shows while the image loads or if it cannot.",
+			Demo: AvatarBrokenImage,
 		},
 	],
 	accessibility: [

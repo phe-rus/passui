@@ -30,11 +30,7 @@ import { ExampleCard } from "@/components/docs/example-card";
 import { PageNav } from "@/components/docs/page-nav";
 import { getComponentMarkdown } from "@/features/ai/lib/get-component-markdown";
 import { packageManagers } from "@/features/catalog/install";
-import {
-	loadComponentPage,
-	loadDefinition,
-	readDefinition,
-} from "@/features/catalog/load";
+import { loadComponentPage, loadDefinition } from "@/features/catalog/load";
 import { getMeta } from "@/features/catalog/registry";
 import { pageColumn, pageGrid, pageRail } from "@/features/docs/lib/prose";
 import { getPageHead } from "@/features/seo/lib/seo";
@@ -61,7 +57,7 @@ export const Route = createFileRoute("/docs/(components)/components/$slug")({
 function RouteComponent() {
 	const { meta, code } = Route.useLoaderData();
 	const { api, sizeKb } = code;
-	const doc = readDefinition(meta.slug) ?? use(loadDefinition(meta.slug));
+	const doc = use(loadDefinition(meta.slug));
 	const copy = useCopyText();
 	const outline = [
 		{ id: "installation", title: "Installation", depth: 0 },

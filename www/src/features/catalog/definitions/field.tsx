@@ -1,6 +1,7 @@
 import { FieldHorizontal } from "../examples/field/horizontal";
 import { FieldInvalid } from "../examples/field/invalid";
 import { FieldUsage } from "../examples/field/usage";
+import { FieldWithSelect } from "../examples/field/with-select";
 import type { ComponentDoc } from "../types";
 
 export const doc: ComponentDoc = {
@@ -23,6 +24,12 @@ export const doc: ComponentDoc = {
 			title: "Horizontal",
 			description: "A switch reads best beside its label.",
 			Demo: FieldHorizontal,
+		},
+		{
+			id: "with-select",
+			title: "With a select",
+			description: "Any control can sit in a field.",
+			Demo: FieldWithSelect,
 		},
 	],
 	accessibility: [

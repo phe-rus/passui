@@ -1,4 +1,6 @@
 import { InputOtpComplete } from "../examples/input-otp/complete";
+import { InputOtpDisabled } from "../examples/input-otp/disabled";
+import { InputOtpFour } from "../examples/input-otp/four";
 import { InputOtpUsage } from "../examples/input-otp/usage";
 import type { ComponentDoc } from "../types";
 
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "On complete",
 			description: "`onComplete` runs once every box is filled.",
 			Demo: InputOtpComplete,
+		},
+		{
+			id: "four",
+			title: "Four digits",
+			description: "Set length to match the code you send.",
+			Demo: InputOtpFour,
+		},
+		{
+			id: "disabled",
+			title: "Disabled",
+			description: "Dimmed while a code is being checked.",
+			Demo: InputOtpDisabled,
 		},
 	],
 	accessibility: [

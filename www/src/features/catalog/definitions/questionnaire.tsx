@@ -1,4 +1,6 @@
 import { QuestionnaireDescriptions } from "../examples/questionnaire/descriptions";
+import { QuestionnaireMultiple } from "../examples/questionnaire/multiple";
+import { QuestionnaireOneQuestion } from "../examples/questionnaire/one-question";
 import { QuestionnaireUsage } from "../examples/questionnaire/usage";
 import type { ComponentDoc } from "../types";
 
@@ -16,6 +18,18 @@ export const doc: ComponentDoc = {
 			title: "Options with descriptions",
 			description: "Give an option a `description` to explain what it means.",
 			Demo: QuestionnaireDescriptions,
+		},
+		{
+			id: "one-question",
+			title: "A single question",
+			description: "One step, no progress needed.",
+			Demo: QuestionnaireOneQuestion,
+		},
+		{
+			id: "multiple",
+			title: "Pick many",
+			description: "A multiple question lets the person tick several.",
+			Demo: QuestionnaireMultiple,
 		},
 	],
 	accessibility: [

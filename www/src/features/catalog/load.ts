@@ -23,6 +23,16 @@ export function loadDefinition(slug: string) {
 			loaded.set(slug, doc);
 			return doc;
 		});
+		// React's `use` returns at once for a thenable that says it is settled,
+		// so a page that is already loaded never suspends again.
+		const settled = promise as Promise<ComponentDoc> & {
+			status?: string;
+			value?: ComponentDoc;
+		};
+		settled.then((doc) => {
+			settled.status = "fulfilled";
+			settled.value = doc;
+		});
 		pending.set(slug, promise);
 	}
 	return promise;

@@ -1,4 +1,6 @@
+import { TooltipIconButton } from "../examples/tooltip/icon-button";
 import { TooltipNeighbours } from "../examples/tooltip/neighbours";
+import { TooltipShortcut } from "../examples/tooltip/shortcut";
 import { TooltipUsage } from "../examples/tooltip/usage";
 import type { ComponentDoc } from "../types";
 
@@ -16,6 +18,18 @@ export const doc: ComponentDoc = {
 			description:
 				"Move across the row. After the first tip, the rest open without the delay.",
 			Demo: TooltipNeighbours,
+		},
+		{
+			id: "icon-button",
+			title: "On an icon button",
+			description: "Tell people what an icon does.",
+			Demo: TooltipIconButton,
+		},
+		{
+			id: "shortcut",
+			title: "With a shortcut",
+			description: "Show the key beside the name.",
+			Demo: TooltipShortcut,
 		},
 	],
 	accessibility: [

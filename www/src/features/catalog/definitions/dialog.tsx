@@ -1,3 +1,4 @@
+import { DialogControlled } from "../examples/dialog/controlled";
 import { DialogForm } from "../examples/dialog/form";
 import { DialogScrollable } from "../examples/dialog/scrollable";
 import { DialogUsage } from "../examples/dialog/usage";
@@ -25,6 +26,12 @@ export const doc: ComponentDoc = {
 			description:
 				"A long dialog scrolls inside its panel; keep the actions in view with a sticky footer.",
 			Demo: DialogScrollable,
+		},
+		{
+			id: "controlled",
+			title: "Controlled",
+			description: "Own the open state to close it from your own code.",
+			Demo: DialogControlled,
 		},
 	],
 	accessibility: [

@@ -1,4 +1,6 @@
 import { ToggleOutline } from "../examples/toggle/outline";
+import { TogglePressed } from "../examples/toggle/pressed";
+import { ToggleText } from "../examples/toggle/text";
 import { ToggleUsage } from "../examples/toggle/usage";
 import type { ComponentDoc } from "../types";
 
@@ -15,6 +17,18 @@ export const doc: ComponentDoc = {
 			title: "Outline",
 			description: "The outline variant keeps a hairline when off.",
 			Demo: ToggleOutline,
+		},
+		{
+			id: "pressed",
+			title: "Pressed",
+			description: "Starts on.",
+			Demo: TogglePressed,
+		},
+		{
+			id: "text",
+			title: "With text",
+			description: "A label next to the icon.",
+			Demo: ToggleText,
 		},
 	],
 	accessibility: [
