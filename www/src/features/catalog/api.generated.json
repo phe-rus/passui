@@ -3080,8 +3080,20 @@
 					"required": false
 				},
 				{
+					"name": "leading",
+					"type": "ReactNode",
+					"description": "An icon or text that sits before the value, and before the label until it lifts.",
+					"required": false
+				},
+				{
 					"name": "multiline",
 					"type": "boolean",
+					"description": "",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "InputSize",
 					"description": "",
 					"required": false
 				}
@@ -3100,7 +3112,7 @@
 				{
 					"name": "leading",
 					"type": "ReactNode",
-					"description": "An icon or text before the value. Only used by `floating`.",
+					"description": "An icon before the value, for `floating`. The label sits after it until it lifts.",
 					"required": false
 				},
 				{

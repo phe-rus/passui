@@ -10,14 +10,27 @@
 		scale: 0.98;
 	}
 	/* The outline stays whole; its legend opens a real gap under the label.
-       No painted background patch needs to match the field's surroundings. */
+       No painted background patch needs to match the field's surroundings.
+       The size token drives the label, the gap and the outline's top edge, so
+       the three always agree. */
+	.passui-floating-field {
+		--floating-size: var(--text-subheadline);
+		--floating-line: color-mix(in srgb, var(--color-label) 24%, transparent);
+	}
+	.passui-floating-field[data-size="sm"] {
+		--floating-size: var(--text-footnote);
+	}
+	.passui-floating-field[data-size="lg"] {
+		--floating-size: var(--text-body);
+	}
 	.passui-field-outline {
 		position: absolute;
-		inset: calc(var(--text-subheadline) * 0.39 * -1) 0 0;
+		inset: calc(var(--floating-size) * 0.39 * -1) 0 0;
+		box-sizing: border-box;
 		min-width: 0;
 		margin: 0;
 		padding: 0 0.5rem;
-		border: 1px solid var(--color-separator);
+		border: 1px solid var(--floating-line);
 		border-radius: inherit;
 		pointer-events: none;
 		transition: border-color 200ms ease;
@@ -26,7 +39,7 @@
 		max-width: 0;
 		overflow: hidden;
 		padding: 0;
-		font-size: calc(var(--text-subheadline) * 0.78);
+		font-size: calc(var(--floating-size) * 0.78);
 		line-height: 1;
 		height: 1em;
 		white-space: nowrap;
@@ -45,14 +58,15 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		color: var(--color-label-secondary);
-		font-size: var(--text-subheadline);
+		font-size: var(--floating-size);
 		line-height: 1;
 		transform: translateY(-50%);
 		transform-origin: left center;
 		transition:
 			top 320ms ease,
 			transform 320ms ease,
-			color 200ms ease;
+			color 200ms ease,
+			inset-inline-start 320ms ease;
 		pointer-events: none;
 	}
 	.passui-floating-field[data-multiline] .passui-floating-label {
@@ -64,19 +78,44 @@
 	.passui-floating-label-with-icon {
 		inset-inline-start: 2.5rem;
 	}
+	.passui-floating-leading {
+		position: absolute;
+		inset-inline-start: 0.75rem;
+		top: 50%;
+		translate: 0 -50%;
+		color: var(--color-label-tertiary);
+		pointer-events: none;
+		transition: color 200ms ease;
+	}
 	.passui-floating-field :is(input, textarea)::placeholder {
 		opacity: 0;
+		transition: opacity 200ms ease;
 	}
 	.passui-floating-field:focus-within :is(input, textarea)::placeholder {
 		opacity: 1;
 	}
+	/* Hover firms the line; focus makes it two pixels in the accent. */
+	.passui-floating-field:hover:not(:focus-within) .passui-field-outline {
+		border-color: color-mix(in srgb, var(--color-label) 42%, transparent);
+	}
 	.passui-floating-field:focus-within .passui-field-outline {
+		border-width: 2px;
 		border-color: var(--color-accent-text);
-		box-shadow: 0 0 0 0.5px var(--color-accent-text);
+	}
+	.passui-floating-field:focus-within .passui-floating-label,
+	.passui-floating-field:focus-within .passui-floating-leading {
+		color: var(--color-accent-text);
 	}
 	.passui-floating-field:has(:is(input, textarea)[aria-invalid="true"])
 		.passui-field-outline {
 		border-color: var(--color-danger);
+	}
+	.passui-floating-field:has(:is(input, textarea)[aria-invalid="true"])
+		.passui-floating-label {
+		color: var(--color-danger);
+	}
+	.passui-floating-field:has(:is(input, textarea):disabled) {
+		opacity: 0.4;
 	}
 	.passui-floating-field:is(
 			:focus-within,
@@ -86,7 +125,6 @@
 		top: 0;
 		inset-inline-start: 0.75rem;
 		transform: translateY(-50%) scale(0.78);
-		color: var(--color-label-secondary);
 	}
 	.passui-floating-field:is(
 			:focus-within,

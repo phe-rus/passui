@@ -44,7 +44,13 @@ export function Textarea({
 	const length = props.value !== undefined ? String(props.value).length : typed;
 	const area =
 		variant === "floating" && label ? (
-			<FloatingField id={field} label={label} multiline className={className}>
+			<FloatingField
+				id={field}
+				label={label}
+				size={size}
+				multiline
+				className={className}
+			>
 				<textarea
 					id={field}
 					data-slot="textarea"

@@ -8,6 +8,10 @@ order: 8
 
 The full history lives in [`CHANGELOG.md`](https://github.com/phe-rus/passui/blob/main/CHANGELOG.md) in the repository. This is the short version of the current rebuild.
 
+## 0.3.2
+
+- The floating label on `Input` and `Textarea` is refined, and `Input` takes a `leading` icon.
+
 ## 0.3.1
 
 - `DateTimePicker` and `Calendar` polished to the iOS look: shared wheel bands, exact row centring, no table lines, aligned weekdays.

@@ -18,9 +18,9 @@ export const inputSizes: Record<InputSize, string> = {
 
 /** The outlined variant is taller, since the label has to float inside it. */
 export const floatingSizes: Record<InputSize, string> = {
-	sm: "h-9.5 px-3 text-footnote",
-	md: "h-10.5 px-3 text-subheadline",
-	lg: "h-12 px-3.5 text-body",
+	sm: "h-9 px-3 text-footnote",
+	md: "h-10 px-3 text-subheadline",
+	lg: "h-11.5 px-3 text-body",
 };
 
 export type InputProps = Omit<ComponentProps<"input">, "size"> & {
@@ -34,7 +34,7 @@ export type InputProps = Omit<ComponentProps<"input">, "size"> & {
 	variant?: InputVariant;
 	/** The floating label. */
 	label?: string;
-	/** An icon or text before the value. Only used by `floating`. */
+	/** An icon before the value, for `floating`. The label sits after it until it lifts. */
 	leading?: ReactNode;
 };
 
@@ -46,30 +46,47 @@ export type InputProps = Omit<ComponentProps<"input">, "size"> & {
 export function FloatingField({
 	id,
 	label,
+	size = "md",
 	multiline,
+	leading,
 	className,
 	children,
 }: {
 	id: string;
 	label: string;
+	size?: InputSize;
 	multiline?: boolean;
+	/** An icon or text that sits before the value, and before the label until it lifts. */
+	leading?: ReactNode;
 	className?: string;
 	children: ReactNode;
 }) {
 	return (
 		<div
 			data-slot="floating-field"
+			data-size={size}
 			data-multiline={multiline || undefined}
 			className={cx(
 				"passui-floating-field relative w-full min-w-0 rounded-xl",
 				className,
 			)}
 		>
+			{leading ? (
+				<span aria-hidden="true" className="passui-floating-leading">
+					{leading}
+				</span>
+			) : null}
 			{children}
 			<fieldset aria-hidden="true" className="passui-field-outline">
 				<legend>{label}</legend>
 			</fieldset>
-			<label htmlFor={id} className="passui-floating-label">
+			<label
+				htmlFor={id}
+				className={cx(
+					"passui-floating-label",
+					leading ? "passui-floating-label-with-icon" : false,
+				)}
+			>
 				{label}
 			</label>
 		</div>
@@ -83,6 +100,7 @@ export function Input({
 	size = "md",
 	variant = "default",
 	label,
+	leading,
 	placeholder,
 	id,
 	...props
@@ -91,7 +109,13 @@ export function Input({
 	if (variant === "floating" && label) {
 		const field = id ?? own;
 		return (
-			<FloatingField id={field} label={label} className={className}>
+			<FloatingField
+				id={field}
+				label={label}
+				size={size}
+				leading={leading}
+				className={className}
+			>
 				<input
 					id={field}
 					type={type}
@@ -102,6 +126,7 @@ export function Input({
 					className={cx(
 						"text-label placeholder:text-label-tertiary w-full min-w-0 rounded-xl bg-transparent outline-none disabled:pointer-events-none disabled:opacity-40",
 						floatingSizes[size],
+						leading ? "ps-10" : false,
 					)}
 					{...props}
 				/>

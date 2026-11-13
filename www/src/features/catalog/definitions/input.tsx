@@ -1,6 +1,7 @@
 import { InputDisabled } from "../examples/input/disabled";
 import { InputField } from "../examples/input/field";
 import { InputFloating } from "../examples/input/floating";
+import { InputFloatingIcon } from "../examples/input/floating-icon";
 import { InputSizes } from "../examples/input/sizes";
 import { InputTypes } from "../examples/input/types";
 import { InputUsage } from "../examples/input/usage";
@@ -20,6 +21,13 @@ export const doc: ComponentDoc = {
 			description:
 				'`variant="floating"` draws one whole outline. As the label lifts into the top edge, the line parts under it, so nothing is painted over the border and it fits any surface. Focus takes the accent.',
 			Demo: InputFloating,
+		},
+		{
+			id: "floating-icon",
+			title: "Floating with an icon",
+			description:
+				"`leading` puts an icon before the value. The label waits after it, then lifts into the top edge, and the icon follows the accent on focus.",
+			Demo: InputFloatingIcon,
 		},
 		{
 			id: "sizes",

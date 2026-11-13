@@ -1,5 +1,12 @@
 # Changelog
 
+## @passui/react 0.3.2
+
+### Changed
+
+- The floating label on `Input` and `Textarea` is refined. The focus line no longer strikes through the lifted label: the border itself thickens to two pixels in the accent instead of adding a shadow. The outline is visible at rest and firms on hover. The label takes the accent on focus and the danger colour when invalid. The field is shorter (`md` is 40 px), and the label, gap and outline scale together with `size`.
+- `Input` takes `leading`, an icon before the value for the floating variant. The label waits after it, then lifts, and the icon follows the accent on focus.
+
 ## @passui/react 0.3.1
 
 ### Fixed
