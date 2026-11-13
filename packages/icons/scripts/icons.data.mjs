@@ -8,9 +8,10 @@ const circle = (cx, cy, r) =>
 
 export const icons = {
 	Note: [rect(5, 3, 14, 18, 3), "M9 8h6M9 12h6M9 16h3"],
+	// Two scripts side by side: a stroked character at the top left, a Latin "A" at the bottom right. It was a copy of Globe.
 	Language: [
-		`${circle(12, 12, 9)}`,
-		"M3 12h18M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3",
+		"M3 5h10M8 3v2M5.500 5c.8 3.200 3 5.400 6.100 6.600M11.500 5c-.8 3.200-3.400 5.800-7 7.400",
+		"M13 20l4-9 4 9M14.400 17h5.200",
 	],
 	Loading: ["M12 3a9 9 0 1 0 9 9", "M12 3v3"],
 	SignOut: [

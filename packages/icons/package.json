@@ -1,6 +1,6 @@
 {
 	"name": "@passui/icons",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Passui icons: redrawn mono and duo SVG icons, one subpath each.",
 	"license": "MIT",
 	"type": "module",

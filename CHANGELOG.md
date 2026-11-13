@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/icons 0.1.2
+
+### Fixed
+
+- `LanguageIcon` was a copy of `GlobeIcon`. It is now a translate glyph: a stroked character at the top left and a Latin "A" at the bottom right.
+
 ## @passui/react 0.3.3
 
 ### Fixed
