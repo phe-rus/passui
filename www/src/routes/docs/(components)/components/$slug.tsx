@@ -1,12 +1,6 @@
 import { InfoIcon } from "@passui/icons/info";
 import { SparkleIcon } from "@passui/icons/sparkle";
 import { haptic } from "@passui/react";
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@passui/react/accordion";
 import { Badge } from "@passui/react/badge";
 import {
 	Breadcrumb,
@@ -19,6 +13,7 @@ import {
 import { Button } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
 import { CodeBlock } from "@passui/react/code-block";
+import { Layout } from "@passui/react/layout";
 import {
 	Table,
 	TableBody,
@@ -28,9 +23,10 @@ import {
 	TableRow,
 } from "@passui/react/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@passui/react/tabs";
-import { ViewController } from "@passui/react/view-controller";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { use } from "react";
+import { DocSection } from "@/components/docs/doc-section";
+import { ExampleCard } from "@/components/docs/example-card";
 import { PageNav } from "@/components/docs/page-nav";
 import { getComponentMarkdown } from "@/features/ai/lib/get-component-markdown";
 import { packageManagers } from "@/features/catalog/install";
@@ -40,12 +36,7 @@ import {
 	readDefinition,
 } from "@/features/catalog/load";
 import { getMeta } from "@/features/catalog/registry";
-import {
-	pageColumn,
-	pageGrid,
-	pageRail,
-	prose,
-} from "@/features/docs/lib/prose";
+import { pageColumn, pageGrid, pageRail } from "@/features/docs/lib/prose";
 import { getPageHead } from "@/features/seo/lib/seo";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useCopyText } from "@/hooks/use-copy-text";
@@ -74,7 +65,6 @@ function RouteComponent() {
 	const copy = useCopyText();
 	const outline = [
 		{ id: "installation", title: "Installation", depth: 0 },
-		{ id: "usage", title: "Usage", depth: 0 },
 		...(api.length > 1 ? [{ id: "anatomy", title: "Anatomy", depth: 0 }] : []),
 		{ id: "examples", title: "Examples", depth: 0 },
 		...doc.examples.map((example) => ({
@@ -89,9 +79,9 @@ function RouteComponent() {
 
 	return (
 		<div className={pageGrid}>
-			<ViewController
+			<Layout
 				key={meta.slug}
-				className={`${pageColumn} gap-0`}
+				className={pageColumn}
 				heading={
 					<>
 						<Breadcrumb aria-label="Breadcrumb" className="not-typeset mb-2">
@@ -107,7 +97,7 @@ function RouteComponent() {
 								</BreadcrumbItem>
 							</BreadcrumbList>
 						</Breadcrumb>
-						<ViewController.Heading
+						<Layout.Heading
 							title={meta.name}
 							description={meta.summary}
 							action={
@@ -144,68 +134,51 @@ function RouteComponent() {
 					</>
 				}
 			>
-				<section
+				<DocSection
+					first
 					id="installation"
-					aria-labelledby="installation-title"
-					className={`${prose} scroll-mt-24`}
+					title="Installation"
+					description={
+						<>
+							Add the package once, import{" "}
+							<code>@passui/react/{meta.entry}</code> where you use it.
+						</>
+					}
 				>
-					<Accordion>
-						<AccordionItem value="installation">
-							<AccordionTrigger id="installation-title">
-								Installation
-							</AccordionTrigger>
-							<AccordionContent>
-								<Tabs
-									defaultValue="bun"
-									variant="line"
-									className="not-typeset ring-separator/60 gap-0 overflow-hidden rounded-3xl ring-1"
+					<Tabs
+						defaultValue="bun"
+						variant="line"
+						tone="accent"
+						className="ring-separator/60 gap-0 overflow-hidden rounded-3xl ring-1"
+					>
+						<TabsList className="px-4">
+							{packageManagers.map(({ id }) => (
+								<TabsTrigger key={id} value={id}>
+									{id}
+								</TabsTrigger>
+							))}
+						</TabsList>
+						{packageManagers.map(({ id }) => (
+							<TabsContent key={id} value={id}>
+								<CodeBlock
+									className="bg-elevated"
+									code={code.installs[id]?.source ?? ""}
+									title={id}
+									language="Shell"
+									lineNumbers={false}
+									copyable
 								>
-									<TabsList className="px-4">
-										{packageManagers.map(({ id }) => (
-											<TabsTrigger key={id} value={id}>
-												{id}
-											</TabsTrigger>
-										))}
-									</TabsList>
-									{packageManagers.map(({ id }) => (
-										<TabsContent key={id} value={id}>
-											<div className="not-typeset">
-												<CodeBlock
-													className="bg-elevated"
-													code={code.installs[id]?.source ?? ""}
-													title={id}
-													language="Shell"
-													lineNumbers={false}
-													copyable
-												>
-													<div
-														dangerouslySetInnerHTML={{
-															__html: code.installs[id]?.html ?? "",
-														}}
-													/>
-												</CodeBlock>
-											</div>
-										</TabsContent>
-									))}
-								</Tabs>
-								<p>
-									Then import only what you use from{" "}
-									<code>@passui/react/{meta.entry}</code>. Add{" "}
-									<code>@import "@passui/react/styles.css";</code> to your
-									stylesheet once.
-								</p>
-							</AccordionContent>
-						</AccordionItem>
-					</Accordion>
-				</section>
-
-				<section
-					id="usage"
-					aria-labelledby="usage-title"
-					className={`${prose} scroll-mt-24`}
-				>
-					<h2 id="usage-title">Usage</h2>
-					<div className="not-typeset ring-separator/60 overflow-hidden rounded-3xl ring-1">
+									{/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlighted on the server */}
+									<div
+										dangerouslySetInnerHTML={{
+											__html: code.installs[id]?.html ?? "",
+										}}
+									/>
+								</CodeBlock>
+							</TabsContent>
+						))}
+					</Tabs>
+					<div className="ring-separator/60 overflow-hidden rounded-3xl ring-1">
 						<CodeBlock
 							className="bg-elevated"
 							code={code.importLine}
@@ -214,148 +187,113 @@ function RouteComponent() {
 							lineNumbers={code.importLine.includes("\n")}
 							copyable
 						>
+							{/* biome-ignore lint/security/noDangerouslySetInnerHtml: highlighted on the server */}
 							<div dangerouslySetInnerHTML={{ __html: code.install }} />
 						</CodeBlock>
 					</div>
-				</section>
+				</DocSection>
 
 				{api.length > 1 ? (
-					<section
+					<DocSection
 						id="anatomy"
-						aria-labelledby="anatomy-title"
-						className={`${prose} scroll-mt-24`}
+						title="Anatomy"
+						description="The parts, and how they nest."
 					>
-						<Accordion>
-							<AccordionItem value="anatomy">
-								<AccordionTrigger id="anatomy-title">Anatomy</AccordionTrigger>
-								<AccordionContent>
-									<div className="not-typeset ring-separator/60 overflow-hidden rounded-3xl ring-1">
-										<CodeBlock
-											className="bg-elevated"
-											lineNumbers={false}
-											copyable
-											code={[
-												api[0]?.name,
-												...api
-													.slice(1)
-													.map(
-														(part, index, parts) =>
-															`${index === parts.length - 1 ? "└─" : "├─"} ${part.name}`,
-													),
-											].join("\n")}
-										/>
-									</div>
-								</AccordionContent>
-							</AccordionItem>
-						</Accordion>
-					</section>
+						<div className="ring-separator/60 overflow-hidden rounded-3xl ring-1">
+							<CodeBlock
+								className="bg-elevated"
+								lineNumbers={false}
+								copyable
+								code={[
+									api[0]?.name,
+									...api
+										.slice(1)
+										.map(
+											(part, index, parts) =>
+												`${index === parts.length - 1 ? "└─" : "├─"} ${part.name}`,
+										),
+								].join("\n")}
+							/>
+						</div>
+					</DocSection>
 				) : null}
 
-				<section
+				<DocSection
 					id="examples"
-					aria-labelledby="examples-title"
-					className={`${prose} scroll-mt-24`}
+					title="Examples"
+					description="Common setups, variations and states."
 				>
-					<h2 id="examples-title">Examples</h2>
-					<p>Common setups, variations and states.</p>
-					{doc.examples.map((example) => {
-						const sample = code.examples[example.id];
-						const { Demo } = example;
-						return (
-							<section
-								key={example.id}
-								id={`example-${example.id}`}
-								aria-labelledby={`example-${example.id}-title`}
-								className={`${prose} scroll-mt-24`}
-							>
-								<h3 id={`example-${example.id}-title`}>
-									<a
-										href={`#example-${example.id}`}
-										className="text-inherit no-underline hover:underline"
-									>
-										{example.title}
-									</a>
-								</h3>
-								<p>{example.description}</p>
-								<div className="not-typeset ring-separator/60 mt-3 overflow-hidden rounded-4xl ring-1">
-									<div className="bg-background flex min-h-40 items-center justify-center p-5">
-										<Demo />
-									</div>
-									{sample ? (
-										<div className="border-separator/60 border-t">
-											<CodeBlock
-												className="bg-elevated"
-												code={sample.source}
-												title={`${meta.slug}-${example.id}.tsx`}
-												language="TypeScript JSX"
-												copyable
-												foldAfter={6}
-											>
-												<div
-													dangerouslySetInnerHTML={{ __html: sample.html }}
-												/>
-											</CodeBlock>
-										</div>
-									) : null}
-								</div>
-							</section>
-						);
-					})}
-				</section>
+					<div className="flex flex-col gap-10">
+						{doc.examples.map((example) => {
+							const { Demo } = example;
+							return (
+								<ExampleCard
+									key={example.id}
+									id={example.id}
+									title={example.title}
+									description={example.description}
+									fileName={`${meta.slug}-${example.id}.tsx`}
+									sample={code.examples[example.id]}
+								>
+									<Demo />
+								</ExampleCard>
+							);
+						})}
+					</div>
+				</DocSection>
 
-				<section
+				<DocSection
 					id="accessibility"
-					aria-labelledby="accessibility-title"
-					className={`${prose} scroll-mt-24`}
+					title="Accessibility"
+					description="What the component does for assistive technology."
 				>
-					<Accordion>
-						<AccordionItem value="accessibility">
-							<AccordionTrigger id="accessibility-title">
-								Accessibility
-							</AccordionTrigger>
-							<AccordionContent>
-								<ul className="not-typeset m-0 flex list-none flex-col gap-4 p-0">
-									{doc.accessibility.map((line) => (
-										<li key={line} className="flex items-start gap-2">
-											<InfoIcon size={18} className="mt-0.5 shrink-0" />
-											<span>{line}</span>
-										</li>
-									))}
-								</ul>
-							</AccordionContent>
-						</AccordionItem>
-					</Accordion>
-				</section>
+					<ul className="m-0 flex list-none flex-col gap-3 p-0">
+						{doc.accessibility.map((line) => (
+							<li
+								key={line}
+								className="text-footnote text-label flex items-start gap-2"
+							>
+								<InfoIcon
+									size={16}
+									className="text-accent-text mt-0.5 shrink-0"
+								/>
+								<span>{line}</span>
+							</li>
+						))}
+					</ul>
+				</DocSection>
 
-				<section
+				<DocSection
 					id="api-reference"
-					aria-labelledby="api-reference-title"
-					className={`${prose} scroll-mt-24`}
+					title="API reference"
+					description="Props for every part, read from the component's types."
 				>
-					<h2 id="api-reference-title">API reference</h2>
-					{api
-						.filter((part) => part.props.length > 0)
-						.map((part) => (
-							<div key={part.name}>
-								<h3>
-									<code>{part.name}</code>
-								</h3>
-								{part.description ? (
-									<p className="line-clamp-1" title={part.description}>
-										{part.description}
-									</p>
-								) : null}
-								<div className="not-typeset ring-separator/60 mt-3 overflow-hidden rounded-3xl ring-1">
-									<Table className="w-full table-fixed border-collapse text-left">
+					<div className="flex flex-col gap-8">
+						{api
+							.filter((part) => part.props.length > 0)
+							.map((part) => (
+								<div key={part.name} className="text-caption">
+									<h3 className="text-caption text-label m-0 font-semibold">
+										<code>{part.name}</code>
+									</h3>
+									{part.description ? (
+										<p
+											className="text-caption text-label-secondary m-0"
+											title={part.description}
+										>
+											{part.description}
+										</p>
+									) : null}
+									<Table className="ring-separator/60 text-caption mt-3 w-full table-fixed rounded-3xl text-left ring-1">
 										<TableHeader className="bg-fill/50">
 											<TableRow>
-												<TableHead className="w-[28%] px-3 py-2">
+												<TableHead className="text-caption w-[28%] px-3 py-2">
 													Prop
 												</TableHead>
-												<TableHead className="w-[44%] px-3 py-2">
+												<TableHead className="text-caption w-[44%] px-3 py-2">
 													Type
 												</TableHead>
-												<TableHead className="w-[28%] px-3 py-2">
+												<TableHead className="text-caption w-[28%] px-3 py-2">
 													Default
 												</TableHead>
 											</TableRow>
@@ -367,7 +305,7 @@ function RouteComponent() {
 													className="border-separator/60 border-t align-top"
 												>
 													<TableCell
-														className="truncate px-3 py-2 font-mono font-semibold"
+														className="text-caption truncate px-3 py-2 font-mono font-semibold"
 														title={prop.description || prop.name}
 													>
 														{prop.name}
@@ -376,13 +314,13 @@ function RouteComponent() {
 														) : null}
 													</TableCell>
 													<TableCell
-														className="truncate px-3 py-2 font-mono"
+														className="text-caption truncate px-3 py-2 font-mono"
 														title={prop.type}
 													>
 														{prop.type}
 													</TableCell>
 													<TableCell
-														className="truncate px-3 py-2 font-mono"
+														className="text-caption truncate px-3 py-2 font-mono"
 														title={prop.default}
 													>
 														{prop.default ?? "–"}
@@ -392,12 +330,12 @@ function RouteComponent() {
 										</TableBody>
 									</Table>
 								</div>
-							</div>
-						))}
-				</section>
+							))}
+					</div>
+				</DocSection>
 
 				<PageNav href={`/docs/components/${meta.slug}`} />
-			</ViewController>
+			</Layout>
 
 			<aside className={pageRail}>
 				<nav
