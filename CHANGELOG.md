@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/tokens 0.1.4
+
+### Fixed
+
+- `pageScale` is now in the published package. `@passui/react` 0.3.2 imports it for page scaling behind a `Drawer` or `Sheet`, but tokens 0.1.3 was published before it existed, so an app that loaded `@passui/react` 0.3.2 with tokens 0.1.3 failed with "Export named 'pageScale' not found". Install tokens 0.1.4 or later.
+
 ## @passui/react 0.3.2
 
 ### Changed
