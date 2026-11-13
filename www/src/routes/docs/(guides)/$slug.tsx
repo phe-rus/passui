@@ -1,6 +1,6 @@
 import { cn } from "@passui/react/cn";
 import { CodeBlock } from "@passui/react/code-block";
-import { ViewController } from "@passui/react/view-controller";
+import { Layout } from "@passui/react/layout";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PageNav } from "@/components/docs/page-nav";
 import { getGuide } from "@/features/docs/lib/get-guides";
@@ -36,14 +36,11 @@ function RouteComponent() {
 
 	return (
 		<div className={pageGrid}>
-			<ViewController
+			<Layout
 				key={guide.slug}
 				className={pageColumn}
 				heading={
-					<ViewController.Heading
-						title={guide.title}
-						description={guide.summary}
-					/>
+					<Layout.Heading title={guide.title} description={guide.summary} />
 				}
 			>
 				{/* Markdown, rendered once at build time: prose as HTML, code in CodeBlock. */}
@@ -75,7 +72,7 @@ function RouteComponent() {
 					)}
 				</div>
 				<PageNav href={guide.path} />
-			</ViewController>
+			</Layout>
 
 			<aside className={pageRail}>
 				<nav

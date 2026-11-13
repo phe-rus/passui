@@ -56,9 +56,6 @@ export * from "./hooks/use-os";
 export * from "./hooks/use-visual-viewport";
 export * from "./legacy/aspect-ratio/aspect-ratio";
 export * from "./legacy/code-block/code-block";
-export * from "./legacy/compact-date-picker/compact-date-picker";
-export * from "./legacy/compact-time-picker/compact-time-picker";
-export * from "./legacy/content-unavailable-view/content-unavailable-view";
 export type {
 	ContentViewHeadingLevel,
 	ContentViewVariant,
@@ -76,6 +73,7 @@ export {
 } from "./legacy/context-menu/context-menu-store";
 export * from "./legacy/context-menu/use-context-menu";
 export * from "./legacy/date-picker/date-picker";
+export * from "./legacy/empty/empty";
 export * from "./legacy/labeled-content/labeled-content";
 export * from "./legacy/morph";
 export * from "./legacy/search-field/search-field";

@@ -54,14 +54,14 @@ void invalidLegacyIconButtonProps;
 void invalidTextIconButtonProps;
 
 test("button sizes use the shared semantic size map", () => {
-	expect(buttonStyle({ size: "default" })).toContain("h-11");
-	expect(buttonStyle({ size: "xs" })).toContain("h-8");
-	expect(buttonStyle({ size: "sm" })).toContain("h-9");
-	expect(buttonStyle({ size: "lg" })).toContain("h-12");
-	expect(buttonStyle({ size: "icon" })).toContain("size-11");
-	expect(buttonStyle({ size: "icon-xs" })).toContain("size-8");
-	expect(buttonStyle({ size: "icon-sm" })).toContain("size-9");
-	expect(buttonStyle({ size: "icon-lg" })).toContain("size-12");
+	expect(buttonStyle({ size: "default" })).toContain("h-8.5");
+	expect(buttonStyle({ size: "xs" })).toContain("h-6.5");
+	expect(buttonStyle({ size: "sm" })).toContain("h-7.5");
+	expect(buttonStyle({ size: "lg" })).toContain("h-9.5");
+	expect(buttonStyle({ size: "icon" })).toContain("size-8.5");
+	expect(buttonStyle({ size: "icon-xs" })).toContain("size-6.5");
+	expect(buttonStyle({ size: "icon-sm" })).toContain("size-7.5");
+	expect(buttonStyle({ size: "icon-lg" })).toContain("size-9.5");
 	expect(buttonStyle({ size: "icon-full" })).toContain("w-full");
 });
 
@@ -89,7 +89,7 @@ test("icon button shares variants and uses square semantic sizes", () => {
 	);
 
 	expect(markup).toContain("bg-danger");
-	expect(markup).toContain("size-12");
+	expect(markup).toContain("size-9.5");
 	expect(markup).toContain('aria-label="Delete"');
 });
 

@@ -893,7 +893,7 @@
 	"date-time-picker": [
 		{
 			"name": "DateTimePicker",
-			"description": "One picker for dates, times, both together, and ranges, in the style of\nSwiftUI's compact DatePicker: a button that opens a calendar, time\ncolumns or both. Values are plain strings (`YYYY-MM-DD`, `HH:MM`,\n`YYYY-MM-DDTHH:MM`) or a `{ from, to }` range, so they go straight to a\nform or an API.",
+			"description": "One picker for dates, times, both together, and ranges, the way Apple's\ncompact DatePicker works: a chip for the date, a chip for the time, each\nopening its own panel. The date panel is a calendar whose month title opens\nmonth and year wheels, so a far date is one flick and not a hundred taps.\nThe time panel is hour, minute and period wheels. Values are plain strings\n(`YYYY-MM-DD`, `HH:MM`, `YYYY-MM-DDTHH:MM`) or a `{ from, to }` range, so\nthey go straight to a form or an API.",
 			"props": [
 				{
 					"name": "label",
@@ -2288,7 +2288,22 @@
 		{
 			"name": "Pagination",
 			"description": "",
-			"props": []
+			"props": [
+				{
+					"name": "size",
+					"type": "PaginationSize",
+					"default": "\"default\"",
+					"description": "Height of every page button, like the other controls.",
+					"required": false
+				},
+				{
+					"name": "tone",
+					"type": "PaginationTone",
+					"default": "\"neutral\"",
+					"description": "The theme role that marks the current page.",
+					"required": false
+				}
+			]
 		},
 		{
 			"name": "PaginationContent",
@@ -2315,6 +2330,12 @@
 					"type": "RenderProp",
 					"description": "",
 					"required": false
+				},
+				{
+					"name": "wide",
+					"type": "boolean",
+					"description": "Sizes the link by its label instead of as a square page number.",
+					"required": false
 				}
 			]
 		},
@@ -2333,6 +2354,12 @@
 					"type": "RenderProp",
 					"description": "",
 					"required": false
+				},
+				{
+					"name": "wide",
+					"type": "boolean",
+					"description": "Sizes the link by its label instead of as a square page number.",
+					"required": false
 				}
 			]
 		},
@@ -2350,6 +2377,12 @@
 					"name": "render",
 					"type": "RenderProp",
 					"description": "",
+					"required": false
+				},
+				{
+					"name": "wide",
+					"type": "boolean",
+					"description": "Sizes the link by its label instead of as a square page number.",
 					"required": false
 				}
 			]
@@ -2675,6 +2708,12 @@
 			"description": "",
 			"props": [
 				{
+					"name": "aria-label",
+					"type": "string",
+					"description": "Names the group when there is no visible label.",
+					"required": false
+				},
+				{
 					"name": "children",
 					"type": "ReactNode",
 					"description": "",
@@ -2772,6 +2811,12 @@
 					"required": true
 				},
 				{
+					"name": "bare",
+					"type": "boolean",
+					"description": "Draws no radio dot: the children are the whole control, such as a color\nswatch. Style them with `group-data-[state=checked]:`.",
+					"required": false
+				},
+				{
 					"name": "disabled",
 					"type": "boolean",
 					"description": "",
@@ -2827,7 +2872,7 @@
 	"select": [
 		{
 			"name": "Select",
-			"description": "A single choice from a list. Renders a native hidden `select`, so it submits\nwith its form, and a listbox that opens beside the trigger.",
+			"description": "A single choice from a list. Renders a native hidden `select`, so it submits\nwith its form, and a listbox that opens over the trigger with the selected\noption on the trigger's value.",
 			"props": [
 				{
 					"name": "items",
@@ -2920,6 +2965,12 @@
 					"name": "highlightedValue",
 					"type": "string",
 					"description": "The controlled key of the highlighted item",
+					"required": false
+				},
+				{
+					"name": "icon",
+					"type": "ReactNode",
+					"description": "Shown before the value inside the trigger, such as a globe for a language list.",
 					"required": false
 				},
 				{
@@ -3551,6 +3602,13 @@
 					"required": false
 				},
 				{
+					"name": "tone",
+					"type": "TabsTone",
+					"default": "\"neutral\"",
+					"description": "The theme role that colors the selection.",
+					"required": false
+				},
+				{
 					"name": "translations",
 					"type": "IntlTranslations",
 					"description": "Specifies the localized strings that identifies the accessibility elements and their states",
@@ -4032,6 +4090,18 @@
 					"required": false
 				},
 				{
+					"name": "highlightLines",
+					"type": "number[]",
+					"description": "1 based lines to mark with a soft accent band, for the lines a paragraph is about.",
+					"required": false
+				},
+				{
+					"name": "labels",
+					"type": "{ copy: string; copied: string; expand: string; collapse: string; }",
+					"description": "Names for the copy button and the fold button, so apps can translate them.",
+					"required": false
+				},
+				{
 					"name": "language",
 					"type": "string",
 					"description": "The language's name, shown beside the caption.",
@@ -4055,6 +4125,13 @@
 					"name": "title",
 					"type": "string",
 					"description": "A caption over the code, such as a file name.",
+					"required": false
+				},
+				{
+					"name": "wrap",
+					"type": "boolean",
+					"default": "false",
+					"description": "Wrap long lines instead of scrolling sideways.",
 					"required": false
 				}
 			]
@@ -4283,9 +4360,9 @@
 			]
 		}
 	],
-	"content-unavailable-view": [
+	"empty": [
 		{
-			"name": "ContentUnavailableView",
+			"name": "Empty",
 			"description": "A focused empty or unavailable state with an optional next action.",
 			"props": [
 				{
@@ -4314,7 +4391,7 @@
 				},
 				{
 					"name": "size",
-					"type": "ContentUnavailableViewSize",
+					"type": "EmptySize",
 					"default": "\"md\"",
 					"description": "Title, description and vertical rhythm.",
 					"required": false
@@ -4335,14 +4412,20 @@
 				},
 				{
 					"name": "label",
-					"type": "string",
+					"type": "ReactNode",
 					"description": "The visible name of the row.",
 					"required": true
 				},
 				{
 					"name": "description",
-					"type": "string",
-					"description": "Supporting text below the label.",
+					"type": "ReactNode",
+					"description": "Supporting text directly below the label.",
+					"required": false
+				},
+				{
+					"name": "icon",
+					"type": "ReactNode",
+					"description": "A glyph in a soft tile before the label, like a Settings row.",
 					"required": false
 				},
 				{
@@ -4369,15 +4452,15 @@
 			]
 		}
 	],
-	"locale-switcher": [
+	"locales": [
 		{
-			"name": "LocaleSwitcher",
-			"description": "A draggable floating language picker that snaps to the nearest corner.",
+			"name": "Locales",
+			"description": "A language list: the current language on a globe trigger, every choice named\nin its own language. It sits in the page where you put it and opens like a\nSelect, so keyboard, typeahead and dismissal come from the same parts.",
 			"props": [
 				{
 					"name": "label",
 					"type": "string",
-					"description": "",
+					"description": "Accessible name for the control.",
 					"required": true
 				},
 				{
@@ -4389,7 +4472,7 @@
 				{
 					"name": "locales",
 					"type": "readonly L[]",
-					"description": "",
+					"description": "Language tags to offer, such as `[\"en\", \"fr\"]`. Each is named in its own language.",
 					"required": true
 				},
 				{
@@ -4399,16 +4482,16 @@
 					"required": true
 				},
 				{
-					"name": "storageKey",
+					"name": "className",
 					"type": "string",
-					"description": "localStorage key for where the person dragged it.",
-					"required": true
+					"description": "",
+					"required": false
 				},
 				{
 					"name": "size",
-					"type": "LocaleSwitcherSize",
+					"type": "LocalesSize",
 					"default": "\"md\"",
-					"description": "Trigger, header, list item and icon scale.",
+					"description": "Width of the control.",
 					"required": false
 				}
 			]
@@ -4417,7 +4500,7 @@
 	"swatch-picker": [
 		{
 			"name": "SwatchPicker",
-			"description": "Colour swatches with a check on the chosen one.",
+			"description": "Colour swatches with a check on the chosen one, built on `RadioGroup` so keyboard and form behaviour match.",
 			"props": [
 				{
 					"name": "label",
@@ -4459,9 +4542,9 @@
 			]
 		}
 	],
-	"view-controller": [
+	"layout": [
 		{
-			"name": "ViewController",
+			"name": "Layout",
 			"description": "",
 			"props": [
 				{

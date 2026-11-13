@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, test } from "vitest";
 import { CodeBlock } from "../../src/legacy/code-block/code-block";
-import { ContentUnavailableView } from "../../src/legacy/content-unavailable-view/content-unavailable-view";
+import { Empty } from "../../src/legacy/empty/empty";
 
 test("plain code preserves line breaks and escapes markup without a highlighter", () => {
 	const html = renderToStaticMarkup(
@@ -19,7 +19,7 @@ test("plain code preserves line breaks and escapes markup without a highlighter"
 
 test("empty states render actions and hide decorative icons from assistive technology", () => {
 	const html = renderToStaticMarkup(
-		<ContentUnavailableView
+		<Empty
 			title="No items"
 			description="Save your first item."
 			icon={<svg />}

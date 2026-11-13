@@ -198,7 +198,7 @@ your user npm configuration.
 ### Documentation and loading primitives
 
 Import `Accordion`, `ComboBox`, `RadioGroup`, `Breadcrumb`, `Skeleton`,
-`ContentUnavailableView`, `CodeBlock` and `KeyboardShortcut` from their kebab case
+`Empty`, `CodeBlock` and `KeyboardShortcut` from their kebab case
 subpaths, such as `@passui/react/combo-box`. Each has a named props type and
 interactive documentation. CodeBlock accepts plain source and optionally a
 highlighter element, keeping syntax engines out of the library dependency graph.

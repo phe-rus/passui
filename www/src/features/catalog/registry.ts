@@ -408,11 +408,11 @@ export const registry: ComponentMeta[] = [
 		preview: true,
 	},
 	{
-		slug: "content-unavailable-view",
-		name: "Content Unavailable View",
+		slug: "empty",
+		name: "Empty",
 		group: "Feedback",
-		summary: "An empty or error state with an icon and actions.",
-		entry: "content-unavailable-view",
+		summary: "An empty, search or error state with an icon and actions.",
+		entry: "empty",
 		preview: true,
 	},
 	{
@@ -424,12 +424,12 @@ export const registry: ComponentMeta[] = [
 		preview: true,
 	},
 	{
-		slug: "locale-switcher",
-		name: "Locale Switcher",
+		slug: "locales",
+		name: "Locales",
 		group: "Navigation",
-		summary: "A floating language switcher.",
-		entry: "locale-switcher",
-		preview: true,
+		summary:
+			"A language list on a globe trigger, each language in its own name.",
+		entry: "locales",
 	},
 	{
 		slug: "swatch-picker",
@@ -437,14 +437,14 @@ export const registry: ComponentMeta[] = [
 		group: "Forms",
 		summary: "Choose a colour from a row of swatches.",
 		entry: "swatch-picker",
-		preview: true,
 	},
 	{
-		slug: "view-controller",
-		name: "View Controller",
+		slug: "layout",
+		name: "Layout",
 		group: "Layout",
-		summary: "A full screen view that stacks and pops.",
-		entry: "view-controller",
+		summary:
+			"The page shell: a heading with a title and description, and its content.",
+		entry: "layout",
 		preview: true,
 	},
 	{

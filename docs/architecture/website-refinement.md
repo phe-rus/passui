@@ -144,7 +144,7 @@ were verified locally. This packs/checks files; it does not publish anything.
 This section supersedes the category Accordion and release hold above. The docs
 rail and command search now expose every component alphabetically, using compact
 native Sidebar rows. The catalog keeps descriptive family groups with smaller
-cards. Breadcrumb, CodeBlock, KeyboardShortcut and ContentUnavailableView replace
+cards. Breadcrumb, CodeBlock, KeyboardShortcut and Empty replace
 website owned versions. ComboBox, RadioGroup and Skeleton fill additional native
 control gaps. All 50 families have real usage, showcase and two extra examples.
 

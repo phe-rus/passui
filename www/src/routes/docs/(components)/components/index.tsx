@@ -4,7 +4,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@passui/react/card";
-import { ViewController } from "@passui/react/view-controller";
+import { Layout } from "@passui/react/layout";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { groups, registry } from "@/features/catalog/registry";
 import { pageColumn, pageGrid, prose } from "@/features/docs/lib/prose";
@@ -24,10 +24,10 @@ export const Route = createFileRoute("/docs/(components)/components/")({
 function RouteComponent() {
 	return (
 		<div className={pageGrid}>
-			<ViewController
+			<Layout
 				className={`${prose} ${pageColumn}`}
 				heading={
-					<ViewController.Heading
+					<Layout.Heading
 						title="Components"
 						description="Every control, by what it does. Each page has live examples, the exact source, props and accessibility notes."
 					/>
@@ -66,7 +66,7 @@ function RouteComponent() {
 						</section>
 					);
 				})}
-			</ViewController>
+			</Layout>
 		</div>
 	);
 }

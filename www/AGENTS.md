@@ -27,7 +27,7 @@ scripts/generate-api.ts  props tables from the built declarations
 test/                    registry, example, SEO and header tests
 ```
 
-Pages use the library, not their own copies of it: `ViewController` for the document, `Sidebar` parts for navigation, `Accordion` for folded sections, `Tabs` (`variant="line"`) for package managers, `CodeBlock` (with `title`, `language`, `copyable`, `foldAfter`) for code, `Table`, `Breadcrumb`, `ContentUnavailableView`. If a piece is missing it is added to the library, with its icon in `@passui/icons`, not drawn on the site. Plain `h1`, `p`, `ul` and `code` take their look from `typeset`.
+Pages use the library, not their own copies of it: `Layout` for the document, `Sidebar` parts for navigation, `Accordion` for folded sections, `Tabs` (`variant="line"`) for package managers, `CodeBlock` (with `title`, `language`, `copyable`, `foldAfter`) for code, `Table`, `Breadcrumb`, `Empty`. If a piece is missing it is added to the library, with its icon in `@passui/icons`, not drawn on the site. Plain `h1`, `p`, `ul` and `code` take their look from `typeset`.
 
 URLs: guides at `/docs/<slug>`, components at `/docs/components/<slug>`, an overview at `/docs/components`.
 

@@ -36,7 +36,7 @@ export function Continue() {
 ```
 
 The catalog includes native Accordion, ComboBox, RadioGroup, Breadcrumb,
-Skeleton, ContentUnavailableView, CodeBlock, KeyboardShortcut, Command,
+Skeleton, Empty, CodeBlock, KeyboardShortcut, Command,
 OneTimeCode, AspectRatio, SloshSlider and WakeSlider. Use `Toggle`
 with `style="checkbox"` for checkboxes. Names follow SwiftUI where the concepts
 match; see [component coverage](docs/architecture/component-coverage.md).

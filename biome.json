@@ -131,27 +131,11 @@
 			}
 		},
 		{
-			"includes": [
-				"packages/ui/src/legacy/compact-date-picker/compact-date-picker.tsx",
-				"packages/icons/src/create-icon.tsx"
-			],
+			"includes": ["packages/icons/src/create-icon.tsx"],
 			"linter": {
 				"rules": {
 					"correctness": {
 						"noComponentHookFactories": "off"
-					}
-				}
-			}
-		},
-		{
-			"includes": [
-				"packages/ui/src/legacy/compact-date-picker/compact-date-picker.tsx"
-			],
-			"linter": {
-				"rules": {
-					"a11y": {
-						"useSemanticElements": "off",
-						"useFocusableInteractive": "off"
 					}
 				}
 			}

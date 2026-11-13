@@ -1,11 +1,11 @@
 import { buttonVariants } from "@passui/react/button";
-import { ContentUnavailableView } from "@passui/react/content-unavailable-view";
+import { Empty } from "@passui/react/empty";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { DocsNav } from "@/components/docs/docs-nav";
 
 export const Route = createFileRoute("/docs")({
 	notFoundComponent: () => (
-		<ContentUnavailableView
+		<Empty
 			title="Page not found"
 			description="That page does not exist in the docs."
 			actions={

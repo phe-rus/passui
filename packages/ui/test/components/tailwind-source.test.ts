@@ -19,7 +19,7 @@ it("generates Button classes from the compiled package through tokens styles.css
 	const css = compiler.build(scanner.scan());
 	expect(css).toContain(".rounded-full");
 	expect(css).toContain(".bg-inverse");
-	expect(css).toContain(".size-11");
+	expect(css).toContain(".size-8\\.5");
 	// Only the new Button uses this class.
 	expect(css).toContain(".ease-standard");
 });

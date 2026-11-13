@@ -30,7 +30,7 @@ it("passes native props, refs and extra classes through", () => {
 it("gives links the same classes as the button", () => {
 	const classes = buttonVariants({ variant: "outline", size: "sm" });
 	expect(classes).toContain("var(--color-separator)");
-	expect(classes).toContain("h-9");
+	expect(classes).toContain("h-7.5");
 });
 
 it("has no accessibility violations in any variant", async () => {

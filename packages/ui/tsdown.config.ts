@@ -27,12 +27,7 @@ export default defineConfig({
 		calendar: "src/components/calendar.tsx",
 		chart: "src/components/chart.tsx",
 		"date-time-picker": "src/components/date-time-picker.tsx",
-		"compact-date-picker":
-			"src/legacy/compact-date-picker/compact-date-picker.tsx",
-		"compact-time-picker":
-			"src/legacy/compact-time-picker/compact-time-picker.tsx",
-		"content-unavailable-view":
-			"src/legacy/content-unavailable-view/content-unavailable-view.tsx",
+		empty: "src/legacy/empty/empty.tsx",
 		"content-view": "src/legacy/content-view/index.ts",
 		conversation: "src/legacy/conversation/index.ts",
 		date: "src/lib/date.ts",
@@ -52,7 +47,7 @@ export default defineConfig({
 		label: "src/components/label.tsx",
 		"labeled-content": "src/legacy/labeled-content/labeled-content.tsx",
 		language: "src/lib/language.ts",
-		"locale-switcher": "src/legacy/locale-switcher/index.ts",
+		locales: "src/legacy/locales/index.ts",
 		morph: "src/legacy/morph/index.ts",
 		pagination: "src/components/pagination.tsx",
 		popover: "src/components/popover.tsx",
@@ -85,7 +80,7 @@ export default defineConfig({
 		"use-media-query": "src/hooks/use-media-query.ts",
 		"use-os": "src/hooks/use-os.ts",
 		list: "src/components/list.tsx",
-		"view-controller": "src/legacy/view-controller/index.ts",
+		layout: "src/legacy/layout/index.ts",
 		"wake-slider": "src/legacy/wake-slider/wake-slider.tsx",
 	},
 	format: "esm",
