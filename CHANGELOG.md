@@ -20,6 +20,7 @@
 
 - The whole `legacy/` tree is gone, including the old `Button`, `IconButton`, `Sheet`, `TextField`, `Code Block`, `Stepper`, `Wake Slider` and `Conversation` implementations. `Code Block`, `Stepper`, `Wake Slider` and `Conversation` are rebuilt in `components/` with the same props and subpaths; `IconButton` is now `Button` with an `icon` size and an `aria-label`. `@passui/react/legacy/*` no longer exists.
 - `@passui/tanstack` 0.3.0 requires `@passui/react` `^0.2.0`.
+- `@passui/icons` 0.1.1 is the first release published through CI trusted publishing; it has no code changes from 0.1.0.
 - `@passui/icons` 0.1.0 is a new package with one entry point per icon, such as `@passui/icons/settings`.
 
 - `CompactDatePicker`, `CompactTimePicker` and the legacy `Picker` and `Popover`: use `DateTimePicker`, `Popover` and `Select`.
