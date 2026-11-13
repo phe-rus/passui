@@ -56,7 +56,7 @@ function RouteComponent() {
 							<div
 								// biome-ignore lint/suspicious/noArrayIndexKey: a fixed, build time list
 								key={index}
-								className="not-typeset ring-separator/60 mt-4 overflow-hidden rounded-3xl ring-1"
+								className="not-typeset ring-separator/60 mt-3 overflow-hidden rounded-3xl ring-1"
 							>
 								<CodeBlock
 									className="bg-elevated"

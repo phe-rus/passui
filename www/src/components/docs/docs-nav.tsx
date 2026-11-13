@@ -25,7 +25,7 @@ export function revealActive(scroller: HTMLElement) {
 		scroller.scrollTop += item.top - box.top - (box.height - item.height) / 2;
 }
 
-const statusDot = {
+export const statusDot = {
 	preview: "bg-danger",
 	updated: "bg-warning",
 	new: "bg-success",
@@ -104,6 +104,22 @@ export function DocsNav({ onNavigate }: DocsNavProps) {
 					</SidebarMenu>
 				</SidebarGroup>
 			))}
+			<ul
+				aria-label="What the dots mean"
+				className="text-caption text-label-tertiary m-0 flex list-none flex-wrap gap-x-4 gap-y-1 p-0 px-3"
+			>
+				{(Object.keys(statusDot) as (keyof typeof statusDot)[]).map(
+					(status) => (
+						<li key={status} className="flex items-center gap-1.5">
+							<span
+								aria-hidden
+								className={cn("block size-1.5 rounded-full", statusDot[status])}
+							/>
+							<span className="capitalize">{status}</span>
+						</li>
+					),
+				)}
+			</ul>
 		</Sidebar>
 	);
 }

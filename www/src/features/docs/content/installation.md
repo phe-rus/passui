@@ -8,40 +8,37 @@ order: 2
 
 ## Install
 
-For guided setup, run the Passui CLI in your app. It generates a stylesheet and providers for your framework.
+In an existing app, run the CLI. It adds a stylesheet and providers and leaves your own code alone.
 
 ```bash
 bunx @passui/cli@latest init
-
-# Create a new project
-bunx @passui/cli@latest create my-app --template vite
-bunx @passui/cli@latest create my-app --template tanstack
 ```
 
-Prefer to do it by hand? Add the packages and configure Tailwind CSS 4.
+Starting fresh? Create an app from a starter. Use `--template tanstack` for TanStack Start, or see the [templates](/templates).
+
+```bash
+bunx @passui/cli@latest create my-app --template vite
+```
+
+Prefer to do it by hand? Passui needs Tailwind CSS 4. Add the packages:
 
 ```bash
 bun add @passui/react @passui/icons
 ```
 
-With TanStack:
-
-```bash
-bun add @passui/tanstack @tanstack/react-query
-```
+With TanStack, also add `@passui/tanstack` and `@tanstack/react-query`.
 
 ## Styles
 
-One import brings in Tailwind, the theme and everything the controls need. The stylesheet is the whole of your CSS: two lines, and nothing of your own to maintain.
+One import brings in Tailwind, the theme and everything the controls need. Tailwind finds Passui's files itself, so there are no paths to add. With TanStack, import `@passui/tanstack/styles.css` instead.
 
 ```css
-@import "@passui/react/globals.css";
-@source "**/**/**.{ts,tsx}";
+@import "@passui/react/styles.css";
 ```
 
 ## Root setup
 
-`PlatformScript` sets `data-os` before the first paint. Mount `Toaster` once if you use toasts.
+`PlatformScript` sets `data-os` before the first paint, so platform styles never flash. Mount `Toaster` once if you use toasts.
 
 ```tsx
 import {
@@ -76,6 +73,8 @@ export function Root({ children }: { children: React.ReactNode }) {
 ```
 
 ## Use a component
+
+Every control is its own entry point, `@passui/react/<name>`. [Browse them all](/docs/components).
 
 ```tsx
 import { Button } from "@passui/react/button";

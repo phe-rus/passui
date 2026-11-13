@@ -1,5 +1,5 @@
 import { type AccentId, accents } from "@passui/react/tokens";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export const accentIds = Object.keys(accents) as AccentId[];
 
@@ -10,12 +10,10 @@ function applyAccent(accent: AccentId) {
 	else root.setAttribute("data-accent", accent);
 }
 
-/** The page's accent, chosen by hand. Leaving the page restores Blush. */
-export function usePinnedAccent(initial: AccentId = "blush") {
-	const [accent, setAccent] = useState<AccentId>(initial);
+/** Applies the page's accent. Leaving the page restores Blush. */
+export function usePinnedAccent(accent: AccentId) {
 	useEffect(() => {
 		applyAccent(accent);
 	}, [accent]);
 	useEffect(() => () => applyAccent("blush"), []);
-	return [accent, setAccent] as const;
 }

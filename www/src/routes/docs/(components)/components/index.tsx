@@ -1,11 +1,7 @@
-import {
-	Card,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@passui/react/card";
+import { cn } from "@passui/react/cn";
 import { Layout } from "@passui/react/layout";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { statusDot } from "@/components/docs/docs-nav";
 import { groups, registry } from "@/features/catalog/registry";
 import { pageColumn, pageGrid, prose } from "@/features/docs/lib/prose";
 import { getPageHead } from "@/features/seo/lib/seo";
@@ -20,7 +16,7 @@ export const Route = createFileRoute("/docs/(components)/components/")({
 	component: RouteComponent,
 });
 
-/** The overview: every component, grouped by what it does, in the same column as every page. */
+/** The overview: every component, grouped by what it does, names only, in the same column as every page. */
 function RouteComponent() {
 	return (
 		<div className={pageGrid}>
@@ -29,7 +25,7 @@ function RouteComponent() {
 				heading={
 					<Layout.Heading
 						title="Components"
-						description="Every control, by what it does. Each page has live examples, the exact source, props and accessibility notes."
+						description="Every control, grouped by what it does. Each page has live examples, source, props and accessibility notes."
 					/>
 				}
 			>
@@ -44,24 +40,40 @@ function RouteComponent() {
 							aria-labelledby={`group-${group}`}
 							className="typeset"
 						>
-							<h2 id={`group-${group}`}>{group}</h2>
-							<ul className="not-typeset m-0 mt-3 grid list-none gap-3 p-0 sm:grid-cols-2">
-								{items.map((component) => (
-									<li key={component.slug}>
-										<Link
-											to="/docs/components/$slug"
-											params={{ slug: component.slug }}
-											className="block h-full no-underline"
-										>
-											<Card className="h-full">
-												<CardHeader>
-													<CardTitle>{component.name}</CardTitle>
-													<CardDescription>{component.summary}</CardDescription>
-												</CardHeader>
-											</Card>
-										</Link>
-									</li>
-								))}
+							<h2 id={`group-${group}`}>
+								{group}{" "}
+								<span className="text-label-tertiary text-footnote font-normal tabular-nums">
+									{items.length}
+								</span>
+							</h2>
+							<ul className="not-typeset m-0 mt-3 grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3">
+								{items.map((component) => {
+									const status = component.preview
+										? "preview"
+										: component.status;
+									return (
+										<li key={component.slug}>
+											<Link
+												to="/docs/components/$slug"
+												params={{ slug: component.slug }}
+												className="bg-fill/40 text-subheadline text-label hover:bg-fill/70 focus-visible:ring-accent/70 flex min-h-11 items-center justify-between gap-2 rounded-2xl px-4 py-2 no-underline transition-colors outline-none focus-visible:ring-2"
+											>
+												{component.name}
+												{status ? (
+													<span
+														role="img"
+														aria-label={status}
+														title={status}
+														className={cn(
+															"block size-1.5 shrink-0 rounded-full",
+															statusDot[status],
+														)}
+													/>
+												) : null}
+											</Link>
+										</li>
+									);
+								})}
 							</ul>
 						</section>
 					);

@@ -30,8 +30,11 @@ export const pageRail =
  */
 export const guideProse = [
 	"typeset",
-	"typeset-h2:mt-12 typeset-h2:mb-2 typeset-h2:border-t typeset-h2:border-separator/60 typeset-h2:pt-8 typeset-h2:text-title3 typeset-h2:scroll-mt-24 typeset-h2:first:mt-0 typeset-h2:first:border-t-0 typeset-h2:first:pt-0",
-	"typeset-h3:mt-8 typeset-h3:mb-1.5 typeset-h3:text-headline typeset-h3:scroll-mt-24 typeset-h3:first:mt-0",
+	"typeset-h2:mt-10 typeset-h2:mb-2 typeset-h2:border-t typeset-h2:border-separator/60 typeset-h2:pt-6 typeset-h2:text-title3 typeset-h2:scroll-mt-24",
+	"typeset-h3:mt-6 typeset-h3:mb-1.5 typeset-h3:text-headline typeset-h3:scroll-mt-24",
 	"typeset-p:mt-3 typeset-ul:mt-3 typeset-ol:mt-3 typeset-li:mt-1.5 typeset-pre:mt-3 typeset-table:mt-3",
 	"typeset-blockquote:mt-3 typeset-hr:my-6",
+	// Markdown renders as separate chunks, so "first" means the page's first
+	// chunk only; every later section keeps its rule and room above it.
+	"[&>:first-child>h2:first-child]:mt-0! [&>:first-child>h2:first-child]:border-t-0! [&>:first-child>h2:first-child]:pt-0!",
 ].join(" ");
