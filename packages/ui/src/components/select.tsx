@@ -92,7 +92,7 @@ export function Select({
 	useAnchorFollow(
 		anchor,
 		api.open,
-		positionerSide(api.getPositionerProps()),
+		positionerSide(api.getContentProps()),
 		api.reposition,
 	);
 	const drop = useWaterDrop({

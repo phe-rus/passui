@@ -123,7 +123,7 @@ export function anchorOnTrigger(
 	};
 }
 
-/** The side a machine placed its panel on, from the positioner's props. */
+/** Reads the side the machine placed the panel on. Zag sets `data-side` on the content part, not the positioner. */
 export function positionerSide(props: object): string | undefined {
 	const side = (props as Record<string, unknown>)["data-side"];
 	return typeof side === "string" ? side : undefined;

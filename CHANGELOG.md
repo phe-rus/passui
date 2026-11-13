@@ -11,6 +11,7 @@
 ### Fixed
 
 - The water drop close is slower (480ms) and eases in and out, so the glass visibly shrinks onto its trigger before the trigger's face returns, instead of reading as a blink.
+- `Select`, `Popover` and `DropdownMenu` now notice when the machine flips the panel to the other side, so the panel still lands on its trigger when there is no room below. They read the side from the content part, where Zag sets it, not from the positioner.
 - `Select` now renders its `icon` prop (it was accepted but never drawn, so `Locales` showed no globe).
 - Floating label `Input` and `InputOTP` cells use the shared 34px control scale instead of taller sizes. The Combobox chevron matches the Select chevron.
 

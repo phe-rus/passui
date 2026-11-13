@@ -59,7 +59,7 @@ export function Popover({
 	useAnchorFollow(
 		anchor,
 		api.open,
-		positionerSide(api.getPositionerProps()),
+		positionerSide(api.getContentProps()),
 		api.reposition,
 	);
 	return <Context.Provider value={api}>{children}</Context.Provider>;

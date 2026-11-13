@@ -80,7 +80,7 @@ function useMenuMachine(
 	useAnchorFollow(
 		anchor,
 		onTrigger && api.open,
-		positionerSide(api.getPositionerProps()),
+		positionerSide(api.getContentProps()),
 		api.reposition,
 	);
 	return { service, api, point };
