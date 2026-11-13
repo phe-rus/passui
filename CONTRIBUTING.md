@@ -9,7 +9,7 @@ bun install
 bun run --cwd www dev
 ```
 
-Use Node 24 (see `.node-version`) and the Bun version in `package.json`.
+Use Node 26 (see `.node-version`) and the Bun version in `package.json`.
 Wrangler and the published CLI run with Node, while Bun manages packages. The website runs at localhost:3004.
 It needs no authentication, database or private application checkout.
 Open browser checks in ChromeOS Chrome, using `garcon-url-handler` in

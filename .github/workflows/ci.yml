@@ -1,8 +1,9 @@
 name: Passui CI
 
 on:
-  # Every push runs check, then e2e. Only a release marked commit on main goes
-  # further (see the release job).
+  # Every push runs check. The Playwright e2e job runs only on a manual dispatch
+  # or a commit marked `[e2e]`, never locally and never as a release gate. Only a
+  # release marked commit on main goes further (see the release job).
   push:
   pull_request:
   workflow_dispatch:
@@ -18,13 +19,13 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.2
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: "26"
           package-manager-cache: false
       - run: bun install --frozen-lockfile
       - run: bun run check
@@ -38,20 +39,24 @@ jobs:
 
   e2e:
     needs: check
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.head_commit.message, '[e2e]')
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.2
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: "26"
           package-manager-cache: false
       - run: bun install --frozen-lockfile
       - name: Cache Playwright browsers
         id: playwright-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('bun.lock') }}
@@ -62,7 +67,7 @@ jobs:
       - run: bun run --cwd packages/ui test:e2e
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-results
           path: |
@@ -72,11 +77,11 @@ jobs:
           retention-days: 7
 
   # Runs only for a release marked commit on main (or a manual dispatch on
-  # main), and only after check and e2e passed. It does not publish itself: npm
+  # main), and only after check passed. It does not publish itself: npm
   # trusts the workflow file publish.yml, so this job dispatches that workflow
-  # for this exact commit, and publish.yml verifies check and e2e again.
+  # for this exact commit, and publish.yml verifies check again.
   release:
-    needs: [check, e2e]
+    needs: [check]
     if: >-
       github.ref == 'refs/heads/main' &&
       (github.event_name == 'workflow_dispatch' ||

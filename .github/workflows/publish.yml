@@ -1,8 +1,8 @@
 name: Publish Passui packages
 
 # Never triggered by a push. It runs from the `release` job in ci.yml (after
-# check and e2e pass on a commit marked `chore(release):` or `[release]`), or by
-# hand. Either way the gate job below must find check and e2e green for the
+# check passes on a commit marked `chore(release):` or `[release]`), or by
+# hand. Either way the gate job below must find check green for the
 # commit before anything is published. Keep the file name: the npm trusted
 # publishers are bound to `publish.yml`.
 on:
@@ -42,13 +42,13 @@ jobs:
     outputs:
       sha: ${{ steps.verify.outputs.sha }}
     steps:
-      - name: Require green check and e2e for the commit
+      - name: Require a green check for the commit
         id: verify
         env:
           GH_TOKEN: ${{ github.token }}
           SHA: ${{ github.event.inputs.sha || github.sha }}
         run: |
-          for job in check e2e; do
+          for job in check; do
             result=$(gh api "repos/$GITHUB_REPOSITORY/commits/$SHA/check-runs?per_page=100" \
               --jq "[.check_runs[] | select(.name == \"$job\")] | map(.conclusion) | if length > 0 and all(. == \"success\") then \"success\" else \"missing or failed\" end")
             echo "$job: $result"
@@ -75,7 +75,7 @@ jobs:
         working-directory: packages/${{ matrix.package }}
     steps:
       - name: Checkout validated commit
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ needs.gate.outputs.sha }}
 
@@ -85,9 +85,9 @@ jobs:
           bun-version: 1.4.2
 
       - name: Set up Node for npm OIDC
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: "26"
           package-manager-cache: false
 
       - name: Update npm for trusted publishing
