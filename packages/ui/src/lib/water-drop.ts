@@ -405,8 +405,9 @@ function createController(latest: { current: Latest }) {
 			try {
 				const ghost = makeGhost(panel, latest.current.material);
 				ghosts.push(ghost);
-				track(
-					ghost.animate([boxKeyframe(from.box), boxKeyframe(readBox(panel))], {
+				let target = readBox(panel);
+				const grow = track(
+					ghost.animate([boxKeyframe(from.box), boxKeyframe(target)], {
 						duration: ms,
 						easing,
 						fill: "forwards",
@@ -430,6 +431,28 @@ function createController(latest: { current: Latest }) {
 				}
 				content.play();
 				content.onfinish = () => content.cancel();
+				// The positioner can still move the panel after it looked settled, such
+				// as the correction that follows a flip. The glass lands where the panel
+				// really ends up, instead of swelling toward a spot it then leaves.
+				const follow = () => {
+					frame = 0;
+					if (grow.playState !== "running") return;
+					const next = readBox(panel);
+					if (
+						Math.abs(next.left - target.left) > 0.5 ||
+						Math.abs(next.top - target.top) > 0.5 ||
+						Math.abs(next.width - target.width) > 0.5 ||
+						Math.abs(next.height - target.height) > 0.5
+					) {
+						target = next;
+						(grow.effect as KeyframeEffect | null)?.setKeyframes([
+							boxKeyframe(from.box),
+							boxKeyframe(next),
+						]);
+					}
+					frame = requestAnimationFrame(follow);
+				};
+				frame = requestAnimationFrame(follow);
 			} catch {
 				reset();
 				panel.removeAttribute("data-morph");

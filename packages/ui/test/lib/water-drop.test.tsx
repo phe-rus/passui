@@ -169,6 +169,87 @@ const trigger = {
 		}) as DOMRect,
 };
 
+it("lands the glass where the panel ends up when the panel moves after it looked settled", async () => {
+	const setKeyframes = vi.fn();
+	const finished = new Promise<void>(() => {});
+	const animate = vi.fn(() => ({
+		pause: vi.fn(),
+		play: vi.fn(),
+		cancel: vi.fn(),
+		finished,
+		onfinish: null,
+		playState: "running",
+		effect: { setKeyframes },
+	}));
+	Element.prototype.animate = animate as never;
+	const box = { top: 0, height: 80 };
+	vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+		() =>
+			({
+				left: 0,
+				top: box.top,
+				width: 120,
+				height: box.height,
+				right: 120,
+				bottom: box.top + box.height,
+				x: 0,
+				y: box.top,
+				toJSON: () => ({}),
+			}) as DOMRect,
+	);
+
+	const host = document.createElement("div");
+	document.body.append(host);
+	root = createRoot(host);
+	const menu = (open: boolean) => (
+		<DropdownMenu open={open}>
+			<DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+			<DropdownMenuContent>
+				<DropdownMenuItem>Rename</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
+	// The positioner watches layout shifts, which jsdom cannot do.
+	vi.stubGlobal(
+		"IntersectionObserver",
+		class {
+			observe() {}
+			unobserve() {}
+			disconnect() {}
+			takeRecords() {
+				return [];
+			}
+		},
+	);
+	// Frames are stepped by hand so the panel can move between two of them.
+	const queue: FrameRequestCallback[] = [];
+	vi.stubGlobal("requestAnimationFrame", (fn: FrameRequestCallback) => {
+		queue.push(fn);
+		return queue.length;
+	});
+	const frame = () =>
+		act(async () => {
+			for (const fn of queue.splice(0)) fn(0);
+		});
+	await act(async () => root?.render(menu(false)));
+	await act(async () => root?.render(menu(true)));
+	await frame();
+	await frame();
+	await frame();
+	expect(document.querySelectorAll("[data-slot=water-drop]")).toHaveLength(1);
+	await frame();
+	expect(setKeyframes).not.toHaveBeenCalled();
+
+	// The positioner corrects the panel, as it does after a flip.
+	box.top = 42;
+	await frame();
+	expect(setKeyframes).toHaveBeenCalled();
+	const [, end] = setKeyframes.mock.calls.at(-1)?.[0] ?? [];
+	expect(end.transform).toBe("translate(0px, 42px)");
+
+	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
 it("puts a downward panel's top edge on the trigger's top edge", () => {
 	Element.prototype.animate = vi.fn() as never;
 	// The machine adds a 6px gap below the anchor, so the anchor sits 6px above the trigger.

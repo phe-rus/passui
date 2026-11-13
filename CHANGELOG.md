@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/react 0.3.5
+
+### Fixed
+
+- The water drop now lands on the panel where it really ends up. It measured the panel as soon as it looked settled, which is before the correction that follows a flip, so an upward menu's glass swelled toward a spot about 40px above the panel and the menu then appeared somewhere else, reading as a pop. The glass now retargets the panel while it grows.
+
 ## @passui/react 0.3.4
 
 ### Fixed
