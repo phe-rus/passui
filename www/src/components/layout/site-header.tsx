@@ -22,9 +22,9 @@ type Destination = { label: string } & LinkProps;
 const destinations = [
 	{ to: "/docs/$slug", params: { slug: "introduction" }, label: "Docs" },
 	{ to: "/docs/components", label: "Components" },
-	{ to: "/docs", label: "Templates" },
-	{ to: "/docs", label: "Themes" },
-	{ to: "/docs", label: "Playground" },
+	{ to: "/templates", label: "Templates" },
+	{ to: "/themes", label: "Themes" },
+	{ to: "/playground", label: "Playground" },
 ] satisfies Destination[];
 
 const compact = new Intl.NumberFormat("en", { notation: "compact" });
@@ -48,7 +48,7 @@ export function SiteHeader() {
 						<Link
 							to="/"
 							aria-label="Passui home"
-							className="text-headline text-label flex items-center gap-3 font-semibold"
+							className="text-headline text-label flex items-center gap-3 font-medium"
 						>
 							Passui
 						</Link>

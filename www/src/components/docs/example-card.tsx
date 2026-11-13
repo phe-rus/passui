@@ -35,7 +35,7 @@ export function ExampleCard({
 			<header className="flex flex-col gap-0">
 				<h3
 					id={`example-${id}-title`}
-					className="text-headline text-label m-0 font-semibold"
+					className="text-headline text-label m-0 font-medium"
 				>
 					<a
 						href={`#example-${id}`}

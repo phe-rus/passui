@@ -9,6 +9,9 @@ export function getSitemapPaths() {
 	return [
 		...new Set([
 			"/",
+			"/templates",
+			"/themes",
+			"/playground",
 			...guides.map((guide) => guide.path),
 			"/docs/components",
 			...registry.map((doc) => `/docs/components/${doc.slug}`),

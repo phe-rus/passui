@@ -34,7 +34,7 @@ export function DocSection({
 			<header className="flex flex-col gap-0">
 				<h2
 					id={`${id}-title`}
-					className="text-title3 text-label m-0 font-semibold"
+					className="text-title3 text-label m-0 font-medium"
 				>
 					{title}
 				</h2>

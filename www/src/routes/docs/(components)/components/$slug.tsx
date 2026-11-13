@@ -269,7 +269,7 @@ function RouteComponent() {
 							.filter((part) => part.props.length > 0)
 							.map((part) => (
 								<div key={part.name} className="text-caption">
-									<h3 className="text-caption text-label m-0 font-semibold">
+									<h3 className="text-caption text-label m-0 font-medium">
 										<code>{part.name}</code>
 									</h3>
 									{part.description ? (
@@ -301,7 +301,7 @@ function RouteComponent() {
 													className="border-separator/60 border-t align-top"
 												>
 													<TableCell
-														className="text-caption truncate px-3 py-2 font-mono font-semibold"
+														className="text-caption truncate px-3 py-2 font-mono font-medium"
 														title={prop.description || prop.name}
 													>
 														{prop.name}

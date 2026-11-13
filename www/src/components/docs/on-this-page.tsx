@@ -37,7 +37,7 @@ export function OnThisPage({
 								"text-footnote -ms-px block truncate border-s-2 py-1 no-underline transition-colors",
 								item.depth ? "ps-6" : "ps-3",
 								item.id === active
-									? "border-accent text-label font-semibold"
+									? "border-accent text-label font-medium"
 									: "text-label-secondary hover:text-label border-transparent",
 							)}
 						>
