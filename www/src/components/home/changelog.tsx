@@ -18,7 +18,7 @@ export function Changelog() {
 		>
 			<h2
 				id="changelog-title"
-				className="text-label text-[clamp(2rem,4vw,2.6rem)] font-bold tracking-tight"
+				className="text-label text-[clamp(2rem,4vw,2.6rem)] font-medium"
 			>
 				What's new
 			</h2>
@@ -33,7 +33,7 @@ export function Changelog() {
 					>
 						<div
 							className={cn(
-								"rounded-5xl bg-accent-soft/70 flex items-center justify-center transition-colors duration-700",
+								"rounded-5xl bg-accent-soft/70 flex items-center justify-center transition-colors duration-500",
 								index === 0
 									? "aspect-[16/9] md:aspect-auto md:min-h-64 md:flex-1"
 									: "aspect-[16/8]",
@@ -41,7 +41,7 @@ export function Changelog() {
 						>
 							<span
 								className={cn(
-									"text-accent-text font-mono font-bold tracking-tight transition-colors duration-700",
+									"text-accent-text font-mono font-medium transition-colors duration-500",
 									index === 0 ? "text-[clamp(2.5rem,7vw,5rem)]" : "text-title",
 								)}
 							>
@@ -51,7 +51,7 @@ export function Changelog() {
 						<div className="flex flex-col gap-1">
 							<h3
 								className={cn(
-									"text-label font-semibold tracking-tight",
+									"text-label font-medium",
 									index === 0 ? "text-title3" : "text-headline",
 								)}
 							>

@@ -4,10 +4,10 @@ import { Link } from "@tanstack/react-router";
 export function ClosingCta() {
 	return (
 		<section className="mx-auto w-full max-w-6xl px-4 md:px-6">
-			<div className="rounded-5xl bg-accent-soft flex flex-col items-center gap-5 px-6 py-16 text-center transition-colors duration-700 md:py-24">
-				<h2 className="text-label max-w-xl text-[clamp(2rem,4.5vw,3rem)] leading-[1.05] font-bold tracking-tight">
+			<div className="rounded-5xl bg-accent-soft flex flex-col items-center gap-5 px-6 py-16 text-center transition-colors duration-500 md:py-24">
+				<h2 className="text-label max-w-xl text-[clamp(2rem,4.5vw,3rem)] leading-[1.05] font-medium">
 					Discover everything{" "}
-					<span className="font-display text-accent-text font-black tracking-[-0.05em] transition-colors duration-700">
+					<span className="font-display text-accent-text font-medium tracking-[-0.05em] transition-colors duration-500">
 						passui
 					</span>{" "}
 					can do

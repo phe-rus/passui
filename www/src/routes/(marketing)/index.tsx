@@ -27,7 +27,7 @@ function RouteComponent() {
 	const cycle = useAccentCycle(3800, paused);
 	return (
 		<MotionConfig reducedMotion="user">
-			<Hero cycle={cycle} paused={paused} />
+			<Hero cycle={cycle} />
 			{/* a sheet that rises over the hero */}
 			<div className="bg-background relative -mt-12 flex flex-col gap-24 rounded-t-[2.5rem] pt-16 pb-24 md:-mt-16 md:gap-32 md:rounded-t-[3rem] md:pt-24">
 				<Reveal>

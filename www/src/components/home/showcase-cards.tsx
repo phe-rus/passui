@@ -32,7 +32,7 @@ export function ShowcaseCard({ theme, title, children }: ShowcaseCardProps) {
 			className="bg-elevated text-label ring-separator/70 flex h-64 w-72 shrink-0 flex-col gap-4 rounded-4xl p-5 shadow-[0_1px_2px_rgb(0_0_0/0.05),0_4px_12px_-6px_rgb(0_0_0/0.08)] ring-1"
 		>
 			<div className="flex items-center justify-between gap-3">
-				<span className="text-headline truncate font-semibold">{title}</span>
+				<span className="text-headline truncate font-medium">{title}</span>
 				<Badge>{accentNames[theme.accent]}</Badge>
 			</div>
 			<div className="flex flex-1 flex-col justify-end gap-3">{children}</div>
@@ -161,7 +161,7 @@ function Profile({ theme }: ShowcaseCardBodyProps) {
 					<AvatarFallback>AK</AvatarFallback>
 				</Avatar>
 				<div className="flex min-w-0 flex-col">
-					<span className="text-subheadline truncate font-semibold">
+					<span className="text-subheadline truncate font-medium">
 						Aiko Kamado
 					</span>
 					<span className="text-footnote text-label-secondary truncate">

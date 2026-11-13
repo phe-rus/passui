@@ -39,7 +39,7 @@ export function PlaygroundTeaser() {
 			<div className="flex flex-col gap-5">
 				<h2
 					id="playground-title"
-					className="text-label text-[clamp(2rem,4vw,2.6rem)] leading-[1.08] font-bold tracking-tight"
+					className="text-label text-[clamp(2rem,4vw,2.6rem)] leading-[1.08] font-medium"
 				>
 					Try it right here
 				</h2>
@@ -70,7 +70,7 @@ export function PlaygroundTeaser() {
 				</p>
 			</div>
 			<div className="liquid-glass squircle overflow-hidden [--squircle-radius:2rem]">
-				<div className="bg-accent-soft/50 flex min-h-56 items-center justify-center p-10 transition-colors duration-700">
+				<div className="bg-accent-soft/50 flex min-h-56 items-center justify-center p-10 transition-colors duration-500">
 					<Button variant={variant} isPending={pending}>
 						Continue
 					</Button>

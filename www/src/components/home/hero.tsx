@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "@passui/react/button";
 import { cn } from "@passui/react/cn";
 import { accents } from "@passui/react/tokens";
 import { Link } from "@tanstack/react-router";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { accentNames } from "@/features/home/content/accent-names";
 import { accentOrder } from "@/features/home/lib/use-accent-cycle";
@@ -19,7 +19,6 @@ import {
 
 type HeroProps = {
 	cycle: AccentCycle;
-	paused?: boolean;
 };
 
 type FloatProps = {
@@ -27,18 +26,14 @@ type FloatProps = {
 	/** Which side it slides in from. */
 	from: "left" | "right";
 	delay: number;
-	/** Seconds for one gentle bob up and down. */
-	bob: number;
-	paused: boolean;
 	children: ReactNode;
 };
 
 // a dotless i: the sun takes the place of its dot
 const letters = ["p", "a", "s", "s", "u", "ı"] as const;
 
-/** Slides in once, then drifts gently, like it is floating. */
-function Float({ className, from, delay, bob, paused, children }: FloatProps) {
-	const reducedMotion = useReducedMotion();
+/** Slides in once and stays put. */
+function Float({ className, from, delay, children }: FloatProps) {
 	return (
 		<motion.div
 			className={cn("absolute", className)}
@@ -50,17 +45,7 @@ function Float({ className, from, delay, bob, paused, children }: FloatProps) {
 			animate={{ opacity: 1, x: 0, y: 0 }}
 			transition={{ ...spring.smooth, delay }}
 		>
-			<motion.div
-				animate={{ y: paused || reducedMotion ? 0 : [0, -10, 0] }}
-				transition={{
-					duration: bob,
-					repeat: Number.POSITIVE_INFINITY,
-					ease: "easeInOut",
-					delay: delay + 0.6,
-				}}
-			>
-				{children}
-			</motion.div>
+			{children}
 		</motion.div>
 	);
 }
@@ -72,17 +57,17 @@ function Sun() {
 			aria-hidden="true"
 			initial={{ y: "0.6em", opacity: 0, scale: 0.4 }}
 			animate={{ y: 0, opacity: 1, scale: 1 }}
-			transition={{ ...spring.bouncy, delay: 0.45 }}
+			transition={{ ...spring.smooth, delay: 0.45 }}
 			className="absolute top-[0.02em] left-1/2 size-[0.24em] -translate-x-1/2 rounded-full bg-[#d16988] [@media(prefers-color-scheme:dark)]:bg-[#e8b4bb]"
 		/>
 	);
 }
 
-export function Hero({ cycle, paused = false }: HeroProps) {
+export function Hero({ cycle }: HeroProps) {
 	return (
 		<section
 			aria-labelledby="hero-title"
-			className="relative isolate -mt-16 overflow-hidden bg-[color-mix(in_srgb,var(--color-accent)_24%,var(--color-background))] pt-32 pb-48 transition-colors duration-700 md:pt-36 lg:min-h-[48rem]"
+			className="relative isolate -mt-16 overflow-hidden bg-[color-mix(in_srgb,var(--color-accent)_24%,var(--color-background))] pt-32 pb-48 transition-colors duration-500 md:pt-36 lg:min-h-[48rem]"
 			onFocus={() => cycle.hold(true)}
 			onBlur={(event) => {
 				if (!event.currentTarget.contains(event.relatedTarget))
@@ -93,7 +78,7 @@ export function Hero({ cycle, paused = false }: HeroProps) {
 				<h1
 					id="hero-title"
 					aria-label="Passui"
-					className="font-display text-label flex text-[clamp(5rem,17vw,9.5rem)] leading-[0.9] font-extrabold tracking-[-0.055em]"
+					className="font-display text-label flex text-[clamp(5rem,17vw,9.5rem)] leading-[0.9] font-medium tracking-[-0.055em]"
 				>
 					{letters.map((letter, index) => (
 						<motion.span
@@ -101,16 +86,14 @@ export function Hero({ cycle, paused = false }: HeroProps) {
 							aria-hidden="true"
 							initial={{
 								opacity: 0,
-								y: 60,
-								filter: "blur(12px)",
+								y: 24,
 							}}
 							animate={{
 								opacity: 1,
 								y: 0,
-								filter: "blur(0px)",
 							}}
 							transition={{
-								...spring.bouncy,
+								...spring.smooth,
 								delay: 0.08 * index,
 							}}
 							className="relative inline-block"
@@ -127,11 +110,11 @@ export function Hero({ cycle, paused = false }: HeroProps) {
 						...spring.smooth,
 						delay: 0.35,
 					}}
-					className="text-label mt-5 text-[clamp(1.35rem,3.4vw,2.1rem)] leading-tight tracking-tight"
+					className="text-label mt-5 text-[clamp(1.35rem,3.4vw,2.1rem)] leading-tight"
 				>
 					Native controls for the web,
 					<br />
-					<strong className="font-bold">
+					<strong className="font-medium">
 						tuned to feel at home everywhere
 					</strong>
 				</motion.p>
@@ -173,29 +156,23 @@ export function Hero({ cycle, paused = false }: HeroProps) {
 			{/* scenes around the edges, desktop only, like Astryx */}
 			<div className="hidden lg:block">
 				<Float
-					paused={paused}
 					from="left"
 					delay={0.7}
-					bob={7}
 					className="top-[34%] left-[max(0.5rem,calc(50%-39rem))] z-0"
 				>
 					<OfferChip className="-mb-1 ml-3" />
 					<PlayerScene className="mt-2" />
 				</Float>
 				<Float
-					paused={paused}
 					from="left"
 					delay={0.85}
-					bob={6}
 					className="top-[70%] left-[max(15rem,calc(50%-24.5rem))] z-10"
 				>
 					<ComposerScene />
 				</Float>
 				<Float
-					paused={paused}
 					from="right"
 					delay={0.75}
-					bob={8}
 					className="top-[30%] right-[max(0.5rem,calc(50%-39rem))] z-0"
 				>
 					<div className="flex justify-end">
@@ -204,10 +181,8 @@ export function Hero({ cycle, paused = false }: HeroProps) {
 					<ProductScene />
 				</Float>
 				<Float
-					paused={paused}
 					from="right"
 					delay={0.9}
-					bob={6.5}
 					className="top-[70%] right-[max(14rem,calc(50%-25.5rem))] z-10"
 				>
 					<RewardsScene />

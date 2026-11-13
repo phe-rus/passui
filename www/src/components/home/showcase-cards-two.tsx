@@ -26,7 +26,7 @@ function Billing({ theme }: ShowcaseCardBodyProps) {
 				]}
 			/>
 			<div className="flex items-baseline gap-1">
-				<span className="text-title font-bold tabular-nums">
+				<span className="text-title font-medium tabular-nums">
 					{period === "year" ? "$8" : "$10"}
 				</span>
 				<span className="text-footnote text-label-secondary">per month</span>
@@ -93,7 +93,7 @@ function Player({ theme }: ShowcaseCardBodyProps) {
 	return (
 		<ShowcaseCard theme={theme} title="Now playing">
 			<div className="flex flex-col">
-				<span className="text-subheadline font-semibold" aria-live="polite">
+				<span className="text-subheadline font-medium" aria-live="polite">
 					{tracks[track]}
 				</span>
 				<span className="text-footnote text-label-secondary">Quiet Rooms</span>
@@ -152,7 +152,7 @@ function Storage({ theme }: ShowcaseCardBodyProps) {
 	return (
 		<ShowcaseCard theme={theme} title="Storage">
 			<div className="flex items-baseline justify-between">
-				<span className="text-title3 font-bold tabular-nums">72 GB</span>
+				<span className="text-title3 font-medium tabular-nums">72 GB</span>
 				<span className="text-footnote text-label-secondary">of 100 GB</span>
 			</div>
 			<div className="bg-fill flex h-2.5 gap-0.5 overflow-hidden rounded-full">
@@ -183,7 +183,7 @@ function VerifyCode({ theme }: ShowcaseCardBodyProps) {
 					<span
 						key={index}
 						className={cn(
-							"bg-fill text-headline flex h-11 w-9 items-center justify-center rounded-xl font-semibold tabular-nums",
+							"bg-fill text-headline flex h-11 w-9 items-center justify-center rounded-xl font-medium tabular-nums",
 							index === 4 && "ring-accent ring-2",
 						)}
 					>

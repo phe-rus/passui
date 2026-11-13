@@ -34,14 +34,12 @@ function Tile({ title, body, className, delay = 0, children }: TileProps) {
 			viewport={{ once: true, margin: "-60px" }}
 			transition={{ ...spring.smooth, delay }}
 			className={cn(
-				"rounded-5xl bg-accent-soft/70 flex flex-col gap-6 overflow-hidden p-7 transition-colors duration-700 md:p-9",
+				"rounded-5xl bg-accent-soft/70 flex flex-col gap-6 overflow-hidden p-7 transition-colors duration-500 md:p-9",
 				className,
 			)}
 		>
 			<div className="flex flex-col gap-2">
-				<h3 className="text-title3 text-label font-semibold tracking-tight">
-					{title}
-				</h3>
+				<h3 className="text-title3 text-label font-medium">{title}</h3>
 				<p className="text-callout text-label-secondary max-w-sm">{body}</p>
 			</div>
 			<div className="mt-auto">{children}</div>
@@ -113,8 +111,8 @@ function TokensDemo() {
 	return (
 		<div className="flex items-end justify-between gap-4">
 			<div className="flex flex-col gap-1">
-				<span className="text-large-title text-label font-bold">Title</span>
-				<span className="text-headline text-label font-semibold">Headline</span>
+				<span className="text-large-title text-label font-medium">Title</span>
+				<span className="text-headline text-label font-medium">Headline</span>
 				<span className="text-body text-label-secondary">Body</span>
 				<span className="text-footnote text-label-tertiary">Footnote</span>
 			</div>
@@ -123,7 +121,7 @@ function TokensDemo() {
 					<span
 						key={radius}
 						className={cn(
-							"bg-accent size-12 transition-colors duration-700",
+							"bg-accent size-12 transition-colors duration-500",
 							radius,
 						)}
 					/>
@@ -143,7 +141,7 @@ export function Bento({ cycle }: BentoProps) {
 			<div className="flex flex-col gap-4 md:row-span-1 md:py-4">
 				<h2
 					id="bento-title"
-					className="text-label text-[clamp(2rem,4vw,2.6rem)] leading-[1.08] font-bold tracking-tight"
+					className="text-label text-[clamp(2rem,4vw,2.6rem)] leading-[1.08] font-medium"
 				>
 					Feels native.
 					<br />

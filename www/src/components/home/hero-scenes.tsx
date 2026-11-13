@@ -28,7 +28,7 @@ function Panel({ className, children }: PanelProps) {
 	return (
 		<div
 			className={cn(
-				"bg-elevated text-label rounded-[1.75rem] p-4 shadow-[0_2px_6px_rgb(0_0_0/0.05),0_22px_44px_-22px_rgb(0_0_0/0.3)] ring-1 ring-black/[0.04] transition-colors duration-700",
+				"bg-elevated text-label rounded-[1.75rem] p-4 shadow-[0_2px_6px_rgb(0_0_0/0.05),0_22px_44px_-22px_rgb(0_0_0/0.3)] ring-1 ring-black/[0.04] transition-colors duration-500",
 				className,
 			)}
 		>
@@ -42,13 +42,13 @@ function Artwork({ className }: SceneProps) {
 	return (
 		<div
 			className={cn(
-				"bg-accent-soft relative overflow-hidden rounded-[1.25rem] transition-colors duration-700",
+				"bg-accent-soft relative overflow-hidden rounded-[1.25rem] transition-colors duration-500",
 				className,
 			)}
 		>
-			<span className="bg-accent/80 absolute -top-6 -right-4 size-28 rounded-full transition-colors duration-700" />
-			<span className="bg-accent-text/25 absolute -bottom-10 -left-6 size-36 rounded-full transition-colors duration-700" />
-			<span className="bg-elevated/80 absolute top-1/2 left-1/2 size-12 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+			<span className="bg-accent/80 absolute -top-6 -right-4 size-28 rounded-full transition-colors duration-500" />
+			<span className="bg-accent-text/25 absolute -bottom-10 -left-6 size-36 rounded-full transition-colors duration-500" />
+			<span className="bg-elevated absolute top-1/2 left-1/2 size-12 -translate-x-1/2 -translate-y-1/2 rounded-full" />
 		</div>
 	);
 }
@@ -61,7 +61,7 @@ export function PlayerScene({ className }: SceneProps) {
 		<Panel className={cn("flex w-64 flex-col gap-3", className)}>
 			<Artwork className="h-40" />
 			<div className="flex flex-col px-1">
-				<span className="text-headline font-semibold" aria-live="polite">
+				<span className="text-headline font-medium" aria-live="polite">
 					{tracks[track]}
 				</span>
 				<span className="text-footnote text-label-secondary">Quiet Rooms</span>
@@ -147,12 +147,12 @@ export function ProductScene({ className }: SceneProps) {
 			<Artwork className="h-44" />
 			<div className="flex items-start justify-between gap-2 px-1">
 				<div className="flex flex-col">
-					<span className="text-headline font-semibold">Sun lamp</span>
+					<span className="text-headline font-medium">Sun lamp</span>
 					<span className="text-footnote text-label-secondary">
 						Warm light, all day
 					</span>
 				</div>
-				<span className="text-headline font-semibold tabular-nums">$129</span>
+				<span className="text-headline font-medium tabular-nums">$129</span>
 			</div>
 			<Button
 				variant={added ? "secondary" : "accent"}
@@ -168,7 +168,7 @@ export function RewardsScene({ className }: SceneProps) {
 	return (
 		<Panel className={cn("flex w-64 flex-col gap-3", className)}>
 			<div className="flex items-baseline justify-between px-1">
-				<span className="text-headline font-semibold">Points</span>
+				<span className="text-headline font-medium">Points</span>
 				<span className="text-footnote text-label-secondary tabular-nums">
 					6 of 8
 				</span>
@@ -178,7 +178,7 @@ export function RewardsScene({ className }: SceneProps) {
 					<span
 						key={index}
 						className={cn(
-							"h-2 flex-1 rounded-full transition-colors duration-700",
+							"h-2 flex-1 rounded-full transition-colors duration-500",
 							index < 6 ? "bg-accent" : "bg-fill",
 						)}
 					/>
@@ -213,7 +213,7 @@ export function ShippingToggle({ className }: SceneProps) {
 	return (
 		<span
 			className={cn(
-				"bg-elevated/80 inline-flex rounded-full px-3 py-1.5 shadow-sm ring-1 ring-black/[0.04] backdrop-blur",
+				"bg-elevated inline-flex rounded-full px-3 py-1.5 shadow-sm ring-1 ring-black/[0.04]",
 				className,
 			)}
 		>
