@@ -175,6 +175,13 @@ export const registry: ComponentMeta[] = [
 		status: "updated",
 	},
 	{
+		slug: "text",
+		name: "Text",
+		group: "Display",
+		summary: "Text in the type scale and the theme's roles, on any element.",
+		entry: "text",
+	},
+	{
 		slug: "kbd",
 		name: "Kbd",
 		group: "Display",

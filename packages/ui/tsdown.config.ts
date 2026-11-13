@@ -70,6 +70,7 @@ export default defineConfig({
 		switch: "src/components/switch.tsx",
 		table: "src/legacy/table/table.tsx",
 		tabs: "src/components/tabs.tsx",
+		text: "src/components/text.tsx",
 		textarea: "src/components/textarea.tsx",
 		toast: "src/components/toast.tsx",
 		toggle: "src/components/toggle.tsx",

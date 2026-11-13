@@ -92,6 +92,7 @@
 		"./tab-bar": "./dist/tab-bar.js",
 		"./table": "./dist/table.js",
 		"./tabs": "./dist/tabs.js",
+		"./text": "./dist/text.js",
 		"./textarea": "./dist/textarea.js",
 		"./toast": "./dist/toast.js",
 		"./toggle": "./dist/toggle.js",

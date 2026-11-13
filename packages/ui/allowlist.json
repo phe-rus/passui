@@ -287,6 +287,10 @@
 		"packages": ["@zag-js/react", "@zag-js/tabs", "react"],
 		"local": ["src/components/tabs.tsx", "src/lib/cx.ts"]
 	},
+	"src/components/text.tsx": {
+		"packages": ["react"],
+		"local": ["src/components/text.tsx", "src/lib/cx.ts"]
+	},
 	"src/components/textarea.tsx": {
 		"packages": ["react"],
 		"local": [

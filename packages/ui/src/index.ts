@@ -42,6 +42,7 @@ export * from "./components/spinner";
 export * from "./components/switch";
 export * from "./components/tab-bar";
 export * from "./components/tabs";
+export * from "./components/text";
 export * from "./components/textarea";
 export * from "./components/toast";
 export * from "./components/toggle";

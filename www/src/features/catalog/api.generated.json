@@ -2265,6 +2265,49 @@
 			]
 		}
 	],
+	"text": [
+		{
+			"name": "Text",
+			"description": "Text set in the theme's type scale and roles, so words on a page follow the\napp's text size and colors without raw sizes or hex values. Pick the element\nwith `as`; the style and the element are separate choices.",
+			"props": [
+				{
+					"name": "as",
+					"type": "TextElement",
+					"default": "\"p\"",
+					"description": "The element to render, so a heading keeps its place in the outline.",
+					"required": false
+				},
+				{
+					"name": "size",
+					"type": "TextSize",
+					"default": "\"subheadline\"",
+					"description": "A Dynamic Type style.",
+					"required": false
+				},
+				{
+					"name": "tone",
+					"type": "TextTone",
+					"default": "\"default\"",
+					"description": "The theme role that colors it.",
+					"required": false
+				},
+				{
+					"name": "truncate",
+					"type": "boolean",
+					"default": "false",
+					"description": "Cuts it to one line with an ellipsis.",
+					"required": false
+				},
+				{
+					"name": "weight",
+					"type": "TextWeight",
+					"default": "\"normal\"",
+					"description": "",
+					"required": false
+				}
+			]
+		}
+	],
 	"kbd": [
 		{
 			"name": "Kbd",

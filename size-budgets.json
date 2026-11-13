@@ -45,6 +45,7 @@
 		"spinner": 400,
 		"switch": 9800,
 		"tabs": 11000,
+		"text": 700,
 		"textarea": 500,
 		"toast": 64000,
 		"toggle": 800,
