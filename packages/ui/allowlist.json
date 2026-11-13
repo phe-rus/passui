@@ -47,7 +47,9 @@
 		"local": [
 			"src/components/calendar.tsx",
 			"src/lib/calendar-month.ts",
-			"src/lib/cx.ts"
+			"src/lib/cx.ts",
+			"src/lib/haptics.ts",
+			"src/lib/wheel.tsx"
 		]
 	},
 	"src/components/card.tsx": {
@@ -85,14 +87,26 @@
 		"local": ["src/components/command.tsx", "src/lib/cx.ts"]
 	},
 	"src/components/date-time-picker.tsx": {
-		"packages": ["react"],
+		"packages": [
+			"@passui/icons",
+			"@zag-js/popover",
+			"@zag-js/react",
+			"react",
+			"react-dom"
+		],
 		"local": [
 			"src/components/button.tsx",
 			"src/components/calendar.tsx",
 			"src/components/date-time-picker.tsx",
 			"src/components/popover.tsx",
 			"src/lib/calendar-month.ts",
-			"src/lib/cx.ts"
+			"src/lib/cx.ts",
+			"src/lib/haptics.ts",
+			"src/lib/portal.tsx",
+			"src/lib/presence.ts",
+			"src/lib/render.ts",
+			"src/lib/water-drop.ts",
+			"src/lib/wheel.tsx"
 		]
 	},
 	"src/components/dialog.tsx": {

@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "@passui/icons/chevron-down";
 import { ChevronLeftIcon } from "@passui/icons/chevron-left";
 import { ChevronRightIcon } from "@passui/icons/chevron-right";
 import { type KeyboardEvent, useId, useMemo, useRef, useState } from "react";
@@ -14,6 +15,7 @@ import {
 	withinBounds,
 } from "../lib/calendar-month";
 import { cx } from "../lib/cx";
+import { Wheel } from "../lib/wheel";
 
 /** A chosen span of days, as `YYYY-MM-DD`. `to` is empty while the span is open. */
 export interface DateRange {
@@ -56,6 +58,13 @@ const today = (): CalendarDay => {
 	};
 };
 
+/** Whole years offered by the month and year wheels around `now`, widened to the bounds. */
+function yearSpan(now: number, min?: string, max?: string) {
+	const from = parseDay(min ?? "")?.year ?? now - 100;
+	const to = parseDay(max ?? "")?.year ?? now + 50;
+	return Array.from({ length: Math.max(1, to - from + 1) }, (_, i) => from + i);
+}
+
 const cell =
 	"relative mx-auto flex size-8.5 items-center justify-center rounded-full text-footnote tabular-nums outline-none transition-colors duration-(--duration-fast) focus-visible:ring-2 focus-visible:ring-accent/70 disabled:pointer-events-none disabled:opacity-30 motion-reduce:transition-none";
 
@@ -72,6 +81,7 @@ export function Calendar(props: CalendarProps) {
 	const start = parseDay(selected) ?? today();
 	const [focus, setFocus] = useState<CalendarDay>(start);
 	const [hover, setHover] = useState("");
+	const [jumping, setJumping] = useState(false);
 	const grid = useRef<HTMLDivElement>(null);
 	const headingId = useId();
 	const first = firstWeekday(locale);
@@ -91,6 +101,27 @@ export function Calendar(props: CalendarProps) {
 		}).format(new Date(Date.UTC(2024, 0, ((first - 1 + index) % 7) + 1))),
 	);
 	const todayValue = formatDay(today());
+	const monthOptions = useMemo(
+		() =>
+			Array.from({ length: 12 }, (_, index) => ({
+				value: index + 1,
+				label: new Intl.DateTimeFormat(locale, {
+					month: "long",
+					timeZone: "UTC",
+				}).format(new Date(Date.UTC(2024, index, 1))),
+			})),
+		[locale],
+	);
+	const yearOptions = useMemo(() => {
+		const years = yearSpan(today().year, min, max);
+		if (!years.includes(focus.year)) years.push(focus.year);
+		const plain = new Intl.NumberFormat(locale, { useGrouping: false });
+		return years
+			.sort((a, b) => a - b)
+			.map((year) => ({ value: year, label: plain.format(year) }));
+	}, [locale, min, max, focus.year]);
+	const field = (name: "month" | "year") =>
+		new Intl.DisplayNames([locale], { type: "dateTimeField" }).of(name) ?? name;
 
 	/** Position of a day within its week, 0 for the locale's first day. */
 	const weekIndex = (day: CalendarDay) =>
@@ -157,28 +188,69 @@ export function Calendar(props: CalendarProps) {
 				<button
 					type="button"
 					aria-label={labels.previousMonth}
+					disabled={jumping}
 					onClick={() => setFocus(addMonths(focus, -1))}
-					className="text-label-secondary hover:bg-fill/80 hover:text-label focus-visible:ring-accent/70 flex size-7.5 items-center justify-center rounded-full outline-none focus-visible:ring-2"
+					className="text-label-secondary hover:bg-fill/80 hover:text-label focus-visible:ring-accent/70 flex size-7.5 items-center justify-center rounded-full outline-none focus-visible:ring-2 disabled:opacity-0"
 				>
 					<ChevronLeftIcon size={14} />
 				</button>
-				<div
+				<button
+					type="button"
 					id={headingId}
 					aria-live="polite"
-					className="text-footnote text-label font-semibold"
+					aria-expanded={jumping}
+					onClick={() => setJumping(!jumping)}
+					className="text-footnote text-label hover:bg-fill/80 focus-visible:ring-accent/70 flex h-7.5 items-center gap-1 rounded-full px-3 font-semibold outline-none focus-visible:ring-2"
 				>
 					{monthTitle}
-				</div>
+					<ChevronDownIcon
+						size={12}
+						className={cx(
+							"text-label-secondary spring-snappy transition-transform motion-reduce:transition-none",
+							jumping && "rotate-180",
+						)}
+					/>
+				</button>
 				<button
 					type="button"
 					aria-label={labels.nextMonth}
+					disabled={jumping}
 					onClick={() => setFocus(addMonths(focus, 1))}
-					className="text-label-secondary hover:bg-fill/80 hover:text-label focus-visible:ring-accent/70 flex size-7.5 items-center justify-center rounded-full outline-none focus-visible:ring-2"
+					className="text-label-secondary hover:bg-fill/80 hover:text-label focus-visible:ring-accent/70 flex size-7.5 items-center justify-center rounded-full outline-none focus-visible:ring-2 disabled:opacity-0"
 				>
 					<ChevronRightIcon size={14} />
 				</button>
 			</div>
-			<div ref={grid} onMouseLeave={() => setHover("")}>
+			{jumping ? (
+				<div
+					className="flex min-h-[15.5rem] items-center justify-center gap-2"
+					onKeyDown={(event) => {
+						if (event.key !== "Escape") return;
+						event.stopPropagation();
+						setJumping(false);
+					}}
+				>
+					<Wheel
+						label={field("month")}
+						options={monthOptions}
+						value={focus.month}
+						onValueChange={(month) =>
+							setFocus(addMonths(focus, month - focus.month))
+						}
+						className="w-32"
+					/>
+					<Wheel
+						label={field("year")}
+						options={yearOptions}
+						value={focus.year}
+						onValueChange={(year) =>
+							setFocus(addMonths(focus, (year - focus.year) * 12))
+						}
+						className="w-24"
+					/>
+				</div>
+			) : null}
+			<div ref={grid} hidden={jumping} onMouseLeave={() => setHover("")}>
 				<table
 					aria-labelledby={headingId}
 					aria-label={label}

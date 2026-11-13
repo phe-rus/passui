@@ -12,21 +12,21 @@ export const doc: ComponentDoc = {
 			id: "usage",
 			title: "Date",
 			description:
-				"The default mode. The value is a plain `YYYY-MM-DD` string, so it goes straight to a form or an API.",
+				"The default mode. Choose the month title to open month and year wheels, so a far date is one flick. The value is a plain `YYYY-MM-DD` string.",
 			Demo: DateTimePickerUsage,
 		},
 		{
 			id: "time",
 			title: "Time",
 			description:
-				"Columns of hours and minutes on the clock the locale reads, 12 hour with AM and PM or 24 hour. The value is `HH:MM`.",
+				"Hour, minute and period wheels that snap, on the clock the locale reads, 12 hour with AM and PM or 24 hour. The value is `HH:MM`.",
 			Demo: DateTimePickerTime,
 		},
 		{
 			id: "datetime",
 			title: "Date and time",
 			description:
-				"A calendar over time columns. The value is `YYYY-MM-DDTHH:MM`.",
+				"Two chips side by side, one for the date and one for the time, each opening its own panel, as in iOS. The value is `YYYY-MM-DDTHH:MM`.",
 			Demo: DateTimePickerDatetime,
 		},
 		{
@@ -53,7 +53,7 @@ export const doc: ComponentDoc = {
 	accessibility: [
 		"Arrow keys move by day and week, Page Up and Page Down by month, Home and End to the week's edges.",
 		"The week starts where the locale's does.",
-		"Time columns are listboxes with the selected option marked.",
+		"The month title is a button that opens the month and year wheels. Each wheel is a listbox: arrow keys, Page Up and Page Down, Home and End move it, and the chosen row is marked.",
 		"Pass every label as a prop so the picker can be translated.",
 	],
 };
