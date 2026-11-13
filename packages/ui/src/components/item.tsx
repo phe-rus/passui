@@ -95,7 +95,7 @@ function Chevron({ className }: { className?: string }) {
 }
 
 const rowClass =
-	"relative flex w-full items-center gap-3 px-4 text-left text-label outline-none min-h-11 py-2 group-data-[size=sm]/item-group:min-h-9 group-data-[size=sm]/item-group:py-1.5 group-data-[size=lg]/item-group:min-h-14 group-data-[size=lg]/item-group:py-3";
+	"relative flex w-full items-center gap-3 px-5 text-left text-label outline-none h-14";
 
 const pressClass =
 	"hover:bg-fill/70 active:bg-fill focus-visible:ring-accent/70 transition-colors duration-(--duration-instant) focus-visible:ring-2 focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40 motion-reduce:transition-none";
@@ -245,7 +245,7 @@ export function ItemTitle({ className, ...props }: ComponentProps<"div">) {
 		<div
 			data-slot="item-title"
 			className={cx(
-				"text-body truncate group-data-[size=sm]/item-group:text-subheadline",
+				"text-body truncate font-bold group-data-[size=sm]/item-group:text-subheadline",
 				className,
 			)}
 			{...props}
@@ -261,7 +261,7 @@ export function ItemDescription({
 		<div
 			data-slot="item-description"
 			className={cx(
-				"text-footnote text-label-secondary -mt-0.5 line-clamp-2 group-data-[size=sm]/item-group:text-caption",
+				"text-footnote text-label-secondary -mt-0.5 truncate group-data-[size=sm]/item-group:text-caption",
 				className,
 			)}
 			{...props}
@@ -275,7 +275,7 @@ export function ItemActions({ className, ...props }: ComponentProps<"div">) {
 		<div
 			data-slot="item-actions"
 			className={cx(
-				"text-body text-label-secondary flex shrink-0 items-center gap-2 group-data-[size=sm]/item-group:text-subheadline",
+				"text-body text-label-secondary flex shrink-0 items-center gap-2 font-normal group-data-[size=sm]/item-group:text-subheadline",
 				className,
 			)}
 			{...props}

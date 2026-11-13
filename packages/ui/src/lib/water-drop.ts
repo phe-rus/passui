@@ -14,8 +14,8 @@ export interface DropBox {
 const OPEN_EASING = "cubic-bezier(0.2, 0.9, 0.25, 1.12)";
 const OPEN_MS = 480;
 /** Closing is quicker and never overshoots, so the glass does not shrink past its trigger. */
-const CLOSE_EASING = "cubic-bezier(0.32, 0.72, 0, 1)";
-const CLOSE_MS = 320;
+const CLOSE_EASING = "cubic-bezier(0.45, 0, 0.2, 1)";
+const CLOSE_MS = 480;
 /** The trigger's own face gives way as the drop leaves it. */
 const HIDE_MS = 140;
 /** Frames to wait for the positioner to place the panel before measuring it anyway. */
@@ -476,7 +476,7 @@ function createController(latest: { current: Latest }) {
 				);
 				const fade = track(
 					ghost.animate(
-						[{ opacity: 1 }, { opacity: 1, offset: 0.75 }, { opacity: 0 }],
+						[{ opacity: 1 }, { opacity: 1, offset: 0.88 }, { opacity: 0 }],
 						{ duration: CLOSE_MS, easing: "linear", fill: "forwards" },
 					),
 				);
@@ -492,7 +492,7 @@ function createController(latest: { current: Latest }) {
 				if (to.el && !latest.current.keepSource) {
 					track(
 						to.el.animate(
-							[{ opacity: 0 }, { opacity: 0, offset: 0.7 }, { opacity: 1 }],
+							[{ opacity: 0 }, { opacity: 0, offset: 0.8 }, { opacity: 1 }],
 							{ duration: CLOSE_MS, easing: "linear" },
 						),
 					);

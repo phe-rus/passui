@@ -3,11 +3,8 @@ import { cx } from "../lib/cx";
 
 export type LabeledContentSize = "sm" | "md" | "lg";
 
-const padding: Record<LabeledContentSize, string> = {
-	sm: "px-3 py-1.5",
-	md: "px-4 py-2",
-	lg: "px-5 py-3",
-};
+/** One row metric for every size, so rows never differ in height or inset. */
+const ROW = "h-14 px-5";
 
 export interface LabeledContentProps extends HTMLAttributes<HTMLDivElement> {
 	/** The visible name of the row. */
@@ -20,9 +17,9 @@ export interface LabeledContentProps extends HTMLAttributes<HTMLDivElement> {
 	children: ReactNode;
 	/** Places the control below the label at every width. @default false */
 	stacked?: boolean;
-	/** Places a wide control below its label on phones. @default false */
+	/** Kept for compatibility. Rows keep one height, so a wide control truncates instead of stacking. */
 	wide?: boolean;
-	/** Row padding density. @default "md" */
+	/** Kept for compatibility. Every row uses the same height and inset. */
 	size?: LabeledContentSize;
 }
 
@@ -37,8 +34,8 @@ export function LabeledContent({
 	icon,
 	children,
 	stacked,
-	wide,
-	size = "md",
+	wide: _wide,
+	size: _size,
 	className,
 	...props
 }: LabeledContentProps) {
@@ -46,14 +43,11 @@ export function LabeledContent({
 		<div
 			data-slot="labeled-content"
 			className={cx(
-				"flex min-h-11 flex-wrap gap-x-4 gap-y-2",
-				padding[size],
+				"flex gap-x-4",
+				ROW,
 				stacked
-					? "flex-col items-stretch"
-					: cx(
-							"items-center justify-between",
-							wide && "max-sm:flex-col max-sm:items-stretch max-sm:gap-2",
-						),
+					? "h-auto flex-col items-stretch gap-y-2 py-3"
+					: cx("items-center justify-between"),
 				className,
 			)}
 			{...props}
@@ -62,7 +56,6 @@ export function LabeledContent({
 				className={cx(
 					"flex min-w-0 flex-1 items-center gap-3 break-normal",
 					!stacked && "basis-36",
-					wide && "max-sm:basis-auto",
 				)}
 			>
 				{icon ? (
@@ -74,11 +67,11 @@ export function LabeledContent({
 					</span>
 				) : null}
 				<div className="flex min-w-0 flex-col gap-0">
-					<span className="text-subheadline text-label leading-tight">
+					<span className="text-subheadline text-label truncate leading-tight">
 						{label}
 					</span>
 					{description ? (
-						<span className="text-footnote text-label-secondary leading-snug">
+						<span className="text-footnote text-label-secondary truncate leading-snug">
 							{description}
 						</span>
 					) : null}
@@ -90,7 +83,6 @@ export function LabeledContent({
 				className={cx(
 					"ms-auto flex max-w-full min-w-0 shrink-0 justify-end [&>*]:max-w-full",
 					stacked && "w-full",
-					wide && "max-sm:w-full",
 				)}
 			>
 				{children}

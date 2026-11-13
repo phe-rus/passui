@@ -1,5 +1,19 @@
 # Changelog
 
+## @passui/react 0.3.3
+
+### Fixed
+
+- The water drop close is slower (480ms) and eases in and out, so the glass visibly shrinks onto its trigger before the trigger's face returns, instead of reading as a blink.
+- `Select` now renders its `icon` prop (it was accepted but never drawn, so `Locales` showed no globe).
+- Floating label `Input` and `InputOTP` cells use the shared 34px control scale instead of taller sizes. The Combobox chevron matches the Select chevron.
+
+- `LabeledContent` rows have one fixed height and inset (`h-14 px-5`) at every size, so rows no longer differ. Long text truncates, `wide` no longer stacks a row, and `stacked` is the only way to get a taller row. `Item` rows are also fixed at `h-14 px-5`, and an `Item` description truncates to one line. `LabeledContent`'s `size` prop is kept but has no effect. `ItemTitle` is bold and `ItemActions` text is normal weight.
+
+### Added
+
+- `Combobox` accepts an `icon` shown before the value.
+
 ## @passui/tokens 0.1.5
 
 ### Changed

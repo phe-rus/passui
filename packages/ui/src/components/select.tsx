@@ -115,9 +115,20 @@ export function Select({
 					data-slot="select-trigger"
 					className="group bg-fill/60 text-footnote text-label focus-visible:ring-accent/70 aria-invalid:ring-danger/70 spring-snappy flex h-8.5 w-full items-center justify-between gap-2 rounded-xl px-3 text-left transition outline-none focus-visible:ring-2 active:scale-[0.98] disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none motion-reduce:active:scale-100"
 				>
+					{icon ? (
+						<span
+							aria-hidden="true"
+							className="text-label-secondary flex shrink-0 items-center"
+						>
+							{icon}
+						</span>
+					) : null}
 					<span
 						{...api.getValueTextProps()}
-						className={selected ? "" : "text-label-tertiary"}
+						className={cx(
+							"min-w-0 flex-1 truncate",
+							selected ? "" : "text-label-tertiary",
+						)}
 					>
 						{selected?.label ?? placeholder}
 					</span>

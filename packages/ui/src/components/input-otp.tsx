@@ -62,7 +62,7 @@ export function InputOTP({
 					<input
 						key={index}
 						{...api.getInputProps({ index })}
-						className="bg-fill/60 text-headline text-label focus:ring-accent/70 aria-invalid:ring-danger/70 size-9.5 rounded-xl text-center font-semibold transition outline-none focus:ring-2 disabled:opacity-40 aria-invalid:ring-2"
+						className="bg-fill/60 text-subheadline text-label focus:ring-accent/70 aria-invalid:ring-danger/70 size-8.5 rounded-xl text-center font-semibold transition outline-none focus:ring-2 disabled:opacity-40 aria-invalid:ring-2"
 					/>
 				))}
 			</div>

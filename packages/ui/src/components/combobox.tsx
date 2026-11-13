@@ -37,6 +37,8 @@ export interface ComboboxProps
 	empty?: ReactNode;
 	/** The accessible name of the chevron button, so apps can translate it. @default "Show options" */
 	triggerLabel?: string;
+	/** An icon before the value, sized to the control (16px). */
+	icon?: ReactNode;
 	disabled?: boolean;
 	invalid?: boolean;
 	name?: string;
@@ -53,6 +55,7 @@ export function Combobox({
 	placeholder = "Search",
 	empty = "No results.",
 	triggerLabel = "Show options",
+	icon,
 	disabled,
 	invalid,
 	name,
@@ -123,12 +126,23 @@ export function Combobox({
 			className={cx("w-full", className)}
 		>
 			<div {...api.getControlProps()} className="relative">
+				{icon ? (
+					<span
+						aria-hidden="true"
+						className="text-label-secondary pointer-events-none absolute inset-y-0 left-3 flex items-center"
+					>
+						{icon}
+					</span>
+				) : null}
 				<input
 					{...api.getInputProps()}
 					aria-label={ariaLabel}
 					placeholder={placeholder}
 					data-slot="combobox-input"
-					className="bg-fill/60 text-footnote text-label placeholder:text-label-tertiary focus-visible:ring-accent/70 aria-invalid:ring-danger/70 h-8.5 w-full rounded-xl pr-9 pl-3 transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none"
+					className={cx(
+						icon ? "pl-9" : "pl-3",
+						"bg-fill/60 text-footnote text-label placeholder:text-label-tertiary focus-visible:ring-accent/70 aria-invalid:ring-danger/70 h-8.5 w-full rounded-xl pr-9 transition duration-(--duration-fast) outline-none focus-visible:ring-2 disabled:opacity-40 aria-invalid:ring-2 motion-reduce:transition-none",
+					)}
 				/>
 				<button
 					{...api.getTriggerProps()}
@@ -137,7 +151,7 @@ export function Combobox({
 				>
 					<svg
 						viewBox="0 0 16 16"
-						className="size-4 transition-transform duration-(--duration-fast) group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+						className="size-3.5 transition-transform duration-(--duration-fast) group-data-[state=open]:rotate-180 motion-reduce:transition-none"
 						fill="none"
 						stroke="currentColor"
 						strokeWidth="2"

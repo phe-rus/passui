@@ -16,12 +16,8 @@ export const inputSizes: Record<InputSize, string> = {
 	lg: "h-9.5 px-3.5 text-subheadline",
 };
 
-/** The outlined variant is taller, since the label has to float inside it. */
-export const floatingSizes: Record<InputSize, string> = {
-	sm: "h-9 px-3 text-footnote",
-	md: "h-10 px-3 text-subheadline",
-	lg: "h-11.5 px-3 text-body",
-};
+/** The outlined variant uses the same scale: its label lifts onto the border line, so it needs no extra height. */
+export const floatingSizes: Record<InputSize, string> = inputSizes;
 
 export type InputProps = Omit<ComponentProps<"input">, "size"> & {
 	/** Height and text, from the shared control scale. @default "md" */
