@@ -1,14 +1,14 @@
-import { cn } from "@passui/react/cn";
 import { CodeBlock } from "@passui/react/code-block";
 import { Layout } from "@passui/react/layout";
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { OnThisPage } from "@/components/docs/on-this-page";
 import { PageNav } from "@/components/docs/page-nav";
 import { getGuide } from "@/features/docs/lib/get-guides";
 import {
+	guideProse,
 	pageColumn,
 	pageGrid,
 	pageRail,
-	prose,
 } from "@/features/docs/lib/prose";
 import { getPageHead } from "@/features/seo/lib/seo";
 import { useActiveSection } from "@/hooks/use-active-section";
@@ -44,7 +44,7 @@ function RouteComponent() {
 				}
 			>
 				{/* Markdown, rendered once at build time: prose as HTML, code in CodeBlock. */}
-				<div className={prose}>
+				<div className={guideProse}>
 					{guide.blocks.map((block, index) =>
 						block.type === "html" ? (
 							<div
@@ -75,32 +75,13 @@ function RouteComponent() {
 			</Layout>
 
 			<aside className={pageRail}>
-				<nav
-					aria-label="On this page"
-					className="sticky top-24 flex flex-col gap-3"
-				>
-					<span className="text-footnote text-label font-semibold">
-						On this page
-					</span>
-					<ul className="border-separator/70 m-0 flex list-none flex-col border-s p-0">
-						{guide.headings.map((heading) => (
-							<li key={heading.id}>
-								<a
-									href={`#${heading.id}`}
-									aria-current={heading.id === active ? "location" : undefined}
-									className={cn(
-										"text-footnote -ms-px block truncate border-s-2 py-1 ps-3 no-underline transition-colors",
-										heading.id === active
-											? "border-accent text-label font-semibold"
-											: "text-label-secondary hover:text-label border-transparent",
-									)}
-								>
-									{heading.title}
-								</a>
-							</li>
-						))}
-					</ul>
-				</nav>
+				<OnThisPage
+					items={guide.headings.map((heading) => ({
+						id: heading.id,
+						title: heading.title,
+					}))}
+					active={active}
+				/>
 			</aside>
 		</div>
 	);

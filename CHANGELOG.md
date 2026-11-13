@@ -2,6 +2,24 @@
 
 ## Unreleased (0.2.0 lean rebuild)
 
+### Added since the last checkpoint
+
+- `Text`: words in the type scale and the theme's roles, on any element.
+- `Tabs` `tone` (`neutral`, `accent`, `primary`) and `Pagination` `size` and `tone`.
+- `DateTimePicker` remade around month and year wheels, hour, minute and period wheels, and separate date and time chips. `Calendar` opens the wheels from its month title.
+- `Sidebar` as `Sidebar`, `SidebarGroup`, `SidebarGroupLabel`, `SidebarMenu`, `SidebarMenuItem` and `SidebarMenuButton`; `Search Field` and `Table` are plain components, and `Search Field` no longer depends on `motion`.
+- `Select` takes an `icon`, and lands the chosen option on the trigger's value where there is room; the water drop now works on all four sides and follows a flip.
+- `Tab Bar` has an accent glass lens, `Labeled Content` an icon tile, `RadioGroup` an `aria-label` and `bare` items, and `Swatch Picker` is built on it.
+
+### Changed
+
+- `ContentUnavailableView` is `Empty`, `ViewController` is `Layout` (`Layout.Heading` keeps title and description together), and `LocaleSwitcher` is `Locales`, an in-flow language list on `Select`. `Locales` no longer takes `storageKey`.
+- Docs: component pages are sections with Preview and Code tabs, every page has at least four examples, and the guides open each section with a hairline.
+
+### Removed
+
+- `CompactDatePicker`, `CompactTimePicker` and the legacy `Picker` and `Popover`: use `DateTimePicker`, `Popover` and `Select`.
+
 - Add `Dialog` and `AlertDialog` at `@passui/react/dialog` and `@passui/react/alert-dialog`, built on Zag machines with CSS enter and exit transitions that reverse mid flight. Parts use shadcn names and triggers accept a `render` prop.
 - Add `pageScale` (`topOffset` 26, `radius` 8, read from Vaul) to `@passui/tokens`.
 - Add `Drawer` and `Sheet` at `@passui/react/drawer` and `@passui/react/sheet`, built on `@zag-js/drawer` with the Vaul curve over 500 ms, swipe to dismiss, snap points and nested drawers. `Sheet` takes a `side`. `Drawer` is a bottom sheet with a `DrawerHandle`.

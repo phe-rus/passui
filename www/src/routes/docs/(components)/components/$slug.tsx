@@ -11,7 +11,6 @@ import {
 	BreadcrumbSeparator,
 } from "@passui/react/breadcrumb";
 import { Button } from "@passui/react/button";
-import { cn } from "@passui/react/cn";
 import { CodeBlock } from "@passui/react/code-block";
 import { Layout } from "@passui/react/layout";
 import {
@@ -27,6 +26,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { use } from "react";
 import { DocSection } from "@/components/docs/doc-section";
 import { ExampleCard } from "@/components/docs/example-card";
+import { OnThisPage } from "@/components/docs/on-this-page";
 import { PageNav } from "@/components/docs/page-nav";
 import { getComponentMarkdown } from "@/features/ai/lib/get-component-markdown";
 import { packageManagers } from "@/features/catalog/install";
@@ -334,33 +334,7 @@ function RouteComponent() {
 			</Layout>
 
 			<aside className={pageRail}>
-				<nav
-					aria-label="On this page"
-					className="sticky top-24 flex flex-col gap-3"
-				>
-					<span className="text-footnote text-label font-semibold">
-						On this page
-					</span>
-					<ul className="border-separator/70 m-0 flex list-none flex-col border-s p-0">
-						{outline.map((item) => (
-							<li key={item.id}>
-								<a
-									href={`#${item.id}`}
-									aria-current={item.id === active ? "location" : undefined}
-									className={cn(
-										"text-footnote -ms-px block truncate border-s-2 py-1 no-underline transition-colors",
-										item.depth === 0 ? "ps-3" : "ps-6",
-										item.id === active
-											? "border-accent text-label font-semibold"
-											: "text-label-secondary hover:text-label border-transparent",
-									)}
-								>
-									{item.title}
-								</a>
-							</li>
-						))}
-					</ul>
-				</nav>
+				<OnThisPage items={outline} active={active} />
 			</aside>
 		</div>
 	);

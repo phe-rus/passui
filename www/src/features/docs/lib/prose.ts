@@ -22,3 +22,16 @@ export const pageColumn = "xl:col-start-2";
 /** The outline rail hugs the right edge, like shadcn. */
 export const pageRail =
 	"hidden xl:col-start-3 xl:block xl:w-52 xl:justify-self-end";
+
+/**
+ * Spacing for guides, which are long Markdown pages: every section opens with
+ * a hairline and room above it, so the parts of a document read as parts and
+ * the outline on the right matches what is on the page.
+ */
+export const guideProse = [
+	"typeset",
+	"typeset-h2:mt-12 typeset-h2:mb-2 typeset-h2:border-t typeset-h2:border-separator/60 typeset-h2:pt-8 typeset-h2:text-title3 typeset-h2:scroll-mt-24 typeset-h2:first:mt-0 typeset-h2:first:border-t-0 typeset-h2:first:pt-0",
+	"typeset-h3:mt-8 typeset-h3:mb-1.5 typeset-h3:text-headline typeset-h3:scroll-mt-24 typeset-h3:first:mt-0",
+	"typeset-p:mt-3 typeset-ul:mt-3 typeset-ol:mt-3 typeset-li:mt-1.5 typeset-pre:mt-3 typeset-table:mt-3",
+	"typeset-blockquote:mt-3 typeset-hr:my-6",
+].join(" ");
