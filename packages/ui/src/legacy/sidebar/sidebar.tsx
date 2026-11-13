@@ -37,13 +37,13 @@ export type SidebarDensity = "regular" | "compact";
 export type SidebarSize = "sm" | "md" | "lg";
 
 const sidebarItemSizes: Record<SidebarSize, string> = {
-	sm: "min-h-8 rounded-lg px-2 py-1 text-footnote [@media(pointer:coarse)]:min-h-10",
+	sm: "min-h-7 rounded-lg px-2 py-0.5 text-footnote [@media(pointer:coarse)]:min-h-10",
 	md: "rounded-2xl px-2.5 py-[7px] text-subheadline",
 	lg: "rounded-2xl px-3 py-2.5 text-body [@media(pointer:coarse)]:min-h-13",
 };
 const sidebarHeadingSizes: Record<SidebarSize, string> = {
-	sm: "px-2 pb-1 text-caption2 font-semibold text-label-tertiary",
-	md: "px-2.5 pb-1.5 text-caption font-semibold text-label-tertiary",
+	sm: "px-2 pb-1 text-footnote font-semibold text-label",
+	md: "px-2.5 pb-1.5 text-footnote font-semibold text-label",
 	lg: "px-3 pb-2 text-subheadline font-semibold text-label-tertiary",
 };
 const sidebarCountSizes: Record<SidebarSize, string> = {

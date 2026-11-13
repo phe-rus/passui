@@ -48,6 +48,12 @@ const timeText: Record<ConversationSize, string> = {
 	md: "px-3 text-caption2 text-label-secondary tabular-nums",
 	lg: "px-3.5 text-caption text-label-secondary tabular-nums",
 };
+/** Indent that lines a theirs-side timestamp up with its bubble, past the avatar column. */
+const timeIndent: Record<ConversationSize, string> = {
+	sm: "ms-8",
+	md: "ms-9",
+	lg: "ms-10",
+};
 const dayMargins: Record<ConversationSize, string> = {
 	sm: "my-3",
 	md: "my-4",
@@ -56,19 +62,19 @@ const dayMargins: Record<ConversationSize, string> = {
 
 // Composer size records
 const composerSurfaces: Record<ConversationSize, string> = {
-	sm: "flex items-end gap-2 rounded-4xl border border-separator bg-elevated py-1 pr-1 pl-3 transition-colors focus-within:border-accent-text/60",
-	md: "flex items-end gap-2 rounded-5xl border border-separator bg-elevated py-1.5 pr-1.5 pl-4 transition-colors focus-within:border-accent-text/60",
-	lg: "flex items-end gap-2 rounded-5xl border border-separator bg-elevated py-2 pr-2 pl-5 transition-colors focus-within:border-accent-text/60",
+	sm: "flex items-end gap-2 rounded-[1.25rem] border border-separator bg-elevated p-0.5 pl-3.5 transition-colors focus-within:border-accent-text/60",
+	md: "flex items-end gap-2 rounded-3xl border border-separator bg-elevated p-0.5 pl-4 transition-colors focus-within:border-accent-text/60",
+	lg: "flex items-end gap-2 rounded-3xl border border-separator bg-elevated p-1 pl-5 transition-colors focus-within:border-accent-text/60",
 };
 const textareaClasses: Record<ConversationSize, string> = {
-	sm: "field-sizing-content max-h-48 min-h-8 flex-1 resize-none bg-transparent py-1 text-footnote text-label outline-none placeholder:text-label-secondary",
-	md: "field-sizing-content max-h-48 min-h-9 flex-1 resize-none bg-transparent py-1.5 text-subheadline text-label outline-none placeholder:text-label-secondary",
-	lg: "field-sizing-content max-h-48 min-h-10 flex-1 resize-none bg-transparent py-2 text-body text-label outline-none placeholder:text-label-secondary",
+	sm: "field-sizing-content max-h-48 min-h-8 flex-1 resize-none bg-transparent py-[7px] text-footnote text-label outline-none placeholder:text-label-secondary",
+	md: "field-sizing-content max-h-48 min-h-9 flex-1 resize-none bg-transparent py-2 text-subheadline text-label outline-none placeholder:text-label-secondary",
+	lg: "field-sizing-content max-h-48 min-h-10 flex-1 resize-none bg-transparent py-[9px] text-body text-label outline-none placeholder:text-label-secondary",
 };
 const sendButtonClasses: Record<ConversationSize, string> = {
-	sm: "size-7 shrink-0 rounded-full",
-	md: "size-8 shrink-0 rounded-full",
-	lg: "size-9 shrink-0 rounded-full",
+	sm: "size-8 shrink-0 rounded-full",
+	md: "size-9 shrink-0 rounded-full",
+	lg: "size-10 shrink-0 rounded-full",
 };
 const sendIconSizes: Record<ConversationSize, number> = {
 	sm: 16,
@@ -182,7 +188,7 @@ function Messages({
 							)}
 							<div
 								className={cn(
-									"flex max-w-[78%] flex-col gap-1",
+									"flex max-w-[78%] flex-col gap-0.5",
 									message.mine ? "items-end" : "items-start",
 								)}
 							>
@@ -206,17 +212,21 @@ function Messages({
 								>
 									{message.body}
 								</p>
-								{endsGroup && (
-									<time
-										suppressHydrationWarning
-										dateTime={message.createdAt}
-										className={timeText[size]}
-									>
-										{clock(message.createdAt, locale)}
-									</time>
-								)}
 							</div>
 						</div>
+						{endsGroup && (
+							<time
+								suppressHydrationWarning
+								dateTime={message.createdAt}
+								className={cn(
+									"mt-1",
+									timeText[size],
+									message.mine ? "self-end" : timeIndent[size],
+								)}
+							>
+								{clock(message.createdAt, locale)}
+							</time>
+						)}
 					</li>
 				);
 			})}

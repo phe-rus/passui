@@ -24,12 +24,15 @@ export interface RadioGroupProps
 	onValueChange?: (value: string | null) => void;
 	children?: ReactNode;
 	className?: string;
+	/** Names the group when there is no visible label. */
+	"aria-label"?: string;
 }
 
 export function RadioGroup({
 	onValueChange,
 	children,
 	className,
+	"aria-label": ariaLabel,
 	...props
 }: RadioGroupProps) {
 	const id = useId();
@@ -43,6 +46,8 @@ export function RadioGroup({
 		<Context.Provider value={api}>
 			<div
 				{...api.getRootProps()}
+				role="radiogroup"
+				aria-label={ariaLabel}
 				data-slot="radio-group"
 				className={cx("grid gap-3", className)}
 			>
@@ -55,18 +60,39 @@ export function RadioGroup({
 export type RadioGroupItemProps = Omit<ComponentProps<"label">, "value"> & {
 	value: string;
 	disabled?: boolean;
+	/**
+	 * Draws no radio dot: the children are the whole control, such as a color
+	 * swatch. Style them with `group-data-[state=checked]:`.
+	 */
+	bare?: boolean;
 };
 
 /** One choice. Children are its label. */
 export function RadioGroupItem({
 	value,
 	disabled,
+	bare,
 	children,
 	className,
 	...props
 }: RadioGroupItemProps) {
 	const api = useRadio();
 	const item = { value, disabled };
+	if (bare)
+		return (
+			<label
+				{...api.getItemProps(item)}
+				data-slot="radio-group-item"
+				className={cx(
+					"group cursor-pointer data-disabled:cursor-not-allowed data-disabled:opacity-40",
+					className,
+				)}
+				{...props}
+			>
+				<input {...api.getItemHiddenInputProps(item)} />
+				{children}
+			</label>
+		);
 	return (
 		<label
 			{...api.getItemProps(item)}

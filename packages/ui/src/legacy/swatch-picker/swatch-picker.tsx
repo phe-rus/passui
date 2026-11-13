@@ -1,6 +1,6 @@
 import { CheckIcon } from "@passui/icons";
 import { motion } from "motion/react";
-import { useId } from "react";
+import { RadioGroup, RadioGroupItem } from "../../components/radio-group";
 import { cn } from "../../lib/class-names";
 import { haptic } from "../../lib/haptics";
 import { spring } from "../../motion/transitions";
@@ -54,7 +54,7 @@ export interface SwatchPickerProps<T extends string> {
 	size?: SwatchPickerSize;
 }
 
-/** Colour swatches with a check on the chosen one. */
+/** Colour swatches with a check on the chosen one, built on `RadioGroup` so keyboard and form behaviour match. */
 export function SwatchPicker<T extends string>({
 	value,
 	options,
@@ -63,76 +63,63 @@ export function SwatchPicker<T extends string>({
 	className,
 	size = "md",
 }: SwatchPickerProps<T>) {
-	const name = useId();
 	return (
-		<fieldset className={cn("flex flex-wrap", fieldsetGaps[size], className)}>
-			<legend className="sr-only">{label}</legend>
-			{options.map((option) => {
-				const selected = option.value === value;
-				return (
-					<label
-						key={option.value}
-						className={cn(
-							"group flex cursor-pointer flex-col items-center",
-							labelGaps[size],
-						)}
-					>
-						<input
-							type="radio"
-							name={name}
+		<RadioGroup
+			aria-label={label}
+			value={value}
+			onValueChange={(next) => {
+				if (!next) return;
+				haptic("selection");
+				onChange(next as T);
+			}}
+			className={className}
+		>
+			<div className={cn("flex flex-wrap", fieldsetGaps[size])}>
+				{options.map((option) => {
+					const selected = option.value === value;
+					return (
+						<RadioGroupItem
+							key={option.value}
 							value={option.value}
-							checked={selected}
-							onChange={() => {
-								haptic("selection");
-								onChange(option.value);
-							}}
-							className="peer sr-only"
-						/>
-						<span
-							className={cn(
-								"ring-offset-elevated duration-fast peer-focus-visible:ring-accent flex items-center justify-center rounded-full ring-offset-1 transition-[box-shadow,transform] group-active:scale-95 peer-focus-visible:ring-2",
-								swatchSizes[size],
-								selected
-									? "ring-label/70 ring-[1.5px]"
-									: "group-hover:ring-separator ring-0 group-hover:ring-[1.5px]",
-							)}
-							style={{
-								background: option.color,
-							}}
+							bare
+							className={cn("flex flex-col items-center", labelGaps[size])}
 						>
-							{selected && (
-								<motion.span
-									initial={{
-										scale: 0.4,
-										opacity: 0,
-									}}
-									animate={{
-										scale: 1,
-										opacity: 1,
-									}}
-									transition={spring.bouncy}
-								>
-									<CheckIcon
-										size={checkSizes[size]}
-										strokeWidth={2.6}
-										style={{
-											color: option.ink,
-										}}
-									/>
-								</motion.span>
-							)}
-						</span>
-						<span
-							className={cn(
-								captionText[size],
-								selected ? "text-label font-semibold" : "text-label-tertiary",
-							)}
-						>
-							{option.label}
-						</span>
-					</label>
-				);
-			})}
-		</fieldset>
+							<span
+								className={cn(
+									"ring-offset-elevated duration-fast group-focus-within:ring-accent flex items-center justify-center rounded-full ring-offset-1 transition-[box-shadow,transform] group-focus-within:ring-2 group-active:scale-95",
+									swatchSizes[size],
+									selected
+										? "ring-label/70 ring-[1.5px]"
+										: "group-hover:ring-separator ring-0 group-hover:ring-[1.5px]",
+								)}
+								style={{ background: option.color }}
+							>
+								{selected && (
+									<motion.span
+										initial={{ scale: 0.4, opacity: 0 }}
+										animate={{ scale: 1, opacity: 1 }}
+										transition={spring.bouncy}
+									>
+										<CheckIcon
+											size={checkSizes[size]}
+											strokeWidth={2.6}
+											style={{ color: option.ink }}
+										/>
+									</motion.span>
+								)}
+							</span>
+							<span
+								className={cn(
+									captionText[size],
+									selected ? "text-label font-semibold" : "text-label-tertiary",
+								)}
+							>
+								{option.label}
+							</span>
+						</RadioGroupItem>
+					);
+				})}
+			</div>
+		</RadioGroup>
 	);
 }

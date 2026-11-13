@@ -6,14 +6,14 @@ import { ExpandingSearchField } from "./expanding-search-field";
 export type SearchFieldSize = "sm" | "md" | "lg";
 
 const pillSizes: Record<SearchFieldSize, string> = {
-	sm: "control-field flex items-center gap-1.5 rounded-full px-2.5 py-1 text-caption text-label-tertiary",
-	md: "control-field flex items-center gap-2 rounded-full px-3 py-2 text-subheadline text-label-tertiary",
-	lg: "control-field flex items-center gap-2.5 rounded-full px-4 py-2.5 text-body text-label-tertiary",
+	sm: "control-field flex h-7.5 items-center gap-1.5 rounded-full px-3 text-footnote text-label-tertiary",
+	md: "control-field flex h-8.5 items-center gap-2 rounded-full px-3.5 text-footnote text-label-tertiary",
+	lg: "control-field flex h-9.5 items-center gap-2.5 rounded-full px-4 text-subheadline text-label-tertiary",
 };
 const iconSizes: Record<SearchFieldSize, number> = {
 	sm: 13,
-	md: 15,
-	lg: 17,
+	md: 14,
+	lg: 16,
 };
 
 export interface SearchFieldProps
