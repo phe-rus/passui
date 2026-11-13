@@ -1,6 +1,5 @@
 "use client";
 
-import { ChevronDownIcon } from "@passui/icons/chevron-down";
 import { ChevronLeftIcon } from "@passui/icons/chevron-left";
 import { ChevronRightIcon } from "@passui/icons/chevron-right";
 import { type KeyboardEvent, useId, useMemo, useRef, useState } from "react";
@@ -66,7 +65,7 @@ function yearSpan(now: number, min?: string, max?: string) {
 }
 
 const cell =
-	"relative mx-auto flex size-8.5 items-center justify-center rounded-full text-footnote tabular-nums outline-none transition-colors duration-(--duration-fast) focus-visible:ring-2 focus-visible:ring-accent/70 disabled:pointer-events-none disabled:opacity-30 motion-reduce:transition-none";
+	"relative z-10 mx-auto flex size-9 items-center justify-center rounded-full text-callout tabular-nums outline-none transition-colors duration-(--duration-fast) focus-visible:ring-2 focus-visible:ring-accent/70 disabled:pointer-events-none disabled:opacity-30 motion-reduce:transition-none";
 
 /**
  * An inline month calendar for one day or a range, on the locale's own week.
@@ -183,47 +182,49 @@ export function Calendar(props: CalendarProps) {
 	const edge = range && props.value.from && !props.value.to ? hover : to;
 
 	return (
-		<div data-slot="calendar" className={cx("w-[17.5rem]", className)}>
-			<div className="mb-2 flex items-center justify-between">
-				<button
-					type="button"
-					aria-label={labels.previousMonth}
-					disabled={jumping}
-					onClick={() => setFocus(addMonths(focus, -1))}
-					className="text-label-secondary hover:bg-fill/80 hover:text-label focus-visible:ring-accent/70 flex size-7.5 items-center justify-center rounded-full outline-none focus-visible:ring-2 disabled:opacity-0"
-				>
-					<ChevronLeftIcon size={14} />
-				</button>
+		<div data-slot="calendar" className={cx("w-[17.5rem] p-0.5", className)}>
+			<div className="mb-3 flex items-center justify-between pl-1">
 				<button
 					type="button"
 					id={headingId}
 					aria-live="polite"
 					aria-expanded={jumping}
 					onClick={() => setJumping(!jumping)}
-					className="text-footnote text-label hover:bg-fill/80 focus-visible:ring-accent/70 flex h-7.5 items-center gap-1 rounded-full px-3 font-semibold outline-none focus-visible:ring-2"
+					className="text-headline text-label hover:text-accent-text focus-visible:ring-accent/70 -ml-2 flex h-8 items-center gap-1 rounded-full px-2 font-semibold transition-colors outline-none focus-visible:ring-2 motion-reduce:transition-none"
 				>
 					{monthTitle}
-					<ChevronDownIcon
-						size={12}
+					<ChevronRightIcon
+						size={13}
 						className={cx(
-							"text-label-secondary spring-snappy transition-transform motion-reduce:transition-none",
-							jumping && "rotate-180",
+							"text-accent-text spring-snappy transition-transform motion-reduce:transition-none",
+							jumping && "rotate-90",
 						)}
 					/>
 				</button>
-				<button
-					type="button"
-					aria-label={labels.nextMonth}
-					disabled={jumping}
-					onClick={() => setFocus(addMonths(focus, 1))}
-					className="text-label-secondary hover:bg-fill/80 hover:text-label focus-visible:ring-accent/70 flex size-7.5 items-center justify-center rounded-full outline-none focus-visible:ring-2 disabled:opacity-0"
-				>
-					<ChevronRightIcon size={14} />
-				</button>
+				<div className="flex items-center gap-1">
+					<button
+						type="button"
+						aria-label={labels.previousMonth}
+						disabled={jumping}
+						onClick={() => setFocus(addMonths(focus, -1))}
+						className="text-accent-text hover:bg-fill/80 focus-visible:ring-accent/70 flex size-8 items-center justify-center rounded-full outline-none focus-visible:ring-2 disabled:opacity-0"
+					>
+						<ChevronLeftIcon size={16} />
+					</button>
+					<button
+						type="button"
+						aria-label={labels.nextMonth}
+						disabled={jumping}
+						onClick={() => setFocus(addMonths(focus, 1))}
+						className="text-accent-text hover:bg-fill/80 focus-visible:ring-accent/70 flex size-8 items-center justify-center rounded-full outline-none focus-visible:ring-2 disabled:opacity-0"
+					>
+						<ChevronRightIcon size={16} />
+					</button>
+				</div>
 			</div>
 			{jumping ? (
 				<div
-					className="flex min-h-[15.5rem] items-center justify-center gap-2"
+					className="flex min-h-[14rem] items-center justify-center gap-2"
 					onKeyDown={(event) => {
 						if (event.key !== "Escape") return;
 						event.stopPropagation();
@@ -263,7 +264,7 @@ export function Calendar(props: CalendarProps) {
 								<th
 									key={name}
 									scope="col"
-									className="text-caption text-label-tertiary py-1 text-center font-medium"
+									className="text-caption2 text-label-tertiary pb-2 text-center font-semibold uppercase"
 								>
 									{name}
 								</th>
@@ -285,10 +286,22 @@ export function Calendar(props: CalendarProps) {
 										value < edge;
 									const blocked = !withinBounds(value, min, max);
 									return (
-										<td
-											key={value}
-											className={cx("p-0", inSpan && "bg-accent-soft/70")}
-										>
+										<td key={value} className="relative h-10 p-0">
+											{inSpan ||
+											(range &&
+												edge &&
+												(isStart || isEnd) &&
+												selected !== edge) ? (
+												<span
+													aria-hidden="true"
+													className={cx(
+														"bg-accent-soft/70 pointer-events-none absolute inset-y-0.5",
+														inSpan && "inset-x-0",
+														isStart && !inSpan && "right-0 left-1/2",
+														isEnd && !isStart && "right-1/2 left-0",
+													)}
+												/>
+											) : null}
 											<button
 												type="button"
 												data-day={value}
