@@ -168,7 +168,7 @@ export function useAnchorFollow(
 	anchor: TriggerAnchor,
 	open: boolean,
 	side: string | undefined,
-	reposition: () => void,
+	reposition: (options: Pick<TriggerAnchor, "getAnchorRect">) => void,
 ) {
 	const again = useRef(reposition);
 	again.current = reposition;
@@ -179,7 +179,10 @@ export function useAnchorFollow(
 		}
 		if (anchor.state.flipped || !isSide(side) || side === anchor.base) return;
 		anchor.state.flipped = true;
-		again.current();
+		// Zag's menu `reposition` sets `getAnchorRect` to undefined after spreading
+		// the machine's positioning, which drops the trigger anchor and leaves the
+		// flipped panel a gap above the trigger. Hand the anchor over explicitly.
+		again.current({ getAnchorRect: anchor.getAnchorRect });
 	}, [anchor, open, side]);
 }
 

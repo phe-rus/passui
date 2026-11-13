@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/react 0.3.4
+
+### Fixed
+
+- A `DropdownMenu` that opens upward now lands on its trigger. Zag's menu `reposition` overwrites the machine's `getAnchorRect` with `undefined`, so the correction made after a flip dropped the trigger anchor and left the panel a gap above the trigger. `useAnchorFollow` now passes the anchor with the call, so the panel's bottom edge sits on the trigger's bottom edge.
+
 ## @passui/icons 0.1.2
 
 ### Fixed

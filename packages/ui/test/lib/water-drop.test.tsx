@@ -20,7 +20,9 @@ import {
 	canMorph,
 	pointBox,
 	readBox,
+	type TriggerAnchor,
 	toMs,
+	useAnchorFollow,
 } from "../../src/lib/water-drop";
 import { act, settle } from "../helpers/axe";
 
@@ -203,6 +205,48 @@ it("follows a flip to the opposite side", () => {
 	expect(anchorOnTrigger("bottom", 6, state)(trigger)?.y).toBe(82);
 	expect(anchorOnTrigger("right", 6, state)(trigger)?.x).toBe(342);
 	delete (Element.prototype as { animate?: unknown }).animate;
+});
+
+interface ProbeProps {
+	anchor: TriggerAnchor;
+	side: string;
+	reposition: (options: Pick<TriggerAnchor, "getAnchorRect">) => void;
+}
+
+function Probe({ anchor, side, reposition }: ProbeProps) {
+	useAnchorFollow(anchor, true, side, reposition);
+	return null;
+}
+
+it("repositions with its own anchor the first time the machine flips", async () => {
+	const state = {};
+	const anchor = {
+		getAnchorRect: anchorOnTrigger("bottom-end", 6, state),
+		state,
+		base: "bottom",
+	};
+	const reposition = vi.fn();
+	const host = document.createElement("div");
+	document.body.append(host);
+	root = createRoot(host);
+	await act(async () =>
+		root?.render(
+			<Probe anchor={anchor} reposition={reposition} side="bottom" />,
+		),
+	);
+	expect(reposition).not.toHaveBeenCalled();
+	await act(async () =>
+		root?.render(<Probe anchor={anchor} reposition={reposition} side="top" />),
+	);
+	// The anchor travels with the call, because Zag's menu overwrites its own.
+	expect(reposition).toHaveBeenCalledTimes(1);
+	expect(reposition).toHaveBeenCalledWith({
+		getAnchorRect: anchor.getAnchorRect,
+	});
+	await act(async () =>
+		root?.render(<Probe anchor={anchor} reposition={reposition} side="top" />),
+	);
+	expect(reposition).toHaveBeenCalledTimes(1);
 });
 
 it("moves a downward panel by the measured shift", () => {
