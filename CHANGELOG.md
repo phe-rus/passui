@@ -1,5 +1,15 @@
 # Changelog
 
+## @passui/react 0.3.6
+
+### Changed
+
+- `ItemTitle` is semibold instead of bold, so row titles sit closer to their descriptions and values instead of shouting over them.
+
+### Added
+
+- `ItemMedia` accepts `variant="default"`, which leaves the media unstyled (no accent colour, size or rounding) for content that brings its own look, as shadcn's `Item` does.
+
 ## @passui/tokens 0.1.6
 
 ### Changed

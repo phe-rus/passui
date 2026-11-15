@@ -203,8 +203,8 @@ export function Item({
 }
 
 export interface ItemMediaProps extends ComponentProps<"span"> {
-	/** `icon` is a small accent glyph; `image` is a rounded thumbnail. @default "icon" */
-	variant?: "icon" | "image";
+	/** `icon` is a small accent glyph; `image` is a rounded thumbnail; `default` leaves the content unstyled. @default "icon" */
+	variant?: "default" | "icon" | "image";
 }
 
 /** The icon or image at the start of a row. The hairline insets past it. */
@@ -219,9 +219,9 @@ export function ItemMedia({
 			data-variant={variant}
 			className={cx(
 				"flex shrink-0 items-center justify-center",
-				variant === "icon"
-					? "text-accent-text size-8 [&_svg]:size-5"
-					: "size-10 overflow-hidden rounded-xl [&_img]:size-full [&_img]:object-cover",
+				variant === "icon" && "text-accent-text size-8 [&_svg]:size-5",
+				variant === "image" &&
+					"size-10 overflow-hidden rounded-xl [&_img]:size-full [&_img]:object-cover",
 				className,
 			)}
 			{...props}
@@ -245,7 +245,7 @@ export function ItemTitle({ className, ...props }: ComponentProps<"div">) {
 		<div
 			data-slot="item-title"
 			className={cx(
-				"text-body truncate font-bold group-data-[size=sm]/item-group:text-subheadline",
+				"text-body truncate font-semibold group-data-[size=sm]/item-group:text-subheadline",
 				className,
 			)}
 			{...props}
