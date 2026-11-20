@@ -1,5 +1,12 @@
 # Changelog
 
+## @passui/react 0.3.7
+
+### Changed
+
+- Depends on `@passui/tokens` 0.2.0, so apps pick up the iOS solid glass, the `--overscroll-color` token and the 16px iOS fields without pinning tokens themselves. No component changes.
+
+
 ## @passui/tanstack 0.4.0
 
 ### Added
