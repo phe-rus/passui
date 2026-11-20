@@ -39,6 +39,27 @@ const CANDIDATES: Candidate[] = [
 		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}`,
 	},
 	{
+		key: "noshim",
+		label: "H. REMOVE the fixed bottom edge shim",
+		css: `[data-slot="edge-shim"]{display:none!important}`,
+	},
+	{
+		key: "noanim",
+		label: "I. REMOVE the scroll-driven colour animation on html",
+		css: "html{animation:none!important}",
+	},
+	{
+		key: "notrans",
+		label: "J. REMOVE the body background transition",
+		css: "body{transition:none!important}",
+	},
+	{
+		key: "plainlike",
+		label:
+			"K. All of F, G, H, I and J together (everything that differs from the plain page)",
+		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}[data-slot="edge-shim"]{display:none!important}html{animation:none!important}body{transition:none!important}`,
+	},
+	{
 		key: "lift",
 		label: "A. Overlays 4px off the bottom edge (already the default on iOS)",
 		css: `[data-slot$="-overlay"]{bottom:4px!important}`,
