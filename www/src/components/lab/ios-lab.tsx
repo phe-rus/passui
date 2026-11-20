@@ -17,8 +17,53 @@ import {
 import { Switch } from "@passui/react/switch";
 import { useEffect, useState } from "react";
 
-const BACKDROP_RULE =
-	'dialog::backdrop,[popover]::backdrop,[data-slot$="-overlay"],[data-slot$="-backdrop"]{bottom:4px!important}';
+const DIM = "color-mix(in srgb, var(--color-background) 70%, black)";
+
+interface Candidate {
+	key: string;
+	label: string;
+	css: string;
+}
+
+/** Each candidate is one CSS block applied while its switch is on. */
+const CANDIDATES: Candidate[] = [
+	{
+		key: "flush",
+		label:
+			"F. Overlay flush to every edge: cancels the 4px lift that tokens apply on iOS by default",
+		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important}`,
+	},
+	{
+		key: "flushnoblur",
+		label: "G. Flush to the edge and no blur (closest to the plain page)",
+		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}`,
+	},
+	{
+		key: "lift",
+		label: "A. Overlays 4px off the bottom edge (already the default on iOS)",
+		css: `[data-slot$="-overlay"]{bottom:4px!important}`,
+	},
+	{
+		key: "noblur",
+		label: "B. No blur on overlays",
+		css: `[data-slot$="-overlay"]{backdrop-filter:none!important}`,
+	},
+	{
+		key: "solid",
+		label: "C. Opaque dimmed overlay (no translucency, no blur)",
+		css: `[data-slot$="-overlay"]{background-color:${DIM}!important;backdrop-filter:none!important}`,
+	},
+	{
+		key: "body",
+		label: "D. Dim the page background itself while an overlay is open",
+		css: `:root:has([data-slot$="-overlay"]),:root:has([data-slot$="-overlay"]) body{background-color:${DIM}!important}`,
+	},
+	{
+		key: "inert",
+		label: "E. Overlay inset by 1px on every side",
+		css: `[data-slot$="-overlay"]{inset:1px!important}`,
+	},
+];
 
 type Probe = { os: string; inner: string; visual: string; insets: string };
 
@@ -39,17 +84,32 @@ function readProbe(): Probe {
 	};
 }
 
-function useRootEffect(on: boolean, apply: () => () => void) {
-	// biome-ignore lint/correctness/useExhaustiveDependencies: apply is stable per toggle
-	useEffect(() => (on ? apply() : undefined), [on]);
+function useStyle(on: boolean, css: string) {
+	useEffect(() => {
+		if (!on) return;
+		const style = document.createElement("style");
+		style.textContent = css;
+		document.head.appendChild(style);
+		return () => style.remove();
+	}, [on, css]);
+}
+
+function Candidates({ active }: { active: Record<string, boolean> }) {
+	useStyle(
+		true,
+		CANDIDATES.filter((c) => active[c.key])
+			.map((c) => c.css)
+			.join("\n"),
+	);
+	return null;
 }
 
 export function IosLab() {
 	const [probe, setProbe] = useState<Probe | null>(null);
 	const [asIos, setAsIos] = useState(false);
-	const [overscroll, setOverscroll] = useState(false);
+	const [pill, setPill] = useState(false);
 	const [shim, setShim] = useState(false);
-	const [backdrop, setBackdrop] = useState(false);
+	const [active, setActive] = useState<Record<string, boolean>>({});
 
 	useEffect(() => {
 		const update = () => setProbe(readProbe());
@@ -62,38 +122,24 @@ export function IosLab() {
 		};
 	}, [asIos]);
 
-	useRootEffect(asIos, () => {
+	useEffect(() => {
+		if (!asIos) return;
 		const root = document.documentElement;
 		const before = root.getAttribute("data-os");
 		root.setAttribute("data-os", "ios");
 		return () => {
 			if (before) root.setAttribute("data-os", before);
 		};
-	});
+	}, [asIos]);
 
-	useRootEffect(overscroll, () => {
-		const root = document.documentElement;
-		root.style.setProperty("--overscroll-color", "#e11d48");
-		return () => root.style.removeProperty("--overscroll-color");
-	});
-
-	useRootEffect(shim, () => {
+	useEffect(() => {
 		const el = document.querySelector<HTMLElement>('[data-slot="edge-shim"]');
-		if (el) el.style.backgroundColor = "#e11d48";
-		return () => {
-			if (el) el.style.backgroundColor = "";
-		};
-	});
-
-	useRootEffect(backdrop, () => {
-		const style = document.createElement("style");
-		style.textContent = BACKDROP_RULE;
-		document.head.appendChild(style);
-		return () => style.remove();
-	});
+		if (el) el.style.backgroundColor = shim ? "#e11d48" : "";
+	}, [shim]);
 
 	return (
 		<article className="mx-auto flex w-full max-w-xl flex-col gap-6 px-5 pb-40">
+			<Candidates active={active} />
 			<div
 				id="lab-insets"
 				aria-hidden="true"
@@ -104,15 +150,21 @@ export function IosLab() {
 				}}
 			/>
 
+			{pill && (
+				<div className="bg-fill/60 text-footnote fixed right-4 bottom-4 z-40 rounded-xl px-3 py-2">
+					Fixed pill, like Pass's language switcher
+				</div>
+			)}
+
 			<header className="glass-bar sticky top-0 z-40 -mx-5 px-5 py-3">
 				<h1 className="text-headline">iOS lab</h1>
 			</header>
 
 			<section className="flex flex-col gap-1">
 				<p className="text-footnote">
-					Open on the iPhone, scroll, pull past both edges, open the sheet and
-					dialog. Each switch applies one workaround so you can see what it
-					changes.
+					Open the sheet or dialog, look at the floating bar at the bottom of
+					Safari, and note whether it keeps the dimmed look. Turn on one switch
+					at a time, close and reopen the overlay, then try combinations.
 				</p>
 			</section>
 
@@ -127,15 +179,23 @@ export function IosLab() {
 				<Switch checked={asIos} onCheckedChange={setAsIos}>
 					Treat as iOS (solid glass, 16px fields)
 				</Switch>
-				<Switch checked={overscroll} onCheckedChange={setOverscroll}>
-					Red overscroll colour
+				<Switch checked={pill} onCheckedChange={setPill}>
+					Fixed pill 16px from the bottom (the language switcher)
 				</Switch>
 				<Switch checked={shim} onCheckedChange={setShim}>
 					Show the bottom edge shim in red
 				</Switch>
-				<Switch checked={backdrop} onCheckedChange={setBackdrop}>
-					Lift backdrops 4px off the bottom
-				</Switch>
+				{CANDIDATES.map((c) => (
+					<Switch
+						key={c.key}
+						checked={!!active[c.key]}
+						onCheckedChange={(on) =>
+							setActive((state) => ({ ...state, [c.key]: on }))
+						}
+					>
+						{c.label}
+					</Switch>
+				))}
 			</section>
 
 			<section aria-label="Overlays" className="flex flex-wrap gap-3">
@@ -146,9 +206,21 @@ export function IosLab() {
 					<SheetContent>
 						<SheetTitle>Sheet</SheetTitle>
 						<SheetDescription>
-							Look for a strip under this sheet and a gap at the screen bottom.
+							Check the floating bar under this sheet.
 						</SheetDescription>
 						<Input placeholder="Type here (zoom check)" />
+					</SheetContent>
+				</Sheet>
+
+				<Sheet side="top">
+					<SheetTrigger className="bg-fill text-footnote rounded-xl px-4 py-2">
+						Open top sheet
+					</SheetTrigger>
+					<SheetContent>
+						<SheetTitle>Top sheet</SheetTitle>
+						<SheetDescription>
+							Check the status bar area above this sheet.
+						</SheetDescription>
 					</SheetContent>
 				</Sheet>
 
@@ -159,15 +231,11 @@ export function IosLab() {
 					<DialogContent>
 						<DialogTitle>Dialog</DialogTitle>
 						<DialogDescription>
-							Look at the backdrop's bottom edge.
+							Check the floating bar behind this dialog.
 						</DialogDescription>
-						<Button>Close by tapping outside</Button>
+						<Button>Tap outside to close</Button>
 					</DialogContent>
 				</Dialog>
-			</section>
-
-			<section aria-label="Field zoom" className="flex flex-col gap-2">
-				<Input placeholder="13px field: does the page zoom on focus?" />
 			</section>
 
 			<section aria-label="Scroll" className="flex flex-col gap-4">
