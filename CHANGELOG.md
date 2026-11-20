@@ -1,5 +1,12 @@
 # Changelog
 
+## @passui/tokens 0.2.2
+
+### Fixed
+
+- The colour behind the page is the page colour again. 0.2.0 painted `html` with `--overscroll-color` all the time, so any strip `<body>` did not cover (which changes with Safari's toolbar state and the page length) showed the accent colour, and iOS Safari's floating bottom bar sampled it. `--overscroll-color` now only applies at the top: where scroll timelines exist, the colour behind the page runs from `--overscroll-color` at the top to the page colour at the bottom, so pulling past the top shows the bar's colour and the area under the bottom bar never does.
+
+
 ## @passui/tokens 0.2.1
 
 ### Fixed

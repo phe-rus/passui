@@ -18,9 +18,11 @@
 
 	html {
 		@apply font-sans;
-		/* The colour behind the page: what shows when iOS rubber-bands past
-		   either edge. Apps point `--overscroll-color` at their bar colour. */
-		background-color: var(--overscroll-color, var(--color-background));
+		/* The colour behind the page: what shows past either edge, and what
+		   iOS Safari's floating bars sample. It is the page colour, so nothing
+		   foreign ever shows under a bar; where scroll timelines exist it
+		   follows the scroll (see the end of this file). */
+		background-color: var(--color-background);
 		height: 100%;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -157,4 +159,28 @@
  */
 :root[data-os="ios"] [data-slot$="-overlay"] {
 	bottom: var(--ios-edge-gap, 4px);
+}
+
+/*
+ * The colour behind the page follows the scroll: `--overscroll-color` (an
+ * app's bar colour) at the top, the page colour at the bottom. Pulling past
+ * the top shows the bar's colour, and the area under Safari's floating
+ * bottom bar is always the page colour. The animation clamps at both ends,
+ * so rubber-banding shows each end's colour. A page too short to scroll
+ * has no timeline and keeps the plain page colour.
+ */
+@keyframes passui-backdrop {
+	from {
+		background-color: var(--overscroll-color, var(--color-background));
+	}
+	to {
+		background-color: var(--color-background);
+	}
+}
+
+@supports (animation-timeline: scroll()) {
+	html {
+		animation: passui-backdrop linear both;
+		animation-timeline: scroll(root block);
+	}
 }

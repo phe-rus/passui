@@ -20,10 +20,25 @@ describe("iOS styles", () => {
 		expect(utilities).toContain(':root[data-os="ios"] .glass-pane {');
 	});
 
-	it("paints the html element with the overscroll colour", () => {
-		expect(css("base.css")).toContain(
-			"background-color: var(--overscroll-color, var(--color-background));",
+	it("paints html with the page colour, never the bar colour, by default", () => {
+		const base = css("base.css");
+		expect(base).toContain("background-color: var(--color-background);");
+		expect(base).not.toMatch(
+			/html \{[^}]*background-color: var\(--overscroll-color/,
 		);
+	});
+
+	it("moves the colour behind the page from the bar colour to the page colour as it scrolls", () => {
+		const base = css("base.css");
+		const keyframes = base.slice(base.indexOf("@keyframes passui-backdrop"));
+		expect(keyframes).toMatch(
+			/from \{\s*background-color: var\(--overscroll-color, var\(--color-background\)\);/,
+		);
+		expect(keyframes).toMatch(
+			/to \{\s*background-color: var\(--color-background\);/,
+		);
+		expect(keyframes).toContain("@supports (animation-timeline: scroll())");
+		expect(keyframes).toContain("animation-timeline: scroll(root block);");
 	});
 
 	it("keeps iOS field text at 16px, outside the base layer", () => {
