@@ -152,16 +152,6 @@
 }
 
 /*
- * iOS Safari tints its floating toolbar from whatever sits flush against the
- * bottom edge, so a full-screen backdrop shows the page colour in the bar
- * instead of its dimming. Lifting the backdrops a few pixels off the edge
- * lets the toolbar sample the dimmed page behind them.
- */
-:root[data-os="ios"] [data-slot$="-overlay"] {
-	bottom: var(--ios-edge-gap, 4px);
-}
-
-/*
  * The colour behind the page follows the scroll: `--overscroll-color` (an
  * app's bar colour) at the top, the page colour at the bottom. Pulling past
  * the top shows the bar's colour, and the area under Safari's floating

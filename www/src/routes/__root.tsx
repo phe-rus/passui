@@ -61,7 +61,6 @@ function RouteComponent() {
 			<ComposeViewport.Window
 				after={<Scripts />}
 				scroll={lab ? "document" : "container"}
-				edgeShim={lab}
 			>
 				<PlatformProvider>
 					<ThemeProvider

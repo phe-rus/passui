@@ -1,5 +1,17 @@
 # Changelog
 
+## @passui/tanstack 0.5.0
+
+### Removed
+
+- `ComposeViewport.Window` no longer takes `edgeShim`. A real iPhone showed the bottom strip it added changed nothing about Safari's toolbar tint. Delete the prop where you pass it.
+
+## @passui/tokens 0.2.3
+
+### Removed
+
+- The 4px lift of every `-overlay` backdrop on iOS (`--ios-edge-gap`) from 0.2.1. It did not change Safari's toolbar tint, which Safari decides itself. Overlays are flush to every edge again.
+
 ## @passui/react 0.3.9
 
 ### Fixed

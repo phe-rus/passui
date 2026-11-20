@@ -28,22 +28,6 @@ interface Candidate {
 /** Each candidate is one CSS block applied while its switch is on. */
 const CANDIDATES: Candidate[] = [
 	{
-		key: "flush",
-		label:
-			"F. Overlay flush to every edge: cancels the 4px lift that tokens apply on iOS by default",
-		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important}`,
-	},
-	{
-		key: "flushnoblur",
-		label: "G. Flush to the edge and no blur (closest to the plain page)",
-		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}`,
-	},
-	{
-		key: "noshim",
-		label: "H. REMOVE the fixed bottom edge shim",
-		css: `[data-slot="edge-shim"]{display:none!important}`,
-	},
-	{
 		key: "noanim",
 		label: "I. REMOVE the scroll-driven colour animation on html",
 		css: "html{animation:none!important}",
@@ -52,12 +36,6 @@ const CANDIDATES: Candidate[] = [
 		key: "notrans",
 		label: "J. REMOVE the body background transition",
 		css: "body{transition:none!important}",
-	},
-	{
-		key: "plainlike",
-		label:
-			"K. All of F, G, H, I and J together (everything that differs from the plain page)",
-		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}[data-slot="edge-shim"]{display:none!important}html{animation:none!important}body{transition:none!important}`,
 	},
 	{
 		key: "nolock",
@@ -69,16 +47,6 @@ const CANDIDATES: Candidate[] = [
 		key: "nocolorscheme",
 		label: "N. Cancel the explicit color-scheme on html",
 		css: "html{color-scheme:normal!important}",
-	},
-	{
-		key: "lockless",
-		label: "O. L and N and K together (the plain page's exact conditions)",
-		css: `html body{overflow:visible!important;overflow-x:clip!important;pointer-events:auto!important}html{color-scheme:normal!important;animation:none!important}body{transition:none!important}[data-slot="edge-shim"]{display:none!important}:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}`,
-	},
-	{
-		key: "lift",
-		label: "A. Overlays 4px off the bottom edge (already the default on iOS)",
-		css: `[data-slot$="-overlay"]{bottom:4px!important}`,
 	},
 	{
 		key: "noblur",
@@ -147,7 +115,6 @@ export function IosLab() {
 	const [probe, setProbe] = useState<Probe | null>(null);
 	const [asIos, setAsIos] = useState(false);
 	const [pill, setPill] = useState(false);
-	const [shim, setShim] = useState(false);
 	const [active, setActive] = useState<Record<string, boolean>>({});
 
 	useEffect(() => {
@@ -170,11 +137,6 @@ export function IosLab() {
 			if (before) root.setAttribute("data-os", before);
 		};
 	}, [asIos]);
-
-	useEffect(() => {
-		const el = document.querySelector<HTMLElement>('[data-slot="edge-shim"]');
-		if (el) el.style.backgroundColor = shim ? "#e11d48" : "";
-	}, [shim]);
 
 	return (
 		<article className="mx-auto flex w-full max-w-xl flex-col gap-6 px-5 pb-40">
@@ -220,9 +182,6 @@ export function IosLab() {
 				</Switch>
 				<Switch checked={pill} onCheckedChange={setPill}>
 					Fixed pill 16px from the bottom (the language switcher)
-				</Switch>
-				<Switch checked={shim} onCheckedChange={setShim}>
-					Show the bottom edge shim in red
 				</Switch>
 				{CANDIDATES.map((c) => (
 					<Switch

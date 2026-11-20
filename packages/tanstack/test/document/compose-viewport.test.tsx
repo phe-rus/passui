@@ -26,15 +26,10 @@ test("document scroll lets the page itself scroll", () => {
 	expect(html).not.toMatch(/class="[^"]*\bfixed\b/);
 });
 
-test("the edge shim is opt in and renders after main, before the slot", () => {
-	const html = render({
-		children: "page",
-		edgeShim: true,
-		after: <i id="after" />,
-	});
-	expect(html).toContain('data-slot="edge-shim"');
-	expect(html).toContain('aria-hidden="true"');
-	expect(html.indexOf("edge-shim")).toBeLessThan(html.indexOf('id="after"'));
+test("the after slot renders after main", () => {
+	const html = render({ children: "page", after: <i id="after" /> });
+	expect(html.indexOf("</main>")).toBeLessThan(html.indexOf('id="after"'));
+	expect(html).not.toContain("edge-shim");
 });
 
 test("the viewport meta covers the safe areas", () => {

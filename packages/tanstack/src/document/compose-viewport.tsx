@@ -25,12 +25,6 @@ type WindowProps = ComponentPropsWithoutRef<"body"> & {
 	 * collapse its toolbar and tint the overscroll area.
 	 */
 	scroll?: "container" | "document";
-	/**
-	 * iOS only: a 6px transparent strip fixed to the bottom edge, so Safari
-	 * treats the area under the toolbar as page chrome. Off unless a real
-	 * device shows the gap it closes.
-	 */
-	edgeShim?: boolean;
 };
 
 export function ComposeViewport({
@@ -56,7 +50,6 @@ function Window({
 	children,
 	after,
 	scroll = "container",
-	edgeShim = false,
 	...props
 }: WindowProps) {
 	const documentScroll = scroll === "document";
@@ -84,13 +77,6 @@ function Window({
 			>
 				{children}
 			</main>
-			{edgeShim && (
-				<div
-					aria-hidden="true"
-					data-slot="edge-shim"
-					className="ios:block pointer-events-none fixed inset-x-0 -bottom-px z-9999 hidden h-1.5 w-full"
-				/>
-			)}
 			{after}
 		</body>
 	);

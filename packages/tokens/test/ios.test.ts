@@ -51,12 +51,9 @@ describe("iOS styles", () => {
 });
 
 describe("iOS overlays", () => {
-	it("lifts every overlay off the bottom edge, outside the base layer", () => {
+	it("leaves overlays flush to every edge: lifting them did not change Safari's bar tint", () => {
 		const base = css("base.css");
-		const rule = base.indexOf(':root[data-os="ios"] [data-slot$="-overlay"]');
-		expect(rule).toBeGreaterThan(
-			base.indexOf("@media (prefers-reduced-motion"),
-		);
-		expect(base).toContain("bottom: var(--ios-edge-gap, 4px);");
+		expect(base).not.toContain("--ios-edge-gap");
+		expect(base).not.toContain('[data-slot$="-overlay"]');
 	});
 });
