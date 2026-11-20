@@ -145,7 +145,7 @@
 		"vitest-axe": "^0.1.0"
 	},
 	"dependencies": {
-		"@passui/icons": "^0.1.2",
+		"@passui/icons": "^0.3.0",
 		"@passui/tokens": "^0.2.0",
 		"@zag-js/accordion": "catalog:",
 		"@zag-js/avatar": "catalog:",
