@@ -23,14 +23,14 @@
   <h1>Plain page 2</h1><p><a href="/lab/plain.html">Back to page 1</a> (a full page navigation)</p>
   <p>This page has no framework and no scripts besides three buttons. Use it like the lab: scroll, open and close things, and note whether the floating bottom bar starts clear and later keeps a background.</p>
   <p>
-    <button id="a">Fixed div overlay</button>
-    <button id="b">Native dialog (showModal)</button>
-    <button id="c">Fixed overlay + page bg dimmed</button>
+    <button type="button" id="a">Fixed div overlay</button>
+    <button type="button" id="b">Native dialog (showModal)</button>
+    <button type="button" id="c">Fixed overlay + page bg dimmed</button>
   </p>
   <p id="count">Overlays opened: 0</p>
   <script>
     var n = 0;
-    function bump() { n++; document.getElementById('count').textContent = 'Overlays opened: ' + n; }
+    function bump() { n++; document.getElementById('count').textContent = `Overlays opened: ${n}`; }
     var ov = document.createElement('div'); ov.id = 'overlay';
     var pn = document.createElement('div'); pn.id = 'panel'; pn.innerHTML = '<strong>Overlay</strong><p>Tap outside to close.</p>';
     document.body.append(ov, pn);
