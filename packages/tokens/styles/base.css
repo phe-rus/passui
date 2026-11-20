@@ -148,3 +148,13 @@
 	) {
 	font-size: max(16px, 1em);
 }
+
+/*
+ * iOS Safari tints its floating toolbar from whatever sits flush against the
+ * bottom edge, so a full-screen backdrop shows the page colour in the bar
+ * instead of its dimming. Lifting the backdrops a few pixels off the edge
+ * lets the toolbar sample the dimmed page behind them.
+ */
+:root[data-os="ios"] [data-slot$="-overlay"] {
+	bottom: var(--ios-edge-gap, 4px);
+}

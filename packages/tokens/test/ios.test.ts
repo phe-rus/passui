@@ -34,3 +34,14 @@ describe("iOS styles", () => {
 		expect(base).toContain("font-size: max(16px, 1em);");
 	});
 });
+
+describe("iOS overlays", () => {
+	it("lifts every overlay off the bottom edge, outside the base layer", () => {
+		const base = css("base.css");
+		const rule = base.indexOf(':root[data-os="ios"] [data-slot$="-overlay"]');
+		expect(rule).toBeGreaterThan(
+			base.indexOf("@media (prefers-reduced-motion"),
+		);
+		expect(base).toContain("bottom: var(--ios-edge-gap, 4px);");
+	});
+});

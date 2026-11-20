@@ -1,5 +1,12 @@
 # Changelog
 
+## @passui/tokens 0.2.1
+
+### Fixed
+
+- On iOS, every `-overlay` backdrop (Dialog, AlertDialog, Sheet, Drawer) sits a few pixels off the bottom edge (`--ios-edge-gap`, default 4px). Safari's floating toolbar tints from whatever is flush against the bottom edge, so a full-screen backdrop made the toolbar show the page colour instead of the dimmed page.
+
+
 ## @passui/tanstack 0.4.1
 
 ### Fixed
