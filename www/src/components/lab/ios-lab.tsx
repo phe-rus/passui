@@ -60,6 +60,22 @@ const CANDIDATES: Candidate[] = [
 		css: `:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}[data-slot="edge-shim"]{display:none!important}html{animation:none!important}body{transition:none!important}`,
 	},
 	{
+		key: "nolock",
+		label:
+			"L. CANCEL the scroll lock (the dialog sets overflow:hidden and pointer-events:none on body)",
+		css: "html body{overflow:visible!important;overflow-x:clip!important;pointer-events:auto!important}",
+	},
+	{
+		key: "nocolorscheme",
+		label: "N. Cancel the explicit color-scheme on html",
+		css: "html{color-scheme:normal!important}",
+	},
+	{
+		key: "lockless",
+		label: "O. L and N and K together (the plain page's exact conditions)",
+		css: `html body{overflow:visible!important;overflow-x:clip!important;pointer-events:auto!important}html{color-scheme:normal!important;animation:none!important}body{transition:none!important}[data-slot="edge-shim"]{display:none!important}:root[data-os="ios"] [data-slot$="-overlay"]{bottom:0!important;backdrop-filter:none!important}`,
+	},
+	{
 		key: "lift",
 		label: "A. Overlays 4px off the bottom edge (already the default on iOS)",
 		css: `[data-slot$="-overlay"]{bottom:4px!important}`,
