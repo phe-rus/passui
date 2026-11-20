@@ -86,11 +86,13 @@ function readProbe(): Probe {
 
 function useStyle(on: boolean, css: string) {
 	useEffect(() => {
-		if (!on) return;
+		if (!on) return undefined;
 		const style = document.createElement("style");
 		style.textContent = css;
 		document.head.appendChild(style);
-		return () => style.remove();
+		return () => {
+			style.remove();
+		};
 	}, [on, css]);
 }
 
