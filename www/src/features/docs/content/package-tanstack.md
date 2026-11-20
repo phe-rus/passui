@@ -187,6 +187,8 @@ function RootDocument({ children }) {
 }
 ```
 
+`Window` scrolls inside `<main>` under a fixed `<body>` by default. Pass `scroll="document"` to let the page itself scroll, which iOS Safari needs to collapse its toolbar. `edgeShim` adds an opt in strip along the bottom edge on iOS. For the head, `viewportMeta` adds `viewport-fit=cover` so safe areas report their insets, and `themeColorMeta({ light, dark })` tints Android's browser chrome.
+
 `AuthShell` is the matching frame for sign in routes: a centred column with your brand above an `<Outlet />`.
 
 The `/react/<name>` paths are the same modules under an explicit React prefix. Framework libraries are optional peers: install the adapters you import.

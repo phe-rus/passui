@@ -207,6 +207,22 @@
 	backdrop-filter: none;
 }
 
+/* iOS Safari samples a sticky bar's backdrop while the toolbar collapses and
+   the page rubber-bands, so a blurred bar flickers and shows the wrong colour
+   at the edges. Bars and panes are solid there, on their own GPU layer. */
+:root[data-os="ios"] :is(.glass-bar, .glass-pane) {
+	backdrop-filter: none;
+	transform: translateZ(0);
+}
+
+:root[data-os="ios"] .glass-bar {
+	background-color: var(--color-paper);
+}
+
+:root[data-os="ios"] .glass-pane {
+	background-color: var(--color-sidebar);
+}
+
 /**
  * Dense glass for menus and popovers. Nearly opaque so text stays legible
  * even inside another glass surface (nested backdrop filters cannot see

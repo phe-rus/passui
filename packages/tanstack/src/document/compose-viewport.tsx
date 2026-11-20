@@ -19,6 +19,18 @@ type WindowProps = ComponentPropsWithoutRef<"body"> & {
 	 * body", not nested inside the app's content wrapper.
 	 */
 	after?: ReactNode;
+	/**
+	 * `"container"` (default) fixes `<body>` and scrolls inside `<main>`.
+	 * `"document"` lets the page itself scroll, which is what lets iOS Safari
+	 * collapse its toolbar and tint the overscroll area.
+	 */
+	scroll?: "container" | "document";
+	/**
+	 * iOS only: a 6px transparent strip fixed to the bottom edge, so Safari
+	 * treats the area under the toolbar as page chrome. Off unless a real
+	 * device shows the gap it closes.
+	 */
+	edgeShim?: boolean;
 };
 
 export function ComposeViewport({
@@ -39,26 +51,46 @@ export function ComposeViewport({
 	);
 }
 
-function Window({ className, children, after, ...props }: WindowProps) {
+function Window({
+	className,
+	children,
+	after,
+	scroll = "container",
+	edgeShim = false,
+	...props
+}: WindowProps) {
+	const documentScroll = scroll === "document";
 	return (
 		<body
 			className={cn(
-				"bg-background fixed h-svh w-full min-w-full",
-				"selection:bg-accent/20 overflow-x-hidden",
+				"bg-background w-full min-w-full",
+				"selection:bg-accent/20",
 				"typeset wrap-anywhere duration-200",
 				"flex flex-col",
+				documentScroll
+					? "min-h-dvh overflow-x-clip"
+					: "fixed h-svh overflow-x-hidden",
 				className,
 			)}
 			{...props}
 		>
 			<main
 				className={cn(
-					"flex min-h-svh flex-1 flex-col overflow-auto",
-					"no-scrollbar",
+					"no-scrollbar flex flex-1 flex-col",
+					documentScroll
+						? "min-h-0 overflow-visible"
+						: "min-h-svh overflow-auto",
 				)}
 			>
 				{children}
 			</main>
+			{edgeShim && (
+				<div
+					aria-hidden="true"
+					data-slot="edge-shim"
+					className="ios:block pointer-events-none fixed inset-x-0 -bottom-px z-9999 hidden h-1.5 w-full"
+				/>
+			)}
 			{after}
 		</body>
 	);

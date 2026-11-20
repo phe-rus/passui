@@ -1,5 +1,22 @@
 # Changelog
 
+## @passui/tanstack 0.4.0
+
+### Added
+
+- `ComposeViewport.Window` takes `scroll="document"`, which lets the page itself scroll instead of scrolling inside `<main>` under a fixed `<body>`. iOS Safari needs this to collapse its toolbar. The default, `"container"`, is unchanged.
+- `ComposeViewport.Window` takes `edgeShim`, an opt in 6px strip fixed to the bottom edge on iOS. Off unless a real device shows the gap it closes.
+- `viewportMeta` (with `viewport-fit=cover`, so `env(safe-area-inset-*)` reports the notch and home bar) and `themeColorMeta({ light, dark })`, exported from `@passui/tanstack/document`, for the root route's `head().meta`.
+
+## @passui/tokens 0.2.0
+
+### Added
+
+- On iOS (`data-os="ios"`), `glass-bar` and `glass-pane` are solid with no backdrop blur and sit on their own GPU layer, so a sticky bar no longer flickers or shows the wrong colour while the toolbar collapses.
+- `html` is painted with `--overscroll-color`, which defaults to the page background, so apps can set what shows when iOS rubber-bands past an edge.
+- On iOS, fields are at least 16px so Safari does not zoom the page on focus. The rule sits outside the base layer to beat component type utilities.
+
+
 ## @passui/react 0.3.6
 
 ### Changed

@@ -4,12 +4,13 @@ import {
 	ThemeProvider,
 } from "@passui/react/appearance";
 import { Toaster } from "@passui/react/toast";
-import { ComposeViewport } from "@passui/tanstack/document";
+import { ComposeViewport, viewportMeta } from "@passui/tanstack/document";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Outlet,
 	Scripts,
+	useRouterState,
 } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/layout/site-header";
 import { starsQuery } from "@/features/layout/lib/github-stars";
@@ -26,7 +27,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 				content:
 					"Native React controls on Zag.js with an Apple 2026 look. Import one component and pay only for it.",
 			},
-			{ name: "viewport", content: "width=device-width, initial-scale=1" },
+			viewportMeta,
 			{ name: "theme-color", content: "#d16988" },
 		],
 		links: [
@@ -47,13 +48,21 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 });
 
 function RouteComponent() {
+	// The iOS lab is the one page where the document itself scrolls.
+	const lab = useRouterState({
+		select: (state) => state.location.pathname.startsWith("/lab"),
+	});
 	return (
 		<ComposeViewport>
 			<head>
 				<PlatformScript />
 				<HeadContent />
 			</head>
-			<ComposeViewport.Window after={<Scripts />}>
+			<ComposeViewport.Window
+				after={<Scripts />}
+				scroll={lab ? "document" : "container"}
+				edgeShim={lab}
+			>
 				<PlatformProvider>
 					<ThemeProvider
 						attribute={["class", "data-theme"]}
@@ -61,7 +70,7 @@ function RouteComponent() {
 						enableColorScheme
 						enableSystem
 					>
-						<SiteHeader />
+						{!lab && <SiteHeader />}
 						<Outlet />
 						<Toaster />
 					</ThemeProvider>

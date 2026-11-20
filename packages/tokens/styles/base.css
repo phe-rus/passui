@@ -18,6 +18,9 @@
 
 	html {
 		@apply font-sans;
+		/* The colour behind the page: what shows when iOS rubber-bands past
+		   either edge. Apps point `--overscroll-color` at their bar colour. */
+		background-color: var(--overscroll-color, var(--color-background));
 		height: 100%;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -131,4 +134,17 @@
 		/* biome-ignore lint/complexity/noImportantStyles: design token override */
 		animation-iteration-count: 1 !important;
 	}
+}
+
+/*
+ * iOS Safari zooms the page when a field under 16px takes focus. This sits
+ * outside the base layer so it beats the component type utilities.
+ */
+:root[data-os="ios"]
+	:is(
+		input:not([type="checkbox"], [type="radio"], [type="range"]),
+		select,
+		textarea
+	) {
+	font-size: max(16px, 1em);
 }

@@ -29,6 +29,17 @@ Device: ______ OS: ______ Browser: ______ Version: ______ Date: ______
 - [ ] Each `side` slides from its own edge and swipes away toward it.
 - [ ] A right to left page swipes toward the physical edge it opened from.
 
+## iOS Safari lab
+
+Open `/lab/ios` on the iPhone (the page is noindex). Run it with each switch off, then on.
+
+- [ ] The sticky header stays solid and does not flicker while the toolbar collapses.
+- [ ] Pulling past the top and bottom shows the page colour, or red with "Red overscroll colour".
+- [ ] With "Show the bottom edge shim in red", note whether a strip is visible and whether it closes a real gap.
+- [ ] With the sheet and dialog open, note a gap at the bottom of the backdrop, and whether "Lift backdrops 4px" fixes it.
+- [ ] Focusing the 13px field does not zoom the page.
+- [ ] The readout's safe area shows non zero insets on a notched iPhone.
+
 ## Reduced motion
 
 - [ ] With Reduce Motion on, panels fade instead of sliding and the page does not scale.
