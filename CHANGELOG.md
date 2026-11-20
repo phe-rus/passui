@@ -1,5 +1,16 @@
 # Changelog
 
+## @passui/icons 0.3.0
+
+### Added
+
+- Assets and Pass icons: `ViewColumns`, `ViewGallery`, `ViewTree`, `Rename`, `Duplicate`, `Paste`, `MoveTo`, `Unpin`, `SelectAll`, sort directions (`SortAscending`, `SortDescending`, `SortAZ`, `SortZA`), sync states (`Syncing`, `SyncError`, `SyncDone`, `Backup`, `AvailableOffline`), `StorageUsage`, `Compress`, `Encrypt`, `Public`, `Private`, `LinkExpiry`, special folders, `Certificate`, `Ebook`, `FontFile`, `Executable`, and for identity `SecurityKey`, `ConnectedApps`, `Permissions`, `LoginHistory`, `DataExport`, `DeleteAccount`, `HideEmail`, `TimeZone`, `Generator`, `Safe`, `Unlock`, `Eye`, `EyeOff`, `Biometric`, `ProfileCard`, `Nfc`.
+- About 250 more icons on the same 24 grid, drawn from the Hugeicons free set (MIT): `Grid` and `List` views, a real `Settings` gear, files and folders (`File`, `FileAdd`, `FolderAdd`, `FolderOpen`, `FolderLock`, `FolderSync` and more), cloud and drives (`Cloud`, `CloudOff`, `CloudUpload`, `HardDrive`, `Usb`, `Database`, `Server`), identity and security (`Shield`, `ShieldKey`, `Passkey`, `Fingerprint`, `FaceId`, `TwoFactor`, `UserLock`, `Passport`, `IdCard`), system (`Cpu`, `Memory`, `Power`, `Network`, `Router`, `Wifi`, `Bluetooth`, `Terminal`, `Package`), arrows, text styling, media, files by type and a few brands (`Twitter` is the X mark, plus `Threads`).
+
+### Changed
+
+- `Settings` is now a gear (it was a sun) and `Library` is redrawn.
+
 ## @passui/react 0.3.10
 
 ### Fixed
