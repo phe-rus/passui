@@ -52,3 +52,8 @@ test("theme colour is emitted per colour scheme", () => {
 		media: "(prefers-color-scheme: dark)",
 	});
 });
+
+test("document scroll lets the body grow past the base layer's 100% height", () => {
+	const html = render({ children: "page", scroll: "document" });
+	expect(html).toMatch(/class="[^"]*\bh-auto\b/);
+});

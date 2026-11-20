@@ -1,5 +1,12 @@
 # Changelog
 
+## @passui/tanstack 0.4.1
+
+### Fixed
+
+- `ComposeViewport.Window scroll="document"` sets `h-auto` on `<body>`. The base layer gives `body` `height: 100%`, so once the page outgrew the viewport the body ended early and the `html` colour (`--overscroll-color`) showed as a band at the bottom. Apps had been cancelling the height themselves with `h-auto!`.
+
+
 ## @passui/react 0.3.8
 
 ### Fixed
