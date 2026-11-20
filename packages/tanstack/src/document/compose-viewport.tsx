@@ -68,7 +68,7 @@ function Window({
 				"typeset wrap-anywhere duration-200",
 				"flex flex-col",
 				documentScroll
-					? "min-h-dvh overflow-x-clip"
+					? "h-auto min-h-dvh overflow-x-clip"
 					: "fixed h-svh overflow-x-hidden",
 				className,
 			)}
