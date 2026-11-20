@@ -76,6 +76,43 @@ export function PlatformScript({ nonce }: { nonce?: string }) {
 	);
 }
 
+const OVERLAY = '[data-slot$="-overlay"]';
+
+/**
+ * iOS Safari tints its floating bars from the page and keeps the tint it took
+ * while an overlay was open, sometimes until the next navigation. Hiding and
+ * showing the root inside one frame forces it to lay the page out and sample
+ * again, with nothing visible in between.
+ */
+export function refreshBars(root: HTMLElement = document.documentElement) {
+	const display = root.style.display;
+	root.style.display = "none";
+	void root.offsetHeight;
+	root.style.display = display;
+}
+
+/** Re-sample the bars each time the last overlay backdrop leaves the page. */
+export function refreshBarsAfterOverlays(body: HTMLElement) {
+	let frame = 0;
+	const observer = new MutationObserver((records) => {
+		const removed = records.some((record) =>
+			Array.from(record.removedNodes).some(
+				(node) =>
+					node instanceof Element &&
+					(node.matches(OVERLAY) || node.querySelector(OVERLAY) !== null),
+			),
+		);
+		if (!removed || body.querySelector(OVERLAY)) return;
+		cancelAnimationFrame(frame);
+		frame = requestAnimationFrame(() => refreshBars());
+	});
+	observer.observe(body, { childList: true, subtree: true });
+	return () => {
+		observer.disconnect();
+		cancelAnimationFrame(frame);
+	};
+}
+
 export function PlatformProvider({ children }: PropsWithChildren) {
 	const [platform, setPlatform] = useState<PlatformOS>("unknown");
 
@@ -89,6 +126,11 @@ export function PlatformProvider({ children }: PropsWithChildren) {
 		document.documentElement.setAttribute("data-os", resolved);
 		setPlatform(resolved);
 	}, []);
+
+	useEffect(() => {
+		if (platform !== "ios") return undefined;
+		return refreshBarsAfterOverlays(document.body);
+	}, [platform]);
 
 	return (
 		<PlatformContext.Provider value={platform}>

@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/react 0.3.10
+
+### Fixed
+
+- On iOS, `PlatformProvider` makes Safari re-sample its floating bars each time the last overlay backdrop (Dialog, AlertDialog, Sheet, Drawer) leaves the page, so a bar tint taken while an overlay was open does not stay behind.
+
 ## @passui/tanstack 0.5.0
 
 ### Removed
