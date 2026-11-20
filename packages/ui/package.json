@@ -1,6 +1,6 @@
 {
 	"name": "@passui/react",
-	"version": "0.3.7",
+	"version": "0.3.8",
 	"description": "Passui: native React controls, design tokens, presentation and appearance.",
 	"license": "MIT",
 	"repository": {
@@ -145,8 +145,8 @@
 		"vitest-axe": "^0.1.0"
 	},
 	"dependencies": {
-		"@passui/icons": "workspace:^",
-		"@passui/tokens": "workspace:^",
+		"@passui/icons": "^0.1.2",
+		"@passui/tokens": "^0.2.0",
 		"@zag-js/accordion": "catalog:",
 		"@zag-js/avatar": "catalog:",
 		"@zag-js/checkbox": "catalog:",

@@ -1,5 +1,12 @@
 # Changelog
 
+## @passui/react 0.3.8
+
+### Fixed
+
+- The published package now depends on `@passui/tokens` ^0.2.0 and `@passui/icons` ^0.1.2. 0.3.6 and 0.3.7 shipped stale ranges (`^0.1.3`, `^0.1.1`) because Bun 1.4.2 packed `workspace:^` wrongly, so apps never received tokens 0.2.0 through React. The ranges are now explicit, and CI packs with Bun 1.4.5.
+
+
 ## @passui/react 0.3.7
 
 ### Changed
