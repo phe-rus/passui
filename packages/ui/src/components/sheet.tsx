@@ -97,22 +97,22 @@ const placement: Record<SheetSide, { positioner: string; panel: string }> = {
 	right: {
 		positioner: "justify-end",
 		panel:
-			"h-full w-3/4 max-w-sm rounded-l-3xl data-ending-style:translate-x-full data-starting-style:translate-x-full",
+			"h-full w-3/4 max-w-sm rounded-l-3xl rounded-r-none! data-ending-style:translate-x-full data-starting-style:translate-x-full",
 	},
 	left: {
 		positioner: "justify-start",
 		panel:
-			"h-full w-3/4 max-w-sm rounded-r-3xl data-ending-style:-translate-x-full data-starting-style:-translate-x-full",
+			"h-full w-3/4 max-w-sm rounded-r-3xl rounded-l-none! data-ending-style:-translate-x-full data-starting-style:-translate-x-full",
 	},
 	top: {
 		positioner: "items-start",
 		panel:
-			"max-h-full w-full rounded-b-3xl data-ending-style:-translate-y-full data-starting-style:-translate-y-full",
+			"max-h-full w-full rounded-b-3xl rounded-t-none! data-ending-style:-translate-y-full data-starting-style:-translate-y-full",
 	},
 	bottom: {
 		positioner: "items-end",
 		panel:
-			"max-h-full w-full rounded-t-3xl data-ending-style:translate-y-full data-starting-style:translate-y-full",
+			"max-h-full w-full rounded-t-3xl rounded-b-none! data-ending-style:translate-y-full data-starting-style:translate-y-full",
 	},
 };
 

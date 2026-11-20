@@ -1,5 +1,11 @@
 # Changelog
 
+## @passui/react 0.3.9
+
+### Fixed
+
+- A Sheet is square on the edge it is attached to. The `squircle` radius rounded all four corners, so a top sheet showed rounded top corners under the status bar and a bottom sheet showed rounded bottom corners over Safari's toolbar.
+
 ## @passui/tokens 0.2.2
 
 ### Fixed

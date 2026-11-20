@@ -120,3 +120,21 @@ it("flips the horizontal swipe direction in right to left", async () => {
 	// A right side panel still dismisses toward the physical right edge.
 	expect(panel?.getAttribute("data-swipe-direction")).toBe("right");
 });
+
+it("squares the edge a sheet is attached to", async () => {
+	for (const [side, square] of [
+		["top", "rounded-t-none!"],
+		["bottom", "rounded-b-none!"],
+		["left", "rounded-l-none!"],
+		["right", "rounded-r-none!"],
+	] as const) {
+		await mount(example({ defaultOpen: true, side }));
+		const panel = document.querySelector<HTMLElement>("[role=dialog]");
+		// `squircle` rounds all four corners; the attached edge must stay square.
+		expect(panel?.className).toContain(square);
+		await act(async () => root?.unmount());
+		host?.remove();
+		document.body.innerHTML = "";
+		root = host = undefined;
+	}
+});
